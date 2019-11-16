@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/hengsun/Documents/Thesis/suitesparse-metis-for-windows-1.4.0/SuiteSparse/SuiteSparse_config/SuiteSparse_config.c
+math.h
+-
+stdlib.h
+-
+stdio.h
+-
+mex.h
+/Users/hengsun/Documents/Thesis/suitesparse-metis-for-windows-1.4.0/SuiteSparse/SuiteSparse_config/mex.h
+matrix.h
+/Users/hengsun/Documents/Thesis/suitesparse-metis-for-windows-1.4.0/SuiteSparse/SuiteSparse_config/matrix.h
+SuiteSparse_config.h
+/Users/hengsun/Documents/Thesis/suitesparse-metis-for-windows-1.4.0/SuiteSparse/SuiteSparse_config/SuiteSparse_config.h
+time.h
+-
+
+/Users/hengsun/Documents/Thesis/suitesparse-metis-for-windows-1.4.0/SuiteSparse/SuiteSparse_config/SuiteSparse_config.h
+limits.h
+-
+stdlib.h
+-
+

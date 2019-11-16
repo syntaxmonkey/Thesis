@@ -1,0 +1,2 @@
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar qc ../../lib/libccolamd.a  CMakeFiles/ccolamd.dir/SourceWrappers/ccolamd.c.o CMakeFiles/ccolamd.dir/SourceWrappers/ccolamd_global.c.o CMakeFiles/ccolamd.dir/SourceWrappers/ccolamd_l.o.c.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib ../../lib/libccolamd.a
