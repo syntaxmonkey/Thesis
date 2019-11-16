@@ -1,7 +1,7 @@
 
 
-def createObjFile2D(filename, samples, triangleValues):
-	f = open(filename, "w+")
+def createObjFile2D(path, filename, samples, triangleValues):
+	f = open(path + filename, "w+")
 
 	# Output the vertices.
 	for coords in samples:

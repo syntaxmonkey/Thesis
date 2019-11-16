@@ -12,6 +12,7 @@ from scipy.spatial import Voronoi, voronoi_plot_2d # For generating Voronoi grap
 from scipy.spatial import Delaunay # For generating Delaunay - https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.spatial.Delaunay.html
 
 import createOBJFile
+import os
 
 def euclidean_distance(a, b):
 	dx = a[0] - b[0]
@@ -133,17 +134,19 @@ useSegmentRadius = False # When set to True, will use the minimum distance betwe
 forceCenter = False # When set to True, will force inject the center point onto canvas.
 genVoronoi = True
 
+path = "../../boundary-first-flattening/build/"
+
 rRatio = 1
 k = 100
 xsize = 100 # Should be multiple of 20.
 ysize = 100 # Should be multiple of 20.
 startTime = int(round(time.time() * 1000))
-samples = poisson_disc_samples(width=xsize, height=ysize, r=10, k=k, segments=40)
+samples = poisson_disc_samples(width=xsize, height=ysize, r=10, k=k, segments=11*4)
 endTime = int(round(time.time() * 1000))
 
 samples = np.array(samples) # Need to convert to np array to have proper slicing.
 
-print("Execution time: " + str(endTime - startTime))
+print("Execution time: %d ms" % (endTime - startTime))
 
 raster = [[0 for i in range(xsize)] for j in range(ysize)]
 
@@ -163,12 +166,21 @@ else:
 	tri = Delaunay(samples)
 	#print(samples[:,])
 
-	print(samples[0], tri.simplices[0])
+	#print(samples[0], tri.simplices[0])
 	plt.triplot(samples[:, 0], samples[:, 1], tri.simplices.copy()) # tri.simplices are indeces to the points.  They represent the three vertices that form a facet.
 	plt.plot(samples[:, 0], samples[:, 1], 'o')
 
 
-createOBJFile.createObjFile2D("test1.obj", samples, tri)
+# Create object file for image.
+createOBJFile.createObjFile2D(path, "test1.obj", samples, tri)
+
+# Reshape with BFF.
+print("Reshaping with BFF")
+os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --angle=0.3")
+# Extract the flattened version of the image.
+print()
+print("Extracting 2D image post BFF Reshaping")
+os.system(path + "extract.py test1_out.obj test1_out_flat.obj")
 
 #plt.imshow(raster)
 plt.gray()
