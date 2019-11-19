@@ -21,6 +21,8 @@ def euclidean_distance(a, b):
 
 
 def poisson_disc_samples(width, height, r, k=5, distance=euclidean_distance, random=random, segments=5):
+	global radius
+	global center
 
 	def insert_coords(p, grid):
 		grid_x, grid_y = grid_coords(p)
@@ -134,12 +136,14 @@ useSegmentRadius = False # When set to True, will use the minimum distance betwe
 forceCenter = False # When set to True, will force inject the center point onto canvas.
 genVoronoi = True
 
+center = 0
+radius = 0
 rRatio = 1
 k = 100
 xsize = 100 # Should be multiple of 20.
 ysize = 100 # Should be multiple of 20.
 startTime = int(round(time.time() * 1000))
-samples = poisson_disc_samples(width=xsize, height=ysize, r=10, k=k, segments=70)
+samples = poisson_disc_samples(width=xsize, height=ysize, r=10, k=k, segments=73)
 endTime = int(round(time.time() * 1000))
 
 samples = np.array(samples) # Need to convert to np array to have proper slicing.
@@ -172,7 +176,7 @@ else:
 path = "../../boundary-first-flattening/build/"
 
 # Create object file for image.
-createOBJFile.createObjFile2D(path, "test1.obj", samples, tri)
+createOBJFile.createObjFile2D(path, "test1.obj", samples, tri, radius, center, distance=euclidean_distance)
 
 # Reshape with BFF.
 print("Reshaping with BFF")
