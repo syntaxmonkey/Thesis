@@ -1,5 +1,5 @@
 from random import random
-from math import cos, sin, floor, sqrt, pi, ceil
+from math import cos, sin, floor, sqrt, pi, ceil, fabs
 import time
 import matplotlib
 matplotlib.use('tkagg')
@@ -23,6 +23,7 @@ def euclidean_distance(a, b):
 def poisson_disc_samples(width, height, r, k=5, distance=euclidean_distance, random=random, segments=5):
 	global radius
 	global center
+	global dynamic_ratio
 
 	def insert_coords(p, grid):
 		grid_x, grid_y = grid_coords(p)
@@ -32,8 +33,28 @@ def poisson_disc_samples(width, height, r, k=5, distance=euclidean_distance, ran
 		return int(floor(p[0] / cellsize)), int(floor(p[1] / cellsize))
 
 	def fits(p, gx, gy):
-		if distance(p, center) > radius: # Case if point is outside of the circle.
+		dist = distance(p, center)
+		if useDynamicRatio:
+			newp=[gx, gy]
+			gdist = distance(newp,center)
+
+
+		if dist >= radius: # Case if point is outside of the circle.
 			return False
+
+		if useDynamicRatio:
+			if gdist >= radius:
+				return False
+
+			oriHeight = sqrt(radius * radius - dist * dist)
+			newHeight = sqrt(radius*radius - gdist*gdist)
+
+			deltax = dist-gdist
+			deltaHeight = newHeight - oriHeight
+			slope = sqrt(deltax*deltax + deltaHeight*deltaHeight)
+			dynamic_ratio = fabs(deltax / slope)
+			#print(dynamic_ratio)
+
 		yrange = list(range(max(gy - 2, 0), min(gy + 3, grid_height)))
 		for x in range(max(gx - 2, 0), min(gx + 3, grid_width)):
 			for y in yrange:
@@ -41,8 +62,12 @@ def poisson_disc_samples(width, height, r, k=5, distance=euclidean_distance, ran
 				g = grid[x + y * grid_width]
 				if g is None:
 					continue
-				if distance(p, g) <= r:
-					return False
+				if useDynamicRatio:
+					if distance(p, g) <= r*dynamic_ratio:
+						return False
+				else:
+					if distance(p, g) <= r:
+						return False
 		return True
 
 
@@ -51,6 +76,7 @@ def poisson_disc_samples(width, height, r, k=5, distance=euclidean_distance, ran
 	centery = ysize / 2
 	center = (centerx, centery)
 	radius = xsize / 2 - 1
+
 
 	print("Segments: ", segments)
 	# Generate the list of circle Perimeters.
@@ -113,7 +139,10 @@ def poisson_disc_samples(width, height, r, k=5, distance=euclidean_distance, ran
 		queue.pop()
 		for _ in range(k):
 			alpha = tau * random()
-			d = r * sqrt(3 * random() + 1)
+			if useDynamicRatio:
+				d = dynamic_ratio * r * sqrt(3 * random() + 1)  # Make sure we use dynamic ratio.
+			else:
+				d = r * sqrt(3 * random() + 1)
 			px = qx + d * cos(alpha)
 			py = qy + d * sin(alpha)
 			if not (0 <= px < width and 0 <= py < height):
@@ -132,18 +161,20 @@ def poisson_disc_samples(width, height, r, k=5, distance=euclidean_distance, ran
 	Settings.
 	
 '''
-useSegmentRadius = False # When set to True, will use the minimum distance between perimeter points.  False will use 60% of perimeter point distance.
+useSegmentRadius = True # When set to True, will use the minimum distance between perimeter points.  False will use 60% of perimeter point distance.
 forceCenter = False # When set to True, will force inject the center point onto canvas.
 genVoronoi = True
+useDynamicRatio = False
 
 center = 0
 radius = 0
 rRatio = 1
-k = 100
+k = 5
+dynamic_ratio = 2
 xsize = 100 # Should be multiple of 20.
 ysize = 100 # Should be multiple of 20.
 startTime = int(round(time.time() * 1000))
-samples = poisson_disc_samples(width=xsize, height=ysize, r=10, k=k, segments=73)
+samples = poisson_disc_samples(width=xsize, height=ysize, r=20, k=k, segments=73)
 endTime = int(round(time.time() * 1000))
 
 samples = np.array(samples) # Need to convert to np array to have proper slicing.
