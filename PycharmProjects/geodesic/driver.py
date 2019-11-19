@@ -83,6 +83,22 @@ def genCircleCoords(xsize, ysize,  center, radius, segments=5):
 	return perimeterCoords
 
 
+def genCircleCoords3D(xsize, ysize,  center, radius, segments=5):
+	# Draw Circle Image: https://code-maven.com/create-images-with-python-pil-pillow
+	angle=0 # Start at angle 0.
+	angleIncrement = 360/segments
+
+
+	for i in range(segments):
+		angle = i*angleIncrement
+		perimeterPoint = polar_point(center, angle, radius)
+		perimeterPoint = [perimeterPoint[0], perimeterPoint[1], 0]
+		perimeterCoords.append(perimeterPoint)
+
+	#print(pix)
+	return perimeterCoords
+
+
 
 # Calculate the polar point: https://gis.stackexchange.com/questions/67478/how-to-create-a-circle-vector-layer-with-12-sectors-with-python-pyqgis
 # helper function to calculate point from relative polar coordinates (degrees)
