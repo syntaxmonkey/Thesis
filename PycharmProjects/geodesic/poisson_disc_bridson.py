@@ -12,10 +12,13 @@ from scipy.spatial import Voronoi, voronoi_plot_2d # For generating Voronoi grap
 from scipy.spatial import Delaunay # For generating Delaunay - https://docs.scipy.org/doc/scipy-0.14.0/reference/generated/scipy.spatial.Delaunay.html
 
 import createOBJFile
+import readOBJFile
 import os
 
 from matplotlib.tri import Triangulation # https://matplotlib.org/3.1.1/gallery/event_handling/trifinder_event_demo.html
 from matplotlib.patches import Polygon # https://matplotlib.org/3.1.1/gallery/event_handling/trifinder_event_demo.html
+
+import pylab
 
 
 def euclidean_distance(a, b):
@@ -174,11 +177,13 @@ center = 0
 radius = 0
 rRatio = 1
 k = 50
-dynamic_ratio = 2
 xsize = 100 # Should be multiple of 20.
 ysize = 100 # Should be multiple of 20.
+perimeterSegments = 60
+startingR = perimeterSegments / 10
+dynamic_ratio = 2
 startTime = int(round(time.time() * 1000))
-samples = poisson_disc_samples(width=xsize, height=ysize, r=20, k=k, segments=79)
+samples = poisson_disc_samples(width=xsize, height=ysize, r=20, k=k, segments=perimeterSegments)
 endTime = int(round(time.time() * 1000))
 
 samples = np.array(samples) # Need to convert to np array to have proper slicing.
@@ -210,6 +215,9 @@ def motion_notify1(event):
         tri = trifinder(event.xdata, event.ydata)
     update_polygon(tri, polygon1)
     plt.title('In triangle %i' % tri)
+    fig = pylab.gcf()
+    fig.canvas.set_window_title('In triangle %i' % tri)
+
     event.canvas.draw()
 
 def motion_notify2(event):
@@ -219,7 +227,10 @@ def motion_notify2(event):
         tri = trifinder(event.xdata, event.ydata)
     update_polygon(tri, polygon2)
     plt.title('In triangle %i' % tri)
+    fig = pylab.gcf()
+    fig.canvas.set_window_title('In triangle %i' % tri)
     event.canvas.draw()
+
 
 
 if not genVoronoi:
@@ -229,10 +240,24 @@ else:
 	#vor = Voronoi(samples)
 
 	#voronoi_plot_2d(vor)
-	tri = Delaunay(samples)
+	tri = Delaunay(samples)  # Generate the triangles from the vertices.
+
+
+	# Produce the mesh file.  Flatten the mesh with BFF.  Extract the 2D from BFF flattened mesh.
+	path = "../../boundary-first-flattening/build/"
+	# Create object file for image.
+	createOBJFile.createObjFile2D(path, "test1.obj", samples, tri, radius, center, distance=euclidean_distance)
+	# Reshape with BFF.
+	print("Reshaping with BFF")
+	os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --angle=0.3")
+	# Extract the flattened version of the image.
+	print()
+	print("Extracting 2D image post BFF Reshaping")
+	os.system(path + "extract.py test1_out.obj test1_out_flat.obj")
+
+
 	#print(samples[:,])
 	min_radius = 0.25
-
 	# https://matplotlib.org/3.1.1/gallery/event_handling/trifinder_event_demo.html
 	triang = Triangulation(samples[:, 0], samples[:, 1])
 	triang.set_mask(np.hypot(samples[:, 0][triang.triangles].mean(axis=1), samples[:, 1][triang.triangles].mean(axis=1)) < min_radius)
@@ -248,8 +273,11 @@ else:
 	#plt.plot(samples[:, 0], samples[:, 1], 'o')
 	# https://matplotlib.org/3.1.1/gallery/event_handling/trifinder_event_demo.html
 	plt.gca().add_patch(polygon1)
-	plt.gcf().canvas.mpl_connect('motion_notify_event', motion_notify1)
+	#plt.gcf().canvas.mpl_connect('motion_notify_event', motion_notify1)
+	plt.gcf().canvas.mpl_connect('button_press_event', motion_notify1) # https://matplotlib.org/3.1.1/users/event_handling.html
 
+
+	readOBJFile.readObjFile(path, "test1_out.obj")
 
 	# Second subplot
 	polygon2 = Polygon([[0, 0], [0, 0]], facecolor='y')  # dummy data for xs,ys
@@ -257,22 +285,12 @@ else:
 	plt.subplot(122, aspect='equal')  # Create first subplot.
 	plt.triplot(triang, 'go-')
 	plt.gca().add_patch(polygon2)
-	plt.gcf().canvas.mpl_connect('motion_notify_event', motion_notify2)
+	#plt.gcf().canvas.mpl_connect('motion_notify_event', motion_notify2)
+	plt.gcf().canvas.mpl_connect('button_press_event', motion_notify2) # https://matplotlib.org/3.1.1/users/event_handling.html
 
 
 
-path = "../../boundary-first-flattening/build/"
 
-# Create object file for image.
-createOBJFile.createObjFile2D(path, "test1.obj", samples, tri, radius, center, distance=euclidean_distance)
-
-# Reshape with BFF.
-print("Reshaping with BFF")
-os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --angle=0.3")
-# Extract the flattened version of the image.
-print()
-print("Extracting 2D image post BFF Reshaping")
-os.system(path + "extract.py test1_out.obj test1_out_flat.obj")
 
 #plt.imshow(raster)
 plt.gray()
