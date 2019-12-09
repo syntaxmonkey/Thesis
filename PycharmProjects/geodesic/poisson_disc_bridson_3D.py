@@ -54,19 +54,21 @@ def poisson_disc_samples(width, height, r, k=5, distance=euclidean_distance, ran
 		return True
 
 	def calculateZ(pointx, pointy, radius):
-		if distance( [pointx, pointy, 0], center) >= radius*sqrt(2):
+		dist = distance( [pointx, pointy, 0], center)
+		print("calculateZ: ", pointx, pointy, radius, dist)
+		if dist >= radius:
 			return 0
 		#print(pointx, pointy, radius)
 		centralx = pointx - radius
 		centraly = pointy - radius
-		return sqrt(radius*radius - centralx*centralx - centraly*centraly)
+		return sqrt(radius*radius*radius - centralx*centralx - centraly*centraly)
 
 
 	centerx = xsize / 2
 	centery = ysize / 2
 	radius = xsize / 2 - 1
 	centerz = radius
-	center = (centerx, centery, centerz)
+	center = (centerx, centery, 0)
 
 	print("Segments: ", segments)
 	# Generate the list of circle Perimeters.

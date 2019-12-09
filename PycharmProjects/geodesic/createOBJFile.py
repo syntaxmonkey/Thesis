@@ -7,6 +7,7 @@ def createObjFile2D(path, filename, samples, triangleValues, radius, center, dis
 	radius2 = radius+1
 	#print(radius2)
 	# Output the vertices.
+	count=0
 	for coords in samples:
 		#print(coords)
 		dist = distance(center, coords) / radius2
@@ -15,6 +16,7 @@ def createObjFile2D(path, filename, samples, triangleValues, radius, center, dis
 		zvalue = math.sqrt(1 - dist*dist) * radius2
 		#f.write("v %f %f %f\r\n" % (coords[0], coords[1], 0) )
 		f.write("v %f %f %f\r\n" % (coords[0], coords[1], zvalue))
+		count += 1
 
 	# Output the facets.
 	for facet in triangleValues.simplices.copy():
@@ -36,7 +38,7 @@ def createObjFile3D(path, filename, samples, triangleValues, radius, center, dis
 		#zvalue = math.sqrt(radius2 - coords[0]*coords[0] - coords[1]*coords[1])
 		#zvalue = math.sqrt(1 - dist*dist) * radius2
 		#f.write("v %f %f %f\r\n" % (coords[0], coords[1], 0) )
-		print(coords)
+		print("Writing coords: ", coords)
 		f.write("v %f %f %f\r\n" % (coords[0], coords[1], coords[2]))
 
 	# Output the facets.
