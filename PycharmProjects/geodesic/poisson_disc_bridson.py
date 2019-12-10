@@ -260,6 +260,7 @@ else:
 	min_radius = 0.25
 	# https://matplotlib.org/3.1.1/gallery/event_handling/trifinder_event_demo.html
 	triang = Triangulation(samples[:, 0], samples[:, 1])
+	triang.x[0]=triang.x[0]*1
 	triang.set_mask(np.hypot(samples[:, 0][triang.triangles].mean(axis=1), samples[:, 1][triang.triangles].mean(axis=1)) < min_radius)
 	trifinder = triang.get_trifinder()
 
