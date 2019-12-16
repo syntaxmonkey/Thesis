@@ -179,7 +179,7 @@ rRatio = 1
 k = 50
 xsize = 100 # Should be multiple of 20.
 ysize = 100 # Should be multiple of 20.
-perimeterSegments = 60
+perimeterSegments = 78
 startingR = perimeterSegments / 10
 dynamic_ratio = 2
 startTime = int(round(time.time() * 1000))
@@ -256,6 +256,11 @@ else:
 	os.system(path + "extract.py test1_out.obj test1_out_flat.obj")
 
 
+
+	# Read the OBJ file and produce the new mesh entries.
+	Originalsamples, Originalfaces, Flatsamples, Flatfaces = readOBJFile.readObjFile(path, "test1_out.obj")
+
+
 	#print(samples[:,])
 	min_radius = 0.25
 	# https://matplotlib.org/3.1.1/gallery/event_handling/trifinder_event_demo.html
@@ -277,8 +282,6 @@ else:
 	#plt.gcf().canvas.mpl_connect('motion_notify_event', motion_notify1)
 	plt.gcf().canvas.mpl_connect('button_press_event', motion_notify1) # https://matplotlib.org/3.1.1/users/event_handling.html
 
-
-	readOBJFile.readObjFile(path, "test1_out.obj")
 
 	# Second subplot
 	polygon2 = Polygon([[0, 0], [0, 0]], facecolor='y')  # dummy data for xs,ys
