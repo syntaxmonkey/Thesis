@@ -88,6 +88,10 @@ def readObjFile(path, filename):
 	# print(IndexMap)
 	print("GlobalIndex: ", globalIndex)
 	print("Originalsamples: ", len(Originalsamples))
+	xmin = abs(np.min(Originalsamples[:, 0]))
+	ymin = abs(np.min(Originalsamples[:, 1]))
+	Originalsamples[:, 0] = Originalsamples[:, 0] + xmin
+	Originalsamples[:, 1] = Originalsamples[:, 1] + ymin
 	print("Originalfaces: ", len(Originalfaces))
 	print("Max of faces: ", np.max(Originalfaces))
 	print("Flatfaces: ", len(Flatfaces))
