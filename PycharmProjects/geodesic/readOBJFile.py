@@ -148,6 +148,7 @@ def readObjFile(path, filename):
 
 
 
+
 def update_polygon(tri, polygon):
 	if tri == -1:
 		points = [0, 0, 0]
@@ -170,7 +171,7 @@ def update_polygon2(tri, polygon):
 	polygon.set_xy(np.column_stack([xs, ys]))
 
 
-def motion_notify1(event):
+def motion_notify(event):
 	if event.inaxes == ax1:
 		tri = trifinder(event.xdata, event.ydata)
 	elif event.inaxes == ax2:
@@ -199,11 +200,22 @@ def motion_notify2(event):
 	fig.canvas.set_window_title('In triangle %i' % tri)
 	event.canvas.draw()
 
+def on_click(event):
+	# https://stackoverflow.com/questions/41824662/how-to-plot-a-dot-each-time-at-the-point-the-mouse-is-clicked-in-matplotlib
+	if event.inaxes == ax1:
+		print('button=%d, x=%d, y=%d, xdata=%f, ydata=%f' % (event.button, event.x, event.y, event.xdata, event.ydata))
+		ax1.plot(event.xdata, event.ydata, ',')
+		event.canvas.draw()
+	elif event.inaxes == ax2:
+		ax2.plot(event.xdata, event.ydata, ',')
+		event.canvas.draw()
+
 
 
 if __name__ == '__main__':
 	path = "../../boundary-first-flattening/build/"
 	Originalsamples, Originalfaces, Flatsamples, Flatfaces = readObjFile(path, "test1_out.obj")
+
 
 	# exit(1)
 	#Originalfaces = list(Originalfaces)
@@ -221,9 +233,10 @@ if __name__ == '__main__':
 	update_polygon(-1, polygon1)
 
 	plt.gca().add_patch(polygon1)
-	plt.gcf().canvas.mpl_connect('motion_notify_event', motion_notify1)
+	plt.gcf().canvas.mpl_connect('motion_notify_event', motion_notify)
 	# plt.gcf().canvas.mpl_connect('button_press_event', motion_notify1) # https://matplotlib.org/3.1.1/users/event_handling.html
-
+	plt.gcf().canvas.mpl_connect('button_press_event',
+	                             on_click)  # https://matplotlib.org/3.1.1/users/event_handling.html
 
 	# Second subplot
 	print(Flatfaces)
@@ -239,8 +252,8 @@ if __name__ == '__main__':
 	update_polygon2(-1, polygon2)
 
 	plt.gca().add_patch(polygon2)
-	#plt.gcf().canvas.mpl_connect('motion_notify_event', motion_notify2)
-	# plt.gcf().canvas.mpl_connect('button_press_event', motion_notify2) # https://matplotlib.org/3.1.1/users/event_handling.html
+	# plt.gcf().canvas.mpl_connect('motion_notify_event', motion_notify2)
+	# plt.gcf().canvas.mpl_connect('button_press_event', on_click) # https://matplotlib.org/3.1.1/users/event_handling.html
 
 	plt.show()
 

@@ -198,38 +198,55 @@ for coords in samples:
 	yint = int(y)
 	raster[xint][yint] = int(255)
 
+
 def update_polygon(tri, polygon):
-    if tri == -1:
-        points = [0, 0, 0]
-    else:
-        points = triang.triangles[tri]
-    xs = triang.x[points]
-    ys = triang.y[points]
-    polygon.set_xy(np.column_stack([xs, ys]))
+	if tri == -1:
+		points = [0, 0, 0]
+	else:
+		points = triang.triangles[tri]
+	# print("Update polygon Points: ", points)
+	xs = triang.x[points]
+	ys = triang.y[points]
+	polygon.set_xy(np.column_stack([xs, ys]))
 
 
-def motion_notify1(event):
-    if event.inaxes is None:
-        tri = -1
-    else:
-        tri = trifinder(event.xdata, event.ydata)
-    update_polygon(tri, polygon1)
-    plt.title('In triangle %i' % tri)
-    fig = pylab.gcf()
-    fig.canvas.set_window_title('In triangle %i' % tri)
+def update_polygon2(tri, polygon):
+	if tri == -1:
+		points = [0, 0, 0]
+	else:
+		points = triang2.triangles[tri]
+	# print("Update polygon2 Points: ", points)
+	xs = triang2.x[points]
+	ys = triang2.y[points]
+	polygon.set_xy(np.column_stack([xs, ys]))
 
-    event.canvas.draw()
 
-def motion_notify2(event):
-    if event.inaxes is None:
-        tri = -1
-    else:
-        tri = trifinder(event.xdata, event.ydata)
-    update_polygon(tri, polygon2)
-    plt.title('In triangle %i' % tri)
-    fig = pylab.gcf()
-    fig.canvas.set_window_title('In triangle %i' % tri)
-    event.canvas.draw()
+def motion_notify(event):
+	if event.inaxes == ax1:
+		tri = trifinder(event.xdata, event.ydata)
+	elif event.inaxes == ax2:
+		tri = trifinder2(event.xdata, event.ydata) # Make the event handler check both images.
+	else:
+		tri = -1
+
+	update_polygon(tri, polygon1)
+	update_polygon2(tri, polygon2) # alpha - force an update on the other mesh.
+	plt.title('In triangle %i' % tri)
+	fig = pylab.gcf()
+	fig.canvas.set_window_title('In triangle %i' % tri)
+	event.canvas.draw()
+
+
+
+def on_click(event):
+	# https://stackoverflow.com/questions/41824662/how-to-plot-a-dot-each-time-at-the-point-the-mouse-is-clicked-in-matplotlib
+	if event.inaxes == ax1:
+		print('button=%d, x=%d, y=%d, xdata=%f, ydata=%f' % (event.button, event.x, event.y, event.xdata, event.ydata))
+		ax1.plot(event.xdata, event.ydata, 'go')
+		event.canvas.draw()
+	elif event.inaxes == ax2:
+		ax2.plot(event.xdata, event.ydata, 'ro')
+		event.canvas.draw()
 
 
 
@@ -260,38 +277,38 @@ else:
 	# Read the OBJ file and produce the new mesh entries.
 	Originalsamples, Originalfaces, Flatsamples, Flatfaces = readOBJFile.readObjFile(path, "test1_out.obj")
 
-
-	#print(samples[:,])
-	min_radius = 0.25
-	# https://matplotlib.org/3.1.1/gallery/event_handling/trifinder_event_demo.html
-	triang = Triangulation(samples[:, 0], samples[:, 1])
-	triang.x[0]=triang.x[0]*1
-	triang.set_mask(np.hypot(samples[:, 0][triang.triangles].mean(axis=1), samples[:, 1][triang.triangles].mean(axis=1)) < min_radius)
-	trifinder = triang.get_trifinder()
+	# exit(1)
+	#Originalfaces = list(Originalfaces)
+	min_radius = .25
 
 	# First subplot
+	triang = Triangulation(Originalsamples[:, 0], Originalsamples[:, 1], triangles=Originalfaces)
+	ax1 = plt.subplot(121, aspect='equal') # Create first subplot.
+	plt.triplot(triang, 'b-')
+
+	triang.set_mask(np.hypot(Originalsamples[:, 0][triang.triangles].mean(axis=1), Originalsamples[:, 1][triang.triangles].mean(axis=1)) < min_radius)
+	trifinder = triang.get_trifinder()
 	polygon1 = Polygon([[0, 0], [0, 0]], facecolor='y')  # dummy data for xs,ys
 	update_polygon(-1, polygon1)
-	plt.subplot(121, aspect='equal') # Create first subplot.
-	#print(samples[0], tri.simplices[0])
-	#plt.triplot(samples[:, 0], samples[:, 1], tri.simplices.copy()) # tri.simplices are indeces to the points.  They represent the three vertices that form a facet.
-	plt.triplot(triang, 'bo-')
-	#plt.plot(samples[:, 0], samples[:, 1], 'o')
-	# https://matplotlib.org/3.1.1/gallery/event_handling/trifinder_event_demo.html
+
 	plt.gca().add_patch(polygon1)
-	#plt.gcf().canvas.mpl_connect('motion_notify_event', motion_notify1)
-	plt.gcf().canvas.mpl_connect('button_press_event', motion_notify1) # https://matplotlib.org/3.1.1/users/event_handling.html
+	plt.gcf().canvas.mpl_connect('motion_notify_event', motion_notify)
+	plt.gcf().canvas.mpl_connect('button_press_event', on_click)
+	# plt.gcf().canvas.mpl_connect('button_press_event', motion_notify1) # https://matplotlib.org/3.1.1/users/event_handling.html
 
 
 	# Second subplot
-	polygon2 = Polygon([[0, 0], [0, 0]], facecolor='y')  # dummy data for xs,ys
-	update_polygon(-1, polygon2)
-	plt.subplot(122, aspect='equal')  # Create first subplot.
-	plt.triplot(triang, 'go-')
-	plt.gca().add_patch(polygon2)
-	#plt.gcf().canvas.mpl_connect('motion_notify_event', motion_notify2)
-	plt.gcf().canvas.mpl_connect('button_press_event', motion_notify2) # https://matplotlib.org/3.1.1/users/event_handling.html
+	print(Flatfaces)
+	triang2 = Triangulation(Flatsamples[:, 0], Flatsamples[:, 1], triangles=Flatfaces)
+	ax2 = plt.subplot(122, aspect='equal')  # Create first subplot.
+	plt.triplot(triang2, 'b-')
 
+	triang2.set_mask(np.hypot(Flatsamples[:, 0][triang2.triangles].mean(axis=1), Flatsamples[:, 1][triang2.triangles].mean(axis=1)) < min_radius)
+	trifinder2 = triang2.get_trifinder()
+	polygon2 = Polygon([[0, 0], [0, 0]], facecolor='y')  # dummy data for xs,ys
+	update_polygon2(-1, polygon2)
+
+	plt.gca().add_patch(polygon2)
 
 
 
