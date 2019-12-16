@@ -11,7 +11,9 @@ def readObjFile(path, filename):
 
 	Originalsamples = np.array([])
 	Flatsamples = np.array([])
-	IndexMap = dict()
+	OriginalIndexMap = dict()
+	FlatIndexMap = dict()
+
 	Originalfaces = np.array([], dtype=np.int)
 	#Originalfaces = []
 	Flatfaces = np.array([], dtype=np.int)
@@ -37,7 +39,7 @@ def readObjFile(path, filename):
 				# This is a vertex for original mesh.
 				# Originalsamples = np.concatenate((Originalsamples, np.array(lineSplit[1:])))
 				Originalsamples = np.concatenate((Originalsamples, [float(i) for i in lineSplit[1:]] ))
-				IndexMap[str(globalIndex)] = [originalIndex, 0]
+
 
 			elif (lineType == 'vt'):
 				globalIndex += 1
@@ -46,7 +48,7 @@ def readObjFile(path, filename):
 				# This is a vertex for flattened mesh.
 				# Flatsamples = np.concatenate((Flatsamples, np.array(lineSplit[1:])))
 				Flatsamples = np.concatenate((Flatsamples, [float(i) for i in lineSplit[1:]] ))
-				IndexMap[str(globalIndex)] = [0, flatIndex]
+
 
 			elif (lineType == 'f'):
 				faceCount += 1
@@ -58,10 +60,6 @@ def readObjFile(path, filename):
 
 				# So the v and vt are interleaved throughout the file.  We need a way to figure out the un-interleaved index of the vertices.
 				# We need a way to map from f index to separated f index.
-
-				# newFace = ['f', IndexMap[v1][0], IndexMap[v2][0], IndexMap[v3][0] ]
-				# newFlatFace = ['f', IndexMap[vf1][1], IndexMap[vf2][1], IndexMap[vf3][1] ]
-
 				newFace = [int(v1)-1, int(v2)-1, int(v3)-1 ]
 				newFlatFace = [ int(vf1)-1, int(vf2)-1, int(vf3)-1 ]
 
@@ -69,33 +67,50 @@ def readObjFile(path, filename):
 				#Originalfaces.append( newFace )
 				Flatfaces = np.concatenate((Flatfaces, newFlatFace))
 
+				# Create index maps.
+				# OriginalIndexMap[tuple(newFace)] = tuple(newFlatFace)
+				# FlatIndexMap[tuple(newFlatFace)] = tuple(newFace)
+
 			else:
 				raise("Unkown line type: ", line)
 
 	Originalsamples = np.reshape(Originalsamples, (originalIndex,3))
-	# Initsamples = np.array(Initsamples)
 	Flatsamples = np.reshape(Flatsamples, (flatIndex, 2))
-	# Flatsamples = np.array(Flatsamples)
-	# print(Initsamples)
-	# print(len(Initsamples))
-	# print(Flatsamples)
-	# print("originalCount: ", originalIndex)
-	# print("flatCount: ", flatIndex)
 	Originalfaces = np.reshape(Originalfaces, (faceCount, 3))
-	# print(Originalfaces)
 	Flatfaces = np.reshape(Flatfaces, (faceCount, 3))
-	# print(Flatfaces)
-	# print(IndexMap)
+
 	print("GlobalIndex: ", globalIndex)
 	print("Originalsamples: ", len(Originalsamples))
+	# Shift Original coordinates to positive quadrant.
 	xmin = abs(np.min(Originalsamples[:, 0]))
 	ymin = abs(np.min(Originalsamples[:, 1]))
 	Originalsamples[:, 0] = Originalsamples[:, 0] + xmin
 	Originalsamples[:, 1] = Originalsamples[:, 1] + ymin
+
 	print("Originalfaces: ", len(Originalfaces))
 	print("Max of faces: ", np.max(Originalfaces))
 	print("Flatfaces: ", len(Flatfaces))
-	#print(Originalsamples[559])
+
+
+	OriginalSampleMap = np.array([None] * len(Originalsamples))
+	FlatSamplesMap = np.array([None]*len(Flatsamples))
+
+	# Create Original Triangle <--> Flat Triangle map
+	indexOri = 1
+	# for triangle in Originalfaces:
+	# 	print(triangle)
+	# 	Flattriangle = OriginalIndexMap[tuple(triangle)]
+	# 	print("Flat triangle: ", Flattriangle)
+	# 	indexFlat = np.where(Flatfaces == OriginalIndexMap[tuple(triangle)])
+	#
+	# 	print("IndexFlat: ", indexFlat)
+	# 	print(Flatfaces[indexFlat[:, 0]])
+	#
+	# 	OriginalSampleMap[indexOri] = indexFlat[0][0]
+	#
+	# 	indexOri += 1
+	# 	break;
+
 
 		# Line can be one of the following types: v, vt, or f.
 		# v is a vertex in 3D
@@ -134,46 +149,55 @@ def readObjFile(path, filename):
 
 
 def update_polygon(tri, polygon):
-    if tri == -1:
-        points = [0, 0, 0]
-    else:
-        points = triang.triangles[tri]
-    xs = triang.x[points]
-    ys = triang.y[points]
-    polygon.set_xy(np.column_stack([xs, ys]))
+	if tri == -1:
+		points = [0, 0, 0]
+	else:
+		points = triang.triangles[tri]
+	# print("Update polygon Points: ", points)
+	xs = triang.x[points]
+	ys = triang.y[points]
+	polygon.set_xy(np.column_stack([xs, ys]))
 
 
 def update_polygon2(tri, polygon):
-    if tri == -1:
-        points = [0, 0, 0]
-    else:
-        points = triang2.triangles[tri]
-    xs = triang2.x[points]
-    ys = triang2.y[points]
-    polygon.set_xy(np.column_stack([xs, ys]))
+	if tri == -1:
+		points = [0, 0, 0]
+	else:
+		points = triang2.triangles[tri]
+	# print("Update polygon2 Points: ", points)
+	xs = triang2.x[points]
+	ys = triang2.y[points]
+	polygon.set_xy(np.column_stack([xs, ys]))
 
 
 def motion_notify1(event):
-    if event.inaxes is None:
-        tri = -1
-    else:
-        tri = trifinder(event.xdata, event.ydata)
-    update_polygon(tri, polygon1)
-    plt.title('In triangle %i' % tri)
-    fig = pylab.gcf()
-    fig.canvas.set_window_title('In triangle %i' % tri)
-    event.canvas.draw()
+	if event.inaxes == ax1:
+		tri = trifinder(event.xdata, event.ydata)
+	elif event.inaxes == ax2:
+		tri = trifinder2(event.xdata, event.ydata) # Make the event handler check both images.
+	else:
+		tri = -1
+
+	update_polygon(tri, polygon1)
+	update_polygon2(tri, polygon2) # alpha - force an update on the other mesh.
+	plt.title('In triangle %i' % tri)
+	fig = pylab.gcf()
+	fig.canvas.set_window_title('In triangle %i' % tri)
+	event.canvas.draw()
 
 def motion_notify2(event):
-    if event.inaxes is None:
-        tri = -1
-    else:
-        tri = trifinder2(event.xdata, event.ydata)
-    update_polygon2(tri, polygon2)
-    plt.title('In triangle %i' % tri)
-    fig = pylab.gcf()
-    fig.canvas.set_window_title('In triangle %i' % tri)
-    event.canvas.draw()
+	# No longer required.  Combinted into motion notify1.
+	if event.inaxes is None:
+		tri = -1
+	else:
+		tri = trifinder2(event.xdata, event.ydata)
+
+	update_polygon(tri, polygon1) # alpha - force an update on the other mesh.
+	update_polygon2(tri, polygon2)
+	plt.title('In triangle %i' % tri)
+	fig = pylab.gcf()
+	fig.canvas.set_window_title('In triangle %i' % tri)
+	event.canvas.draw()
 
 
 
@@ -181,12 +205,13 @@ if __name__ == '__main__':
 	path = "../../boundary-first-flattening/build/"
 	Originalsamples, Originalfaces, Flatsamples, Flatfaces = readObjFile(path, "test1_out.obj")
 
+	# exit(1)
 	#Originalfaces = list(Originalfaces)
 	min_radius = .25
 
 	# First subplot
 	triang = Triangulation(Originalsamples[:, 0], Originalsamples[:, 1], triangles=Originalfaces)
-	plt.subplot(121, aspect='equal') # Create first subplot.
+	ax1 = plt.subplot(121, aspect='equal') # Create first subplot.
 	plt.triplot(triang, 'b-')
 
 	triang.set_mask(np.hypot(Originalsamples[:, 0][triang.triangles].mean(axis=1), Originalsamples[:, 1][triang.triangles].mean(axis=1)) < min_radius)
@@ -197,24 +222,25 @@ if __name__ == '__main__':
 
 	plt.gca().add_patch(polygon1)
 	plt.gcf().canvas.mpl_connect('motion_notify_event', motion_notify1)
-	#plt.gcf().canvas.mpl_connect('button_press_event', motion_notify1) # https://matplotlib.org/3.1.1/users/event_handling.html
+	# plt.gcf().canvas.mpl_connect('button_press_event', motion_notify1) # https://matplotlib.org/3.1.1/users/event_handling.html
 
 
 	# Second subplot
 	print(Flatfaces)
 	triang2 = Triangulation(Flatsamples[:, 0], Flatsamples[:, 1], triangles=Flatfaces)
-	plt.subplot(122, aspect='equal')  # Create first subplot.
+	ax2 = plt.subplot(122, aspect='equal')  # Create first subplot.
 	plt.triplot(triang2, 'b-')
 
 	triang2.set_mask(np.hypot(Flatsamples[:, 0][triang2.triangles].mean(axis=1), Flatsamples[:, 1][triang2.triangles].mean(axis=1)) < min_radius)
 	trifinder2 = triang2.get_trifinder()
 
+
 	polygon2 = Polygon([[0, 0], [0, 0]], facecolor='y')  # dummy data for xs,ys
 	update_polygon2(-1, polygon2)
 
 	plt.gca().add_patch(polygon2)
-	plt.gcf().canvas.mpl_connect('motion_notify_event', motion_notify2)
-	#plt.gcf().canvas.mpl_connect('button_press_event', motion_notify2) # https://matplotlib.org/3.1.1/users/event_handling.html
+	#plt.gcf().canvas.mpl_connect('motion_notify_event', motion_notify2)
+	# plt.gcf().canvas.mpl_connect('button_press_event', motion_notify2) # https://matplotlib.org/3.1.1/users/event_handling.html
 
 	plt.show()
 
