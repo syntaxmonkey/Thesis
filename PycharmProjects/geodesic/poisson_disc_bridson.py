@@ -19,6 +19,7 @@ from matplotlib.tri import Triangulation # https://matplotlib.org/3.1.1/gallery/
 from matplotlib.patches import Polygon # https://matplotlib.org/3.1.1/gallery/event_handling/trifinder_event_demo.html
 
 import pylab
+import numpy.linalg as la # https://codereview.stackexchange.com/questions/41024/faster-computation-of-barycentric-coordinates-for-many-points
 
 
 def euclidean_distance(a, b):
@@ -240,13 +241,70 @@ def motion_notify(event):
 
 def on_click(event):
 	# https://stackoverflow.com/questions/41824662/how-to-plot-a-dot-each-time-at-the-point-the-mouse-is-clicked-in-matplotlib
+	# https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.plot.html
 	if event.inaxes == ax1:
 		print('button=%d, x=%d, y=%d, xdata=%f, ydata=%f' % (event.button, event.x, event.y, event.xdata, event.ydata))
 		ax1.plot(event.xdata, event.ydata, 'go')
+
+		tri = trifinder(event.xdata, event.ydata)
+		print(tri)
+		print(triang.triangles[tri])
+		face = []
+		for vertex in triang.triangles[tri]: # Create triangle from the coordinates.
+			curVertex = Originalsamples[vertex]
+			face.append([curVertex[0], curVertex[1]])
+		bary1 = calculateBarycentric(face, (event.xdata, event.ydata))  # Calculate the barycentric coordinates.
+
+		face2 = []
+		for vertex in triang2.triangles[tri]:
+			curVertex = Flatsamples[vertex]
+			face2.append([curVertex[0], curVertex[1]])
+		cartesian = get_cartesian_from_barycentric(bary1, face2)
+		print(cartesian)
+		ax2.plot(cartesian[0], cartesian[1], color='red', marker='+')
+
 		event.canvas.draw()
 	elif event.inaxes == ax2:
 		ax2.plot(event.xdata, event.ydata, 'ro')
+
+		tri = trifinder2(event.xdata, event.ydata)
+		print(tri)
+		print(triang2.triangles[tri])
+		face = []
+		for vertex in triang2.triangles[tri]: # Create triangle from the coordinates.
+			curVertex = Flatsamples[vertex]
+			face.append([curVertex[0], curVertex[1]])
+		bary1 = calculateBarycentric(face, (event.xdata, event.ydata))  # Calculate the barycentric coordinates.
+
+		face2 = []
+		for vertex in triang.triangles[tri]:
+			curVertex = Originalsamples[vertex]
+			face2.append([curVertex[0], curVertex[1]])
+		cartesian = get_cartesian_from_barycentric(bary1, face2)
+		print(cartesian)
+		ax1.plot(cartesian[0], cartesian[1], color='green', marker='+')
+
 		event.canvas.draw()
+
+
+def calculateBarycentric(vertices, point):
+	# Calculating barycentric coodinates: https://codereview.stackexchange.com/questions/41024/faster-computation-of-barycentric-coordinates-for-many-points
+	T = (np.array(vertices[:-1]) - vertices[-1]).T
+	v = np.dot(la.inv(T), np.array(point) - vertices[-1])
+	v.resize(len(vertices))
+	v[-1] = 1 - v.sum()
+	return v
+
+
+def get_cartesian_from_barycentric(b, t):
+	# https://stackoverflow.com/questions/56328254/how-to-make-the-conversion-from-barycentric-coordinates-to-cartesian-coordinates
+	''' The expected data format
+		b = np.array([0.25,0.3,0.45]) # Barycentric coordinates
+		t = np.transpose(np.array([[0,0],[1,0],[0,1]])) # Triangle
+	'''
+	tnew = np.transpose(np.array(t))
+	bnew = np.array(b)
+	return tnew.dot(bnew)
 
 
 
@@ -284,7 +342,7 @@ else:
 	# First subplot
 	triang = Triangulation(Originalsamples[:, 0], Originalsamples[:, 1], triangles=Originalfaces)
 	ax1 = plt.subplot(121, aspect='equal') # Create first subplot.
-	plt.triplot(triang, 'b-')
+	plt.triplot(triang, color='grey')
 
 	triang.set_mask(np.hypot(Originalsamples[:, 0][triang.triangles].mean(axis=1), Originalsamples[:, 1][triang.triangles].mean(axis=1)) < min_radius)
 	trifinder = triang.get_trifinder()
@@ -301,7 +359,7 @@ else:
 	print(Flatfaces)
 	triang2 = Triangulation(Flatsamples[:, 0], Flatsamples[:, 1], triangles=Flatfaces)
 	ax2 = plt.subplot(122, aspect='equal')  # Create first subplot.
-	plt.triplot(triang2, 'b-')
+	plt.triplot(triang2, color='grey')
 
 	triang2.set_mask(np.hypot(Flatsamples[:, 0][triang2.triangles].mean(axis=1), Flatsamples[:, 1][triang2.triangles].mean(axis=1)) < min_radius)
 	trifinder2 = triang2.get_trifinder()
