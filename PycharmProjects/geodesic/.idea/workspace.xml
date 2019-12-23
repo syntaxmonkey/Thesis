@@ -14,8 +14,8 @@
       <file leaf-file-name="poisson_disc_bridson.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/poisson_disc_bridson.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1337">
-              <caret line="245" column="104" lean-forward="false" selection-start-line="245" selection-start-column="99" selection-end-line="245" selection-end-column="104" />
+            <state relative-caret-position="-711">
+              <caret line="262" column="24" lean-forward="true" selection-start-line="262" selection-start-column="24" selection-end-line="262" selection-end-column="24" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -26,10 +26,22 @@
       <file leaf-file-name="DottedLine.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DottedLine.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="23" column="51" lean-forward="true" selection-start-line="23" selection-start-column="51" selection-end-line="23" selection-end-column="51" />
+            <state relative-caret-position="209">
+              <caret line="59" column="0" lean-forward="true" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DynamicLine.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/DynamicLine.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="390">
+              <caret line="26" column="10" lean-forward="true" selection-start-line="26" selection-start-column="10" selection-end-line="26" selection-end-column="10" />
+              <folding>
+                <element signature="e#123#154#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -38,9 +50,11 @@
       <file leaf-file-name="DrawLine.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DrawLine.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="43" lean-forward="true" selection-start-line="10" selection-start-column="43" selection-end-line="10" selection-end-column="43" />
-              <folding />
+            <state relative-caret-position="45">
+              <caret line="3" column="46" lean-forward="false" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="46" />
+              <folding>
+                <element signature="e#87#105#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -48,7 +62,7 @@
       <file leaf-file-name="trifinder_event_demo.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trifinder_event_demo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="675">
+            <state relative-caret-position="525">
               <caret line="48" column="32" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="32" />
               <folding>
                 <element signature="e#81#112#0" expanded="true" />
@@ -70,7 +84,7 @@
       <file leaf-file-name="createOBJFile.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/createOBJFile.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
+            <state relative-caret-position="-60">
               <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
               <folding />
             </state>
@@ -80,8 +94,8 @@
       <file leaf-file-name="readOBJFile.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/readOBJFile.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2181">
-              <caret line="195" column="78" lean-forward="true" selection-start-line="195" selection-start-column="78" selection-end-line="195" selection-end-column="78" />
+            <state relative-caret-position="170">
+              <caret line="214" column="0" lean-forward="false" selection-start-line="214" selection-start-column="0" selection-end-line="214" selection-end-column="26" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -166,8 +180,9 @@
         <option value="$PROJECT_DIR$/chaincode.txt" />
         <option value="$PROJECT_DIR$/createOBJFile.py" />
         <option value="$PROJECT_DIR$/trifinder_event_demo.py" />
-        <option value="$PROJECT_DIR$/DrawLine.py" />
         <option value="$PROJECT_DIR$/readOBJFile.py" />
+        <option value="$PROJECT_DIR$/DrawLine.py" />
+        <option value="$PROJECT_DIR$/DynamicLine.py" />
         <option value="$PROJECT_DIR$/poisson_disc_bridson.py" />
         <option value="$PROJECT_DIR$/DottedLine.py" />
       </list>
@@ -195,7 +210,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -216,7 +231,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -287,6 +302,24 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
+    <configuration name="DynamicLine" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$PROJECT_DIR$/../Thesis/venv/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="geodesic" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/DynamicLine.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -341,38 +374,20 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="trifinder_event_demo" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="$PROJECT_DIR$/../Thesis/venv/bin/python" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="geodesic" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/trifinder_event_demo.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.poisson_disc_bridson" />
-      <item index="1" class="java.lang.String" itemvalue="Python.trifinder_event_demo" />
-      <item index="2" class="java.lang.String" itemvalue="Python.readOBJFile" />
-      <item index="3" class="java.lang.String" itemvalue="Python.DrawLine" />
-      <item index="4" class="java.lang.String" itemvalue="Python.DottedLine" />
+      <item index="1" class="java.lang.String" itemvalue="Python.readOBJFile" />
+      <item index="2" class="java.lang.String" itemvalue="Python.DrawLine" />
+      <item index="3" class="java.lang.String" itemvalue="Python.DottedLine" />
+      <item index="4" class="java.lang.String" itemvalue="Python.DynamicLine" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.DottedLine" />
-        <item index="1" class="java.lang.String" itemvalue="Python.DrawLine" />
-        <item index="2" class="java.lang.String" itemvalue="Python.poisson_disc_bridson" />
-        <item index="3" class="java.lang.String" itemvalue="Python.readOBJFile" />
-        <item index="4" class="java.lang.String" itemvalue="Python.trifinder_event_demo" />
+        <item index="1" class="java.lang.String" itemvalue="Python.poisson_disc_bridson" />
+        <item index="2" class="java.lang.String" itemvalue="Python.DynamicLine" />
+        <item index="3" class="java.lang.String" itemvalue="Python.DrawLine" />
+        <item index="4" class="java.lang.String" itemvalue="Python.readOBJFile" />
       </list>
     </recent_temporary>
   </component>
@@ -432,16 +447,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Delaunay.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="10" column="48" lean-forward="true" selection-start-line="10" selection-start-column="48" selection-end-line="10" selection-end-column="48" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/createOBJFile.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -819,7 +824,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/trifinder_event_demo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
+        <state relative-caret-position="525">
           <caret line="48" column="32" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="32" />
           <folding>
             <element signature="e#81#112#0" expanded="true" />
@@ -837,44 +842,56 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/createOBJFile.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
+        <state relative-caret-position="-60">
           <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DrawLine.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="43" lean-forward="true" selection-start-line="10" selection-start-column="43" selection-end-line="10" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/poisson_disc_bridson.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1337">
-          <caret line="245" column="104" lean-forward="false" selection-start-line="245" selection-start-column="99" selection-end-line="245" selection-end-column="104" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/readOBJFile.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2181">
-          <caret line="195" column="78" lean-forward="true" selection-start-line="195" selection-start-column="78" selection-end-line="195" selection-end-column="78" />
+        <state relative-caret-position="170">
+          <caret line="214" column="0" lean-forward="false" selection-start-line="214" selection-start-column="0" selection-end-line="214" selection-end-column="26" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/DrawLine.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="46" lean-forward="false" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="46" />
+          <folding>
+            <element signature="e#87#105#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DynamicLine.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="10" lean-forward="true" selection-start-line="26" selection-start-column="10" selection-end-line="26" selection-end-column="10" />
+          <folding>
+            <element signature="e#123#154#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/poisson_disc_bridson.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-711">
+          <caret line="262" column="24" lean-forward="true" selection-start-line="262" selection-start-column="24" selection-end-line="262" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/DottedLine.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="51" lean-forward="true" selection-start-line="23" selection-start-column="51" selection-end-line="23" selection-end-column="51" />
+        <state relative-caret-position="209">
+          <caret line="59" column="0" lean-forward="true" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
           </folding>
