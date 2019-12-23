@@ -36,13 +36,15 @@ def on_click(event):
 	# https://stackoverflow.com/questions/41824662/how-to-plot-a-dot-each-time-at-the-point-the-mouse-is-clicked-in-matplotlib
 	# https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.plot.html
 	if event.inaxes == ax:
-		print('button=%d, x=%d, y=%d, xdata=%f, ydata=%f' % (event.button, event.x, event.y, event.xdata, event.ydata))
+		# print('button=%d, x=%d, y=%d, xdata=%f, ydata=%f' % (event.button, event.x, event.y, event.xdata, event.ydata))
 		# ax.plot(event.xdata, event.ydata, 'go')
 		if dt == None:
 			dt = DottedLine([event.xdata, event.ydata])
 			# ax.plot(event.xdata, event.ydata, 'or')
 		else:
 			# startPoint, = ax.plot(event.xdata, event.ydata, 'or')
+			linePoints = generateLinePoints(dt.points, [event.xdata, event.ydata]) # Generate the points along the line.
+
 			dt.addPoint([event.xdata, event.ydata])
 			# dt.points=np.array(dt.points)
 			print(dt.points)
@@ -57,6 +59,9 @@ def on_click(event):
 		event.canvas.draw()
 
 
+def generateLinePoints(startPoint, endPoint, segmentLength=5):
+	return []
+
 
 
 def on_move(event):
@@ -64,25 +69,21 @@ def on_move(event):
 	# https://stackoverflow.com/questions/41824662/how-to-plot-a-dot-each-time-at-the-point-the-mouse-is-clicked-in-matplotlib
 	# https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.plot.html
 	if event.inaxes == ax and dt != None:
-		if dt == None:
-			dt = DottedLine([event.xdata, event.ydata])
-			ax.plot(event.xdata, event.ydata, 'or')
+		# ax.plot(event.xdata, event.ydata, 'or')
+		# dt.addPoint([event.xdata, event.ydata])
+		# dt.points=np.array(dt.points)
+		# print(dt.points)
+		xpoints = (dt.points[0], event.xdata) # Need to construct temporary line points.
+		ypoints = (dt.points[1], event.ydata) # Need to construct temporary line points.
+		if tempLine == None:
+			tempLine, = ax.plot(xpoints, ypoints, '--b')
 		else:
-			# ax.plot(event.xdata, event.ydata, 'or')
-			# dt.addPoint([event.xdata, event.ydata])
-			# dt.points=np.array(dt.points)
-			print(dt.points)
-			xpoints = (dt.points[0], event.xdata) # Need to construct temporary line points.
-			ypoints = (dt.points[1], event.ydata) # Need to construct temporary line points.
-			if tempLine == None:
-				tempLine, = ax.plot(xpoints, ypoints, '--b')
-			else:
-				tempLine.set_data(xpoints, ypoints)
-			print(dir(tempLine))
+			tempLine.set_data(xpoints, ypoints)
+		# print(dir(tempLine))
 
-			# lines.append(dt)
-			# dt = None
-			print(lines)
+		# lines.append(dt)
+		# dt = None
+		# print(lines)
 		event.canvas.draw()
 
 
