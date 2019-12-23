@@ -238,6 +238,7 @@ def motion_notify(event):
 		handleMove(event, ax1)
 	elif event.inaxes == ax2:
 		tri = trifinder2(event.xdata, event.ydata) # Make the event handler check both images.
+		handleMove(event, ax2)
 	else:
 		tri = -1
 
@@ -248,7 +249,8 @@ def motion_notify(event):
 	fig.canvas.set_window_title('In triangle %i' % tri)
 	event.canvas.draw()
 
-def replicateDots(linePoints, axTarget, triFinder):
+
+def replicateDots(linePoints, axTarget, triFinder, triang, triang2, Originalsamples, Flatsamples):
 	for linePoint in linePoints:
 		# ax1.plot(event.xdata, event.ydata, 'go')
 
@@ -256,7 +258,7 @@ def replicateDots(linePoints, axTarget, triFinder):
 		print(tri)
 		print(triang.triangles[tri])
 		face = []
-		for vertex in triang.triangles[tri]:  # Create triangle from the coordinates.
+		for vertex in triang.triangles[tri]: # Create triangle from the coordinates.
 			curVertex = Originalsamples[vertex]
 			face.append([curVertex[0], curVertex[1]])
 		bary1 = calculateBarycentric(face, (linePoint[0], linePoint[1]))  # Calculate the barycentric coordinates.
@@ -270,6 +272,9 @@ def replicateDots(linePoints, axTarget, triFinder):
 		axTarget.plot(cartesian[0], cartesian[1], color='green', marker='+')
 
 
+
+
+
 def on_click(event):
 	global dt, tempLine, lines
 	# https://stackoverflow.com/questions/41824662/how-to-plot-a-dot-each-time-at-the-point-the-mouse-is-clicked-in-matplotlib
@@ -277,7 +282,8 @@ def on_click(event):
 	if event.inaxes == ax1:
 		# print('button=%d, x=%d, y=%d, xdata=%f, ydata=%f' % (event.button, event.x, event.y, event.xdata, event.ydata))
 		linePoints = handleDottedLine(event, event.inaxes)
-		replicateDots(linePoints, ax2, trifinder)
+		# replicateDotsToAX2(linePoints)
+		replicateDots(linePoints, ax2, trifinder, triang, triang2, Originalsamples, Flatsamples)
 		# ax1.plot(event.xdata, event.ydata, 'go')
 		#
 		# tri = trifinder(event.xdata, event.ydata)
@@ -297,27 +303,28 @@ def on_click(event):
 		# print(cartesian)
 		# ax2.plot(cartesian[0], cartesian[1], color='red', marker='+')
 
-
 		event.canvas.draw()
 	elif event.inaxes == ax2:
-		ax2.plot(event.xdata, event.ydata, 'ro')
-
-		tri = trifinder2(event.xdata, event.ydata)
-		print(tri)
-		print(triang2.triangles[tri])
-		face = []
-		for vertex in triang2.triangles[tri]: # Create triangle from the coordinates.
-			curVertex = Flatsamples[vertex]
-			face.append([curVertex[0], curVertex[1]])
-		bary1 = calculateBarycentric(face, (event.xdata, event.ydata))  # Calculate the barycentric coordinates.
-
-		face2 = []
-		for vertex in triang.triangles[tri]:
-			curVertex = Originalsamples[vertex]
-			face2.append([curVertex[0], curVertex[1]])
-		cartesian = get_cartesian_from_barycentric(bary1, face2)
-		print(cartesian)
-		ax1.plot(cartesian[0], cartesian[1], color='green', marker='+')
+		linePoints = handleDottedLine(event, event.inaxes)
+		# replicateDotsToAX1(linePoints)
+		replicateDots(linePoints, ax1, trifinder2, triang2, triang, Flatsamples, Originalsamples)
+		# ax2.plot(event.xdata, event.ydata, 'ro')
+		# tri = trifinder2(event.xdata, event.ydata)
+		# print(tri)
+		# print(triang2.triangles[tri])
+		# face = []
+		# for vertex in triang2.triangles[tri]: # Create triangle from the coordinates.
+		# 	curVertex = Flatsamples[vertex]
+		# 	face.append([curVertex[0], curVertex[1]])
+		# bary1 = calculateBarycentric(face, (event.xdata, event.ydata))  # Calculate the barycentric coordinates.
+		#
+		# face2 = []
+		# for vertex in triang.triangles[tri]:
+		# 	curVertex = Originalsamples[vertex]
+		# 	face2.append([curVertex[0], curVertex[1]])
+		# cartesian = get_cartesian_from_barycentric(bary1, face2)
+		# print(cartesian)
+		# ax1.plot(cartesian[0], cartesian[1], color='green', marker='+')
 
 		event.canvas.draw()
 
