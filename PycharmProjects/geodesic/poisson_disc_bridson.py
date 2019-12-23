@@ -21,6 +21,8 @@ from matplotlib.patches import Polygon # https://matplotlib.org/3.1.1/gallery/ev
 import pylab
 import numpy.linalg as la # https://codereview.stackexchange.com/questions/41024/faster-computation-of-barycentric-coordinates-for-many-points
 
+from DottedLine import press, handleDottedLine, handleMove
+
 
 def euclidean_distance(a, b):
 	dx = a[0] - b[0]
@@ -166,8 +168,7 @@ def poisson_disc_samples(width, height, r, k=5, distance=euclidean_distance, ran
 
 
 '''
-	Settings.
-	
+	Settings	
 '''
 useSegmentRadius = True # When set to True, will use the minimum distance between perimeter points.  False will use 60% of perimeter point distance.
 forceCenter = False # When set to True, will force inject the center point onto canvas.
@@ -188,6 +189,14 @@ samples = poisson_disc_samples(width=xsize, height=ysize, r=20, k=k, segments=pe
 endTime = int(round(time.time() * 1000))
 
 samples = np.array(samples) # Need to convert to np array to have proper slicing.
+
+
+# Dotted Line variables.
+dt = None
+dt = None
+tempLine = None
+lines = []
+
 
 print("Execution time: %d ms" % (endTime - startTime))
 
@@ -223,8 +232,10 @@ def update_polygon2(tri, polygon):
 
 
 def motion_notify(event):
+
 	if event.inaxes == ax1:
 		tri = trifinder(event.xdata, event.ydata)
+		handleMove(event, ax1)
 	elif event.inaxes == ax2:
 		tri = trifinder2(event.xdata, event.ydata) # Make the event handler check both images.
 	else:
@@ -237,23 +248,18 @@ def motion_notify(event):
 	fig.canvas.set_window_title('In triangle %i' % tri)
 	event.canvas.draw()
 
+def replicateDots(linePoints, axTarget, triFinder):
+	for linePoint in linePoints:
+		# ax1.plot(event.xdata, event.ydata, 'go')
 
-
-def on_click(event):
-	# https://stackoverflow.com/questions/41824662/how-to-plot-a-dot-each-time-at-the-point-the-mouse-is-clicked-in-matplotlib
-	# https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.plot.html
-	if event.inaxes == ax1:
-		print('button=%d, x=%d, y=%d, xdata=%f, ydata=%f' % (event.button, event.x, event.y, event.xdata, event.ydata))
-		ax1.plot(event.xdata, event.ydata, 'go')
-
-		tri = trifinder(event.xdata, event.ydata)
+		tri = triFinder(linePoint[0], linePoint[1])
 		print(tri)
 		print(triang.triangles[tri])
 		face = []
-		for vertex in triang.triangles[tri]: # Create triangle from the coordinates.
+		for vertex in triang.triangles[tri]:  # Create triangle from the coordinates.
 			curVertex = Originalsamples[vertex]
 			face.append([curVertex[0], curVertex[1]])
-		bary1 = calculateBarycentric(face, (event.xdata, event.ydata))  # Calculate the barycentric coordinates.
+		bary1 = calculateBarycentric(face, (linePoint[0], linePoint[1]))  # Calculate the barycentric coordinates.
 
 		face2 = []
 		for vertex in triang2.triangles[tri]:
@@ -261,7 +267,36 @@ def on_click(event):
 			face2.append([curVertex[0], curVertex[1]])
 		cartesian = get_cartesian_from_barycentric(bary1, face2)
 		print(cartesian)
-		ax2.plot(cartesian[0], cartesian[1], color='red', marker='+')
+		axTarget.plot(cartesian[0], cartesian[1], color='green', marker='+')
+
+
+def on_click(event):
+	global dt, tempLine, lines
+	# https://stackoverflow.com/questions/41824662/how-to-plot-a-dot-each-time-at-the-point-the-mouse-is-clicked-in-matplotlib
+	# https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.plot.html
+	if event.inaxes == ax1:
+		# print('button=%d, x=%d, y=%d, xdata=%f, ydata=%f' % (event.button, event.x, event.y, event.xdata, event.ydata))
+		linePoints = handleDottedLine(event, event.inaxes)
+		replicateDots(linePoints, ax2, trifinder)
+		# ax1.plot(event.xdata, event.ydata, 'go')
+		#
+		# tri = trifinder(event.xdata, event.ydata)
+		# print(tri)
+		# print(triang.triangles[tri])
+		# face = []
+		# for vertex in triang.triangles[tri]: # Create triangle from the coordinates.
+		# 	curVertex = Originalsamples[vertex]
+		# 	face.append([curVertex[0], curVertex[1]])
+		# bary1 = calculateBarycentric(face, (event.xdata, event.ydata))  # Calculate the barycentric coordinates.
+		#
+		# face2 = []
+		# for vertex in triang2.triangles[tri]:
+		# 	curVertex = Flatsamples[vertex]
+		# 	face2.append([curVertex[0], curVertex[1]])
+		# cartesian = get_cartesian_from_barycentric(bary1, face2)
+		# print(cartesian)
+		# ax2.plot(cartesian[0], cartesian[1], color='red', marker='+')
+
 
 		event.canvas.draw()
 	elif event.inaxes == ax2:
@@ -352,6 +387,8 @@ else:
 	plt.gca().add_patch(polygon1)
 	plt.gcf().canvas.mpl_connect('motion_notify_event', motion_notify)
 	plt.gcf().canvas.mpl_connect('button_press_event', on_click)
+	plt.gcf().canvas.mpl_connect('key_press_event', press) # Imported from DottedLine
+
 	# plt.gcf().canvas.mpl_connect('button_press_event', motion_notify1) # https://matplotlib.org/3.1.1/users/event_handling.html
 
 

@@ -27,43 +27,47 @@ def press(event):
 		print('escape pressed')
 		tempLine.remove() # Delete the line. https://stackoverflow.com/questions/4981815/how-to-remove-lines-in-a-matplotlib-plot
 		dt = startPoint = tempLine = None
-		fig.canvas.draw()
-
-
-def on_click(event):
-	global dt, startPoint, tempLine
-	# https://stackoverflow.com/questions/41824662/how-to-plot-a-dot-each-time-at-the-point-the-mouse-is-clicked-in-matplotlib
-	# https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.plot.html
-	if event.inaxes == ax:
-		# print('button=%d, x=%d, y=%d, xdata=%f, ydata=%f' % (event.button, event.x, event.y, event.xdata, event.ydata))
-		# ax.plot(event.xdata, event.ydata, 'go')
-		if dt == None:
-			dt = DottedLine([event.xdata, event.ydata])
-			# ax.plot(event.xdata, event.ydata, 'or')
-		else:
-			# startPoint, = ax.plot(event.xdata, event.ydata, 'or')
-			linePoints = generateLinePoints(dt.points, [event.xdata, event.ydata]) # Generate the points along the line.
-			# Plot dots.
-			for linePoint in linePoints:
-				ax.plot(linePoint[0], linePoint[1], 'or')
-			tempLine.remove()
-			dt.addPoint([event.xdata, event.ydata])
-			# dt.points=np.array(dt.points)
-			print(dt.points)
-			# xpoints = dt.points[:, 0]
-			# ypoints = dt.points[:, 1]
-			# ax.plot(xpoints, ypoints, '--b')
-
-			lines.append(dt)
-			dt = None
-			startPoint = None
-
-			tempLine = None
-			print(lines)
 		event.canvas.draw()
 
 
-def generateLinePoints(startPoint, endPoint, segmentLength=1):
+
+
+def on_click(event):
+	global dt, tempLine
+	# https://stackoverflow.com/questions/41824662/how-to-plot-a-dot-each-time-at-the-point-the-mouse-is-clicked-in-matplotlib
+	# https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.plot.html
+	if event.inaxes == ax:
+		handleDottedLine(event, event.inaxes)
+
+def handleDottedLine(event, ax):
+	global dt, tempLine, lines
+	linePoints = []
+	if dt == None:
+		dt = DottedLine([event.xdata, event.ydata])
+		# ax.plot(event.xdata, event.ydata, 'or')
+	else:
+		linePoints = generateLinePoints(dt.points, [event.xdata, event.ydata]) # Generate the points along the line.
+		# Plot dots.
+		for linePoint in linePoints:
+			ax.plot(linePoint[0], linePoint[1], 'or')
+		tempLine.remove()
+		dt.addPoint([event.xdata, event.ydata])
+		# dt.points=np.array(dt.points)
+		print(dt.points)
+		# xpoints = dt.points[:, 0]
+		# ypoints = dt.points[:, 1]
+		# ax.plot(xpoints, ypoints, '--b')
+
+		# lines.append(dt)
+		dt = None
+
+		tempLine = None
+		# print(lines)
+	event.canvas.draw()
+	return linePoints
+
+
+def generateLinePoints(startPoint, endPoint, segmentLength=10):
 	x1, y1 = startPoint
 	x2, y2 = endPoint
 
@@ -88,14 +92,20 @@ def generateLinePoints(startPoint, endPoint, segmentLength=1):
 
 
 def on_move(event):
-	global dt, tempLine
+	global dt
 	# https://stackoverflow.com/questions/41824662/how-to-plot-a-dot-each-time-at-the-point-the-mouse-is-clicked-in-matplotlib
 	# https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.plot.html
 	if event.inaxes == ax and dt != None:
-		# ax.plot(event.xdata, event.ydata, 'or')
-		# dt.addPoint([event.xdata, event.ydata])
-		# dt.points=np.array(dt.points)
-		# print(dt.points)
+		handleMove(event)
+
+
+def handleMove(event, ax):
+	global tempLine, dt
+	# ax.plot(event.xdata, event.ydata, 'or')
+	# dt.addPoint([event.xdata, event.ydata])
+	# dt.points=np.array(dt.points)
+	# print(dt.points)
+	if dt != None:
 		xpoints = (dt.points[0], event.xdata) # Need to construct temporary line points.
 		ypoints = (dt.points[1], event.ydata) # Need to construct temporary line points.
 		if tempLine == None:
