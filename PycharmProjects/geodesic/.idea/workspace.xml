@@ -11,11 +11,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="poisson_disc_bridson.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="poisson_disc_bridson.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/poisson_disc_bridson.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3885">
-              <caret line="262" column="24" lean-forward="false" selection-start-line="262" selection-start-column="24" selection-end-line="262" selection-end-column="24" />
+            <state relative-caret-position="235">
+              <caret line="289" column="4" lean-forward="false" selection-start-line="289" selection-start-column="4" selection-end-line="289" selection-end-column="4" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -23,11 +23,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DottedLine.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DottedLine.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DottedLine.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="237">
-              <caret line="54" column="21" lean-forward="true" selection-start-line="54" selection-start-column="21" selection-end-line="54" selection-end-column="21" />
+            <state relative-caret-position="222">
+              <caret line="53" column="28" lean-forward="true" selection-start-line="53" selection-start-column="28" selection-end-line="53" selection-end-column="28" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
               </folding>
@@ -62,7 +62,7 @@
       <file leaf-file-name="trifinder_event_demo.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/trifinder_event_demo.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="675">
+            <state relative-caret-position="525">
               <caret line="48" column="32" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="32" />
               <folding>
                 <element signature="e#81#112#0" expanded="true" />
@@ -808,6 +808,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="218">
           <caret line="40" column="8" lean-forward="false" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="8" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -817,16 +818,6 @@
           <caret line="10" column="48" lean-forward="false" selection-start-line="10" selection-start-column="48" selection-end-line="10" selection-end-column="48" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trifinder_event_demo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="48" column="32" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="32" />
-          <folding>
-            <element signature="e#81#112#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -877,22 +868,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/poisson_disc_bridson.py">
+    <entry file="file://$PROJECT_DIR$/DottedLine.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3885">
-          <caret line="262" column="24" lean-forward="false" selection-start-line="262" selection-start-column="24" selection-end-line="262" selection-end-column="24" />
+        <state relative-caret-position="222">
+          <caret line="53" column="28" lean-forward="true" selection-start-line="53" selection-start-column="28" selection-end-line="53" selection-end-column="28" />
           <folding>
-            <element signature="e#0#25#0" expanded="true" />
+            <element signature="e#0#36#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DottedLine.py">
+    <entry file="file://$PROJECT_DIR$/trifinder_event_demo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="54" column="21" lean-forward="true" selection-start-line="54" selection-start-column="21" selection-end-line="54" selection-end-column="21" />
+        <state relative-caret-position="525">
+          <caret line="48" column="32" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="32" />
           <folding>
-            <element signature="e#0#36#0" expanded="true" />
+            <element signature="e#81#112#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/poisson_disc_bridson.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="289" column="4" lean-forward="false" selection-start-line="289" selection-start-column="4" selection-end-line="289" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
