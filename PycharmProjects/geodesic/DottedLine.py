@@ -1,6 +1,7 @@
 from matplotlib import pyplot as plt
 import numpy as np
 import sys
+import math
 
 class DottedLine:
 	def __init__(self, firstpoint):
@@ -11,8 +12,6 @@ class DottedLine:
 
 
 
-# Get the end points.
-# Calculate the temporary points.
 
 
 
@@ -44,23 +43,47 @@ def on_click(event):
 		else:
 			# startPoint, = ax.plot(event.xdata, event.ydata, 'or')
 			linePoints = generateLinePoints(dt.points, [event.xdata, event.ydata]) # Generate the points along the line.
-
+			# Plot dots.
+			for linePoint in linePoints:
+				ax.plot(linePoint[0], linePoint[1], 'or')
+			tempLine.remove()
 			dt.addPoint([event.xdata, event.ydata])
 			# dt.points=np.array(dt.points)
 			print(dt.points)
-			xpoints = dt.points[:, 0]
-			ypoints = dt.points[:, 1]
+			# xpoints = dt.points[:, 0]
+			# ypoints = dt.points[:, 1]
 			# ax.plot(xpoints, ypoints, '--b')
+
 			lines.append(dt)
 			dt = None
 			startPoint = None
+
 			tempLine = None
 			print(lines)
 		event.canvas.draw()
 
 
-def generateLinePoints(startPoint, endPoint, segmentLength=5):
-	return []
+def generateLinePoints(startPoint, endPoint, segmentLength=1):
+	x1, y1 = startPoint
+	x2, y2 = endPoint
+
+	deltax = x2 - x1
+	deltay = y2 - y1
+	pointDistance = math.sqrt( math.pow(deltax, 2) + math.pow(deltay, 2) )
+
+	segmentCount = math.floor(pointDistance / segmentLength)
+	if (segmentCount == 0):
+		segmentCount = 1
+	adjustedSegmentDistance = pointDistance / segmentCount
+	segmentDistance = adjustedSegmentDistance / pointDistance
+
+	print("Segment Count %d" % (segmentCount))
+	points = []
+	for i in range(segmentCount):
+		points.append((x1 + segmentDistance*deltax*i, y1 + segmentDistance*deltay*i))
+	points.append((x2,y2))
+
+	return points
 
 
 
