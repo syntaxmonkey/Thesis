@@ -1,27 +1,39 @@
+from PIL import Image, ImageFont, ImageDraw
 import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib.widgets import Button
 
-dataX = np.array([1,2,3,4,5,6,7,8,9,10])
-dataY = np.array([1193,1225,1125,1644,1255,13676,2007,2008,12359,1210])
 
-ax = plt.subplot(111)
-def on_click(event):
-    if event.dblclick:
-       ax.plot((event.xdata, event.xdata), (mean-standardDeviation, mean+standardDeviation), 'r-')
-       plt.show()
+def genLetter():
+	boxsize = 100
+	fontsize = int(boxsize * 0.8)
+	img = Image.new('RGB', (boxsize, boxsize), color=(255, 255, 255))
 
-def _yes(event):
-    print("yolo")
+	# get a font
+	character = 'P'
 
-mean = np.mean(dataY)
-standardDeviation = np.std(dataY)
+	font = ImageFont.truetype("/System/Library/Fonts/Keyboard.ttf", fontsize)
+	width, height = font.getsize(character)
 
-ax.plot(dataX, dataY, linewidth=0.5)
-plt.connect('button_press_event', on_click)
+	x = int((boxsize - width)/2)
+	y = int((boxsize - height*1.3)/2) # Need to adjust for font height: https://websemantics.uk/articles/font-size-conversion/
 
-axcut = plt.axes([0.9, 0.0, 0.1, 0.075])
-bcut = Button(axcut, 'YES', color='red', hovercolor='green')
-bcut.on_clicked(_yes)
+	d = ImageDraw.Draw(img)
+	d.text( (x,y) , character, fill=(0, 0, 0), font=font)
 
-plt.show()
+	# Flood file for masking.
+	ImageDraw.floodfill(img, xy=(0, 0), value=(255, 0, 255), thresh=200) # https://stackoverflow.com/questions/46083880/fill-in-a-hollow-shape-using-python-and-pillow-pil
+
+	# Fill in holes.
+	n = np.array(img)
+	n[(n[:, :, 0:3] != [255, 0, 255]).any(2)] = [0, 0, 0]
+	# Revert all artifically filled magenta pixels to white
+	n[(n[:, :, 0:3] == [255,0,255]).all(2)] = [255,255,255]
+
+	img = Image.fromarray(n)
+
+	img.save('pil_text.png')
+
+	img.show()
+
+
+if __name__ == '__main__':
+	genLetter()
