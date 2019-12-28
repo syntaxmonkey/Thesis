@@ -18,11 +18,13 @@ import os
 from matplotlib.tri import Triangulation # https://matplotlib.org/3.1.1/gallery/event_handling/trifinder_event_demo.html
 from matplotlib.patches import Polygon # https://matplotlib.org/3.1.1/gallery/event_handling/trifinder_event_demo.html
 
-import pylab
 import numpy.linalg as la # https://codereview.stackexchange.com/questions/41024/faster-computation-of-barycentric-coordinates-for-many-points
 
 from DottedLine import press, handleDottedLine, handleMove
 
+from ObjectBlob import Paint
+
+from matplotlib.widgets import Button # https://matplotlib.org/3.1.1/gallery/widgets/buttons.html
 
 def euclidean_distance(a, b):
 	dx = a[0] - b[0]
@@ -245,7 +247,7 @@ def motion_notify(event):
 	update_polygon(tri, polygon1)
 	update_polygon2(tri, polygon2) # alpha - force an update on the other mesh.
 	plt.title('In triangle %i' % tri)
-	fig = pylab.gcf()
+	fig = plt.gcf()
 	fig.canvas.set_window_title('In triangle %i' % tri)
 	event.canvas.draw()
 
@@ -270,6 +272,7 @@ def replicateDots(linePoints, axTarget, triFinder, triang, triang2, Originalsamp
 		cartesian = get_cartesian_from_barycentric(bary1, face2)
 		print(cartesian)
 		axTarget.plot(cartesian[0], cartesian[1], color='green', marker='+')
+
 
 
 
@@ -350,71 +353,97 @@ def get_cartesian_from_barycentric(b, t):
 
 
 
-if not genVoronoi:
-	print(raster)
-	plt.imshow(raster)
-else:
-	#vor = Voronoi(samples)
+def genMesh():
+	global triang, triang2, trifinder, trifinder2, ax1, ax2, Originalsamples, Flatsamples, Originalfaces, Flatfaces, polygon1, polygon2
+	if not genVoronoi:
+		print(raster)
+		plt.imshow(raster)
+	else:
+		#vor = Voronoi(samples)
 
-	#voronoi_plot_2d(vor)
-	tri = Delaunay(samples)  # Generate the triangles from the vertices.
+		#voronoi_plot_2d(vor)
+		tri = Delaunay(samples)  # Generate the triangles from the vertices.
 
-
-	# Produce the mesh file.  Flatten the mesh with BFF.  Extract the 2D from BFF flattened mesh.
-	path = "../../boundary-first-flattening/build/"
-	# Create object file for image.
-	createOBJFile.createObjFile2D(path, "test1.obj", samples, tri, radius, center, distance=euclidean_distance)
-	# Reshape with BFF.
-	print("Reshaping with BFF")
-	os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --angle=0.3")
-	# Extract the flattened version of the image.
-	print()
-	print("Extracting 2D image post BFF Reshaping")
-	os.system(path + "extract.py test1_out.obj test1_out_flat.obj")
-
-
-
-	# Read the OBJ file and produce the new mesh entries.
-	Originalsamples, Originalfaces, Flatsamples, Flatfaces = readOBJFile.readObjFile(path, "test1_out.obj")
-
-	# exit(1)
-	#Originalfaces = list(Originalfaces)
-	min_radius = .25
-
-	# First subplot
-	triang = Triangulation(Originalsamples[:, 0], Originalsamples[:, 1], triangles=Originalfaces)
-	ax1 = plt.subplot(121, aspect='equal') # Create first subplot.
-	plt.triplot(triang, color='grey')
-
-	triang.set_mask(np.hypot(Originalsamples[:, 0][triang.triangles].mean(axis=1), Originalsamples[:, 1][triang.triangles].mean(axis=1)) < min_radius)
-	trifinder = triang.get_trifinder()
-	polygon1 = Polygon([[0, 0], [0, 0]], facecolor='y')  # dummy data for xs,ys
-	update_polygon(-1, polygon1)
-
-	plt.gca().add_patch(polygon1)
-	plt.gcf().canvas.mpl_connect('motion_notify_event', motion_notify)
-	plt.gcf().canvas.mpl_connect('button_press_event', on_click)
-	plt.gcf().canvas.mpl_connect('key_press_event', press) # Imported from DottedLine
-
-	# plt.gcf().canvas.mpl_connect('button_press_event', motion_notify1) # https://matplotlib.org/3.1.1/users/event_handling.html
-
-
-	# Second subplot
-	print(Flatfaces)
-	triang2 = Triangulation(Flatsamples[:, 0], Flatsamples[:, 1], triangles=Flatfaces)
-	ax2 = plt.subplot(122, aspect='equal')  # Create first subplot.
-	plt.triplot(triang2, color='grey')
-
-	triang2.set_mask(np.hypot(Flatsamples[:, 0][triang2.triangles].mean(axis=1), Flatsamples[:, 1][triang2.triangles].mean(axis=1)) < min_radius)
-	trifinder2 = triang2.get_trifinder()
-	polygon2 = Polygon([[0, 0], [0, 0]], facecolor='y')  # dummy data for xs,ys
-	update_polygon2(-1, polygon2)
-
-	plt.gca().add_patch(polygon2)
+		# Produce the mesh file.  Flatten the mesh with BFF.  Extract the 2D from BFF flattened mesh.
+		path = "../../boundary-first-flattening/build/"
+		# Create object file for image.
+		createOBJFile.createObjFile2D(path, "test1.obj", samples, tri, radius, center, distance=euclidean_distance)
+		# Reshape with BFF.
+		print("Reshaping with BFF")
+		os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --angle=0.3")
+		# Extract the flattened version of the image.
+		print()
+		print("Extracting 2D image post BFF Reshaping")
+		os.system(path + "extract.py test1_out.obj test1_out_flat.obj")
 
 
 
+		# Read the OBJ file and produce the new mesh entries.
+		Originalsamples, Originalfaces, Flatsamples, Flatfaces = readOBJFile.readObjFile(path, "test1_out.obj")
 
-#plt.imshow(raster)
-plt.gray()
-plt.show()
+		# exit(1)
+		#Originalfaces = list(Originalfaces)
+		min_radius = .25
+
+
+		# Create the grid.
+		gridsize = (3,2)
+		fig = plt.figure(figsize=(12,8))
+		axdraw = plt.subplot2grid(gridsize, (0,0))
+		axcut = plt.axes([0.8, 0.8, 0.1, 0.075]) # https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes. [ left, bottom, width, height ]
+		bprocess = Button(axcut, 'Process', color='red', hovercolor='green')
+
+		axcut = plt.axes([0.8, 0.65, 0.1, 0.075]) # https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes. [ left, bottom, width, height ]
+		breset = Button(axcut, 'Reset', color='red', hovercolor='green')
+
+
+		ax1 = plt.subplot2grid(gridsize, (1, 0), rowspan=2)
+		ax2 = plt.subplot2grid(gridsize, (1, 1), rowspan=2)
+
+		# First subplot
+		triang = Triangulation(Originalsamples[:, 0], Originalsamples[:, 1], triangles=Originalfaces)
+		# ax1 = plt.subplot(121, aspect='equal') # Create first subplot.
+		ax1.triplot(triang, color='grey')
+
+		triang.set_mask(np.hypot(Originalsamples[:, 0][triang.triangles].mean(axis=1), Originalsamples[:, 1][triang.triangles].mean(axis=1)) < min_radius)
+		trifinder = triang.get_trifinder()
+		polygon1 = Polygon([[0, 0], [0, 0]], facecolor='y')  # dummy data for xs,ys
+		update_polygon(-1, polygon1)
+
+		ax1.add_patch(polygon1)
+		plt.gcf().canvas.mpl_connect('motion_notify_event', motion_notify)
+		plt.gcf().canvas.mpl_connect('button_press_event', on_click)
+		plt.gcf().canvas.mpl_connect('key_press_event', press) # Imported from DottedLine
+
+		# plt.gcf().canvas.mpl_connect('button_press_event', motion_notify1) # https://matplotlib.org/3.1.1/users/event_handling.html
+
+		# Second subplot
+		print(Flatfaces)
+		triang2 = Triangulation(Flatsamples[:, 0], Flatsamples[:, 1], triangles=Flatfaces)
+		# ax2 = plt.subplot(122, aspect='equal')  # Create first subplot.
+		ax2.triplot(triang2, color='grey')
+
+		triang2.set_mask(np.hypot(Flatsamples[:, 0][triang2.triangles].mean(axis=1), Flatsamples[:, 1][triang2.triangles].mean(axis=1)) < min_radius)
+		trifinder2 = triang2.get_trifinder()
+		polygon2 = Polygon([[0, 0], [0, 0]], facecolor='y')  # dummy data for xs,ys
+		update_polygon2(-1, polygon2)
+
+		ax2.add_patch(polygon2)
+
+
+
+
+
+
+
+
+
+
+	#plt.imshow(raster)
+	plt.gray()
+	# Paint()
+	plt.show()
+
+
+if __name__ == '__main__':
+	genMesh()
