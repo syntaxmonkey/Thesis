@@ -2,8 +2,7 @@ from PIL import Image, ImageFont, ImageDraw
 import numpy as np
 
 
-def genLetter():
-	boxsize = 100
+def genLetter(boxsize=10):
 	fontsize = int(boxsize * 0.8)
 	img = Image.new('RGB', (boxsize, boxsize), color=(255, 255, 255))
 
@@ -28,6 +27,14 @@ def genLetter():
 	# Revert all artifically filled magenta pixels to white
 	n[(n[:, :, 0:3] == [255,0,255]).all(2)] = [255,255,255]
 
+	img = Image.fromarray(n)
+	img = img.convert('L')
+	# print(img.size)
+
+	n = np.array(img)
+	n = np.reshape(n, img.size)
+	# print(np.shape(n))
+	# print(n)
 	return(n)
 
 

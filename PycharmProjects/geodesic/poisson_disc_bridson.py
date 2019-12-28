@@ -26,6 +26,10 @@ from ObjectBlob import Paint
 
 from matplotlib.widgets import Button # https://matplotlib.org/3.1.1/gallery/widgets/buttons.html
 
+from FilledLetter import genLetter
+
+
+
 def euclidean_distance(a, b):
 	dx = a[0] - b[0]
 	dy = a[1] - b[1]
@@ -389,7 +393,16 @@ def genMesh():
 		# Create the grid.
 		gridsize = (3,2)
 		fig = plt.figure(figsize=(12,8))
+
+		''' Draw Letter blob '''
 		axdraw = plt.subplot2grid(gridsize, (0,0))
+		letter = genLetter(boxsize=100)
+		# print(np.shape(letter))
+		print("Letter:", letter)
+		axdraw.imshow(letter)
+
+		''' Buttons '''
+
 		axcut = plt.axes([0.8, 0.8, 0.1, 0.075]) # https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes. [ left, bottom, width, height ]
 		bprocess = Button(axcut, 'Process', color='red', hovercolor='green')
 
@@ -397,6 +410,7 @@ def genMesh():
 		breset = Button(axcut, 'Reset', color='red', hovercolor='green')
 
 
+		''' Mesh drawings '''
 		ax1 = plt.subplot2grid(gridsize, (1, 0), rowspan=2)
 		ax2 = plt.subplot2grid(gridsize, (1, 1), rowspan=2)
 
@@ -418,7 +432,7 @@ def genMesh():
 		# plt.gcf().canvas.mpl_connect('button_press_event', motion_notify1) # https://matplotlib.org/3.1.1/users/event_handling.html
 
 		# Second subplot
-		print(Flatfaces)
+		# print(Flatfaces)
 		triang2 = Triangulation(Flatsamples[:, 0], Flatsamples[:, 1], triangles=Flatfaces)
 		# ax2 = plt.subplot(122, aspect='equal')  # Create first subplot.
 		ax2.triplot(triang2, color='grey')
@@ -429,7 +443,6 @@ def genMesh():
 		update_polygon2(-1, polygon2)
 
 		ax2.add_patch(polygon2)
-
 
 
 

@@ -28,12 +28,13 @@ def genLetter():
 	# Revert all artifically filled magenta pixels to white
 	n[(n[:, :, 0:3] == [255,0,255]).all(2)] = [255,255,255]
 
-	img = Image.fromarray(n)
+	return(n)
 
-	img.save('pil_text.png')
-
-	img.show()
 
 
 if __name__ == '__main__':
-	genLetter()
+	n = genLetter()
+
+	img = Image.fromarray(n)
+	img.save('pil_text.png')
+	img.show()
