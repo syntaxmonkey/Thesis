@@ -346,30 +346,44 @@ def get_cartesian_from_barycentric(b, t):
 def genMesh():
 	global triang, triang2, trifinder, trifinder2, ax1, ax2, Originalsamples, Flatsamples, Originalfaces, Flatfaces, polygon1, polygon2, xsize, ysize, perimeterSegments, startingR
 
-	dimension = 40
-	xsize = ysize = dimension
-	letter = genLetter(boxsize=dimension, character='T')
-	count, chain, chainDirection, border = generateChainCode(letter)
-	print('ChainDirection:', len(chainDirection), chainDirection)
-	# writeChainCodeFile('./', 'testChainCode.txt', chainDirection)
-	writeChainCodeFile('./', 'chaincode.txt', chainDirection)
-	print(len(chainDirection))
-	perimeterSegments = len(chainDirection)
-	startingR = perimeterSegments / 10
+	generateBlob = False
 
-	startTime = int(round(time.time() * 1000))
-	samples = poisson_disc_samples(width=xsize, height=ysize, r=20, k=k, segments=perimeterSegments)
-	# samples = poisson_disc_samples(width=xsize, height=ysize, r=4, k=k, segments=len(chainDirection))
-	endTime = int(round(time.time() * 1000))
+	if generateBlob:
+		dimension = 30
+		character = 'T'
+		xsize = ysize = dimension
+		letter = genLetter(boxsize=dimension, character=character)
+		count, chain, chainDirection, border = generateChainCode(letter)
+		print('ChainDirection:', len(chainDirection), chainDirection)
+		# writeChainCodeFile('./', 'testChainCode.txt', chainDirection)
+		writeChainCodeFile('./', 'chaincode.txt', chainDirection)
+		print(len(chainDirection))
+		perimeterSegments = len(chainDirection)
+		startingR = perimeterSegments / 10
+
+		startTime = int(round(time.time() * 1000))
+		samples = poisson_disc_samples(width=xsize, height=ysize, r=20, k=k, segments=perimeterSegments)
+		# samples = poisson_disc_samples(width=xsize, height=ysize, r=4, k=k, segments=len(chainDirection))
+		endTime = int(round(time.time() * 1000))
+	else:
+		os.system('cp chaincodecopy.txt chaincode.txt')
+		xsize = ysize = 100
+		perimeterSegments = 78
+		startingR = perimeterSegments / 10
+		startTime = int(round(time.time() * 1000))
+		samples = poisson_disc_samples(width=xsize, height=ysize, r=20, k=k, segments=perimeterSegments)
+		endTime = int(round(time.time() * 1000))
+		raster = [[0 for i in range(xsize)] for j in range(ysize)]
+		for coords in samples:
+			x, y = coords
+			xint = int(x)
+			yint = int(y)
+			raster[xint][yint] = int(255)
+		letter = raster
+
 	samples = np.array(samples)  # Need to convert to np array to have proper slicing.
 	print("Execution time: %d ms" % (endTime - startTime))
 
-	raster = [[0 for i in range(xsize)] for j in range(ysize)]
-	for coords in samples:
-		x, y = coords
-		xint = int(x)
-		yint = int(y)
-		raster[xint][yint] = int(255)
 
 	if not genVoronoi:
 		print(raster)
@@ -448,11 +462,13 @@ def genMesh():
 		ax2.triplot(triang2, color='grey')
 		triang2.set_mask(np.hypot(Flatsamples[:, 0][triang2.triangles].mean(axis=1),
 		                          Flatsamples[:, 1][triang2.triangles].mean(axis=1)) < min_radius)
-		# trifinder2 = triang2.get_trifinder()
-		# polygon2 = Polygon([[0, 0], [0, 0]], facecolor='y')  # dummy data for xs,ys
-		# update_polygon2(-1, polygon2)
-		#
-		# ax2.add_patch(polygon2)
+
+		if generateBlob == False:
+			trifinder2 = triang2.get_trifinder()
+			polygon2 = Polygon([[0, 0], [0, 0]], facecolor='y')  # dummy data for xs,ys
+			update_polygon2(-1, polygon2)
+
+			ax2.add_patch(polygon2)
 
 		if 1 == 0:
 			triang2.set_mask(np.hypot(Flatsamples[:, 0][triang2.triangles].mean(axis=1), Flatsamples[:, 1][triang2.triangles].mean(axis=1)) < min_radius)

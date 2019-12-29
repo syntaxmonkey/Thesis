@@ -32,6 +32,7 @@ from FilledLetter import genLetter
 
 
 def generateChainCode(img):
+	currentDirection = 0
 	## Discover the first point
 	for i, row in enumerate(img):
 		for j, value in enumerate(row):
@@ -93,31 +94,23 @@ def generateChainCode(img):
 				directionChange = (chain[-1] - chain[-2]) # HSC
 				# If directionChange is not zero
 				if directionChange != 0:
-					# directionChange = min(alpha,beta,gamma,delta)
-					startDirection = directionAngleMap[chain[-2]]
-					newDirection = directionAngleMap[chain[-1]]
-					deltaDirection = newDirection - startDirection
-					directionChange = deltaDirection
-					print("deltaDirection: ", deltaDirection)
-					if directionChange < -180:
-						print("Below -180")
-						directionChange = (directionChange % 360) * -1
-					elif directionChange > 180:
-						print("Above 180")
-						directionChange = 360 - directionChange
-
-
-					# if (chain[-1] - chain[-2]) == ((chain[-1] - chain[-2]) % 8): 	# Special case.  Handle the case we transition from 0 --> 7.
-					# 	# print("special case")
-					# 	directionChange = -1
-					# elif abs(chain[-1] - chain[-2]) < (chain[-1] - chain[-2]) % 8:
-					# 	directionChange = (chain[-1] - chain[-2])
-					# else:
-					# 	directionChange = (chain[-1] - chain[-2]) % 8
+					if directionChange > 4:
+						# In this case, we are going CCW.
+						directionChange = directionChange - 8
+					elif directionChange < -4:
+						directionChange = directionChange + 8
+					else:
+						# In this case, we are going CW.
+						directionChange = directionChange
 
 				# directionChange = directionChange * 45
-				print(chain[-2], '-->', chain[-1], 'angle:', directionChange)
-
+				directionChange = directionChange * 45
+				if directionChange > 90:
+					directionChange = 90
+				elif directionChange < -90:
+					directionChange = -90
+				currentDirection += directionChange
+				print(chain[-2], '-->', chain[-1], 'angle:', directionChange, 'Current Direction: ', currentDirection)
 				chainDirection.append(directionChange)
 				curr_point = new_point
 				break
@@ -132,9 +125,6 @@ def writeChainCodeFile(path, filename, chainDirection):
 
 	for direction in chainDirection:
 		f.write("%d\r\n" % (direction))
-	f.write("%d\r\n" % (0))
-	f.write("%d\r\n" % (0))
-	f.write("%d\r\n" % (0))
 	f.close()
 
 
