@@ -28,6 +28,7 @@ from matplotlib.widgets import Button # https://matplotlib.org/3.1.1/gallery/wid
 
 from FilledLetter import genLetter
 
+from ChainCodeGenerator import generateChainCode, writeChainCodeFile
 
 
 def euclidean_distance(a, b):
@@ -187,14 +188,7 @@ rRatio = 1
 k = 50
 xsize = 100 # Should be multiple of 20.
 ysize = 100 # Should be multiple of 20.
-perimeterSegments = 78
-startingR = perimeterSegments / 10
 dynamic_ratio = 2
-startTime = int(round(time.time() * 1000))
-samples = poisson_disc_samples(width=xsize, height=ysize, r=20, k=k, segments=perimeterSegments)
-endTime = int(round(time.time() * 1000))
-
-samples = np.array(samples) # Need to convert to np array to have proper slicing.
 
 
 # Dotted Line variables.
@@ -204,15 +198,7 @@ tempLine = None
 lines = []
 
 
-print("Execution time: %d ms" % (endTime - startTime))
 
-raster = [[0 for i in range(xsize)] for j in range(ysize)]
-
-for coords in samples:
-	x, y = coords
-	xint = int(x)
-	yint = int(y)
-	raster[xint][yint] = int(255)
 
 
 def update_polygon(tri, polygon):
@@ -358,12 +344,37 @@ def get_cartesian_from_barycentric(b, t):
 
 
 def genMesh():
-	global triang, triang2, trifinder, trifinder2, ax1, ax2, Originalsamples, Flatsamples, Originalfaces, Flatfaces, polygon1, polygon2
+	global triang, triang2, trifinder, trifinder2, ax1, ax2, Originalsamples, Flatsamples, Originalfaces, Flatfaces, polygon1, polygon2, xsize, ysize, perimeterSegments, startingR
+
+	dimension = 40
+	xsize = ysize = dimension
+	letter = genLetter(boxsize=dimension, character='T')
+	count, chain, chainDirection, border = generateChainCode(letter)
+	print('ChainDirection:', len(chainDirection), chainDirection)
+	# writeChainCodeFile('./', 'testChainCode.txt', chainDirection)
+	writeChainCodeFile('./', 'chaincode.txt', chainDirection)
+	print(len(chainDirection))
+	perimeterSegments = len(chainDirection)
+	startingR = perimeterSegments / 10
+
+	startTime = int(round(time.time() * 1000))
+	samples = poisson_disc_samples(width=xsize, height=ysize, r=20, k=k, segments=perimeterSegments)
+	# samples = poisson_disc_samples(width=xsize, height=ysize, r=4, k=k, segments=len(chainDirection))
+	endTime = int(round(time.time() * 1000))
+	samples = np.array(samples)  # Need to convert to np array to have proper slicing.
+	print("Execution time: %d ms" % (endTime - startTime))
+
+	raster = [[0 for i in range(xsize)] for j in range(ysize)]
+	for coords in samples:
+		x, y = coords
+		xint = int(x)
+		yint = int(y)
+		raster[xint][yint] = int(255)
+
 	if not genVoronoi:
 		print(raster)
 		plt.imshow(raster)
 	else:
-		#vor = Voronoi(samples)
 
 		#voronoi_plot_2d(vor)
 		tri = Delaunay(samples)  # Generate the triangles from the vertices.
@@ -389,16 +400,15 @@ def genMesh():
 		#Originalfaces = list(Originalfaces)
 		min_radius = .25
 
-
 		# Create the grid.
 		gridsize = (3,2)
 		fig = plt.figure(figsize=(12,8))
 
 		''' Draw Letter blob '''
 		axdraw = plt.subplot2grid(gridsize, (0,0))
-		letter = genLetter(boxsize=100)
-		# print(np.shape(letter))
-		print("Letter:", letter)
+		# letter = genLetter(boxsize=100, character='P')
+		# # print(np.shape(letter))
+		# print("Letter:", letter)
 		axdraw.imshow(letter)
 
 		''' Buttons '''
@@ -436,20 +446,21 @@ def genMesh():
 		triang2 = Triangulation(Flatsamples[:, 0], Flatsamples[:, 1], triangles=Flatfaces)
 		# ax2 = plt.subplot(122, aspect='equal')  # Create first subplot.
 		ax2.triplot(triang2, color='grey')
+		triang2.set_mask(np.hypot(Flatsamples[:, 0][triang2.triangles].mean(axis=1),
+		                          Flatsamples[:, 1][triang2.triangles].mean(axis=1)) < min_radius)
+		# trifinder2 = triang2.get_trifinder()
+		# polygon2 = Polygon([[0, 0], [0, 0]], facecolor='y')  # dummy data for xs,ys
+		# update_polygon2(-1, polygon2)
+		#
+		# ax2.add_patch(polygon2)
 
-		triang2.set_mask(np.hypot(Flatsamples[:, 0][triang2.triangles].mean(axis=1), Flatsamples[:, 1][triang2.triangles].mean(axis=1)) < min_radius)
-		trifinder2 = triang2.get_trifinder()
-		polygon2 = Polygon([[0, 0], [0, 0]], facecolor='y')  # dummy data for xs,ys
-		update_polygon2(-1, polygon2)
+		if 1 == 0:
+			triang2.set_mask(np.hypot(Flatsamples[:, 0][triang2.triangles].mean(axis=1), Flatsamples[:, 1][triang2.triangles].mean(axis=1)) < min_radius)
+			trifinder2 = triang2.get_trifinder()
+			polygon2 = Polygon([[0, 0], [0, 0]], facecolor='y')  # dummy data for xs,ys
+			update_polygon2(-1, polygon2)
 
-		ax2.add_patch(polygon2)
-
-
-
-
-
-
-
+			ax2.add_patch(polygon2)
 
 
 	#plt.imshow(raster)

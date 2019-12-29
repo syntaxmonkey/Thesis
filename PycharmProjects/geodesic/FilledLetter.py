@@ -2,12 +2,11 @@ from PIL import Image, ImageFont, ImageDraw
 import numpy as np
 
 
-def genLetter(boxsize=10):
+def genLetter(boxsize=10, character = 'P'):
 	fontsize = int(boxsize * 0.8)
 	img = Image.new('RGB', (boxsize, boxsize), color=(255, 255, 255))
-
 	# get a font
-	character = 'P'
+	# character = 'P'
 
 	font = ImageFont.truetype("/System/Library/Fonts/Keyboard.ttf", fontsize)
 	width, height = font.getsize(character)
@@ -35,6 +34,7 @@ def genLetter(boxsize=10):
 	n = np.reshape(n, img.size)
 	# print(np.shape(n))
 	# print(n)
+	n = 255 - n # Need to flip the bits.  The Freeman chain code generator requires the letter portion to have a value of 255 instead of 0.
 	return(n)
 
 
