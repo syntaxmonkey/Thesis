@@ -105,12 +105,12 @@ def generateChainCode(img):
 
 				# directionChange = directionChange * 45
 				directionChange = directionChange * 45
-				if directionChange > 90:
-					directionChange = 90
-				elif directionChange < -90:
-					directionChange = -90
+				# if directionChange > 90:
+				# 	directionChange = 90
+				# elif directionChange < -90:
+				# 	directionChange = -90
 				currentDirection += directionChange
-				print(chain[-2], '-->', chain[-1], 'angle:', directionChange, 'Current Direction: ', currentDirection)
+				# print(chain[-2], '-->', chain[-1], 'angle:', directionChange, 'Current Direction: ', currentDirection)
 				chainDirection.append(directionChange)
 				curr_point = new_point
 				break
@@ -129,7 +129,7 @@ def writeChainCodeFile(path, filename, chainDirection):
 
 
 if __name__ == '__main__':
-	img = genLetter(40, character='T')
+	img = genLetter(boxsize=int(100/4), character='H', blur=1)
 	count, chain, chainDirection, border = generateChainCode(img)
 	print('Count:', count)
 	print('Chain:', len(chain), chain)

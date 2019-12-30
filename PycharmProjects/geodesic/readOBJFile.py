@@ -143,11 +143,45 @@ def readObjFile(path, filename):
 			#
 			#
 
+	print("Reading OBJ file ****************************************************")
+	ValidateSamples(Flatsamples, Flatfaces)
+	print("Done OBJ file ****************************************************")
 	return Originalsamples, Originalfaces, Flatsamples, Flatfaces
 
 
 
+def ValidateSamples(samples, faces):
+	# We will go through the list of points and confirm there are no duplicate values.
+	existingPoints = {}
+	duplicate = False
+	for point in samples:
+		point = tuple(point)
+		# print('Checking: ', point)
+		if existingPoints.get(point, None) == None:
+			existingPoints[point] = 1
+		else:
+			print('duplicatePoint: ', point)
+			duplicate = True
 
+	if duplicate:
+		print("Failed point checking.")
+	print("Done checking points.")
+
+	print("Checking Faces: ***************************")
+	existingFaces = {}
+	duplicate = False
+	failedFaces = []
+	for face in faces:
+		face = tuple(np.sort(face))
+		# print('Checking:', face)
+		if existingFaces.get(face, None) == None:
+			existingFaces[face] = 1
+		else:
+			print('duplicateFace: ', face)
+			duplicate = True
+	if duplicate:
+		print("Failed Face checking.")
+	print("Done Checking Faces: ***************************")
 
 def update_polygon(tri, polygon):
 	if tri == -1:

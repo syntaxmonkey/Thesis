@@ -1,9 +1,9 @@
-from PIL import Image, ImageFont, ImageDraw
+from PIL import Image, ImageFont, ImageDraw, ImageFilter
 import numpy as np
 
 
-def genLetter(boxsize=10, character = 'P'):
-	fontsize = int(boxsize * 0.8)
+def genLetter(boxsize=80, character = 'M', blur=1):
+	fontsize = int(boxsize * 1.0)
 	img = Image.new('RGB', (boxsize, boxsize), color=(255, 255, 255))
 	# get a font
 	# character = 'P'
@@ -15,7 +15,11 @@ def genLetter(boxsize=10, character = 'P'):
 	y = int((boxsize - height*1.3)/2) # Need to adjust for font height: https://websemantics.uk/articles/font-size-conversion/
 
 	d = ImageDraw.Draw(img)
-	d.text( (x,y) , character, fill=(0, 0, 0), font=font)
+	d.text( (x,y) , character, fill=(0, 0, 0), font=font) # Add the text.
+
+	# Blur the image.
+	img = img.filter(ImageFilter.BoxBlur(blur))
+	img = img.filter(ImageFilter.SMOOTH_MORE)
 
 	# Flood file for masking.
 	ImageDraw.floodfill(img, xy=(0, 0), value=(255, 0, 255), thresh=200) # https://stackoverflow.com/questions/46083880/fill-in-a-hollow-shape-using-python-and-pillow-pil
@@ -40,7 +44,7 @@ def genLetter(boxsize=10, character = 'P'):
 
 
 if __name__ == '__main__':
-	n = genLetter()
+	n = genLetter(boxsize=80, character = 'S', blur=2)
 
 	img = Image.fromarray(n)
 	img.save('pil_text.png')

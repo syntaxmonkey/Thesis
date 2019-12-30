@@ -261,7 +261,7 @@ def replicateDots(linePoints, axTarget, triFinder, triang, triang2, Originalsamp
 			face2.append([curVertex[0], curVertex[1]])
 		cartesian = get_cartesian_from_barycentric(bary1, face2)
 		print(cartesian)
-		axTarget.plot(cartesian[0], cartesian[1], color='green', marker='+')
+		axTarget.plot(cartesian[0], cartesian[1], color='green', marker='o')
 
 
 
@@ -349,10 +349,12 @@ def genMesh():
 	generateBlob = False
 
 	if generateBlob:
-		dimension = 30
-		character = 'T'
+		dimension = 100
+		letterDimension = int(dimension / 4)
+		character = 'H'
 		xsize = ysize = dimension
-		letter = genLetter(boxsize=dimension, character=character)
+		# letter = genLetter(boxsize=dimension, character=character)
+		letter = genLetter(boxsize=letterDimension, character=character, blur=1)
 		count, chain, chainDirection, border = generateChainCode(letter)
 		print('ChainDirection:', len(chainDirection), chainDirection)
 		# writeChainCodeFile('./', 'testChainCode.txt', chainDirection)
@@ -362,13 +364,13 @@ def genMesh():
 		startingR = perimeterSegments / 10
 
 		startTime = int(round(time.time() * 1000))
-		samples = poisson_disc_samples(width=xsize, height=ysize, r=20, k=k, segments=perimeterSegments)
+		samples = poisson_disc_samples(width=xsize, height=ysize, r=10, k=k, segments=perimeterSegments)
 		# samples = poisson_disc_samples(width=xsize, height=ysize, r=4, k=k, segments=len(chainDirection))
 		endTime = int(round(time.time() * 1000))
 	else:
 		os.system('cp chaincodecopy.txt chaincode.txt')
 		xsize = ysize = 100
-		perimeterSegments = 78
+		perimeterSegments = 82
 		startingR = perimeterSegments / 10
 		startTime = int(round(time.time() * 1000))
 		samples = poisson_disc_samples(width=xsize, height=ysize, r=20, k=k, segments=perimeterSegments)
@@ -412,7 +414,7 @@ def genMesh():
 
 		# exit(1)
 		#Originalfaces = list(Originalfaces)
-		min_radius = .25
+		min_radius = .001
 
 		# Create the grid.
 		gridsize = (3,2)
@@ -443,7 +445,7 @@ def genMesh():
 		# ax1 = plt.subplot(121, aspect='equal') # Create first subplot.
 		ax1.triplot(triang, color='grey')
 
-		triang.set_mask(np.hypot(Originalsamples[:, 0][triang.triangles].mean(axis=1), Originalsamples[:, 1][triang.triangles].mean(axis=1)) < min_radius)
+		# triang.set_mask(np.hypot(Originalsamples[:, 0][triang.triangles].mean(axis=1), Originalsamples[:, 1][triang.triangles].mean(axis=1)) < min_radius)
 		trifinder = triang.get_trifinder()
 		polygon1 = Polygon([[0, 0], [0, 0]], facecolor='y')  # dummy data for xs,ys
 		update_polygon(-1, polygon1)
@@ -460,9 +462,9 @@ def genMesh():
 		triang2 = Triangulation(Flatsamples[:, 0], Flatsamples[:, 1], triangles=Flatfaces)
 		# ax2 = plt.subplot(122, aspect='equal')  # Create first subplot.
 		ax2.triplot(triang2, color='grey')
+
 		triang2.set_mask(np.hypot(Flatsamples[:, 0][triang2.triangles].mean(axis=1),
 		                          Flatsamples[:, 1][triang2.triangles].mean(axis=1)) < min_radius)
-
 		if generateBlob == False:
 			trifinder2 = triang2.get_trifinder()
 			polygon2 = Polygon([[0, 0], [0, 0]], facecolor='y')  # dummy data for xs,ys
@@ -471,6 +473,7 @@ def genMesh():
 			ax2.add_patch(polygon2)
 
 		if 1 == 0:
+			# Original code.
 			triang2.set_mask(np.hypot(Flatsamples[:, 0][triang2.triangles].mean(axis=1), Flatsamples[:, 1][triang2.triangles].mean(axis=1)) < min_radius)
 			trifinder2 = triang2.get_trifinder()
 			polygon2 = Polygon([[0, 0], [0, 0]], facecolor='y')  # dummy data for xs,ys
