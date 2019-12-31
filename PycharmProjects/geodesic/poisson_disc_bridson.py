@@ -369,7 +369,7 @@ def genMesh():
 		endTime = int(round(time.time() * 1000))
 	else:
 		xsize = ysize = 100
-		type = 'starWide3'
+		type = 'square3'
 
 		if type == 'normal':
 			# Attempted 'H'
@@ -391,6 +391,10 @@ def genMesh():
 			# star
 			perimeterSegments = 90 #
 			os.system('cp star3.txt chaincode.txt')
+		elif type == 'star4':
+			# star
+			perimeterSegments = 26*5 # Trying to spread out the angle transitions.
+			os.system('cp star4.txt chaincode.txt')
 		elif type == 'starWide':
 			# star
 			perimeterSegments = 26*10 #
@@ -415,6 +419,18 @@ def genMesh():
 			# star
 			perimeterSegments = 26*10 # Split the 144 --> 14, 130 and -108 --> -50, -58 into smaller angles components.  Works at 26 * 10
 			os.system('cp starWide6.txt chaincode.txt')
+		elif type == 'square':
+			# star
+			perimeterSegments = 26*4 #
+			os.system('cp square.txt chaincode.txt')
+		elif type == 'square2':
+			# star
+			perimeterSegments = 26*4 #
+			os.system('cp square2.txt chaincode.txt')
+		elif type == 'square3':
+			# star
+			perimeterSegments = 26*4 #
+			os.system('cp square3.txt chaincode.txt')
 
 
 
@@ -448,7 +464,7 @@ def genMesh():
 		createOBJFile.createObjFile2D(path, "test1.obj", samples, tri, radius, center, distance=euclidean_distance)
 		# Reshape with BFF.
 		print("Reshaping with BFF")
-		os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --angle=0.3")
+		os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --angle=1 --normalizeUVs")
 		# Extract the flattened version of the image.
 		print()
 		print("Extracting 2D image post BFF Reshaping")
