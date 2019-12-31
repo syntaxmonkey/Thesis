@@ -369,7 +369,7 @@ def genMesh():
 		endTime = int(round(time.time() * 1000))
 	else:
 		xsize = ysize = 100
-		type = 'square3'
+		type = 'star'
 
 		if type == 'normal':
 			# Attempted 'H'
@@ -379,46 +379,10 @@ def genMesh():
 			# Pentagram
 			perimeterSegments = 40 # The value # Pentagram.
 			os.system('cp pentagram.txt chaincode.txt')
-		elif type == 'star2':
-			# star
-			perimeterSegments = 110 # Pentagram.  The tips angle transition split from 144 to 70,74.
-			os.system('cp star2.txt chaincode.txt')
 		elif type == 'star':
 			# star
-			perimeterSegments = 100 #
+			perimeterSegments = 26*5 # Now works.  The angles were wrong.  Had to fix.
 			os.system('cp star.txt chaincode.txt')
-		elif type == 'star3':
-			# star
-			perimeterSegments = 90 #
-			os.system('cp star3.txt chaincode.txt')
-		elif type == 'star4':
-			# star
-			perimeterSegments = 26*5 # Trying to spread out the angle transitions.
-			os.system('cp star4.txt chaincode.txt')
-		elif type == 'starWide':
-			# star
-			perimeterSegments = 26*10 #
-			os.system('cp starWide.txt chaincode.txt')
-		elif type == 'starWide2':
-			# star
-			perimeterSegments = 26*10 # Doesn't work. -108 --> -50,-58.  144 unchanged.
-			os.system('cp starWide2.txt chaincode.txt')
-		elif type == 'starWide3':
-			# star
-			perimeterSegments = 26*10 # Doesn't work.  144 and -108 unchanged.
-			os.system('cp starWide3.txt chaincode.txt')
-		elif type == 'starWide4':
-			# star
-			perimeterSegments = 26*10 # Works.  -108 --> -50, 0, 0, -58.  144 remains unchanged.
-			os.system('cp starWide4.txt chaincode.txt')
-		elif type == 'starWide5':
-			# star
-			perimeterSegments = 26*10 # Works at 26 * 9 ad 26 * 10.  Split the 144 -> 70, 74 and -108 --> -50, 0, 0, -50, 0, 0, -28 into smaller angles components.
-			os.system('cp starWide5.txt chaincode.txt')
-		elif type == 'starWide6':
-			# star
-			perimeterSegments = 26*10 # Split the 144 --> 14, 130 and -108 --> -50, -58 into smaller angles components.  Works at 26 * 10
-			os.system('cp starWide6.txt chaincode.txt')
 		elif type == 'square':
 			# star
 			perimeterSegments = 26*4 #
