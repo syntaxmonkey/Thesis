@@ -18,8 +18,9 @@ def genLetter(boxsize=80, character = 'M', blur=1):
 	d.text( (x,y) , character, fill=(0, 0, 0), font=font) # Add the text.
 
 	# Blur the image.
-	img = img.filter(ImageFilter.BoxBlur(blur))
-	img = img.filter(ImageFilter.SMOOTH_MORE)
+	if blur > 0:
+		img = img.filter(ImageFilter.BoxBlur(blur))
+		img = img.filter(ImageFilter.SMOOTH_MORE)
 
 	# Flood file for masking.
 	ImageDraw.floodfill(img, xy=(0, 0), value=(255, 0, 255), thresh=200) # https://stackoverflow.com/questions/46083880/fill-in-a-hollow-shape-using-python-and-pillow-pil

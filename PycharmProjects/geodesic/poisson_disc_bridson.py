@@ -346,15 +346,15 @@ def get_cartesian_from_barycentric(b, t):
 def genMesh():
 	global triang, triang2, trifinder, trifinder2, ax1, ax2, Originalsamples, Flatsamples, Originalfaces, Flatfaces, polygon1, polygon2, xsize, ysize, perimeterSegments, startingR
 
-	generateBlob = False
+	generateBlob = True
 
 	if generateBlob:
 		dimension = 100
 		letterDimension = int(dimension / 4)
-		character = 'H'
+		character = 'Y'
 		xsize = ysize = dimension
 		# letter = genLetter(boxsize=dimension, character=character)
-		letter = genLetter(boxsize=letterDimension, character=character, blur=1)
+		letter = genLetter(boxsize=letterDimension, character=character, blur=0)
 		count, chain, chainDirection, border = generateChainCode(letter)
 		print('ChainDirection:', len(chainDirection), chainDirection)
 		# writeChainCodeFile('./', 'testChainCode.txt', chainDirection)
@@ -486,13 +486,14 @@ def genMesh():
 
 		# Second subplot
 		# print(Flatfaces)
+		Flatsamples = Flatsamples * dimension
 		triang2 = Triangulation(Flatsamples[:, 0], Flatsamples[:, 1], triangles=Flatfaces)
 		# ax2 = plt.subplot(122, aspect='equal')  # Create first subplot.
 		ax2.triplot(triang2, color='grey')
 
 		triang2.set_mask(np.hypot(Flatsamples[:, 0][triang2.triangles].mean(axis=1),
 		                          Flatsamples[:, 1][triang2.triangles].mean(axis=1)) < min_radius)
-		if generateBlob == False:
+		if generateBlob == True:
 			trifinder2 = triang2.get_trifinder()
 			polygon2 = Polygon([[0, 0], [0, 0]], facecolor='y')  # dummy data for xs,ys
 			update_polygon2(-1, polygon2)
