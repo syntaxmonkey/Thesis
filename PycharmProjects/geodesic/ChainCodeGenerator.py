@@ -32,6 +32,7 @@ from FilledLetter import genLetter
 
 
 def generateChainCode(img):
+	closeLoop = True # Ensure the chain code forms a loop.
 	currentDirection = 0
 	## Discover the first point
 	for i, row in enumerate(img):
@@ -66,6 +67,7 @@ def generateChainCode(img):
 	chain = []
 	chainDirection = [] # Will contain the degree change.
 
+	originalStart = start_point # Original start point.
 	curr_point = start_point
 	for direction in directions:
 		idx = dir2idx[direction]
@@ -103,19 +105,42 @@ def generateChainCode(img):
 						# In this case, we are going CW.
 						directionChange = directionChange
 
-				# directionChange = directionChange * 45
 				directionChange = directionChange * 45
-				# if directionChange > 90:
-				# 	directionChange = 90
-				# elif directionChange < -90:
-				# 	directionChange = -90
 				currentDirection += directionChange
-				# print(chain[-2], '-->', chain[-1], 'angle:', directionChange, 'Current Direction: ', currentDirection)
 				chainDirection.append(directionChange)
 				curr_point = new_point
 				break
-		if count == 10000: break
+		#if count == 10000: break
 		count += 1
+
+
+	# Need to add last transition to close the loop.
+	# Find the direction to the original Start point.
+	# HSC
+	if 1 == 1:
+		for direction in directions:
+			idx = dir2idx[direction]
+			new_point = (curr_point[0]+change_i[idx], curr_point[1]+change_j[idx])
+			if new_point == border[0]: # if is ROI
+				border.append(new_point)
+				chain.append(direction)
+				directionChange = (chain[-1] - chain[-2])  # HSC
+				# If directionChange is not zero
+				if directionChange != 0:
+					if directionChange > 4:
+						# In this case, we are going CCW.
+						directionChange = directionChange - 8
+					elif directionChange < -4:
+						directionChange = directionChange + 8
+					else:
+						# In this case, we are going CW.
+						directionChange = directionChange
+
+				directionChange = directionChange * 45
+				chainDirection.append(directionChange)
+				break
+		count += 1
+
 
 	return count, chain, chainDirection, border
 
