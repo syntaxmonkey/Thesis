@@ -194,9 +194,11 @@ dynamic_ratio = 2
 # Dotted Line variables.
 dt = None
 dt = None
-tempLine = None
-lines = []
 
+tempLine = None
+ax1lines = []
+ax2lines = []
+additionalPoints = []
 
 
 
@@ -243,17 +245,20 @@ def motion_notify(event):
 
 
 def replicateDots(linePoints, axTarget, triFinder, triang, triang2, Originalsamples, Flatsamples):
+	global additionalPoints
 	for linePoint in linePoints:
 		# ax1.plot(event.xdata, event.ydata, 'go')
 
-		tri = triFinder(linePoint[0], linePoint[1])
+		x = linePoint.get_xdata(orig=True)[0]
+		y = linePoint.get_ydata(orig=True)[0]
+		tri = triFinder(x, y)
 		print(tri)
 		print(triang.triangles[tri])
 		face = []
 		for vertex in triang.triangles[tri]: # Create triangle from the coordinates.
 			curVertex = Originalsamples[vertex]
 			face.append([curVertex[0], curVertex[1]])
-		bary1 = calculateBarycentric(face, (linePoint[0], linePoint[1]))  # Calculate the barycentric coordinates.
+		bary1 = calculateBarycentric(face, (x, y))  # Calculate the barycentric coordinates.
 
 		face2 = []
 		for vertex in triang2.triangles[tri]:
@@ -261,63 +266,52 @@ def replicateDots(linePoints, axTarget, triFinder, triang, triang2, Originalsamp
 			face2.append([curVertex[0], curVertex[1]])
 		cartesian = get_cartesian_from_barycentric(bary1, face2)
 		print(cartesian)
-		axTarget.plot(cartesian[0], cartesian[1], color='green', marker='o')
+		dot, = axTarget.plot(cartesian[0], cartesian[1], color='green', marker='o')
+		additionalPoints.append(dot)
 
 
+def clearDots(event):
+	global ax1lines, ax2lines, additionalPoints
+
+	# print('ax1lines:', ax1lines)
+	for lines in ax1lines:
+		for point in lines:
+			point.remove()
+
+	# print('ax2lines:', ax2lines)
+	for lines in ax2lines:
+		for point in lines:
+			point.remove()
+
+	for points in additionalPoints:
+		points.remove()
+
+	ax1lines =  []
+	ax2lines = []
+	additionalPoints = []
+	print('ax1lines:', ax1lines)
+	event.canvas.draw()
 
 
 
 
 def on_click(event):
-	global dt, tempLine, lines
+	global dt, tempLine, ax1lines, ax2lines
 	# https://stackoverflow.com/questions/41824662/how-to-plot-a-dot-each-time-at-the-point-the-mouse-is-clicked-in-matplotlib
 	# https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.plot.html
 	if event.inaxes == ax1:
 		# print('button=%d, x=%d, y=%d, xdata=%f, ydata=%f' % (event.button, event.x, event.y, event.xdata, event.ydata))
 		linePoints = handleDottedLine(event, event.inaxes)
-		# replicateDotsToAX2(linePoints)
-		replicateDots(linePoints, ax2, trifinder, triang, triang2, Originalsamples, Flatsamples)
-		# ax1.plot(event.xdata, event.ydata, 'go')
-		#
-		# tri = trifinder(event.xdata, event.ydata)
-		# print(tri)
-		# print(triang.triangles[tri])
-		# face = []
-		# for vertex in triang.triangles[tri]: # Create triangle from the coordinates.
-		# 	curVertex = Originalsamples[vertex]
-		# 	face.append([curVertex[0], curVertex[1]])
-		# bary1 = calculateBarycentric(face, (event.xdata, event.ydata))  # Calculate the barycentric coordinates.
-		#
-		# face2 = []
-		# for vertex in triang2.triangles[tri]:
-		# 	curVertex = Flatsamples[vertex]
-		# 	face2.append([curVertex[0], curVertex[1]])
-		# cartesian = get_cartesian_from_barycentric(bary1, face2)
-		# print(cartesian)
-		# ax2.plot(cartesian[0], cartesian[1], color='red', marker='+')
+		if len(linePoints) > 0:
+			ax1lines.append(linePoints)
+			replicateDots(linePoints, ax2, trifinder, triang, triang2, Originalsamples, Flatsamples)
 
 		event.canvas.draw()
 	elif event.inaxes == ax2:
 		linePoints = handleDottedLine(event, event.inaxes)
-		# replicateDotsToAX1(linePoints)
-		replicateDots(linePoints, ax1, trifinder2, triang2, triang, Flatsamples, Originalsamples)
-		# ax2.plot(event.xdata, event.ydata, 'ro')
-		# tri = trifinder2(event.xdata, event.ydata)
-		# print(tri)
-		# print(triang2.triangles[tri])
-		# face = []
-		# for vertex in triang2.triangles[tri]: # Create triangle from the coordinates.
-		# 	curVertex = Flatsamples[vertex]
-		# 	face.append([curVertex[0], curVertex[1]])
-		# bary1 = calculateBarycentric(face, (event.xdata, event.ydata))  # Calculate the barycentric coordinates.
-		#
-		# face2 = []
-		# for vertex in triang.triangles[tri]:
-		# 	curVertex = Originalsamples[vertex]
-		# 	face2.append([curVertex[0], curVertex[1]])
-		# cartesian = get_cartesian_from_barycentric(bary1, face2)
-		# print(cartesian)
-		# ax1.plot(cartesian[0], cartesian[1], color='green', marker='+')
+		if len(linePoints) > 0:
+			ax2lines.append(linePoints)
+			replicateDots(linePoints, ax1, trifinder2, triang2, triang, Flatsamples, Originalsamples)
 
 		event.canvas.draw()
 
@@ -346,12 +340,12 @@ def get_cartesian_from_barycentric(b, t):
 def genMesh():
 	global triang, triang2, trifinder, trifinder2, ax1, ax2, Originalsamples, Flatsamples, Originalfaces, Flatfaces, polygon1, polygon2, xsize, ysize, perimeterSegments, startingR
 
-	generateBlob = True
+	generateBlob = False
 
+	dimension = 200
 	if generateBlob:
-		dimension = 100
 		letterDimension = int(dimension / 4)
-		character = 'Y'
+		character = 'y'
 		xsize = ysize = dimension
 		# letter = genLetter(boxsize=dimension, character=character)
 		letter = genLetter(boxsize=letterDimension, character=character, blur=0)
@@ -368,8 +362,8 @@ def genMesh():
 		# samples = poisson_disc_samples(width=xsize, height=ysize, r=4, k=k, segments=len(chainDirection))
 		endTime = int(round(time.time() * 1000))
 	else:
-		xsize = ysize = 100
-		type = 'star'
+		xsize = ysize = dimension
+		type = 'cRecurve3'
 
 		if type == 'normal':
 			# Attempted 'H'
@@ -395,6 +389,18 @@ def genMesh():
 			# star
 			perimeterSegments = 26*4 #
 			os.system('cp square3.txt chaincode.txt')
+		elif type == 'c':
+			# star
+			perimeterSegments = 93 #
+			os.system('cp c.txt chaincode.txt')
+		elif type == 'cRecurve2':
+			# star
+			perimeterSegments = 81 #
+			os.system('cp cRecurve2.txt chaincode.txt')
+		elif type == 'cRecurve3':
+			# star
+			perimeterSegments = 80 #
+			os.system('cp cRecurve3.txt chaincode.txt')
 
 
 
@@ -461,6 +467,7 @@ def genMesh():
 
 		axcut = plt.axes([0.8, 0.65, 0.1, 0.075]) # https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes. [ left, bottom, width, height ]
 		breset = Button(axcut, 'Reset', color='red', hovercolor='green')
+		breset.on_clicked(clearDots) # Bind event for reset button.
 
 
 		''' Mesh drawings '''
@@ -493,12 +500,11 @@ def genMesh():
 
 		triang2.set_mask(np.hypot(Flatsamples[:, 0][triang2.triangles].mean(axis=1),
 		                          Flatsamples[:, 1][triang2.triangles].mean(axis=1)) < min_radius)
-		if generateBlob == True:
-			trifinder2 = triang2.get_trifinder()
-			polygon2 = Polygon([[0, 0], [0, 0]], facecolor='y')  # dummy data for xs,ys
-			update_polygon2(-1, polygon2)
+		trifinder2 = triang2.get_trifinder()
+		polygon2 = Polygon([[0, 0], [0, 0]], facecolor='y')  # dummy data for xs,ys
+		update_polygon2(-1, polygon2)
 
-			ax2.add_patch(polygon2)
+		ax2.add_patch(polygon2)
 
 		if 1 == 0:
 			# Original code.

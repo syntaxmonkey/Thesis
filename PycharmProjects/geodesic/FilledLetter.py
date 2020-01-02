@@ -2,13 +2,14 @@ from PIL import Image, ImageFont, ImageDraw, ImageFilter
 import numpy as np
 
 
-def genLetter(boxsize=80, character = 'M', blur=1):
+def genLetter(boxsize=80, character = 'Y', blur=1):
 	fontsize = int(boxsize * 1.0)
 	img = Image.new('RGB', (boxsize, boxsize), color=(255, 255, 255))
 	# get a font
 	# character = 'P'
 
-	font = ImageFont.truetype("/System/Library/Fonts/Keyboard.ttf", fontsize)
+	# font = ImageFont.truetype("/System/Library/Fonts/Keyboard.ttf", fontsize)
+	font = ImageFont.truetype("/System/Library/Fonts/Geneva.dfont", fontsize)
 	width, height = font.getsize(character)
 
 	x = int((boxsize - width)/2)
@@ -45,7 +46,7 @@ def genLetter(boxsize=80, character = 'M', blur=1):
 
 
 if __name__ == '__main__':
-	n = genLetter(boxsize=80, character = 'S', blur=2)
+	n = genLetter(boxsize=80, character = 'Y', blur=1)
 
 	img = Image.fromarray(n)
 	img.save('pil_text.png')

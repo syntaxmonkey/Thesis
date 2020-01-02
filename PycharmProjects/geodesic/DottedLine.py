@@ -47,22 +47,20 @@ def handleDottedLine(event, ax):
 		# ax.plot(event.xdata, event.ydata, 'or')
 	else:
 		linePoints = generateLinePoints(dt.points, [event.xdata, event.ydata]) # Generate the points along the line.
+		newLinePoints = []
 		# Plot dots.
 		for linePoint in linePoints:
-			ax.plot(linePoint[0], linePoint[1], 'or')
+			dot, = ax.plot(linePoint[0], linePoint[1], 'or')
+			newLinePoints.append(dot)
+			# print(dot) # HSC
+
+		linePoints = newLinePoints
 		tempLine.remove()
 		dt.addPoint([event.xdata, event.ydata])
-		# dt.points=np.array(dt.points)
 		print(dt.points)
-		# xpoints = dt.points[:, 0]
-		# ypoints = dt.points[:, 1]
-		# ax.plot(xpoints, ypoints, '--b')
-
-		# lines.append(dt)
 		dt = None
-
 		tempLine = None
-		# print(lines)
+
 	event.canvas.draw()
 	return linePoints
 

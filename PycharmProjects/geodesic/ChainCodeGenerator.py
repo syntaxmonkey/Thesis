@@ -108,6 +108,7 @@ def generateChainCode(img):
 				directionChange = directionChange * 45
 				currentDirection += directionChange
 				chainDirection.append(directionChange)
+				# chainDirection.append(0) # Kludge.  Insert a zero transition.
 				curr_point = new_point
 				break
 		#if count == 10000: break
@@ -138,6 +139,7 @@ def generateChainCode(img):
 
 				directionChange = directionChange * 45
 				chainDirection.append(directionChange)
+				# chainDirection.append(0) # Kludge.  Insert a zero transition.
 				break
 		count += 1
 
@@ -154,7 +156,7 @@ def writeChainCodeFile(path, filename, chainDirection):
 
 
 if __name__ == '__main__':
-	img = genLetter(boxsize=int(100/4), character='H', blur=1)
+	img = genLetter(boxsize=int(100/4), character='C', blur=1)
 	count, chain, chainDirection, border = generateChainCode(img)
 	print('Count:', count)
 	print('Chain:', len(chain), chain)
