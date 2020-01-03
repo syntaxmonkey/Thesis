@@ -24,13 +24,14 @@ from DottedLine import press, handleDottedLine, handleMove, createDottedLine
 
 from ObjectBlob import Paint
 
-from matplotlib.widgets import Button # https://matplotlib.org/3.1.1/gallery/widgets/buttons.html
+from matplotlib.widgets import Button, Slider # https://matplotlib.org/3.1.1/gallery/widgets/buttons.html
 
 from FilledLetter import genLetter
 
 from ChainCodeGenerator import generateChainCode, writeChainCodeFile
 
-from FindMeshBoundary import findTopBottom
+from FindMeshBoundary import findTopBottom, findLeftRight
+
 
 def euclidean_distance(a, b):
 	dx = a[0] - b[0]
@@ -176,13 +177,14 @@ def poisson_disc_samples(width, height, r, k=5, distance=euclidean_distance, ran
 
 
 '''
-	Settings	
+	variables
 '''
 useSegmentRadius = True # When set to True, will use the minimum distance between perimeter points.  False will use 60% of perimeter point distance.
 forceCenter = False # When set to True, will force inject the center point onto canvas.
 genVoronoi = True
 useDynamicRatio = False
 
+angle = 90
 center = 0
 radius = 0
 rRatio = 1
@@ -194,8 +196,6 @@ dynamic_ratio = 2
 
 # Dotted Line variables.
 dt = None
-dt = None
-
 tempLine = None
 ax1lines = []
 ax2lines = []
@@ -253,8 +253,8 @@ def replicateDots(linePoints, axTarget, triFinder, triang, triang2, Originalsamp
 		x = linePoint.get_xdata(orig=True)[0]
 		y = linePoint.get_ydata(orig=True)[0]
 		tri = triFinder(x, y)
-		print(tri)
-		print(triang.triangles[tri])
+		# print(tri)
+		# print(triang.triangles[tri])
 		face = []
 		for vertex in triang.triangles[tri]: # Create triangle from the coordinates.
 			curVertex = Originalsamples[vertex]
@@ -266,7 +266,7 @@ def replicateDots(linePoints, axTarget, triFinder, triang, triang2, Originalsamp
 			curVertex = Flatsamples[vertex]
 			face2.append([curVertex[0], curVertex[1]])
 		cartesian = get_cartesian_from_barycentric(bary1, face2)
-		print(cartesian)
+		# print(cartesian)
 		dot, = axTarget.plot(cartesian[0], cartesian[1], color='green', marker='o')
 		additionalPoints.append(dot)
 
@@ -298,6 +298,7 @@ def clearDots(event):
 
 def on_click(event):
 	global dt, tempLine, ax1lines, ax2lines
+	print('on click event: ', event.inaxes)
 	# https://stackoverflow.com/questions/41824662/how-to-plot-a-dot-each-time-at-the-point-the-mouse-is-clicked-in-matplotlib
 	# https://matplotlib.org/3.1.1/api/_as_gen/matplotlib.pyplot.plot.html
 	if event.inaxes == ax1:
@@ -336,24 +337,108 @@ def get_cartesian_from_barycentric(b, t):
 	bnew = np.array(b)
 	return tnew.dot(bnew)
 
-def verticalLine(dimension, ):
-	global trifinder
-	top, bottom = findTopBottom(int(dimension/2), dimension, trifinder)
+def verticalLine(spacing=20 ):
+	global angle
 
-	createDottedLine(ax1, top, bottom)
-	# linePoints = generateLinePoints(top, bottom)
+	if (angle > 0 and angle <= 90) or (angle > 270 and angle <= 360):
+		generateXDominant(spacing)
+	else:
+		generateYDominant(spacing)
 
+
+def generateXDominant(spacing):
+	global trifinder, dimension, ax2, triang, triang2, Originalsamples, Flatsamples, ax1lines, angle
+
+	# Determine the range of x.
+	# xValues = [int(dimension/2)]
+	xValues = []
+	for i in range(0, int(dimension/2), spacing):
+		xValues.append(i)
+
+	for i in range(int(dimension/2), dimension, spacing):
+		xValues.append(i)
+
+	for xValue in xValues:
+		top, bottom = findTopBottom(xValue, dimension, trifinder, angle)
+		print('Top: ', top, ' Bottom: ', bottom)
+		linePoints = createDottedLine(ax1, top, bottom)
+		ax1lines.append(linePoints)
+		replicateDots(linePoints, ax2, trifinder, triang, triang2, Originalsamples, Flatsamples)
+
+
+def generateYDominant(spacing):
+	global trifinder, dimension, ax2, triang, triang2, Originalsamples, Flatsamples, ax1lines, angle
+
+	# Determine the range of x.
+	# xValues = [int(dimension/2)]
+	yValues = []
+	for i in range(0, int(dimension/2), spacing):
+		yValues.append(i)
+
+	for i in range(int(dimension/2), dimension, spacing):
+		yValues.append(i)
+
+	for yValue in yValues:
+		left, right = findLeftRight(yValue, dimension, trifinder, angle)
+		print('Left: ', left, ' Right: ', right)
+		linePoints = createDottedLine(ax1, left, right)
+		ax1lines.append(linePoints)
+		replicateDots(linePoints, ax2, trifinder, triang, triang2, Originalsamples, Flatsamples)
+
+
+
+
+# linePoints = generateLinePoints(top, bottom)
+
+def reset(event):
+	global triang, triang2, trifinder, trifinder2, ax1, ax2, Originalsamples, Flatsamples, Originalfaces, Flatfaces, polygon1, polygon2, perimeterSegments, startingR, angle
+	triang = []
+	triang2 = []
+	trifinder = []
+	trifinder2 = []
+	ax1 = None
+	ax2 = None
+	Originalsamples = []
+	Flatsamples = []
+	Originalfaces = []
+	Flatfaces = []
+	polygon1 = None
+	polygon2 = None
+	genMesh()
+
+
+def updateAngle(val):
+	global angle
+	angle = val
+	print('New angle: ', angle)
+
+def addButtons(plt):
+	''' Buttons '''
+	axcut = plt.axes([0.8, 0.8, 0.1,
+	                  0.075])  # https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes. [ left, bottom, width, height ]
+	bprocess = Button(axcut, 'Process', color='red', hovercolor='green')
+	bprocess.on_clicked(reset)
+
+	axcut = plt.axes([0.8, 0.65, 0.1,
+	                  0.075])  # https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes. [ left, bottom, width, height ]
+	breset = Button(axcut, 'Reset', color='red', hovercolor='green')
+	breset.on_clicked(clearDots)  # Bind event for reset button.
+
+	axcut = plt.axes([0.65, 0.65, 0.1,
+	                  0.075])  # https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes. [ left, bottom, width, height ]
+	bangle = Slider(axcut, 'Angle: ' + str(angle), 0, 360, valinit=angle, valfmt='%1.2f', dragging=True)
+	bangle.on_changed(updateAngle)
 
 
 def genMesh():
-	global triang, triang2, trifinder, trifinder2, ax1, ax2, Originalsamples, Flatsamples, Originalfaces, Flatfaces, polygon1, polygon2, xsize, ysize, perimeterSegments, startingR
+	global triang, triang2, trifinder, trifinder2, ax1, ax2, Originalsamples, Flatsamples, Originalfaces, Flatfaces, polygon1, polygon2, xsize, ysize, perimeterSegments, startingR, angle, bprocess, breset, bangle, dimension
 
-	generateBlob = False
+	generateBlob = True
 
 	dimension = 200
 	if generateBlob:
 		letterDimension = int(dimension / 4)
-		character = 'y'
+		character = 'A'
 		xsize = ysize = dimension
 		# letter = genLetter(boxsize=dimension, character=character)
 		letter = genLetter(boxsize=letterDimension, character=character, blur=0)
@@ -410,8 +495,6 @@ def genMesh():
 			perimeterSegments = 80 #
 			os.system('cp cRecurve3.txt chaincode.txt')
 
-
-
 		startingR = perimeterSegments / 10
 		startTime = int(round(time.time() * 1000))
 		samples = poisson_disc_samples(width=xsize, height=ysize, r=20, k=k, segments=perimeterSegments)
@@ -444,7 +527,7 @@ def genMesh():
 		print("Reshaping with BFF")
 		os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --angle=1 --normalizeUVs")
 		# Extract the flattened version of the image.
-		print()
+
 		print("Extracting 2D image post BFF Reshaping")
 		os.system(path + "extract.py test1_out.obj test1_out_flat.obj")
 
@@ -469,14 +552,19 @@ def genMesh():
 		axdraw.imshow(letter)
 
 		''' Buttons '''
-
 		axcut = plt.axes([0.8, 0.8, 0.1, 0.075]) # https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes. [ left, bottom, width, height ]
 		bprocess = Button(axcut, 'Process', color='red', hovercolor='green')
+		bprocess.on_clicked(reset)
 
 		axcut = plt.axes([0.8, 0.65, 0.1, 0.075]) # https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes. [ left, bottom, width, height ]
 		breset = Button(axcut, 'Reset', color='red', hovercolor='green')
 		breset.on_clicked(clearDots) # Bind event for reset button.
 
+		axcut = plt.axes([0.65, 0.65, 0.1,
+		                  0.075])  # https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes. [ left, bottom, width, height ]
+		bangle =  Slider(axcut, 'Angle: ' + str(angle), 0, 360, valfmt='%1.2f', dragging=True)
+		bangle.set_val(angle)
+		bangle.on_changed(updateAngle)
 
 		''' Mesh drawings '''
 		ax1 = plt.subplot2grid(gridsize, (1, 0), rowspan=2)
@@ -511,25 +599,19 @@ def genMesh():
 		trifinder2 = triang2.get_trifinder()
 		polygon2 = Polygon([[0, 0], [0, 0]], facecolor='y')  # dummy data for xs,ys
 		update_polygon2(-1, polygon2)
-
 		ax2.add_patch(polygon2)
 
-		if 1 == 0:
-			# Original code.
-			triang2.set_mask(np.hypot(Flatsamples[:, 0][triang2.triangles].mean(axis=1), Flatsamples[:, 1][triang2.triangles].mean(axis=1)) < min_radius)
-			trifinder2 = triang2.get_trifinder()
-			polygon2 = Polygon([[0, 0], [0, 0]], facecolor='y')  # dummy data for xs,ys
-			update_polygon2(-1, polygon2)
-
-			ax2.add_patch(polygon2)
-
-	verticalLine(dimension)
+	# verticalLine(dimension)
 
 	#plt.imshow(raster)
 	plt.gray()
 	# Paint()
-	plt.show()
+	# plt.show()
+	return plt
 
 
 if __name__ == '__main__':
 	genMesh()
+	verticalLine()
+	# addButtons(plt)
+	plt.show()

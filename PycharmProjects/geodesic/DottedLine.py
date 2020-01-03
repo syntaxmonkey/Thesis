@@ -44,9 +44,11 @@ def handleDottedLine(event, ax):
 	global dt, tempLine, lines
 	linePoints = []
 	if dt == None:
+		# print('initialize dt')
 		dt = DottedLine([event.xdata, event.ydata])
 		# ax.plot(event.xdata, event.ydata, 'or')
 	else:
+		# print('creating line')
 		linePoints = createDottedLine(ax, dt.points, (event.xdata, event.ydata))
 		tempLine.remove()
 		# dt.addPoint([event.xdata, event.ydata])
@@ -78,19 +80,21 @@ def generateLinePoints(startPoint, endPoint, segmentLength=10):
 
 	deltax = x2 - x1
 	deltay = y2 - y1
-	pointDistance = math.sqrt( math.pow(deltax, 2) + math.pow(deltay, 2) )
-
-	segmentCount = math.floor(pointDistance / segmentLength)
-	if (segmentCount == 0):
-		segmentCount = 1
-	adjustedSegmentDistance = pointDistance / segmentCount
-	segmentDistance = adjustedSegmentDistance / pointDistance
-
-	print("Segment Count %d" % (segmentCount))
 	points = []
-	for i in range(segmentCount):
-		points.append((x1 + segmentDistance*deltax*i, y1 + segmentDistance*deltay*i))
-	points.append((x2,y2))
+	if not (abs(deltay) == 0 and abs(deltax) == 0):
+		pointDistance = math.sqrt( math.pow(deltax, 2) + math.pow(deltay, 2) )
+
+		segmentCount = math.floor(pointDistance / segmentLength)
+		if (segmentCount == 0):
+			segmentCount = 1
+		adjustedSegmentDistance = pointDistance / segmentCount
+		segmentDistance = adjustedSegmentDistance / pointDistance
+
+		# print("Segment Count %d" % (segmentCount))
+		points = []
+		for i in range(segmentCount):
+			points.append((x1 + segmentDistance*deltax*i, y1 + segmentDistance*deltay*i))
+		points.append((x2,y2))
 
 	return points
 

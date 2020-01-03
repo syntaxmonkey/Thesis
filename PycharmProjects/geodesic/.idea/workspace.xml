@@ -14,8 +14,8 @@
       <file leaf-file-name="poisson_disc_bridson.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/poisson_disc_bridson.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="335" column="22" lean-forward="true" selection-start-line="335" selection-start-column="22" selection-end-line="335" selection-end-column="22" />
+            <state relative-caret-position="329">
+              <caret line="363" column="55" lean-forward="true" selection-start-line="363" selection-start-column="55" selection-end-line="363" selection-end-column="55" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -26,8 +26,8 @@
       <file leaf-file-name="FindMeshBoundary.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FindMeshBoundary.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="19" column="18" lean-forward="true" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
+            <state relative-caret-position="244">
+              <caret line="22" column="53" lean-forward="false" selection-start-line="22" selection-start-column="53" selection-end-line="22" selection-end-column="53" />
               <folding />
             </state>
           </provider>
@@ -60,8 +60,8 @@
       <file leaf-file-name="ChainCodeGenerator.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ChainCodeGenerator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2145">
-              <caret line="152" column="36" lean-forward="false" selection-start-line="152" selection-start-column="36" selection-end-line="152" selection-end-column="36" />
+            <state relative-caret-position="1703">
+              <caret line="131" column="57" lean-forward="true" selection-start-line="131" selection-start-column="57" selection-end-line="131" selection-end-column="57" />
               <folding>
                 <element signature="e#176#211#0" expanded="true" />
               </folding>
@@ -72,8 +72,8 @@
       <file leaf-file-name="createOBJFile.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/createOBJFile.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="17" column="66" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="66" />
+            <state relative-caret-position="268">
+              <caret line="24" column="11" lean-forward="false" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -82,7 +82,7 @@
       <file leaf-file-name="ObjectBlob.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ObjectBlob.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
+            <state relative-caret-position="151">
               <caret line="13" column="16" lean-forward="false" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
@@ -94,8 +94,8 @@
       <file leaf-file-name="readOBJFile.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/readOBJFile.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2310">
-              <caret line="159" column="8" lean-forward="false" selection-start-line="159" selection-start-column="8" selection-end-line="159" selection-end-column="8" />
+            <state relative-caret-position="234">
+              <caret line="81" column="10" lean-forward="false" selection-start-line="81" selection-start-column="4" selection-end-line="81" selection-end-column="10" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -106,8 +106,8 @@
       <file leaf-file-name="DottedLine.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/DottedLine.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="355">
-              <caret line="60" column="20" lean-forward="false" selection-start-line="60" selection-start-column="4" selection-end-line="60" selection-end-column="20" />
+            <state relative-caret-position="338">
+              <caret line="84" column="76" lean-forward="false" selection-start-line="84" selection-start-column="76" selection-end-line="84" selection-end-column="76" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
               </folding>
@@ -126,27 +126,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>sample</find>
-      <find>raster</find>
-      <find>chain</find>
-      <find>np.</find>
-      <find>direction</find>
-      <find>poisson_disc_samples</find>
-      <find>path</find>
-      <find>startTime</find>
-      <find>xsize</find>
-      <find>perimeterSegments</find>
-      <find>genMes</find>
-      <find>grid_width</find>
-      <find>cellsize</find>
-      <find>actual r</find>
-      <find>on_click</find>
-      <find>handleDottedLine</find>
-      <find>lines</find>
-      <find>button</find>
-      <find>press</find>
-      <find>remove(</find>
-      <find>linePoints</find>
       <find>replicateDotsreplicateDots</find>
       <find>replicateDots</find>
       <find>replic</find>
@@ -155,7 +134,28 @@
       <find>trifinder2</find>
       <find>generateLinePoints</find>
       <find>duplicat</find>
+      <find>FigureCanvasTkAgg</find>
+      <find>triang</find>
+      <find>Segment Count</find>
+      <find>f.write(&quot;v %f %f %f\r\n&quot; % (coords[0], coords[1], zvalue))</find>
+      <find>Sements:</find>
+      <find>Segment based</find>
+      <find>poisson_disc_samples</find>
+      <find>createDottedLine</find>
+      <find>handle</find>
+      <find>Top:</find>
+      <find>Segment</find>
+      <find>dup</find>
+      <find>dupli</find>
+      <find>angle=</find>
+      <find>angle</find>
+      <find>vari</find>
       <find>vertical</find>
+      <find>bang</find>
+      <find>bangle</find>
+      <find>verti</find>
+      <find>variable</find>
+      <find>print(</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -184,8 +184,8 @@
         <option value="$PROJECT_DIR$/readOBJFile.py" />
         <option value="$PROJECT_DIR$/FilledLetter.py" />
         <option value="$PROJECT_DIR$/ChainCodeGenerator.py" />
-        <option value="$PROJECT_DIR$/FindMeshBoundary.py" />
         <option value="$PROJECT_DIR$/DottedLine.py" />
+        <option value="$PROJECT_DIR$/FindMeshBoundary.py" />
         <option value="$PROJECT_DIR$/poisson_disc_bridson.py" />
       </list>
     </option>
@@ -778,14 +778,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/createOBJFile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="17" column="66" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="66" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.7/site-packages/matplotlib/tri/triangulation.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="196">
@@ -793,9 +785,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Validation.py" />
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.7/site-packages/matplotlib/tri/trifinder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/ObjectBlob.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
+        <state relative-caret-position="151">
           <caret line="13" column="16" lean-forward="false" selection-start-line="13" selection-start-column="16" selection-end-line="13" selection-end-column="16" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
@@ -803,21 +803,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Validation.py" />
-    <entry file="file://$PROJECT_DIR$/readOBJFile.py">
+    <entry file="file://$PROJECT_DIR$/createOBJFile.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2310">
-          <caret line="159" column="8" lean-forward="false" selection-start-line="159" selection-start-column="8" selection-end-line="159" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/anaconda3/lib/python3.7/site-packages/matplotlib/tri/trifinder.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="84" column="0" lean-forward="false" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+        <state relative-caret-position="268">
+          <caret line="24" column="11" lean-forward="false" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="11" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -833,36 +823,46 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ChainCodeGenerator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2145">
-          <caret line="152" column="36" lean-forward="false" selection-start-line="152" selection-start-column="36" selection-end-line="152" selection-end-column="36" />
+        <state relative-caret-position="1703">
+          <caret line="131" column="57" lean-forward="true" selection-start-line="131" selection-start-column="57" selection-end-line="131" selection-end-column="57" />
           <folding>
             <element signature="e#176#211#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FindMeshBoundary.py">
+    <entry file="file://$PROJECT_DIR$/readOBJFile.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="18" lean-forward="true" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
-          <folding />
+        <state relative-caret-position="234">
+          <caret line="81" column="10" lean-forward="false" selection-start-line="81" selection-start-column="4" selection-end-line="81" selection-end-column="10" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/DottedLine.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="60" column="20" lean-forward="false" selection-start-line="60" selection-start-column="4" selection-end-line="60" selection-end-column="20" />
+        <state relative-caret-position="338">
+          <caret line="84" column="76" lean-forward="false" selection-start-line="84" selection-start-column="76" selection-end-line="84" selection-end-column="76" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/FindMeshBoundary.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="244">
+          <caret line="22" column="53" lean-forward="false" selection-start-line="22" selection-start-column="53" selection-end-line="22" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/poisson_disc_bridson.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="335" column="22" lean-forward="true" selection-start-line="335" selection-start-column="22" selection-end-line="335" selection-end-column="22" />
+        <state relative-caret-position="329">
+          <caret line="363" column="55" lean-forward="true" selection-start-line="363" selection-start-column="55" selection-end-line="363" selection-end-column="55" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>
