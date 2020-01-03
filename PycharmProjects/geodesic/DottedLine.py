@@ -39,6 +39,7 @@ def on_click(event):
 	if event.inaxes == ax:
 		handleDottedLine(event, event.inaxes)
 
+
 def handleDottedLine(event, ax):
 	global dt, tempLine, lines
 	linePoints = []
@@ -46,23 +47,29 @@ def handleDottedLine(event, ax):
 		dt = DottedLine([event.xdata, event.ydata])
 		# ax.plot(event.xdata, event.ydata, 'or')
 	else:
-		linePoints = generateLinePoints(dt.points, [event.xdata, event.ydata]) # Generate the points along the line.
-		newLinePoints = []
-		# Plot dots.
-		for linePoint in linePoints:
-			dot, = ax.plot(linePoint[0], linePoint[1], 'or')
-			newLinePoints.append(dot)
-			# print(dot) # HSC
-
-		linePoints = newLinePoints
+		linePoints = createDottedLine(ax, dt.points, (event.xdata, event.ydata))
 		tempLine.remove()
-		dt.addPoint([event.xdata, event.ydata])
-		print(dt.points)
+		# dt.addPoint([event.xdata, event.ydata])
+		# print(dt.points)
 		dt = None
 		tempLine = None
 
 	event.canvas.draw()
 	return linePoints
+
+
+def createDottedLine(ax, startPoint, endPoint):
+	linePoints = generateLinePoints(startPoint, endPoint)  # Generate the points along the line.
+	newLinePoints = []
+	# Plot dots.
+	for linePoint in linePoints:
+		dot, = ax.plot(linePoint[0], linePoint[1], 'or')
+		newLinePoints.append(dot)
+
+	linePoints = newLinePoints
+	return linePoints
+
+
 
 
 def generateLinePoints(startPoint, endPoint, segmentLength=10):

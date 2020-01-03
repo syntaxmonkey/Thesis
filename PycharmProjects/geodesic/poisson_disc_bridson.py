@@ -20,7 +20,7 @@ from matplotlib.patches import Polygon # https://matplotlib.org/3.1.1/gallery/ev
 
 import numpy.linalg as la # https://codereview.stackexchange.com/questions/41024/faster-computation-of-barycentric-coordinates-for-many-points
 
-from DottedLine import press, handleDottedLine, handleMove
+from DottedLine import press, handleDottedLine, handleMove, createDottedLine
 
 from ObjectBlob import Paint
 
@@ -30,6 +30,7 @@ from FilledLetter import genLetter
 
 from ChainCodeGenerator import generateChainCode, writeChainCodeFile
 
+from FindMeshBoundary import findTopBottom
 
 def euclidean_distance(a, b):
 	dx = a[0] - b[0]
@@ -335,6 +336,13 @@ def get_cartesian_from_barycentric(b, t):
 	bnew = np.array(b)
 	return tnew.dot(bnew)
 
+def verticalLine(dimension, ):
+	global trifinder
+	top, bottom = findTopBottom(int(dimension/2), dimension, trifinder)
+
+	createDottedLine(ax1, top, bottom)
+	# linePoints = generateLinePoints(top, bottom)
+
 
 
 def genMesh():
@@ -515,6 +523,7 @@ def genMesh():
 
 			ax2.add_patch(polygon2)
 
+	verticalLine(dimension)
 
 	#plt.imshow(raster)
 	plt.gray()
