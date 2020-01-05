@@ -30,7 +30,7 @@ from FilledLetter import genLetter
 
 from ChainCodeGenerator import generateChainCode, writeChainCodeFile
 
-from FindMeshBoundary import findTopBottom, findLeftRight
+from FindMeshBoundary import generateBoundaryPoints, findTopBottom, findLeftRight
 
 
 def euclidean_distance(a, b):
@@ -184,11 +184,14 @@ forceCenter = False # When set to True, will force inject the center point onto 
 genVoronoi = True
 useDynamicRatio = False
 
-angle = 90
+spacing = 20
+angle = 15
 center = 0
 radius = 0
 rRatio = 1
 k = 50
+ax1 = None
+ax2 = None
 xsize = 100 # Should be multiple of 20.
 ysize = 100 # Should be multiple of 20.
 dynamic_ratio = 2
@@ -337,51 +340,46 @@ def get_cartesian_from_barycentric(b, t):
 	bnew = np.array(b)
 	return tnew.dot(bnew)
 
-def verticalLine(spacing=20 ):
+def parallelLines(spacing=20 ):
 	global angle
 
-	if (angle > 0 and angle <= 90) or (angle > 270 and angle <= 360):
-		generateXDominant(spacing)
-	else:
-		generateYDominant(spacing)
+	xAxisValues, yAxisValues = generateBoundaryPoints(angle, dimension, spacing)
+	parallelLineFilter(xAxisValues, yAxisValues)
 
+def parallelLineFilter(xAxisValues, yAxisValues):
+	dottedLines = []
 
-def generateXDominant(spacing):
-	global trifinder, dimension, ax2, triang, triang2, Originalsamples, Flatsamples, ax1lines, angle
+	for line in xAxisValues:
+		startPoint, endPoint = line
+		distance = euclidean_distance(startPoint, endPoint)
+		segments = distance / spacing  # Determine the number of segments required.
+		incrementX = ( endPoint[0] - startPoint[0] ) / segments
+		incrementY = ( endPoint[1] - startPoint[1] ) / segments
+		top, bottom = findTopBottom(startPoint, endPoint, incrementX, incrementY, distance, trifinder)
+		if not (top[0] == -1 or top[1] == -1 or bottom[0] == -1 or bottom[1] == -1):
+			line = [top, bottom]
+			dottedLines.append( line )
 
-	# Determine the range of x.
-	# xValues = [int(dimension/2)]
-	xValues = []
-	for i in range(0, int(dimension/2), spacing):
-		xValues.append(i)
+	for line in yAxisValues:
+		startPoint, endPoint = line
+		distance = euclidean_distance(startPoint, endPoint)
+		segments = distance / spacing  # Determine the number of segments required.
+		incrementX = ( endPoint[0] - startPoint[0] ) / segments
+		incrementY = ( endPoint[1] - startPoint[1] ) / segments
+		top, bottom = findTopBottom(startPoint, endPoint, incrementX, incrementY, distance, trifinder)
+		if not (top[0] == -1 or top[1] == -1 or bottom[0] == -1 or bottom[1] == -1):
+			line = [top, bottom]
+			dottedLines.append( line )
 
-	for i in range(int(dimension/2), dimension, spacing):
-		xValues.append(i)
+	print(dottedLines)
+		# print(bottom)
 
-	for xValue in xValues:
-		top, bottom = findTopBottom(xValue, dimension, trifinder, angle)
-		print('Top: ', top, ' Bottom: ', bottom)
-		linePoints = createDottedLine(ax1, top, bottom)
-		ax1lines.append(linePoints)
-		replicateDots(linePoints, ax2, trifinder, triang, triang2, Originalsamples, Flatsamples)
+	lineEndPoints = np.array(dottedLines)
+	for line in lineEndPoints:
+		print(line)
+		ax1.plot(line[:,0], line[:,1], marker='o')
 
-
-def generateYDominant(spacing):
-	global trifinder, dimension, ax2, triang, triang2, Originalsamples, Flatsamples, ax1lines, angle
-
-	# Determine the range of x.
-	# xValues = [int(dimension/2)]
-	yValues = []
-	for i in range(0, int(dimension/2), spacing):
-		yValues.append(i)
-
-	for i in range(int(dimension/2), dimension, spacing):
-		yValues.append(i)
-
-	for yValue in yValues:
-		left, right = findLeftRight(yValue, dimension, trifinder, angle)
-		print('Left: ', left, ' Right: ', right)
-		linePoints = createDottedLine(ax1, left, right)
+		linePoints = createDottedLine(ax1, line[0], line[1])
 		ax1lines.append(linePoints)
 		replicateDots(linePoints, ax2, trifinder, triang, triang2, Originalsamples, Flatsamples)
 
@@ -568,7 +566,12 @@ def genMesh():
 
 		''' Mesh drawings '''
 		ax1 = plt.subplot2grid(gridsize, (1, 0), rowspan=2)
+		ax1.set_xlim([-dimension*0.2, dimension*1.2])
+		ax1.set_ylim([-dimension * 0.2, dimension * 1.2])
+
 		ax2 = plt.subplot2grid(gridsize, (1, 1), rowspan=2)
+		ax2.set_xlim([-dimension*0.2, dimension*1.2])
+		ax2.set_ylim([-dimension * 0.2, dimension * 1.2])
 
 		# First subplot
 		triang = Triangulation(Originalsamples[:, 0], Originalsamples[:, 1], triangles=Originalfaces)
@@ -601,7 +604,6 @@ def genMesh():
 		update_polygon2(-1, polygon2)
 		ax2.add_patch(polygon2)
 
-	# verticalLine(dimension)
 
 	#plt.imshow(raster)
 	plt.gray()
@@ -612,6 +614,7 @@ def genMesh():
 
 if __name__ == '__main__':
 	genMesh()
-	verticalLine()
+
+	parallelLines()
 	# addButtons(plt)
 	plt.show()
