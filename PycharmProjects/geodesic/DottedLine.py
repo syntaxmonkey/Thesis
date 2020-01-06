@@ -60,8 +60,8 @@ def handleDottedLine(event, ax):
 	return linePoints
 
 
-def createDottedLine(ax, startPoint, endPoint):
-	linePoints = generateLinePoints(startPoint, endPoint)  # Generate the points along the line.
+def createDottedLine(ax, startPoint, endPoint, segmentLength=10):
+	linePoints = generateLinePoints(startPoint, endPoint, segmentLength)  # Generate the points along the line.
 	newLinePoints = []
 	# Plot dots.
 	for linePoint in linePoints:
@@ -90,7 +90,7 @@ def generateLinePoints(startPoint, endPoint, segmentLength=10):
 		adjustedSegmentDistance = pointDistance / segmentCount
 		segmentDistance = adjustedSegmentDistance / pointDistance
 
-		# print("Segment Count %d" % (segmentCount))
+		print("Segment Count %d" % (segmentCount))
 		points = []
 		for i in range(segmentCount):
 			points.append((x1 + segmentDistance*deltax*i, y1 + segmentDistance*deltay*i))

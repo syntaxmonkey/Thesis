@@ -184,7 +184,9 @@ forceCenter = False # When set to True, will force inject the center point onto 
 genVoronoi = True
 useDynamicRatio = False
 
-spacing = 20
+character = 'P'
+spacing = 30
+segmentLength = 20
 angle = 45
 center = 0
 radius = 0
@@ -340,13 +342,14 @@ def get_cartesian_from_barycentric(b, t):
 	bnew = np.array(b)
 	return tnew.dot(bnew)
 
-def parallelLines(spacing=20 ):
-	global angle
+def parallelLines():
+	global angle, spacing
 
 	xAxisValues, yAxisValues = generateBoundaryPoints(angle, dimension, spacing)
 	parallelLineFilter(xAxisValues, yAxisValues)
 
 def parallelLineFilter(xAxisValues, yAxisValues):
+	global spacing, segmentLength
 	dottedLines = []
 
 	for line in xAxisValues:
@@ -379,7 +382,7 @@ def parallelLineFilter(xAxisValues, yAxisValues):
 		# print(line)
 		ax1.plot(line[:,0], line[:,1], marker='o')
 
-		linePoints = createDottedLine(ax1, line[0], line[1])
+		linePoints = createDottedLine(ax1, line[0], line[1], segmentLength=segmentLength)
 		ax1lines.append(linePoints)
 		replicateDots(linePoints, ax2, trifinder, triang, triang2, Originalsamples, Flatsamples)
 
@@ -429,14 +432,13 @@ def addButtons(plt):
 
 
 def genMesh():
-	global triang, triang2, trifinder, trifinder2, ax1, ax2, Originalsamples, Flatsamples, Originalfaces, Flatfaces, polygon1, polygon2, xsize, ysize, perimeterSegments, startingR, angle, bprocess, breset, bangle, dimension
+	global triang, triang2, trifinder, trifinder2, ax1, ax2, Originalsamples, Flatsamples, Originalfaces, Flatfaces, polygon1, polygon2, xsize, ysize, perimeterSegments, startingR, angle, bprocess, breset, bangle, dimension, character
 
 	generateBlob = True
 
 	dimension = 200
 	if generateBlob:
 		letterDimension = int(dimension / 4)
-		character = 'A'
 		xsize = ysize = dimension
 		# letter = genLetter(boxsize=dimension, character=character)
 		letter = genLetter(boxsize=letterDimension, character=character, blur=0)
