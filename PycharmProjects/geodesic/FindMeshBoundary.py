@@ -288,6 +288,11 @@ def generateYAxisLimitPoint(angle, dimension, spacing, startPoint):
 
 
 
+
+
+
+
+
 if __name__ == '__main__':
 	angle = 4
 	spacing = 20
@@ -308,10 +313,10 @@ if __name__ == '__main__':
 
 	for line in xAxisValues:
 		# print(line)
-		ax1.plot(line[:,0], line[:,1], marker='o')
+		ax1.plot(line[:,0], line[:,1], marker='.')
 
 	for line in yAxisValues:
-		ax1.plot(line[:, 0], line[:, 1], marker='o')
+		ax1.plot(line[:, 0], line[:, 1], marker='.')
 
 
 	# ax1.plot((45,45), marker='o')

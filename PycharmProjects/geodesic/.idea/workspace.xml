@@ -14,8 +14,8 @@
       <file leaf-file-name="poisson_disc_bridson.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/poisson_disc_bridson.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="254">
-              <caret line="190" column="10" lean-forward="true" selection-start-line="190" selection-start-column="10" selection-end-line="190" selection-end-column="10" />
+            <state relative-caret-position="433">
+              <caret line="193" column="0" lean-forward="true" selection-start-line="193" selection-start-column="0" selection-end-line="193" selection-end-column="0" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -26,8 +26,20 @@
       <file leaf-file-name="FindMeshBoundary.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FindMeshBoundary.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="883">
-              <caret line="168" column="53" lean-forward="false" selection-start-line="168" selection-start-column="53" selection-end-line="168" selection-end-column="53" />
+            <state relative-caret-position="223">
+              <caret line="205" column="6" lean-forward="false" selection-start-line="205" selection-start-column="6" selection-end-line="205" selection-end-column="6" />
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="circularLines.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/circularLines.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-428">
+              <caret line="5" column="4" lean-forward="false" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="4" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -109,7 +121,7 @@
         <entry file="file://$PROJECT_DIR$/DottedLine.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="223">
-              <caret line="63" column="71" lean-forward="false" selection-start-line="63" selection-start-column="71" selection-end-line="63" selection-end-column="71" />
+              <caret line="117" column="62" lean-forward="false" selection-start-line="117" selection-start-column="62" selection-end-line="117" selection-end-column="62" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
               </folding>
@@ -128,36 +140,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>createDottedLine</find>
-      <find>handle</find>
-      <find>Segment</find>
-      <find>dup</find>
-      <find>dupli</find>
-      <find>angle=</find>
-      <find>angle</find>
-      <find>vari</find>
-      <find>bang</find>
-      <find>bangle</find>
-      <find>verti</find>
-      <find>print(</find>
-      <find>dimension</find>
-      <find>vertical</find>
-      <find>ax1</find>
-      <find>distance</find>
       <find>generateBoundaryPoints</find>
       <find>Top:</find>
       <find>generateXDominant</find>
-      <find>paralle</find>
       <find>yAxisValuesari</find>
       <find>parall</find>
-      <find>variable</find>
       <find>parallel</find>
       <find>spacing</find>
       <find>generateLinePoints</find>
-      <find>variab</find>
       <find>variabl</find>
-      <find>genMesh</find>
       <find>character</find>
+      <find>dimension</find>
+      <find>xsize</find>
+      <find>par</find>
+      <find>variables</find>
+      <find>'o'</find>
+      <find>'o</find>
+      <find>variab</find>
+      <find>genMesh</find>
+      <find>letter</find>
+      <find>varia</find>
+      <find>para</find>
+      <find>paralle</find>
+      <find>var</find>
+      <find>paral</find>
+      <find>circul</find>
+      <find>boundar</find>
+      <find>r'</find>
+      <find>circular</find>
+      <find>trifinder</find>
+      <find>variable</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -186,8 +198,9 @@
         <option value="$PROJECT_DIR$/readOBJFile.py" />
         <option value="$PROJECT_DIR$/FilledLetter.py" />
         <option value="$PROJECT_DIR$/ChainCodeGenerator.py" />
-        <option value="$PROJECT_DIR$/FindMeshBoundary.py" />
         <option value="$PROJECT_DIR$/DottedLine.py" />
+        <option value="$PROJECT_DIR$/FindMeshBoundary.py" />
+        <option value="$PROJECT_DIR$/circularLines.py" />
         <option value="$PROJECT_DIR$/poisson_disc_bridson.py" />
       </list>
     </option>
@@ -327,24 +340,6 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="Test" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="$PROJECT_DIR$/../Thesis/venv/bin/python" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="geodesic" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Test.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -358,6 +353,24 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="geodesic" />
       <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="circularLines" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$PROJECT_DIR$/../Thesis/venv/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="geodesic" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/circularLines.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -383,18 +396,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.poisson_disc_bridson" />
-      <item index="1" class="java.lang.String" itemvalue="Python.Test" />
-      <item index="2" class="java.lang.String" itemvalue="Python.FilledLetter" />
-      <item index="3" class="java.lang.String" itemvalue="Python.ChainCodeGenerator" />
-      <item index="4" class="java.lang.String" itemvalue="Python.FindMeshBoundary" />
+      <item index="1" class="java.lang.String" itemvalue="Python.FilledLetter" />
+      <item index="2" class="java.lang.String" itemvalue="Python.ChainCodeGenerator" />
+      <item index="3" class="java.lang.String" itemvalue="Python.FindMeshBoundary" />
+      <item index="4" class="java.lang.String" itemvalue="Python.circularLines" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.poisson_disc_bridson" />
-        <item index="1" class="java.lang.String" itemvalue="Python.FindMeshBoundary" />
-        <item index="2" class="java.lang.String" itemvalue="Python.ChainCodeGenerator" />
-        <item index="3" class="java.lang.String" itemvalue="Python.FilledLetter" />
-        <item index="4" class="java.lang.String" itemvalue="Python.Test" />
+        <item index="1" class="java.lang.String" itemvalue="Python.circularLines" />
+        <item index="2" class="java.lang.String" itemvalue="Python.FindMeshBoundary" />
+        <item index="3" class="java.lang.String" itemvalue="Python.ChainCodeGenerator" />
+        <item index="4" class="java.lang.String" itemvalue="Python.FilledLetter" />
       </list>
     </recent_temporary>
   </component>
@@ -473,13 +486,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/veronoi.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="8" column="21" lean-forward="false" selection-start-line="8" selection-start-column="21" selection-end-line="8" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Delaunay.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -845,8 +851,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FindMeshBoundary.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="883">
-          <caret line="168" column="53" lean-forward="false" selection-start-line="168" selection-start-column="53" selection-end-line="168" selection-end-column="53" />
+        <state relative-caret-position="223">
+          <caret line="205" column="6" lean-forward="false" selection-start-line="205" selection-start-column="6" selection-end-line="205" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/circularLines.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-428">
+          <caret line="5" column="4" lean-forward="false" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="4" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
@@ -856,7 +872,7 @@
     <entry file="file://$PROJECT_DIR$/DottedLine.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="223">
-          <caret line="63" column="71" lean-forward="false" selection-start-line="63" selection-start-column="71" selection-end-line="63" selection-end-column="71" />
+          <caret line="117" column="62" lean-forward="false" selection-start-line="117" selection-start-column="62" selection-end-line="117" selection-end-column="62" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
           </folding>
@@ -865,8 +881,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/poisson_disc_bridson.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="190" column="10" lean-forward="true" selection-start-line="190" selection-start-column="10" selection-end-line="190" selection-end-column="10" />
+        <state relative-caret-position="433">
+          <caret line="193" column="0" lean-forward="true" selection-start-line="193" selection-start-column="0" selection-end-line="193" selection-end-column="0" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>

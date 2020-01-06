@@ -65,7 +65,7 @@ def createDottedLine(ax, startPoint, endPoint, segmentLength=10):
 	newLinePoints = []
 	# Plot dots.
 	for linePoint in linePoints:
-		dot, = ax.plot(linePoint[0], linePoint[1], 'or')
+		dot, = ax.plot(linePoint[0], linePoint[1], '.r')
 		newLinePoints.append(dot)
 
 	linePoints = newLinePoints

@@ -31,7 +31,7 @@ from FilledLetter import genLetter
 from ChainCodeGenerator import generateChainCode, writeChainCodeFile
 
 from FindMeshBoundary import generateBoundaryPoints, findTopBottom, findLeftRight
-
+from circularLines import generateCircularPoints
 
 def euclidean_distance(a, b):
 	dx = a[0] - b[0]
@@ -184,9 +184,19 @@ forceCenter = False # When set to True, will force inject the center point onto 
 genVoronoi = True
 useDynamicRatio = False
 
-character = 'P'
-spacing = 30
-segmentLength = 20
+dimension = 200
+
+character = 'A'
+letterRatio = 4 # How much to shrink the leter when generating chaincode.
+targetChainCodesSegments = 100
+letterDimension = 40
+# letterRatio = int (dimension / letterDimension )
+
+circleSegments = 40
+
+spacing = 10
+segmentLength = 5
+
 angle = 45
 center = 0
 radius = 0
@@ -194,8 +204,8 @@ rRatio = 1
 k = 50
 ax1 = None
 ax2 = None
-xsize = 100 # Should be multiple of 20.
-ysize = 100 # Should be multiple of 20.
+xsize = dimension # Should be multiple of 20.
+ysize = dimension # Should be multiple of 20.
 dynamic_ratio = 2
 
 
@@ -272,7 +282,7 @@ def replicateDots(linePoints, axTarget, triFinder, triang, triang2, Originalsamp
 			face2.append([curVertex[0], curVertex[1]])
 		cartesian = get_cartesian_from_barycentric(bary1, face2)
 		# print(cartesian)
-		dot, = axTarget.plot(cartesian[0], cartesian[1], color='green', marker='o')
+		dot, = axTarget.plot(cartesian[0], cartesian[1], color='green', marker='.')
 		additionalPoints.append(dot)
 
 
@@ -342,8 +352,24 @@ def get_cartesian_from_barycentric(b, t):
 	bnew = np.array(b)
 	return tnew.dot(bnew)
 
+def circularLines():
+	global angle, spacing, dimension, ax1, circleSegments, ax2, trifinder, triang, triang2, Originalsamples, Flatsamples
+
+	circleValues = generateCircularPoints(angle, dimension, spacing, circleSegments, ax1)
+	# print(circleValues)
+	for circle in circleValues:
+		circlePoints = []
+		for point in circle:
+			if trifinder(point[0], point[1]) != -1:
+				dot, = ax1.plot(point[0], point[1], '.r' )
+			# dot, = ax.plot(linePoint[0], linePoint[1], '.r')
+				circlePoints.append(dot)
+		ax1lines.append(circlePoints)
+		replicateDots(circlePoints, ax2, trifinder, triang, triang2, Originalsamples, Flatsamples)
+
+
 def parallelLines():
-	global angle, spacing
+	global angle, spacing, dimension
 
 	xAxisValues, yAxisValues = generateBoundaryPoints(angle, dimension, spacing)
 	parallelLineFilter(xAxisValues, yAxisValues)
@@ -380,11 +406,12 @@ def parallelLineFilter(xAxisValues, yAxisValues):
 	lineEndPoints = np.array(dottedLines)
 	for line in lineEndPoints:
 		# print(line)
-		ax1.plot(line[:,0], line[:,1], marker='o')
+		ax1.plot(line[:,0], line[:,1], marker='.') # For confirmation.
 
 		linePoints = createDottedLine(ax1, line[0], line[1], segmentLength=segmentLength)
 		ax1lines.append(linePoints)
 		replicateDots(linePoints, ax2, trifinder, triang, triang2, Originalsamples, Flatsamples)
+
 
 
 
@@ -432,13 +459,13 @@ def addButtons(plt):
 
 
 def genMesh():
-	global triang, triang2, trifinder, trifinder2, ax1, ax2, Originalsamples, Flatsamples, Originalfaces, Flatfaces, polygon1, polygon2, xsize, ysize, perimeterSegments, startingR, angle, bprocess, breset, bangle, dimension, character
+	global triang, triang2, trifinder, trifinder2, ax1, ax2, Originalsamples, Flatsamples, Originalfaces, Flatfaces, polygon1, polygon2, xsize, ysize, perimeterSegments, startingR, angle, bprocess, breset, bangle, dimension, character, letterRatio, letterDimension
 
 	generateBlob = True
 
-	dimension = 200
 	if generateBlob:
-		letterDimension = int(dimension / 4)
+		# letterDimension = int(dimension / letterRatio)
+		letterDimension = letterDimension
 		xsize = ysize = dimension
 		# letter = genLetter(boxsize=dimension, character=character)
 		letter = genLetter(boxsize=letterDimension, character=character, blur=0)
@@ -617,6 +644,7 @@ def genMesh():
 if __name__ == '__main__':
 	genMesh()
 
-	parallelLines()
+	circularLines()
+	# parallelLines()
 	# addButtons(plt)
 	plt.show()
