@@ -184,9 +184,9 @@ forceCenter = False # When set to True, will force inject the center point onto 
 genVoronoi = True
 useDynamicRatio = False
 
-dimension = 200
+dimension = 100
 
-character = 'A'
+character = 'O'
 letterRatio = 4 # How much to shrink the leter when generating chaincode.
 targetChainCodesSegments = 100
 letterDimension = 40
@@ -197,7 +197,7 @@ circleSegments = 40
 spacing = 10
 segmentLength = 5
 
-angle = 45
+angle = 136
 center = 0
 radius = 0
 rRatio = 1
@@ -644,7 +644,7 @@ def genMesh():
 if __name__ == '__main__':
 	genMesh()
 
-	circularLines()
+	# circularLines()
 	# parallelLines()
 	# addButtons(plt)
 	plt.show()

@@ -278,7 +278,7 @@ def generateYAxisLimitPoint(angle, dimension, spacing, startPoint):
 		incrementY *= adjustToDimension
 	elif angle > 90 and angle <= 135:
 		incrementX = math.sin(math.radians(angle))
-		incrementY = -math.cos(math.radians(angle)) # Flip the direction to stay in positive grid.
+		incrementY = math.cos(math.radians(angle)) # Flip the direction to stay in positive grid.
 		adjustToDimension = dimension / abs(incrementX)
 		incrementX *= adjustToDimension
 		incrementY *= adjustToDimension
