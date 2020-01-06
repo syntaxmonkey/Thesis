@@ -185,7 +185,7 @@ genVoronoi = True
 useDynamicRatio = False
 
 spacing = 20
-angle = 15
+angle = 45
 center = 0
 radius = 0
 rRatio = 1
@@ -376,7 +376,7 @@ def parallelLineFilter(xAxisValues, yAxisValues):
 
 	lineEndPoints = np.array(dottedLines)
 	for line in lineEndPoints:
-		print(line)
+		# print(line)
 		ax1.plot(line[:,0], line[:,1], marker='o')
 
 		linePoints = createDottedLine(ax1, line[0], line[1])

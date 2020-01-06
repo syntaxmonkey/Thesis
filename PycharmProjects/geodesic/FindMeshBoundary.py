@@ -57,6 +57,10 @@ def findBottom(startPoint, endPoint, incrementX, incrementY, distance, trifinder
 
 	points = []
 	currentPoint = startPoint
+	singleIncrementX = incrementX / abs(incrementX)
+	ratio = incrementY / incrementX
+	singleIncrementY = incrementY / abs(incrementX) * abs(ratio)
+
 
 	while euclidean_distance(currentPoint, startPoint) <= distance:
 		tri = trifinder(currentPoint[0], currentPoint[1]) # If the return value is -1, then no triangle was found.
@@ -64,7 +68,8 @@ def findBottom(startPoint, endPoint, incrementX, incrementY, distance, trifinder
 			actualY = currentPoint[1]
 			actualX = currentPoint[0]
 			break
-		currentPoint = (currentPoint[0] + incrementX, currentPoint[1] + incrementY)
+		# currentPoint = (currentPoint[0] + incrementX, currentPoint[1] + incrementY)
+		currentPoint = (currentPoint[0] + singleIncrementX, currentPoint[1] + singleIncrementY)
 	return actualX, actualY
 
 
@@ -73,15 +78,61 @@ def findTop(startPoint, endPoint, incrementX, incrementY, distance, trifinder):
 	actualX = -1
 
 	points = []
-	currentPoint = startPoint
 
-	while euclidean_distance(currentPoint, startPoint) <= distance:
-		tri = trifinder(currentPoint[0], currentPoint[1]) # If the return value is -1, then no triangle was found.
-		if tri != -1:
+	currentPoint = startPoint[:]
+	singleIncrementX = incrementX / abs(incrementX)
+	ratio = incrementY / incrementX
+	singleIncrementY = incrementY / abs(incrementX) * abs(ratio)
+
+	ADAPTIVE = False
+
+	if ADAPTIVE:
+		highPoint = endPoint[:]
+		lowPoint = startPoint[:]
+
+		print("Increments:", incrementX, incrementY, ratio, singleIncrementX, singleIncrementY)
+		print('Distance:', distance)
+		print("Start:", startPoint)
+		print("End:", endPoint)
+		while euclidean_distance(lowPoint, highPoint) > distance / 5:
+			print('Euclidean: ', euclidean_distance(lowPoint, highPoint), currentPoint)
+			tri = trifinder(currentPoint[0], currentPoint[1]) # If the return value is -1, then no triangle was found.
+			print('Tri: ', tri)
+			if tri != -1:
+				# CurrentPoint is in the mesh.  CurrentPoint becomes the high point.
+				highPoint = currentPoint
+				midPoint = [ (currentPoint[0] + lowPoint[0]) / 2, (currentPoint[1] + lowPoint[1]) / 2 ]
+				currentPoint = midPoint
+			else:
+				# CurrentPoint is not in the mesh.  CurrentPoint becomes the low point.
+				lowPoint = currentPoint
+				midPoint = [ (currentPoint[0] + highPoint[0]) / 2, (currentPoint[1] + highPoint[1] ) / 2]
+				currentPoint = midPoint
+				# actualY = currentPoint[1]
+				# actualX = currentPoint[0]
+
+		currentPoint = lowPoint[:]
+
+		tri = trifinder(currentPoint[0], currentPoint[1])
+		while tri != 1 and euclidean_distance(currentPoint, startPoint) < distance:
+			print(currentPoint)
+			currentPoint = [currentPoint[0] + singleIncrementX, currentPoint[1] + singleIncrementY]
+			tri = trifinder(currentPoint[0], currentPoint[1])
+
+		if euclidean_distance(currentPoint, startPoint) < distance:
 			actualY = currentPoint[1]
 			actualX = currentPoint[0]
-			break
-		currentPoint = (currentPoint[0] + incrementX, currentPoint[1] + incrementY)
+	else:
+		# Fill in the rest of the line.
+		while euclidean_distance(currentPoint, startPoint) <= distance:
+			tri = trifinder(currentPoint[0], currentPoint[1]) # If the return value is -1, then no triangle was found.
+			if tri != -1:
+				actualY = currentPoint[1]
+				actualX = currentPoint[0]
+				break
+			# currentPoint = (currentPoint[0] + incrementX, currentPoint[1] + incrementY)
+			currentPoint = (currentPoint[0] + singleIncrementX, currentPoint[1] + singleIncrementY)
+
 	return actualX, actualY
 
 
