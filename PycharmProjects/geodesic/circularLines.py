@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt # For displaying array as image
 import numpy as np
 
 
-def generateCircularPoints(angle, dimension, spacing, segments, axis):
+def generateCircularPoints(angle, dimension, spacing, segments, axis, radius):
 	angle = angle % 360
 	# Generate all the points around the boundary.
 	# Find x values along the y = 0 axis.
@@ -65,6 +65,25 @@ def generateCircularPoints(angle, dimension, spacing, segments, axis):
 		# axis.plot(circle[:, 0], circle[:, 1])
 		circleValues.append(circle)
 		# axis.set_aspect(1)
+
+
+	# Add final circle at the radius of mesh.
+	theta = np.linspace(0, 2 * np.pi, segments)
+	x = (radius * 0.95)  * np.cos(theta)
+	x = x + xcenter
+	y = (radius * 0.95) * np.sin(theta)
+	y = y + ycenter
+	circle = np.vstack((x, y)).T
+	circleValues.append(circle)
+
+	# Add final circle at the radius of mesh.
+	theta = np.linspace(0, 2 * np.pi, segments)
+	x = (radius * 0.99)  * np.cos(theta)
+	x = x + xcenter
+	y = (radius * 0.99) * np.sin(theta)
+	y = y + ycenter
+	circle = np.vstack((x, y)).T
+	circleValues.append(circle)
 
 	# if xaxis:
 	# 	xAxisValues = generateXAxisPoints(angle, dimension, spacing)

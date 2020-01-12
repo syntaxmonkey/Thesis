@@ -40,9 +40,12 @@ def euclidean_distance(a, b):
 
 
 def poisson_disc_samples(width, height, r, k=5, distance=euclidean_distance, random=random, segments=5):
-	global radius
-	global center
-	global dynamic_ratio
+	global radius, center, dynamic_ratio
+
+	centerx = xsize / 2
+	centery = ysize / 2
+	center = (centerx, centery)
+	radius = xsize / 2
 
 	def insert_coords(p, grid):
 		grid_x, grid_y = grid_coords(p)
@@ -90,11 +93,6 @@ def poisson_disc_samples(width, height, r, k=5, distance=euclidean_distance, ran
 		return True
 
 
-
-	centerx = xsize / 2
-	centery = ysize / 2
-	center = (centerx, centery)
-	radius = xsize / 2 - 1
 
 
 	print("Segments: ", segments)
@@ -187,14 +185,14 @@ useDynamicRatio = False
 
 dimension = 100
 
-character = 'O'
+character = 'P'
 letterRatio = 4 # How much to shrink the leter when generating chaincode.
 targetChainCodesSegments = 100
 letterDimension = 40
 generateDots = False
 # letterRatio = int (dimension / letterDimension )
 
-circleSegments = 40
+circleSegments = 72
 
 spacing = 10
 segmentLength = 5
@@ -387,19 +385,31 @@ def get_cartesian_from_barycentric(b, t):
 	return tnew.dot(bnew)
 
 def circularLines():
-	global angle, spacing, dimension, ax1, circleSegments, ax2, trifinder, triang, triang2, Originalsamples, Flatsamples
+	global angle, spacing, dimension, ax1, circleSegments, ax2, trifinder, triang, triang2, Originalsamples, Flatsamples, generateDots, radius
 
-	circleValues = generateCircularPoints(angle, dimension, spacing, circleSegments, ax1)
+	circleValues = generateCircularPoints(angle, dimension, spacing, circleSegments, ax1, radius)
 	# print(circleValues)
-	for circle in circleValues:
-		circlePoints = []
-		for point in circle:
-			if trifinder(point[0], point[1]) != -1:
-				dot, = ax1.plot(point[0], point[1], '.r' )
-			# dot, = ax.plot(linePoint[0], linePoint[1], '.r')
-				circlePoints.append(dot)
-		ax1lines.append(circlePoints)
-		replicateDots(circlePoints, ax2, trifinder, triang, triang2, Originalsamples, Flatsamples)
+	if generateDots:
+		for circle in circleValues:
+			circlePoints = []
+			for point in circle:
+				if trifinder(point[0], point[1]) != -1:
+					dot, = ax1.plot(point[0], point[1], '.r' )
+				# dot, = ax.plot(linePoint[0], linePoint[1], '.r')
+					circlePoints.append(dot)
+			ax1lines.append(circlePoints)
+			replicateDots(circlePoints, ax2, trifinder, triang, triang2, Originalsamples, Flatsamples, generateDots=generateDots)
+	else:
+		for circle in circleValues:
+			validPoints = []
+			for point in circle:
+				if trifinder(point[0], point[1]) != -1:
+					validPoints.append(point)
+
+			validPoints = np.array(validPoints)
+			circleLine, = ax1.plot(validPoints[:, 0], validPoints[:, 1], 'r')
+
+			replicateDots([circleLine], ax2, trifinder, triang, triang2, Originalsamples, Flatsamples, generateDots=generateDots)
 
 
 def parallelLines():
@@ -436,7 +446,7 @@ def parallelLineFilter(xAxisValues, yAxisValues):
 			line = [top, bottom]
 			dottedLines.append( line )
 
-	print(dottedLines)
+	# print(dottedLines)
 		# print(bottom)
 
 	lineEndPoints = np.array(dottedLines)
@@ -681,7 +691,7 @@ def genMesh():
 if __name__ == '__main__':
 	genMesh()
 
-	# circularLines()
-	parallelLines()
+	circularLines()
+	# parallelLines()
 	# addButtons(plt)
 	plt.show()

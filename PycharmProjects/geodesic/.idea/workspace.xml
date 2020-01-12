@@ -14,8 +14,8 @@
       <file leaf-file-name="poisson_disc_bridson.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/poisson_disc_bridson.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="263">
-              <caret line="290" column="28" lean-forward="true" selection-start-line="290" selection-start-column="28" selection-end-line="290" selection-end-column="28" />
+            <state relative-caret-position="222">
+              <caret line="177" column="13" lean-forward="true" selection-start-line="177" selection-start-column="13" selection-end-line="177" selection-end-column="13" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
@@ -50,8 +50,8 @@
       <file leaf-file-name="circularLines.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/circularLines.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="5" column="4" lean-forward="false" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="4" />
+            <state relative-caret-position="324">
+              <caret line="62" column="35" lean-forward="true" selection-start-line="62" selection-start-column="35" selection-end-line="62" selection-end-column="35" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -121,7 +121,7 @@
         <entry file="file://$PROJECT_DIR$/DottedLine.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="495">
-              <caret line="75" column="65" lean-forward="true" selection-start-line="75" selection-start-column="65" selection-end-line="75" selection-end-column="65" />
+              <caret line="75" column="65" lean-forward="false" selection-start-line="75" selection-start-column="65" selection-end-line="75" selection-end-column="65" />
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
               </folding>
@@ -140,10 +140,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>parallel</find>
-      <find>spacing</find>
-      <find>generateLinePoints</find>
-      <find>variabl</find>
       <find>character</find>
       <find>dimension</find>
       <find>xsize</find>
@@ -157,7 +153,6 @@
       <find>circul</find>
       <find>boundar</find>
       <find>r'</find>
-      <find>circular</find>
       <find>trifinder</find>
       <find>varia</find>
       <find>genMesh</find>
@@ -165,11 +160,16 @@
       <find>generateDots</find>
       <find>paral</find>
       <find>parall</find>
-      <find>replicateDots</find>
       <find>para</find>
       <find>variables</find>
-      <find>variable</find>
       <find>replica</find>
+      <find>variable</find>
+      <find>replicateDotsreplicateDots</find>
+      <find>replicateDots</find>
+      <find>circular</find>
+      <find>generateCircularPoints</find>
+      <find>center</find>
+      <find>poisson_disc_samples</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -198,16 +198,17 @@
         <option value="$PROJECT_DIR$/readOBJFile.py" />
         <option value="$PROJECT_DIR$/FilledLetter.py" />
         <option value="$PROJECT_DIR$/ChainCodeGenerator.py" />
-        <option value="$PROJECT_DIR$/circularLines.py" />
         <option value="$PROJECT_DIR$/FindMeshBoundary.py" />
         <option value="$PROJECT_DIR$/SLIC.py" />
         <option value="$PROJECT_DIR$/DottedLine.py" />
+        <option value="$PROJECT_DIR$/circularLines.py" />
         <option value="$PROJECT_DIR$/poisson_disc_bridson.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-2044" />
+    <option name="y" value="108" />
     <option name="width" value="1920" />
     <option name="height" value="1177" />
   </component>
@@ -227,7 +228,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -249,6 +249,7 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -437,7 +438,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1920" height="1177" extended-state="0" />
+    <frame x="-1920" y="23" width="1920" height="1177" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14744602" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -839,16 +840,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/circularLines.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="5" column="4" lean-forward="false" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/FindMeshBoundary.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4110">
@@ -872,17 +863,27 @@
     <entry file="file://$PROJECT_DIR$/DottedLine.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="495">
-          <caret line="75" column="65" lean-forward="true" selection-start-line="75" selection-start-column="65" selection-end-line="75" selection-end-column="65" />
+          <caret line="75" column="65" lean-forward="false" selection-start-line="75" selection-start-column="65" selection-end-line="75" selection-end-column="65" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/circularLines.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="62" column="35" lean-forward="true" selection-start-line="62" selection-start-column="35" selection-end-line="62" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/poisson_disc_bridson.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="290" column="28" lean-forward="true" selection-start-line="290" selection-start-column="28" selection-end-line="290" selection-end-column="28" />
+        <state relative-caret-position="222">
+          <caret line="177" column="13" lean-forward="true" selection-start-line="177" selection-start-column="13" selection-end-line="177" selection-end-column="13" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>
