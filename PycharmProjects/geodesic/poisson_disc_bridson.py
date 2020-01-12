@@ -184,12 +184,14 @@ forceCenter = False # When set to True, will force inject the center point onto 
 genVoronoi = True
 useDynamicRatio = False
 
+
 dimension = 100
 
 character = 'O'
 letterRatio = 4 # How much to shrink the leter when generating chaincode.
 targetChainCodesSegments = 100
 letterDimension = 40
+generateDots = False
 # letterRatio = int (dimension / letterDimension )
 
 circleSegments = 40
@@ -260,30 +262,62 @@ def motion_notify(event):
 	event.canvas.draw()
 
 
-def replicateDots(linePoints, axTarget, triFinder, triang, triang2, Originalsamples, Flatsamples):
+def convertAxesBarycentric(x, y, triang, triang2, triFinder, Originalsamples, Flatsamples):
+	# Convert the coordinates on one axes to the cartesian axes on the second axes.
+
+	tri = triFinder(x, y)
+	# print(tri)
+	# print(triang.triangles[tri])
+	face = []
+	for vertex in triang.triangles[tri]:  # Create triangle from the coordinates.
+		curVertex = Originalsamples[vertex]
+		face.append([curVertex[0], curVertex[1]])
+	bary1 = calculateBarycentric(face, (x, y))  # Calculate the barycentric coordinates.
+
+	face2 = []
+	for vertex in triang2.triangles[tri]:
+		curVertex = Flatsamples[vertex]
+		face2.append([curVertex[0], curVertex[1]])
+	cartesian = get_cartesian_from_barycentric(bary1, face2)
+
+	return cartesian
+
+def replicateDots(linePoints, axTarget, triFinder, triang, triang2, Originalsamples, Flatsamples, generateDots=True):
 	global additionalPoints
-	for linePoint in linePoints:
-		# ax1.plot(event.xdata, event.ydata, 'go')
+	print('Replicate Dots')
+	print(linePoints)
+	replicatedPoints = []
 
-		x = linePoint.get_xdata(orig=True)[0]
-		y = linePoint.get_ydata(orig=True)[0]
-		tri = triFinder(x, y)
-		# print(tri)
-		# print(triang.triangles[tri])
-		face = []
-		for vertex in triang.triangles[tri]: # Create triangle from the coordinates.
-			curVertex = Originalsamples[vertex]
-			face.append([curVertex[0], curVertex[1]])
-		bary1 = calculateBarycentric(face, (x, y))  # Calculate the barycentric coordinates.
+	if generateDots == True:
+		# Generate barycentric cartesian points on the second axes.
 
-		face2 = []
-		for vertex in triang2.triangles[tri]:
-			curVertex = Flatsamples[vertex]
-			face2.append([curVertex[0], curVertex[1]])
-		cartesian = get_cartesian_from_barycentric(bary1, face2)
-		# print(cartesian)
-		dot, = axTarget.plot(cartesian[0], cartesian[1], color='green', marker='.')
-		additionalPoints.append(dot)
+		for linePoint in linePoints:
+			# ax1.plot(event.xdata, event.ydata, 'go')
+
+			print('Replicate Dots Data: ', linePoint.get_xdata(orig=True), linePoint.get_ydata(orig=True))
+			x = linePoint.get_xdata(orig=True)[0]
+			y = linePoint.get_ydata(orig=True)[0]
+
+			cartesian = convertAxesBarycentric(x, y, triang, triang2, triFinder, Originalsamples, Flatsamples)
+
+			dot, = axTarget.plot(cartesian[0], cartesian[1], color='green', marker='.')
+			additionalPoints.append(dot)
+	else:
+		for linePoint in linePoints:
+			x = linePoint.get_xdata(orig=True)
+			y = linePoint.get_ydata(orig=True)
+
+			newLine = []
+			for i in range(len(x)):
+				tempX = x[i]
+				tempY = y[i]
+
+				cartesian = convertAxesBarycentric(tempX, tempY, triang, triang2, triFinder, Originalsamples, Flatsamples)
+				newLine.append(cartesian)
+
+			replicatedPoints = np.array(newLine)
+			line, = axTarget.plot(replicatedPoints[:, 0], replicatedPoints[:, 1], 'g')
+			additionalPoints.append(line)
 
 
 def clearDots(event):
@@ -375,7 +409,9 @@ def parallelLines():
 	parallelLineFilter(xAxisValues, yAxisValues)
 
 def parallelLineFilter(xAxisValues, yAxisValues):
-	global spacing, segmentLength
+	global spacing, segmentLength, generateDots
+
+	''' Actually draw the lines and dots. '''
 	dottedLines = []
 
 	for line in xAxisValues:
@@ -406,11 +442,12 @@ def parallelLineFilter(xAxisValues, yAxisValues):
 	lineEndPoints = np.array(dottedLines)
 	for line in lineEndPoints:
 		# print(line)
-		ax1.plot(line[:,0], line[:,1], marker='.') # For confirmation.
+		# ax1.plot(line[:,0], line[:,1], marker='.') # For confirmation.
 
-		linePoints = createDottedLine(ax1, line[0], line[1], segmentLength=segmentLength)
+		# Create the lines for the points.
+		linePoints = createDottedLine(ax1, line[0], line[1], segmentLength=segmentLength, generateDots=generateDots)
 		ax1lines.append(linePoints)
-		replicateDots(linePoints, ax2, trifinder, triang, triang2, Originalsamples, Flatsamples)
+		replicateDots(linePoints, ax2, trifinder, triang, triang2, Originalsamples, Flatsamples, generateDots=generateDots)
 
 
 
@@ -645,6 +682,6 @@ if __name__ == '__main__':
 	genMesh()
 
 	# circularLines()
-	# parallelLines()
+	parallelLines()
 	# addButtons(plt)
 	plt.show()

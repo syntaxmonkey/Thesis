@@ -60,13 +60,21 @@ def handleDottedLine(event, ax):
 	return linePoints
 
 
-def createDottedLine(ax, startPoint, endPoint, segmentLength=10):
+def createDottedLine(ax, startPoint, endPoint, segmentLength=10, generateDots=True):
 	linePoints = generateLinePoints(startPoint, endPoint, segmentLength)  # Generate the points along the line.
 	newLinePoints = []
 	# Plot dots.
-	for linePoint in linePoints:
-		dot, = ax.plot(linePoint[0], linePoint[1], '.r')
-		newLinePoints.append(dot)
+	if generateDots == True:
+		# Generate Dots
+		for linePoint in linePoints:
+			dot, = ax.plot(linePoint[0], linePoint[1], '.r')
+			newLinePoints.append(dot)
+	else:
+		# Generate Line
+		linePoints = np.array(linePoints)
+		print(linePoints)
+		line, = ax.plot( linePoints[:, 0], linePoints[:, 1], 'r')
+		newLinePoints.append(line)
 
 	linePoints = newLinePoints
 	return linePoints
