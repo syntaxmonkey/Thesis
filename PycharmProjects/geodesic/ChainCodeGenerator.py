@@ -29,14 +29,24 @@ from FilledLetter import genLetter
 # plt.imshow(image, cmap='Greys')
 #
 
+def sumPreviousX(array, currentIndex, x ):
+	return sum(array[currentIndex-x: currentIndex])
+
 
 
 def generateChainCode(img):
 	closeLoop = True # Ensure the chain code forms a loop.
+	angleChangeThreshold = 270
+	correctionValue = 1
 	currentDirection = 0
+	cumulativeDirection = 0 # Sum all the direction changes.
+
 	## Discover the first point
+
 	for i, row in enumerate(img):
 		for j, value in enumerate(row):
+	# for j, row in enumerate(img):  # Swapped row and column compared to the original.
+	# 	for i, value in enumerate(row):
 			if value == 255:
 				start_point = (i, j)
 				print(start_point, value)
@@ -68,8 +78,20 @@ def generateChainCode(img):
 	chainDirection = [] # Will contain the degree change.
 
 	originalStart = start_point # Original start point.
+	print('Original Start:', originalStart)
 	curr_point = start_point
-	for direction in directions:
+
+	''' Block A1 - pick the starting direction.  Should aim for direction 3.'''
+	direction = 2
+	b_direction = (direction + 5) % 8
+	dirs_1 = range(b_direction, 8)
+	dirs_2 = range(0, b_direction)
+	dirs = []
+	dirs.extend(dirs_1)
+	dirs.extend(dirs_2)
+	for direction in dirs:
+		''' Block A1 end'''
+	# for direction in directions:
 		idx = dir2idx[direction]
 		new_point = (start_point[0]+change_i[idx], start_point[1]+change_j[idx])
 		if img[new_point] != 0: # if is ROI
@@ -79,7 +101,7 @@ def generateChainCode(img):
 			break
 
 	count = 0
-	while curr_point != start_point:
+	while curr_point != originalStart:
 		#figure direction to start search
 		b_direction = (direction + 5) % 8
 		dirs_1 = range(b_direction, 8)
@@ -106,9 +128,24 @@ def generateChainCode(img):
 						directionChange = directionChange
 
 				directionChange = directionChange * 45
+
+				cumulativeDirection += directionChange
+				if abs(cumulativeDirection) > 360:
+					print('CumulativeDirection: ', cumulativeDirection)
+
 				currentDirection += directionChange
 				chainDirection.append(directionChange)
-				# chainDirection.append(0) # Kludge.  Insert a zero transition.
+
+				if abs(sumPreviousX(chainDirection, len(chainDirection) , 4)) > angleChangeThreshold:    # Check if the previous X direction changes are above a threshold.
+					print('*** Direction Change warning: ', chainDirection[-2:])
+					# chainDirection[-1] = (chainDirection[-1] / abs(chainDirection[-1]) * -correctionValue) + chainDirection[-1]
+					# chainDirection[-2] = (chainDirection[-2] / abs(chainDirection[-2]) * -correctionValue) * \
+					#                      chainDirection[-2]
+
+					chainDirection[-1] = chainDirection[-1] * correctionValue
+					chainDirection[-2] = chainDirection[-2] * correctionValue
+
+
 				curr_point = new_point
 				break
 		#if count == 10000: break
@@ -118,7 +155,7 @@ def generateChainCode(img):
 	# Need to add last transition to close the loop.
 	# Find the direction to the original Start point.
 	# HSC
-	if 1 == 1:
+	if True:
 		for direction in directions:
 			idx = dir2idx[direction]
 			new_point = (curr_point[0]+change_i[idx], curr_point[1]+change_j[idx])
@@ -138,12 +175,25 @@ def generateChainCode(img):
 						directionChange = directionChange
 
 				directionChange = directionChange * 45
+				cumulativeDirection += directionChange
+				if abs(cumulativeDirection) > 360:
+					print('CumulativeDirection: ', cumulativeDirection)
+
 				chainDirection.append(directionChange)
-				# chainDirection.append(0) # Kludge.  Insert a zero transition.
+
+				if abs(sumPreviousX(chainDirection, len(chainDirection), 4)) > angleChangeThreshold:    # Check if the previous X direction changes are above a threshold.
+					print('*** Direction Change warning: ', chainDirection[-2:])
+					# chainDirection[-1] = (chainDirection[-1] / abs(chainDirection[-1]) * -correctionValue) + chainDirection[-1]
+					# chainDirection[-2] = (chainDirection[-2] / abs(chainDirection[-2]) * -correctionValue) + \
+					#                      chainDirection[-2]
+					chainDirection[-1] = chainDirection[-1] * correctionValue
+					chainDirection[-2] = chainDirection[-2] * correctionValue
+
+
 				break
 		count += 1
 
-
+	print('Final Cumulative Direction: ', cumulativeDirection)
 	return count, chain, chainDirection, border
 
 
@@ -156,7 +206,10 @@ def writeChainCodeFile(path, filename, chainDirection):
 
 
 if __name__ == '__main__':
-	img = genLetter(boxsize=int(100/4), character='C', blur=1)
+	# img = genLetter(boxsize=int(100/4), character='C', blur=1)
+	letterDimension = 20
+	character='C'
+	img = genLetter(boxsize=letterDimension, character=character, blur=1)
 	count, chain, chainDirection, border = generateChainCode(img)
 	print('Count:', count)
 	print('Chain:', len(chain), chain)
@@ -166,5 +219,7 @@ if __name__ == '__main__':
 	writeChainCodeFile('./', 'testchaincode.txt', chainDirection)
 
 	plt.imshow(img, cmap='Greys')
+	plt.plot(border[-1][1], border[-1][0], 'og') # Plot the starting point as a red dot.
+	plt.plot(border[-2][1], border[-2][0], 'or')  # Plot the ending point as a green dot.
 	plt.plot([i[1] for i in border], [i[0] for i in border])
 	plt.show()

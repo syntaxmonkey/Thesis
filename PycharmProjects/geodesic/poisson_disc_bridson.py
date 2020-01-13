@@ -185,10 +185,10 @@ useDynamicRatio = False
 
 dimension = 100
 
-character = 'P'
+character = 'W'
 letterRatio = 4 # How much to shrink the leter when generating chaincode.
 targetChainCodesSegments = 100
-letterDimension = 40
+letterDimension = 20
 generateDots = False
 # letterRatio = int (dimension / letterDimension )
 
@@ -208,8 +208,6 @@ xsize = dimension # Should be multiple of 20.
 ysize = dimension # Should be multiple of 20.
 dynamic_ratio = 2
 
-
-# Dotted Line variables.
 dt = None
 tempLine = None
 ax1lines = []
@@ -675,10 +673,18 @@ def genMesh():
 
 		triang2.set_mask(np.hypot(Flatsamples[:, 0][triang2.triangles].mean(axis=1),
 		                          Flatsamples[:, 1][triang2.triangles].mean(axis=1)) < min_radius)
-		trifinder2 = triang2.get_trifinder()
-		polygon2 = Polygon([[0, 0], [0, 0]], facecolor='y')  # dummy data for xs,ys
-		update_polygon2(-1, polygon2)
-		ax2.add_patch(polygon2)
+
+		''' This block, we are trying to find the normals of the triangles.  Not successful yet. '''
+		# tempPoints = np.vstack([Flatsamples[:, 0], Flatsamples[:, 1]]).T
+		# tempTri = Delaunay(tempPoints)
+		# np.unique(tempTri.simplices.ravel())
+		# print('*** CoPlanar:', tempTri.coplanar)
+
+		if True:
+			trifinder2 = triang2.get_trifinder()
+			polygon2 = Polygon([[0, 0], [0, 0]], facecolor='y')  # dummy data for xs,ys
+			update_polygon2(-1, polygon2)
+			ax2.add_patch(polygon2)
 
 
 	#plt.imshow(raster)
