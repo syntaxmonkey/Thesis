@@ -185,10 +185,10 @@ useDynamicRatio = False
 
 dimension = 100
 
-character = 'W'
+character = 'I'
 letterRatio = 4 # How much to shrink the leter when generating chaincode.
 targetChainCodesSegments = 100
-letterDimension = 20
+letterDimension = 40
 generateDots = False
 # letterRatio = int (dimension / letterDimension )
 
@@ -680,7 +680,7 @@ def genMesh():
 		# np.unique(tempTri.simplices.ravel())
 		# print('*** CoPlanar:', tempTri.coplanar)
 
-		if True:
+		if False:
 			trifinder2 = triang2.get_trifinder()
 			polygon2 = Polygon([[0, 0], [0, 0]], facecolor='y')  # dummy data for xs,ys
 			update_polygon2(-1, polygon2)
@@ -697,7 +697,7 @@ def genMesh():
 if __name__ == '__main__':
 	genMesh()
 
-	circularLines()
-	# parallelLines()
+	# circularLines()
+	parallelLines()
 	# addButtons(plt)
 	plt.show()
