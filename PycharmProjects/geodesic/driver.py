@@ -7,9 +7,8 @@ import matplotlib.pyplot as plt # For displaying array as image
 from PIL import Image, ImageDraw
 
 import math
-#from poisson_disc_bridson import poisson_disc_samples
 
-print('Generating geodesic')
+# print('Generating geodesic')
 
 tracerLines = False
 

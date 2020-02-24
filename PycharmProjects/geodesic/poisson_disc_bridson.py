@@ -26,12 +26,14 @@ from ObjectBlob import Paint
 
 from matplotlib.widgets import Button, Slider # https://matplotlib.org/3.1.1/gallery/widgets/buttons.html
 
-from FilledLetter import genLetter
+from FilledLetter import genLetter, genSquareRaster
 
 from ChainCodeGenerator import generateChainCode, writeChainCodeFile
 
 from FindMeshBoundary import generateBoundaryPoints, findTopBottom, findLeftRight
 from circularLines import generateCircularPoints
+
+from SLIC import callSLIC, createRegionRasters
 
 def euclidean_distance(a, b):
 	dx = a[0] - b[0]
@@ -185,7 +187,7 @@ useDynamicRatio = False
 
 dimension = 100
 
-character = 'I'
+character = 'A'
 letterRatio = 4 # How much to shrink the leter when generating chaincode.
 targetChainCodesSegments = 100
 letterDimension = 40
@@ -694,10 +696,224 @@ def genMesh():
 	return plt
 
 
+def genMeshFromRaster(raster):
+	global triang, triang2, trifinder, trifinder2, ax1, ax2, Originalsamples, Flatsamples, Originalfaces, Flatfaces, polygon1, polygon2, xsize, ysize, perimeterSegments, startingR, angle, bprocess, breset, bangle, dimension, character, letterRatio, letterDimension
+
+	generateBlob = True
+
+	# Create the grid.
+	gridsize = (3, 2)
+	fig = plt.figure(figsize=(12, 8))
+
+	''' Draw Letter blob '''
+	axdraw = plt.subplot2grid(gridsize, (0, 0))
+	# letter = genLetter(boxsize=100, character='P')
+	# # print(np.shape(letter))
+	# print("Letter:", letter)
+	axdraw.imshow(raster)
+
+	# return
+	if generateBlob:
+		# letterDimension = int(dimension / letterRatio)
+		letterDimension = letterDimension
+		xsize = ysize = dimension
+		# letter = genLetter(boxsize=dimension, character=character)
+		# letter = genLetter(boxsize=letterDimension, character=character, blur=0)
+		letter = raster
+		count, chain, chainDirection, border = generateChainCode(letter)
+
+		print('ChainDirection:', len(chainDirection), chainDirection)
+		# writeChainCodeFile('./', 'testChainCode.txt', chainDirection)
+		writeChainCodeFile('./', 'chaincode.txt', chainDirection)
+		print(len(chainDirection))
+		perimeterSegments = len(chainDirection)
+		startingR = perimeterSegments / 10
+
+		startTime = int(round(time.time() * 1000))
+		samples = poisson_disc_samples(width=xsize, height=ysize, r=10, k=k, segments=perimeterSegments)
+		# samples = poisson_disc_samples(width=xsize, height=ysize, r=4, k=k, segments=len(chainDirection))
+		endTime = int(round(time.time() * 1000))
+	else:
+		xsize = ysize = dimension
+		type = 'cRecurve3'
+
+		if type == 'normal':
+			# Attempted 'H'
+			perimeterSegments = 82 # The value
+			os.system('cp chaincodecopy.txt chaincode.txt')
+		elif type == 'pentagram':
+			# Pentagram
+			perimeterSegments = 40 # The value # Pentagram.
+			os.system('cp pentagram.txt chaincode.txt')
+		elif type == 'star':
+			# star
+			perimeterSegments = 26*5 # Now works.  The angles were wrong.  Had to fix.
+			os.system('cp star.txt chaincode.txt')
+		elif type == 'square':
+			# star
+			perimeterSegments = 26*4 #
+			os.system('cp square.txt chaincode.txt')
+		elif type == 'square2':
+			# star
+			perimeterSegments = 26*4 #
+			os.system('cp square2.txt chaincode.txt')
+		elif type == 'square3':
+			# star
+			perimeterSegments = 26*4 #
+			os.system('cp square3.txt chaincode.txt')
+		elif type == 'c':
+			# star
+			perimeterSegments = 93 #
+			os.system('cp c.txt chaincode.txt')
+		elif type == 'cRecurve2':
+			# star
+			perimeterSegments = 81 #
+			os.system('cp cRecurve2.txt chaincode.txt')
+		elif type == 'cRecurve3':
+			# star
+			perimeterSegments = 80 #
+			os.system('cp cRecurve3.txt chaincode.txt')
+
+		startingR = perimeterSegments / 10
+		startTime = int(round(time.time() * 1000))
+		samples = poisson_disc_samples(width=xsize, height=ysize, r=20, k=k, segments=perimeterSegments)
+		endTime = int(round(time.time() * 1000))
+		raster = [[0 for i in range(xsize)] for j in range(ysize)]
+		for coords in samples:
+			x, y = coords
+			xint = int(x)
+			yint = int(y)
+			raster[xint][yint] = int(255)
+		letter = raster
+
+	samples = np.array(samples)  # Need to convert to np array to have proper slicing.
+	print("Execution time: %d ms" % (endTime - startTime))
+
+
+	if not genVoronoi:
+		print(raster)
+		plt.imshow(raster)
+	else:
+
+		#voronoi_plot_2d(vor)
+		tri = Delaunay(samples)  # Generate the triangles from the vertices.
+
+		# Produce the mesh file.  Flatten the mesh with BFF.  Extract the 2D from BFF flattened mesh.
+		path = "../../boundary-first-flattening/build/"
+		# Create object file for image.
+		createOBJFile.createObjFile2D(path, "test1.obj", samples, tri, radius, center, distance=euclidean_distance)
+		# Reshape with BFF.
+		print("Reshaping with BFF")
+		os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --angle=1 --normalizeUVs")
+		# Extract the flattened version of the image.
+
+		print("Extracting 2D image post BFF Reshaping")
+		os.system(path + "extract.py test1_out.obj test1_out_flat.obj")
+
+
+
+		# Read the OBJ file and produce the new mesh entries.
+		Originalsamples, Originalfaces, Flatsamples, Flatfaces = readOBJFile.readObjFile(path, "test1_out.obj")
+
+		# exit(1)
+		#Originalfaces = list(Originalfaces)
+		min_radius = .001
+
+
+		''' Buttons '''
+		axcut = plt.axes([0.8, 0.8, 0.1, 0.075]) # https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes. [ left, bottom, width, height ]
+		bprocess = Button(axcut, 'Process', color='red', hovercolor='green')
+		bprocess.on_clicked(reset)
+
+		axcut = plt.axes([0.8, 0.65, 0.1, 0.075]) # https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes. [ left, bottom, width, height ]
+		breset = Button(axcut, 'Reset', color='red', hovercolor='green')
+		breset.on_clicked(clearDots) # Bind event for reset button.
+
+		axcut = plt.axes([0.65, 0.65, 0.1,
+		                  0.075])  # https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes. [ left, bottom, width, height ]
+		bangle =  Slider(axcut, 'Angle: ' + str(angle), 0, 360, valfmt='%1.2f', dragging=True)
+		bangle.set_val(angle)
+		bangle.on_changed(updateAngle)
+
+		''' Mesh drawings '''
+		ax1 = plt.subplot2grid(gridsize, (1, 0), rowspan=2)
+		ax1.set_xlim([-dimension*0.2, dimension*1.2])
+		ax1.set_ylim([-dimension * 0.2, dimension * 1.2])
+
+		ax2 = plt.subplot2grid(gridsize, (1, 1), rowspan=2)
+		ax2.set_xlim([-dimension*0.2, dimension*1.2])
+		ax2.set_ylim([-dimension * 0.2, dimension * 1.2])
+
+		# First subplot
+		triang = Triangulation(Originalsamples[:, 0], Originalsamples[:, 1], triangles=Originalfaces)
+		# ax1 = plt.subplot(121, aspect='equal') # Create first subplot.
+		ax1.triplot(triang, color='grey')
+
+		# triang.set_mask(np.hypot(Originalsamples[:, 0][triang.triangles].mean(axis=1), Originalsamples[:, 1][triang.triangles].mean(axis=1)) < min_radius)
+		trifinder = triang.get_trifinder()
+		polygon1 = Polygon([[0, 0], [0, 0]], facecolor='y')  # dummy data for xs,ys
+		update_polygon(-1, polygon1)
+
+		ax1.add_patch(polygon1)
+		plt.gcf().canvas.mpl_connect('motion_notify_event', motion_notify)
+		plt.gcf().canvas.mpl_connect('button_press_event', on_click)
+		plt.gcf().canvas.mpl_connect('key_press_event', press) # Imported from DottedLine
+
+		# plt.gcf().canvas.mpl_connect('button_press_event', motion_notify1) # https://matplotlib.org/3.1.1/users/event_handling.html
+
+		# Second subplot
+		# print(Flatfaces)
+		Flatsamples = Flatsamples * dimension
+		triang2 = Triangulation(Flatsamples[:, 0], Flatsamples[:, 1], triangles=Flatfaces)
+		# ax2 = plt.subplot(122, aspect='equal')  # Create first subplot.
+		ax2.triplot(triang2, color='grey')
+
+		triang2.set_mask(np.hypot(Flatsamples[:, 0][triang2.triangles].mean(axis=1),
+		                          Flatsamples[:, 1][triang2.triangles].mean(axis=1)) < min_radius)
+
+		''' This block, we are trying to find the normals of the triangles.  Not successful yet. '''
+		# tempPoints = np.vstack([Flatsamples[:, 0], Flatsamples[:, 1]]).T
+		# tempTri = Delaunay(tempPoints)
+		# np.unique(tempTri.simplices.ravel())
+		# print('*** CoPlanar:', tempTri.coplanar)
+
+		if True:
+			trifinder2 = triang2.get_trifinder()
+			polygon2 = Polygon([[0, 0], [0, 0]], facecolor='y')  # dummy data for xs,ys
+			update_polygon2(-1, polygon2)
+			ax2.add_patch(polygon2)
+
+
+	#plt.imshow(raster)
+	plt.gray()
+	# Paint()
+	# plt.show()
+	return plt
+
+
+
+
 if __name__ == '__main__':
+
+	# Original
+	'''
 	genMesh()
 
 	# circularLines()
 	parallelLines()
 	# addButtons(plt)
 	plt.show()
+	'''
+	regionIndex = 1
+	imageraster, regionMap = callSLIC()
+	raster = createRegionRasters(regionMap, regionIndex)
+
+	# raster = genSquareRaster(20)
+	print(raster)
+	# print(raster)
+	genMeshFromRaster( raster )
+	parallelLines()
+	print('Done')
+	plt.show()
+
+

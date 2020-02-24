@@ -43,11 +43,44 @@ def genLetter(boxsize=80, character = 'Y', blur=1):
 	n = 255 - n # Need to flip the bits.  The Freeman chain code generator requires the letter portion to have a value of 255 instead of 0.
 	return(n)
 
+def genSquareRaster(boxsize=80):
+	fontsize = int(boxsize * 1.0)
+	# Create outer region of box.  Fill box with white.
+	img = Image.new('RGB', (boxsize, boxsize), color=(255, 255, 255))
+	n = np.array(img)
 
+	rangex = int(boxsize / 4) * 2
+	rangey = rangex
+	basex = int(boxsize / 4)
+	basey = basex
+	for i in range(rangex):
+		for j in range(rangey):
+			n[i+basex][j+basey] = [0, 0, 0]
+
+	img = Image.fromarray(n)
+	# Flood fill for masking.
+	ImageDraw.floodfill(img, xy=(0, 0), value=(255, 0, 255), thresh=200) # https://stackoverflow.com/questions/46083880/fill-in-a-hollow-shape-using-python-and-pillow-pil
+
+	# Fill in holes.
+	n = np.array(img)
+	n[(n[:, :, 0:3] != [255, 0, 255]).any(2)] = [0, 0, 0]
+	# Revert all artifically filled magenta pixels to white
+	n[(n[:, :, 0:3] == [255,0,255]).all(2)] = [255,255,255]
+
+	img = Image.fromarray(n)
+	img = img.convert('L')
+	# print(img.size)
+
+	n = np.array(img)
+	n = np.reshape(n, img.size)
+	# print(np.shape(n))
+	# print(n)
+	n = 255 - n # Need to flip the bits.  The Freeman chain code generator requires the letter portion to have a value of 255 instead of 0.
+	return(n)
 
 if __name__ == '__main__':
 	n = genLetter(boxsize=80, character = 'Y', blur=1)
-
+	n = genSquareRaster()
 	img = Image.fromarray(n)
 	img.save('pil_text.png')
 	img.show()
