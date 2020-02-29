@@ -111,7 +111,10 @@ def createRegionRasters(regionMap, region=0):
 
 		deltax = bottomRight[0] - topLeft[0] + 10
 		deltay = bottomRight[1] - topLeft[1] + 10
+		deltax = deltay = max(deltax,deltay)
+		# deltax, deltay = bottomRight[0] - topLeft[0]+3, bottomRight[1] - topLeft[1]+3
 		shiftx, shifty = topLeft[0]-5, topLeft[1]-5
+		# shiftx, shifty=topLeft[0]-1, topLeft[1]-1
 
 		print('TopLeft:', topLeft, 'BottomRight:',  bottomRight)
 		print('DeltaX:', deltax, 'DeltaY:', deltay)

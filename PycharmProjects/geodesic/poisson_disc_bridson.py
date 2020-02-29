@@ -252,8 +252,8 @@ def motion_notify(event):
 	else:
 		tri = -1
 
-	update_polygon(tri, polygon1)
-	update_polygon2(tri, polygon2) # alpha - force an update on the other mesh.
+	# update_polygon(tri, polygon1)
+	# update_polygon2(tri, polygon2) # alpha - force an update on the other mesh.
 	plt.title('In triangle %i' % tri)
 	fig = plt.gcf()
 	fig.canvas.set_window_title('In triangle %i' % tri)
@@ -644,10 +644,12 @@ def genMesh():
 		ax1 = plt.subplot2grid(gridsize, (1, 0), rowspan=2)
 		ax1.set_xlim([-dimension*0.2, dimension*1.2])
 		ax1.set_ylim([-dimension * 0.2, dimension * 1.2])
+		ax1.grid()
 
 		ax2 = plt.subplot2grid(gridsize, (1, 1), rowspan=2)
 		ax2.set_xlim([-dimension*0.2, dimension*1.2])
 		ax2.set_ylim([-dimension * 0.2, dimension * 1.2])
+		ax2.grid()
 
 		# First subplot
 		triang = Triangulation(Originalsamples[:, 0], Originalsamples[:, 1], triangles=Originalfaces)
@@ -720,6 +722,8 @@ def genMeshFromRaster(raster):
 		# letter = genLetter(boxsize=dimension, character=character)
 		# letter = genLetter(boxsize=letterDimension, character=character, blur=0)
 		letter = raster
+		print("Size of Raster: ", np.shape(letter))
+		xsize = ysize = np.max(np.shape(letter))
 		count, chain, chainDirection, border = generateChainCode(letter)
 
 		print('ChainDirection:', len(chainDirection), chainDirection)
@@ -839,10 +843,16 @@ def genMeshFromRaster(raster):
 		ax1 = plt.subplot2grid(gridsize, (1, 0), rowspan=2)
 		ax1.set_xlim([-dimension*0.2, dimension*1.2])
 		ax1.set_ylim([-dimension * 0.2, dimension * 1.2])
+		ax1.set_xlim([-xsize*0.2, xsize*1.2])
+		ax1.set_ylim([-ysize * 0.2, ysize * 1.2])
+		ax1.grid()
 
 		ax2 = plt.subplot2grid(gridsize, (1, 1), rowspan=2)
 		ax2.set_xlim([-dimension*0.2, dimension*1.2])
 		ax2.set_ylim([-dimension * 0.2, dimension * 1.2])
+		ax2.set_xlim([-xsize*0.2, xsize*1.2])
+		ax2.set_ylim([-ysize * 0.2, ysize * 1.2])
+		ax2.grid()
 
 		# First subplot
 		triang = Triangulation(Originalsamples[:, 0], Originalsamples[:, 1], triangles=Originalfaces)
@@ -863,7 +873,8 @@ def genMeshFromRaster(raster):
 
 		# Second subplot
 		# print(Flatfaces)
-		Flatsamples = Flatsamples * dimension
+		# Flatsamples = Flatsamples * dimension
+		Flatsamples = Flatsamples * xsize
 		triang2 = Triangulation(Flatsamples[:, 0], Flatsamples[:, 1], triangles=Flatfaces)
 		# ax2 = plt.subplot(122, aspect='equal')  # Create first subplot.
 		ax2.triplot(triang2, color='grey')
@@ -877,7 +888,7 @@ def genMeshFromRaster(raster):
 		# np.unique(tempTri.simplices.ravel())
 		# print('*** CoPlanar:', tempTri.coplanar)
 
-		if True:
+		if False:
 			trifinder2 = triang2.get_trifinder()
 			polygon2 = Polygon([[0, 0], [0, 0]], facecolor='y')  # dummy data for xs,ys
 			update_polygon2(-1, polygon2)
@@ -904,7 +915,7 @@ if __name__ == '__main__':
 	# addButtons(plt)
 	plt.show()
 	'''
-	regionIndex = 1
+	regionIndex = 18
 	imageraster, regionMap = callSLIC()
 	raster = createRegionRasters(regionMap, regionIndex)
 
