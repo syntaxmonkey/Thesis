@@ -280,11 +280,12 @@ def convertAxesBarycentric(x, y, triang, triang2, triFinder, Originalsamples, Fl
 
 	return cartesian
 
-def replicateDots(linePoints, axTarget, triFinder, triang, triang2, Originalsamples, Flatsamples, generateDots=True):
+def replicateDots(linePoints, axTarget, triFinder, triang, triang2, Originalsamples, Flatsamples, generateDots=True, actualTopLeft=(0,0)):
 	global additionalPoints
 	print('Replicate Dots')
 	print(linePoints)
 	replicatedPoints = []
+	shiftx, shifty = actualTopLeft
 
 	if generateDots == True:
 		# Generate barycentric cartesian points on the second axes.
@@ -298,7 +299,7 @@ def replicateDots(linePoints, axTarget, triFinder, triang, triang2, Originalsamp
 
 			cartesian = convertAxesBarycentric(x, y, triang, triang2, triFinder, Originalsamples, Flatsamples)
 
-			dot, = axTarget.plot(cartesian[0], cartesian[1], color='green', marker='.')
+			dot, = axTarget.plot(cartesian[0]+shiftx, cartesian[1]+shifty, color='green', marker='.')
 			additionalPoints.append(dot)
 	else:
 		for linePoint in linePoints:
@@ -311,6 +312,8 @@ def replicateDots(linePoints, axTarget, triFinder, triang, triang2, Originalsamp
 				tempY = y[i]
 
 				cartesian = convertAxesBarycentric(tempX, tempY, triang, triang2, triFinder, Originalsamples, Flatsamples)
+				cartesian[0] = cartesian[0]+shiftx
+				cartesian[1] = cartesian[1]+shifty
 				newLine.append(cartesian)
 
 			replicatedPoints = np.array(newLine)
@@ -412,6 +415,52 @@ def circularLines():
 			replicateDots([circleLine], ax2, trifinder, triang, triang2, Originalsamples, Flatsamples, generateDots=generateDots)
 
 
+def segmentParallelLines( actualTopLeft, ax ):
+	xAxisValues, yAxisValues = generateBoundaryPoints(angle, dimension, spacing)
+	segmentParallelLineFilter(xAxisValues, yAxisValues, actualTopLeft, ax)
+
+def segmentParallelLineFilter(xAxisValues, yAxisValues, actualTopLeft, ax):
+	global spacing, segmentLength, generateDots
+
+	''' Actually draw the lines and dots. '''
+	dottedLines = []
+
+	for line in xAxisValues:
+		startPoint, endPoint = line
+		distance = euclidean_distance(startPoint, endPoint)
+		segments = distance / spacing  # Determine the number of segments required.
+		incrementX = ( endPoint[0] - startPoint[0] ) / segments
+		incrementY = ( endPoint[1] - startPoint[1] ) / segments
+		top, bottom = findTopBottom(startPoint, endPoint, incrementX, incrementY, distance, trifinder)
+		if not (top[0] == -1 or top[1] == -1 or bottom[0] == -1 or bottom[1] == -1):
+			line = [top, bottom]
+			dottedLines.append( line )
+
+	for line in yAxisValues:
+		startPoint, endPoint = line
+		distance = euclidean_distance(startPoint, endPoint)
+		segments = distance / spacing  # Determine the number of segments required.
+		incrementX = ( endPoint[0] - startPoint[0] ) / segments
+		incrementY = ( endPoint[1] - startPoint[1] ) / segments
+		top, bottom = findTopBottom(startPoint, endPoint, incrementX, incrementY, distance, trifinder)
+		if not (top[0] == -1 or top[1] == -1 or bottom[0] == -1 or bottom[1] == -1):
+			line = [top, bottom]
+			dottedLines.append( line )
+
+	# print(dottedLines)
+		# print(bottom)
+
+	lineEndPoints = np.array(dottedLines)
+	for line in lineEndPoints:
+		# print(line)
+		# ax1.plot(line[:,0], line[:,1], marker='.') # For confirmation.
+
+		# Create the lines for the points.
+		linePoints = createDottedLine(ax1, line[0], line[1], segmentLength=segmentLength, generateDots=generateDots)
+		ax1lines.append(linePoints)
+		replicateDots(linePoints, ax2, trifinder, triang, triang2, Originalsamples, Flatsamples, generateDots=generateDots)
+		replicateDots(linePoints, ax, trifinder, triang, triang2, Originalsamples, Flatsamples, generateDots=generateDots, actualTopLeft=actualTopLeft)
+
 def parallelLines():
 	global angle, spacing, dimension
 
@@ -489,20 +538,20 @@ def updateAngle(val):
 
 def addButtons(plt):
 	''' Buttons '''
-	axcut = plt.axes([0.8, 0.8, 0.1,
-	                  0.075])  # https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes. [ left, bottom, width, height ]
-	bprocess = Button(axcut, 'Process', color='red', hovercolor='green')
-	bprocess.on_clicked(reset)
+	# axcut = plt.axes([0.8, 0.8, 0.1,
+	#                   0.075])  # https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes. [ left, bottom, width, height ]
+	# bprocess = Button(axcut, 'Process', color='red', hovercolor='green')
+	# bprocess.on_clicked(reset)
 
-	axcut = plt.axes([0.8, 0.65, 0.1,
-	                  0.075])  # https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes. [ left, bottom, width, height ]
-	breset = Button(axcut, 'Reset', color='red', hovercolor='green')
-	breset.on_clicked(clearDots)  # Bind event for reset button.
+	# axcut = plt.axes([0.8, 0.65, 0.1,
+	#                   0.075])  # https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes. [ left, bottom, width, height ]
+	# breset = Button(axcut, 'Reset', color='red', hovercolor='green')
+	# breset.on_clicked(clearDots)  # Bind event for reset button.
 
-	axcut = plt.axes([0.65, 0.65, 0.1,
-	                  0.075])  # https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes. [ left, bottom, width, height ]
-	bangle = Slider(axcut, 'Angle: ' + str(angle), 0, 360, valinit=angle, valfmt='%1.2f', dragging=True)
-	bangle.on_changed(updateAngle)
+	# axcut = plt.axes([0.65, 0.65, 0.1,
+	#                   0.075])  # https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes. [ left, bottom, width, height ]
+	# bangle = Slider(axcut, 'Angle: ' + str(angle), 0, 360, valinit=angle, valfmt='%1.2f', dragging=True)
+	# bangle.on_changed(updateAngle)
 
 
 def genMesh():
@@ -626,19 +675,19 @@ def genMesh():
 		axdraw.imshow(letter)
 
 		''' Buttons '''
-		axcut = plt.axes([0.8, 0.8, 0.1, 0.075]) # https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes. [ left, bottom, width, height ]
-		bprocess = Button(axcut, 'Process', color='red', hovercolor='green')
-		bprocess.on_clicked(reset)
+		# axcut = plt.axes([0.8, 0.8, 0.1, 0.075]) # https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes. [ left, bottom, width, height ]
+		# bprocess = Button(axcut, 'Process', color='red', hovercolor='green')
+		# bprocess.on_clicked(reset)
 
-		axcut = plt.axes([0.8, 0.65, 0.1, 0.075]) # https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes. [ left, bottom, width, height ]
-		breset = Button(axcut, 'Reset', color='red', hovercolor='green')
-		breset.on_clicked(clearDots) # Bind event for reset button.
+		# axcut = plt.axes([0.8, 0.65, 0.1, 0.075]) # https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes. [ left, bottom, width, height ]
+		# breset = Button(axcut, 'Reset', color='red', hovercolor='green')
+		# breset.on_clicked(clearDots) # Bind event for reset button.
 
-		axcut = plt.axes([0.65, 0.65, 0.1,
-		                  0.075])  # https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes. [ left, bottom, width, height ]
-		bangle =  Slider(axcut, 'Angle: ' + str(angle), 0, 360, valfmt='%1.2f', dragging=True)
-		bangle.set_val(angle)
-		bangle.on_changed(updateAngle)
+		# axcut = plt.axes([0.65, 0.65, 0.1,
+		#                   0.075])  # https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes. [ left, bottom, width, height ]
+		# bangle =  Slider(axcut, 'Angle: ' + str(angle), 0, 360, valfmt='%1.2f', dragging=True)
+		# bangle.set_val(angle)
+		# bangle.on_changed(updateAngle)
 
 		''' Mesh drawings '''
 		ax1 = plt.subplot2grid(gridsize, (1, 0), rowspan=2)
@@ -698,9 +747,15 @@ def genMesh():
 	return plt
 
 
-def genMeshFromRaster(raster):
+def genMeshFromRaster():
 	global triang, triang2, trifinder, trifinder2, ax1, ax2, Originalsamples, Flatsamples, Originalfaces, Flatfaces, polygon1, polygon2, xsize, ysize, perimeterSegments, startingR, angle, bprocess, breset, bangle, dimension, character, letterRatio, letterDimension
 
+	regionIndex = 1
+	imageraster, regionMap = callSLIC()
+	raster, actualTopLeft = createRegionRasters(regionMap, regionIndex)
+
+
+	blankRaster = np.zeros(np.shape(imageraster))
 	generateBlob = True
 
 	# Create the grid.
@@ -737,62 +792,10 @@ def genMeshFromRaster(raster):
 		samples = poisson_disc_samples(width=xsize, height=ysize, r=10, k=k, segments=perimeterSegments)
 		# samples = poisson_disc_samples(width=xsize, height=ysize, r=4, k=k, segments=len(chainDirection))
 		endTime = int(round(time.time() * 1000))
-	else:
-		xsize = ysize = dimension
-		type = 'cRecurve3'
 
-		if type == 'normal':
-			# Attempted 'H'
-			perimeterSegments = 82 # The value
-			os.system('cp chaincodecopy.txt chaincode.txt')
-		elif type == 'pentagram':
-			# Pentagram
-			perimeterSegments = 40 # The value # Pentagram.
-			os.system('cp pentagram.txt chaincode.txt')
-		elif type == 'star':
-			# star
-			perimeterSegments = 26*5 # Now works.  The angles were wrong.  Had to fix.
-			os.system('cp star.txt chaincode.txt')
-		elif type == 'square':
-			# star
-			perimeterSegments = 26*4 #
-			os.system('cp square.txt chaincode.txt')
-		elif type == 'square2':
-			# star
-			perimeterSegments = 26*4 #
-			os.system('cp square2.txt chaincode.txt')
-		elif type == 'square3':
-			# star
-			perimeterSegments = 26*4 #
-			os.system('cp square3.txt chaincode.txt')
-		elif type == 'c':
-			# star
-			perimeterSegments = 93 #
-			os.system('cp c.txt chaincode.txt')
-		elif type == 'cRecurve2':
-			# star
-			perimeterSegments = 81 #
-			os.system('cp cRecurve2.txt chaincode.txt')
-		elif type == 'cRecurve3':
-			# star
-			perimeterSegments = 80 #
-			os.system('cp cRecurve3.txt chaincode.txt')
-
-		startingR = perimeterSegments / 10
-		startTime = int(round(time.time() * 1000))
-		samples = poisson_disc_samples(width=xsize, height=ysize, r=20, k=k, segments=perimeterSegments)
-		endTime = int(round(time.time() * 1000))
-		raster = [[0 for i in range(xsize)] for j in range(ysize)]
-		for coords in samples:
-			x, y = coords
-			xint = int(x)
-			yint = int(y)
-			raster[xint][yint] = int(255)
-		letter = raster
 
 	samples = np.array(samples)  # Need to convert to np array to have proper slicing.
 	print("Execution time: %d ms" % (endTime - startTime))
-
 
 	if not genVoronoi:
 		print(raster)
@@ -815,29 +818,12 @@ def genMeshFromRaster(raster):
 		os.system(path + "extract.py test1_out.obj test1_out_flat.obj")
 
 
-
 		# Read the OBJ file and produce the new mesh entries.
 		Originalsamples, Originalfaces, Flatsamples, Flatfaces = readOBJFile.readObjFile(path, "test1_out.obj")
 
 		# exit(1)
 		#Originalfaces = list(Originalfaces)
 		min_radius = .001
-
-
-		''' Buttons '''
-		axcut = plt.axes([0.8, 0.8, 0.1, 0.075]) # https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes. [ left, bottom, width, height ]
-		bprocess = Button(axcut, 'Process', color='red', hovercolor='green')
-		bprocess.on_clicked(reset)
-
-		axcut = plt.axes([0.8, 0.65, 0.1, 0.075]) # https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes. [ left, bottom, width, height ]
-		breset = Button(axcut, 'Reset', color='red', hovercolor='green')
-		breset.on_clicked(clearDots) # Bind event for reset button.
-
-		axcut = plt.axes([0.65, 0.65, 0.1,
-		                  0.075])  # https://matplotlib.org/3.1.0/api/_as_gen/matplotlib.pyplot.axes.html#matplotlib.pyplot.axes. [ left, bottom, width, height ]
-		bangle =  Slider(axcut, 'Angle: ' + str(angle), 0, 360, valfmt='%1.2f', dragging=True)
-		bangle.set_val(angle)
-		bangle.on_changed(updateAngle)
 
 		''' Mesh drawings '''
 		ax1 = plt.subplot2grid(gridsize, (1, 0), rowspan=2)
@@ -853,6 +839,11 @@ def genMeshFromRaster(raster):
 		ax2.set_xlim([-xsize*0.2, xsize*1.2])
 		ax2.set_ylim([-ysize * 0.2, ysize * 1.2])
 		ax2.grid()
+
+
+		ax3 = plt.subplot2grid(gridsize, (0,1), rowspan=1)
+		ax3.imshow(blankRaster)
+		ax3.grid()
 
 		# First subplot
 		triang = Triangulation(Originalsamples[:, 0], Originalsamples[:, 1], triangles=Originalfaces)
@@ -894,7 +885,11 @@ def genMeshFromRaster(raster):
 			update_polygon2(-1, polygon2)
 			ax2.add_patch(polygon2)
 
+		segmentParallelLines(actualTopLeft, ax3)
 
+
+
+	# parallelLines()
 	#plt.imshow(raster)
 	plt.gray()
 	# Paint()
@@ -915,15 +910,15 @@ if __name__ == '__main__':
 	# addButtons(plt)
 	plt.show()
 	'''
-	regionIndex = 18
-	imageraster, regionMap = callSLIC()
-	raster = createRegionRasters(regionMap, regionIndex)
+	# regionIndex = 18
+	# imageraster, regionMap = callSLIC()
+	# raster, actualTopLeft = createRegionRasters(regionMap, regionIndex)
 
 	# raster = genSquareRaster(20)
-	print(raster)
 	# print(raster)
-	genMeshFromRaster( raster )
-	parallelLines()
+	# print(raster)
+	genMeshFromRaster()
+	# parallelLines()
 	print('Done')
 	plt.show()
 
