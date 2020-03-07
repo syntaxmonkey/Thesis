@@ -11,8 +11,12 @@ def createObjFile2D(path, filename, samples, triangleValues, radius, center, dis
 	for coords in samples:
 		#print(coords)
 		dist = distance(center, coords) / radius2
+		# print("Dist:", dist)
 		#print(dist*dist)
 		#zvalue = math.sqrt(radius2 - coords[0]*coords[0] - coords[1]*coords[1])
+		# if dist > 1.0:
+		# 	dist = 1.0
+		# dist=dist*.75
 		zvalue = math.sqrt(1 - dist*dist) * radius2
 		#f.write("v %f %f %f\r\n" % (coords[0], coords[1], 0) )
 		f.write("v %f %f %f\r\n" % (coords[0], coords[1], zvalue))

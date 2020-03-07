@@ -100,7 +100,8 @@ def poisson_disc_samples(width, height, r, k=5, distance=euclidean_distance, ran
 	print("Segments: ", segments)
 	# Generate the list of circle Perimeters.
 	circlePerimeter = genCircleCoords(width, height, center, radius, segments=segments )
-	#print(circlePerimeter)
+	print("Circle Perimeter:", circlePerimeter)
+	print("Length of Circle Perimeter:", len(circlePerimeter))
 
 	# Find the actual r
 	'''
@@ -118,12 +119,17 @@ def poisson_disc_samples(width, height, r, k=5, distance=euclidean_distance, ran
 	else:
 		r = r * rRatio
 
+	if r == 0: # Kludge for radius.
+		print("Kludging r to 1")
+		r = 1
+
 	print("Actual r: ", r)
 
 
 	tau = 2 * pi
 	cellsize = r / sqrt(2)
 
+	print("CellSize:", cellsize)
 	grid_width = int(ceil(width / cellsize))
 	grid_height = int(ceil(height / cellsize))
 	#if grid == None:
@@ -179,7 +185,7 @@ def poisson_disc_samples(width, height, r, k=5, distance=euclidean_distance, ran
 '''
 	variables
 '''
-useSegmentRadius = True # When set to True, will use the minimum distance between perimeter points.  False will use 60% of perimeter point distance.
+useSegmentRadius = False # When set to True, will use the minimum distance between perimeter points.  False will use 60% of perimeter point distance.
 forceCenter = False # When set to True, will force inject the center point onto canvas.
 genVoronoi = True
 useDynamicRatio = False
@@ -282,8 +288,8 @@ def convertAxesBarycentric(x, y, triang, triang2, triFinder, Originalsamples, Fl
 
 def replicateDots(linePoints, axTarget, triFinder, triang, triang2, Originalsamples, Flatsamples, generateDots=True, actualTopLeft=(0,0)):
 	global additionalPoints
-	print('Replicate Dots')
-	print(linePoints)
+	# print('Replicate Dots')
+	# print(linePoints)
 	replicatedPoints = []
 	shiftx, shifty = actualTopLeft
 
@@ -293,7 +299,7 @@ def replicateDots(linePoints, axTarget, triFinder, triang, triang2, Originalsamp
 		for linePoint in linePoints:
 			# ax1.plot(event.xdata, event.ydata, 'go')
 
-			print('Replicate Dots Data: ', linePoint.get_xdata(orig=True), linePoint.get_ydata(orig=True))
+			# print('Replicate Dots Data: ', linePoint.get_xdata(orig=True), linePoint.get_ydata(orig=True))
 			x = linePoint.get_xdata(orig=True)[0]
 			y = linePoint.get_ydata(orig=True)[0]
 
@@ -750,11 +756,12 @@ def genMesh():
 def genMeshFromRaster():
 	global triang, triang2, trifinder, trifinder2, ax1, ax2, Originalsamples, Flatsamples, Originalfaces, Flatfaces, polygon1, polygon2, xsize, ysize, perimeterSegments, startingR, angle, bprocess, breset, bangle, dimension, character, letterRatio, letterDimension
 
-	startIndex = 5
+	startIndex = 1
 	regionIndex = startIndex
-	stopIndex = startIndex+1
-	imageraster, regionMap = callSLIC()
+	imageraster, regionMap = callSLIC(segmentCount=100)
+	stopIndex=startIndex+71
 
+	print("Keys:",regionMap.keys())
 	# Create the grid.
 	gridsize = (3, 2)
 	fig = plt.figure(figsize=(12, 8))
@@ -766,7 +773,11 @@ def genMeshFromRaster():
 	ax3.imshow(blankRaster)
 	ax3.grid()
 
-	for regionIndex in range(startIndex, stopIndex):
+	# for regionIndex in range(startIndex, stopIndex):
+	for regionIndex in regionMap.keys():
+		print(">>>>>>>>>>> Start of cycle")
+		resetVariables()
+		# try:
 		print("Generating index:", regionIndex)
 		raster, actualTopLeft = createRegionRasters(regionMap, regionIndex)
 
@@ -783,8 +794,8 @@ def genMeshFromRaster():
 			# letter = genLetter(boxsize=letterDimension, character=character, blur=0)
 			letter = raster
 			print("Size of Raster: ", np.shape(letter))
-			xsize = ysize = np.max(np.shape(letter))
-			letterDimension=xsize
+			letterDimension=dimension=xsize = ysize = np.max(np.shape(letter))
+
 			count, chain, chainDirection, border = generateChainCode(letter)
 
 			print('ChainDirection:', len(chainDirection), chainDirection)
@@ -792,7 +803,7 @@ def genMeshFromRaster():
 			writeChainCodeFile('./', 'chaincode.txt', chainDirection)
 			print(len(chainDirection))
 			perimeterSegments = len(chainDirection)
-			startingR = perimeterSegments / 10
+			startingR = perimeterSegments / 20
 
 			startTime = int(round(time.time() * 1000))
 			samples = poisson_disc_samples(width=xsize, height=ysize, r=10, k=k, segments=perimeterSegments)
@@ -847,9 +858,9 @@ def genMeshFromRaster():
 			ax2.grid()
 
 
-			ax3 = plt.subplot2grid(gridsize, (0,1), rowspan=1)
-			ax3.imshow(blankRaster)
-			ax3.grid()
+			# ax3 = plt.subplot2grid(gridsize, (0,1), rowspan=1)
+			# ax3.imshow(blankRaster)
+			# ax3.grid()
 
 			# First subplot
 			triang = Triangulation(Originalsamples[:, 0], Originalsamples[:, 1], triangles=Originalfaces)
@@ -891,7 +902,10 @@ def genMeshFromRaster():
 				update_polygon2(-1, polygon2)
 				ax2.add_patch(polygon2)
 
+			print("********** Calling segmentParallelLines")
 			segmentParallelLines(actualTopLeft, ax3)
+		# except:
+		# 	print("Something went wrong with index ", regionIndex)
 
 
 
@@ -902,6 +916,9 @@ def genMeshFromRaster():
 	# plt.show()
 	return plt
 
+def resetVariables():
+	global triang, triang2, trifinder, trifinder2, ax1, ax2, Originalsamples, Flatsamples, Originalfaces, Flatfaces, polygon1, polygon2, xsize, ysize, perimeterSegments, startingR, angle, bprocess, breset, bangle, dimension, character, letterRatio, letterDimension
+	triang = triang2 = trifinder= trifinder2= ax1= ax2= Originalsamples= Flatsamples= Originalfaces= Flatfaces= polygon1= polygon2= xsize= ysize= perimeterSegments= startingR= bprocess= breset= bangle= dimension= character= letterRatio= letterDimension=None
 
 
 
@@ -923,6 +940,7 @@ if __name__ == '__main__':
 	# raster = genSquareRaster(20)
 	# print(raster)
 	# print(raster)
+	resetVariables()
 	genMeshFromRaster()
 	# parallelLines()
 	print('Done')

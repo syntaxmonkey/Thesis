@@ -68,6 +68,7 @@ def genCircle(xsize, ysize):
 
 
 def genCircleCoords(xsize, ysize,  center, radius, segments=5):
+	perimeterCoords = []
 	# Draw Circle Image: https://code-maven.com/create-images-with-python-pil-pillow
 	angle=0 # Start at angle 0.
 	angleIncrement = 360/segments

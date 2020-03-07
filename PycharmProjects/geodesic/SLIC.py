@@ -26,7 +26,7 @@ def segmentImage(imageName, numSegments):
 	# for numSegments in (100,):
 		# apply SLIC and extract (approximately) the supplied number
 		# of segments
-	segments = slic(image, n_segments=numSegments, sigma=5, compactness=10, slic_zero=False, enforce_connectivity=False)
+	segments = slic(image, n_segments=numSegments, sigma=5, compactness=11, slic_zero=False, enforce_connectivity=False)
 
 	# print(type(segments))
 	# regionIndex = 16
@@ -141,13 +141,13 @@ def createRegionRasters(regionMap, region=0):
 
 
 
-def callSLIC():
+def callSLIC(segmentCount=100):
 	images = []
 	images.append('dog2.jpg')
 
 	for imageFile in images:
 
-		for numSegments in (100,):
+		for numSegments in (segmentCount,):
 			image, segments = segmentImage(imageFile, numSegments)
 			newImage = np.copy(image)
 			regionIndex = 16
@@ -203,7 +203,7 @@ if __name__ == '__main__':
 		for numSegments in (100,):
 			image, segments = segmentImage(imageFile, numSegments)
 			newImage = np.copy(image)
-			regionIndex = 16
+			regionIndex = 1
 			if debug == True:
 				# show the output of SLIC
 				fig = plt.figure("Superpixels -- %d segments - file%s" % (numSegments, image))

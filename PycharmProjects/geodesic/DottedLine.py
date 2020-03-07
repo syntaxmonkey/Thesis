@@ -72,7 +72,7 @@ def createDottedLine(ax, startPoint, endPoint, segmentLength=10, generateDots=Tr
 	else:
 		# Generate Line
 		linePoints = np.array(linePoints)
-		print(linePoints)
+		# print(linePoints)
 		line, = ax.plot( linePoints[:, 0], linePoints[:, 1], 'r')
 		newLinePoints.append(line)
 
@@ -98,7 +98,7 @@ def generateLinePoints(startPoint, endPoint, segmentLength=10):
 		adjustedSegmentDistance = pointDistance / segmentCount
 		segmentDistance = adjustedSegmentDistance / pointDistance
 
-		print("Segment Count %d" % (segmentCount))
+		# print("Segment Count %d" % (segmentCount))
 		points = []
 		for i in range(segmentCount):
 			points.append((x1 + segmentDistance*deltax*i, y1 + segmentDistance*deltay*i))
