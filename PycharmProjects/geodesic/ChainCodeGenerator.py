@@ -11,6 +11,7 @@ import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 from matplotlib import pyplot as plt
 # from itertools import chain
 
+import math
 from FilledLetter import genLetter
 
 # Input data files are available in the "../input/" directory.
@@ -34,7 +35,7 @@ def sumPreviousX(array, currentIndex, x ):
 
 
 
-def generateChainCode(img):
+def generateChainCode(img, rotate=False, angle=0):
 	closeLoop = True # Ensure the chain code forms a loop.
 	angleChangeThreshold = 270
 	correctionValue = 1
@@ -155,7 +156,7 @@ def generateChainCode(img):
 	# Need to add last transition to close the loop.
 	# Find the direction to the original Start point.
 	# HSC
-	if True:
+	if False:
 		for direction in directions:
 			idx = dir2idx[direction]
 			new_point = (curr_point[0]+change_i[idx], curr_point[1]+change_j[idx])
@@ -194,8 +195,48 @@ def generateChainCode(img):
 		count += 1
 
 	print('Final Cumulative Direction: ', cumulativeDirection)
+
+
+	if rotate == True:
+		# Perform a rotation of the chain code.
+		# print("Length of Chain code", len(chain))
+		# print(chain)
+		# print("length of chainDirection", len(chainDirection))
+		# print(chainDirection)
+		# print("Length of border", len(border))
+
+		shiftRatio = (angle%360)/360
+
+		dirLength = len(chainDirection)
+		quarterLength = math.floor(dirLength * shiftRatio)
+
+		newChain = chain[quarterLength:-1]
+		newChain.extend(chain[0:quarterLength])
+		chain=newChain
+
+		newChain = chainDirection[quarterLength:-1]
+		newChain.extend(chainDirection[0:quarterLength])
+		chainDirection = newChain
+
+		newChain = border[quarterLength:-1]
+		newChain.extend(border[0:quarterLength])
+		border = newChain
+
+	# print("chainDirection:", chainDirection)
+	# chainDirection = list(reverseDirection(chainDirection))
+	# print("chainDirection after reversal:", chainDirection)
+
 	return count, chain, chainDirection, border
 
+
+
+def reverseDirection(chainDirection):
+	# This method will reverse the direction of the chaincode.
+	# newDirection = []
+	newDirection = np.array(chainDirection)
+	newDirection = newDirection * -1
+
+	return newDirection
 
 def writeChainCodeFile(path, filename, chainDirection):
 	f = open(path + filename, "w+")
@@ -210,7 +251,7 @@ if __name__ == '__main__':
 	letterDimension = 20
 	character='C'
 	img = genLetter(boxsize=letterDimension, character=character, blur=1)
-	count, chain, chainDirection, border = generateChainCode(img)
+	count, chain, chainDirection, border = generateChainCode(img, rotate=False)
 	print('Count:', count)
 	print('Chain:', len(chain), chain)
 	print('ChainDirection:', len(chainDirection), chainDirection)
@@ -220,6 +261,6 @@ if __name__ == '__main__':
 
 	plt.imshow(img, cmap='Greys')
 	plt.plot(border[-1][1], border[-1][0], 'og') # Plot the starting point as a red dot.
-	plt.plot(border[-2][1], border[-2][0], 'or')  # Plot the ending point as a green dot.
+	plt.plot(border[0][1], border[0][0], 'or')  # Plot the ending point as a green dot.
 	plt.plot([i[1] for i in border], [i[0] for i in border])
 	plt.show()

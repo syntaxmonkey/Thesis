@@ -141,7 +141,7 @@ def createRegionRasters(regionMap, region=0):
 
 
 
-def callSLIC(segmentCount=100):
+def callSLIC(segmentCount=40):
 	images = []
 	images.append('dog2.jpg')
 
@@ -150,7 +150,7 @@ def callSLIC(segmentCount=100):
 		for numSegments in (segmentCount,):
 			image, segments = segmentImage(imageFile, numSegments)
 			newImage = np.copy(image)
-			regionIndex = 16
+			# regionIndex = 16
 			# show the output of SLIC
 			# fig = plt.figure("Superpixels -- %d segments - file%s" % (numSegments, image))
 			# ax = fig.add_subplot(3, 3, 1)
@@ -200,7 +200,7 @@ if __name__ == '__main__':
 	# images.append('dog3.jpg')
 	for imageFile in images:
 
-		for numSegments in (100,):
+		for numSegments in (40,):
 			image, segments = segmentImage(imageFile, numSegments)
 			newImage = np.copy(image)
 			regionIndex = 1

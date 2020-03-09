@@ -286,7 +286,7 @@ def convertAxesBarycentric(x, y, triang, triang2, triFinder, Originalsamples, Fl
 
 	return cartesian
 
-def replicateDots(linePoints, axTarget, triFinder, triang, triang2, Originalsamples, Flatsamples, generateDots=True, actualTopLeft=(0,0)):
+def replicateDots(linePoints, axTarget, triFinder, triang, triang2, Originalsamples, Flatsamples, generateDots=True, actualTopLeft=(0,0), scale=1):
 	global additionalPoints
 	# print('Replicate Dots')
 	# print(linePoints)
@@ -318,12 +318,12 @@ def replicateDots(linePoints, axTarget, triFinder, triang, triang2, Originalsamp
 				tempY = y[i]
 
 				cartesian = convertAxesBarycentric(tempX, tempY, triang, triang2, triFinder, Originalsamples, Flatsamples)
-				cartesian[0] = cartesian[0]+shiftx
-				cartesian[1] = cartesian[1]+shifty
+				cartesian[0] = cartesian[0]*scale+shiftx
+				cartesian[1] = cartesian[1]*scale+shifty
 				newLine.append(cartesian)
 
 			replicatedPoints = np.array(newLine)
-			line, = axTarget.plot(replicatedPoints[:, 0], replicatedPoints[:, 1], 'g')
+			line, = axTarget.plot(replicatedPoints[:, 0], replicatedPoints[:, 1], 'r')
 			additionalPoints.append(line)
 
 
@@ -425,7 +425,7 @@ def segmentParallelLines( actualTopLeft, ax ):
 	xAxisValues, yAxisValues = generateBoundaryPoints(angle, dimension, spacing)
 	segmentParallelLineFilter(xAxisValues, yAxisValues, actualTopLeft, ax)
 
-def segmentParallelLineFilter(xAxisValues, yAxisValues, actualTopLeft, ax):
+def segmentParallelLineFilter(xAxisValues, yAxisValues, actualTopLeft, axTarget):
 	global spacing, segmentLength, generateDots
 
 	''' Actually draw the lines and dots. '''
@@ -465,7 +465,7 @@ def segmentParallelLineFilter(xAxisValues, yAxisValues, actualTopLeft, ax):
 		linePoints = createDottedLine(ax1, line[0], line[1], segmentLength=segmentLength, generateDots=generateDots)
 		ax1lines.append(linePoints)
 		replicateDots(linePoints, ax2, trifinder, triang, triang2, Originalsamples, Flatsamples, generateDots=generateDots)
-		replicateDots(linePoints, ax, trifinder, triang, triang2, Originalsamples, Flatsamples, generateDots=generateDots, actualTopLeft=actualTopLeft)
+		replicateDots(linePoints, axTarget, trifinder, triang, triang2, Originalsamples, Flatsamples, generateDots=generateDots, actualTopLeft=actualTopLeft, scale=0.5)
 
 def parallelLines():
 	global angle, spacing, dimension
@@ -758,7 +758,7 @@ def genMeshFromRaster():
 
 	startIndex = 1
 	regionIndex = startIndex
-	imageraster, regionMap = callSLIC(segmentCount=100)
+	imageraster, regionMap = callSLIC(segmentCount=40)
 	stopIndex=startIndex+71
 
 	print("Keys:",regionMap.keys())
@@ -907,7 +907,168 @@ def genMeshFromRaster():
 		# except:
 		# 	print("Something went wrong with index ", regionIndex)
 
+	# parallelLines()
+	#plt.imshow(raster)
+	plt.gray()
+	# Paint()
+	# plt.show()
+	return plt
 
+
+def genMeshFromRaster2():
+	global triang, triang2, trifinder, trifinder2, ax1, ax2, Originalsamples, Flatsamples, Originalfaces, Flatfaces, polygon1, polygon2, xsize, ysize, perimeterSegments, startingR, angle, bprocess, breset, bangle, dimension, character, letterRatio, letterDimension
+
+	startIndex = 0 # Index starts at 0.
+	regionIndex = startIndex
+	imageraster, regionMap = callSLIC(segmentCount=40)
+	stopIndex=startIndex+16
+
+	print("Keys:",regionMap.keys())
+	# Create the grid.
+	gridsize = (3, 2)
+	fig = plt.figure(figsize=(12, 8))
+	''' Draw Letter blob '''
+	axdraw = plt.subplot2grid(gridsize, (0, 0))
+
+	blankRaster = np.zeros(np.shape(imageraster))
+	ax3 = plt.subplot2grid(gridsize, (0, 1), rowspan=1)
+	# ax3.imshow(blankRaster)
+	ax3.imshow(imageraster)
+	ax3.grid()
+
+	for regionIndex in range(startIndex, stopIndex):
+	# for regionIndex in regionMap.keys():
+		print(">>>>>>>>>>> Start of cycle")
+		resetVariables()
+		# try:
+		print("Generating index:", regionIndex)
+		raster, actualTopLeft = createRegionRasters(regionMap, regionIndex)
+
+		generateBlob = True
+
+		axdraw.imshow(raster)
+
+		# return
+		if generateBlob:
+			# letterDimension = int(dimension / letterRatio)
+			# letterDimension = letterDimension
+			# xsize = ysize = dimension
+			# letter = genLetter(boxsize=dimension, character=character)
+			# letter = genLetter(boxsize=letterDimension, character=character, blur=0)
+			letter = raster
+			print("Size of Raster: ", np.shape(letter))
+			letterDimension=dimension=xsize = ysize = np.max(np.shape(letter))
+
+			count, chain, chainDirection, border = generateChainCode(letter, rotate=True, angle=75)
+
+			print('ChainDirection:', len(chainDirection), chainDirection)
+			# writeChainCodeFile('./', 'testChainCode.txt', chainDirection)
+			writeChainCodeFile('./', 'chaincode.txt', chainDirection)
+			print(len(chainDirection))
+			perimeterSegments = len(chainDirection)
+			startingR = perimeterSegments / 20
+
+			startTime = int(round(time.time() * 1000))
+			samples = poisson_disc_samples(width=xsize, height=ysize, r=10, k=k, segments=perimeterSegments)
+			# samples = poisson_disc_samples(width=xsize, height=ysize, r=4, k=k, segments=len(chainDirection))
+			endTime = int(round(time.time() * 1000))
+
+
+		samples = np.array(samples)  # Need to convert to np array to have proper slicing.
+		print("Execution time: %d ms" % (endTime - startTime))
+
+		if not genVoronoi:
+			print(raster)
+			plt.imshow(raster)
+		else:
+
+			#voronoi_plot_2d(vor)
+			tri = Delaunay(samples)  # Generate the triangles from the vertices.
+
+			# Produce the mesh file.  Flatten the mesh with BFF.  Extract the 2D from BFF flattened mesh.
+			path = "../../boundary-first-flattening/build/"
+			# Create object file for image.
+			createOBJFile.createObjFile2D(path, "test1.obj", samples, tri, radius, center, distance=euclidean_distance)
+			# Reshape with BFF.
+			print("Reshaping with BFF")
+			os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --angle=1 --normalizeUVs")
+			# Extract the flattened version of the image.
+
+			print("Extracting 2D image post BFF Reshaping")
+			os.system(path + "extract.py test1_out.obj test1_out_flat.obj")
+
+
+			# Read the OBJ file and produce the new mesh entries.
+			Originalsamples, Originalfaces, Flatsamples, Flatfaces = readOBJFile.readObjFile(path, "test1_out.obj")
+
+			# exit(1)
+			#Originalfaces = list(Originalfaces)
+			min_radius = .001
+
+			''' Mesh drawings '''
+			ax1 = plt.subplot2grid(gridsize, (1, 0), rowspan=2)
+			ax1.set_xlim([-dimension*0.2, dimension*1.2])
+			ax1.set_ylim([-dimension * 0.2, dimension * 1.2])
+			ax1.set_xlim([-xsize*0.2, xsize*1.2])
+			ax1.set_ylim([-ysize * 0.2, ysize * 1.2])
+			ax1.grid()
+
+			ax2 = plt.subplot2grid(gridsize, (1, 1), rowspan=2)
+			ax2.set_xlim([-dimension*0.2, dimension*1.2])
+			ax2.set_ylim([-dimension * 0.2, dimension * 1.2])
+			ax2.set_xlim([-xsize*0.2, xsize*1.2])
+			ax2.set_ylim([-ysize * 0.2, ysize * 1.2])
+			ax2.grid()
+
+
+			# ax3 = plt.subplot2grid(gridsize, (0,1), rowspan=1)
+			# ax3.imshow(blankRaster)
+			# ax3.grid()
+
+			# First subplot
+			triang = Triangulation(Originalsamples[:, 0], Originalsamples[:, 1], triangles=Originalfaces)
+			# ax1 = plt.subplot(121, aspect='equal') # Create first subplot.
+			ax1.triplot(triang, color='grey')
+
+			# triang.set_mask(np.hypot(Originalsamples[:, 0][triang.triangles].mean(axis=1), Originalsamples[:, 1][triang.triangles].mean(axis=1)) < min_radius)
+			trifinder = triang.get_trifinder()
+			polygon1 = Polygon([[0, 0], [0, 0]], facecolor='y')  # dummy data for xs,ys
+			update_polygon(-1, polygon1)
+
+			ax1.add_patch(polygon1)
+			plt.gcf().canvas.mpl_connect('motion_notify_event', motion_notify)
+			plt.gcf().canvas.mpl_connect('button_press_event', on_click)
+			plt.gcf().canvas.mpl_connect('key_press_event', press) # Imported from DottedLine
+
+			# plt.gcf().canvas.mpl_connect('button_press_event', motion_notify1) # https://matplotlib.org/3.1.1/users/event_handling.html
+
+			# Second subplot
+			# print(Flatfaces)
+			# Flatsamples = Flatsamples * dimension
+			Flatsamples = Flatsamples * xsize
+			triang2 = Triangulation(Flatsamples[:, 0], Flatsamples[:, 1], triangles=Flatfaces)
+			# ax2 = plt.subplot(122, aspect='equal')  # Create first subplot.
+			ax2.triplot(triang2, color='grey')
+
+			triang2.set_mask(np.hypot(Flatsamples[:, 0][triang2.triangles].mean(axis=1),
+			                          Flatsamples[:, 1][triang2.triangles].mean(axis=1)) < min_radius)
+
+			''' This block, we are trying to find the normals of the triangles.  Not successful yet. '''
+			# tempPoints = np.vstack([Flatsamples[:, 0], Flatsamples[:, 1]]).T
+			# tempTri = Delaunay(tempPoints)
+			# np.unique(tempTri.simplices.ravel())
+			# print('*** CoPlanar:', tempTri.coplanar)
+
+			if False:
+				trifinder2 = triang2.get_trifinder()
+				polygon2 = Polygon([[0, 0], [0, 0]], facecolor='y')  # dummy data for xs,ys
+				update_polygon2(-1, polygon2)
+				ax2.add_patch(polygon2)
+
+			print("********** Calling segmentParallelLines")
+			segmentParallelLines(actualTopLeft, ax3)
+		# except:
+		# 	print("Something went wrong with index ", regionIndex)
 
 	# parallelLines()
 	#plt.imshow(raster)
@@ -941,7 +1102,7 @@ if __name__ == '__main__':
 	# print(raster)
 	# print(raster)
 	resetVariables()
-	genMeshFromRaster()
+	genMeshFromRaster2()
 	# parallelLines()
 	print('Done')
 	plt.show()
