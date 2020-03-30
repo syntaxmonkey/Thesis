@@ -654,7 +654,8 @@ def genMesh():
 		createOBJFile.createObjFile2D(path, "test1.obj", samples, tri, radius, center, distance=euclidean_distance)
 		# Reshape with BFF.
 		print("Reshaping with BFF")
-		os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --angle=1 --normalizeUVs")
+		# os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --angle=1 --normalizeUVs ")
+		os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --angle=1 --normalizeUVs --nCones=2")
 		# Extract the flattened version of the image.
 
 		print("Extracting 2D image post BFF Reshaping")
@@ -959,7 +960,7 @@ def genMeshFromRaster2():
 			print("Size of Raster: ", np.shape(letter))
 			letterDimension=dimension=xsize = ysize = np.max(np.shape(letter))
 
-			count, chain, chainDirection, border = generateChainCode(letter, rotate=True, angle=75)
+			count, chain, chainDirection, border = generateChainCode(letter, rotate=False, angle=90)
 
 			print('ChainDirection:', len(chainDirection), chainDirection)
 			# writeChainCodeFile('./', 'testChainCode.txt', chainDirection)
@@ -1101,8 +1102,10 @@ if __name__ == '__main__':
 	# raster = genSquareRaster(20)
 	# print(raster)
 	# print(raster)
+	genMesh()
 	resetVariables()
-	genMeshFromRaster2()
+	# genMeshFromRaster2()
+	# genMeshFromRaster()
 	# parallelLines()
 	print('Done')
 	plt.show()
