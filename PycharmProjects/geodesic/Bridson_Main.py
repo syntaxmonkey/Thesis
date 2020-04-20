@@ -54,6 +54,8 @@ def FlattenMesh():
 	os.system(path + "extract.py test1_out.obj test1_out_flat.obj")
 
 
+
+
 if __name__ == '__main__':
 	dradius = 1.7
 	xrange, yrange = 10, 15

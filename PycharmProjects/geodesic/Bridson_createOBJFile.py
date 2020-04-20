@@ -1,5 +1,20 @@
 import math
 
+def euclidean_distance(a, b):
+	dx = a[0] - b[0]
+	dy = a[1] - b[1]
+	return math.sqrt(dx * dx + dy * dy)
+
+
+def findArea(v1, v2, v3):
+	# https://www.javatpoint.com/python-area-of-triangle
+	a = euclidean_distance(v1, v2)
+	b = euclidean_distance(v2, v3)
+	c = euclidean_distance(v3, v1)
+	s = (a+b+c)/2
+
+	area = (s*(s-a)*(s-b)*(s-c)) ** 0.5
+	return area
 
 def createObjFile2D(path, filename, samples, triangleValues, radius, center, distance):
 
@@ -22,17 +37,29 @@ def createObjFile2D(path, filename, samples, triangleValues, radius, center, dis
 		# zvalue = 0
 		#f.write("v %f %f %f\r\n" % (coords[0], coords[1], 0) )
 		f.write("v %f %f %f\r\n" % (coords[0], coords[1], zvalue))
-		print("v %f %f %f\r\n" % (coords[0], coords[1], zvalue))
+		# print("v %f %f %f\r\n" % (coords[0], coords[1], zvalue))
 		Vcount += 1
 	print("Vertex Count:", Vcount)
 
+	area = 0
+	count = 0
+	for facet in triangleValues.simplices.copy():
+		area += findArea(samples[facet[0]], samples[facet[1]], samples[facet[2]])
+		count+=1
+	averageArea = area / count
+	print("Average Area:",averageArea)
 
 	Fcount = 0
 	# Output the facets.
 	for facet in triangleValues.simplices.copy():
 		# print("Facet:", facet)
-		f.write("f %d %d %d\r\n" % (facet[0]+1, facet[1]+1, facet[2]+1)) # The facet indeces start at 1, not at 0.  Need to increment index.
-		# print("f %d %d %d\r\n" % (facet[0]+1, facet[1]+1, facet[2]+1))
+		area = findArea(samples[facet[0]], samples[facet[1]], samples[facet[2]])
+		if area < averageArea / 100.0:
+			print("Triangle Area:", area)
+			print("f %d %d %d\r\n" % (facet[0]+1, facet[1]+1, facet[2]+1))
+		else:
+			f.write("f %d %d %d\r\n" % (facet[0] + 1, facet[1] + 1, facet[2] + 1))  # The facet indeces start at 1, not at 0.  Need to increment index.
+
 		Fcount+=1
 
 	print("Facet Count:", Fcount)
