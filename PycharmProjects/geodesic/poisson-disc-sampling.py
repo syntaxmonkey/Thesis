@@ -11,9 +11,9 @@ import matplotlib.pyplot as plt
 k = 30
 
 # Minimum distance between samples
-r = 1.7
+r = 25
 
-width, height = 60, 45
+width, height = 1000, 1000
 
 # Cell side length
 a = r / np.sqrt(2)
