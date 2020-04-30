@@ -3,17 +3,19 @@ import numpy as np
 
 
 def genLetter(boxsize=80, character = 'Y', blur=1):
-	fontsize = int(boxsize * 1.0)
+	fontsize = int(boxsize * 1.1)
 	img = Image.new('RGB', (boxsize, boxsize), color=(255, 255, 255))
 	# get a font
 	# character = 'P'
+
+
 
 	# font = ImageFont.truetype("/System/Library/Fonts/Keyboard.ttf", fontsize)
 	font = ImageFont.truetype("/System/Library/Fonts/Geneva.dfont", fontsize)
 	width, height = font.getsize(character)
 
 	x = int((boxsize - width)/2)
-	y = int((boxsize - height*1.3)/2) # Need to adjust for font height: https://websemantics.uk/articles/font-size-conversion/
+	y = int((boxsize - height*1.3)/2) + 2 # Need to adjust for font height: https://websemantics.uk/articles/font-size-conversion/
 
 	d = ImageDraw.Draw(img)
 	d.text( (x,y) , character, fill=(0, 0, 0), font=font) # Add the text.

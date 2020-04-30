@@ -22,7 +22,7 @@ def calculateParameters(xrange, yrange, radius=0, pointCount=0):
     return pointDistance, pointCount
 
 
-def Bridson_sampling(width=1.0, height=1.0, radius=0.025, k=30, existingPoints=[]):
+def Bridson_sampling(width=1.0, height=1.0, radius=0.025, k=30, existingPoints=[], mask=[]):
     # References: Fast Poisson Disk Sampling in Arbitrary Dimensions
     #             Robert Bridson, SIGGRAPH, 2007
     def squared_distance(p0, p1):
@@ -63,6 +63,14 @@ def Bridson_sampling(width=1.0, height=1.0, radius=0.025, k=30, existingPoints=[
         i, j = int(p[0]/cellsize), int(p[1]/cellsize)
         P[i, j], M[i, j] = p, True
 
+    def in_mask(p, mask):
+        if len(mask) > 0:
+            print( "Length of Mask: ", p)
+            # Will return true if the point references a pixel that has value 255.
+            if mask[int(p[0]), int(p[1])] == 255:
+                return True
+        return False
+
     # Here `2` corresponds to the number of dimension
     cellsize = radius/np.sqrt(2)
     rows = int(np.ceil(width/cellsize))
@@ -95,6 +103,7 @@ def Bridson_sampling(width=1.0, height=1.0, radius=0.025, k=30, existingPoints=[
         del points[i]
         Q = random_point_around(p, k)
         for q in Q:
+            # if in_limits(q) and not in_neighborhood(q) and not in_mask(q, mask):
             if in_limits(q) and not in_neighborhood(q):
                 add_point(q)
     return P[M]

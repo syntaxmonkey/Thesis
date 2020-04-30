@@ -43,7 +43,8 @@ def createObjFile2D(path, filename, samples, triangleValues, radius, center, dis
 
 	area = 0
 	count = 0
-	for facet in triangleValues.simplices.copy():
+	# for facet in triangleValues.simplices.copy():
+	for facet in triangleValues.triangles:
 		area += findArea(samples[facet[0]], samples[facet[1]], samples[facet[2]])
 		count+=1
 	averageArea = area / count
@@ -51,7 +52,8 @@ def createObjFile2D(path, filename, samples, triangleValues, radius, center, dis
 
 	Fcount = 0
 	# Output the facets.
-	for facet in triangleValues.simplices.copy():
+	# for facet in triangleValues.simplices.copy():
+	for facet in triangleValues.triangles:
 		# print("Facet:", facet)
 		area = findArea(samples[facet[0]], samples[facet[1]], samples[facet[2]])
 		if area < averageArea / 100.0:

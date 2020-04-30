@@ -5,6 +5,7 @@ import math
 import matplotlib.pyplot as plt
 import Bridson_createOBJFile
 import os
+import Bridson_CreateMask
 
 def generatePointsDisplay(xrange, yrange, dradius):
 	# Generate points and display
@@ -14,18 +15,31 @@ def generatePointsDisplay(xrange, yrange, dradius):
 
 def generateDelaunayDisplay(xrange, yrange, dradius):
 	points = Bridson_sampling(width=xrange, height=yrange, radius=dradius)
-	displayDelaunayMesh(points)
+	displayDelaunayMesh(points, dradius)
 
-def genSquareDelaunayDisplay(xrange, yrange, radius=0, pointCount=0):
+def genSquareDelaunayDisplay(xrange, yrange, radius=0, pointCount=0, mask=[]):
 	radius, pointCount = calculateParameters(xrange, yrange, radius, pointCount)
 
 	points = genSquarePerimeterPoints(xrange, yrange, radius=radius, pointCount=pointCount)
 	print(np.shape(points))
-	points = Bridson_sampling(width=xrange, height=yrange, radius=radius, existingPoints=points)
+	points = Bridson_sampling(width=xrange, height=yrange, radius=radius, existingPoints=points, mask=mask)
 	print(np.shape(points))
-	tri = displayDelaunayMesh(points)
+
+	if len(mask) > 0:
+		points = filterOutPoints(points, mask)
+
+	tri = displayDelaunayMesh(points, radius)
 	return points, tri
 
+
+def filterOutPoints(points, mask):
+	# expects inverted mask.
+	newPoints = []
+	for point in points:
+		if mask[int(point[0]), int(point[1])] == 0:
+			newPoints.append(point)
+
+	return np.array(newPoints)
 
 def euclidean_distance(a, b):
 	dx = a[0] - b[0]
@@ -55,14 +69,26 @@ def FlattenMesh():
 
 
 
+def generateMask(x, y ):
+	return Bridson_CreateMask.genLetter(x,y)
+
+
+
 
 if __name__ == '__main__':
 	dradius = 1.7
-	xrange, yrange = 10, 15
+	xrange, yrange = 400, 400
 
+	mask =  Bridson_CreateMask.InvertMask( generateMask(xrange, yrange))
+
+	print(mask)
+	plt.figure()
+	plt.subplot(1, 1, 1, aspect=1)
+	plt.title('Mask')
+	plt.imshow(mask)
 	# generatePointsDisplay(xrange, yrange, dradius)
 	# generateDelaunayDisplay(xrange, yrange, dradius)
-	points, tri = genSquareDelaunayDisplay(xrange, yrange, radius=dradius)
+	points, tri = genSquareDelaunayDisplay(xrange, yrange, radius=dradius, mask=mask)
 
 	fakeRadius = max(xrange,yrange)
 
