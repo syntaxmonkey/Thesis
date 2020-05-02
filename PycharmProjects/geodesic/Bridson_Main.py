@@ -69,17 +69,13 @@ def FlattenMesh():
 
 
 
-def generateMask(x, y ):
-	return Bridson_CreateMask.genLetter(x,y)
-
-
 
 
 if __name__ == '__main__':
 	dradius = 1.7
-	xrange, yrange = 400, 400
+	xrange, yrange = 200, 200
 
-	mask =  Bridson_CreateMask.InvertMask( generateMask(xrange, yrange))
+	mask =  Bridson_CreateMask.InvertMask( Bridson_CreateMask.genLetter(xrange, yrange, character='a'))
 
 	print(mask)
 	plt.figure()

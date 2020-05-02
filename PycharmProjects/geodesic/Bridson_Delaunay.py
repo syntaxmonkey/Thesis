@@ -27,20 +27,20 @@ def removeLongTriangles(points, tri, radius=0):
 	for triangle in triangles:
 		Keep = True
 		# Iterate through all 3 edges.  Ensure their euclidean distance is less than or equal to radius.
-		print("Triangle:", triangle[0])
+		# print("Triangle:", triangle[0])
 		for i in range(3):
 			currentIndex = i
 			nextIndex = (currentIndex + 1) % 3
-			print("Indeces:", currentIndex, nextIndex)
+			# print("Indeces:", currentIndex, nextIndex)
 			distance = Bridson_Common.euclidean_distance(points[triangle[currentIndex]], points[triangle[nextIndex]])
-			print("distance:", radius, distance)
+			# print("distance:", radius, distance)
 			if distance > radius*2.0:
 				Keep = False
 				break
 		if Keep:
 			newTriangles.append(triangle)
 
-	print("New Triangle Shape:", np.shape(newTriangles))
+	# print("New Triangle Shape:", np.shape(newTriangles))
 	newTriangles = np.array(newTriangles)
 
 	newTri = mtri.Triangulation(points[:,0], points[:,1], newTriangles)
