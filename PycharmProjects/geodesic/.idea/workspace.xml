@@ -3,10 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="6ab9aa8a-8b4b-405a-a077-6186da762c11" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/../NNCourse" afterPath="$PROJECT_DIR$/../NNCourse" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/Bridson_Delaunay.py" afterPath="$PROJECT_DIR$/Bridson_Delaunay.py" />
+      <change beforePath="$PROJECT_DIR$/Bridson_CreateMask.py" afterPath="$PROJECT_DIR$/Bridson_CreateMask.py" />
       <change beforePath="$PROJECT_DIR$/Bridson_Main.py" afterPath="$PROJECT_DIR$/Bridson_Main.py" />
+      <change beforePath="$PROJECT_DIR$/testChainCode.txt" afterPath="$PROJECT_DIR$/testChainCode.txt" />
       <change beforePath="$PROJECT_DIR$/../../boundary-first-flattening" afterPath="$PROJECT_DIR$/../../boundary-first-flattening" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -34,7 +34,7 @@
         <entry file="file://$PROJECT_DIR$/Bridson_Delaunay.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="370">
-              <caret line="43" column="41" lean-forward="true" selection-start-line="43" selection-start-column="41" selection-end-line="43" selection-end-column="41" />
+              <caret line="43" column="41" lean-forward="false" selection-start-line="43" selection-start-column="41" selection-end-line="43" selection-end-column="41" />
               <folding>
                 <element signature="e#0#150#0" expanded="true" />
               </folding>
@@ -42,11 +42,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Bridson_Main.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Bridson_Main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Bridson_Main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="244">
-              <caret line="75" column="29" lean-forward="true" selection-start-line="75" selection-start-column="29" selection-end-line="75" selection-end-column="29" />
+            <state relative-caret-position="274">
+              <caret line="77" column="102" lean-forward="false" selection-start-line="77" selection-start-column="43" selection-end-line="77" selection-end-column="102" />
               <folding>
                 <element signature="e#0#66#0" expanded="true" />
               </folding>
@@ -54,12 +54,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Bridson_ChainCode.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Bridson_ChainCode.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Bridson_ChainCode.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="574">
-              <caret line="250" column="30" lean-forward="false" selection-start-line="250" selection-start-column="12" selection-end-line="250" selection-end-column="30" />
-              <folding />
+            <state relative-caret-position="244">
+              <caret line="253" column="36" lean-forward="true" selection-start-line="253" selection-start-column="36" selection-end-line="253" selection-end-column="36" />
+              <folding>
+                <element signature="e#176#211#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -67,8 +69,8 @@
       <file leaf-file-name="Bridson_CreateMask.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Bridson_CreateMask.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="4" lean-forward="false" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
+            <state relative-caret-position="315">
+              <caret line="21" column="36" lean-forward="true" selection-start-line="21" selection-start-column="36" selection-end-line="21" selection-end-column="36" />
               <folding>
                 <element signature="e#1#19#0" expanded="true" />
               </folding>
@@ -99,8 +101,8 @@
       <file leaf-file-name="FilledLetter.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/FilledLetter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+            <state relative-caret-position="-214">
+              <caret line="4" column="4" lean-forward="false" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
               <folding>
                 <element signature="e#0#56#0" expanded="true" />
               </folding>
@@ -202,11 +204,11 @@
         <option value="$PROJECT_DIR$/Bridson_Common.py" />
         <option value="$PROJECT_DIR$/FilledLetter.py" />
         <option value="$PROJECT_DIR$/Bridson_sampling.py" />
-        <option value="$PROJECT_DIR$/Bridson_CreateMask.py" />
-        <option value="$PROJECT_DIR$/Bridson_ChainCode.py" />
         <option value="$PROJECT_DIR$/Bridson_createOBJFile.py" />
         <option value="$PROJECT_DIR$/Bridson_Delaunay.py" />
         <option value="$PROJECT_DIR$/Bridson_Main.py" />
+        <option value="$PROJECT_DIR$/Bridson_ChainCode.py" />
+        <option value="$PROJECT_DIR$/Bridson_CreateMask.py" />
       </list>
     </option>
   </component>
@@ -295,7 +297,25 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Bridson_Main">
+  <component name="RunManager" selected="Python.Bridson_ChainCode">
+    <configuration name="Bridson_ChainCode" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$PROJECT_DIR$/../Thesis/venv/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="geodesic" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Bridson_ChainCode.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <configuration name="Bridson_CreateMask" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -368,24 +388,6 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="poisson-disc-sampling" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="$PROJECT_DIR$/../Thesis/venv/bin/python" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="geodesic" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/poisson-disc-sampling.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
     <configuration name="poisson_disc_bridson" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -406,18 +408,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.poisson_disc_bridson" />
-      <item index="1" class="java.lang.String" itemvalue="Python.poisson-disc-sampling" />
-      <item index="2" class="java.lang.String" itemvalue="Python.Bridson_sampling" />
-      <item index="3" class="java.lang.String" itemvalue="Python.Bridson_Main" />
-      <item index="4" class="java.lang.String" itemvalue="Python.Bridson_CreateMask" />
+      <item index="1" class="java.lang.String" itemvalue="Python.Bridson_sampling" />
+      <item index="2" class="java.lang.String" itemvalue="Python.Bridson_Main" />
+      <item index="3" class="java.lang.String" itemvalue="Python.Bridson_CreateMask" />
+      <item index="4" class="java.lang.String" itemvalue="Python.Bridson_ChainCode" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.Bridson_Main" />
-        <item index="1" class="java.lang.String" itemvalue="Python.Bridson_CreateMask" />
-        <item index="2" class="java.lang.String" itemvalue="Python.poisson_disc_bridson" />
-        <item index="3" class="java.lang.String" itemvalue="Python.Bridson_sampling" />
-        <item index="4" class="java.lang.String" itemvalue="Python.poisson-disc-sampling" />
+        <item index="0" class="java.lang.String" itemvalue="Python.Bridson_ChainCode" />
+        <item index="1" class="java.lang.String" itemvalue="Python.Bridson_Main" />
+        <item index="2" class="java.lang.String" itemvalue="Python.Bridson_CreateMask" />
+        <item index="3" class="java.lang.String" itemvalue="Python.poisson_disc_bridson" />
+        <item index="4" class="java.lang.String" itemvalue="Python.Bridson_sampling" />
       </list>
     </recent_temporary>
   </component>
@@ -435,6 +437,14 @@
       <option name="presentableId" value="Default" />
       <updated>1573484644195</updated>
     </task>
+    <task id="LOCAL-00001" summary="Add Pycharm Project to Git.">
+      <created>1588458234305</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1588458234305</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TodoView">
@@ -452,13 +462,13 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1864139" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32994455" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3035144" sideWeight="0.5018431" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3035144" sideWeight="0.49815693" order="2" side_tool="false" content_ui="tabs" x="153" y="802" width="966" height="114" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3035144" sideWeight="0.50394946" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3035144" sideWeight="0.49605057" order="2" side_tool="false" content_ui="tabs" x="153" y="802" width="966" height="114" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32766762" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24960506" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32766762" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3972311" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3972311" sideWeight="0.49815693" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -471,6 +481,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add Pycharm Project to Git." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Pycharm Project to Git." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -769,16 +783,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/FilledLetter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#56#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Bridson_Common.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -813,40 +817,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Bridson_ChainCode.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="574">
-          <caret line="250" column="30" lean-forward="false" selection-start-line="250" selection-start-column="12" selection-end-line="250" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Bridson_Delaunay.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="370">
-          <caret line="43" column="41" lean-forward="true" selection-start-line="43" selection-start-column="41" selection-end-line="43" selection-end-column="41" />
+          <caret line="43" column="41" lean-forward="false" selection-start-line="43" selection-start-column="41" selection-end-line="43" selection-end-column="41" />
           <folding>
             <element signature="e#0#150#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Bridson_Main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="77" column="102" lean-forward="false" selection-start-line="77" selection-start-column="43" selection-end-line="77" selection-end-column="102" />
+          <folding>
+            <element signature="e#0#66#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FilledLetter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-214">
+          <caret line="4" column="4" lean-forward="false" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Bridson_CreateMask.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="4" lean-forward="false" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
+        <state relative-caret-position="315">
+          <caret line="21" column="36" lean-forward="true" selection-start-line="21" selection-start-column="36" selection-end-line="21" selection-end-column="36" />
           <folding>
             <element signature="e#1#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Bridson_Main.py">
+    <entry file="file://$PROJECT_DIR$/Bridson_ChainCode.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="244">
-          <caret line="75" column="29" lean-forward="true" selection-start-line="75" selection-start-column="29" selection-end-line="75" selection-end-column="29" />
+          <caret line="253" column="36" lean-forward="true" selection-start-line="253" selection-start-column="36" selection-end-line="253" selection-end-column="36" />
           <folding>
-            <element signature="e#0#66#0" expanded="true" />
+            <element signature="e#176#211#0" expanded="true" />
           </folding>
         </state>
       </provider>

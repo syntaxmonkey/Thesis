@@ -19,7 +19,7 @@ def genLetter(xsize, ysize, character = 'Y', blur=2):
 	width, height = font.getsize(character)
 
 	x = int((xsize - width)/2)
-	y = int((ysize - height*1.3)/2) + 1 # Need to adjust for font height: https://websemantics.uk/articles/font-size-conversion/
+	y = int((ysize - height*1.3)/2)  # Need to adjust for font height: https://websemantics.uk/articles/font-size-conversion/
 
 	d = ImageDraw.Draw(img)
 	d.text( (x,y) , character, fill=(0, 0, 0), font=font) # Add the text.

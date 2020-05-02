@@ -75,7 +75,7 @@ if __name__ == '__main__':
 	dradius = 1.7
 	xrange, yrange = 200, 200
 
-	mask =  Bridson_CreateMask.InvertMask( Bridson_CreateMask.genLetter(xrange, yrange, character='a'))
+	mask =  Bridson_CreateMask.InvertMask( Bridson_CreateMask.genLetter(xrange, yrange, character='y'))
 
 	print(mask)
 	plt.figure()
