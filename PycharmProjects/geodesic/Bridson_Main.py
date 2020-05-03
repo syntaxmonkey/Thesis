@@ -76,13 +76,19 @@ def FlattenMesh():
 	os.system(path + "extract.py test1_out.obj test1_out_flat.obj")
 
 
+def cleanUpFiles():
+	path = "../../boundary-first-flattening/build/"
+	os.system("rm " + path + "test1.obj ")
+	os.system("rm "+ path + "test1_out.obj")
+	os.system("rm " + path + "test1_out_flat.obj")
 
 
 
 if __name__ == '__main__':
+	cleanUpFiles()
 	dradius = 2
-	xrange, yrange = 80, 80
-	mask = Bridson_CreateMask.genLetter(xrange, yrange, character='Y')
+	xrange, yrange = 80,80
+	mask = Bridson_CreateMask.genLetter(xrange, yrange, character='Z')
 	count, chain, chainDirection, border = Bridson_ChainCode.generateChainCode(mask, rotate=False)
 	border = Bridson_ChainCode.generateBorder(border, dradius)
 

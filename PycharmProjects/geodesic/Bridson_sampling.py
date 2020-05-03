@@ -65,7 +65,7 @@ def Bridson_sampling(width=1.0, height=1.0, radius=0.025, k=30, existingPoints=[
 
     def in_mask(p, mask):
         if len(mask) > 0:
-            print( "Length of Mask: ", p)
+            # print( "Length of Mask: ", p)
             # Will return true if the point references a pixel that has value 255.
             if mask[int(p[0]), int(p[1])] == 255:
                 return True
