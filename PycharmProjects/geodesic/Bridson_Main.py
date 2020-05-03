@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import Bridson_createOBJFile
 import os
 import Bridson_CreateMask
+import Bridson_ChainCode
 
 def generatePointsDisplay(xrange, yrange, dradius):
 	# Generate points and display
@@ -73,18 +74,22 @@ def FlattenMesh():
 
 if __name__ == '__main__':
 	dradius = 1.7
-	xrange, yrange = 200, 200
+	xrange, yrange = 80, 80
+	mask = Bridson_CreateMask.genLetter(xrange, yrange, character='Y')
+	count, chain, chainDirection, border = Bridson_ChainCode.generateChainCode(mask, rotate=False)
 
-	mask =  Bridson_CreateMask.InvertMask( Bridson_CreateMask.genLetter(xrange, yrange, character='y'))
+	border = Bridson_ChainCode.generateBorder(border, dradius)
 
-	print(mask)
+	invertedMask =  Bridson_CreateMask.InvertMask( mask )
+
+	# print(invertedMask)
 	plt.figure()
 	plt.subplot(1, 1, 1, aspect=1)
 	plt.title('Mask')
-	plt.imshow(mask)
+	plt.imshow(invertedMask)
 	# generatePointsDisplay(xrange, yrange, dradius)
 	# generateDelaunayDisplay(xrange, yrange, dradius)
-	points, tri = genSquareDelaunayDisplay(xrange, yrange, radius=dradius, mask=mask)
+	points, tri = genSquareDelaunayDisplay(xrange, yrange, radius=dradius, mask=invertedMask)
 
 	fakeRadius = max(xrange,yrange)
 

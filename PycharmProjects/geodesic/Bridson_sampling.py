@@ -187,7 +187,7 @@ def genSquarePerimeterPoints(xrange, yrange, pointCount=0, radius=0):
 
 if __name__ == '__main__':
 
-    dradius = 2.2
+    dradius = 2
     xrange, yrange = 10, 10
 
     points = genSquarePerimeterPoints(xrange, yrange, radius=dradius)
