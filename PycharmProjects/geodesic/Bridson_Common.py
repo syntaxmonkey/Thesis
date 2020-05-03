@@ -1,5 +1,7 @@
 import math
 import Bridson_Common
+from PIL import Image, ImageFont, ImageDraw, ImageFilter
+import numpy as np
 
 def euclidean_distance(a, b):
 	dx = a[0] - b[0]
@@ -26,3 +28,12 @@ def findAverageArea(triangles, samples):
 		count+=1
 	averageArea = area / count
 	return averageArea
+
+
+def blurArray(array, blur):
+	img = Image.fromarray(array)
+	# Use dilation to increase the size of the mask: https://stackoverflow.com/questions/44195007/equivalents-to-opencvs-erode-and-dilate-in-pil
+	img = img.filter(ImageFilter.MinFilter(blur))  # Erosion
+	# img = img.filter(ImageFilter.MaxFilter(blur))  # Dilation
+	# img = img.filter(ImageFilter.GaussianBlur(blur))
+	return np.array(img)

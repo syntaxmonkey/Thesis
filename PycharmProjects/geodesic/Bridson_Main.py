@@ -80,7 +80,7 @@ def FlattenMesh():
 
 
 if __name__ == '__main__':
-	dradius = 3
+	dradius = 2
 	xrange, yrange = 80, 80
 	mask = Bridson_CreateMask.genLetter(xrange, yrange, character='Y')
 	count, chain, chainDirection, border = Bridson_ChainCode.generateChainCode(mask, rotate=False)
