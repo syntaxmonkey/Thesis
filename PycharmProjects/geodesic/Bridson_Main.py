@@ -18,11 +18,15 @@ def generateDelaunayDisplay(xrange, yrange, dradius):
 	points = Bridson_sampling(width=xrange, height=yrange, radius=dradius)
 	displayDelaunayMesh(points, dradius)
 
-def genSquareDelaunayDisplay(xrange, yrange, radius=0, pointCount=0, mask=[]):
+def genSquareDelaunayDisplay(xrange, yrange, radius=0, pointCount=0, mask=[], border=[]):
 	radius, pointCount = calculateParameters(xrange, yrange, radius, pointCount)
 
 	points = genSquarePerimeterPoints(xrange, yrange, radius=radius, pointCount=pointCount)
 	print(np.shape(points))
+
+	# Merge border with square perimeter.
+	points = np.append( points, border, axis=0)
+
 	points = Bridson_sampling(width=xrange, height=yrange, radius=radius, existingPoints=points, mask=mask)
 	print(np.shape(points))
 
@@ -73,7 +77,7 @@ def FlattenMesh():
 
 
 if __name__ == '__main__':
-	dradius = 1.7
+	dradius = 5
 	xrange, yrange = 80, 80
 	mask = Bridson_CreateMask.genLetter(xrange, yrange, character='Y')
 	count, chain, chainDirection, border = Bridson_ChainCode.generateChainCode(mask, rotate=False)
@@ -89,7 +93,7 @@ if __name__ == '__main__':
 	plt.imshow(invertedMask)
 	# generatePointsDisplay(xrange, yrange, dradius)
 	# generateDelaunayDisplay(xrange, yrange, dradius)
-	points, tri = genSquareDelaunayDisplay(xrange, yrange, radius=dradius, mask=invertedMask)
+	points, tri = genSquareDelaunayDisplay(xrange, yrange, radius=dradius, mask=invertedMask, border=border)
 
 	fakeRadius = max(xrange,yrange)
 

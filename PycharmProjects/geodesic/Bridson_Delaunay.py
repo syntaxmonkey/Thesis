@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import Bridson_Common
 import numpy as np
 import matplotlib.tri as mtri
+import math
 
 def generateDelaunay(points, radius=0):
     tri = Delaunay(points)  # Generate the triangles from the vertices.
@@ -34,7 +35,7 @@ def removeLongTriangles(points, tri, radius=0):
 			# print("Indeces:", currentIndex, nextIndex)
 			distance = Bridson_Common.euclidean_distance(points[triangle[currentIndex]], points[triangle[nextIndex]])
 			# print("distance:", radius, distance)
-			if distance > radius*2.0:
+			if distance > radius:
 				Keep = False
 				break
 		if Keep:
