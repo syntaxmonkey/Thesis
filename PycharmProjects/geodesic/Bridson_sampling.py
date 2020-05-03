@@ -103,8 +103,8 @@ def Bridson_sampling(width=1.0, height=1.0, radius=0.025, k=30, existingPoints=[
         del points[i]
         Q = random_point_around(p, k)
         for q in Q:
-            # if in_limits(q) and not in_neighborhood(q) and not in_mask(q, mask):
-            if in_limits(q) and not in_neighborhood(q):
+            if in_limits(q) and not in_neighborhood(q) and not in_mask(q, mask):
+            # if in_limits(q) and not in_neighborhood(q):
                 add_point(q)
     return P[M]
 

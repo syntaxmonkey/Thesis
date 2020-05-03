@@ -1,20 +1,6 @@
 import math
+import Bridson_Common
 
-def euclidean_distance(a, b):
-	dx = a[0] - b[0]
-	dy = a[1] - b[1]
-	return math.sqrt(dx * dx + dy * dy)
-
-
-def findArea(v1, v2, v3):
-	# https://www.javatpoint.com/python-area-of-triangle
-	a = euclidean_distance(v1, v2)
-	b = euclidean_distance(v2, v3)
-	c = euclidean_distance(v3, v1)
-	s = (a+b+c)/2
-
-	area = (s*(s-a)*(s-b)*(s-c)) ** 0.5
-	return area
 
 def createObjFile2D(path, filename, samples, triangleValues, radius, center, distance):
 
@@ -41,13 +27,8 @@ def createObjFile2D(path, filename, samples, triangleValues, radius, center, dis
 		Vcount += 1
 	print("Vertex Count:", Vcount)
 
-	area = 0
-	count = 0
-	# for facet in triangleValues.simplices.copy():
-	for facet in triangleValues.triangles:
-		area += findArea(samples[facet[0]], samples[facet[1]], samples[facet[2]])
-		count+=1
-	averageArea = area / count
+	averageArea = Bridson_Common.findAverageArea(triangleValues.triangles, samples)
+
 	print("Average Area:",averageArea)
 
 	Fcount = 0
@@ -55,7 +36,7 @@ def createObjFile2D(path, filename, samples, triangleValues, radius, center, dis
 	# for facet in triangleValues.simplices.copy():
 	for facet in triangleValues.triangles:
 		# print("Facet:", facet)
-		area = findArea(samples[facet[0]], samples[facet[1]], samples[facet[2]])
+		area = Bridson_Common.findArea(samples[facet[0]], samples[facet[1]], samples[facet[2]])
 		if area < averageArea / 100.0:
 			print("Triangle Area:", area)
 			print("f %d %d %d\r\n" % (facet[0]+1, facet[1]+1, facet[2]+1))

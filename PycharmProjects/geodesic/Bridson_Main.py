@@ -27,20 +27,23 @@ def genSquareDelaunayDisplay(xrange, yrange, radius=0, pointCount=0, mask=[], bo
 	# Merge border with square perimeter.
 	points = np.append( points, border, axis=0)
 
+	# Generate all the sample points.
 	points = Bridson_sampling(width=xrange, height=yrange, radius=radius, existingPoints=points, mask=mask)
 	print(np.shape(points))
 
 	if len(mask) > 0:
 		points = filterOutPoints(points, mask)
 
-	tri = displayDelaunayMesh(points, radius)
+	tri = displayDelaunayMesh(points, radius, mask, xrange)
 	return points, tri
 
 
 def filterOutPoints(points, mask):
 	# expects inverted mask.
+	# Remove points that intersect with the mesh.
 	newPoints = []
 	for point in points:
+		# Points that are '0' should be retained.
 		if mask[int(point[0]), int(point[1])] == 0:
 			newPoints.append(point)
 
@@ -77,11 +80,10 @@ def FlattenMesh():
 
 
 if __name__ == '__main__':
-	dradius = 5
+	dradius = 3
 	xrange, yrange = 80, 80
 	mask = Bridson_CreateMask.genLetter(xrange, yrange, character='Y')
 	count, chain, chainDirection, border = Bridson_ChainCode.generateChainCode(mask, rotate=False)
-
 	border = Bridson_ChainCode.generateBorder(border, dradius)
 
 	invertedMask =  Bridson_CreateMask.InvertMask( mask )
@@ -91,6 +93,8 @@ if __name__ == '__main__':
 	plt.subplot(1, 1, 1, aspect=1)
 	plt.title('Mask')
 	plt.imshow(invertedMask)
+	plt.plot([i[1] for i in border], [i[0] for i in border], 'og') # Plot the "boundaries" points as green dots.
+
 	# generatePointsDisplay(xrange, yrange, dradius)
 	# generateDelaunayDisplay(xrange, yrange, dradius)
 	points, tri = genSquareDelaunayDisplay(xrange, yrange, radius=dradius, mask=invertedMask, border=border)
