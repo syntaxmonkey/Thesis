@@ -54,8 +54,8 @@
       <file leaf-file-name="Bridson_ChainCode.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Bridson_ChainCode.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="454">
-              <caret line="284" column="14" lean-forward="false" selection-start-line="284" selection-start-column="14" selection-end-line="284" selection-end-column="14" />
+            <state relative-caret-position="459">
+              <caret line="301" column="0" lean-forward="true" selection-start-line="301" selection-start-column="0" selection-end-line="301" selection-end-column="0" />
               <folding>
                 <element signature="e#176#211#0" expanded="true" />
               </folding>
@@ -469,7 +469,14 @@
       <option name="project" value="LOCAL" />
       <updated>1588477811825</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Successfully integrated border coordinates with main mesh.">
+      <created>1588477834552</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1588477834552</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TodoView">
@@ -530,7 +537,8 @@
     <MESSAGE value="Add Pycharm Project to Git." />
     <MESSAGE value="Adding ChainCode generation for Bridson." />
     <MESSAGE value="Added border coordinates." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added border coordinates." />
+    <MESSAGE value="Successfully integrated border coordinates with main mesh." />
+    <option name="LAST_COMMIT_MESSAGE" value="Successfully integrated border coordinates with main mesh." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -905,8 +913,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Bridson_ChainCode.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="454">
-          <caret line="284" column="14" lean-forward="false" selection-start-line="284" selection-start-column="14" selection-end-line="284" selection-end-column="14" />
+        <state relative-caret-position="459">
+          <caret line="301" column="0" lean-forward="true" selection-start-line="301" selection-start-column="0" selection-end-line="301" selection-end-column="0" />
           <folding>
             <element signature="e#176#211#0" expanded="true" />
           </folding>
