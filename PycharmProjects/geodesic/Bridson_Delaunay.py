@@ -30,7 +30,7 @@ def generateDelaunay(points, radius, mask, xrange):
 def removeLongTriangles(points, tri, radius, mask):
     # Find Average Area.
     averageArea = Bridson_Common.findAverageArea(tri.simplices.copy(), points)
-    print("Average Area:", averageArea)
+    print("removeLongTriangles Average Area:", averageArea)
 
     triangles = tri.simplices.copy()
     newTriangles = []
@@ -51,10 +51,12 @@ def removeLongTriangles(points, tri, radius, mask):
                 Keep = False
                 break
         area = Bridson_Common.findArea(points[triangle[0]], points[triangle[1]], points[triangle[2]])
-        if area < averageArea / 10.0 or area > 10.0*averageArea:
+        if area < averageArea / 100.0 or area > 100.0*averageArea:
             Keep = False
         if Keep:
             newTriangles.append(triangle)
+        else:
+            print("removeLongTriangles Removing triangle Area: ", area)
 
     # print("New Triangle Shape:", np.shape(newTriangles))
     newTriangles = np.array(newTriangles)

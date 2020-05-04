@@ -19,8 +19,8 @@ def createObjFile2D(path, filename, samples, triangleValues, radius, center, dis
 		# if dist > 1.0:
 		# 	dist = 1.0
 		# dist=dist*.75
-		zvalue = math.sqrt(1 - dist*dist) * radius2
-		# zvalue = 0
+		# zvalue = math.sqrt(1 - dist*dist) * radius2
+		zvalue = 0
 		#f.write("v %f %f %f\r\n" % (coords[0], coords[1], 0) )
 		f.write("v %f %f %f\r\n" % (coords[0], coords[1], zvalue))
 		# print("v %f %f %f\r\n" % (coords[0], coords[1], zvalue))
@@ -29,7 +29,7 @@ def createObjFile2D(path, filename, samples, triangleValues, radius, center, dis
 
 	averageArea = Bridson_Common.findAverageArea(triangleValues.triangles, samples)
 
-	print("Average Area:",averageArea)
+	print("createObj File Average Area:",averageArea)
 
 	Fcount = 0
 	# Output the facets.
@@ -38,7 +38,7 @@ def createObjFile2D(path, filename, samples, triangleValues, radius, center, dis
 		# print("Facet:", facet)
 		area = Bridson_Common.findArea(samples[facet[0]], samples[facet[1]], samples[facet[2]])
 		if area < averageArea / 100.0:
-			print("Triangle Area:", area)
+			print("Removing Triangle Area:", area)
 			print("f %d %d %d\r\n" % (facet[0]+1, facet[1]+1, facet[2]+1))
 		else:
 			f.write("f %d %d %d\r\n" % (facet[0] + 1, facet[1] + 1, facet[2] + 1))  # The facet indeces start at 1, not at 0.  Need to increment index.

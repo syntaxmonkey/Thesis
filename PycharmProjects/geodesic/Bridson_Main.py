@@ -87,7 +87,7 @@ def cleanUpFiles():
 if __name__ == '__main__':
 	cleanUpFiles()
 	dradius = 2
-	xrange, yrange = 80,80
+	xrange, yrange = 400, 400
 	mask = Bridson_CreateMask.genLetter(xrange, yrange, character='Z')
 	count, chain, chainDirection, border = Bridson_ChainCode.generateChainCode(mask, rotate=False)
 	border = Bridson_ChainCode.generateBorder(border, dradius)
