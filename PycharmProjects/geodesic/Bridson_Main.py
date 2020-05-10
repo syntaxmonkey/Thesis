@@ -7,6 +7,7 @@ import Bridson_createOBJFile
 import os
 import Bridson_CreateMask
 import Bridson_ChainCode
+from PIL import Image, ImageFont, ImageDraw, ImageFilter
 
 def generatePointsDisplay(xrange, yrange, dradius):
 	# Generate points and display
@@ -86,9 +87,9 @@ def cleanUpFiles():
 
 if __name__ == '__main__':
 	cleanUpFiles()
-	dradius = 2
-	xrange, yrange = 400, 400
-	mask = Bridson_CreateMask.genLetter(xrange, yrange, character='Z')
+	dradius = 1.5
+	xrange, yrange = 100, 100
+	mask = Bridson_CreateMask.genLetter(xrange, yrange, character='Y')
 	count, chain, chainDirection, border = Bridson_ChainCode.generateChainCode(mask, rotate=False)
 	border = Bridson_ChainCode.generateBorder(border, dradius)
 

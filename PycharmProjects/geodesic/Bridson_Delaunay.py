@@ -30,7 +30,7 @@ def generateDelaunay(points, radius, mask, xrange):
 def removeLongTriangles(points, tri, radius, mask):
     # Find Average Area.
     averageArea = Bridson_Common.findAverageArea(tri.simplices.copy(), points)
-    print("removeLongTriangles Average Area:", averageArea)
+    print("Bridson_Delaunay::removeLongTriangles Average Area:", averageArea)
 
     triangles = tri.simplices.copy()
     newTriangles = []
@@ -46,17 +46,20 @@ def removeLongTriangles(points, tri, radius, mask):
             distance = Bridson_Common.euclidean_distance(points[triangle[currentIndex]], points[triangle[nextIndex]])
             # print("distance:", radius, distance)
             # if distance > radius:
-            if distance > radius*math.sqrt(2) or isExteriorTriangle(points[triangle[currentIndex]], points[triangle[nextIndex]], mask):
+            ''' The fudge factor of 1.1 is to account for rounding errors.  The "isExteriorTriangle" needs Mask blur of 3. '''
+            if distance > radius*math.sqrt(2)*1.1 or isExteriorTriangle(points[triangle[currentIndex]], points[triangle[nextIndex]], mask):
             # if isExteriorTriangle(points[triangle[currentIndex]], points[triangle[nextIndex]], mask):
                 Keep = False
+                print("Bridson_Delaunay::removeLongTriangles Distance is too long OR exterior triangle.")
                 break
         area = Bridson_Common.findArea(points[triangle[0]], points[triangle[1]], points[triangle[2]])
         if area < averageArea / 100.0 or area > 100.0*averageArea:
             Keep = False
+
         if Keep:
             newTriangles.append(triangle)
         else:
-            print("removeLongTriangles Removing triangle Area: ", area)
+            print("Bridson_Delaunay::removeLongTriangles Removing triangle Area: ", area)
 
     # print("New Triangle Shape:", np.shape(newTriangles))
     newTriangles = np.array(newTriangles)
