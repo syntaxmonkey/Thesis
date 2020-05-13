@@ -98,13 +98,17 @@ if __name__ == '__main__':
 	# print(invertedMask)
 	plt.figure()
 	plt.subplot(1, 1, 1, aspect=1)
-	plt.title('Mask')
+	plt.title('Inverted Mask')
 	plt.imshow(invertedMask)
 	plt.plot([i[1] for i in border], [i[0] for i in border], 'og') # Plot the "boundaries" points as green dots.
 
 	# generatePointsDisplay(xrange, yrange, dradius)
 	# generateDelaunayDisplay(xrange, yrange, dradius)
 	points, tri = genSquareDelaunayDisplay(xrange, yrange, radius=dradius, mask=invertedMask, border=border)
+
+
+
+
 
 	fakeRadius = max(xrange,yrange)
 
