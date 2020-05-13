@@ -3,6 +3,9 @@ import Bridson_Common
 from PIL import Image, ImageFont, ImageDraw, ImageFilter
 import numpy as np
 
+
+debug = False
+
 def euclidean_distance(a, b):
 	dx = a[0] - b[0]
 	dy = a[1] - b[1]

@@ -11,6 +11,8 @@ from PIL import Image, ImageFont, ImageDraw, ImageFilter
 import Bridson_MeshObj
 import readOBJFile
 import Bridson_readOBJFile
+import SLIC
+
 
 def generatePointsDisplay(xrange, yrange, dradius):
 	# Generate points and display
@@ -87,6 +89,53 @@ def cleanUpFiles():
 	os.system("rm " + path + "test1_out_flat.obj")
 
 
+def SLICImage():
+	startIndex = 0 # Index starts at 0.
+	regionIndex = startIndex
+	imageraster, regionMap = SLIC.callSLIC(segmentCount=40)
+	stopIndex=startIndex+16
+
+	plt.figure()
+	ax3 = plt.subplot(2, 1, 1, aspect=1, label='Image regions')
+	plt.title('Image regions')
+	''' Draw Letter blob '''
+
+	# blankRaster = np.zeros(np.shape(imageraster))
+	# ax3 = plt.subplot2grid(gridsize, (0, 1), rowspan=1)
+	# ax3.imshow(blankRaster)
+	ax3.imshow(imageraster)
+	ax3.grid()
+
+	print("Keys:",regionMap.keys())
+	return imageraster, regionMap
+
+
+def processMask(mask, dradius, indexLabel):
+	xrange, yrange = np.shape(mask)
+	meshObj = Bridson_MeshObj.MeshObject(mask=mask, dradius=dradius, indexLabel=indexLabel)
+	points = meshObj.points
+	tri = meshObj.triangulation
+	fakeRadius = max(xrange,yrange)
+
+	createMeshFile(points, tri, fakeRadius, (xrange/2.0, yrange/2.0))
+	BFFReshape()
+	FlattenMesh()
+
+	flatvertices, flatfaces = Bridson_readOBJFile.readFlatObjFile(path = "../../boundary-first-flattening/build/", filename="test1_out_flat.obj")
+	flatMeshObj = Bridson_MeshObj.MeshObject(flatvertices=flatvertices, flatfaces=flatfaces, xrange=xrange, yrange=yrange, indexLabel=indexLabel)
+
+def displayRegionRaster(regionRaster, index):
+	plt.figure()
+	ax = plt.subplot(1, 1, 1, aspect=1, label='Region Raster ' + str(index))
+	plt.title('Region Raster ' + str(index))
+	''' Draw Letter blob '''
+
+	# blankRaster = np.zeros(np.shape(imageraster))
+	# ax3 = plt.subplot2grid(gridsize, (0, 1), rowspan=1)
+	# ax3.imshow(blankRaster)
+	ax.imshow(regionRaster)
+	ax.grid()
+
 
 if __name__ == '__main__':
 	cleanUpFiles()
@@ -94,7 +143,8 @@ if __name__ == '__main__':
 	xrange, yrange = 100, 100
 	mask = Bridson_CreateMask.genLetter(xrange, yrange, character='Y')
 
-	meshObj = Bridson_MeshObj.MeshObject(mask=mask, dradius=dradius)
+	# processMask(mask, dradius)
+	# meshObj = Bridson_MeshObj.MeshObject(mask=mask, dradius=dradius)
 
 	'''
 	# Original code for generating the Mesh with Mask.
@@ -114,18 +164,37 @@ if __name__ == '__main__':
 		# generateDelaunayDisplay(xrange, yrange, dradius)
 		points, tri = genSquareDelaunayDisplay(xrange, yrange, radius=dradius, mask=invertedMask, border=border)
 	'''
-	points = meshObj.points
-	tri = meshObj.triangulation
-	fakeRadius = max(xrange,yrange)
+	# points = meshObj.points
+	# tri = meshObj.triangulation
+	# fakeRadius = max(xrange,yrange)
+	#
+	# createMeshFile(points, tri, fakeRadius, (xrange/2.0, yrange/2.0))
+	# BFFReshape()
+	# FlattenMesh()
+	#
+	# flatvertices, flatfaces = Bridson_readOBJFile.readFlatObjFile(path = "../../boundary-first-flattening/build/", filename="test1_out_flat.obj")
+	#
+	# Create Mesh object for flattened file.
+	# flatMeshObj = Bridson_MeshObj.MeshObject(flatvertices=flatvertices, flatfaces=flatfaces, xrange=xrange, yrange=yrange)
 
-	createMeshFile(points, tri, fakeRadius, (xrange/2.0, yrange/2.0))
-	BFFReshape()
-	FlattenMesh()
+	imageraster, regionMap = SLICImage()
 
+	startIndex = 0
+	stopIndex = 1
+	for regionIndex in range(startIndex, stopIndex):
+	# for regionIndex in regionMap.keys():
+		print(">>>>>>>>>>> Start of cycle")
+		# resetVariables()
+		# try:
+		print("Generating index:", regionIndex)
+		raster, actualTopLeft = SLIC.createRegionRasters(regionMap, regionIndex)
+		displayRegionRaster( raster[:], regionIndex )
 
-	flatvertices, flatfaces = Bridson_readOBJFile.readFlatObjFile(path = "../../boundary-first-flattening/build/", filename="test1_out_flat.obj")
-
-	flatMeshObj = Bridson_MeshObj.MeshObject(flatvertices=flatvertices, flatfaces=flatfaces, xrange=xrange, yrange=yrange)
+	for index in range(5):
+	# Generate the raster for the first region.
+		raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
+		print(raster)
+		processMask(raster, dradius, index)
 
 	plt.show()
 

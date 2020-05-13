@@ -5,23 +5,27 @@ import numpy as np
 import matplotlib.tri as mtri
 import math
 
+
 def generateDelaunay(points, radius, mask, xrange):
     tri = Delaunay(points)  # Generate the triangles from the vertices.
 
-    plt.figure()
-    plt.subplot(1, 1, 1, aspect=1)
-    plt.title('Display Delaunay')
-    plt.triplot(points[:,1], xrange-points[:,0], tri.simplices.copy())
-    # plt.triplot(points[:, 0], points[:, 1], tri.triangles)
-    plt.plot(points[:, 1], xrange-points[:, 0], 'o')
+    if Bridson_Common.debug:
+        plt.figure()
+        plt.subplot(1, 1, 1, aspect=1)
+        plt.title('Display Delaunay')
+        plt.triplot(points[:,1], xrange-points[:,0], tri.simplices.copy())
+        # plt.triplot(points[:, 0], points[:, 1], tri.triangles)
+        plt.plot(points[:, 1], xrange-points[:, 0], 'o')
 
     newMask = Bridson_Common.blurArray(mask, 3)
     triangulation = removeLongTriangles(points, tri, radius*radius, newMask)
 
-    plt.figure()
-    plt.subplot(1, 1, 1, aspect=1)
-    plt.title('newMask')
-    plt.imshow(newMask)
+    # Display the newly generated Mask
+    if Bridson_Common.debug:
+        plt.figure()
+        plt.subplot(1, 1, 1, aspect=1)
+        plt.title('newMask')
+        plt.imshow(newMask)
 
     return triangulation
 
@@ -86,15 +90,17 @@ def displayDelaunayMesh(points, radius, mask, xrange):
     # for triangle in triangles:
     # 	print("Triangle:", triangle)
 
-    print("tri", triangulation)
-    plt.figure()
-    plt.subplot(1, 1, 1, aspect=1)
-    plt.title('Display Triangulation')
-    # plt.triplot(points[:,0], points[:,1], tri.simplices.copy())
-    # Plot the lines representing the mesh.
-    plt.triplot(points[:, 1], xrange-points[:, 0], triangulation.triangles)
-    # Plot the points on the border.
-    plt.plot(points[:, 1], xrange-points[:, 0], 'o')
+    if Bridson_Common.debug:
+        print("tri", triangulation)
+        plt.figure()
+        plt.subplot(1, 1, 1, aspect=1)
+        plt.title('Display Triangulation')
+        # plt.triplot(points[:,0], points[:,1], tri.simplices.copy())
+        # Plot the lines representing the mesh.
+        plt.triplot(points[:, 1], xrange-points[:, 0], triangulation.triangles)
+        # Plot the points on the border.
+        plt.plot(points[:, 1], xrange-points[:, 0], 'o')
+
     return triangulation
-    # plt.show()
+        # plt.show()
 

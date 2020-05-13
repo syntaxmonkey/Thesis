@@ -12,9 +12,10 @@ Do we want to generate the Delaunay internally or receive from the outside?
 
 '''
 class MeshObject:
-	# def __init__(self, mask, dradius, pointCount=0):
+	# def __init__(self, mask, dradius, pointCount=0, indexLabel=0):
 	def __init__(self, *args, **kwargs):
 
+		self.indexLabel = str(kwargs.get('indexLabel'))
 		if 'mask' in kwargs and 'dradius' in kwargs:
 			mask = kwargs.get('mask')
 			dradius = kwargs.get('dradius')
@@ -30,7 +31,7 @@ class MeshObject:
 
 
 	def GenTriangulation(self, flatvertices, flatfaces, xrange, yrange):
-		print("Flat Triangulation")
+		print("Flat Triangulation from Mesh" + self.indexLabel)
 		flatvertices[:, 0] *= xrange
 		flatvertices[:, 1] *= yrange
 		self.flatvertices = flatvertices
@@ -40,12 +41,12 @@ class MeshObject:
 		print("tri", self.triangulation)
 		plt.figure()
 		plt.subplot(1, 1, 1, aspect=1)
-		plt.title('Display Triangulation')
+		plt.title('Flat Triangulation ' + self.indexLabel)
 		# plt.triplot(points[:,0], points[:,1], tri.simplices.copy())
 		# Plot the lines representing the mesh.
 		plt.triplot(flatvertices[:, 1], xrange - flatvertices[:, 0], self.triangulation.triangles)
 		# Plot the points on the border.
-		plt.plot(flatvertices[:, 1], xrange - flatvertices[:, 0], 'o')
+		# plt.plot(flatvertices[:, 1], xrange - flatvertices[:, 0], 'o')
 
 		return
 
@@ -58,10 +59,11 @@ class MeshObject:
 
 		self.invertedMask = Bridson_CreateMask.InvertMask(mask)
 
-		plt.figure()
-		plt.subplot(1, 1, 1, aspect=1)
-		plt.title('Inverted Mask')
-		plt.imshow(self.invertedMask)
+		# Display figure of Inverted Mask
+		# plt.figure()
+		# plt.subplot(1, 1, 1, aspect=1)
+		# plt.title('Inverted Mask')
+		# plt.imshow(self.invertedMask)
 
 		radius, pointCount = Bridson_sampling.calculateParameters(xrange, yrange, dradius, pointCount)
 
@@ -84,12 +86,12 @@ class MeshObject:
 		print("tri", self.triangulation)
 		plt.figure()
 		plt.subplot(1, 1, 1, aspect=1)
-		plt.title('Generated Mesh Triangulation')
+		plt.title('Generated Mesh Triangulation' + self.indexLabel)
 		# plt.triplot(points[:,0], points[:,1], tri.simplices.copy())
 		# Plot the lines representing the mesh.
 		plt.triplot(points[:, 1], xrange - points[:, 0], self.triangulation.triangles)
 		# Plot the points on the border.
-		plt.plot(points[:, 1], xrange - points[:, 0], 'o')
+		# plt.plot(points[:, 1], xrange - points[:, 0], 'o')
 
 
 

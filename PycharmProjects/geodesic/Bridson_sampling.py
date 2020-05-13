@@ -181,7 +181,8 @@ def genSquarePerimeterPoints(xrange, yrange, pointCount=0, radius=0):
         points.append([currentx, currenty])
         currenty -= pointDistance
 
-    displayPoints(points, xrange, yrange)
+    # display the generated points.
+    # displayPoints(points, xrange, yrange)
     return np.array(points)
 
 
