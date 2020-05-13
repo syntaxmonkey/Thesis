@@ -8,6 +8,9 @@ import os
 import Bridson_CreateMask
 import Bridson_ChainCode
 from PIL import Image, ImageFont, ImageDraw, ImageFilter
+import Bridson_MeshObj
+import readOBJFile
+import Bridson_readOBJFile
 
 def generatePointsDisplay(xrange, yrange, dradius):
 	# Generate points and display
@@ -90,29 +93,40 @@ if __name__ == '__main__':
 	dradius = 1.5
 	xrange, yrange = 100, 100
 	mask = Bridson_CreateMask.genLetter(xrange, yrange, character='Y')
-	count, chain, chainDirection, border = Bridson_ChainCode.generateChainCode(mask, rotate=False)
-	border = Bridson_ChainCode.generateBorder(border, dradius)
 
-	invertedMask =  Bridson_CreateMask.InvertMask( mask )
+	meshObj = Bridson_MeshObj.MeshObject(mask=mask, dradius=dradius)
 
-	# print(invertedMask)
-	plt.figure()
-	plt.subplot(1, 1, 1, aspect=1)
-	plt.title('Inverted Mask')
-	plt.imshow(invertedMask)
-	plt.plot([i[1] for i in border], [i[0] for i in border], 'og') # Plot the "boundaries" points as green dots.
+	'''
+	# Original code for generating the Mesh with Mask.
+		count, chain, chainDirection, border = Bridson_ChainCode.generateChainCode(mask, rotate=False)
+		border = Bridson_ChainCode.generateBorder(border, dradius)
 
-	# generatePointsDisplay(xrange, yrange, dradius)
-	# generateDelaunayDisplay(xrange, yrange, dradius)
-	points, tri = genSquareDelaunayDisplay(xrange, yrange, radius=dradius, mask=invertedMask, border=border)
+		invertedMask =  Bridson_CreateMask.InvertMask( mask )
 
+		# print(invertedMask)
+		plt.figure()
+		plt.subplot(1, 1, 1, aspect=1)
+		plt.title('Inverted Mask')
+		plt.imshow(invertedMask)
+		plt.plot([i[1] for i in border], [i[0] for i in border], 'og') # Plot the "boundaries" points as green dots.
 
-
-
-
+		# generatePointsDisplay(xrange, yrange, dradius)
+		# generateDelaunayDisplay(xrange, yrange, dradius)
+		points, tri = genSquareDelaunayDisplay(xrange, yrange, radius=dradius, mask=invertedMask, border=border)
+	'''
+	points = meshObj.points
+	tri = meshObj.triangulation
 	fakeRadius = max(xrange,yrange)
 
 	createMeshFile(points, tri, fakeRadius, (xrange/2.0, yrange/2.0))
 	BFFReshape()
 	FlattenMesh()
+
+
+	flatvertices, flatfaces = Bridson_readOBJFile.readFlatObjFile(path = "../../boundary-first-flattening/build/", filename="test1_out_flat.obj")
+
+	flatMeshObj = Bridson_MeshObj.MeshObject(flatvertices=flatvertices, flatfaces=flatfaces, xrange=xrange, yrange=yrange)
+
 	plt.show()
+
+

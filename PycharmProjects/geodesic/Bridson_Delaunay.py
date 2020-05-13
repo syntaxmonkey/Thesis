@@ -16,14 +16,14 @@ def generateDelaunay(points, radius, mask, xrange):
     plt.plot(points[:, 1], xrange-points[:, 0], 'o')
 
     newMask = Bridson_Common.blurArray(mask, 3)
-    tri = removeLongTriangles(points, tri, radius*radius, newMask)
+    triangulation = removeLongTriangles(points, tri, radius*radius, newMask)
 
     plt.figure()
     plt.subplot(1, 1, 1, aspect=1)
     plt.title('newMask')
     plt.imshow(newMask)
 
-    return tri
+    return triangulation
 
 
 
@@ -50,7 +50,7 @@ def removeLongTriangles(points, tri, radius, mask):
             if distance > radius*math.sqrt(2)*1.1 or isExteriorTriangle(points[triangle[currentIndex]], points[triangle[nextIndex]], mask):
             # if isExteriorTriangle(points[triangle[currentIndex]], points[triangle[nextIndex]], mask):
                 Keep = False
-                print("Bridson_Delaunay::removeLongTriangles Distance is too long OR exterior triangle.")
+                # print("Bridson_Delaunay::removeLongTriangles Distance is too long OR exterior triangle.")
                 break
         area = Bridson_Common.findArea(points[triangle[0]], points[triangle[1]], points[triangle[2]])
         if area < averageArea / 100.0 or area > 100.0*averageArea:
@@ -58,8 +58,8 @@ def removeLongTriangles(points, tri, radius, mask):
 
         if Keep:
             newTriangles.append(triangle)
-        else:
-            print("Bridson_Delaunay::removeLongTriangles Removing triangle Area: ", area)
+        # else:
+        #     print("Bridson_Delaunay::removeLongTriangles Removing triangle Area: ", area)
 
     # print("New Triangle Shape:", np.shape(newTriangles))
     newTriangles = np.array(newTriangles)
@@ -80,21 +80,21 @@ def isExteriorTriangle(p1, p2, mask):
 
 
 def displayDelaunayMesh(points, radius, mask, xrange):
-    tri = generateDelaunay(points, radius, mask, xrange)
+    triangulation = generateDelaunay(points, radius, mask, xrange)
 
     # triangles = tri.simplices
     # for triangle in triangles:
     # 	print("Triangle:", triangle)
 
-    print("tri", tri)
+    print("tri", triangulation)
     plt.figure()
     plt.subplot(1, 1, 1, aspect=1)
     plt.title('Display Triangulation')
     # plt.triplot(points[:,0], points[:,1], tri.simplices.copy())
     # Plot the lines representing the mesh.
-    plt.triplot(points[:, 1], xrange-points[:, 0], tri.triangles)
+    plt.triplot(points[:, 1], xrange-points[:, 0], triangulation.triangles)
     # Plot the points on the border.
     plt.plot(points[:, 1], xrange-points[:, 0], 'o')
-    return tri
+    return triangulation
     # plt.show()
 
