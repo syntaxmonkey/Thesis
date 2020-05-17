@@ -34,7 +34,29 @@ class MeshObject:
 			print("No enough parameters")
 
 
-	def DrawVerticalLines(self):
+	def DrawVerticalLines(self, density=0.1):
+
+		print("********** XLimit ***********", self.ax.get_xlim())
+		print("********** YLimit ***********", self.ax.get_ylim())
+		xlower, xupper = self.ax.get_xlim()
+		ylower, yupper = self.ax.get_ylim()
+
+		xincrement = abs(xupper - xlower) * density
+		yincrement = abs(yupper - ylower) * density
+		pointCount = math.ceil(abs(xupper - xlower) / xincrement)
+		rowCount = math.ceil(abs(yupper - ylower) / yincrement)
+		print("************** PointCount ***********", pointCount)
+		self.ax.set_ylim(ylower - 1, yupper + 1)
+
+		dotPoints = []
+
+		for j in range(rowCount+1):
+			dotPoints.append([ (xlower + xincrement * i, ylower + j * yincrement) for i in range(pointCount+1)])
+
+		dotPoints = np.array(dotPoints)
+		for points in dotPoints:
+			self.ax.plot(points[:, 0], points[:, 1])
+
 		return
 
 	def GenTriangulation(self, flatvertices, flatfaces, xrange, yrange):
@@ -47,7 +69,8 @@ class MeshObject:
 
 		print("tri", self.triangulation)
 		self.fig = plt.figure()
-		plt.subplot(1, 1, 1, aspect=1)
+		# self.ax = plt.axes()
+		self.ax = plt.subplot(1, 1, 1, aspect=1)
 		plt.title('Flat Triangulation ' + self.indexLabel)
 		# plt.triplot(points[:,0], points[:,1], tri.simplices.copy())
 		# Plot the lines representing the mesh.
@@ -95,7 +118,9 @@ class MeshObject:
 
 		print("tri", self.triangulation)
 		self.fig = plt.figure()
-		plt.subplot(1, 1, 1, aspect=1)
+		# self.ax = plt.axes()
+
+		self.ax = plt.subplot(1, 1, 1, aspect=1)
 		plt.title('Generated Mesh Triangulation' + self.indexLabel)
 		# plt.triplot(points[:,0], points[:,1], tri.simplices.copy())
 		# Plot the lines representing the mesh.
