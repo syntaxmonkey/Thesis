@@ -4,7 +4,7 @@ from PIL import Image, ImageFont, ImageDraw, ImageFilter
 import numpy as np
 
 
-debug = False
+debug = True
 
 def euclidean_distance(a, b):
 	dx = a[0] - b[0]

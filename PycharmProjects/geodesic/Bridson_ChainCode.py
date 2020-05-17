@@ -38,6 +38,12 @@ def sumPreviousX(array, currentIndex, x ):
 	return sum(array[currentIndex-x: currentIndex])
 
 
+def writeChainCodeFile(path, filename, chainDirection):
+	f = open(path + filename, "w+")
+
+	for direction in chainDirection:
+		f.write("%d\r\n" % (direction))
+	f.close()
 
 def generateChainCode(img, rotate=False, angle=0):
 	closeLoop = True # Ensure the chain code forms a loop.

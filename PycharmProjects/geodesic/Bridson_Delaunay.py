@@ -4,7 +4,7 @@ import Bridson_Common
 import numpy as np
 import matplotlib.tri as mtri
 import math
-
+import pylab
 
 def generateDelaunay(points, radius, mask, xrange):
     tri = Delaunay(points)  # Generate the triangles from the vertices.
@@ -16,6 +16,8 @@ def generateDelaunay(points, radius, mask, xrange):
         plt.triplot(points[:,1], xrange-points[:,0], tri.simplices.copy())
         # plt.triplot(points[:, 0], points[:, 1], tri.triangles)
         plt.plot(points[:, 1], xrange-points[:, 0], 'o')
+        thismanager = pylab.get_current_fig_manager()
+        thismanager.window.wm_geometry("+640+0")
 
     newMask = Bridson_Common.blurArray(mask, 3)
     triangulation = removeLongTriangles(points, tri, radius*radius, newMask)
@@ -26,6 +28,8 @@ def generateDelaunay(points, radius, mask, xrange):
         plt.subplot(1, 1, 1, aspect=1)
         plt.title('newMask')
         plt.imshow(newMask)
+        thismanager = pylab.get_current_fig_manager()
+        thismanager.window.wm_geometry("+0+560")
 
     return triangulation
 
@@ -51,13 +55,14 @@ def removeLongTriangles(points, tri, radius, mask):
             # print("distance:", radius, distance)
             # if distance > radius:
             ''' The fudge factor of 1.1 is to account for rounding errors.  The "isExteriorTriangle" needs Mask blur of 3. '''
-            if distance > radius*math.sqrt(2)*1.1 or isExteriorTriangle(points[triangle[currentIndex]], points[triangle[nextIndex]], mask):
+            # if distance > radius*math.sqrt(2)*1.1 or isExteriorTriangle(points[triangle[currentIndex]], points[triangle[nextIndex]], mask):
+            if distance > radius * 2 or isExteriorTriangle(points[triangle[currentIndex]], points[triangle[nextIndex]], mask):
             # if isExteriorTriangle(points[triangle[currentIndex]], points[triangle[nextIndex]], mask):
                 Keep = False
                 # print("Bridson_Delaunay::removeLongTriangles Distance is too long OR exterior triangle.")
                 break
         area = Bridson_Common.findArea(points[triangle[0]], points[triangle[1]], points[triangle[2]])
-        if area < averageArea / 100.0 or area > 100.0*averageArea:
+        if area < averageArea / 10.0 or area > 10.0*averageArea:
             Keep = False
 
         if Keep:
@@ -100,6 +105,9 @@ def displayDelaunayMesh(points, radius, mask, xrange):
         plt.triplot(points[:, 1], xrange-points[:, 0], triangulation.triangles)
         # Plot the points on the border.
         plt.plot(points[:, 1], xrange-points[:, 0], 'o')
+
+        thismanager = pylab.get_current_fig_manager()
+        thismanager.window.wm_geometry("+640+560")
 
     return triangulation
         # plt.show()

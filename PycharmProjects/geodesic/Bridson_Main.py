@@ -12,6 +12,9 @@ import Bridson_MeshObj
 import readOBJFile
 import Bridson_readOBJFile
 import SLIC
+import pylab
+import matplotlib
+matplotlib.use("tkagg")
 
 
 def generatePointsDisplay(xrange, yrange, dradius):
@@ -105,6 +108,8 @@ def SLICImage():
 	# ax3.imshow(blankRaster)
 	ax3.imshow(imageraster)
 	ax3.grid()
+	thismanager = pylab.get_current_fig_manager()
+	thismanager.window.wm_geometry("+0+0")
 
 	print("Keys:",regionMap.keys())
 	return imageraster, regionMap
@@ -123,6 +128,7 @@ def processMask(mask, dradius, indexLabel):
 
 	flatvertices, flatfaces = Bridson_readOBJFile.readFlatObjFile(path = "../../boundary-first-flattening/build/", filename="test1_out_flat.obj")
 	flatMeshObj = Bridson_MeshObj.MeshObject(flatvertices=flatvertices, flatfaces=flatfaces, xrange=xrange, yrange=yrange, indexLabel=indexLabel)
+	return flatMeshObj
 
 def displayRegionRaster(regionRaster, index):
 	plt.figure()
@@ -141,9 +147,10 @@ if __name__ == '__main__':
 	cleanUpFiles()
 	dradius = 1.5
 	xrange, yrange = 100, 100
-	mask = Bridson_CreateMask.genLetter(xrange, yrange, character='Y')
 
-	# processMask(mask, dradius)
+	if False:
+		mask = Bridson_CreateMask.genLetter(xrange, yrange, character='Y')
+		processMask(mask, dradius, 0)
 	# meshObj = Bridson_MeshObj.MeshObject(mask=mask, dradius=dradius)
 
 	'''
@@ -179,22 +186,26 @@ if __name__ == '__main__':
 
 	imageraster, regionMap = SLICImage()
 
-	startIndex = 0
-	stopIndex = 1
-	for regionIndex in range(startIndex, stopIndex):
-	# for regionIndex in regionMap.keys():
-		print(">>>>>>>>>>> Start of cycle")
-		# resetVariables()
-		# try:
-		print("Generating index:", regionIndex)
-		raster, actualTopLeft = SLIC.createRegionRasters(regionMap, regionIndex)
-		displayRegionRaster( raster[:], regionIndex )
+	if False:
+		startIndex = 0
+		stopIndex = 1
+		for regionIndex in range(startIndex, stopIndex):
+		# for regionIndex in regionMap.keys():
+			print(">>>>>>>>>>> Start of cycle")
+			# resetVariables()
+			# try:
+			print("Generating index:", regionIndex)
+			raster, actualTopLeft = SLIC.createRegionRasters(regionMap, regionIndex)
+			displayRegionRaster( raster[:], regionIndex )
 
-	for index in range(5):
+	for index in range(9, 10):
+		cleanUpFiles()
 	# Generate the raster for the first region.
 		raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
 		print(raster)
-		processMask(raster, dradius, index)
+		flatMeshObj = processMask(raster, dradius, index)
+		flatMeshObj.DrawVerticalLines()
+
 
 	plt.show()
 

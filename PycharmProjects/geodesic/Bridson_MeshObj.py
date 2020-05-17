@@ -2,6 +2,8 @@ import Bridson_ChainCode, Bridson_CreateMask, Bridson_sampling, Bridson_Delaunay
 import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib.tri as mtri
+import math
+import pylab
 
 
 '''
@@ -17,10 +19,12 @@ class MeshObject:
 
 		self.indexLabel = str(kwargs.get('indexLabel'))
 		if 'mask' in kwargs and 'dradius' in kwargs:
+			# Case we are provided with a Mask.
 			mask = kwargs.get('mask')
 			dradius = kwargs.get('dradius')
 			self.GenMeshFromMask(mask, dradius)
 		elif 'flatvertices' in kwargs and 'flatfaces' in kwargs and 'xrange' in kwargs and 'yrange' in kwargs:
+			# Case we are provided the flattened vertices and triangles
 			flatvertices = kwargs.get('flatvertices')
 			flatfaces = kwargs.get('flatfaces')
 			xrange = kwargs.get('xrange')
@@ -29,6 +33,9 @@ class MeshObject:
 		else:
 			print("No enough parameters")
 
+
+	def DrawVerticalLines(self):
+		return
 
 	def GenTriangulation(self, flatvertices, flatfaces, xrange, yrange):
 		print("Flat Triangulation from Mesh" + self.indexLabel)
@@ -39,12 +46,15 @@ class MeshObject:
 		self.triangulation = mtri.Triangulation(flatvertices[:, 0], flatvertices[:, 1], flatfaces)
 
 		print("tri", self.triangulation)
-		plt.figure()
+		self.fig = plt.figure()
 		plt.subplot(1, 1, 1, aspect=1)
 		plt.title('Flat Triangulation ' + self.indexLabel)
 		# plt.triplot(points[:,0], points[:,1], tri.simplices.copy())
 		# Plot the lines representing the mesh.
 		plt.triplot(flatvertices[:, 1], xrange - flatvertices[:, 0], self.triangulation.triangles)
+		thismanager = pylab.get_current_fig_manager()
+		thismanager.window.wm_geometry("+1300+560")
+
 		# Plot the points on the border.
 		# plt.plot(flatvertices[:, 1], xrange - flatvertices[:, 0], 'o')
 
@@ -84,16 +94,54 @@ class MeshObject:
 		self.triangulation = Bridson_Delaunay.displayDelaunayMesh(points, radius, self.invertedMask, xrange)
 
 		print("tri", self.triangulation)
-		plt.figure()
+		self.fig = plt.figure()
 		plt.subplot(1, 1, 1, aspect=1)
 		plt.title('Generated Mesh Triangulation' + self.indexLabel)
 		# plt.triplot(points[:,0], points[:,1], tri.simplices.copy())
 		# Plot the lines representing the mesh.
 		plt.triplot(points[:, 1], xrange - points[:, 0], self.triangulation.triangles)
+		thismanager = pylab.get_current_fig_manager()
+		thismanager.window.wm_geometry("+1300+0")
 		# Plot the points on the border.
 		# plt.plot(points[:, 1], xrange - points[:, 0], 'o')
+		self.generateSquareChainCode()
 
 
+	def generateSquareChainCode(self, corners=4):
+		edges = len(self.chainDirection)
+		shortEdges = edges - math.floor(edges/2)
+
+		shortEdges = shortEdges if shortEdges % 2 == 0 else shortEdges - 1
+		shortSideLength = int(shortEdges / 2)
+
+		longEdges = edges - shortEdges
+		if longEdges % 2 == 0:
+			longSideA = longSideB = int(longEdges / 2)
+		else:
+			longSideA = math.floor( longEdges )
+			longSideB = int(longEdges - longSideA)
+
+		squareChain = []
+		for i in range(longSideA - 1):
+			squareChain.append(0)
+		squareChain.append(90)
+
+		for i in range(shortSideLength - 1):
+			squareChain.append(0)
+		squareChain.append(90)
+
+		for i in range(longSideB - 1):
+			squareChain.append(0)
+		squareChain.append(90)
+
+		for i in range(shortSideLength - 1):
+			squareChain.append(0)
+		squareChain.append(90)
+
+		self.squareChain = squareChain
+		Bridson_ChainCode.writeChainCodeFile('./', 'chaincode.txt', self.squareChain)
+
+		print('Chain code length: ', len(self.squareChain))
 
 
 	def filterOutPoints(self, points, mask):
