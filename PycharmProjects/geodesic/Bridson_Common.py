@@ -2,9 +2,52 @@ import math
 import Bridson_Common
 from PIL import Image, ImageFont, ImageDraw, ImageFilter
 import numpy as np
-
+import numpy.linalg as la # https://codereview.stackexchange.com/questions/41024/faster-computation-of-barycentric-coordinates-for-many-points
 
 debug = True
+
+def convertAxesBarycentric(x, y, sourceTriang, targetTriang, triFinder, Originalsamples, TargetSamples):
+	# Convert the coordinates on one axes to the cartesian axes on the second axes.
+	# Convert from triang to triang2.
+
+	tri = triFinder(x, y)
+
+	print("Source Tri: ", tri)
+	# print(triang.triangles[tri])
+	face = []
+	for vertex in sourceTriang.triangles[tri]:  # Create triangle from the coordinates.
+		curVertex = Originalsamples[vertex]
+		face.append([curVertex[0], curVertex[1]])
+	bary1 = calculateBarycentric(face, (x, y))  # Calculate the barycentric coordinates.
+
+	face2 = []
+	for vertex in targetTriang.triangles[tri]:
+		curVertex = TargetSamples[vertex]
+		face2.append([curVertex[0], curVertex[1]])
+	cartesian = get_cartesian_from_barycentric(bary1, face2)
+
+	return cartesian
+
+
+def calculateBarycentric(vertices, point):
+	# Calculating barycentric coodinates: https://codereview.stackexchange.com/questions/41024/faster-computation-of-barycentric-coordinates-for-many-points
+	T = (np.array(vertices[:-1]) - vertices[-1]).T
+	v = np.dot(la.inv(T), np.array(point) - vertices[-1])
+	v.resize(len(vertices))
+	v[-1] = 1 - v.sum()
+	return v
+
+
+def get_cartesian_from_barycentric(b, t):
+	# https://stackoverflow.com/questions/56328254/how-to-make-the-conversion-from-barycentric-coordinates-to-cartesian-coordinates
+	''' The expected data format
+		b = np.array([0.25,0.3,0.45]) # Barycentric coordinates
+		t = np.transpose(np.array([[0,0],[1,0],[0,1]])) # Triangle
+	'''
+	tnew = np.transpose(np.array(t))
+	bnew = np.array(b)
+	return tnew.dot(bnew)
+
 
 def euclidean_distance(a, b):
 	dx = a[0] - b[0]

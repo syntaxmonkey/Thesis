@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.tri as mtri
 import math
 import pylab
-
+import Bridson_Common
 
 '''
 For the constructor, pass in the points.
@@ -34,7 +34,7 @@ class MeshObject:
 			print("No enough parameters")
 
 
-	def DrawVerticalLines(self, density=0.1):
+	def DrawVerticalLines(self, density=0.05):
 
 		print("********** XLimit ***********", self.ax.get_xlim())
 		print("********** YLimit ***********", self.ax.get_ylim())
@@ -51,22 +51,51 @@ class MeshObject:
 		dotPoints = []
 
 		for j in range(rowCount+1):
-			dotPoints.append([ (xlower + xincrement * i, ylower + j * yincrement) for i in range(pointCount+1)])
-
+			rowPoints = []
+			for i in range(pointCount + 1):
+				pointx, pointy = xlower + xincrement * i, ylower + j * yincrement
+				if self.trifinder(pointx, pointy) > -1:
+					rowPoints.append((pointx, pointy))
+			if len(rowPoints) > 0:
+				rowPoints = np.array(rowPoints)
+				dotPoints.append(rowPoints)
+		# print(dotPoints)
 		dotPoints = np.array(dotPoints)
-		for points in dotPoints:
-			self.ax.plot(points[:, 0], points[:, 1])
+		for line in dotPoints:
+			self.ax.plot(line[:, 0], line[:, 1], color='r')
+
+		self.linePoints = dotPoints
+
+	def TransferLinePoints(self, otherMeshObj):
+		self.linePoints = []
+		for linePoints in otherMeshObj.linePoints:
+			# Iterate through each line row.
+			newLine = []
+			for point in linePoints:
+				x, y = point
+				cartesian = Bridson_Common.convertAxesBarycentric(x, y, otherMeshObj.triangulation, self.triangulation,
+				                                                  otherMeshObj.trifinder, otherMeshObj.points, self.points)
+				newLine.append( cartesian )
+
+			self.linePoints.append( np.array(newLine) )
+		self.linePoints = np.array( self.linePoints )
+
+		for line in self.linePoints:
+			self.ax.plot(line[:, 0], line[:, 1], color='r')
 
 		return
+
+
+
 
 	def GenTriangulation(self, flatvertices, flatfaces, xrange, yrange):
 		print("Flat Triangulation from Mesh" + self.indexLabel)
 		flatvertices[:, 0] *= xrange
 		flatvertices[:, 1] *= yrange
-		self.flatvertices = flatvertices
+		self.points = flatvertices
 		self.flatfaces = flatfaces
-		self.triangulation = mtri.Triangulation(flatvertices[:, 0], flatvertices[:, 1], flatfaces)
-
+		self.triangulation = mtri.Triangulation(self.points[:, 0], self.points[:, 1], flatfaces)
+		self.trifinder = self.triangulation.get_trifinder()
 		print("tri", self.triangulation)
 		self.fig = plt.figure()
 		# self.ax = plt.axes()
@@ -74,7 +103,7 @@ class MeshObject:
 		plt.title('Flat Triangulation ' + self.indexLabel)
 		# plt.triplot(points[:,0], points[:,1], tri.simplices.copy())
 		# Plot the lines representing the mesh.
-		plt.triplot(flatvertices[:, 1], xrange - flatvertices[:, 0], self.triangulation.triangles)
+		plt.triplot(self.points[:, 1], xrange - self.points[:, 0], self.triangulation.triangles)
 		thismanager = pylab.get_current_fig_manager()
 		thismanager.window.wm_geometry("+1300+560")
 
@@ -115,6 +144,7 @@ class MeshObject:
 
 		self.points = points
 		self.triangulation = Bridson_Delaunay.displayDelaunayMesh(points, radius, self.invertedMask, xrange)
+		self.trifinder = self.triangulation.get_trifinder()
 
 		print("tri", self.triangulation)
 		self.fig = plt.figure()

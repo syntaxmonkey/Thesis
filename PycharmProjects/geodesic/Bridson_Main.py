@@ -71,6 +71,8 @@ def createMeshFile(samples, tri, radius, center ):
 	Bridson_createOBJFile.createObjFile2D(path, "test1.obj", samples, tri, radius, center, distance=euclidean_distance)
 
 
+
+
 def BFFReshape():
 	print("Reshaping with BFF")
 	path = "../../boundary-first-flattening/build/"
@@ -128,7 +130,7 @@ def processMask(mask, dradius, indexLabel):
 
 	flatvertices, flatfaces = Bridson_readOBJFile.readFlatObjFile(path = "../../boundary-first-flattening/build/", filename="test1_out_flat.obj")
 	flatMeshObj = Bridson_MeshObj.MeshObject(flatvertices=flatvertices, flatfaces=flatfaces, xrange=xrange, yrange=yrange, indexLabel=indexLabel)
-	return flatMeshObj
+	return meshObj, flatMeshObj
 
 def displayRegionRaster(regionRaster, index):
 	plt.figure()
@@ -198,13 +200,16 @@ if __name__ == '__main__':
 			raster, actualTopLeft = SLIC.createRegionRasters(regionMap, regionIndex)
 			displayRegionRaster( raster[:], regionIndex )
 
-	for index in range(9, 10):
+	for index in range(0, 1):
 		cleanUpFiles()
 	# Generate the raster for the first region.
 		raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
 		print(raster)
-		flatMeshObj = processMask(raster, dradius, index)
+		meshObj, flatMeshObj = processMask(raster, dradius, index)
 		flatMeshObj.DrawVerticalLines()
+
+		# Transfer the lines from the FlatMesh to meshObj.
+		meshObj.TransferLinePoints( flatMeshObj )
 
 
 	plt.show()
