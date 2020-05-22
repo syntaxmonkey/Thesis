@@ -34,7 +34,7 @@ class MeshObject:
 			print("No enough parameters")
 
 
-	def DrawVerticalLines(self, density=0.05):
+	def DrawVerticalLines(self, density=0.1):
 
 		print("********** XLimit ***********", self.ax.get_xlim())
 		print("********** YLimit ***********", self.ax.get_ylim())
@@ -68,10 +68,10 @@ class MeshObject:
 
 	def TransferLinePoints(self, otherMeshObj):
 		self.linePoints = []
-		for linePoints in otherMeshObj.linePoints:
+		for otherLinePoints in otherMeshObj.linePoints:
 			# Iterate through each line row.
 			newLine = []
-			for point in linePoints:
+			for point in otherLinePoints:
 				x, y = point
 				cartesian = Bridson_Common.convertAxesBarycentric(x, y, otherMeshObj.triangulation, self.triangulation,
 				                                                  otherMeshObj.trifinder, otherMeshObj.points, self.points)
@@ -89,14 +89,20 @@ class MeshObject:
 
 
 	def GenTriangulation(self, flatvertices, flatfaces, xrange, yrange):
+		# print(flatvertices)
+		# print(flatfaces)
 		print("Flat Triangulation from Mesh" + self.indexLabel)
+		# if np.max(flatvertices < 10):
 		flatvertices[:, 0] *= xrange
 		flatvertices[:, 1] *= yrange
-		self.points = flatvertices
-		self.flatfaces = flatfaces
+		self.points = flatvertices[:]
+		self.flatfaces = flatfaces[:]
 		self.triangulation = mtri.Triangulation(self.points[:, 0], self.points[:, 1], flatfaces)
-		self.trifinder = self.triangulation.get_trifinder()
-		print("tri", self.triangulation)
+		try:
+			self.trifinder = self.triangulation.get_trifinder()
+		except:
+			print("Cannot trifinder ", self.indexLabel)
+		# print("tri", self.triangulation)
 		self.fig = plt.figure()
 		# self.ax = plt.axes()
 		self.ax = plt.subplot(1, 1, 1, aspect=1)
@@ -104,6 +110,7 @@ class MeshObject:
 		# plt.triplot(points[:,0], points[:,1], tri.simplices.copy())
 		# Plot the lines representing the mesh.
 		plt.triplot(self.points[:, 1], xrange - self.points[:, 0], self.triangulation.triangles)
+		# plt.triplot(self.points[:, 0], xrange - self.points[:, 1], self.triangulation.triangles)
 		thismanager = pylab.get_current_fig_manager()
 		thismanager.window.wm_geometry("+1300+560")
 
@@ -154,6 +161,7 @@ class MeshObject:
 		plt.title('Generated Mesh Triangulation' + self.indexLabel)
 		# plt.triplot(points[:,0], points[:,1], tri.simplices.copy())
 		# Plot the lines representing the mesh.
+		# plt.triplot(points[:, 0], xrange - points[:, 1], self.triangulation.triangles)
 		plt.triplot(points[:, 1], xrange - points[:, 0], self.triangulation.triangles)
 		thismanager = pylab.get_current_fig_manager()
 		thismanager.window.wm_geometry("+1300+0")

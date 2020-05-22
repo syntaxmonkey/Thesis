@@ -3,6 +3,7 @@ import Bridson_Common
 from PIL import Image, ImageFont, ImageDraw, ImageFilter
 import numpy as np
 import numpy.linalg as la # https://codereview.stackexchange.com/questions/41024/faster-computation-of-barycentric-coordinates-for-many-points
+import Bridson_CreateMask
 
 debug = True
 
@@ -78,8 +79,55 @@ def findAverageArea(triangles, samples):
 
 def blurArray(array, blur):
 	img = Image.fromarray(array)
+	# img.save('BlurArrayImage.gif')
 	# Use dilation to increase the size of the mask: https://stackoverflow.com/questions/44195007/equivalents-to-opencvs-erode-and-dilate-in-pil
 	img = img.filter(ImageFilter.MinFilter(blur))  # Erosion
 	# img = img.filter(ImageFilter.MaxFilter(blur))  # Dilation
-	# img = img.filter(ImageFilter.GaussianBlur(blur))
+	# img = img.filter(ImageFilter.GaussianBlur(0))
+	# img = img.filter(ImageFilter.BoxBlur(blur))
+	print('Bridson_Common.blurArray: ', np.array(img))
+	print('Bridson_Common.blurArray mode: ', img.mode)
+	print('Bridson_Common.blurArray shape: ', np.shape(np.array(img)))
+	print('Bridson_Common.blurArray Max: ', np.max(np.array(img)))
+	print('Bridson_Common.blurArray Min: ', np.min(np.array(img)))
 	return np.array(img)
+
+
+def readMask(filename='BlurArrayImage.gif'):
+	img = Image.open( filename )
+	# print('Bridson_Common.readMask: ', np.array(img))
+	# print('Bridson_Common.readMask mode: ', img.mode)
+	# print('Bridson_Common.readMask shape: ', np.shape(np.array(img)))
+	# print('Bridson_Common.readMask Max: ', np.max(np.array(img)))
+	# print('Bridson_Common.readMask Min: ', np.min(np.array(img)))
+	arr = np.array( img ) * 255.0
+	# arrayInformation( arr )
+	# Need to invert the resulting array.
+	arr = Bridson_CreateMask.InvertMask( arr )
+	arrayInformation(arr)
+	return arr
+
+def writeMask(array, filename='BlurArrayImage.gif'):
+	img = Image.fromarray(array)
+	print('Bridson_Common.writeMask')
+	print('Bridson_Common.writeMask: ', np.array(img))
+	print('Bridson_Common.writeMask mode: ', img.mode)
+	print('Bridson_Common.writeMask shape: ', np.shape(np.array(img)))
+	print('Bridson_Common.writeMask Max: ', np.max(np.array(img)))
+	print('Bridson_Common.writeMask Min: ', np.min(np.array(img)))
+
+
+def imageInformation(img):
+
+	print('Bridson_Common.imageInformation: ', np.array(img))
+	print('Bridson_Common.imageInformation mode: ', img.mode)
+	print('Bridson_Common.imageInformation shape: ', np.shape(np.array(img)))
+	print('Bridson_Common.imageInformation Max: ', np.max(np.array(img)))
+	print('Bridson_Common.imageInformation Min: ', np.min(np.array(img)))
+
+
+def arrayInformation(arr):
+	print('Bridson_Common.arrayInformation: ' , arr)
+	print('Bridson_Common.arrayInformation shape: ', np.shape(arr))
+	print('Bridson_Common.arrayInformation Max: ', np.max(arr))
+	print('Bridson_Common.arrayInformation Min: ', np.min(arr))

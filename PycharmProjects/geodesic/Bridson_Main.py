@@ -15,6 +15,7 @@ import SLIC
 import pylab
 import matplotlib
 matplotlib.use("tkagg")
+import Bridson_Common
 
 
 def generatePointsDisplay(xrange, yrange, dradius):
@@ -118,17 +119,28 @@ def SLICImage():
 
 
 def processMask(mask, dradius, indexLabel):
+	# invertedMask = Bridson_CreateMask.InvertMask(mask)
+	# invertedMask = Bridson_Common.blurArray(mask, 3)
+	# mask5x = Bridson_CreateMask.InvertMask(mask)
+
 	xrange, yrange = np.shape(mask)
-	meshObj = Bridson_MeshObj.MeshObject(mask=mask, dradius=dradius, indexLabel=indexLabel)
+	mask5x = Bridson_Common.blurArray(mask, 3)
+	meshObj = Bridson_MeshObj.MeshObject(mask=mask5x, dradius=dradius, indexLabel=indexLabel)
 	points = meshObj.points
 	tri = meshObj.triangulation
 	fakeRadius = max(xrange,yrange)
 
 	createMeshFile(points, tri, fakeRadius, (xrange/2.0, yrange/2.0))
+
+	# vertices, faces = Bridson_readOBJFile.readFlatObjFile(path="../../boundary-first-flattening/build/",
+	#                                                               filename="test1.obj")
+	# meshObj = Bridson_MeshObj.MeshObject(flatvertices=vertices, flatfaces=faces, xrange=xrange,
+	#                                          yrange=yrange, indexLabel=indexLabel)
 	BFFReshape()
 	FlattenMesh()
 
 	flatvertices, flatfaces = Bridson_readOBJFile.readFlatObjFile(path = "../../boundary-first-flattening/build/", filename="test1_out_flat.obj")
+	newIndex = str(indexLabel) + ":" + str(indexLabel)
 	flatMeshObj = Bridson_MeshObj.MeshObject(flatvertices=flatvertices, flatfaces=flatfaces, xrange=xrange, yrange=yrange, indexLabel=indexLabel)
 	return meshObj, flatMeshObj
 
@@ -150,10 +162,18 @@ if __name__ == '__main__':
 	dradius = 1.5
 	xrange, yrange = 100, 100
 
+	# mask = Bridson_CreateMask.CreateCircleMask(xrange, yrange, 10)
+
 	if False:
 		mask = Bridson_CreateMask.genLetter(xrange, yrange, character='Y')
-		processMask(mask, dradius, 0)
+		meshObj, flatMeshObj = processMask(mask, dradius, 0)
+		# flatMeshObj.DrawVerticalLines()
+		# meshObj.DrawVerticalLines()
+		# Transfer the lines from the FlatMesh to meshObj.
+		# meshObj.TransferLinePoints( flatMeshObj )
+
 	# meshObj = Bridson_MeshObj.MeshObject(mask=mask, dradius=dradius)
+
 
 	'''
 	# Original code for generating the Mesh with Mask.
@@ -200,17 +220,26 @@ if __name__ == '__main__':
 			raster, actualTopLeft = SLIC.createRegionRasters(regionMap, regionIndex)
 			displayRegionRaster( raster[:], regionIndex )
 
-	for index in range(0, 1):
-		cleanUpFiles()
-	# Generate the raster for the first region.
-		raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
-		print(raster)
-		meshObj, flatMeshObj = processMask(raster, dradius, index)
-		flatMeshObj.DrawVerticalLines()
+	if True:
+		for index in range(2, 3):
+			# Generate the raster for the first region.
+			raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
+			# print(raster)
+			# Bridson_Common.arrayInformation( raster )
+			Bridson_Common.writeMask(raster)
+			# meshObj, flatMeshObj = processMask(raster, dradius, index)
+			# flatMeshObj.DrawVerticalLines()
 
-		# Transfer the lines from the FlatMesh to meshObj.
-		meshObj.TransferLinePoints( flatMeshObj )
+			# Transfer the lines from the FlatMesh to meshObj.
+			# meshObj.TransferLinePoints( flatMeshObj )
 
+	print("\n\n\n")
+	if True:
+		index = 999
+		# mask = Bridson_Common.readMask()
+		mask = Bridson_Common.readMask(filename='BlurSquare.gif')
+		# mask = Bridson_Common.readMask(filename='BlurTriangle.gif')
+		meshObj, flatMeshObj = processMask(mask, dradius, index)
 
 	plt.show()
 
