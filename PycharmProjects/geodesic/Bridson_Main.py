@@ -121,10 +121,35 @@ def SLICImage():
 def processMask(mask, dradius, indexLabel):
 	# invertedMask = Bridson_CreateMask.InvertMask(mask)
 	# invertedMask = Bridson_Common.blurArray(mask, 3)
-	# mask5x = Bridson_CreateMask.InvertMask(mask)
+	mask5x = Bridson_CreateMask.InvertMask(mask)
+
+	if Bridson_Common.debug:
+		plt.figure()
+		plt.subplot(1, 1, 1, aspect=1)
+		plt.title('original Mask')
+		plt.imshow(mask)
+		thismanager = pylab.get_current_fig_manager()
+		thismanager.window.wm_geometry("+0+560")
 
 	xrange, yrange = np.shape(mask)
-	mask5x = Bridson_Common.blurArray(mask, 3)
+	# mask5x = Bridson_Common.blurArray(mask5x, 5)
+	blurRadius = math.ceil(dradius)
+	if blurRadius % 2 == 0:
+		blurRadius = blurRadius + 3
+	print("*** BlurRadius: ", blurRadius)
+
+	mask5x = Bridson_Common.blurArray(mask5x, blurRadius)
+	mask5x = Bridson_CreateMask.InvertMask(mask5x)
+
+	if Bridson_Common.debug:
+		plt.figure()
+		plt.subplot(1, 1, 1, aspect=1)
+		plt.title('blurred Mask')
+		plt.imshow(mask5x)
+		thismanager = pylab.get_current_fig_manager()
+		thismanager.window.wm_geometry("+0+560")
+
+
 	meshObj = Bridson_MeshObj.MeshObject(mask=mask5x, dradius=dradius, indexLabel=indexLabel)
 	points = meshObj.points
 	tri = meshObj.triangulation
@@ -159,8 +184,8 @@ def displayRegionRaster(regionRaster, index):
 
 if __name__ == '__main__':
 	cleanUpFiles()
-	dradius = 1.5
-	xrange, yrange = 100, 100
+	dradius = 2 # 3 seems to be the maximum value.
+	xrange, yrange = 10, 10
 
 	# mask = Bridson_CreateMask.CreateCircleMask(xrange, yrange, 10)
 
@@ -221,25 +246,27 @@ if __name__ == '__main__':
 			displayRegionRaster( raster[:], regionIndex )
 
 	if True:
-		for index in range(2, 3):
+		for index in range(3, 4):
 			# Generate the raster for the first region.
 			raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
 			# print(raster)
 			# Bridson_Common.arrayInformation( raster )
 			Bridson_Common.writeMask(raster)
-			# meshObj, flatMeshObj = processMask(raster, dradius, index)
+			meshObj, flatMeshObj = processMask(raster, dradius, index)
 			# flatMeshObj.DrawVerticalLines()
 
 			# Transfer the lines from the FlatMesh to meshObj.
 			# meshObj.TransferLinePoints( flatMeshObj )
 
 	print("\n\n\n")
-	if True:
+	if False:
 		index = 999
-		# mask = Bridson_Common.readMask()
-		mask = Bridson_Common.readMask(filename='BlurSquare.gif')
+		# File are in /Users/hengsun/Documents/Thesis/PycharmProjects/geodesic.
+		mask = Bridson_Common.readMask()
+		# mask = Bridson_Common.readMask(filename='BlurSquare.gif')
 		# mask = Bridson_Common.readMask(filename='BlurTriangle.gif')
 		meshObj, flatMeshObj = processMask(mask, dradius, index)
+		# flatMeshObj.DrawVerticalLines()
 
 	plt.show()
 

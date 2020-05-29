@@ -19,8 +19,9 @@ def generateDelaunay(points, radius, mask, xrange):
         thismanager = pylab.get_current_fig_manager()
         thismanager.window.wm_geometry("+640+0")
 
+
     newMask = Bridson_Common.blurArray(mask, 3)
-    triangulation = removeLongTriangles(points, tri, radius*radius, newMask)
+    triangulation = removeLongTriangles(points, tri, radius, newMask)
 
     # Display the newly generated Mask
     if Bridson_Common.debug:
@@ -29,7 +30,7 @@ def generateDelaunay(points, radius, mask, xrange):
         plt.title('newMask')
         plt.imshow(newMask)
         thismanager = pylab.get_current_fig_manager()
-        thismanager.window.wm_geometry("+0+560")
+        thismanager.window.wm_geometry("+40+560")
 
     return triangulation
 
@@ -43,7 +44,9 @@ def removeLongTriangles(points, tri, radius, mask):
     triangles = tri.simplices.copy()
     newTriangles = []
 
+    print(">>>>>>>>>>>>><<<<<<<<<<<<<<<<< Triangles: ", triangles)
     for triangle in triangles:
+        # print("Single Triangle", triangle)
         Keep = True
         # Iterate through all 3 edges.  Ensure their euclidean distance is less than or equal to radius.
         # print("Triangle:", triangle[0])
@@ -56,14 +59,20 @@ def removeLongTriangles(points, tri, radius, mask):
             # if distance > radius:
             ''' The fudge factor of 1.1 is to account for rounding errors.  The "isExteriorTriangle" needs Mask blur of 3. '''
             # if distance > radius*math.sqrt(2)*1.1 or isExteriorTriangle(points[triangle[currentIndex]], points[triangle[nextIndex]], mask):
-            if distance > radius * 2 or isExteriorTriangle(points[triangle[currentIndex]], points[triangle[nextIndex]], mask):
+            if distance > radius * 4 or isExteriorTriangle(points[triangle[currentIndex]], points[triangle[nextIndex]], mask):
             # if isExteriorTriangle(points[triangle[currentIndex]], points[triangle[nextIndex]], mask):
                 Keep = False
                 # print("Bridson_Delaunay::removeLongTriangles Distance is too long OR exterior triangle.")
                 break
+        triangleHeights = Bridson_Common.findTriangleHeight(points[triangle[0]], points[triangle[1]], points[triangle[2]])
+        if np.min(triangleHeights) < 0.3*radius:
+            # print("***** Triangle " + str(triangle) + " has a minimum of " + str(np.min(triangleHeights)))
+            Keep = False
+
         area = Bridson_Common.findArea(points[triangle[0]], points[triangle[1]], points[triangle[2]])
         if area < averageArea / 10.0 or area > 10.0*averageArea:
             Keep = False
+
 
         if Keep:
             newTriangles.append(triangle)
@@ -83,7 +92,8 @@ def isExteriorTriangle(p1, p2, mask):
     # Find the mid point of the lines of the triangles.  See if the midpoint of the line intersects with the mask.
     midx, midy = int((p1[0] + p2[0]) / 2), int((p1[1] + p2[1]) / 2)
     # If the value is greater than 0, then the line intersects with the mask and should be removed.
-    if mask[midx, midy] == 255:
+    # if mask[midx, midy] == 255:
+    if mask[midx, midy] > 10:
         return True
     return False
 

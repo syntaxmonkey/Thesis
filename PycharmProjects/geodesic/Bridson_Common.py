@@ -5,7 +5,7 @@ import numpy as np
 import numpy.linalg as la # https://codereview.stackexchange.com/questions/41024/faster-computation-of-barycentric-coordinates-for-many-points
 import Bridson_CreateMask
 
-debug = True
+debug = False
 
 def convertAxesBarycentric(x, y, sourceTriang, targetTriang, triFinder, Originalsamples, TargetSamples):
 	# Convert the coordinates on one axes to the cartesian axes on the second axes.
@@ -61,8 +61,14 @@ def findArea(v1, v2, v3):
 	b = euclidean_distance(v2, v3)
 	c = euclidean_distance(v3, v1)
 	s = (a+b+c)/2
-
-	area = (s*(s-a)*(s-b)*(s-c)) ** 0.5
+	try:
+		core = s * (s - a) * (s - b) * (s - c)
+		if core > 0:
+			area = math.sqrt(s*(s-a)*(s-b)*(s-c))
+		else:
+			area = 0
+	except:
+		print(">>> Error calculating the area: ", a, b, c, s, s*(s-a)*(s-b)*(s-c), v1, v2, v3)
 	return area
 
 
@@ -93,17 +99,57 @@ def blurArray(array, blur):
 	return np.array(img)
 
 
+def findTriangleHeight(p1, p2, p3):
+	a = euclidean_distance(p1, p2)
+	b = euclidean_distance(p2, p3)
+	c = euclidean_distance(p3, p1)
+
+	s = (a + b + c) / 2
+	core = s*(s-a)*(s-b)*(s-c)
+	if core < 0:
+		core = 0
+
+	h1 = 2*math.sqrt( core ) / a
+	h2 = 2*math.sqrt( core ) / b
+	h3 = 2*math.sqrt( core ) / c
+
+	h = np.array([h1, h2, h3])
+	return h
+
+
 def readMask(filename='BlurArrayImage.gif'):
+	print("*** Bridson_Common.readMask ***")
 	img = Image.open( filename )
 	# print('Bridson_Common.readMask: ', np.array(img))
 	# print('Bridson_Common.readMask mode: ', img.mode)
 	# print('Bridson_Common.readMask shape: ', np.shape(np.array(img)))
 	# print('Bridson_Common.readMask Max: ', np.max(np.array(img)))
 	# print('Bridson_Common.readMask Min: ', np.min(np.array(img)))
-	arr = np.array( img ) * 255.0
+
+	arr = np.array( img )
+	arrayInformation(arr)
+
+	minValue = np.min( arr )
+	if minValue < 0:
+		arr = arr + abs( minValue )
+
+	maxValue = np.max(arr)
+	if maxValue > 255.0:
+		arr = arr * ( 128.0 / maxValue)
+
+	maxValue = np.max(arr)
+	if maxValue > 1:
+		arr = arr * (128.0 / maxValue)
+	else:
+		arr = arr * 255.0
+
+	arrayInformation(arr)
+
 	# arrayInformation( arr )
 	# Need to invert the resulting array.
 	arr = Bridson_CreateMask.InvertMask( arr )
+
+	print("\n\n*** Bridson_Common.readMask Processed Array ***")
 	arrayInformation(arr)
 	return arr
 
@@ -115,7 +161,7 @@ def writeMask(array, filename='BlurArrayImage.gif'):
 	print('Bridson_Common.writeMask shape: ', np.shape(np.array(img)))
 	print('Bridson_Common.writeMask Max: ', np.max(np.array(img)))
 	print('Bridson_Common.writeMask Min: ', np.min(np.array(img)))
-
+	img.save(filename)
 
 def imageInformation(img):
 
@@ -131,3 +177,11 @@ def arrayInformation(arr):
 	print('Bridson_Common.arrayInformation shape: ', np.shape(arr))
 	print('Bridson_Common.arrayInformation Max: ', np.max(arr))
 	print('Bridson_Common.arrayInformation Min: ', np.min(arr))
+
+
+
+if __name__ == "__main__":
+	h = findTriangleHeight((0,0), (0,3), (4,0))
+	if np.min( h ) < 5:
+		print('Min less than threshold: ', np.min(h))
+	print(h)

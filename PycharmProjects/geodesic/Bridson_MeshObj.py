@@ -100,6 +100,7 @@ class MeshObject:
 		self.triangulation = mtri.Triangulation(self.points[:, 0], self.points[:, 1], flatfaces)
 		try:
 			self.trifinder = self.triangulation.get_trifinder()
+			print("** Found trifinder ", self.indexLabel)
 		except:
 			print("Cannot trifinder ", self.indexLabel)
 		# print("tri", self.triangulation)
@@ -140,6 +141,8 @@ class MeshObject:
 		print(np.shape(points))
 
 		# Merge border with square perimeter.
+		print("Points Shape: ", np.shape(points))
+		print("Border Shape: ", np.shape(self.border))
 		points = np.append(points, self.border, axis=0)
 
 		# Generate all the sample points.

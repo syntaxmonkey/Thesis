@@ -69,7 +69,7 @@ def CreateCircleMask(xrange, yrange, radius):
 def InvertMask(mask):
 	# Given a mask, invert the regions.
 	# Converts the 255 regions to 0 and converts the zero regions to 255.
-	newMask = 255 - mask
+	newMask = 255.0 - mask
 	return newMask
 
 

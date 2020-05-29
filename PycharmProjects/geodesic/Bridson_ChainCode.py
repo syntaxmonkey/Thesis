@@ -235,7 +235,7 @@ def generateChainCode(img, rotate=False, angle=0):
 	# print("chainDirection:", chainDirection)
 	# chainDirection = list(reverseDirection(chainDirection))
 	# print("chainDirection after reversal:", chainDirection)
-
+	print("** Border: ", border)
 	return count, chain, chainDirection, border
 
 
