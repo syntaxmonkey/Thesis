@@ -6,6 +6,8 @@ import matplotlib.tri as mtri
 import math
 import pylab
 
+removalRatio = 0.05
+
 def generateDelaunay(points, radius, mask, xrange):
     tri = Delaunay(points)  # Generate the triangles from the vertices.
 
@@ -44,7 +46,7 @@ def removeLongTriangles(points, tri, radius, mask):
     triangles = tri.simplices.copy()
     newTriangles = []
 
-    print(">>>>>>>>>>>>><<<<<<<<<<<<<<<<< Triangles: ", triangles)
+    # print(">>>>>>>>>>>>><<<<<<<<<<<<<<<<< Triangles: ", triangles)
     for triangle in triangles:
         # print("Single Triangle", triangle)
         Keep = True
@@ -59,13 +61,14 @@ def removeLongTriangles(points, tri, radius, mask):
             # if distance > radius:
             ''' The fudge factor of 1.1 is to account for rounding errors.  The "isExteriorTriangle" needs Mask blur of 3. '''
             # if distance > radius*math.sqrt(2)*1.1 or isExteriorTriangle(points[triangle[currentIndex]], points[triangle[nextIndex]], mask):
-            if distance > radius * 4 or isExteriorTriangle(points[triangle[currentIndex]], points[triangle[nextIndex]], mask):
+            if distance > radius * 3 or isExteriorTriangle(points[triangle[currentIndex]], points[triangle[nextIndex]], mask):
             # if isExteriorTriangle(points[triangle[currentIndex]], points[triangle[nextIndex]], mask):
                 Keep = False
                 # print("Bridson_Delaunay::removeLongTriangles Distance is too long OR exterior triangle.")
                 break
         triangleHeights = Bridson_Common.findTriangleHeight(points[triangle[0]], points[triangle[1]], points[triangle[2]])
-        if np.min(triangleHeights) < 0.3*radius:
+        # print("Triangle Heights: ", triangleHeights)
+        if np.min(triangleHeights) < removalRatio*radius:
             # print("***** Triangle " + str(triangle) + " has a minimum of " + str(np.min(triangleHeights)))
             Keep = False
 

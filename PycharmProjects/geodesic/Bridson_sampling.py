@@ -7,6 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 
+
 def calculateParameters(xrange, yrange, radius=0, pointCount=0):
     perimeter = xrange * 2.0 + yrange * 2.0
 

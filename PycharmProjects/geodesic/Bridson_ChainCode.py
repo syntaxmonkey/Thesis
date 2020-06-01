@@ -18,6 +18,8 @@ import Bridson_CreateMask
 import Bridson_Common
 import math
 
+
+
 # Input data files are available in the "../input/" directory.
 # For example, running this (by clicking run or pressing Shift+Enter) will list the files in the input directory
 
@@ -279,7 +281,10 @@ def generateBorder(borderChainCoordinates, radius):
 		distanceTravelled += Bridson_Common.euclidean_distance(borderChainCoordinates[startIndex], borderChainCoordinates[endIndex] )
 		if distanceTravelled > radius:
 			# Keep this node.
-			perimeterNodes.append(borderChainCoordinates[endIndex])
+			currentNode = borderChainCoordinates[endIndex]
+			# print("CurrentNode: ", currentNode)
+			currentNode = (currentNode[0] + 0.5 , currentNode[1] + 0.5)
+			perimeterNodes.append(currentNode)
 			# Keep track of the difference between radius and actual distance travelled.
 			distanceTravelled = distanceTravelled - radius
 

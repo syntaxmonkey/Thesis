@@ -2,6 +2,7 @@ import math
 import Bridson_Common
 
 
+
 def createObjFile2D(path, filename, samples, triangleValues, radius, center, distance):
 
 	f = open(path + filename, "w+")

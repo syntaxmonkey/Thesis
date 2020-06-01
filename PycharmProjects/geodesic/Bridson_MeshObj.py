@@ -6,6 +6,7 @@ import math
 import pylab
 import Bridson_Common
 
+
 '''
 For the constructor, pass in the points.
 

@@ -5,6 +5,8 @@ import numpy as np
 import numpy.linalg as la # https://codereview.stackexchange.com/questions/41024/faster-computation-of-barycentric-coordinates-for-many-points
 import Bridson_CreateMask
 
+seedValue = 1
+
 debug = False
 
 def convertAxesBarycentric(x, y, sourceTriang, targetTriang, triFinder, Originalsamples, TargetSamples):
@@ -113,7 +115,7 @@ def findTriangleHeight(p1, p2, p3):
 	h2 = 2*math.sqrt( core ) / b
 	h3 = 2*math.sqrt( core ) / c
 
-	h = np.array([h1, h2, h3])
+	h = np.array([h1 / a, h2 / b, h3 / c])  # Find the ratio of the heigh relative to the base.
 	return h
 
 
@@ -127,6 +129,7 @@ def readMask(filename='BlurArrayImage.gif'):
 	# print('Bridson_Common.readMask Min: ', np.min(np.array(img)))
 
 	arr = np.array( img )
+	arr = arr - np.min(arr)
 	arrayInformation(arr)
 
 	minValue = np.min( arr )
@@ -138,8 +141,9 @@ def readMask(filename='BlurArrayImage.gif'):
 		arr = arr * ( 128.0 / maxValue)
 
 	maxValue = np.max(arr)
+	print("ReadMask Max value: ", maxValue)
 	if maxValue > 1:
-		arr = arr * (128.0 / maxValue)
+		arr = arr * (255.0 / maxValue)
 	else:
 		arr = arr * 255.0
 
@@ -147,7 +151,7 @@ def readMask(filename='BlurArrayImage.gif'):
 
 	# arrayInformation( arr )
 	# Need to invert the resulting array.
-	arr = Bridson_CreateMask.InvertMask( arr )
+	# arr = Bridson_CreateMask.InvertMask( arr )
 
 	print("\n\n*** Bridson_Common.readMask Processed Array ***")
 	arrayInformation(arr)

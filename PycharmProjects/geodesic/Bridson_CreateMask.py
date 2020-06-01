@@ -7,6 +7,7 @@ from PIL import Image, ImageFont, ImageDraw, ImageFilter
 import numpy as np
 
 
+
 def genLetter(xsize, ysize, character = 'Y', blur=2):
 	fontsize = min(xsize, ysize)
 	# fontsize = int(boxsize * 1.1)
@@ -70,6 +71,8 @@ def InvertMask(mask):
 	# Given a mask, invert the regions.
 	# Converts the 255 regions to 0 and converts the zero regions to 255.
 	newMask = 255.0 - mask
+	newMask += -np.min(newMask)
+	newMask *= 255.0 / np.max(newMask)
 	return newMask
 
 

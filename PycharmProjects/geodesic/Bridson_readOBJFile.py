@@ -1,6 +1,8 @@
 import math
 import Bridson_Common
 import numpy as np
+import random
+
 
 
 

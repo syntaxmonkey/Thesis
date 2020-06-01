@@ -16,6 +16,12 @@ import pylab
 import matplotlib
 matplotlib.use("tkagg")
 import Bridson_Common
+import random
+import sys
+
+random.seed(Bridson_Common.seedValue)
+print("Seed was:", Bridson_Common.seedValue)
+np.random.seed(Bridson_Common.seedValue)
 
 
 def generatePointsDisplay(xrange, yrange, dradius):
@@ -118,6 +124,48 @@ def SLICImage():
 	return imageraster, regionMap
 
 
+def featureRemoval(mask, dradius, indexLabel):
+	currentMask = mask[:]
+	# print(currentMask)
+
+	for i in range(10):
+		random.seed(Bridson_Common.seedValue)
+		print("Seed was:", Bridson_Common.seedValue)
+		np.random.seed(Bridson_Common.seedValue)
+
+		# if Bridson_Common.debug:
+		plt.figure()
+		plt.subplot(1, 1, 1, aspect=1)
+		plt.title('Newly Formed Mask ' + str(indexLabel + i / 10))
+		plt.imshow(currentMask)
+		thismanager = pylab.get_current_fig_manager()
+		thismanager.window.wm_geometry("+0+560")
+		currentMask = blankRow(currentMask, i)
+		processMask(currentMask, dradius, indexLabel + i/10)
+
+
+def blankRow(mask, row):
+	newMask = np.array(mask)
+	height = np.shape(newMask)[0]
+	zeroMask = newMask!=0
+	rowCount = 3
+
+	firstRow = rowCount
+
+	for i in range(height-1,0,-1):
+		if np.max(zeroMask[i]) > 0:
+			firstRow = i
+			print("FirstRow: ", firstRow)
+			break
+
+	for i in range(rowCount):
+		newMask[firstRow - i ] = 0
+	return newMask
+
+
+
+
+
 def processMask(mask, dradius, indexLabel):
 	# invertedMask = Bridson_CreateMask.InvertMask(mask)
 	# invertedMask = Bridson_Common.blurArray(mask, 3)
@@ -136,6 +184,7 @@ def processMask(mask, dradius, indexLabel):
 	blurRadius = math.ceil(dradius)
 	if blurRadius % 2 == 0:
 		blurRadius = blurRadius + 3
+	blurRadius = 5
 	print("*** BlurRadius: ", blurRadius)
 
 	mask5x = Bridson_Common.blurArray(mask5x, blurRadius)
@@ -184,7 +233,7 @@ def displayRegionRaster(regionRaster, index):
 
 if __name__ == '__main__':
 	cleanUpFiles()
-	dradius = 2 # 3 seems to be the maximum value.
+	dradius = 2.5 # 3 seems to be the maximum value.
 	xrange, yrange = 10, 10
 
 	# mask = Bridson_CreateMask.CreateCircleMask(xrange, yrange, 10)
@@ -235,7 +284,7 @@ if __name__ == '__main__':
 
 	if False:
 		startIndex = 0
-		stopIndex = 1
+		stopIndex = 2
 		for regionIndex in range(startIndex, stopIndex):
 		# for regionIndex in regionMap.keys():
 			print(">>>>>>>>>>> Start of cycle")
@@ -245,8 +294,8 @@ if __name__ == '__main__':
 			raster, actualTopLeft = SLIC.createRegionRasters(regionMap, regionIndex)
 			displayRegionRaster( raster[:], regionIndex )
 
-	if True:
-		for index in range(3, 4):
+	if False:
+		for index in range(1,4):
 			# Generate the raster for the first region.
 			raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
 			# print(raster)
@@ -267,6 +316,41 @@ if __name__ == '__main__':
 		# mask = Bridson_Common.readMask(filename='BlurTriangle.gif')
 		meshObj, flatMeshObj = processMask(mask, dradius, index)
 		# flatMeshObj.DrawVerticalLines()
+
+	# Perform feature removal, row by row.
+	if False:
+		for index in range(3,4):
+			# Generate the raster for the first region.
+			# raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
+			# print(raster)
+			# Bridson_Common.arrayInformation( raster )
+			# Bridson_Common.writeMask(raster)
+			raster = Bridson_Common.readMask(filename='BlurTriangle.gif')
+			print("Minimum value of Raster: " , np.min(raster))
+			print("Maximum value of Raster: ", np.max(raster))
+			raster = Bridson_CreateMask.InvertMask(raster)
+			print("Minimum value of Inverted Raster: ", np.min(raster))
+			print("Maximum value of Inverted Raster: ", np.max(raster))
+			featureRemoval(raster, dradius, index)
+			# flatMeshObj.DrawVerticalLines()
+
+			# Transfer the lines from the FlatMesh to meshObj.
+			# meshObj.TransferLinePoints( flatMeshObj )
+
+
+	if True:
+		for index in range(3,4):
+			# Generate the raster for the first region.
+			raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
+			# print(raster)
+			# Bridson_Common.arrayInformation( raster )
+			# Bridson_Common.writeMask(raster)
+			featureRemoval(raster, dradius, index)
+			# flatMeshObj.DrawVerticalLines()
+
+			# Transfer the lines from the FlatMesh to meshObj.
+			# meshObj.TransferLinePoints( flatMeshObj )
+
 
 	plt.show()
 
