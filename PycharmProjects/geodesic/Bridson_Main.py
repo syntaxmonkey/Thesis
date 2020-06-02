@@ -129,9 +129,9 @@ def featureRemoval(mask, dradius, indexLabel):
 	# print(currentMask)
 
 	for i in range(10):
-		random.seed(Bridson_Common.seedValue)
-		print("Seed was:", Bridson_Common.seedValue)
-		np.random.seed(Bridson_Common.seedValue)
+		# random.seed(Bridson_Common.seedValue)
+		# print("Seed was:", Bridson_Common.seedValue)
+		# np.random.seed(Bridson_Common.seedValue)
 
 		# if Bridson_Common.debug:
 		plt.figure()
@@ -214,6 +214,9 @@ def processMask(mask, dradius, indexLabel):
 	FlattenMesh()
 
 	flatvertices, flatfaces = Bridson_readOBJFile.readFlatObjFile(path = "../../boundary-first-flattening/build/", filename="test1_out_flat.obj")
+
+	Bridson_Common.triangleHistogram(flatvertices, flatfaces, indexLabel)
+
 	newIndex = str(indexLabel) + ":" + str(indexLabel)
 	flatMeshObj = Bridson_MeshObj.MeshObject(flatvertices=flatvertices, flatfaces=flatfaces, xrange=xrange, yrange=yrange, indexLabel=indexLabel)
 	return meshObj, flatMeshObj
@@ -233,7 +236,7 @@ def displayRegionRaster(regionRaster, index):
 
 if __name__ == '__main__':
 	cleanUpFiles()
-	dradius = 2.5 # 3 seems to be the maximum value.
+	dradius = 1 # 3 seems to be the maximum value.
 	xrange, yrange = 10, 10
 
 	# mask = Bridson_CreateMask.CreateCircleMask(xrange, yrange, 10)
@@ -294,18 +297,19 @@ if __name__ == '__main__':
 			raster, actualTopLeft = SLIC.createRegionRasters(regionMap, regionIndex)
 			displayRegionRaster( raster[:], regionIndex )
 
-	if False:
-		for index in range(1,4):
-			# Generate the raster for the first region.
-			raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
-			# print(raster)
-			# Bridson_Common.arrayInformation( raster )
-			Bridson_Common.writeMask(raster)
-			meshObj, flatMeshObj = processMask(raster, dradius, index)
-			# flatMeshObj.DrawVerticalLines()
+	if True:
+			for index in range(1,2):
+				# Generate the raster for the first region.
+				raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
+				# print(raster)
+				# Bridson_Common.arrayInformation( raster )
+				for i in range(1):
+					Bridson_Common.writeMask(raster)
+					meshObj, flatMeshObj = processMask(raster, dradius, index + i / 10)
+				# flatMeshObj.DrawVerticalLines()
 
-			# Transfer the lines from the FlatMesh to meshObj.
-			# meshObj.TransferLinePoints( flatMeshObj )
+				# Transfer the lines from the FlatMesh to meshObj.
+				# meshObj.TransferLinePoints( flatMeshObj )
 
 	print("\n\n\n")
 	if False:
@@ -338,10 +342,11 @@ if __name__ == '__main__':
 			# meshObj.TransferLinePoints( flatMeshObj )
 
 
-	if True:
-		for index in range(3,4):
+	if False:
+		for index in range(1,2):
 			# Generate the raster for the first region.
 			raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
+			# print(raster) = SLIC.createRegionRasters(regionMap, index)
 			# print(raster)
 			# Bridson_Common.arrayInformation( raster )
 			# Bridson_Common.writeMask(raster)

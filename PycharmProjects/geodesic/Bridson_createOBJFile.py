@@ -24,7 +24,7 @@ def createObjFile2D(path, filename, samples, triangleValues, radius, center, dis
 		zvalue = 0
 		#f.write("v %f %f %f\r\n" % (coords[0], coords[1], 0) )
 		# f.write("v %f %f %f\r\n" % (coords[0], coords[1], zvalue))
-		f.write("v %f %f\r\n" % (coords[0], coords[1]))
+		f.write("v %.14f %.14f\r\n" % (coords[0], coords[1]))
 		# print("v %f %f %f\r\n" % (coords[0], coords[1], zvalue))
 		Vcount += 1
 	print("Vertex Count:", Vcount)

@@ -4,6 +4,7 @@ from PIL import Image, ImageFont, ImageDraw, ImageFilter
 import numpy as np
 import numpy.linalg as la # https://codereview.stackexchange.com/questions/41024/faster-computation-of-barycentric-coordinates-for-many-points
 import Bridson_CreateMask
+import matplotlib.pyplot as plt
 
 seedValue = 1
 
@@ -182,6 +183,30 @@ def arrayInformation(arr):
 	print('Bridson_Common.arrayInformation Max: ', np.max(arr))
 	print('Bridson_Common.arrayInformation Min: ', np.min(arr))
 
+def triangleHistogram(vertices, faces, indexLabel):
+	areaValues = []
+	for face in faces:
+		areaValues.append( Bridson_Common.findArea(vertices[face[0]], vertices[face[1]], vertices[face[2]]) )
+
+	plt.figure()
+
+	# hist, bins, _ = plt.hist(areaValues, bins=8)
+
+	# histogram on log scale.
+	# Use non-equal bin sizes, such that they look equal on log scale.
+	# logbins = np.logspace(np.log10(bins[0]), np.log10(bins[-1]), len(bins))
+
+	n, bins, patches = plt.hist(x=areaValues, alpha=0.7, rwidth=0.5, bins=1000)
+	# plt.hist(x=areaValues,  bins=logbins)
+	plt.grid(axis='y', alpha=0.75)
+	plt.xlabel('Value')
+	plt.ylabel('Frequency')
+	plt.title('Flattened Area Histogram ' + str(indexLabel))
+	plt.text(23, 45, r'$\mu=15, b=3$')
+	plt.xscale('log')
+	# maxfreq = n.max()
+	# Set a clean upper y-axis limit.
+	# plt.ylim(ymax=np.ceil(maxfreq / 10) * 10 if maxfreq % 10 else maxfreq + 10)
 
 
 if __name__ == "__main__":
