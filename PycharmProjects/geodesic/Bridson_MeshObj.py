@@ -94,10 +94,18 @@ class MeshObject:
 		# print(flatfaces)
 		print("Flat Triangulation from Mesh" + self.indexLabel)
 		# if np.max(flatvertices < 10):
-		flatvertices[:, 0] *= xrange
-		flatvertices[:, 1] *= yrange
+
+		# If normalizedUV is used.
+		if Bridson_Common.normalizeUV:
+			flatvertices[:, 0] *= xrange
+			flatvertices[:, 1] *= yrange
+
 		self.points = flatvertices[:]
 		self.flatfaces = flatfaces[:]
+		# This code adds a new face.  Trying to cause trifinder failure.
+		# self.flatfaces = np.vstack((self.flatfaces, [640, 532, 532]))
+
+		# print(self.flatfaces)
 		self.triangulation = mtri.Triangulation(self.points[:, 0], self.points[:, 1], flatfaces)
 		try:
 			self.trifinder = self.triangulation.get_trifinder()
@@ -111,7 +119,19 @@ class MeshObject:
 		plt.title('Flat Triangulation ' + self.indexLabel)
 		# plt.triplot(points[:,0], points[:,1], tri.simplices.copy())
 		# Plot the lines representing the mesh.
-		plt.triplot(self.points[:, 1], xrange - self.points[:, 0], self.triangulation.triangles)
+		plt.triplot(self.points[:, 1], xrange - self.points[:, 0], self.triangulation.triangles, 'b-', lw=0.5)
+
+		singleTriangle = np.array([self.triangulation.triangles[0]])
+		singleTriangle = np.vstack((singleTriangle, self.triangulation.triangles[1]))
+		# print(singleTriangle)
+		plt.triplot(self.points[:, 1], xrange - self.points[:, 0], singleTriangle, 'r-', lw=1)
+
+		singleTriangle = np.array([self.triangulation.triangles[-1]])
+		singleTriangle = np.vstack((singleTriangle, self.triangulation.triangles[-2]))
+		# print(singleTriangle)
+		plt.triplot(self.points[:, 1], xrange - self.points[:, 0], singleTriangle, 'g-', lw=1)
+
+
 		# plt.triplot(self.points[:, 0], xrange - self.points[:, 1], self.triangulation.triangles)
 		thismanager = pylab.get_current_fig_manager()
 		thismanager.window.wm_geometry("+1300+560")
@@ -166,7 +186,21 @@ class MeshObject:
 		# plt.triplot(points[:,0], points[:,1], tri.simplices.copy())
 		# Plot the lines representing the mesh.
 		# plt.triplot(points[:, 0], xrange - points[:, 1], self.triangulation.triangles)
-		plt.triplot(points[:, 1], xrange - points[:, 0], self.triangulation.triangles)
+		plt.triplot(points[:, 1], xrange - points[:, 0], self.triangulation.triangles, lw=0.5)
+
+
+		singleTriangle = np.array([self.triangulation.triangles[0]])
+		singleTriangle = np.vstack((singleTriangle, self.triangulation.triangles[1]))
+		print(singleTriangle)
+		plt.triplot(self.points[:, 1], xrange - self.points[:, 0], singleTriangle, 'r-', lw=1)
+
+		singleTriangle = np.array([self.triangulation.triangles[-1]])
+		singleTriangle = np.vstack((singleTriangle, self.triangulation.triangles[-2]))
+		print(singleTriangle)
+		plt.triplot(self.points[:, 1], xrange - self.points[:, 0], singleTriangle, 'g-', lw=1)
+
+
+
 		thismanager = pylab.get_current_fig_manager()
 		thismanager.window.wm_geometry("+1300+0")
 		# Plot the points on the border.

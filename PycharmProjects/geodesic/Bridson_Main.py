@@ -84,7 +84,10 @@ def BFFReshape():
 	print("Reshaping with BFF")
 	path = "../../boundary-first-flattening/build/"
 	# os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --angle=1 --normalizeUVs ")
-	os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --flattenToDisk --normalizeUVs ")
+	if Bridson_Common.normalizeUV:
+		os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --flattenToDisk --normalizeUVs ")
+	else:
+		os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --flattenToDisk ")
 	# os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --angle=1 --normalizeUVs --nCones=" + str(perimeterSegments))
 	# os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --angle=1 --normalizeUVs --nCones=6")
 
@@ -236,7 +239,7 @@ def displayRegionRaster(regionRaster, index):
 
 if __name__ == '__main__':
 	cleanUpFiles()
-	dradius = 1 # 3 seems to be the maximum value.
+	dradius = 1.5 # 3 seems to be the maximum value.
 	xrange, yrange = 10, 10
 
 	# mask = Bridson_CreateMask.CreateCircleMask(xrange, yrange, 10)
@@ -298,7 +301,7 @@ if __name__ == '__main__':
 			displayRegionRaster( raster[:], regionIndex )
 
 	if True:
-			for index in range(1,2):
+			for index in range(3,4):
 				# Generate the raster for the first region.
 				raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
 				# print(raster)

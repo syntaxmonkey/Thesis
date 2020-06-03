@@ -6,9 +6,11 @@ import numpy.linalg as la # https://codereview.stackexchange.com/questions/41024
 import Bridson_CreateMask
 import matplotlib.pyplot as plt
 
-seedValue = 1
+seedValue = 11
 
 debug = False
+
+normalizeUV = False
 
 def convertAxesBarycentric(x, y, sourceTriang, targetTriang, triFinder, Originalsamples, TargetSamples):
 	# Convert the coordinates on one axes to the cartesian axes on the second axes.
@@ -94,11 +96,13 @@ def blurArray(array, blur):
 	# img = img.filter(ImageFilter.MaxFilter(blur))  # Dilation
 	# img = img.filter(ImageFilter.GaussianBlur(0))
 	# img = img.filter(ImageFilter.BoxBlur(blur))
-	print('Bridson_Common.blurArray: ', np.array(img))
-	print('Bridson_Common.blurArray mode: ', img.mode)
-	print('Bridson_Common.blurArray shape: ', np.shape(np.array(img)))
-	print('Bridson_Common.blurArray Max: ', np.max(np.array(img)))
-	print('Bridson_Common.blurArray Min: ', np.min(np.array(img)))
+
+	# print('Bridson_Common.blurArray: ', np.array(img))
+	# print('Bridson_Common.blurArray mode: ', img.mode)
+	# print('Bridson_Common.blurArray shape: ', np.shape(np.array(img)))
+	# print('Bridson_Common.blurArray Max: ', np.max(np.array(img)))
+	# print('Bridson_Common.blurArray Min: ', np.min(np.array(img)))
+	#
 	return np.array(img)
 
 
@@ -160,12 +164,14 @@ def readMask(filename='BlurArrayImage.gif'):
 
 def writeMask(array, filename='BlurArrayImage.gif'):
 	img = Image.fromarray(array)
-	print('Bridson_Common.writeMask')
-	print('Bridson_Common.writeMask: ', np.array(img))
-	print('Bridson_Common.writeMask mode: ', img.mode)
-	print('Bridson_Common.writeMask shape: ', np.shape(np.array(img)))
-	print('Bridson_Common.writeMask Max: ', np.max(np.array(img)))
-	print('Bridson_Common.writeMask Min: ', np.min(np.array(img)))
+
+	# print('Bridson_Common.writeMask')
+	# print('Bridson_Common.writeMask: ', np.array(img))
+	# print('Bridson_Common.writeMask mode: ', img.mode)
+	# print('Bridson_Common.writeMask shape: ', np.shape(np.array(img)))
+	# print('Bridson_Common.writeMask Max: ', np.max(np.array(img)))
+	# print('Bridson_Common.writeMask Min: ', np.min(np.array(img)))
+	#
 	img.save(filename)
 
 def imageInformation(img):
@@ -196,13 +202,20 @@ def triangleHistogram(vertices, faces, indexLabel):
 	# Use non-equal bin sizes, such that they look equal on log scale.
 	# logbins = np.logspace(np.log10(bins[0]), np.log10(bins[-1]), len(bins))
 
+	print('Area Values - ' + " Min: " + str(min(areaValues))  +  " Max: "+ str(max(areaValues)))
+	print('Area Ratio: ' + "{:.4e}".format(max(areaValues) / min(areaValues)) )
+	if min(areaValues) < 1.0e-15:
+		print(" ****************** Min Area less than 1e-15: GUESS that trifinder will NOT be valid. ********************")
+	else:
+		print(" ****************** Min Area greater than 1e-15: Guess that trifinder will be valid *****************")
+
 	n, bins, patches = plt.hist(x=areaValues, alpha=0.7, rwidth=0.5, bins=1000)
 	# plt.hist(x=areaValues,  bins=logbins)
-	plt.grid(axis='y', alpha=0.75)
-	plt.xlabel('Value')
+	# plt.grid(axis='y', alpha=0.75)
+	plt.xlabel('Area Values - ' + " Min: " + str(min(areaValues))  +  " Max: "+ str(max(areaValues)))
 	plt.ylabel('Frequency')
-	plt.title('Flattened Area Histogram ' + str(indexLabel))
-	plt.text(23, 45, r'$\mu=15, b=3$')
+	plt.title('Flattened Area Histogram ' + str(indexLabel) + 'Triangle Count: ' + str(len(areaValues)))
+	# plt.text(23, 45, r'$\mu=15, b=3$')
 	plt.xscale('log')
 	# maxfreq = n.max()
 	# Set a clean upper y-axis limit.
