@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import argparse
 import numpy as np
 from PIL import Image
-
+import Bridson_Common
 from ChainCodeGenerator import generateChainCode, writeChainCodeFile
 
 # construct the argument parser and parse the arguments
@@ -28,14 +28,14 @@ def segmentImage(imageName, numSegments):
 		# of segments
 	segments = slic(image, n_segments=numSegments, sigma=5, compactness=11, slic_zero=False, enforce_connectivity=False)
 
-	# print(type(segments))
+	# Bridson_Common.logDebug(__name__, type(segments))
 	# regionIndex = 16
 	# # show the output of SLIC
 	# fig = plt.figure("Superpixels -- %d segments - file%s" % (numSegments, imageName))
 	# ax = fig.add_subplot(3, 3, 1)
 	# ax.imshow(mark_boundaries(image, segments, color=(1,0,0), mode='inner', background_label=regionIndex))
-	# print("shape: ", np.shape(segments))
-	# # print(segments)
+	# Bridson_Common.logDebug(__name__, "shape: ", np.shape(segments))
+	# # Bridson_Common.logDebug(__name__, segments)
 	# # plt.axis("off")
 	#
 	# raster, regionMap = catalogRegions(segments)
@@ -49,7 +49,7 @@ def segmentImage(imageName, numSegments):
 	# for i in range(7):
 	# 	regionRaster = createRegionRasters(regionMap, regionIndex)
 	# 	ax = fig.add_subplot(3, 3,  baseAxis)
-	# 	print(regionRaster)
+	# 	Bridson_Common.logDebug(__name__, regionRaster)
 	# 	ax.imshow(regionRaster)
 	# 	regionIndex += 1
 	# 	baseAxis += 1
@@ -57,7 +57,7 @@ def segmentImage(imageName, numSegments):
 
 	# show the plots
 	# plt.show()
-	# print(regionMap)
+	# Bridson_Common.logDebug(__name__, regionMap)
 	return image, segments
 
 
@@ -90,7 +90,7 @@ def createRegionRasters(regionMap, region=0):
 	# For each region, create a raster.
 	actualTopLeft=[0,0]
 	# for regionLabel, regionCoordinates in regionMap.items():
-	# 	print(regionLabel)
+	# 	Bridson_Common.logDebug(__name__, regionLabel)
 
 	regionCoordinates = regionMap.get(region)
 
@@ -98,7 +98,7 @@ def createRegionRasters(regionMap, region=0):
 		topLeft = (np.max(regionCoordinates), np.max(regionCoordinates))
 		bottomRight = (np.min(regionCoordinates), np.min(regionCoordinates))
 		for coord in regionCoordinates:
-			# print(coord)
+			# Bridson_Common.logDebug(__name__, coord)
 			x, y = coord
 			if x < topLeft[0]:
 				topLeft = (x,topLeft[1])
@@ -119,8 +119,8 @@ def createRegionRasters(regionMap, region=0):
 		shiftx, shifty = topLeft[0]-5, topLeft[1]-5
 		# shiftx, shifty=topLeft[0]-1, topLeft[1]-1
 
-		print('TopLeft:', topLeft, 'BottomRight:',  bottomRight)
-		print('DeltaX:', deltax, 'DeltaY:', deltay)
+		Bridson_Common.logDebug(__name__, 'TopLeft:', topLeft, 'BottomRight:',  bottomRight)
+		Bridson_Common.logDebug(__name__, 'DeltaX:', deltax, 'DeltaY:', deltay)
 		raster = np.zeros((deltax,deltay))
 
 
@@ -128,7 +128,7 @@ def createRegionRasters(regionMap, region=0):
 			x, y = coord
 			x = x - shiftx
 			y = y - shifty
-			# print('Relative coords:', x, y)
+			# Bridson_Common.logDebug(__name__, 'Relative coords:', x, y)
 			raster[x][y] = 255
 	else:
 		raster = None
@@ -155,8 +155,8 @@ def callSLIC(segmentCount=40):
 			# fig = plt.figure("Superpixels -- %d segments - file%s" % (numSegments, image))
 			# ax = fig.add_subplot(3, 3, 1)
 			# ax.imshow(mark_boundaries(image, segments, color=(1,0,0), mode='inner', background_label=regionIndex))
-			# print("shape: ", np.shape(segments)) # HSC
-			# print(segments)
+			# Bridson_Common.logDebug(__name__, "shape: ", np.shape(segments)) # HSC
+			# Bridson_Common.logDebug(__name__, segments)
 			# plt.axis("off")
 
 			raster, regionMap = catalogRegions(segments)
@@ -209,8 +209,8 @@ if __name__ == '__main__':
 				fig = plt.figure("Superpixels -- %d segments - file%s" % (numSegments, image))
 				ax = fig.add_subplot(3, 3, 1)
 				ax.imshow(mark_boundaries(image, segments, color=(1,0,0), mode='inner', background_label=regionIndex))
-				# print("shape: ", np.shape(segments))
-				# print(segments)
+				# Bridson_Common.logDebug(__name__, "shape: ", np.shape(segments))
+				# Bridson_Common.logDebug(__name__, segments)
 				# plt.axis("off")
 
 				raster, regionMap = catalogRegions(segments)
@@ -223,9 +223,9 @@ if __name__ == '__main__':
 				baseAxis = 3
 				for i in range(7):
 					regionRaster, actualTopLeft = createRegionRasters(regionMap, regionIndex)
-					print("Actual Top Left:", actualTopLeft)
+					Bridson_Common.logDebug(__name__, "Actual Top Left:", actualTopLeft)
 					ax = fig.add_subplot(3, 3,  baseAxis)
-					# print(regionRaster)
+					# Bridson_Common.logDebug(__name__, regionRaster)
 					ax.imshow(regionRaster)
 					regionIndex += 1
 					baseAxis += 1

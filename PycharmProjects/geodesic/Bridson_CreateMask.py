@@ -41,12 +41,12 @@ def genLetter(xsize, ysize, character = 'Y', blur=2):
 
 	img = Image.fromarray(n)
 	img = img.convert('L')
-	# print(img.size)
+	# Bridson_Common.logDebug(__name__, img.size)
 
 	n = np.array(img)
 	n = np.reshape(n, img.size)
-	# print(np.shape(n))
-	# print(n)
+	# Bridson_Common.logDebug(__name__, np.shape(n))
+	# Bridson_Common.logDebug(__name__, n)
 	n = 255 - n # Need to flip the bits.  The Freeman chain code generator requires the letter portion to have a value of 255 instead of 0.
 	return(n)
 
@@ -89,7 +89,7 @@ if __name__ == '__main__':
 	x, y = 100, 100
 	radius = 5
 	mask = CreateCircleMask(x, y, radius)
-	# print(mask)
+	# Bridson_Common.logDebug(__name__, mask)
 
 	invertedMask = InvertMask(mask)
 

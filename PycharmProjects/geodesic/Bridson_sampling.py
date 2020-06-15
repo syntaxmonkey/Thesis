@@ -6,7 +6,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import math
-
+import Bridson_Common
 
 def calculateParameters(xrange, yrange, radius=0, pointCount=0):
     perimeter = xrange * 2.0 + yrange * 2.0
@@ -66,7 +66,7 @@ def Bridson_sampling(width=1.0, height=1.0, radius=0.025, k=30, existingPoints=[
 
     def in_mask(p, mask):
         if len(mask) > 0:
-            # print( "Length of Mask: ", p)
+            # Bridson_Common.logDebug(__name__,  "Length of Mask: ", p)
             # Will return true if the point references a pixel that has value 255.
             if mask[int(p[0]), int(p[1])] == 255:
                 return True
@@ -124,7 +124,7 @@ def displayPoints(points, xrange, yrange):
     # plt.ylim(0, 1)
     plt.xlim(-1, xrange+1)
     plt.ylim(-1, yrange+1)
-    print(points)
+    Bridson_Common.logDebug(__name__, points)
     # plt.show()
 
 
@@ -134,8 +134,8 @@ def genSquarePerimeterPoints(xrange, yrange, pointCount=0, radius=0):
 
     pointDistance, pointCount = calculateParameters(xrange, yrange, radius=radius, pointCount=pointCount)
 
-    print("Perimeter", perimeter)
-    print("PointDistance", pointDistance)
+    Bridson_Common.logDebug(__name__, "Perimeter", perimeter)
+    Bridson_Common.logDebug(__name__, "PointDistance", pointDistance)
     deltax = pointDistance
     deltay = 0
     fudge = 0.001
@@ -154,10 +154,10 @@ def genSquarePerimeterPoints(xrange, yrange, pointCount=0, radius=0):
 
 
     # Transition to the first Y axis.
-    print("Transition to first y axis")
-    print("currentx", currentx, "currenty", currenty)
+    Bridson_Common.logDebug(__name__, "Transition to first y axis")
+    Bridson_Common.logDebug(__name__, "currentx", currentx, "currenty", currenty)
     currenty = abs(xrange - currentx)
-    print("newCurrentY", currenty)
+    Bridson_Common.logDebug(__name__, "newCurrentY", currenty)
     currentx = xrange - 0.01
     while currenty < yrange:
         points.append([currentx, currenty])
@@ -193,8 +193,8 @@ if __name__ == '__main__':
     xrange, yrange = 10, 10
 
     points = genSquarePerimeterPoints(xrange, yrange, radius=dradius)
-    print(np.shape(points))
+    Bridson_Common.logDebug(__name__, np.shape(points))
     points = Bridson_sampling(width=xrange, height=yrange, radius=dradius, existingPoints=points)
-    print(np.shape(points))
+    Bridson_Common.logDebug(__name__, np.shape(points))
     displayPoints(points, xrange, yrange)
     plt.show()

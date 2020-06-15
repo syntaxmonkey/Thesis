@@ -19,9 +19,9 @@ import Bridson_Common
 import random
 import sys
 
-random.seed(Bridson_Common.seedValue)
-print("Seed was:", Bridson_Common.seedValue)
-np.random.seed(Bridson_Common.seedValue)
+# random.seed(Bridson_Common.seedValue)
+# Bridson_Common.logDebug(__name__, "Seed was:", Bridson_Common.seedValue)
+# np.random.seed(Bridson_Common.seedValue)
 
 
 def generatePointsDisplay(xrange, yrange, dradius):
@@ -38,14 +38,15 @@ def genSquareDelaunayDisplay(xrange, yrange, radius=0, pointCount=0, mask=[], bo
 	radius, pointCount = calculateParameters(xrange, yrange, radius, pointCount)
 
 	points = genSquarePerimeterPoints(xrange, yrange, radius=radius, pointCount=pointCount)
-	print(np.shape(points))
+	Bridson_Common.logDebug(__name__, np.shape(points))
+	# Bridson_Common.logDebug(__name__, np.shape(points))
 
 	# Merge border with square perimeter.
 	points = np.append( points, border, axis=0)
 
 	# Generate all the sample points.
 	points = Bridson_sampling(width=xrange, height=yrange, radius=radius, existingPoints=points, mask=mask)
-	print(np.shape(points))
+	Bridson_Common.logDebug(__name__, np.shape(points))
 
 	if len(mask) > 0:
 		points = filterOutPoints(points, mask)
@@ -81,7 +82,7 @@ def createMeshFile(samples, tri, radius, center ):
 
 
 def BFFReshape():
-	print("Reshaping with BFF")
+	Bridson_Common.logDebug(__name__, "Reshaping with BFF")
 	path = "../../boundary-first-flattening/build/"
 	# os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --angle=1 --normalizeUVs ")
 	if Bridson_Common.normalizeUV:
@@ -93,7 +94,7 @@ def BFFReshape():
 
 def FlattenMesh():
 	path = "../../boundary-first-flattening/build/"
-	print("Extracting 2D image post BFF Reshaping")
+	Bridson_Common.logDebug(__name__, "Extracting 2D image post BFF Reshaping")
 	os.system(path + "extract.py test1_out.obj test1_out_flat.obj")
 
 
@@ -123,17 +124,17 @@ def SLICImage():
 	thismanager = pylab.get_current_fig_manager()
 	thismanager.window.wm_geometry("+0+0")
 
-	print("Keys:",regionMap.keys())
+	Bridson_Common.logDebug(__name__, "Keys:" + str(regionMap.keys()) )
 	return imageraster, regionMap
 
 
 def featureRemoval(mask, dradius, indexLabel):
 	currentMask = mask[:]
-	# print(currentMask)
+	# Bridson_Common.logDebug(__name__, currentMask)
 
 	for i in range(10):
 		# random.seed(Bridson_Common.seedValue)
-		# print("Seed was:", Bridson_Common.seedValue)
+		# Bridson_Common.logDebug(__name__, "Seed was:", Bridson_Common.seedValue)
 		# np.random.seed(Bridson_Common.seedValue)
 
 		# if Bridson_Common.debug:
@@ -158,7 +159,7 @@ def blankRow(mask, row):
 	for i in range(height-1,0,-1):
 		if np.max(zeroMask[i]) > 0:
 			firstRow = i
-			print("FirstRow: ", firstRow)
+			Bridson_Common.logDebug(__name__, "FirstRow: ", firstRow)
 			break
 
 	for i in range(rowCount):
@@ -188,7 +189,7 @@ def processMask(mask, dradius, indexLabel):
 	if blurRadius % 2 == 0:
 		blurRadius = blurRadius + 3
 	blurRadius = 5
-	print("*** BlurRadius: ", blurRadius)
+	Bridson_Common.logDebug(__name__, "*** BlurRadius: " , blurRadius)
 
 	mask5x = Bridson_Common.blurArray(mask5x, blurRadius)
 	mask5x = Bridson_CreateMask.InvertMask(mask5x)
@@ -239,7 +240,7 @@ def displayRegionRaster(regionRaster, index):
 
 if __name__ == '__main__':
 	cleanUpFiles()
-	dradius = 1.5 # 3 seems to be the maximum value.
+	dradius = 1 # 3 seems to be the maximum value.
 	xrange, yrange = 10, 10
 
 	# mask = Bridson_CreateMask.CreateCircleMask(xrange, yrange, 10)
@@ -262,7 +263,7 @@ if __name__ == '__main__':
 
 		invertedMask =  Bridson_CreateMask.InvertMask( mask )
 
-		# print(invertedMask)
+		# Bridson_Common.logDebug(__name__, invertedMask)
 		plt.figure()
 		plt.subplot(1, 1, 1, aspect=1)
 		plt.title('Inverted Mask')
@@ -293,10 +294,10 @@ if __name__ == '__main__':
 		stopIndex = 2
 		for regionIndex in range(startIndex, stopIndex):
 		# for regionIndex in regionMap.keys():
-			print(">>>>>>>>>>> Start of cycle")
+			Bridson_Common.logDebug(__name__, ">>>>>>>>>>> Start of cycle")
 			# resetVariables()
 			# try:
-			print("Generating index:", regionIndex)
+			Bridson_Common.logDebug(__name__, "Generating index:", regionIndex)
 			raster, actualTopLeft = SLIC.createRegionRasters(regionMap, regionIndex)
 			displayRegionRaster( raster[:], regionIndex )
 
@@ -304,7 +305,7 @@ if __name__ == '__main__':
 			for index in range(3,4):
 				# Generate the raster for the first region.
 				raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
-				# print(raster)
+				# Bridson_Common.logDebug(__name__, raster)
 				# Bridson_Common.arrayInformation( raster )
 				for i in range(1):
 					Bridson_Common.writeMask(raster)
@@ -314,7 +315,7 @@ if __name__ == '__main__':
 				# Transfer the lines from the FlatMesh to meshObj.
 				# meshObj.TransferLinePoints( flatMeshObj )
 
-	print("\n\n\n")
+	Bridson_Common.logDebug(__name__, "------------------------------------------")
 	if False:
 		index = 999
 		# File are in /Users/hengsun/Documents/Thesis/PycharmProjects/geodesic.
@@ -326,18 +327,18 @@ if __name__ == '__main__':
 
 	# Perform feature removal, row by row.
 	if False:
-		for index in range(3,4):
+		for index in range(4,5):
 			# Generate the raster for the first region.
 			# raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
-			# print(raster)
+			# Bridson_Common.logDebug(__name__, raster)
 			# Bridson_Common.arrayInformation( raster )
 			# Bridson_Common.writeMask(raster)
 			raster = Bridson_Common.readMask(filename='BlurTriangle.gif')
-			print("Minimum value of Raster: " , np.min(raster))
-			print("Maximum value of Raster: ", np.max(raster))
+			Bridson_Common.logDebug(__name__, "Minimum value of Raster: " , np.min(raster))
+			Bridson_Common.logDebug(__name__, "Maximum value of Raster: ", np.max(raster))
 			raster = Bridson_CreateMask.InvertMask(raster)
-			print("Minimum value of Inverted Raster: ", np.min(raster))
-			print("Maximum value of Inverted Raster: ", np.max(raster))
+			Bridson_Common.logDebug(__name__, "Minimum value of Inverted Raster: ", np.min(raster))
+			Bridson_Common.logDebug(__name__, "Maximum value of Inverted Raster: ", np.max(raster))
 			featureRemoval(raster, dradius, index)
 			# flatMeshObj.DrawVerticalLines()
 
@@ -349,8 +350,8 @@ if __name__ == '__main__':
 		for index in range(1,2):
 			# Generate the raster for the first region.
 			raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
-			# print(raster) = SLIC.createRegionRasters(regionMap, index)
-			# print(raster)
+			# raster = SLIC.createRegionRasters(regionMap, index)
+			# Bridson_Common.logDebug(__name__, raster)
 			# Bridson_Common.arrayInformation( raster )
 			# Bridson_Common.writeMask(raster)
 			featureRemoval(raster, dradius, index)

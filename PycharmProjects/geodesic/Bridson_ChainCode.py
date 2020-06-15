@@ -24,7 +24,7 @@ import math
 # For example, running this (by clicking run or pressing Shift+Enter) will list the files in the input directory
 
 # from subprocess import check_output
-# print(check_output(["ls", "../input"]).decode("utf8"))
+# Bridson_Common.logDebug(__name__, check_output(["ls", "../input"]).decode("utf8"))
 # train = pd.read_csv("../input/train.csv")
 #
 # train[:3]
@@ -62,7 +62,7 @@ def generateChainCode(img, rotate=False, angle=0):
 	# 	for i, value in enumerate(row):
 			if value == 255:
 				start_point = (i, j)
-				print(start_point, value)
+				Bridson_Common.logDebug(__name__, start_point, value)
 				break
 		else:
 			continue
@@ -91,7 +91,7 @@ def generateChainCode(img, rotate=False, angle=0):
 	chainDirection = [] # Will contain the degree change.
 
 	originalStart = start_point # Original start point.
-	print('Original Start:', originalStart)
+	Bridson_Common.logDebug(__name__, 'Original Start:', originalStart)
 	curr_point = start_point
 
 	''' Block A1 - pick the starting direction.  Should aim for direction 3.'''
@@ -144,13 +144,13 @@ def generateChainCode(img, rotate=False, angle=0):
 
 				cumulativeDirection += directionChange
 				if abs(cumulativeDirection) > 360:
-					print('CumulativeDirection: ', cumulativeDirection)
+					Bridson_Common.logDebug(__name__, 'CumulativeDirection: ', cumulativeDirection)
 
 				currentDirection += directionChange
 				chainDirection.append(directionChange)
 
 				if abs(sumPreviousX(chainDirection, len(chainDirection) , 4)) > angleChangeThreshold:    # Check if the previous X direction changes are above a threshold.
-					print('*** Direction Change warning: ', chainDirection[-2:])
+					Bridson_Common.logDebug(__name__, '*** Direction Change warning: ', chainDirection[-2:])
 					# chainDirection[-1] = (chainDirection[-1] / abs(chainDirection[-1]) * -correctionValue) + chainDirection[-1]
 					# chainDirection[-2] = (chainDirection[-2] / abs(chainDirection[-2]) * -correctionValue) * \
 					#                      chainDirection[-2]
@@ -190,12 +190,12 @@ def generateChainCode(img, rotate=False, angle=0):
 				directionChange = directionChange * 45
 				cumulativeDirection += directionChange
 				if abs(cumulativeDirection) > 360:
-					print('CumulativeDirection: ', cumulativeDirection)
+					Bridson_Common.logDebug(__name__, 'CumulativeDirection: ', cumulativeDirection)
 
 				chainDirection.append(directionChange)
 
 				if abs(sumPreviousX(chainDirection, len(chainDirection), 4)) > angleChangeThreshold:    # Check if the previous X direction changes are above a threshold.
-					print('*** Direction Change warning: ', chainDirection[-2:])
+					Bridson_Common.logDebug(__name__, '*** Direction Change warning: ', chainDirection[-2:])
 					# chainDirection[-1] = (chainDirection[-1] / abs(chainDirection[-1]) * -correctionValue) + chainDirection[-1]
 					# chainDirection[-2] = (chainDirection[-2] / abs(chainDirection[-2]) * -correctionValue) + \
 					#                      chainDirection[-2]
@@ -206,16 +206,16 @@ def generateChainCode(img, rotate=False, angle=0):
 				break
 		count += 1
 
-	print('Final Cumulative Direction: ', cumulativeDirection)
+	Bridson_Common.logDebug(__name__, 'Final Cumulative Direction: ', cumulativeDirection)
 
 
 	if rotate == True:
 		# Perform a rotation of the chain code.
-		# print("Length of Chain code", len(chain))
-		# print(chain)
-		# print("length of chainDirection", len(chainDirection))
-		# print(chainDirection)
-		# print("Length of border", len(border))
+		# Bridson_Common.logDebug(__name__, "Length of Chain code", len(chain))
+		# Bridson_Common.logDebug(__name__, chain)
+		# Bridson_Common.logDebug(__name__, "length of chainDirection", len(chainDirection))
+		# Bridson_Common.logDebug(__name__, chainDirection)
+		# Bridson_Common.logDebug(__name__, "Length of border", len(border))
 
 		shiftRatio = (angle%360)/360
 
@@ -234,10 +234,10 @@ def generateChainCode(img, rotate=False, angle=0):
 		newChain.extend(border[0:quarterLength])
 		border = newChain
 
-	# print("chainDirection:", chainDirection)
+	# Bridson_Common.logDebug(__name__, "chainDirection:", chainDirection)
 	# chainDirection = list(reverseDirection(chainDirection))
-	# print("chainDirection after reversal:", chainDirection)
-	print("** Border: ", border)
+	# Bridson_Common.logDebug(__name__, "chainDirection after reversal:", chainDirection)
+	Bridson_Common.logDebug(__name__, "** Border: ", border)
 	return count, chain, chainDirection, border
 
 
@@ -282,7 +282,7 @@ def generateBorder(borderChainCoordinates, radius):
 		if distanceTravelled > radius:
 			# Keep this node.
 			currentNode = borderChainCoordinates[endIndex]
-			# print("CurrentNode: ", currentNode)
+			# Bridson_Common.logDebug(__name__, "CurrentNode: ", currentNode)
 			currentNode = (currentNode[0] + 0.5 , currentNode[1] + 0.5)
 			perimeterNodes.append(currentNode)
 			# Keep track of the difference between radius and actual distance travelled.
@@ -302,10 +302,10 @@ if __name__ == '__main__':
 	# character='C'
 	# img = genLetter(boxsize=letterDimension, character=character, blur=1)
 	count, chain, chainDirection, border = generateChainCode(mask, rotate=False)
-	print('Count:', count)
-	print('Chain:', len(chain), chain)
-	print('ChainDirection:', len(chainDirection), chainDirection)
-	print('Border:', len(border), border)
+	Bridson_Common.logDebug(__name__, 'Count:', count)
+	Bridson_Common.logDebug(__name__, 'Chain:', len(chain), chain)
+	Bridson_Common.logDebug(__name__, 'ChainDirection:', len(chainDirection), chainDirection)
+	Bridson_Common.logDebug(__name__, 'Border:', len(border), border)
 
 	writeChainCodeFile('./', 'testchaincode.txt', chainDirection)
 

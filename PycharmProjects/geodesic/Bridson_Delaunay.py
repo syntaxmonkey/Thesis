@@ -41,35 +41,35 @@ def generateDelaunay(points, radius, mask, xrange):
 def removeLongTriangles(points, tri, radius, mask):
     # Find Average Area.
     averageArea = Bridson_Common.findAverageArea(tri.simplices.copy(), points)
-    print("Bridson_Delaunay::removeLongTriangles Average Area:", averageArea)
+    Bridson_Common.logDebug(__name__, "Average Area:", averageArea)
 
     triangles = tri.simplices.copy()
     newTriangles = []
 
-    # print(">>>>>>>>>>>>><<<<<<<<<<<<<<<<< Triangles: ", triangles)
+    # Bridson_Common.logDebug(__name__, ">>>>>>>>>>>>><<<<<<<<<<<<<<<<< Triangles: ", triangles)
     for triangle in triangles:
-        # print("Single Triangle", triangle)
+        # Bridson_Common.logDebug(__name__, "Single Triangle", triangle)
         Keep = True
         # Iterate through all 3 edges.  Ensure their euclidean distance is less than or equal to radius.
-        # print("Triangle:", triangle[0])
+        # Bridson_Common.logDebug(__name__, "Triangle:", triangle[0])
         for i in range(3):
             currentIndex = i
             nextIndex = (currentIndex + 1) % 3
-            # print("Indeces:", currentIndex, nextIndex)
+            # Bridson_Common.logDebug(__name__, "Indeces:", currentIndex, nextIndex)
             distance = Bridson_Common.euclidean_distance(points[triangle[currentIndex]], points[triangle[nextIndex]])
-            # print("distance:", radius, distance)
+            # Bridson_Common.logDebug(__name__, "distance:", radius, distance)
             # if distance > radius:
             ''' The fudge factor of 1.1 is to account for rounding errors.  The "isExteriorTriangle" needs Mask blur of 3. '''
             # if distance > radius*math.sqrt(2)*1.1 or isExteriorTriangle(points[triangle[currentIndex]], points[triangle[nextIndex]], mask):
             if distance > radius * 3 or isExteriorTriangle(points[triangle[currentIndex]], points[triangle[nextIndex]], mask):
             # if isExteriorTriangle(points[triangle[currentIndex]], points[triangle[nextIndex]], mask):
                 Keep = False
-                # print("Bridson_Delaunay::removeLongTriangles Distance is too long OR exterior triangle.")
+                # Bridson_Common.logDebug(__name__, "Bridson_Delaunay::removeLongTriangles Distance is too long OR exterior triangle.")
                 break
         triangleHeights = Bridson_Common.findTriangleHeight(points[triangle[0]], points[triangle[1]], points[triangle[2]])
-        # print("Triangle Heights: ", triangleHeights)
+        # Bridson_Common.logDebug(__name__, "Triangle Heights: ", triangleHeights)
         if np.min(triangleHeights) < removalRatio*radius:
-            # print("***** Triangle " + str(triangle) + " has a minimum of " + str(np.min(triangleHeights)))
+            # Bridson_Common.logDebug(__name__, "***** Triangle " + str(triangle) + " has a minimum of " + str(np.min(triangleHeights)))
             Keep = False
 
         area = Bridson_Common.findArea(points[triangle[0]], points[triangle[1]], points[triangle[2]])
@@ -80,9 +80,9 @@ def removeLongTriangles(points, tri, radius, mask):
         if Keep:
             newTriangles.append(triangle)
         # else:
-        #     print("Bridson_Delaunay::removeLongTriangles Removing triangle Area: ", area)
+        #     Bridson_Common.logDebug(__name__, "Bridson_Delaunay::removeLongTriangles Removing triangle Area: ", area)
 
-    # print("New Triangle Shape:", np.shape(newTriangles))
+    # Bridson_Common.logDebug(__name__, "New Triangle Shape:", np.shape(newTriangles))
     newTriangles = np.array(newTriangles)
 
     newTri = mtri.Triangulation(points[:,0], points[:,1], newTriangles)
@@ -106,10 +106,10 @@ def displayDelaunayMesh(points, radius, mask, xrange):
 
     # triangles = tri.simplices
     # for triangle in triangles:
-    # 	print("Triangle:", triangle)
+    # 	Bridson_Common.logDebug(__name__, "Triangle:", triangle)
 
     if Bridson_Common.debug:
-        print("tri", triangulation)
+        Bridson_Common.logDebug(__name__, "tri", triangulation)
         plt.figure()
         plt.subplot(1, 1, 1, aspect=1)
         plt.title('Display Triangulation')

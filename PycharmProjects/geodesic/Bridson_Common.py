@@ -5,12 +5,22 @@ import numpy as np
 import numpy.linalg as la # https://codereview.stackexchange.com/questions/41024/faster-computation-of-barycentric-coordinates-for-many-points
 import Bridson_CreateMask
 import matplotlib.pyplot as plt
+import inspect
 
 seedValue = 11
 
-debug = False
+debug = True
 
 normalizeUV = False
+
+def logDebug(moduleName, *argv):
+	if Bridson_Common.debug:
+		callingFrame = inspect.stack()[1] # https://docs.python.org/3/library/inspect.html#inspect.getmembers -
+		callingFunction = callingFrame[3]
+		print(moduleName , "-->", callingFunction , ": ", end='')
+		for arg in argv:
+			print(arg, " ", end='')
+		print()
 
 def convertAxesBarycentric(x, y, sourceTriang, targetTriang, triFinder, Originalsamples, TargetSamples):
 	# Convert the coordinates on one axes to the cartesian axes on the second axes.
@@ -18,8 +28,8 @@ def convertAxesBarycentric(x, y, sourceTriang, targetTriang, triFinder, Original
 
 	tri = triFinder(x, y)
 
-	print("Source Tri: ", tri)
-	# print(triang.triangles[tri])
+	Bridson_Common.logDebug(__name__, "Source Tri: ", tri)
+	# Bridson_Common.logDebug(__name__, triang.triangles[tri])
 	face = []
 	for vertex in sourceTriang.triangles[tri]:  # Create triangle from the coordinates.
 		curVertex = Originalsamples[vertex]
@@ -73,7 +83,7 @@ def findArea(v1, v2, v3):
 		else:
 			area = 0
 	except:
-		print(">>> Error calculating the area: ", a, b, c, s, s*(s-a)*(s-b)*(s-c), v1, v2, v3)
+		Bridson_Common.logDebug(__name__, ">>> Error calculating the area: ", a, b, c, s, s*(s-a)*(s-b)*(s-c), v1, v2, v3)
 	return area
 
 
@@ -97,11 +107,11 @@ def blurArray(array, blur):
 	# img = img.filter(ImageFilter.GaussianBlur(0))
 	# img = img.filter(ImageFilter.BoxBlur(blur))
 
-	# print('Bridson_Common.blurArray: ', np.array(img))
-	# print('Bridson_Common.blurArray mode: ', img.mode)
-	# print('Bridson_Common.blurArray shape: ', np.shape(np.array(img)))
-	# print('Bridson_Common.blurArray Max: ', np.max(np.array(img)))
-	# print('Bridson_Common.blurArray Min: ', np.min(np.array(img)))
+	# Bridson_Common.logDebug(__name__, 'Bridson_Common.blurArray: ', np.array(img))
+	# Bridson_Common.logDebug(__name__, 'Bridson_Common.blurArray mode: ', img.mode)
+	# Bridson_Common.logDebug(__name__, 'Bridson_Common.blurArray shape: ', np.shape(np.array(img)))
+	# Bridson_Common.logDebug(__name__, 'Bridson_Common.blurArray Max: ', np.max(np.array(img)))
+	# Bridson_Common.logDebug(__name__, 'Bridson_Common.blurArray Min: ', np.min(np.array(img)))
 	#
 	return np.array(img)
 
@@ -125,13 +135,13 @@ def findTriangleHeight(p1, p2, p3):
 
 
 def readMask(filename='BlurArrayImage.gif'):
-	print("*** Bridson_Common.readMask ***")
+	Bridson_Common.logDebug(__name__, "*** Bridson_Common.readMask ***")
 	img = Image.open( filename )
-	# print('Bridson_Common.readMask: ', np.array(img))
-	# print('Bridson_Common.readMask mode: ', img.mode)
-	# print('Bridson_Common.readMask shape: ', np.shape(np.array(img)))
-	# print('Bridson_Common.readMask Max: ', np.max(np.array(img)))
-	# print('Bridson_Common.readMask Min: ', np.min(np.array(img)))
+	# Bridson_Common.logDebug(__name__, 'Bridson_Common.readMask: ', np.array(img))
+	# Bridson_Common.logDebug(__name__, 'Bridson_Common.readMask mode: ', img.mode)
+	# Bridson_Common.logDebug(__name__, 'Bridson_Common.readMask shape: ', np.shape(np.array(img)))
+	# Bridson_Common.logDebug(__name__, 'Bridson_Common.readMask Max: ', np.max(np.array(img)))
+	# Bridson_Common.logDebug(__name__, 'Bridson_Common.readMask Min: ', np.min(np.array(img)))
 
 	arr = np.array( img )
 	arr = arr - np.min(arr)
@@ -146,7 +156,7 @@ def readMask(filename='BlurArrayImage.gif'):
 		arr = arr * ( 128.0 / maxValue)
 
 	maxValue = np.max(arr)
-	print("ReadMask Max value: ", maxValue)
+	Bridson_Common.logDebug(__name__, "ReadMask Max value: ", maxValue)
 	if maxValue > 1:
 		arr = arr * (255.0 / maxValue)
 	else:
@@ -158,36 +168,36 @@ def readMask(filename='BlurArrayImage.gif'):
 	# Need to invert the resulting array.
 	# arr = Bridson_CreateMask.InvertMask( arr )
 
-	print("\n\n*** Bridson_Common.readMask Processed Array ***")
+	Bridson_Common.logDebug(__name__, "\n\n*** Bridson_Common.readMask Processed Array ***")
 	arrayInformation(arr)
 	return arr
 
 def writeMask(array, filename='BlurArrayImage.gif'):
 	img = Image.fromarray(array)
 
-	# print('Bridson_Common.writeMask')
-	# print('Bridson_Common.writeMask: ', np.array(img))
-	# print('Bridson_Common.writeMask mode: ', img.mode)
-	# print('Bridson_Common.writeMask shape: ', np.shape(np.array(img)))
-	# print('Bridson_Common.writeMask Max: ', np.max(np.array(img)))
-	# print('Bridson_Common.writeMask Min: ', np.min(np.array(img)))
+	# Bridson_Common.logDebug(__name__, 'Bridson_Common.writeMask')
+	# Bridson_Common.logDebug(__name__, 'Bridson_Common.writeMask: ', np.array(img))
+	# Bridson_Common.logDebug(__name__, 'Bridson_Common.writeMask mode: ', img.mode)
+	# Bridson_Common.logDebug(__name__, 'Bridson_Common.writeMask shape: ', np.shape(np.array(img)))
+	# Bridson_Common.logDebug(__name__, 'Bridson_Common.writeMask Max: ', np.max(np.array(img)))
+	# Bridson_Common.logDebug(__name__, 'Bridson_Common.writeMask Min: ', np.min(np.array(img)))
 	#
 	img.save(filename)
 
 def imageInformation(img):
 
-	print('Bridson_Common.imageInformation: ', np.array(img))
-	print('Bridson_Common.imageInformation mode: ', img.mode)
-	print('Bridson_Common.imageInformation shape: ', np.shape(np.array(img)))
-	print('Bridson_Common.imageInformation Max: ', np.max(np.array(img)))
-	print('Bridson_Common.imageInformation Min: ', np.min(np.array(img)))
+	Bridson_Common.logDebug(__name__, 'Bridson_Common.imageInformation: ', np.array(img))
+	Bridson_Common.logDebug(__name__, 'Bridson_Common.imageInformation mode: ', img.mode)
+	Bridson_Common.logDebug(__name__, 'Bridson_Common.imageInformation shape: ', np.shape(np.array(img)))
+	Bridson_Common.logDebug(__name__, 'Bridson_Common.imageInformation Max: ', np.max(np.array(img)))
+	Bridson_Common.logDebug(__name__, 'Bridson_Common.imageInformation Min: ', np.min(np.array(img)))
 
 
 def arrayInformation(arr):
-	print('Bridson_Common.arrayInformation: ' , arr)
-	print('Bridson_Common.arrayInformation shape: ', np.shape(arr))
-	print('Bridson_Common.arrayInformation Max: ', np.max(arr))
-	print('Bridson_Common.arrayInformation Min: ', np.min(arr))
+	Bridson_Common.logDebug(__name__, 'Bridson_Common.arrayInformation: ' , arr)
+	Bridson_Common.logDebug(__name__, 'Bridson_Common.arrayInformation shape: ', np.shape(arr))
+	Bridson_Common.logDebug(__name__, 'Bridson_Common.arrayInformation Max: ', np.max(arr))
+	Bridson_Common.logDebug(__name__, 'Bridson_Common.arrayInformation Min: ', np.min(arr))
 
 def triangleHistogram(vertices, faces, indexLabel):
 	areaValues = []
@@ -202,12 +212,12 @@ def triangleHistogram(vertices, faces, indexLabel):
 	# Use non-equal bin sizes, such that they look equal on log scale.
 	# logbins = np.logspace(np.log10(bins[0]), np.log10(bins[-1]), len(bins))
 
-	print('Area Values - ' + " Min: " + str(min(areaValues))  +  " Max: "+ str(max(areaValues)))
-	print('Area Ratio: ' + "{:.4e}".format(max(areaValues) / min(areaValues)) )
+	Bridson_Common.logDebug(__name__, 'Area Values - ' + " Min: " + str(min(areaValues))  +  " Max: "+ str(max(areaValues)))
+	Bridson_Common.logDebug(__name__, 'Area Ratio: ' + "{:.4e}".format(max(areaValues) / min(areaValues)) )
 	if min(areaValues) < 1.0e-15:
-		print(" ****************** Min Area less than 1e-15: GUESS that trifinder will NOT be valid. ********************")
+		Bridson_Common.logDebug(__name__, " ****************** Min Area less than 1e-15: GUESS that trifinder will NOT be valid. ********************")
 	else:
-		print(" ****************** Min Area greater than 1e-15: Guess that trifinder will be valid *****************")
+		Bridson_Common.logDebug(__name__, " ****************** Min Area greater than 1e-15: Guess that trifinder will be valid *****************")
 
 	n, bins, patches = plt.hist(x=areaValues, alpha=0.7, rwidth=0.5, bins=1000)
 	# plt.hist(x=areaValues,  bins=logbins)
@@ -225,5 +235,5 @@ def triangleHistogram(vertices, faces, indexLabel):
 if __name__ == "__main__":
 	h = findTriangleHeight((0,0), (0,3), (4,0))
 	if np.min( h ) < 5:
-		print('Min less than threshold: ', np.min(h))
-	print(h)
+		Bridson_Common.logDebug(__name__, 'Min less than threshold: ', np.min(h))
+	Bridson_Common.logDebug(__name__, h)

@@ -26,9 +26,9 @@ def readFlatObjFile(path, filename):
 	faceCount = 0
 
 	for line in fileContent:
-		# print(line)
+		# Bridson_Common.logDebug(__name__, line)
 		lineSplit = line.split()
-		# print(lineSplit)
+		# Bridson_Common.logDebug(__name__, lineSplit)
 		if (len(lineSplit) > 0):
 			lineType = lineSplit[0]
 			if (lineType == 'v'):
@@ -65,27 +65,27 @@ def readFlatObjFile(path, filename):
 	Flatsamples = np.reshape(Flatsamples, (flatIndex, 2))
 	Flatfaces = np.reshape(Flatfaces, (faceCount, 3))
 
-	# print("GlobalIndex: ", globalIndex)
+	# Bridson_Common.logDebug(__name__, "GlobalIndex: ", globalIndex)
 	# Shift Original coordinates to positive quadrant.
 	xmin = abs(np.min(Flatsamples[:, 0]))
 	ymin = abs(np.min(Flatsamples[:, 1]))
 	Flatsamples[:, 0] = Flatsamples[:, 0] + xmin
 	Flatsamples[:, 1] = Flatsamples[:, 1] + ymin
 
-	print("Flatface: ", len(Flatfaces))
-	print("Max of faces: ", np.max(Flatfaces))
+	Bridson_Common.logDebug(__name__, "Flatface: ", len(Flatfaces))
+	Bridson_Common.logDebug(__name__, "Max of faces: ", np.max(Flatfaces))
 
 
 	# Create Original Triangle <--> Flat Triangle map
 	indexOri = 1
 	# for triangle in Originalfaces:
-	# 	print(triangle)
+	# 	Bridson_Common.logDebug(__name__, triangle)
 	# 	Flattriangle = OriginalIndexMap[tuple(triangle)]
-	# 	print("Flat triangle: ", Flattriangle)
+	# 	Bridson_Common.logDebug(__name__, "Flat triangle: ", Flattriangle)
 	# 	indexFlat = np.where(Flatfaces == OriginalIndexMap[tuple(triangle)])
 	#
-	# 	print("IndexFlat: ", indexFlat)
-	# 	print(Flatfaces[indexFlat[:, 0]])
+	# 	Bridson_Common.logDebug(__name__, "IndexFlat: ", indexFlat)
+	# 	Bridson_Common.logDebug(__name__, Flatfaces[indexFlat[:, 0]])
 	#
 	# 	OriginalSampleMap[indexOri] = indexFlat[0][0]
 	#
@@ -124,9 +124,9 @@ def readFlatObjFile(path, filename):
 			#
 			#
 
-	print("Reading OBJ file ****************************************************")
+	Bridson_Common.logDebug(__name__, "Reading OBJ file ****************************************************")
 	#ValidateSamples(Flatsamples, Flatfaces)
-	print("Done OBJ file ****************************************************")
+	Bridson_Common.logDebug(__name__, "Done OBJ file ****************************************************")
 	return  Flatsamples, Flatfaces
 
 def createObjFile2D(path, filename, samples, triangleValues, radius, center, distance):
@@ -134,14 +134,14 @@ def createObjFile2D(path, filename, samples, triangleValues, radius, center, dis
 	f = open(path + filename, "w+")
 
 	radius2 = radius+1
-	#print(radius2)
+	#Bridson_Common.logDebug(__name__, radius2)
 	# Output the vertices.
 	Vcount=0
 	for coords in samples:
-		#print(coords)
+		#Bridson_Common.logDebug(__name__, coords)
 		dist = distance(center, coords) / radius2
-		# print("Dist:", dist)
-		#print(dist*dist)
+		# Bridson_Common.logDebug(__name__, "Dist:", dist)
+		#Bridson_Common.logDebug(__name__, dist*dist)
 		#zvalue = math.sqrt(radius2 - coords[0]*coords[0] - coords[1]*coords[1])
 		# if dist > 1.0:
 		# 	dist = 1.0
@@ -150,30 +150,30 @@ def createObjFile2D(path, filename, samples, triangleValues, radius, center, dis
 		zvalue = 0
 		#f.write("v %f %f %f\r\n" % (coords[0], coords[1], 0) )
 		f.write("v %f %f %f\r\n" % (coords[0], coords[1], zvalue))
-		# print("v %f %f %f\r\n" % (coords[0], coords[1], zvalue))
+		# Bridson_Common.logDebug(__name__, "v %f %f %f\r\n" % (coords[0], coords[1], zvalue))
 		Vcount += 1
-	print("Vertex Count:", Vcount)
+	Bridson_Common.logDebug(__name__, "Vertex Count:", Vcount)
 
 	averageArea = Bridson_Common.findAverageArea(triangleValues.triangles, samples)
 
-	print("createObj File Average Area:",averageArea)
+	Bridson_Common.logDebug(__name__, "createObj File Average Area:",averageArea)
 
 	Fcount = 0
 	# Output the facets.
 	# for facet in triangleValues.simplices.copy():
 	for facet in triangleValues.triangles:
-		# print("Facet:", facet)
+		# Bridson_Common.logDebug(__name__, "Facet:", facet)
 		area = Bridson_Common.findArea(samples[facet[0]], samples[facet[1]], samples[facet[2]])
 		if area < averageArea / 100.0:
-			print("Removing Triangle Area:", area)
-			print("f %d %d %d\r\n" % (facet[0]+1, facet[1]+1, facet[2]+1))
+			Bridson_Common.logDebug(__name__, "Removing Triangle Area:", area)
+			Bridson_Common.logDebug(__name__, "f %d %d %d\r\n" % (facet[0]+1, facet[1]+1, facet[2]+1))
 		else:
 			f.write("f %d %d %d\r\n" % (facet[0] + 1, facet[1] + 1, facet[2] + 1))  # The facet indeces start at 1, not at 0.  Need to increment index.
 
 		Fcount+=1
 
-	print("Facet Count:", Fcount)
-	print("Facet - Vertex:", Fcount - Vcount)
+	Bridson_Common.logDebug(__name__, "Facet Count:", Fcount)
+	Bridson_Common.logDebug(__name__, "Facet - Vertex:", Fcount - Vcount)
 	f.close()
 
 
@@ -181,16 +181,16 @@ def createObjFile3D(path, filename, samples, triangleValues, radius, center, dis
 	f = open(path + filename, "w+")
 
 	radius2 = radius+1
-	#print(radius2)
+	#Bridson_Common.logDebug(__name__, radius2)
 	# Output the vertices.
 	for coords in samples:
-		#print(coords)
+		#Bridson_Common.logDebug(__name__, coords)
 		#dist = distance(center, coords) / radius2
-		#print(dist*dist)
+		#Bridson_Common.logDebug(__name__, dist*dist)
 		#zvalue = math.sqrt(radius2 - coords[0]*coords[0] - coords[1]*coords[1])
 		#zvalue = math.sqrt(1 - dist*dist) * radius2
 		#f.write("v %f %f %f\r\n" % (coords[0], coords[1], 0) )
-		print("Writing coords: ", coords)
+		Bridson_Common.logDebug(__name__, "Writing coords: ", coords)
 		f.write("v %f %f %f\r\n" % (coords[0], coords[1], coords[2]))
 
 	# Output the facets.

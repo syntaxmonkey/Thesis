@@ -7,6 +7,7 @@ import pylab
 import Bridson_Common
 
 
+
 '''
 For the constructor, pass in the points.
 
@@ -20,11 +21,13 @@ class MeshObject:
 
 		self.indexLabel = str(kwargs.get('indexLabel'))
 		if 'mask' in kwargs and 'dradius' in kwargs:
+			Bridson_Common.logDebug(__name__, "Creating Mesh from Mask.")
 			# Case we are provided with a Mask.
 			mask = kwargs.get('mask')
 			dradius = kwargs.get('dradius')
 			self.GenMeshFromMask(mask, dradius)
 		elif 'flatvertices' in kwargs and 'flatfaces' in kwargs and 'xrange' in kwargs and 'yrange' in kwargs:
+			Bridson_Common.logDebug(__name__, "Creating Mesh from vertices and faces.")
 			# Case we are provided the flattened vertices and triangles
 			flatvertices = kwargs.get('flatvertices')
 			flatfaces = kwargs.get('flatfaces')
@@ -32,13 +35,13 @@ class MeshObject:
 			yrange = kwargs.get('yrange')
 			self.GenTriangulation(flatvertices, flatfaces, xrange, yrange)
 		else:
-			print("No enough parameters")
+			Bridson_Common.logDebug(__name__, "No enough parameters")
 
 
 	def DrawVerticalLines(self, density=0.1):
 
-		print("********** XLimit ***********", self.ax.get_xlim())
-		print("********** YLimit ***********", self.ax.get_ylim())
+		Bridson_Common.logDebug(__name__, "********** XLimit ***********", self.ax.get_xlim())
+		Bridson_Common.logDebug(__name__, "********** YLimit ***********", self.ax.get_ylim())
 		xlower, xupper = self.ax.get_xlim()
 		ylower, yupper = self.ax.get_ylim()
 
@@ -46,7 +49,7 @@ class MeshObject:
 		yincrement = abs(yupper - ylower) * density
 		pointCount = math.ceil(abs(xupper - xlower) / xincrement)
 		rowCount = math.ceil(abs(yupper - ylower) / yincrement)
-		print("************** PointCount ***********", pointCount)
+		Bridson_Common.logDebug(__name__, "************** PointCount ***********", pointCount)
 		self.ax.set_ylim(ylower - 1, yupper + 1)
 
 		dotPoints = []
@@ -60,7 +63,7 @@ class MeshObject:
 			if len(rowPoints) > 0:
 				rowPoints = np.array(rowPoints)
 				dotPoints.append(rowPoints)
-		# print(dotPoints)
+		# Bridson_Common.logDebug(__name__, dotPoints)
 		dotPoints = np.array(dotPoints)
 		for line in dotPoints:
 			self.ax.plot(line[:, 0], line[:, 1], color='r')
@@ -90,9 +93,9 @@ class MeshObject:
 
 
 	def GenTriangulation(self, flatvertices, flatfaces, xrange, yrange):
-		# print(flatvertices)
-		# print(flatfaces)
-		print("Flat Triangulation from Mesh" + self.indexLabel)
+		# Bridson_Common.logDebug(__name__, flatvertices)
+		# Bridson_Common.logDebug(__name__, flatfaces)
+		Bridson_Common.logDebug(__name__, "Flat Triangulation from Mesh" + self.indexLabel)
 		# if np.max(flatvertices < 10):
 
 		# If normalizedUV is used.
@@ -105,14 +108,14 @@ class MeshObject:
 		# This code adds a new face.  Trying to cause trifinder failure.
 		# self.flatfaces = np.vstack((self.flatfaces, [640, 532, 532]))
 
-		# print(self.flatfaces)
+		# Bridson_Common.logDebug(__name__, self.flatfaces)
 		self.triangulation = mtri.Triangulation(self.points[:, 0], self.points[:, 1], flatfaces)
 		try:
 			self.trifinder = self.triangulation.get_trifinder()
-			print("** Found trifinder ", self.indexLabel)
+			Bridson_Common.logDebug(__name__, "** Found trifinder ", self.indexLabel)
 		except:
-			print("Cannot trifinder ", self.indexLabel)
-		# print("tri", self.triangulation)
+			Bridson_Common.logDebug(__name__, "Cannot trifinder ", self.indexLabel)
+		# Bridson_Common.logDebug(__name__, "tri", self.triangulation)
 		self.fig = plt.figure()
 		# self.ax = plt.axes()
 		self.ax = plt.subplot(1, 1, 1, aspect=1)
@@ -123,12 +126,12 @@ class MeshObject:
 
 		singleTriangle = np.array([self.triangulation.triangles[0]])
 		singleTriangle = np.vstack((singleTriangle, self.triangulation.triangles[1]))
-		# print(singleTriangle)
+		# Bridson_Common.logDebug(__name__, singleTriangle)
 		plt.triplot(self.points[:, 1], xrange - self.points[:, 0], singleTriangle, 'r-', lw=1)
 
 		singleTriangle = np.array([self.triangulation.triangles[-1]])
 		singleTriangle = np.vstack((singleTriangle, self.triangulation.triangles[-2]))
-		# print(singleTriangle)
+		# Bridson_Common.logDebug(__name__, singleTriangle)
 		plt.triplot(self.points[:, 1], xrange - self.points[:, 0], singleTriangle, 'g-', lw=1)
 
 
@@ -143,7 +146,7 @@ class MeshObject:
 
 
 	def GenMeshFromMask(self, mask, dradius, pointCount=0):
-		print("GenMeshFromMask")
+		Bridson_Common.logDebug(__name__, "GenMeshFromMask")
 		xrange, yrange = np.shape(mask)
 		self.count, self.chain, self.chainDirection, border = Bridson_ChainCode.generateChainCode(mask, rotate=False)
 		self.border = Bridson_ChainCode.generateBorder(border, dradius)
@@ -159,16 +162,16 @@ class MeshObject:
 		radius, pointCount = Bridson_sampling.calculateParameters(xrange, yrange, dradius, pointCount)
 
 		points = Bridson_sampling.genSquarePerimeterPoints(xrange, yrange, radius=radius, pointCount=pointCount)
-		print(np.shape(points))
+		Bridson_Common.logDebug(__name__, np.shape(points))
 
 		# Merge border with square perimeter.
-		print("Points Shape: ", np.shape(points))
-		print("Border Shape: ", np.shape(self.border))
+		Bridson_Common.logDebug(__name__, "Points Shape: " ,  np.shape(points))
+		Bridson_Common.logDebug(__name__, "Border Shape: " , np.shape(self.border))
 		points = np.append(points, self.border, axis=0)
 
 		# Generate all the sample points.
 		points = Bridson_sampling.Bridson_sampling(width=xrange, height=yrange, radius=radius, existingPoints=points, mask=self.invertedMask)
-		print(np.shape(points))
+		Bridson_Common.logDebug(__name__, np.shape(points))
 
 		if len(self.invertedMask) > 0:
 			points = self.filterOutPoints(points, self.invertedMask)
@@ -177,7 +180,7 @@ class MeshObject:
 		self.triangulation = Bridson_Delaunay.displayDelaunayMesh(points, radius, self.invertedMask, xrange)
 		self.trifinder = self.triangulation.get_trifinder()
 
-		print("tri", self.triangulation)
+		Bridson_Common.logDebug(__name__, "tri" , self.triangulation)
 		self.fig = plt.figure()
 		# self.ax = plt.axes()
 
@@ -191,12 +194,12 @@ class MeshObject:
 
 		singleTriangle = np.array([self.triangulation.triangles[0]])
 		singleTriangle = np.vstack((singleTriangle, self.triangulation.triangles[1]))
-		print(singleTriangle)
+		Bridson_Common.logDebug(__name__, singleTriangle)
 		plt.triplot(self.points[:, 1], xrange - self.points[:, 0], singleTriangle, 'r-', lw=1)
 
 		singleTriangle = np.array([self.triangulation.triangles[-1]])
 		singleTriangle = np.vstack((singleTriangle, self.triangulation.triangles[-2]))
-		print(singleTriangle)
+		Bridson_Common.logDebug(__name__, singleTriangle)
 		plt.triplot(self.points[:, 1], xrange - self.points[:, 0], singleTriangle, 'g-', lw=1)
 
 
@@ -242,7 +245,7 @@ class MeshObject:
 		self.squareChain = squareChain
 		Bridson_ChainCode.writeChainCodeFile('./', 'chaincode.txt', self.squareChain)
 
-		print('Chain code length: ', len(self.squareChain))
+		Bridson_Common.logDebug(__name__, 'Chain code length: ', len(self.squareChain))
 
 
 	def filterOutPoints(self, points, mask):
@@ -268,4 +271,4 @@ if __name__ == "__main__":
 	meshObject = MeshObject(mask, dradius)
 
 	plt.show()
-	print("Done")
+	Bridson_Common.logDebug(__name__, "Done")
