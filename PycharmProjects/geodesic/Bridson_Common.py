@@ -13,6 +13,11 @@ debug = True
 
 normalizeUV = False
 
+invert = False
+
+colourCodeMesh = True
+colourCount = 20
+
 def logDebug(moduleName, *argv):
 	if Bridson_Common.debug:
 		callingFrame = inspect.stack()[1] # https://docs.python.org/3/library/inspect.html#inspect.getmembers -
@@ -28,7 +33,7 @@ def convertAxesBarycentric(x, y, sourceTriang, targetTriang, triFinder, Original
 
 	tri = triFinder(x, y)
 
-	Bridson_Common.logDebug(__name__, "Source Tri: ", tri)
+	# Bridson_Common.logDebug(__name__, "Source Tri: ", tri)
 	# Bridson_Common.logDebug(__name__, triang.triangles[tri])
 	face = []
 	for vertex in sourceTriang.triangles[tri]:  # Create triangle from the coordinates.
@@ -40,6 +45,7 @@ def convertAxesBarycentric(x, y, sourceTriang, targetTriang, triFinder, Original
 	for vertex in targetTriang.triangles[tri]:
 		curVertex = TargetSamples[vertex]
 		face2.append([curVertex[0], curVertex[1]])
+	# Bridson_Common.logDebug(__name__, "Target Tri: ", face2)
 	cartesian = get_cartesian_from_barycentric(bary1, face2)
 
 	return cartesian
@@ -84,6 +90,9 @@ def findArea(v1, v2, v3):
 			area = 0
 	except:
 		Bridson_Common.logDebug(__name__, ">>> Error calculating the area: ", a, b, c, s, s*(s-a)*(s-b)*(s-c), v1, v2, v3)
+	if area == 0:
+		Bridson_Common.logDebug(__name__, ">>> Area is ZERO: ", a, b, c, s,
+		                        s * (s - a) * (s - b) * (s - c), v1, v2, v3)
 	return area
 
 
@@ -202,6 +211,9 @@ def arrayInformation(arr):
 def triangleHistogram(vertices, faces, indexLabel):
 	areaValues = []
 	for face in faces:
+		faceArea = Bridson_Common.findArea(vertices[face[0]], vertices[face[1]], vertices[face[2]])
+		if faceArea == 0:
+			Bridson_Common.logDebug(__name__, 'Face', face, 'with vertices', vertices[face[0]], vertices[face[1]], vertices[face[2]], 'has an area of', faceArea)
 		areaValues.append( Bridson_Common.findArea(vertices[face[0]], vertices[face[1]], vertices[face[2]]) )
 
 	plt.figure()
@@ -213,7 +225,11 @@ def triangleHistogram(vertices, faces, indexLabel):
 	# logbins = np.logspace(np.log10(bins[0]), np.log10(bins[-1]), len(bins))
 
 	Bridson_Common.logDebug(__name__, 'Area Values - ' + " Min: " + str(min(areaValues))  +  " Max: "+ str(max(areaValues)))
-	Bridson_Common.logDebug(__name__, 'Area Ratio: ' + "{:.4e}".format(max(areaValues) / min(areaValues)) )
+	if min(areaValues) == 0:
+		Bridson_Common.logDebug(__name__, 'Minimum area is ZERO.')
+	else:
+		Bridson_Common.logDebug(__name__, 'Area Ratio: ' + "{:.4e}".format(max(areaValues) / min(areaValues)))
+
 	if min(areaValues) < 1.0e-15:
 		Bridson_Common.logDebug(__name__, " ****************** Min Area less than 1e-15: GUESS that trifinder will NOT be valid. ********************")
 	else:

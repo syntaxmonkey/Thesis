@@ -173,56 +173,71 @@ def blankRow(mask, row):
 def processMask(mask, dradius, indexLabel):
 	# invertedMask = Bridson_CreateMask.InvertMask(mask)
 	# invertedMask = Bridson_Common.blurArray(mask, 3)
-	mask5x = Bridson_CreateMask.InvertMask(mask)
+	successful = False
+	attempts = 0
 
-	if Bridson_Common.debug:
-		plt.figure()
-		plt.subplot(1, 1, 1, aspect=1)
-		plt.title('original Mask')
-		plt.imshow(mask)
-		thismanager = pylab.get_current_fig_manager()
-		thismanager.window.wm_geometry("+0+560")
+	while True:
+		attempts += 1
+		if successful or attempts > 10:
+			break
+		else:
+			mask5x = Bridson_CreateMask.InvertMask(mask)
 
-	xrange, yrange = np.shape(mask)
-	# mask5x = Bridson_Common.blurArray(mask5x, 5)
-	blurRadius = math.ceil(dradius)
-	if blurRadius % 2 == 0:
-		blurRadius = blurRadius + 3
-	blurRadius = 5
-	Bridson_Common.logDebug(__name__, "*** BlurRadius: " , blurRadius)
+			if Bridson_Common.debug:
+				plt.figure()
+				plt.subplot(1, 1, 1, aspect=1)
+				plt.title('original Mask')
+				plt.imshow(mask)
+				thismanager = pylab.get_current_fig_manager()
+				thismanager.window.wm_geometry("+0+560")
 
-	mask5x = Bridson_Common.blurArray(mask5x, blurRadius)
-	mask5x = Bridson_CreateMask.InvertMask(mask5x)
+			xrange, yrange = np.shape(mask)
+			# mask5x = Bridson_Common.blurArray(mask5x, 5)
+			blurRadius = math.ceil(dradius)
+			if blurRadius % 2 == 0:
+				blurRadius = blurRadius + 3
+			blurRadius = 5
+			Bridson_Common.logDebug(__name__, "*** BlurRadius: " , blurRadius)
 
-	if Bridson_Common.debug:
-		plt.figure()
-		plt.subplot(1, 1, 1, aspect=1)
-		plt.title('blurred Mask')
-		plt.imshow(mask5x)
-		thismanager = pylab.get_current_fig_manager()
-		thismanager.window.wm_geometry("+0+560")
+			mask5x = Bridson_Common.blurArray(mask5x, blurRadius)
+			mask5x = Bridson_CreateMask.InvertMask(mask5x)
+
+			if Bridson_Common.debug:
+				plt.figure()
+				plt.subplot(1, 1, 1, aspect=1)
+				plt.title('blurred Mask')
+				plt.imshow(mask5x)
+				thismanager = pylab.get_current_fig_manager()
+				thismanager.window.wm_geometry("+0+560")
 
 
-	meshObj = Bridson_MeshObj.MeshObject(mask=mask5x, dradius=dradius, indexLabel=indexLabel)
-	points = meshObj.points
-	tri = meshObj.triangulation
-	fakeRadius = max(xrange,yrange)
+			meshObj = Bridson_MeshObj.MeshObject(mask=mask5x, dradius=dradius, indexLabel=indexLabel)
+			points = meshObj.points
+			tri = meshObj.triangulation
+			fakeRadius = max(xrange,yrange)
 
-	createMeshFile(points, tri, fakeRadius, (xrange/2.0, yrange/2.0))
+			createMeshFile(points, tri, fakeRadius, (xrange/2.0, yrange/2.0))
 
-	# vertices, faces = Bridson_readOBJFile.readFlatObjFile(path="../../boundary-first-flattening/build/",
-	#                                                               filename="test1.obj")
-	# meshObj = Bridson_MeshObj.MeshObject(flatvertices=vertices, flatfaces=faces, xrange=xrange,
-	#                                          yrange=yrange, indexLabel=indexLabel)
-	BFFReshape()
-	FlattenMesh()
+			# vertices, faces = Bridson_readOBJFile.readFlatObjFile(path="../../boundary-first-flattening/build/",
+			#                                                               filename="test1.obj")
+			# meshObj = Bridson_MeshObj.MeshObject(flatvertices=vertices, flatfaces=faces, xrange=xrange,
+			#                                          yrange=yrange, indexLabel=indexLabel)
+			BFFReshape()
+			FlattenMesh()
 
-	flatvertices, flatfaces = Bridson_readOBJFile.readFlatObjFile(path = "../../boundary-first-flattening/build/", filename="test1_out_flat.obj")
+			flatvertices, flatfaces = Bridson_readOBJFile.readFlatObjFile(path = "../../boundary-first-flattening/build/", filename="test1_out_flat.obj")
 
-	Bridson_Common.triangleHistogram(flatvertices, flatfaces, indexLabel)
+			Bridson_Common.triangleHistogram(flatvertices, flatfaces, indexLabel)
 
-	newIndex = str(indexLabel) + ":" + str(indexLabel)
-	flatMeshObj = Bridson_MeshObj.MeshObject(flatvertices=flatvertices, flatfaces=flatfaces, xrange=xrange, yrange=yrange, indexLabel=indexLabel)
+			newIndex = str(indexLabel) + ":" + str(indexLabel)
+			flatMeshObj = Bridson_MeshObj.MeshObject(flatvertices=flatvertices, flatfaces=flatfaces, xrange=xrange, yrange=yrange, indexLabel=indexLabel)
+			successful = flatMeshObj.trifinderGenerated
+			if successful:
+				print("Attempt ", attempts, " successful")
+			else:
+				print("Attempt ", attempts, " UNsuccessful")
+
+
 	return meshObj, flatMeshObj
 
 def displayRegionRaster(regionRaster, index):
@@ -238,6 +253,51 @@ def displayRegionRaster(regionRaster, index):
 	ax.grid()
 
 
+
+def indexValidation():
+	imageraster, regionMap = SLICImage()
+
+	linesOnFlat = False
+
+	for index in range(1, 2):
+		# Generate the raster for the first region.
+		raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
+		# Bridson_Common.logDebug(__name__, raster)
+		# Bridson_Common.arrayInformation( raster )
+		for i in range(1):
+			indexLabel = index + i / 10
+			Bridson_Common.writeMask(raster)
+			meshObj, flatMeshObj = processMask(raster, dradius, indexLabel)
+
+			if linesOnFlat:
+				flatMeshObj.DrawVerticalLines()
+				# Transfer the lines from the FlatMesh to meshObj.
+				meshObj.TransferLinePointsFromTarget(flatMeshObj)
+			else:
+				meshObj.DrawVerticalLines()
+				flatMeshObj.TransferLinePointsFromTarget(meshObj)
+
+			# Apply BFF again.
+			BFFReshape()
+			FlattenMesh()
+
+			flatvertices, flatfaces = Bridson_readOBJFile.readFlatObjFile(path="../../boundary-first-flattening/build/",			                                                              filename="test1_out_flat.obj")
+			newIndex = indexLabel + 0.0012345
+			Bridson_Common.triangleHistogram(flatvertices, flatfaces, newIndex)
+
+			flatMeshObj2 = Bridson_MeshObj.MeshObject(flatvertices=flatvertices, flatfaces=flatfaces, xrange=xrange,
+			                                         yrange=yrange, indexLabel=newIndex)
+			successful = flatMeshObj2.trifinderGenerated
+			# Transfer the lines from the FlatMesh to meshObj.
+			flatMeshObj2.TransferLinePointsFromTarget(meshObj)
+
+
+
+# Validate that barycentric works.
+	# meshObj2, flatMeshObj2 = processMask(raster, dradius, index + i / 10 + 0.0012345)
+	# flatMeshObj2.TransferLinePoints(flatMeshObj)
+
+
 if __name__ == '__main__':
 	cleanUpFiles()
 	dradius = 1 # 3 seems to be the maximum value.
@@ -251,7 +311,7 @@ if __name__ == '__main__':
 		# flatMeshObj.DrawVerticalLines()
 		# meshObj.DrawVerticalLines()
 		# Transfer the lines from the FlatMesh to meshObj.
-		# meshObj.TransferLinePoints( flatMeshObj )
+		# meshObj.TransferLinePointsFromTarget( flatMeshObj )
 
 	# meshObj = Bridson_MeshObj.MeshObject(mask=mask, dradius=dradius)
 
@@ -301,8 +361,8 @@ if __name__ == '__main__':
 			raster, actualTopLeft = SLIC.createRegionRasters(regionMap, regionIndex)
 			displayRegionRaster( raster[:], regionIndex )
 
-	if True:
-			for index in range(3,4):
+	if False:
+			for index in range(1,2):
 				# Generate the raster for the first region.
 				raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
 				# Bridson_Common.logDebug(__name__, raster)
@@ -310,10 +370,13 @@ if __name__ == '__main__':
 				for i in range(1):
 					Bridson_Common.writeMask(raster)
 					meshObj, flatMeshObj = processMask(raster, dradius, index + i / 10)
-				# flatMeshObj.DrawVerticalLines()
+					flatMeshObj.DrawVerticalLines()
 
 				# Transfer the lines from the FlatMesh to meshObj.
-				# meshObj.TransferLinePoints( flatMeshObj )
+				meshObj.TransferLinePointsFromTarget( flatMeshObj )
+
+
+	indexValidation()
 
 	Bridson_Common.logDebug(__name__, "------------------------------------------")
 	if False:
@@ -327,7 +390,7 @@ if __name__ == '__main__':
 
 	# Perform feature removal, row by row.
 	if False:
-		for index in range(4,5):
+		for index in range(5,6):
 			# Generate the raster for the first region.
 			# raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
 			# Bridson_Common.logDebug(__name__, raster)
@@ -343,7 +406,7 @@ if __name__ == '__main__':
 			# flatMeshObj.DrawVerticalLines()
 
 			# Transfer the lines from the FlatMesh to meshObj.
-			# meshObj.TransferLinePoints( flatMeshObj )
+			# meshObj.TransferLinePointsFromTarget( flatMeshObj )
 
 
 	if False:
@@ -358,7 +421,7 @@ if __name__ == '__main__':
 			# flatMeshObj.DrawVerticalLines()
 
 			# Transfer the lines from the FlatMesh to meshObj.
-			# meshObj.TransferLinePoints( flatMeshObj )
+			# meshObj.TransferLinePointsFromTarget( flatMeshObj )
 
 
 	plt.show()
