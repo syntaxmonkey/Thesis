@@ -5,7 +5,7 @@ import matplotlib.tri as mtri
 import math
 import pylab
 import Bridson_Common
-
+import scipy
 
 
 '''
@@ -38,7 +38,7 @@ class MeshObject:
 			Bridson_Common.logDebug(__name__, "No enough parameters")
 
 
-	def DrawVerticalLines(self, density=0.05, linedensity=0.001):
+	def DrawVerticalLines(self, density=Bridson_Common.density, linedensity=Bridson_Common.lineDotDensity):
 
 		Bridson_Common.logDebug(__name__, "********** XLimit ***********", self.ax.get_xlim())
 		Bridson_Common.logDebug(__name__, "********** YLimit ***********", self.ax.get_ylim())
@@ -55,23 +55,46 @@ class MeshObject:
 
 		dotPoints = []
 
+		notFound = 0
 		for j in range(columnCount+1):
 			rowPoints = []
 			for i in range(pointCount + 1):
-				pointy, pointx = ylower + yincrement * i, xlower + j * xincrement
-				if self.trifinder(pointx, pointy) > -1:
+				pointx, pointy = xlower + j * xincrement, ylower + yincrement * i
+				# pointy, pointx = ylower + yincrement * i, xlower + j * xincrement
+				if self.trifinder(pointx, pointy) > -1:  # How do we guarantee that the dots on the line are in order?
 					rowPoints.append((pointx, pointy))
+				else:
+					notFound += 1
+					#Bridson_Common.logDebug(__name__, "**** Point not found in trifinder *****", (pointx, pointy))
 			if len(rowPoints) > 0:
 				rowPoints = np.array(rowPoints)
 				dotPoints.append(rowPoints)
 		# Bridson_Common.logDebug(__name__, dotPoints)
 		dotPoints = np.array(dotPoints)
+		Bridson_Common.logDebug(__name__, "**** Points Not FOUND *****", notFound)
+
+
+		colourArray = ['r', 'w', 'm']
+		markerArray = ['o', '*', 's']
+		index = 0
+
 		for line in dotPoints:
-			self.ax.plot(line[:, 0], line[:, 1], color='r')
+			# https://kite.com/python/answers/how-to-plot-a-smooth-line-with-matplotlib-in-python
+			# a_BSpline = np.array(scipy.interpolate.make_interp_spline(line[:, 0], line[:, 1]))
+			# self.ax.plot(line[:, 0], a_BSpline, color='r')
+			# self.ax.plot(line[:, 0], line[:, 1], color='r')
+			colour = colourArray[ (index % 3) ]
+			if Bridson_Common.drawDots:
+				marker = markerArray[ (index % 3) ]
+			else:
+				marker = None
+			# self.ax.plot(line[:, 0], line[:, 1], color='r', marker='o')
+			self.ax.plot(line[:, 0], line[:, 1], color=colour , marker=marker )
+			index += 1
 
 		self.linePoints = dotPoints
 
-	def DrawHorizontalLines(self, density=0.1, linedensity=0.01):
+	def DrawHorizontalLines(self, density=Bridson_Common.density, linedensity=Bridson_Common.lineDotDensity):
 
 		Bridson_Common.logDebug(__name__, "********** XLimit ***********", self.ax.get_xlim())
 		Bridson_Common.logDebug(__name__, "********** YLimit ***********", self.ax.get_ylim())
@@ -98,8 +121,21 @@ class MeshObject:
 				dotPoints.append(rowPoints)
 		# Bridson_Common.logDebug(__name__, dotPoints)
 		dotPoints = np.array(dotPoints)
+
+		colourArray = ['r', 'w', 'm']
+		markerArray = ['o', '*', 's']
+		index = 0
+
 		for line in dotPoints:
-			self.ax.plot(line[:, 0], line[:, 1], color='r')
+			# self.ax.plot(line[:, 0], line[:, 1], color='r')
+			colour = colourArray[ (index % 3) ]
+			if Bridson_Common.drawDots:
+				marker = markerArray[ (index % 3) ]
+			else:
+				marker = None
+			# self.ax.plot(line[:, 0], line[:, 1], color='r', marker='o')
+			self.ax.plot(line[:, 0], line[:, 1], color=colour , marker=marker )
+			index += 1
 
 		self.linePoints = dotPoints
 
@@ -117,9 +153,20 @@ class MeshObject:
 			self.linePoints.append( np.array(newLine) ) # Add to list of existing lines
 		self.linePoints = np.array( self.linePoints ) # Convert line into numpy array.
 
-		for line in self.linePoints:
-			self.ax.plot(line[:, 0], line[:, 1], color='r')
+		colourArray = ['r', 'w', 'm']
+		markerArray = ['o', '*', 's']
+		index = 0
 
+		for line in self.linePoints:
+			# self.ax.plot(line[:, 0], line[:, 1], color='ro')
+			colour = colourArray[ (index % 3) ]
+			if Bridson_Common.drawDots:
+				marker = markerArray[ (index % 3) ]
+			else:
+				marker = None
+			# self.ax.plot(line[:, 0], line[:, 1], color='r', marker='o')
+			self.ax.plot(line[:, 0], line[:, 1], color=colour , marker=marker )
+			index += 1
 		return
 
 
@@ -162,7 +209,9 @@ class MeshObject:
 			print("Length of triangles", len(self.triangulation.triangles))
 			colors = np.array( [ i % Bridson_Common.colourCount for i in range(len(self.triangulation.triangles)) ] )
 			print("Length of colors", len(colors))
-			plt.tripcolor(self.points[:, 1], self.points[:, 0], self.triangulation.triangles.copy() , facecolors=colors, lw=0.5)
+			# plt.tripcolor(self.points[:, 1], self.points[:, 0], self.triangulation.triangles.copy() , facecolors=colors, lw=0.5)
+			plt.tripcolor(self.points[:, 0], self.points[:, 1], self.triangulation.triangles.copy(), facecolors=colors,
+			              lw=0.5)
 		else:
 			if Bridson_Common.invert:
 				plt.triplot(self.points[:, 1], xrange - self.points[:, 0], self.triangulation.triangles, 'b-', lw=0.5)
@@ -176,7 +225,7 @@ class MeshObject:
 		if Bridson_Common.invert:
 			plt.triplot(self.points[:, 1], xrange - self.points[:, 0], singleTriangle, 'r-', lw=1)
 		else:
-			plt.triplot(self.points[:, 1], self.points[:, 0], singleTriangle, 'r-', lw=1)
+			plt.triplot(self.points[:, 0], self.points[:, 1], singleTriangle, 'r-', lw=1)
 
 		# Display reference green triangles
 		singleTriangle = np.array([self.triangulation.triangles[-1]])
@@ -185,7 +234,7 @@ class MeshObject:
 		if Bridson_Common.invert:
 			plt.triplot(self.points[:, 1], xrange - self.points[:, 0], singleTriangle, 'g-', lw=1)
 		else:
-			plt.triplot(self.points[:, 1], self.points[:, 0], singleTriangle, 'g-', lw=1)
+			plt.triplot(self.points[:, 0], self.points[:, 1], singleTriangle, 'g-', lw=1)
 
 		# plt.triplot(self.points[:, 0], xrange - self.points[:, 1], self.triangulation.triangles)
 		thismanager = pylab.get_current_fig_manager()
@@ -247,7 +296,9 @@ class MeshObject:
 			print("Length of triangles", len(self.triangulation.triangles))
 			colors = np.array( [ i % Bridson_Common.colourCount for i in range(len(self.triangulation.triangles)) ] )
 			print("Length of colors", len(colors))
-			plt.tripcolor(self.points[:, 1], self.points[:, 0], self.triangulation.triangles.copy() , facecolors=colors, lw=0.5)
+			# plt.tripcolor(self.points[:, 1], self.points[:, 0], self.triangulation.triangles.copy() , facecolors=colors, lw=0.5)
+			plt.tripcolor(self.points[:, 0], self.points[:, 1], self.triangulation.triangles.copy(), facecolors=colors,
+			              lw=0.5)
 		else:
 			if Bridson_Common.invert:
 				plt.triplot(points[:, 1], xrange - points[:, 0], self.triangulation.triangles, lw=0.5)
@@ -261,7 +312,7 @@ class MeshObject:
 		if Bridson_Common.invert:
 			plt.triplot(self.points[:, 1], xrange - self.points[:, 0], singleTriangle, 'r-', lw=1)
 		else:
-			plt.triplot(self.points[:, 1], self.points[:, 0], singleTriangle, 'r-', lw=1)
+			plt.triplot(self.points[:, 0], self.points[:, 1], singleTriangle, 'r-', lw=1)
 
 		# Plot green reference triangles
 		singleTriangle = np.array([self.triangulation.triangles[-1]])
@@ -270,7 +321,7 @@ class MeshObject:
 		if Bridson_Common.invert:
 			plt.triplot(self.points[:, 1], xrange - self.points[:, 0], singleTriangle, 'g-', lw=1)
 		else:
-			plt.triplot(self.points[:, 1], self.points[:, 0], singleTriangle, 'g-', lw=1)
+			plt.triplot(self.points[:, 0], self.points[:, 1], singleTriangle, 'g-', lw=1)
 
 
 

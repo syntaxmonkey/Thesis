@@ -257,8 +257,6 @@ def displayRegionRaster(regionRaster, index):
 def indexValidation():
 	imageraster, regionMap = SLICImage()
 
-	linesOnFlat = False
-
 	for index in range(1, 2):
 		# Generate the raster for the first region.
 		raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
@@ -269,19 +267,25 @@ def indexValidation():
 			Bridson_Common.writeMask(raster)
 			meshObj, flatMeshObj = processMask(raster, dradius, indexLabel)
 
-			if linesOnFlat:
-				flatMeshObj.DrawVerticalLines()
+			if Bridson_Common.linesOnFlat:
+				if Bridson_Common.verticalLines:
+					flatMeshObj.DrawVerticalLines()
+				else:
+					flatMeshObj.DrawHorizontalLines()
 				# Transfer the lines from the FlatMesh to meshObj.
 				meshObj.TransferLinePointsFromTarget(flatMeshObj)
 			else:
-				meshObj.DrawVerticalLines()
+				if Bridson_Common.verticalLines:
+					meshObj.DrawVerticalLines()
+				else:
+					meshObj.DrawHorizontalLines()
 				flatMeshObj.TransferLinePointsFromTarget(meshObj)
 
 			# Apply BFF again.
 			BFFReshape()
 			FlattenMesh()
 
-			flatvertices, flatfaces = Bridson_readOBJFile.readFlatObjFile(path="../../boundary-first-flattening/build/",			                                                              filename="test1_out_flat.obj")
+			flatvertices, flatfaces = Bridson_readOBJFile.readFlatObjFile(path="../../boundary-first-flattening/build/",	filename="test1_out_flat.obj")
 			newIndex = indexLabel + 0.0012345
 			Bridson_Common.triangleHistogram(flatvertices, flatfaces, newIndex)
 
@@ -289,8 +293,7 @@ def indexValidation():
 			                                         yrange=yrange, indexLabel=newIndex)
 			successful = flatMeshObj2.trifinderGenerated
 			# Transfer the lines from the FlatMesh to meshObj.
-			flatMeshObj2.TransferLinePointsFromTarget(meshObj)
-
+			flatMeshObj2.TransferLinePointsFromTarget(flatMeshObj)
 
 
 # Validate that barycentric works.
@@ -300,7 +303,7 @@ def indexValidation():
 
 if __name__ == '__main__':
 	cleanUpFiles()
-	dradius = 1 # 3 seems to be the maximum value.
+	dradius = Bridson_Common.dradius # 3 seems to be the maximum value.
 	xrange, yrange = 10, 10
 
 	# mask = Bridson_CreateMask.CreateCircleMask(xrange, yrange, 10)

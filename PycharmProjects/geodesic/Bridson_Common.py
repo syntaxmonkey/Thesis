@@ -18,6 +18,23 @@ invert = False
 colourCodeMesh = True
 colourCount = 20
 
+linesOnFlat = True
+verticalLines = False
+
+barycentricVertexCorrection = True
+
+if linesOnFlat:
+	barycentricCorrectionValue = 2
+else:
+	barycentricCorrectionValue = 1
+
+drawDots = False
+
+density = 0.005
+lineDotDensity = 0.001
+
+dradius = 1
+
 def logDebug(moduleName, *argv):
 	if Bridson_Common.debug:
 		callingFrame = inspect.stack()[1] # https://docs.python.org/3/library/inspect.html#inspect.getmembers -
@@ -27,11 +44,11 @@ def logDebug(moduleName, *argv):
 			print(arg, " ", end='')
 		print()
 
-def convertAxesBarycentric(x, y, sourceTriang, targetTriang, triFinder, Originalsamples, TargetSamples):
+def convertAxesBarycentric(x, y, sourceTriang, targetTriang, sourcetriFinder, Originalsamples, TargetSamples):
 	# Convert the coordinates on one axes to the cartesian axes on the second axes.
 	# Convert from triang to triang2.
 
-	tri = triFinder(x, y)
+	tri = sourcetriFinder(x, y)
 
 	# Bridson_Common.logDebug(__name__, "Source Tri: ", tri)
 	# Bridson_Common.logDebug(__name__, triang.triangles[tri])
@@ -42,7 +59,13 @@ def convertAxesBarycentric(x, y, sourceTriang, targetTriang, triFinder, Original
 	bary1 = calculateBarycentric(face, (x, y))  # Calculate the barycentric coordinates.
 
 	face2 = []
-	for vertex in targetTriang.triangles[tri]:
+	vertices = list(targetTriang.triangles[tri])
+	# print("Original Vertices:", vertices)
+	if Bridson_Common.barycentricVertexCorrection:
+		vertices = vertices[Bridson_Common.barycentricCorrectionValue:] + vertices[:barycentricCorrectionValue] # HSC - rotate
+	# print("New Vertices:", vertices)
+	# for vertex in targetTriang.triangles[tri]:
+	for vertex in vertices:
 		curVertex = TargetSamples[vertex]
 		face2.append([curVertex[0], curVertex[1]])
 	# Bridson_Common.logDebug(__name__, "Target Tri: ", face2)
