@@ -18,8 +18,8 @@ invert = False
 colourCodeMesh = True
 colourCount = 20
 
-linesOnFlat = True
-verticalLines = False
+linesOnFlat = False
+verticalLines = True
 
 barycentricVertexCorrection = True
 
@@ -30,8 +30,9 @@ else:
 
 drawDots = False
 
-density = 0.005
-lineDotDensity = 0.001
+density = 0.01
+lineDotDensity = 0.01
+lineRadiusFactor = 1
 
 dradius = 1
 

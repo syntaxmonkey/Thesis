@@ -237,8 +237,10 @@ def processMask(mask, dradius, indexLabel):
 			else:
 				print("Attempt ", attempts, " UNsuccessful")
 
+	indexLabel="DotPoints"
+	lineReferencePointsObj = Bridson_MeshObj.MeshObject(mask=mask5x, dradius=dradius*Bridson_Common.lineRadiusFactor, indexLabel=indexLabel)
 
-	return meshObj, flatMeshObj
+	return meshObj, flatMeshObj, lineReferencePointsObj
 
 def displayRegionRaster(regionRaster, index):
 	plt.figure()
@@ -265,35 +267,40 @@ def indexValidation():
 		for i in range(1):
 			indexLabel = index + i / 10
 			Bridson_Common.writeMask(raster)
-			meshObj, flatMeshObj = processMask(raster, dradius, indexLabel)
+			meshObj, flatMeshObj, lineReferencePointsObj = processMask(raster, dradius, indexLabel)
 
 			if Bridson_Common.linesOnFlat:
 				if Bridson_Common.verticalLines:
-					flatMeshObj.DrawVerticalLines()
+					# flatMeshObj.DrawVerticalLines()
+					flatMeshObj.DrawVerticalLinesSeeded(lineReferencePointsObj.points)
 				else:
 					flatMeshObj.DrawHorizontalLines()
 				# Transfer the lines from the FlatMesh to meshObj.
 				meshObj.TransferLinePointsFromTarget(flatMeshObj)
 			else:
 				if Bridson_Common.verticalLines:
-					meshObj.DrawVerticalLines()
+					# meshObj.DrawVerticalLines()
+					meshObj.DrawVerticalLinesSeeded(lineReferencePointsObj.points)
 				else:
 					meshObj.DrawHorizontalLines()
 				flatMeshObj.TransferLinePointsFromTarget(meshObj)
 
+		# Obtain the points from the
+
 			# Apply BFF again.
-			BFFReshape()
-			FlattenMesh()
+			# BFFReshape()
+			# FlattenMesh()
+			#
+			# flatvertices, flatfaces = Bridson_readOBJFile.readFlatObjFile(path="../../boundary-first-flattening/build/",	filename="test1_out_flat.obj")
+			# newIndex = indexLabel + 0.0012345
+			# Bridson_Common.triangleHistogram(flatvertices, flatfaces, newIndex)
 
-			flatvertices, flatfaces = Bridson_readOBJFile.readFlatObjFile(path="../../boundary-first-flattening/build/",	filename="test1_out_flat.obj")
-			newIndex = indexLabel + 0.0012345
-			Bridson_Common.triangleHistogram(flatvertices, flatfaces, newIndex)
 
-			flatMeshObj2 = Bridson_MeshObj.MeshObject(flatvertices=flatvertices, flatfaces=flatfaces, xrange=xrange,
-			                                         yrange=yrange, indexLabel=newIndex)
-			successful = flatMeshObj2.trifinderGenerated
+			# flatMeshObj2 = Bridson_MeshObj.MeshObject(flatvertices=flatvertices, flatfaces=flatfaces, xrange=xrange,
+			#                                          yrange=yrange, indexLabel=newIndex)
+			# successful = flatMeshObj2.trifinderGenerated
 			# Transfer the lines from the FlatMesh to meshObj.
-			flatMeshObj2.TransferLinePointsFromTarget(flatMeshObj)
+			# flatMeshObj2.TransferLinePointsFromTarget(flatMeshObj)
 
 
 # Validate that barycentric works.
