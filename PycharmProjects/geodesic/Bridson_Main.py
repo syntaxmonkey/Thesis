@@ -109,6 +109,7 @@ def SLICImage():
 	startIndex = 0 # Index starts at 0.
 	regionIndex = startIndex
 	imageraster, regionMap = SLIC.callSLIC(segmentCount=40)
+
 	stopIndex=startIndex+16
 
 	plt.figure()
@@ -124,7 +125,7 @@ def SLICImage():
 	thismanager = pylab.get_current_fig_manager()
 	thismanager.window.wm_geometry("+0+0")
 
-	Bridson_Common.logDebug(__name__, "Keys:" + str(regionMap.keys()) )
+	Bridson_Common.logDebug(__name__, "SLIC Keys:" + str(regionMap.keys()) )
 	return imageraster, regionMap
 
 
@@ -178,7 +179,7 @@ def processMask(mask, dradius, indexLabel):
 
 	while True:
 		attempts += 1
-		if successful or attempts > 10:
+		if successful or attempts > 5:
 			break
 		else:
 			mask5x = Bridson_CreateMask.InvertMask(mask)
@@ -237,10 +238,10 @@ def processMask(mask, dradius, indexLabel):
 			else:
 				print("Attempt ", attempts, " UNsuccessful")
 
-	indexLabel="DotPoints"
+	indexLabel="LineSeed"
 	lineReferencePointsObj = Bridson_MeshObj.MeshObject(mask=mask5x, dradius=dradius*Bridson_Common.lineRadiusFactor, indexLabel=indexLabel)
 
-	return meshObj, flatMeshObj, lineReferencePointsObj
+	return meshObj, flatMeshObj, lineReferencePointsObj, successful
 
 def displayRegionRaster(regionRaster, index):
 	plt.figure()
@@ -259,31 +260,50 @@ def displayRegionRaster(regionRaster, index):
 def indexValidation():
 	imageraster, regionMap = SLICImage()
 
-	for index in range(1, 2):
+	successfulRegions = 0
+
+	# for index in range(45, 46):
+	for index in range( len(regionMap.keys()) ):
+		print("Starting Region: ", index)
+
 		# Generate the raster for the first region.
 		raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
+		print("Raster:", raster)
+		displayRegionRaster(raster, index)
+
 		# Bridson_Common.logDebug(__name__, raster)
 		# Bridson_Common.arrayInformation( raster )
 		for i in range(1):
 			indexLabel = index + i / 10
 			Bridson_Common.writeMask(raster)
-			meshObj, flatMeshObj, lineReferencePointsObj = processMask(raster, dradius, indexLabel)
+			meshObj, flatMeshObj, LineSeedPointsObj, trifindersuccess = processMask(raster, dradius, indexLabel)
 
-			if Bridson_Common.linesOnFlat:
-				if Bridson_Common.verticalLines:
-					# flatMeshObj.DrawVerticalLines()
-					flatMeshObj.DrawVerticalLinesSeeded(lineReferencePointsObj.points)
-				else:
-					flatMeshObj.DrawHorizontalLines()
-				# Transfer the lines from the FlatMesh to meshObj.
-				meshObj.TransferLinePointsFromTarget(flatMeshObj)
+			if trifindersuccess:
+				successfulRegions += 1
+				print("Trifinder was successfully generated for region ", index)
+				if Bridson_Common.diagnostic == False:
+					# Only draw the lines if the trifinder was successful generated.
+					if Bridson_Common.linesOnFlat:
+						if Bridson_Common.verticalLines:
+							# flatMeshObj.DrawVerticalLines()
+							flatMeshObj.DrawVerticalLinesSeededFrom(LineSeedPointsObj, meshObj)
+						else:
+							flatMeshObj.DrawHorizontalLines()
+						# Transfer the lines from the FlatMesh to meshObj.
+						meshObj.TransferLinePointsFromTarget(flatMeshObj)
+					else:
+						if Bridson_Common.verticalLines:
+							# meshObj.DrawVerticalLines()
+							meshObj.DrawVerticalLinesSeededFrom(LineSeedPointsObj, meshObj)
+						else:
+							meshObj.DrawHorizontalLines()
+						flatMeshObj.TransferLinePointsFromTarget(meshObj)
 			else:
-				if Bridson_Common.verticalLines:
-					# meshObj.DrawVerticalLines()
-					meshObj.DrawVerticalLinesSeeded(lineReferencePointsObj.points)
-				else:
-					meshObj.DrawHorizontalLines()
-				flatMeshObj.TransferLinePointsFromTarget(meshObj)
+				print("Trifinder was NOT successfully generated for region ", index)
+
+	print("Successful Regions: ", successfulRegions)
+	print("Total Regions: ", len(regionMap.keys()) )
+
 
 		# Obtain the points from the
 

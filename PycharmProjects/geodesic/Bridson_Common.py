@@ -9,7 +9,10 @@ import inspect
 
 seedValue = 11
 
-debug = True
+debug=False
+displayMesh=False
+diagnostic=True # Generally avoid dispalying meshes.  Only count the number of successful trifinder generations.
+
 
 normalizeUV = False
 
@@ -18,11 +21,12 @@ invert = False
 colourCodeMesh = True
 colourCount = 20
 
-linesOnFlat = False
+linesOnFlat = True
 verticalLines = True
 
 barycentricVertexCorrection = True
 
+# These are the rotation values.
 if linesOnFlat:
 	barycentricCorrectionValue = 2
 else:
@@ -32,9 +36,12 @@ drawDots = False
 
 density = 0.01
 lineDotDensity = 0.01
-lineRadiusFactor = 1
+lineRadiusFactor = 2
 
 dradius = 1
+
+
+
 
 def logDebug(moduleName, *argv):
 	if Bridson_Common.debug:
@@ -240,7 +247,6 @@ def triangleHistogram(vertices, faces, indexLabel):
 			Bridson_Common.logDebug(__name__, 'Face', face, 'with vertices', vertices[face[0]], vertices[face[1]], vertices[face[2]], 'has an area of', faceArea)
 		areaValues.append( Bridson_Common.findArea(vertices[face[0]], vertices[face[1]], vertices[face[2]]) )
 
-	plt.figure()
 
 	# hist, bins, _ = plt.hist(areaValues, bins=8)
 
@@ -259,17 +265,19 @@ def triangleHistogram(vertices, faces, indexLabel):
 	else:
 		Bridson_Common.logDebug(__name__, " ****************** Min Area greater than 1e-15: Guess that trifinder will be valid *****************")
 
-	n, bins, patches = plt.hist(x=areaValues, alpha=0.7, rwidth=0.5, bins=1000)
-	# plt.hist(x=areaValues,  bins=logbins)
-	# plt.grid(axis='y', alpha=0.75)
-	plt.xlabel('Area Values - ' + " Min: " + str(min(areaValues))  +  " Max: "+ str(max(areaValues)))
-	plt.ylabel('Frequency')
-	plt.title('Flattened Area Histogram ' + str(indexLabel) + 'Triangle Count: ' + str(len(areaValues)))
-	# plt.text(23, 45, r'$\mu=15, b=3$')
-	plt.xscale('log')
-	# maxfreq = n.max()
-	# Set a clean upper y-axis limit.
-	# plt.ylim(ymax=np.ceil(maxfreq / 10) * 10 if maxfreq % 10 else maxfreq + 10)
+	if Bridson_Common.debug:
+		plt.figure()
+		n, bins, patches = plt.hist(x=areaValues, alpha=0.7, rwidth=0.5, bins=1000)
+		# plt.hist(x=areaValues,  bins=logbins)
+		# plt.grid(axis='y', alpha=0.75)
+		plt.xlabel('Area Values - ' + " Min: " + str(min(areaValues))  +  " Max: "+ str(max(areaValues)))
+		plt.ylabel('Frequency')
+		plt.title('Flattened Area Histogram ' + str(indexLabel) + 'Triangle Count: ' + str(len(areaValues)))
+		# plt.text(23, 45, r'$\mu=15, b=3$')
+		plt.xscale('log')
+		# maxfreq = n.max()
+		# Set a clean upper y-axis limit.
+		# plt.ylim(ymax=np.ceil(maxfreq / 10) * 10 if maxfreq % 10 else maxfreq + 10)
 
 
 if __name__ == "__main__":
