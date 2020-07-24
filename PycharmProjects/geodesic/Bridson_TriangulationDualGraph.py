@@ -36,6 +36,15 @@ class TriangulationDualGraph:
 		def clearTriangles(self):
 			self.triangles = []
 
+		def getNeighbour(self, triangleIndex):
+			# print("Searching for index:", triangleIndex)
+			# print("Triangle List:", self.triangleIndeces)
+			# Case - there is only one Triangle.
+			if len(self.triangleIndeces) == 1:
+				return None
+			else:
+				return self.triangleIndeces[ 1 - self.triangleIndeces.index(triangleIndex)]
+			# Case - there are two neighbours.
 
 	class Triangle:
 		# A triangle has 3 edges.
@@ -77,7 +86,7 @@ class TriangulationDualGraph:
 			# Map the two combinations that produce the same edge.
 			EdgeHashMap[(start,end)] = newEdge
 			EdgeHashMap[(end,start)] = newEdge
-
+		self.EdgeHashMap = EdgeHashMap
 
 		TriangleHashMap = {}
 		# Map all Triangles
@@ -111,7 +120,7 @@ class TriangulationDualGraph:
 					currentNeighbour = Triangles[ neighbourIndex ]
 					newTriangle.addNeighbour( currentNeighbour )
 
-
+		self.TriangleHashMap = TriangleHashMap
 
 
 
@@ -141,6 +150,9 @@ def test():
 			meshObj, flatMeshObj, LineSeedPointsObj, trifindersuccess = Bridson_Main.processMask(raster, dradius, indexLabel)
 
 		meshObj.generateDualGraph()
+		meshObj.colourTriangleCluster(15)
+		meshObj.colourTriangleCluster(32)
+		meshObj.colourTriangleCluster(88)
 
 	plt.show()
 

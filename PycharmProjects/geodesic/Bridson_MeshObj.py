@@ -41,6 +41,48 @@ class MeshObject:
 	def generateDualGraph(self):
 		self.DualGraph = Bridson_TriangulationDualGraph.TriangulationDualGraph(self.points, self.triangulation.edges, self.triangulation.triangles, self.triangulation.neighbors)
 
+
+	def colourTriangleCluster(self, index):
+		# Find the triangle.
+		centerTriangle = self.triangulation.triangles[index]
+		# print("Center Triangle:", centerTriangle)
+		v1, v2, v3 = centerTriangle
+
+		edge1 = (v1,v2)
+		edge2 = (v2, v3)
+		edge3 = (v3, v1)
+		Edge1 = self.DualGraph.EdgeHashMap.get(edge1)
+		Edge2 = self.DualGraph.EdgeHashMap.get(edge2)
+		Edge3 = self.DualGraph.EdgeHashMap.get(edge3)
+
+		triangle1Index = Edge1.getNeighbour(index)
+		self.colourTriangle(triangle1Index )
+		print("Triangle1:", triangle1Index)
+
+		triangle2Index = Edge2.getNeighbour(index)
+		self.colourTriangle(triangle2Index )
+		print("Triangle2:", triangle2Index)
+
+		triangle3Index = Edge3.getNeighbour(index)
+		self.colourTriangle(triangle3Index )
+		print("Triangle3:", triangle3Index)
+
+		self.colourTriangle(index, colour='w')
+
+
+	def colourTriangle(self, triangleIndex, colour='r'):
+		# print("Value of triangleIndex:", triangleIndex)
+		if triangleIndex == None:
+			return
+		singleTriangle = np.array([self.triangulation.triangles[triangleIndex]])
+		# singleTriangle = np.vstack((singleTriangle, self.triangulation.triangles[triangleIndex+1]))
+		Bridson_Common.logDebug(__name__, singleTriangle)
+		if Bridson_Common.invert:
+			self.ax.triplot(self.points[:, 1], xrange - self.points[:, 0], singleTriangle, colour + '-', lw=1)
+		else:
+			self.ax.triplot(self.points[:, 0], self.points[:, 1], singleTriangle, colour + '-', lw=1)
+
+
 	def DrawVerticalLines(self, density=Bridson_Common.density, linedensity=Bridson_Common.lineDotDensity):
 
 		Bridson_Common.logDebug(__name__, "********** XLimit ***********", self.ax.get_xlim())
@@ -368,6 +410,8 @@ class MeshObject:
 		# plt.plot(flatvertices[:, 1], xrange - flatvertices[:, 0], 'o')
 
 		return
+
+
 
 
 	def GenMeshFromMask(self, mask, dradius, pointCount=0):
