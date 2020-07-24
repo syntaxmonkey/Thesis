@@ -9,9 +9,9 @@ import inspect
 
 seedValue = 11
 
-debug=False
-displayMesh=False
-diagnostic=True # Generally avoid dispalying meshes.  Only count the number of successful trifinder generations.
+debug=True
+displayMesh=True
+diagnostic=False # Generally avoid dispalying meshes.  Only count the number of successful trifinder generations.
 
 
 normalizeUV = False
@@ -36,9 +36,9 @@ drawDots = False
 
 density = 0.01
 lineDotDensity = 0.01
-lineRadiusFactor = 2
+lineRadiusFactor = 1
 
-dradius = 1
+dradius = 5
 
 
 

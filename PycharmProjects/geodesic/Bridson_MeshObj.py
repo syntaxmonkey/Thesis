@@ -6,7 +6,7 @@ import math
 import pylab
 import Bridson_Common
 import scipy
-
+import Bridson_TriangulationDualGraph
 
 '''
 For the constructor, pass in the points.
@@ -33,10 +33,13 @@ class MeshObject:
 			flatfaces = kwargs.get('flatfaces')
 			xrange = kwargs.get('xrange')
 			yrange = kwargs.get('yrange')
-			self.GenTriangulation(flatvertices, flatfaces, xrange, yrange)
+			self.GenTriangulationFromOBJ(flatvertices, flatfaces, xrange, yrange)
 		else:
 			Bridson_Common.logDebug(__name__, "No enough parameters")
 
+
+	def generateDualGraph(self):
+		self.DualGraph = Bridson_TriangulationDualGraph.TriangulationDualGraph(self.points, self.triangulation.edges, self.triangulation.triangles, self.triangulation.neighbors)
 
 	def DrawVerticalLines(self, density=Bridson_Common.density, linedensity=Bridson_Common.lineDotDensity):
 
@@ -291,7 +294,7 @@ class MeshObject:
 
 
 
-	def GenTriangulation(self, flatvertices, flatfaces, xrange, yrange):
+	def GenTriangulationFromOBJ(self, flatvertices, flatfaces, xrange, yrange):
 		# Bridson_Common.logDebug(__name__, flatvertices)
 		# Bridson_Common.logDebug(__name__, flatfaces)
 		Bridson_Common.logDebug(__name__, "Flat Triangulation from Mesh" + self.indexLabel)
@@ -399,7 +402,7 @@ class MeshObject:
 			points = self.filterOutPoints(points, self.invertedMask)
 
 		self.points = points
-		self.triangulation = Bridson_Delaunay.displayDelaunayMesh(points, radius, self.invertedMask, xrange)
+		self.triangulation, self.points = Bridson_Delaunay.displayDelaunayMesh(points, radius, self.invertedMask, xrange)
 		self.trifinder = self.triangulation.get_trifinder()
 
 		Bridson_Common.logDebug(__name__, "tri" , self.triangulation)

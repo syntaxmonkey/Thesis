@@ -19,9 +19,10 @@ import Bridson_Common
 import random
 import sys
 
-# random.seed(Bridson_Common.seedValue)
+
+random.seed(Bridson_Common.seedValue)
+np.random.seed(Bridson_Common.seedValue)
 # Bridson_Common.logDebug(__name__, "Seed was:", Bridson_Common.seedValue)
-# np.random.seed(Bridson_Common.seedValue)
 
 
 def generatePointsDisplay(xrange, yrange, dradius):
@@ -212,7 +213,7 @@ def processMask(mask, dradius, indexLabel):
 				thismanager.window.wm_geometry("+0+560")
 
 
-			meshObj = Bridson_MeshObj.MeshObject(mask=mask5x, dradius=dradius, indexLabel=indexLabel)
+			meshObj = Bridson_MeshObj.MeshObject(mask=mask5x, dradius=dradius, indexLabel=indexLabel) # Create Mesh based on Mask.
 			points = meshObj.points
 			tri = meshObj.triangulation
 			fakeRadius = max(xrange,yrange)
@@ -231,7 +232,7 @@ def processMask(mask, dradius, indexLabel):
 			Bridson_Common.triangleHistogram(flatvertices, flatfaces, indexLabel)
 
 			newIndex = str(indexLabel) + ":" + str(indexLabel)
-			flatMeshObj = Bridson_MeshObj.MeshObject(flatvertices=flatvertices, flatfaces=flatfaces, xrange=xrange, yrange=yrange, indexLabel=indexLabel)
+			flatMeshObj = Bridson_MeshObj.MeshObject(flatvertices=flatvertices, flatfaces=flatfaces, xrange=xrange, yrange=yrange, indexLabel=indexLabel) # Create Mesh based on OBJ file.
 			successful = flatMeshObj.trifinderGenerated
 			if successful:
 				print("Attempt ", attempts, " successful")
@@ -262,8 +263,8 @@ def indexValidation():
 
 	successfulRegions = 0
 
-	# for index in range(45, 46):
-	for index in range( len(regionMap.keys()) ):
+	for index in range(41, 42):
+	# for index in range( len(regionMap.keys()) ):
 		print("Starting Region: ", index)
 
 		# Generate the raster for the first region.
@@ -321,6 +322,7 @@ def indexValidation():
 			# successful = flatMeshObj2.trifinderGenerated
 			# Transfer the lines from the FlatMesh to meshObj.
 			# flatMeshObj2.TransferLinePointsFromTarget(flatMeshObj)
+
 
 
 # Validate that barycentric works.

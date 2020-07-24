@@ -29,7 +29,7 @@ def generateDelaunay(points, radius, mask, xrange):
 
 
 	newMask = Bridson_Common.blurArray(mask, 3)
-	triangulation = removeLongTriangles(points, tri, radius, newMask)
+	triangulation, points = removeLongTriangles(points, tri, radius, newMask)
 
 	# Display the newly generated Mask
 	if Bridson_Common.debug:
@@ -40,7 +40,11 @@ def generateDelaunay(points, radius, mask, xrange):
 		thismanager = pylab.get_current_fig_manager()
 		thismanager.window.wm_geometry("+40+560")
 
-	return triangulation
+	Bridson_Common.logDebug(__name__, "Points:", points)
+	Bridson_Common.logDebug(__name__, "Triangles:", triangulation.triangles )
+	Bridson_Common.logDebug(__name__, "Edges:", triangulation.edges)
+	Bridson_Common.logDebug(__name__, "Neighbors:", triangulation.neighbors)
+	return triangulation, points
 
 
 
@@ -93,7 +97,7 @@ def removeLongTriangles(points, tri, radius, mask):
 
 	newTri = mtri.Triangulation(points[:,0], points[:,1], newTriangles)
 
-	return newTri
+	return newTri, points
 
 
 def isExteriorTriangle(p1, p2, mask):
@@ -108,7 +112,7 @@ def isExteriorTriangle(p1, p2, mask):
 
 
 def displayDelaunayMesh(points, radius, mask, xrange):
-	triangulation = generateDelaunay(points, radius, mask, xrange)
+	triangulation, points = generateDelaunay(points, radius, mask, xrange)
 
 	# triangles = tri.simplices
 	# for triangle in triangles:
@@ -135,6 +139,6 @@ def displayDelaunayMesh(points, radius, mask, xrange):
 		thismanager = pylab.get_current_fig_manager()
 		thismanager.window.wm_geometry("+640+560")
 
-	return triangulation
+	return triangulation, points
 		# plt.show()
 
