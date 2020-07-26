@@ -4,6 +4,7 @@ import SLIC
 import matplotlib.pyplot as plt
 import pylab
 import numpy as np
+import math
 
 class TriangulationDualGraph:
 
@@ -20,7 +21,7 @@ class TriangulationDualGraph:
 			Neighbours
 	'''
 
-	class Edge:
+	class DualEdge:
 		# An edge can belong to up to 2 different triangles.
 		def __init__(self, start, end):
 			self.start = start
@@ -46,7 +47,7 @@ class TriangulationDualGraph:
 				return self.triangleIndeces[ 1 - self.triangleIndeces.index(triangleIndex)]
 			# Case - there are two neighbours.
 
-	class Triangle:
+	class DualTriangle:
 		# A triangle has 3 edges.
 		# Also have up to 3 neighbours.
 		def __init__(self, triangleIndex):
@@ -70,35 +71,76 @@ class TriangulationDualGraph:
 		# 	Edges = kwargs.get('Edges')
 		# 	Triangles = kwargs.get('Triangles')
 		# 	Neighbours = kwargs.get('Neighbours')
-		self.CreateGraph(points, Edges, Triangles, Neighbours)
+		self.points = points.copy()
+		self.Edges = Edges.copy()
+		self.Triangles = Triangles.copy()
+		self.Neighbours = Neighbours.copy()
+		self.CreateGraph()
 		# else:
 		# 	Exception("TriangulationDualGraph creator - Not enough parameters.")
 
 
-	def CreateGraph(self, points, Edges, Triangles, Neighbours):
+	def CreateGraph(self):
 		'''
 
 		'''
-		EdgeHashMap = {}
-		for edge in Edges:
-			start, end = edge
-			newEdge = TriangulationDualGraph.Edge(start, end)
-			# Map the two combinations that produce the same edge.
-			EdgeHashMap[(start,end)] = newEdge
-			EdgeHashMap[(end,start)] = newEdge
-		self.EdgeHashMap = EdgeHashMap
+		# Edge(start, end) -> DualEdge: EdgeHashMap
+		# Also populate DualEdge
+		self.GenerateEdgePointsToEdgeMap()
 
+		# Add PointIndex -> DualEdge: PointToEdgeHashMap
+		self.GeneratePointHashMaps()
+
+		# (v1,v2,v3) -> DualTriangle: TriangleHashMap
+		# Also DualEdge -> DualTriangle
+		self.GenerateVertexToTriangleMap()
+
+		# Generate list of exterior point indeces: exteriorPoints
+		self.GenerateExteriorPoints()
+		# Generate list of exterior point -> exterior edge map.
+		self.GenerateExteriorPointToEdgesMap()
+
+
+	def GenerateExteriorPointToEdgesMap(self):
+		exteriorEdges = []
+
+		for pointIndex in self.exteriorPoints:
+			dualEdgeList = self.PointToEdgeHashMap.get( pointIndex ) # Returns list of DualEdge objects that the point belongs to.
+			for edge in dualEdgeList:
+				start, end = edge
+				if start in self.exteriorPoints and end in self.exteriorPoints:
+					dualEdge = self.EdgeHashMap[ (start,end) ]
+					if len( dualEdge.triangleIndeces ) == 1:
+						# Also need to check if the edge has only one triangle membership.
+						exteriorEdges.append( edge )
+
+		self.exteriorEdges = exteriorEdges
+
+
+
+	def GenerateExteriorPoints(self):
+		exteriorPoints = []
+		for pointIndex in range( len(self.points) ):
+			pointAngle = self.CalculateAngleAroundPoint(pointIndex)
+			# print("Point Angle:", pointAngle)
+			if pointAngle < 359.9999:  # 359.99 as a fudge factor.
+				exteriorPoints.append( pointIndex )
+
+		self.exteriorPoints = exteriorPoints
+
+	# (v1,v2,v3) -> Triangle
+	def GenerateVertexToTriangleMap(self):
 		TriangleHashMap = {}
 		# Map all Triangles
-		for i  in range(len(Triangles)):
-			currentTri = Triangles[i]
-			newTriangle = TriangulationDualGraph.Triangle( i )
+		for i  in range(len(self.Triangles)):
+			currentTri = self.Triangles[i]
+			newTriangle = TriangulationDualGraph.DualTriangle( i )
 			v1 = currentTri[0]
 			v2 = currentTri[1]
 			v3 = currentTri[2]
-			edge1 = EdgeHashMap.get((v1,v2))
-			edge2 = EdgeHashMap.get((v2, v3))
-			edge3 = EdgeHashMap.get((v3, v1))
+			edge1 = self.EdgeHashMap.get((v1,v2))
+			edge2 = self.EdgeHashMap.get((v2, v3))
+			edge3 = self.EdgeHashMap.get((v3, v1))
 
 			newTriangle.addEdge(edge1)
 			newTriangle.addEdge(edge2)
@@ -112,20 +154,112 @@ class TriangulationDualGraph:
 			edge2.addTriangle(i, newTriangle)
 			edge3.addTriangle(i, newTriangle)
 
-			neighbours = Neighbours[i]
+			neighbours = self.Neighbours[i]
 			# For neighbours, we need to add the neighbour to the current Triangle.
 			# According to the documentation, the neighbour[i,j] is the triangle that is the neighbour to the edge from point index triangles[i,j] to point index triangles[i, (j+1)%3]
 			for neighbourIndex in neighbours:
 				if neighbourIndex != -1:
-					currentNeighbour = Triangles[ neighbourIndex ]
+					currentNeighbour = self.Triangles[ neighbourIndex ]
 					newTriangle.addNeighbour( currentNeighbour )
 
 		self.TriangleHashMap = TriangleHashMap
 
 
+	# Edge(start, end) -> Edge
+	def GenerateEdgePointsToEdgeMap(self):
+		EdgeHashMap = {}
+		for edge in self.Edges:
+			start, end = edge
+			newEdge = TriangulationDualGraph.DualEdge(start, end)
+			# Map the two combinations that produce the same edge.
+			EdgeHashMap[(start,end)] = newEdge
+			EdgeHashMap[(end,start)] = newEdge
+		self.EdgeHashMap = EdgeHashMap
+
+	# Edge(start, end) -> Triangle ** We already have this mapping in the Edge itself.  Obtain from the Edge.
+
+
+	# Given a Point, return a list of Triangles.
+	def GetPointTriangleMembership(self, pointIndex):
+		# Find the edges that the point belongs to.
+		edges = self.PointToEdgeHashMap.get( pointIndex )
+		triangleIndexList = []
+		# print("Edges:", edges )
+		for edgeVertices in edges:
+			dualEdge = self.EdgeHashMap.get( edgeVertices )
+			# print("DualEdge triangle vertices:", dualEdge.triangleIndeces )
+			triangleIndexList.extend( dualEdge.triangleIndeces )
+
+		# Make the list unique.
+		triangleIndexList = list ( np.unique(triangleIndexList) )
+		# print("Triangles:", triangleIndexList)
+		return triangleIndexList
 
 
 
+	def CalculateAngleAroundPoint(self, pointIndex):
+		triangleIndexList = self.GetPointTriangleMembership(pointIndex)
+		angle = 0
+		for triangleIndex in triangleIndexList:
+			# Calculate the angle of the point.
+			angle += self.__CalculatePointAngle(pointIndex, triangleIndex)
+
+		# print("TotalAngle:", angle)
+		return angle
+
+	def __CalculatePointAngle(self, pointIndex, triangleIndex):
+		p1 = self.points[ pointIndex ]
+		triangleVertices = list(self.Triangles[ triangleIndex ]).copy()
+		# Remove the current point from the list of trianglePoints
+		triangleVertices.pop( triangleVertices.index( pointIndex ) )
+		p2, p3 = triangleVertices
+		p2 = self.points[ p2 ]
+		p3 = self.points[ p3 ]
+
+		P12 = Bridson_Common.euclidean_distance(p1, p2)
+		P13 = Bridson_Common.euclidean_distance(p1, p3)
+		P23 = Bridson_Common.euclidean_distance(p2, p3)
+
+		angle = math.acos( (P12*P12 + P13*P13 - P23*P23) / (2*P12*P13) )*180/math.pi
+		# print("angle1: ", angle)
+		return angle
+
+
+	# Given points and Edges
+	# Use Case: Find Exterior Points
+	# Use Case: Given Point, find Exterior Edges
+	# Use Case: Give Point, find complement Points - This can potentially provide many choices.  ** Useful for determining the angle about a point.
+	# Use Case: Given Point, find complement Point along exterior Edge
+	# Find Angles around a point
+
+
+	# HashMap: PointIndex -> Edge(start,end)
+	def GeneratePointHashMaps(self):
+		Edges = self.Edges
+		PointToEdgeHashMap = {}
+
+		for edge in Edges:
+			start, end = edge
+			newEdge = self.EdgeHashMap.get((start,end))
+
+			# Add PointIndex -> Edge
+			if PointToEdgeHashMap.get(start) == None:
+				PointToEdgeHashMap[start] = []
+			pointAssociatedEdges = PointToEdgeHashMap.get(start)
+			pointAssociatedEdges.append( newEdge.vertices )
+			if PointToEdgeHashMap.get(end) == None:
+				PointToEdgeHashMap[end] = []
+			pointAssociatedEdges = PointToEdgeHashMap.get(end)
+			pointAssociatedEdges.append( newEdge.vertices )
+		self.PointToEdgeHashMap = PointToEdgeHashMap
+		print("PointToEdgeMap: ", self.PointToEdgeHashMap)
+
+
+
+
+
+	# def FindAngleAroundPoint(self):
+		# May also need Point -> Triangle Map.
 
 
 def test():
@@ -153,6 +287,27 @@ def test():
 		meshObj.colourTriangleCluster(15)
 		meshObj.colourTriangleCluster(32)
 		meshObj.colourTriangleCluster(88)
+		meshObj.DualGraph.GetPointTriangleMembership(0)
+		meshObj.ax.plot(meshObj.points[0][0],meshObj.points[0][1], color='r', markersize=5, marker='*')
+		meshObj.DualGraph.CalculateAngleAroundPoint( 0)
+
+		# Draw exterior dots
+		for pointIndex in meshObj.DualGraph.exteriorPoints:
+			point = meshObj.DualGraph.points[ pointIndex ]
+			meshObj.ax.plot(point[0], point[1], color='r', markersize=5, marker='*')
+
+
+		# Draw exterior edges
+		for edge in meshObj.DualGraph.exteriorEdges:
+			exteriorEdges = []
+			start, end = edge
+			startPoint = meshObj.DualGraph.points[start]
+			endPoint = meshObj.DualGraph.points[end]
+			exteriorEdges.append(startPoint)
+			exteriorEdges.append(endPoint)
+			exteriorEdges = np.array(exteriorEdges)
+			meshObj.ax.plot(exteriorEdges[:, 0], exteriorEdges[:, 1], color='c')
+
 
 	plt.show()
 

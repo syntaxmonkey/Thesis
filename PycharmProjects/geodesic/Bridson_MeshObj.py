@@ -70,7 +70,7 @@ class MeshObject:
 		self.colourTriangle(index, colour='w')
 
 
-	def colourTriangle(self, triangleIndex, colour='r'):
+	def colourTriangle(self, triangleIndex, colour='magenta'):
 		# print("Value of triangleIndex:", triangleIndex)
 		if triangleIndex == None:
 			return
@@ -78,9 +78,9 @@ class MeshObject:
 		# singleTriangle = np.vstack((singleTriangle, self.triangulation.triangles[triangleIndex+1]))
 		Bridson_Common.logDebug(__name__, singleTriangle)
 		if Bridson_Common.invert:
-			self.ax.triplot(self.points[:, 1], xrange - self.points[:, 0], singleTriangle, colour + '-', lw=1)
+			self.ax.triplot(self.points[:, 1], xrange - self.points[:, 0], singleTriangle, color=colour, linestyle='-', lw=1)
 		else:
-			self.ax.triplot(self.points[:, 0], self.points[:, 1], singleTriangle, colour + '-', lw=1)
+			self.ax.triplot(self.points[:, 0], self.points[:, 1], singleTriangle, color=colour, linestyle='-', lw=1)
 
 
 	def DrawVerticalLines(self, density=Bridson_Common.density, linedensity=Bridson_Common.lineDotDensity):
