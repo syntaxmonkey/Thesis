@@ -263,7 +263,7 @@ def indexValidation():
 
 	successfulRegions = 0
 
-	for index in range(41, 42):
+	for index in [31, 34]:
 	# for index in range( len(regionMap.keys()) ):
 		print("Starting Region: ", index)
 
@@ -287,20 +287,28 @@ def indexValidation():
 					if Bridson_Common.linesOnFlat:
 						if Bridson_Common.verticalLines:
 							# flatMeshObj.DrawVerticalLines()
-							flatMeshObj.DrawVerticalLinesSeededFrom(LineSeedPointsObj, meshObj)
+							# flatMeshObj.DrawVerticalLinesSeededFrom(LineSeedPointsObj, meshObj) # Draw lines based on seed from tertiary mesh.
+							flatMeshObj.DrawVerticalLinesExteriorSeed() # Draw lines using exterior points as line seed.
 						else:
-							flatMeshObj.DrawHorizontalLines()
+							# flatMeshObj.DrawHorizontalLines()
+							flatMeshObj.DrawHorizontalLinesExteriorSeed() # Draw lines using exterior points as line seed.
 						# Transfer the lines from the FlatMesh to meshObj.
 						meshObj.TransferLinePointsFromTarget(flatMeshObj)
 					else:
 						if Bridson_Common.verticalLines:
 							# meshObj.DrawVerticalLines()
-							meshObj.DrawVerticalLinesSeededFrom(LineSeedPointsObj, meshObj)
+							# meshObj.DrawVerticalLinesSeededFrom(LineSeedPointsObj, meshObj) # Draw lines based on seed from tertiary mesh.
+							meshObj.DrawVerticalLinesExteriorSeed() # Draw lines using exterior points as line seed.
 						else:
-							meshObj.DrawHorizontalLines()
+							# meshObj.DrawHorizontalLines()
+							meshObj.DrawHorizontalLinesExteriorSeed() # Draw lines using exterior points as line seed.
+
 						flatMeshObj.TransferLinePointsFromTarget(meshObj)
 			else:
 				print("Trifinder was NOT successfully generated for region ", index)
+
+			meshObj.diagnosticExterior()
+			flatMeshObj.diagnosticExterior()
 
 	print("Successful Regions: ", successfulRegions)
 	print("Total Regions: ", len(regionMap.keys()) )

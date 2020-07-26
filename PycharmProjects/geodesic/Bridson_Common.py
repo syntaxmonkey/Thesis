@@ -22,7 +22,7 @@ colourCodeMesh = True
 colourCount = 20
 
 linesOnFlat = True
-verticalLines = True
+verticalLines = False
 
 barycentricVertexCorrection = True
 
