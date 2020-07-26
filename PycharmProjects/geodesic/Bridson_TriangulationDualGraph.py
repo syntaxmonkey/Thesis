@@ -267,7 +267,7 @@ def test():
 
 	successfulRegions = 0
 
-	for index in range(37,38):
+	for index in [31,34]:
 	# for index in range( len(regionMap.keys()) ):
 		print("Starting Region: ", index)
 
@@ -284,18 +284,11 @@ def test():
 			meshObj, flatMeshObj, LineSeedPointsObj, trifindersuccess = Bridson_Main.processMask(raster, dradius, indexLabel)
 
 		meshObj.generateDualGraph()
-		meshObj.colourTriangleCluster(15)
-		meshObj.colourTriangleCluster(32)
-		meshObj.colourTriangleCluster(88)
-		meshObj.DualGraph.GetPointTriangleMembership(0)
-		meshObj.ax.plot(meshObj.points[0][0],meshObj.points[0][1], color='r', markersize=5, marker='*')
-		meshObj.DualGraph.CalculateAngleAroundPoint( 0)
-
-		# Draw exterior dots
-		for pointIndex in meshObj.DualGraph.exteriorPoints:
-			point = meshObj.DualGraph.points[ pointIndex ]
-			meshObj.ax.plot(point[0], point[1], color='r', markersize=5, marker='*')
-
+		# meshObj.colourTriangleCluster(15)
+		# meshObj.colourTriangleCluster(32)
+		# meshObj.DualGraph.GetPointTriangleMembership(0)
+		# meshObj.ax.plot(meshObj.points[0][0],meshObj.points[0][1], color='r', markersize=5, marker='*')
+		# meshObj.DualGraph.CalculateAngleAroundPoint( 0)
 
 		# Draw exterior edges
 		for edge in meshObj.DualGraph.exteriorEdges:
@@ -306,7 +299,13 @@ def test():
 			exteriorEdges.append(startPoint)
 			exteriorEdges.append(endPoint)
 			exteriorEdges = np.array(exteriorEdges)
-			meshObj.ax.plot(exteriorEdges[:, 0], exteriorEdges[:, 1], color='c')
+			meshObj.ax.plot(exteriorEdges[:, 0], exteriorEdges[:, 1], color='c', linewidth=3)
+
+
+		# Draw exterior dots
+		for pointIndex in meshObj.DualGraph.exteriorPoints:
+			point = meshObj.DualGraph.points[ pointIndex ]
+			meshObj.ax.plot(point[0], point[1], color='r', markersize=8, marker='*')
 
 
 	plt.show()

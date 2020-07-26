@@ -9,7 +9,7 @@ import inspect
 
 seedValue = 11
 
-debug=True
+debug=False
 displayMesh=True
 diagnostic=False # Generally avoid dispalying meshes.  Only count the number of successful trifinder generations.
 
@@ -38,7 +38,7 @@ density = 0.01
 lineDotDensity = 0.01
 lineRadiusFactor = 1
 
-dradius = 5
+dradius = 2
 
 
 
