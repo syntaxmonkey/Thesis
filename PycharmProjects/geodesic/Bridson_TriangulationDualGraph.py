@@ -61,8 +61,15 @@ class TriangulationDualGraph:
 		def addNeighbour(self, neighbour):
 			self.neighbours.append(neighbour)
 
-		def setVertices(self, vertices):
-			self.vertices = vertices
+		def setVertices(self, vertices, points):
+			self.vertices = vertices.copy()
+			# At this point calculate the max height of the triangle.
+			p1 = points[ self.vertices[0] ]
+			p2 = points[ self.vertices[1] ]
+			p3 = points[ self.vertices[2] ]
+			self.minHeight, self.maxHeight = Bridson_Common.findMinMaxTriangleHeight(p1, p2, p3)
+
+
 
 	def __init__(self, points, Edges, Triangles, Neighbours):
 
@@ -101,6 +108,68 @@ class TriangulationDualGraph:
 		self.GenerateExteriorPointToEdgesMap()
 
 
+
+	def GetMaxTriangleHeightFromPoint(self, pointIndex):
+		'''
+		1. Get list of associated triangles.
+		:param pointIndex:
+		:return:
+		'''
+
+		relatedTriangleList = self.GetPointTriangleMembership( pointIndex ) # This will be a list of all the triangles that are associated with the pointIndex.
+		Bridson_Common.logDebug(__name__,"Related Triangles:", relatedTriangleList)
+
+		# Iterate through the triangles and determine their respective max heights.
+		triangleHeights = []
+		for triangleIndex in relatedTriangleList:
+			triangleVertices = self.Triangles[ triangleIndex ]
+			v1,v2,v3 = triangleVertices
+			Bridson_Common.logDebug(__name__,"Triangle Vertices:", v1, v2, v3)
+			dualTriangle = self.TriangleHashMap[ (v1,v2,v3) ]
+			triangleHeights.append( dualTriangle.maxHeight )
+			triangleHeights.append(dualTriangle.minHeight)
+
+		Bridson_Common.logDebug(__name__,"Triangle Heights:", triangleHeights )
+		maxHeight = np.sort(triangleHeights)[-1]
+		minHeight = np.sort(triangleHeights)[0]
+		return minHeight, maxHeight, relatedTriangleList
+
+
+	def GetMaxTriangleHeightFromEdge(self, edge, triangleIndex):
+		'''
+		1. Get list of associated triangles.
+		:param pointIndex:
+		:return:
+		'''
+
+		dualEdge = self.EdgeHashMap[ edge ]
+		relatedTriangleList = dualEdge.triangleIndeces.copy()
+		Bridson_Common.logDebug(__name__,"GetMaxTriangleHeightFromEdge Related Triangles:", relatedTriangleList)
+		# relatedTriangleList = self.GetPointTriangleMembership( pointIndex ) # This will be a list of all the triangles that are associated with the pointIndex.
+		relatedTriangleList.pop( relatedTriangleList.index( triangleIndex ) )
+
+		if len(relatedTriangleList) == 0:
+			return None, None, None
+
+		Bridson_Common.logDebug(__name__,"GetMaxTriangleHeightFromEdge Related Triangles:", relatedTriangleList)
+
+		# Iterate through the triangles and determine their respective max heights.
+		triangleHeights = []
+		for triangleIndex in relatedTriangleList:
+			triangleVertices = self.Triangles[ triangleIndex ]
+			v1,v2,v3 = triangleVertices
+			Bridson_Common.logDebug(__name__,"GetMaxTriangleHeightFromEdge Triangle Vertices:", v1, v2, v3)
+			dualTriangle = self.TriangleHashMap[ (v1,v2,v3) ]
+			triangleHeights.append( dualTriangle.maxHeight )
+			triangleHeights.append( dualTriangle.minHeight )
+
+		Bridson_Common.logDebug(__name__,"GetMaxTriangleHeightFromEdge Triangle Heights:", triangleHeights )
+		maxHeight = np.sort(triangleHeights)[-1]
+		minHeight = np.sort(triangleHeights)[0]
+		return minHeight, maxHeight, relatedTriangleList
+
+
+
 	def GenerateExteriorPointToEdgesMap(self):
 		exteriorEdges = []
 
@@ -128,13 +197,14 @@ class TriangulationDualGraph:
 
 		self.exteriorPoints = exteriorPoints
 
-	# (v1,v2,v3) -> Triangle
+	# (v1,v2,v3) -> DualTriangle
 	def GenerateVertexToTriangleMap(self):
 		TriangleHashMap = {}
 		# Map all Triangles
 		for i  in range(len(self.Triangles)):
 			currentTri = self.Triangles[i]
 			newTriangle = TriangulationDualGraph.DualTriangle( i )
+			newTriangle.setVertices( self.Triangles[i] , self.points )
 			v1 = currentTri[0]
 			v2 = currentTri[1]
 			v3 = currentTri[2]
@@ -153,6 +223,9 @@ class TriangulationDualGraph:
 			edge1.addTriangle(i, newTriangle )
 			edge2.addTriangle(i, newTriangle)
 			edge3.addTriangle(i, newTriangle)
+
+			# Need to create a map from triangleInde
+
 
 			neighbours = self.Neighbours[i]
 			# For neighbours, we need to add the neighbour to the current Triangle.
@@ -182,13 +255,13 @@ class TriangulationDualGraph:
 	# Given a Point, return a list of Triangles.
 	def GetPointTriangleMembership(self, pointIndex):
 		# Find the edges that the point belongs to.
-		edges = self.PointToEdgeHashMap.get( pointIndex )
+		edges = self.PointToEdgeHashMap.get( pointIndex ).copy()
 		triangleIndexList = []
 		# print("Edges:", edges )
 		for edgeVertices in edges:
 			dualEdge = self.EdgeHashMap.get( edgeVertices )
 			# print("DualEdge triangle vertices:", dualEdge.triangleIndeces )
-			triangleIndexList.extend( dualEdge.triangleIndeces )
+			triangleIndexList.extend( dualEdge.triangleIndeces.copy() )
 
 		# Make the list unique.
 		triangleIndexList = list ( np.unique(triangleIndexList) )
@@ -224,6 +297,16 @@ class TriangulationDualGraph:
 		# print("angle1: ", angle)
 		return angle
 
+	def GetEdgesFromTriangleList(self, triangleIndexList):
+		edgeList = []
+		for triangleIndex in triangleIndexList:
+			triangleVertices = tuple(self.Triangles[triangleIndex])
+			dualTriangle = self.TriangleHashMap[triangleVertices]
+			for dualEdge in dualTriangle.edges:
+				if not dualEdge.vertices in edgeList: # Create a unique list.
+					edgeList.append( dualEdge.vertices )
+
+		return edgeList
 
 	# Given points and Edges
 	# Use Case: Find Exterior Points
@@ -252,14 +335,154 @@ class TriangulationDualGraph:
 			pointAssociatedEdges = PointToEdgeHashMap.get(end)
 			pointAssociatedEdges.append( newEdge.vertices )
 		self.PointToEdgeHashMap = PointToEdgeHashMap
-		print("PointToEdgeMap: ", self.PointToEdgeHashMap)
+		Bridson_Common.logDebug(__name__,"PointToEdgeMap: ", self.PointToEdgeHashMap)
 
 
 
+	def FindFirstIntersection(self, pointIndex, trifinder):
+		'''
+			1. Determine the direction of the line.
+			a. Test going up and check to see if new point is in the trifinder.  How far should we step?
+				i. Obtain the max height of all triangles that connect to the exterior point.
+				ii. Create a vertical line that is maxTriangleHeights in length in the up direction.
+				iii. If we are in the trifinder, keep going this direction.
+				iv. Else direction is down.
+			b. Continue in the direction until we fall off the trifinder.
+		'''
+		# Get triangles associated with the point.
+		# - Have to obtain Point -> DualEdge
+		# - Then obtain DualEdge -> Triangle
+		# Obtain all THE max triangleHeights.
+		# Add method to DualGraph to obtain this information.
+		x, y = self.points[pointIndex]
+		Bridson_Common.logDebug(__name__,"FindFirstIntersection pointIndex:", pointIndex)
+		minHeight, maxHeight, triangleIndexList = self.GetMaxTriangleHeightFromPoint(pointIndex)
+
+		# Find the proper direction, either up or down.
+		upX, upY = x, y + maxHeight
+		if trifinder(upX, upY) > -1:
+			# The upDirection is the correct direction.
+			direction = 1.0
+		else:
+			# The direction will be negative.
+			direction = -1.0
+
+		Bridson_Common.logDebug(__name__,"FindFirstIntersection Direction:", direction)
+
+		# Obtain the edges based on the triangles.
+		edges = self.GetEdgesFromTriangleList(triangleIndexList).copy()
+		Bridson_Common.logDebug(__name__,"FindFirstIntersection Edge List:", edges)
+
+		# We have the associated edges.
+		# Create the check line.  The CheckLine will start from 0.9*minHeight -> 1.1*maxHeight.
+		CheckLineStart = (x, y + 0.1 * minHeight * direction)
+		CheckLineEnd = (x, y + 1.9 * maxHeight * direction)
+		ReferenceLine = (CheckLineStart, CheckLineEnd)
+		found = False
+		# find the intersection
+		for edge in edges:
+			edgeSegment = (self.points[edge[0]], self.points[edge[1]])
+			intersection = Bridson_Common.line_intersect(ReferenceLine, edgeSegment)
+			if intersection == None:
+				continue
+			else:
+				found = True
+				break
+
+				Bridson_Common.logDebug(__name__,"FindFirstIntersection Interesecting Edge:", edge)
+		# Need to determine which triangle.
+		if found:
+			# Need to determine which triangleIndex
+			# Get DualEdge
+			dualEdge = self.EdgeHashMap[ edge ]
+			Bridson_Common.logDebug(__name__,"FindFirstIntersection interesection point:", intersection)
+			trianglesList = dualEdge.triangleIndeces.copy()
+			Bridson_Common.logDebug(__name__,"FindFirstIntersection triangleList:", trianglesList)
+			if len(trianglesList) > 0:
+				for triangleIndex in trianglesList:
+					vertices = self.Triangles[ triangleIndex ].copy()
+					Bridson_Common.logDebug(__name__,"FindFirstIntersection vertices:", vertices)
+					if pointIndex in vertices:
+						break
+					else:
+						continue
+
+				Bridson_Common.logDebug(__name__,"FindFirstIntersection Edge intersection:", edge)
+				print("FindFirstIntersection Intersection:", intersection)
+				Bridson_Common.logDebug(__name__,"FindFirstIntersection TriangleIndex:", triangleIndex)
+
+				return intersection, edge, triangleIndex, direction
+			else:
+				return None, None, None, None
+		else:
+			Bridson_Common.logDebug(__name__,"No intersection found:", intersection)
+			return None, None, None, None
 
 
-	# def FindAngleAroundPoint(self):
-		# May also need Point -> Triangle Map.
+	def FindNextIntersection(self, currentIntersection, edge, triangleIndex, direction):
+		'''
+
+		:param currentIntersection: (x, y)
+		:param edge: (start, end)
+		:param triangleIndex: index of triangle
+		:return:
+
+		1. Based on the edge, determine the next triangle.
+		2. Based on the triangle, obtain the minHeight and maxHeight.
+		3. If there is a next triangle, determine the next intersection.
+		'''
+		dualEdge = self.EdgeHashMap[ edge ]
+		print("FindNextIntersection triangleIndex:", triangleIndex)
+		triangleIndexList = dualEdge.triangleIndeces.copy()
+		print("FindNextIntersection triangleIndexList:", triangleIndexList)
+		triangleIndexList.pop( triangleIndexList.index(triangleIndex) ) # Remove the current triangleIndex.
+		print("FindNextIntersection triangleIndexList:", triangleIndexList)
+		if len(triangleIndexList) < 1:
+			# No further triangles.
+			return None, None, None
+
+		minHeight, maxHeight, triangleIndexList = self.GetMaxTriangleHeightFromEdge(edge, triangleIndex)
+		triangleIndex = triangleIndexList[0]
+		print("FindNextIntersection Heights:", minHeight, maxHeight, triangleIndexList)
+		if minHeight == None:
+			return None, None, None
+
+		x,y = currentIntersection
+		# We have the associated edges.
+		# Create the check line.  The CheckLine will start from 0.9*minHeight -> 1.1*maxHeight.
+		CheckLineStart = (x, y + 0.1 * minHeight * direction)
+		CheckLineEnd = (x, y + 1.9 * maxHeight * direction)
+		ReferenceLine = (CheckLineStart, CheckLineEnd)
+		print("FindNextIntersection ReferenceLine:", ReferenceLine)
+		found = False
+
+		edges = self.GetEdgesFromTriangleList(triangleIndexList).copy()
+		print("FindNextIntersection Edge List:", edges)
+		# find the intersection
+		for edge in edges:
+			edgeSegment = (self.points[edge[0]], self.points[edge[1]])
+			print("FindNextIntersection ReferenceLine:", ReferenceLine)
+			print("FindNextIntersection edgeSegment:", edgeSegment)
+			intersection = Bridson_Common.line_intersect(ReferenceLine, edgeSegment)
+			print("FindNextIntersection Intersection:", intersection)
+			if intersection == None:
+				continue
+			else:
+				found = True
+				break
+
+		# Need to determine which triangle.
+		if found:
+			Bridson_Common.logDebug(__name__, "FindNextIntersection Edge intersection:", edge)
+			print("FindNextIntersection Intersection:", intersection)
+			Bridson_Common.logDebug(__name__,"FindNextIntersection TriangleIndex:", triangleIndex)
+
+			return intersection, edge, triangleIndex
+		else:
+			Bridson_Common.logDebug(__name__,"No intersection found:", intersection)
+			return None, None, None
+
+
 
 
 def test():
@@ -267,7 +490,7 @@ def test():
 
 	successfulRegions = 0
 
-	for index in [31,34]:
+	for index in [31]:
 	# for index in range( len(regionMap.keys()) ):
 		print("Starting Region: ", index)
 
@@ -282,6 +505,19 @@ def test():
 			indexLabel = index + i / 10
 			Bridson_Common.writeMask(raster)
 			meshObj, flatMeshObj, LineSeedPointsObj, trifindersuccess = Bridson_Main.processMask(raster, dradius, indexLabel)
+
+
+		# meshObj.DualGraph.GetMaxTriangleHeight( 0 )
+		# triangleList = meshObj.DualGraph.GetPointTriangleMembership( 0 )
+		# print("TriangleList:", triangleList )
+		# for triangleIndex in triangleList:
+		# 	meshObj.colourTriangle( triangleIndex )
+		# 	# meshObj.colourTriangleCluster( triangleIndex )
+
+		meshObj.DrawVerticalLinesExteriorSeed2()
+		# flatMeshObj.DrawVerticalLinesExteriorSeed2()
+		# meshObj.TransferLinePointsFromTarget( flatMeshObj )
+		# meshObj.DrawVerticalLinesExteriorSeed() # Start testing the vertical line drawing.
 
 
 	plt.show()

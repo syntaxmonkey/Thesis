@@ -12,6 +12,7 @@ seedValue = 11
 debug=False
 displayMesh=True
 diagnostic=False # Generally avoid dispalying meshes.  Only count the number of successful trifinder generations.
+highlightEdgeTriangle=False # Highlight the edge triangle that contains the exterior point of the vertical lines.
 
 
 normalizeUV = False
@@ -22,7 +23,7 @@ colourCodeMesh = True
 colourCount = 20
 
 linesOnFlat = True
-verticalLines = False
+verticalLines = True
 
 barycentricVertexCorrection = True
 
@@ -174,6 +175,24 @@ def findTriangleHeight(p1, p2, p3):
 	return h
 
 
+def findMinMaxTriangleHeight(p1, p2, p3):
+	a = euclidean_distance(p1, p2)
+	b = euclidean_distance(p2, p3)
+	c = euclidean_distance(p3, p1)
+
+	s = (a + b + c) / 2
+	core = s*(s-a)*(s-b)*(s-c)
+	if core < 0:
+		core = 0
+
+	h1 = 2*math.sqrt( core ) / a
+	h2 = 2*math.sqrt( core ) / b
+	h3 = 2*math.sqrt( core ) / c
+
+	hmax = np.sort([h1 , h2 , h3 ])[-1]  # Find the largest height in the triangle.
+	hmin = np.sort([h1 , h2 , h3 ])[0]
+	return hmin, hmax
+
 def readMask(filename='BlurArrayImage.gif'):
 	Bridson_Common.logDebug(__name__, "*** Bridson_Common.readMask ***")
 	img = Image.open( filename )
@@ -280,8 +299,42 @@ def triangleHistogram(vertices, faces, indexLabel):
 		# plt.ylim(ymax=np.ceil(maxfreq / 10) * 10 if maxfreq % 10 else maxfreq + 10)
 
 
+# https://rosettacode.org/wiki/Find_the_intersection_of_two_lines#Python ** Works.
+def line_intersect(segment1, segment2):
+	"""
+	returns a (x, y) tuple or None if there is no intersection
+	Expecting the following input:
+	segment1: [(Ax1, Ay1),( Ax2, Ay2)]
+	segment2: [(Bx1, By1), (Bx2, By2)]
+	"""
+	(Ax1, Ay1), (Ax2, Ay2) = segment1
+	(Bx1, By1), (Bx2, By2) = segment2
+	d = (By2 - By1) * (Ax2 - Ax1) - (Bx2 - Bx1) * (Ay2 - Ay1)
+	if d:
+		uA = ((Bx2 - Bx1) * (Ay1 - By1) - (By2 - By1) * (Ax1 - Bx1)) / d
+		uB = ((Ax2 - Ax1) * (Ay1 - By1) - (Ay2 - Ay1) * (Ax1 - Bx1)) / d
+	else:
+		return
+	if not (0 <= uA <= 1 and 0 <= uB <= 1):
+		return
+	x = Ax1 + uA * (Ax2 - Ax1)
+	y = Ay1 + uA * (Ay2 - Ay1)
+
+	return x, y
+
+
+
+
 if __name__ == "__main__":
 	h = findTriangleHeight((0,0), (0,3), (4,0))
 	if np.min( h ) < 5:
 		Bridson_Common.logDebug(__name__, 'Min less than threshold: ', np.min(h))
 	Bridson_Common.logDebug(__name__, h)
+
+	segment_one = ((38.5, 59.605199292382274), (38.5, 57.42400566413322))
+	segment_two = ((38.5, 62.5), (38.99359 , 60.497322))
+
+	(a,b), (c,d) = segment_one
+	(e,f), (g,h) = segment_two
+	print ("Intersection:", line_intersect(segment_one, segment_two))
+

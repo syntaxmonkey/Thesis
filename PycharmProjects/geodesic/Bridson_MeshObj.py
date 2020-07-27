@@ -99,9 +99,9 @@ class MeshObject:
 		# singleTriangle = np.vstack((singleTriangle, self.triangulation.triangles[triangleIndex+1]))
 		Bridson_Common.logDebug(__name__, singleTriangle)
 		if Bridson_Common.invert:
-			self.ax.triplot(self.points[:, 1], xrange - self.points[:, 0], singleTriangle, color=colour, linestyle='-', lw=1)
+			self.ax.triplot(self.points[:, 1], xrange - self.points[:, 0], singleTriangle, color=colour, linestyle='-', lw=3)
 		else:
-			self.ax.triplot(self.points[:, 0], self.points[:, 1], singleTriangle, color=colour, linestyle='-', lw=1)
+			self.ax.triplot(self.points[:, 0], self.points[:, 1], singleTriangle, color=colour, linestyle='-', lw=3)
 
 
 	def DrawVerticalLines(self, density=Bridson_Common.density, linedensity=Bridson_Common.lineDotDensity):
@@ -338,6 +338,84 @@ class MeshObject:
 
 		self.linePoints = dotPoints
 
+	# Draw vertical lines.  Use exterior points as line seeds.
+	def DrawVerticalLinesExteriorSeed2(self, density=Bridson_Common.density, linedensity=Bridson_Common.lineDotDensity):
+		seedPoints = self.DualGraph.exteriorPoints.copy()
+
+		notFound = 0
+		dotPoints = []
+		print("DrawVerticalLinesExteriorSeed2 seedPoints:", seedPoints)
+		for pointIndex in seedPoints[0:3]:
+			# print("DrawVertical Line seed Point: ", point)
+			x, y = point = self.DualGraph.points[pointIndex]
+			j = x # Obtain the x value and use it for the line.
+			rowPoints = []
+			rowPoints.append((x,y)) # Add the exterior point to the line.
+
+			if False: # Display the first cluster of triangles
+				triangleList = self.DualGraph.GetPointTriangleMembership(pointIndex)
+				print("TriangleList:", triangleList)
+				for triangleIndex in triangleList:
+					self.colourTriangle(triangleIndex)
+
+			intersection, edge, triangleIndex, direction = self.DualGraph.FindFirstIntersection( pointIndex, self.trifinder )
+			if intersection != None:
+				rowPoints.append(intersection)
+
+				if Bridson_Common.highlightEdgeTriangle:
+					self.colourTriangle(triangleIndex, colour='y')
+				# Find next intersection.
+				attempt = 0
+				while True:
+					nextIntersection, edge, triangleIndex = self.DualGraph.FindNextIntersection( intersection, edge, triangleIndex, direction )
+					if nextIntersection != None:
+						rowPoints.append(nextIntersection)
+					else:
+						break
+
+					if attempt > 50:
+						break # Exit the while loop.
+					attempt += 1
+
+
+			# for i in range(pointCount + 1):
+			# 	# pointx, pointy = xlower + j * xincrement, ylower + yincrement * i
+			# 	pointx, pointy = j, ylower + yincrement * i
+			# 	# pointy, pointx = ylower + yincrement * i, xlower + j * xincrement
+			# 	if self.trifinder(pointx, pointy) > -1:  # How do we guarantee that the dots on the line are in order?
+			# 		rowPoints.append((pointx, pointy))
+			# 	else:
+			# 		notFound += 1
+					#Bridson_Common.logDebug(__name__, "**** Point not found in trifinder *****", (pointx, pointy))
+			if len(rowPoints) > 0:
+				rowPoints = np.array(rowPoints)
+				dotPoints.append(rowPoints)
+
+		# Bridson_Common.logDebug(__name__, dotPoints)
+		dotPoints = np.array(dotPoints)
+		Bridson_Common.logDebug(__name__, "**** Points Not FOUND *****", notFound)
+
+
+		colourArray = ['r', 'w', 'm']
+		markerArray = ['o', '*', 's']
+		index = 0
+
+		for line in dotPoints:
+			# https://kite.com/python/answers/how-to-plot-a-smooth-line-with-matplotlib-in-python
+			# a_BSpline = np.array(scipy.interpolate.make_interp_spline(line[:, 0], line[:, 1]))
+			# self.ax.plot(line[:, 0], a_BSpline, color='r')
+			# self.ax.plot(line[:, 0], line[:, 1], color='r')
+			colour = colourArray[ (index % 3) ]
+			if Bridson_Common.drawDots:
+				marker = markerArray[ (index % 3) ]
+			else:
+				marker = None
+			# self.ax.plot(line[:, 0], line[:, 1], color='r', marker='o')
+			self.ax.plot(line[:, 0], line[:, 1], color=colour , marker=marker )
+			index += 1
+
+		self.linePoints = dotPoints
+
 
 	def DrawHorizontalLinesExteriorSeed(self, density=Bridson_Common.density, linedensity=Bridson_Common.lineDotDensity):
 		seedPoints = self.DualGraph.exteriorPoints.copy()
@@ -529,23 +607,24 @@ class MeshObject:
 				else:
 					plt.triplot(self.points[:, 1], self.points[:, 0], self.triangulation.triangles, 'b-', lw=0.5)
 
-			# Display reference red triangles
-			singleTriangle = np.array([self.triangulation.triangles[0]])
-			singleTriangle = np.vstack((singleTriangle, self.triangulation.triangles[1]))
-			# Bridson_Common.logDebug(__name__, singleTriangle)
-			if Bridson_Common.invert:
-				plt.triplot(self.points[:, 1], xrange - self.points[:, 0], singleTriangle, 'r-', lw=1)
-			else:
-				plt.triplot(self.points[:, 0], self.points[:, 1], singleTriangle, 'r-', lw=1)
+			if False:
+				# Display reference red triangles
+				singleTriangle = np.array([self.triangulation.triangles[0]])
+				singleTriangle = np.vstack((singleTriangle, self.triangulation.triangles[1]))
+				# Bridson_Common.logDebug(__name__, singleTriangle)
+				if Bridson_Common.invert:
+					plt.triplot(self.points[:, 1], xrange - self.points[:, 0], singleTriangle, 'r-', lw=1)
+				else:
+					plt.triplot(self.points[:, 0], self.points[:, 1], singleTriangle, 'r-', lw=1)
 
-			# Display reference green triangles
-			singleTriangle = np.array([self.triangulation.triangles[-1]])
-			singleTriangle = np.vstack((singleTriangle, self.triangulation.triangles[-2]))
-			# Bridson_Common.logDebug(__name__, singleTriangle)
-			if Bridson_Common.invert:
-				plt.triplot(self.points[:, 1], xrange - self.points[:, 0], singleTriangle, 'g-', lw=1)
-			else:
-				plt.triplot(self.points[:, 0], self.points[:, 1], singleTriangle, 'g-', lw=1)
+				# Display reference green triangles
+				singleTriangle = np.array([self.triangulation.triangles[-1]])
+				singleTriangle = np.vstack((singleTriangle, self.triangulation.triangles[-2]))
+				# Bridson_Common.logDebug(__name__, singleTriangle)
+				if Bridson_Common.invert:
+					plt.triplot(self.points[:, 1], xrange - self.points[:, 0], singleTriangle, 'g-', lw=1)
+				else:
+					plt.triplot(self.points[:, 0], self.points[:, 1], singleTriangle, 'g-', lw=1)
 
 			# plt.triplot(self.points[:, 0], xrange - self.points[:, 1], self.triangulation.triangles)
 			thismanager = pylab.get_current_fig_manager()
