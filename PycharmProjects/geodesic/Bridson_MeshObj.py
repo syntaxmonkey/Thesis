@@ -345,7 +345,12 @@ class MeshObject:
 		notFound = 0
 		dotPoints = []
 		print("DrawVerticalLinesExteriorSeed2 seedPoints:", seedPoints)
-		for pointIndex in seedPoints[0:3]:
+		# for pointIndex in seedPoints[28:29]: # Interesting one.  Use Attempt = 17 and Attempt = 18.  Falls off trifinder at Attempt=18.
+		# for pointIndex in seedPoints[23:24]: # Interesting one.  Stuck half way through.
+		for pointIndex in seedPoints:
+			triangleTraversal = []
+			attempt = 0
+		# for pointIndex in seedPoints:
 			# print("DrawVertical Line seed Point: ", point)
 			x, y = point = self.DualGraph.points[pointIndex]
 			j = x # Obtain the x value and use it for the line.
@@ -358,22 +363,29 @@ class MeshObject:
 				for triangleIndex in triangleList:
 					self.colourTriangle(triangleIndex)
 
+
 			intersection, edge, triangleIndex, direction = self.DualGraph.FindFirstIntersection( pointIndex, self.trifinder )
+			triangleTraversal.append( triangleIndex )
 			if intersection != None:
 				rowPoints.append(intersection)
-
+				# self.colourTriangle(triangleIndex)
 				if Bridson_Common.highlightEdgeTriangle:
 					self.colourTriangle(triangleIndex, colour='y')
 				# Find next intersection.
-				attempt = 0
+
 				while True:
 					nextIntersection, edge, triangleIndex = self.DualGraph.FindNextIntersection( intersection, edge, triangleIndex, direction )
+					# self.colourTriangle(triangleIndex)
+					triangleTraversal.append(triangleIndex)
 					if nextIntersection != None:
-						rowPoints.append(nextIntersection)
+						rowPoints.append( nextIntersection )
+						intersection = nextIntersection
+						# self.colourTriangle(triangleIndex)
 					else:
 						break
 
-					if attempt > 50:
+					# 18 Attempts is where the graph flies into space.
+					if attempt > 30:
 						break # Exit the while loop.
 					attempt += 1
 
@@ -387,6 +399,7 @@ class MeshObject:
 			# 	else:
 			# 		notFound += 1
 					#Bridson_Common.logDebug(__name__, "**** Point not found in trifinder *****", (pointx, pointy))
+			print(">>>>>>>>>>>>>>>>>>> Triangle Traversal:", triangleTraversal)
 			if len(rowPoints) > 0:
 				rowPoints = np.array(rowPoints)
 				dotPoints.append(rowPoints)

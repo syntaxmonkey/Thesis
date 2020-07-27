@@ -15,7 +15,7 @@ diagnostic=False # Generally avoid dispalying meshes.  Only count the number of 
 highlightEdgeTriangle=False # Highlight the edge triangle that contains the exterior point of the vertical lines.
 
 
-normalizeUV = False
+normalizeUV = True
 
 invert = False
 

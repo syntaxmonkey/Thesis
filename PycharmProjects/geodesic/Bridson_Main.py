@@ -263,7 +263,8 @@ def indexValidation():
 
 	successfulRegions = 0
 
-	for index in [31, 34]:
+	# for index in [31, 34]:
+	for index in [34]:
 	# for index in range( len(regionMap.keys()) ):
 		print("Starting Region: ", index)
 
@@ -288,7 +289,7 @@ def indexValidation():
 						if Bridson_Common.verticalLines:
 							# flatMeshObj.DrawVerticalLines()
 							# flatMeshObj.DrawVerticalLinesSeededFrom(LineSeedPointsObj, meshObj) # Draw lines based on seed from tertiary mesh.
-							flatMeshObj.DrawVerticalLinesExteriorSeed() # Draw lines using exterior points as line seed.
+							flatMeshObj.DrawVerticalLinesExteriorSeed2() # Draw lines using exterior points as line seed.
 						else:
 							# flatMeshObj.DrawHorizontalLines()
 							flatMeshObj.DrawHorizontalLinesExteriorSeed() # Draw lines using exterior points as line seed.
@@ -307,8 +308,8 @@ def indexValidation():
 			else:
 				print("Trifinder was NOT successfully generated for region ", index)
 
-			meshObj.diagnosticExterior()
-			flatMeshObj.diagnosticExterior()
+			# meshObj.diagnosticExterior()
+			# flatMeshObj.diagnosticExterior()
 
 	print("Successful Regions: ", successfulRegions)
 	print("Total Regions: ", len(regionMap.keys()) )

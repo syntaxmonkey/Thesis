@@ -124,7 +124,7 @@ class TriangulationDualGraph:
 		for triangleIndex in relatedTriangleList:
 			triangleVertices = self.Triangles[ triangleIndex ]
 			v1,v2,v3 = triangleVertices
-			Bridson_Common.logDebug(__name__,"Triangle Vertices:", v1, v2, v3)
+			# Bridson_Common.logDebug(__name__,"Triangle Vertices:", v1, v2, v3)
 			dualTriangle = self.TriangleHashMap[ (v1,v2,v3) ]
 			triangleHeights.append( dualTriangle.maxHeight )
 			triangleHeights.append(dualTriangle.minHeight)
@@ -263,8 +263,10 @@ class TriangulationDualGraph:
 			# print("DualEdge triangle vertices:", dualEdge.triangleIndeces )
 			triangleIndexList.extend( dualEdge.triangleIndeces.copy() )
 
+
 		# Make the list unique.
 		triangleIndexList = list ( np.unique(triangleIndexList) )
+		# print("GetPointTriangleMembership triangleIndexList:", triangleIndexList)
 		# print("Triangles:", triangleIndexList)
 		return triangleIndexList
 
@@ -375,8 +377,8 @@ class TriangulationDualGraph:
 
 		# We have the associated edges.
 		# Create the check line.  The CheckLine will start from 0.9*minHeight -> 1.1*maxHeight.
-		CheckLineStart = (x, y + 0.1 * minHeight * direction)
-		CheckLineEnd = (x, y + 1.9 * maxHeight * direction)
+		CheckLineStart = (x, y + minHeight * direction)
+		CheckLineEnd = (x, y + 3.0 * maxHeight * direction)
 		ReferenceLine = (CheckLineStart, CheckLineEnd)
 		found = False
 		# find the intersection
@@ -432,7 +434,9 @@ class TriangulationDualGraph:
 		3. If there is a next triangle, determine the next intersection.
 		'''
 		dualEdge = self.EdgeHashMap[ edge ]
-		print("FindNextIntersection triangleIndex:", triangleIndex)
+
+		print("AA FindNextIntersection triangleIndex:", triangleIndex)
+		print("AA FindNextIntersection Starting Edge:", edge)
 		triangleIndexList = dualEdge.triangleIndeces.copy()
 		print("FindNextIntersection triangleIndexList:", triangleIndexList)
 		triangleIndexList.pop( triangleIndexList.index(triangleIndex) ) # Remove the current triangleIndex.
@@ -445,18 +449,20 @@ class TriangulationDualGraph:
 		triangleIndex = triangleIndexList[0]
 		print("FindNextIntersection Heights:", minHeight, maxHeight, triangleIndexList)
 		if minHeight == None:
-			return None, None, None
+			return None, None, triangleIndex
 
 		x,y = currentIntersection
 		# We have the associated edges.
 		# Create the check line.  The CheckLine will start from 0.9*minHeight -> 1.1*maxHeight.
-		CheckLineStart = (x, y + 0.1 * minHeight * direction)
-		CheckLineEnd = (x, y + 1.9 * maxHeight * direction)
+		CheckLineStart = (x, y )
+		CheckLineEnd = (x, y + 10.0 * maxHeight * direction) # 10.0 to handle triangles that are really squished.
 		ReferenceLine = (CheckLineStart, CheckLineEnd)
 		print("FindNextIntersection ReferenceLine:", ReferenceLine)
 		found = False
 
 		edges = self.GetEdgesFromTriangleList(triangleIndexList).copy()
+		# Remove the starting edge from teh list.
+		edges.pop( edges.index(edge) )
 		print("FindNextIntersection Edge List:", edges)
 		# find the intersection
 		for edge in edges:
@@ -473,6 +479,9 @@ class TriangulationDualGraph:
 
 		# Need to determine which triangle.
 		if found:
+			if intersection in self.Edges:
+				print("************* FindNextIntersection at Vertex.")
+			print("FindNextIntersection Found Intersection.")
 			Bridson_Common.logDebug(__name__, "FindNextIntersection Edge intersection:", edge)
 			print("FindNextIntersection Intersection:", intersection)
 			Bridson_Common.logDebug(__name__,"FindNextIntersection TriangleIndex:", triangleIndex)
@@ -480,7 +489,7 @@ class TriangulationDualGraph:
 			return intersection, edge, triangleIndex
 		else:
 			Bridson_Common.logDebug(__name__,"No intersection found:", intersection)
-			return None, None, None
+			return None, None, triangleIndex
 
 
 
@@ -514,9 +523,10 @@ def test():
 		# 	meshObj.colourTriangle( triangleIndex )
 		# 	# meshObj.colourTriangleCluster( triangleIndex )
 
-		meshObj.DrawVerticalLinesExteriorSeed2()
-		# flatMeshObj.DrawVerticalLinesExteriorSeed2()
-		# meshObj.TransferLinePointsFromTarget( flatMeshObj )
+		# meshObj.DrawVerticalLinesExteriorSeed2()
+		# flatMeshObj.TransferLinePointsFromTarget( meshObj )
+		flatMeshObj.DrawVerticalLinesExteriorSeed2()
+		meshObj.TransferLinePointsFromTarget( flatMeshObj )
 		# meshObj.DrawVerticalLinesExteriorSeed() # Start testing the vertical line drawing.
 
 
