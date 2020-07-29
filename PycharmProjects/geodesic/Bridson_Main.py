@@ -264,7 +264,7 @@ def indexValidation():
 	successfulRegions = 0
 
 	# for index in [31, 34]:
-	for index in [34]:
+	for index in [31]:
 	# for index in range( len(regionMap.keys()) ):
 		print("Starting Region: ", index)
 
@@ -309,7 +309,7 @@ def indexValidation():
 				print("Trifinder was NOT successfully generated for region ", index)
 
 			# meshObj.diagnosticExterior()
-			# flatMeshObj.diagnosticExterior()
+			flatMeshObj.diagnosticExterior()
 
 	print("Successful Regions: ", successfulRegions)
 	print("Total Regions: ", len(regionMap.keys()) )

@@ -377,8 +377,8 @@ class TriangulationDualGraph:
 
 		# We have the associated edges.
 		# Create the check line.  The CheckLine will start from 0.9*minHeight -> 1.1*maxHeight.
-		CheckLineStart = (x, y + minHeight * direction)
-		CheckLineEnd = (x, y + 3.0 * maxHeight * direction)
+		CheckLineStart = (x, y + minHeight * direction) # For some reason, it requires the minHeight.
+		CheckLineEnd = (x, y + 100.0 * maxHeight * direction)
 		ReferenceLine = (CheckLineStart, CheckLineEnd)
 		found = False
 		# find the intersection
@@ -443,19 +443,19 @@ class TriangulationDualGraph:
 		print("FindNextIntersection triangleIndexList:", triangleIndexList)
 		if len(triangleIndexList) < 1:
 			# No further triangles.
-			return None, None, None
+			return None, None, None, False
 
 		minHeight, maxHeight, triangleIndexList = self.GetMaxTriangleHeightFromEdge(edge, triangleIndex)
 		triangleIndex = triangleIndexList[0]
 		print("FindNextIntersection Heights:", minHeight, maxHeight, triangleIndexList)
 		if minHeight == None:
-			return None, None, triangleIndex
+			return None, None, triangleIndex, False
 
 		x,y = currentIntersection
 		# We have the associated edges.
 		# Create the check line.  The CheckLine will start from 0.9*minHeight -> 1.1*maxHeight.
 		CheckLineStart = (x, y )
-		CheckLineEnd = (x, y + 10.0 * maxHeight * direction) # 10.0 to handle triangles that are really squished.
+		CheckLineEnd = (x, y + 100.0 * maxHeight * direction) # 10.0 to handle triangles that are really squished.
 		ReferenceLine = (CheckLineStart, CheckLineEnd)
 		print("FindNextIntersection ReferenceLine:", ReferenceLine)
 		found = False
@@ -486,12 +486,24 @@ class TriangulationDualGraph:
 			print("FindNextIntersection Intersection:", intersection)
 			Bridson_Common.logDebug(__name__,"FindNextIntersection TriangleIndex:", triangleIndex)
 
-			return intersection, edge, triangleIndex
+			finalIntersection = self.isFinalIntersection(edge, triangleIndex)
+
+			return intersection, edge, triangleIndex, finalIntersection
 		else:
 			Bridson_Common.logDebug(__name__,"No intersection found:", intersection)
-			return None, None, triangleIndex
+			return None, None, triangleIndex, False
 
 
+	def isFinalIntersection(self, edge, currentTriangleIndex):
+		dualEdge = self.EdgeHashMap[ edge ]
+		triangleIndexList = dualEdge.triangleIndeces.copy()
+		print("IsFinal TriangleList:", triangleIndexList)
+		triangleIndexList.pop(triangleIndexList.index(currentTriangleIndex))  # Remove the current triangleIndex.
+		print("IsFinal remaining TriangleList:", triangleIndexList)
+		if len(triangleIndexList) == 0:
+			return True
+		else:
+			return False
 
 
 def test():

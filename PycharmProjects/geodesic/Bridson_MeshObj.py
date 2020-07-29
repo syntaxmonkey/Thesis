@@ -374,18 +374,26 @@ class MeshObject:
 				# Find next intersection.
 
 				while True:
-					nextIntersection, edge, triangleIndex = self.DualGraph.FindNextIntersection( intersection, edge, triangleIndex, direction )
+					nextIntersection, edge, triangleIndex, isFinalIntersection = self.DualGraph.FindNextIntersection( intersection, edge, triangleIndex, direction )
 					# self.colourTriangle(triangleIndex)
 					triangleTraversal.append(triangleIndex)
 					if nextIntersection != None:
+						if isFinalIntersection:
+							print("Last Intersection:", nextIntersection)
+							# Reduce the length of the final segment to ensure final intersection is in trifinder.
+							nextIntersection = self.finalIntersectionReduction(rowPoints[-1], nextIntersection)
+							print("Final Last Intersection adjusted:", nextIntersection)
 						rowPoints.append( nextIntersection )
 						intersection = nextIntersection
 						# self.colourTriangle(triangleIndex)
 					else:
 						break
 
+					if isFinalIntersection:
+						break
+
 					# 18 Attempts is where the graph flies into space.
-					if attempt > 30:
+					if attempt > 50:
 						break # Exit the while loop.
 					attempt += 1
 
@@ -429,6 +437,29 @@ class MeshObject:
 
 		self.linePoints = dotPoints
 
+
+	def finalIntersectionReduction(self, previousPoint, currentPoint):
+		# print("Current Last Point:", currentPoint)
+		x, y = currentPoint
+		# print("A Current Point:", x, y)
+		while True:
+			trianglesFound = self.trifinder(x , y) # This can return a list of
+			# print("B Current Point:", x, y)
+			# print("Trifinder result:", trianglesFound)
+			# print("Trifinder type:", type(trianglesFound))
+			# if ( isinstance(trianglesFound, np.ndarray) ):
+				# print("Trifinder length:", len(trianglesFound))
+			if (trianglesFound > -1).all():
+				break
+			# elif trianglesFound > -1:
+			# 	break
+			else:
+				deltax = (x - previousPoint[0]) * 0.99
+				deltay = (y - previousPoint[1]) * 0.99
+				# print("Deltax:", deltax, "Deltay:", deltay)
+				x = previousPoint[0] + deltax
+				y = previousPoint[1] + deltay
+		return (x,y)
 
 	def DrawHorizontalLinesExteriorSeed(self, density=Bridson_Common.density, linedensity=Bridson_Common.lineDotDensity):
 		seedPoints = self.DualGraph.exteriorPoints.copy()

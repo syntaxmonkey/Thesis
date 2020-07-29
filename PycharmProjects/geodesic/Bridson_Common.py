@@ -39,7 +39,7 @@ density = 0.01
 lineDotDensity = 0.01
 lineRadiusFactor = 1
 
-dradius = 2
+dradius = 1.1 # Important that dradius is greater than 1.0.
 
 
 
