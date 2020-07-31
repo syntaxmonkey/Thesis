@@ -1,0 +1,88 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\@writefile{toc}{\contentsline {chapter}{ \numberline {2}Filtering-based Image Upsampling}{4}{section*.20}}
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {2.1}Introduction}{4}{section.2.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {\global \advance \c@myfigcount \c@figure \relax 2.1}{\ignorespaces Two input images used in this chapter: treebark, picnic table\relax }}{4}{figure.caption.21}}
+\newlabel{fig:origImages}{{\global \advance \c@myfigcount \c@figure \relax 2.1}{4}{Two input images used in this chapter: treebark, picnic table\relax }{figure.caption.21}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {\global \advance \c@myfigcount \c@figure \relax 2.2}{\ignorespaces Three basic interpolation methods. Nearest neighbour interpolation introduces clustering pixel blocks. Bilinear and bicubic interpolation smooth out the sharp edges.\relax }}{5}{figure.caption.22}}
+\newlabel{fig:normalInterpolation}{{\global \advance \c@myfigcount \c@figure \relax 2.2}{5}{Three basic interpolation methods. Nearest neighbour interpolation introduces clustering pixel blocks. Bilinear and bicubic interpolation smooth out the sharp edges.\relax }{figure.caption.22}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.2}Algorithms}{6}{section.2.2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {\global \advance \c@myfigcount \c@figure \relax 2.3}{\ignorespaces general pipeline of our approaches.\relax }}{6}{figure.caption.23}}
+\newlabel{fig:generalPipeline}{{\global \advance \c@myfigcount \c@figure \relax 2.3}{6}{general pipeline of our approaches.\relax }{figure.caption.23}{}}
+\citation{David:geo}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.1}Cumulative range geodesic filter}{7}{subsection.2.2.1}}
+\newlabel{CRGeoEquation}{{2.1}{7}{Cumulative range geodesic filter}{equation.2.2.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {\global \advance \c@myfigcount \c@figure \relax 2.4}{\ignorespaces Instead of having fixed shaped masks, geodesic filter's mask only includes neighboring pixels that are similar to mask center.\relax }}{8}{figure.caption.24}}
+\newlabel{fig:geodesicExplanation}{{\global \advance \c@myfigcount \c@figure \relax 2.4}{8}{Instead of having fixed shaped masks, geodesic filter's mask only includes neighboring pixels that are similar to mask center.\relax }{figure.caption.24}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.2}Bilateral roundup filtering}{8}{subsection.2.2.2}}
+\newlabel{Bilateral roundup filtering}{{2.2.2}{8}{Bilateral roundup filtering}{subsection.2.2.2}{}}
+\newlabel{brndupEquation}{{2.2}{8}{Bilateral roundup filtering}{equation.2.2.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {\global \advance \c@myfigcount \c@figure \relax 2.5}{\ignorespaces One example of bilateral roundup filter with mask size of 9, sample region size 81. \relax }}{9}{figure.caption.25}}
+\newlabel{fig:BrndupExplanation}{{\global \advance \c@myfigcount \c@figure \relax 2.5}{9}{One example of bilateral roundup filter with mask size of 9, sample region size 81. \relax }{figure.caption.25}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {\global \advance \c@myfigcount \c@figure \relax 2.6}{\ignorespaces Bilateral roundup filtering preserves high-frequency, fine details better.\relax }}{10}{figure.caption.26}}
+\newlabel{fig:comparisonBetweenTwoFilters}{{\global \advance \c@myfigcount \c@figure \relax 2.6}{10}{Bilateral roundup filtering preserves high-frequency, fine details better.\relax }{figure.caption.26}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.3}Variations of Bilateral Roundup Filtering}{10}{subsection.2.2.3}}
+\@writefile{toc}{\contentsline {subsubsection}{Cross-filtering with original image}{10}{section*.27}}
+\newlabel{Cross-filtering with original image}{{2.2.3}{10}{Cross-filtering with original image}{section*.27}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {\global \advance \c@myfigcount \c@figure \relax 2.7}{\ignorespaces Improved pipeline of bilateral round up filtering with original image.\relax }}{10}{figure.caption.28}}
+\newlabel{fig:BrndupCrossFiltering}{{\global \advance \c@myfigcount \c@figure \relax 2.7}{10}{Improved pipeline of bilateral round up filtering with original image.\relax }{figure.caption.28}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {\global \advance \c@myfigcount \c@figure \relax 2.8}{\ignorespaces Bilateral roundup filter on original image.\relax }}{11}{figure.caption.29}}
+\@writefile{toc}{\contentsline {subsubsection}{Multi-passes of bilateral roundup filtering }{11}{section*.30}}
+\@writefile{lof}{\contentsline {figure}{\numberline {\global \advance \c@myfigcount \c@figure \relax 2.9}{\ignorespaces pipeline of bilateral roundup filtering multi-passes. r\relax }}{12}{figure.caption.31}}
+\newlabel{fig:multi-pass pipeline}{{\global \advance \c@myfigcount \c@figure \relax 2.9}{12}{pipeline of bilateral roundup filtering multi-passes. r\relax }{figure.caption.31}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {\global \advance \c@myfigcount \c@figure \relax 2.10}{\ignorespaces More passes of this filter will keep sharpening the edges and eliminating small scale details. \relax }}{12}{figure.caption.32}}
+\newlabel{fig:multipass}{{\global \advance \c@myfigcount \c@figure \relax 2.10}{12}{More passes of this filter will keep sharpening the edges and eliminating small scale details. \relax }{figure.caption.32}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {\global \advance \c@myfigcount \c@figure \relax 2.11}{\ignorespaces A 2nd pass result. Edges are well sharpened while the fine details are not overly removed.\relax }}{13}{figure.caption.33}}
+\newlabel{fig:2ndPassResult}{{\global \advance \c@myfigcount \c@figure \relax 2.11}{13}{A 2nd pass result. Edges are well sharpened while the fine details are not overly removed.\relax }{figure.caption.33}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.4}Pre-filtering the original image}{13}{subsection.2.2.4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {\global \advance \c@myfigcount \c@figure \relax 2.12}{\ignorespaces Pre-filtering pipeline.\relax }}{13}{figure.caption.34}}
+\newlabel{fig:prefiltering}{{\global \advance \c@myfigcount \c@figure \relax 2.12}{13}{Pre-filtering pipeline.\relax }{figure.caption.34}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {\global \advance \c@myfigcount \c@figure \relax 2.13}{\ignorespaces Pre-filter original image improves poor quality edge's results\relax }}{14}{figure.caption.35}}
+\@writefile{toc}{\contentsline {subsubsection}{Post-filtering texture enrichment}{14}{section*.36}}
+\@writefile{lof}{\contentsline {figure}{\numberline {\global \advance \c@myfigcount \c@figure \relax 2.14}{\ignorespaces post-filtering texture enrichment pipeline\relax }}{14}{figure.caption.37}}
+\newlabel{fig:textureEnrich}{{\global \advance \c@myfigcount \c@figure \relax 2.14}{14}{post-filtering texture enrichment pipeline\relax }{figure.caption.37}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {\global \advance \c@myfigcount \c@figure \relax 2.15}{\ignorespaces The texture distribution scheme. For instance, for a pixel at intensity 50, it will take the average of a bit over half from texture 1, most of texture 2, and a little bit less than half from texture 3.\relax }}{15}{figure.caption.38}}
+\newlabel{fig:textureDistribution}{{\global \advance \c@myfigcount \c@figure \relax 2.15}{15}{The texture distribution scheme. For instance, for a pixel at intensity 50, it will take the average of a bit over half from texture 1, most of texture 2, and a little bit less than half from texture 3.\relax }{figure.caption.38}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {\global \advance \c@myfigcount \c@figure \relax 2.16}{\ignorespaces Adding multiple textures to upsampled image.\relax }}{15}{figure.caption.39}}
+\newlabel{fig:textureEnrichBestResult}{{\global \advance \c@myfigcount \c@figure \relax 2.16}{15}{Adding multiple textures to upsampled image.\relax }{figure.caption.39}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.3}Discussion and Future Work}{16}{section.2.3}}
+\@setckpt{chapter2}{
+\setcounter{page}{17}
+\setcounter{equation}{2}
+\setcounter{enumi}{0}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{0}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{0}
+\setcounter{chapter}{2}
+\setcounter{section}{3}
+\setcounter{subsection}{0}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{16}
+\setcounter{table}{0}
+\setcounter{myfigcount}{654}
+\setcounter{mytablecount}{4}
+\setcounter{myeqncount}{0}
+\setcounter{mychapcitecount}{0}
+\setcounter{mychaptercount}{1}
+\setcounter{myappendixcount}{0}
+\setcounter{subfigure}{0}
+\setcounter{lofdepth}{1}
+\setcounter{subtable}{0}
+\setcounter{lotdepth}{1}
+\setcounter{parentequation}{0}
+\setcounter{ContinuedFloat}{0}
+\setcounter{r@tfl@t}{0}
+\setcounter{LT@tables}{0}
+\setcounter{LT@chunks}{0}
+\setcounter{Item}{0}
+\setcounter{Hfootnote}{0}
+\setcounter{bookmark@seq@number}{18}
+\setcounter{section@level}{1}
+}

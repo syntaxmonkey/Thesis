@@ -1,0 +1,54 @@
+8
+
+dir
+964
+svn+ssh://rdanse@avdsp-server.sce.carleton.ca/svn/group/Templates/Thesis/cuthesis/figures
+svn+ssh://rdanse@avdsp-server.sce.carleton.ca/svn/group
+
+
+
+2008-08-06T09:56:01.560410Z
+91
+rdanse
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+9200e6b2-723b-0410-8004-c5432ce738bc
+
+MAElogo.jpg
+file
+
+
+
+
+2010-07-26T16:01:30.000000Z
+257e17992ac51cbc01b69f6fa9592b7a
+2008-08-06T09:56:01.560410Z
+91
+rdanse
+has-props
+
+CUlogo.jpg
+file
+
+
+
+
+2010-07-26T16:01:30.000000Z
+b3c8bec42203f82ccdd776f2f01cf053
+2008-08-06T09:56:01.560410Z
+91
+rdanse
+has-props
+

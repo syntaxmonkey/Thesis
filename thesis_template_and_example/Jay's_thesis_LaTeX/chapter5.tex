@@ -1,0 +1,398 @@
+\chapter{Image Warping}\label{chap:warping}
+\section{Introduction}
+
+Painterly rendering is among the oldest styles in non-photorealistic rendering,
+dating back to Haeberli's seminal work on user-assisted image
+stylization~\cite{Hae:stroke}. 
+Many others have sought to create synthetic painted
+images since, whether using dedicated simulations of paint~\cite{impasto},
+ image processing~\cite{Bousseau:2007,Hertzmann:1998}, 
+ or particle systems
+over geometric models~\cite{meier}.
+
+
+
+The quality of synthetic painted images has risen steadily over the years.
+Nonetheless, painterly rendering of geometry and painterly effects based on
+input photographs usually
+adhere closely to the structure of the input,
+%At the same time, the
+%abstraction often sought in non-photorealistic rendering
+and thus captures only a limited
+range of the possible painterly images; historically, paintings have spanned a wide
+range from meticulously detailed representations
+to wholly abstract images.
+
+% show an oil painting here, maybe an image with confused perspective, to
+% illustrate the point: Oudry, El Greco; might also show hyper-detailed painting,
+% Byrne-Jones, other romantics
+
+In this chapter, we propose to use image warping to modify an input image before
+conducting a painterly stylization, thus producing a lively outcome which
+resembles caricature or other fanciful, exaggerated semi-representational
+depictions of the subject matter. By manipulating the image before applying the
+painterly effect, we can convey the impression of a painted image with a
+painterly filter that is less aggressive, hence more able to preserve the
+details in the initial photograph.
+
+Figure~\ref{fig:artists} 
+helps to illustrate our objective. Above, we see two paintings
+from Jean-Baptiste Oudry and El Greco
+that show deliberate distortions and non-photorealistic perspectives. Below,
+oil paintings from Caravaggio and John William Waterhouse show a high level of detail and
+fidelity to the original subject matter. Non-photorealistic painterly stylizations of
+images have concentrated on abstracted images, often using visible strokes in
+an expressionist style to emphasize the painterly effect. Here, we attempt to create
+the impression of a painted image without visible brushstrokes.
+
+\begin{figure}[ht] \centering
+\includegraphics[height=2.83in]{images/oudry.jpg}
+\includegraphics[height=2.83in]{images/elgreco.jpg} \vspace{0.5mm}
+
+\noindent \hspace{-0.06in}
+\includegraphics[height=2.15in]{images/caravaggio.jpg}
+\includegraphics[height=2.15in]{images/waterhouse.jpg}
+\caption{Historical
+paintings illustrating our intention. Above: paintings by Oudry and El Greco
+demonstrating distortions and problematic perspectives. Below: paintings by Caravaggio and
+Waterhouse in a photorealistic style.}
+\label{fig:artists}
+\end{figure}
+
+Our approach involves dividing the image processing into two phases. First, we
+distort the image by warping the pixel locations in the image plane. Second, we
+apply a painterly effect to the warped image; we suggest using a relatively
+non-intrusive painterly filter so that the details of the input image remain
+visible. The postprocessing has the benefit of reunifying the warped image,
+concealing defects that might otherwise be visible after the warping phase. 
+The degree of
+warping is controllable: we can obtain a delicate effect with little warping, a
+fairly plausible painterly effect using a medium degree of warping, or a more
+extreme caricature by warping the image even more heavily. We prefer the results
+in the middle of this range, but the extremes are available to those who might
+want to use them to obtain a particular effect.
+
+We make two contributions in this chapter:
+
+$\bullet$ We suggest constructing lively painterly images by a two-stage process
+of first warping the image plane and then applying an image-space painterly
+filter to the warped image. There is limited precedent for this approach in
+general painterly rendering.
+
+$\bullet$ We provide a specific mechanism for accomplishing the painterly
+rendering process just described. In our approach, the warping is accomplished
+by performing a mass-spring simulation over the image lattice. The painterly
+effect can be produced by any of several existing image-space painterly
+rendering methods; for this thesis, we primarily rely on a variation of the
+morphological watercolor effect of Bousseau et al.
+%~\shortcite{video-watercolor}.
+
+This chapter is organized as follows. Section~\ref{algorithmIW} describes our approach in detail, with Section~\ref{resultIW}
+giving results of applying the method to sample images and showing comparisons
+to other methods. The chapter's final section concludes and provides suggestions
+about possible future directions.
+
+\section{Algorithm} \label{algorithmIW}
+
+
+
+Figure~\ref{fig:overview} shows the pipeline of our method. First, we segment the input image into clusters using SLIC. The resulting clusters tend to be compact, uniform in size, and edge-sensitive.  Second, we construct the mass-spring system by connecting springs between each pixel and its four-connected neighbours. All springs within a SLIC cluster receive a rest length
+according to a single randomly chosen value assigned to that
+cluster; the rest lengths range from approximately 0.1 to 2. Since the default spacing between adjacent pixels is 1, the clusters with $x_0$ smaller than 1 tend to shrink; and the clusters with $x_0$ greater than 1 tend to expand.
+
+\begin{figure} \centering
+\includegraphics[width=1.0\textwidth]{images/pipeline.pdf}
+\caption{Schematic of our processing pipeline. Dashed boxes represent optional steps.}
+\label{fig:overview}
+\end{figure} 
+
+Our mass-spring simulation then iteratively computes the forces and updates the pixel locations. We halt the simulation after a fixed number of iterations, and create a warped image by triangulating the new pixel locations and interpolating the color. Finally, we apply a painterly filter to the warped image; we used a morphological filter to achieve a watercolor appearance~\cite{Bousseau:2007}
+, but any desired filter could be used instead.
+The process is summarized in Figure~\ref{fig:penguin}.
+
+
+%old lady figure
+\begin{figure}[htbp] \centering
+\includegraphics[width=2.95in]{images/oldlady-1.jpg}
+\includegraphics[width=2.95in]{images/oldlady-2.jpg}
+\includegraphics[width=2.95in]{images/oldlady-3.jpg}
+\includegraphics[width=2.95in]{images/oldlady-4.jpg}
+\caption{Effect of the full process. Upper left: original image. Upper right: warping, no painterly effect.
+Lower left: painterly effect, no warping. Lower right: both warping and painterly effect.}
+\label{fig:2x2}
+\end{figure}
+
+
+
+Given an input image and the approximate superpixel diameter $S$, we measure the distance $D$ between pixels and superpixel centers using equation \eqref{SLICdistance}:
+ \begin{equation} \label{SLICdistance}
+D = d_{rgb} + (m/S)d_{xy} \text{ ,}
+\end{equation}
+where $d_{rgb}$ denotes the Euclidean distance the RGB color cube, and $d_{xy}$ is the Euclidean distance in the image plane. The parameter $m$ lets us control the compactness of the segmentation. In this thesis, we empirically use $m=150$; note that RGB values lie in the range 0 to 255. Using this
+distance computation, we iteratively move all superpixel centers to the centroids of their regions until convergence.
+
+We attach each pixel with springs to its four-connected neighbours. Assuming the spacing between adjacent pixels is 1 unit, we randomize the springs' rest lengths roughly in the range of 0.1 to 2 units. We exaggerate the warping effect by exaggerating the difference between rest lengths, we want a distribution biased towards the minimum and maximum, with less likelihood of values between. All springs within the same superpixel get the same rest lengths, so that the whole region can expand or shrink. With all these considerations, we randomize the rest lengths $x_0$ using Equation~\eqref{RLrandomize}:
+
+For all the springs $s$ in one SLIC segment,
+\begin{equation} \label{RLrandomize}
+	 x_0(s) =
+% 	\begin{cases}
+  	 x_{\min} + x_{d} + x_{d} \times (|r|^\alpha) \times \sign(r)  
+%& \text{if } x \geq 0  \\
+%  	 L_{min} + L_{d}+ L_{d}  \times -((-r)^\alpha) & \text{if } x < 0
+%	 \end{cases} \text{ ,}
+\end{equation}
+where $x_{min}$ denotes the minimum rest length. Parameter $x_{d}$ is the difference between the minimum rest length and the average rest length: i.e.,  the average length is $x_{\min}+x_{d}$. The maximum permitted rest length is $x_{\min}+2 \times x_{d}$. Parameter $r$ is a random number drawn from a uniform distribution from -1 to 1, and $\alpha$ is a real number in the range 0 to 1, controlling the distribution of spring lengths. Lower values of $\alpha$  make the spring lengths more likely to be close to minimum or maximum, with the extreme case of a binary distribution at $\alpha=0$. A choice of $\alpha=1$ gives a uniform distribution.
+
+We experimented with different settings for $\alpha$, but the difference is quite subtle, especially compared to other influences such as superpixel size and spring-strength constant.
+The results shown in this chapter were obtained using $\alpha=0.5$. We also explored different combinations for the minimum and maximum rest length; we settled on a range of $(0.1,1.9)$ for the results that we show.
+
+For an arbitrary spring s, its constant $k$ is scaled according to equation~\eqref{SpringStrength}:
+ \begin{equation} \label{SpringStrength}
+k(s) = \gamma \times | (x_0(s)-(x_{min}+x_{d})) |  \text{ ,}
+\end{equation}
+where $|(x_0-(x_{\min}+x_{d}))|$ denotes the deviation of the rest length of this spring from the average. Very long springs and very short springs have greater deviation. Thus, they are stronger, with higher $k(s)$. The $\gamma$ value scales the overall strength of all springs. Greater $\gamma$ values produce a stronger warping effect.
+A $\gamma$ of around 3 or 4 gives a reasonable amount of distortion; we show the effect of varying $\gamma$
+in the next section.
+
+
+Optionally, we can smooth the spring parameters across regions: for applications where quality is paramount and extra processing time is less of a concern, we suggest smoothing the spring parameters by applying a cross-bilateral filter against the original image. This process causes similar regions to blend spring parameters together, yielding a less noticeable transition. Dissimilar neighboring regions do not change much. The effect is minor, but in our judgement produces a slight improvement. We applied the smoothing process to all the results shown in this thesis.
+
+Once spring parameters have been finalized, our mass-spring simulator iteratively calculates the forces exerted by all springs and moves the pixels accordingly. The physics simulation is the same as described in Chapter~\ref{chap:migration}, Section~\ref{subsec:damp}. We also halt the simulation at 50 iterations, a figure found to produce adequate convergence. Having completed the mass-spring simulation, we triangulate the new pixel grid and apply barycentric interpolation to determine pixel color, which gives us the warped image. 
+
+Even standing alone, many warped images are already quite interesting. Nonetheless, we suggest post-processing the warped images with painterly filters to accentuate the artistic appearance. Users can apply different filters, if desired; with our objective of maintaining some detail, we relied on a morphological watercolor style inspired
+by Bousseau et al.~\cite{Bousseau:2007}. 
+A visual summary of the approach is presented in Figure~\ref{fig:penguin}.
+
+%penguin figure
+\begin{figure}[htbp] \centering
+\includegraphics[height=2.7in]{images/penguin-pipe-1.jpg}
+\includegraphics[height=2.7in]{images/penguin-pipe-2.jpg}
+\includegraphics[height=2.7in]{images/penguin-pipe-3.jpg}\vspace{1.1mm}
+\includegraphics[height=2.7in]{images/penguin-pipe-4.jpg}
+\includegraphics[height=2.7in]{images/penguin-pipe-5.jpg}
+\caption{Progression of an image through the pipeline. Top row left to right: original image; SLIC segments; warped SLIC segments; Bottom row left to right: warped image; warping plus painterly effect.}
+\label{fig:penguin}
+\end{figure}
+
+
+%
+%
+\section{Results} \label{resultIW}
+
+Figure~\ref{fig:generic-cathedral} to~\ref{fig:generic-books} show some results. 
+We demonstrate the effect on images with varied subject matter and backgrounds,
+including portraits, still lifes, animals,
+landscapes, and cityscapes. We spent some, but minimal, effort selecting good parameters for
+specific images; a wide range of parameters give substantially similar overall results for a particular
+photograph.  Figure~\ref{originalImages} shows the source images.
+
+These result images contain many elements of interest. Textures in the image are largely retained
+(e.g., books, secretarybird feathers), albeit 
+somewhat abstracted by the painterly filter; in some cases, such as the concrete in the street image, the
+texture has been augmented by the warping. The distortion of facial features gives new expressions and
+provides a new interpretation of the image: we find the processed old man image particularly intriguing.
+The secretarybird now looks monstrous, with distortions in the beak now resembling teeth, and the 
+distorted eye shape adding a further sense of menace. More subtle effects are also possible: the eyes
+of the boxer are slightly enlarged, giving the dog an even more plaintive expression. The abstracted and distorted face of the man in the hood 
+gives the image a wild look. The warped, fanciful architecture of the cathedral
+might serve to illustrate a book of fairy tales. The ``garlic'' still life has a scratchy look that looks somewhat 
+careless and handmade.
+In general, there is a feeling of a hand-drawn style, with exaggerated shapes (e.g., lighthouse) and
+wavering lines (e.g., books), combined with a high degree of detail.
+
+ 
+
+
+
+\begin{figure}
+\includegraphics[width=5.5in]{images/generic-cathedral.jpg}
+\caption{Generic result - Cathedral.}    \label{fig:generic-cathedral}
+\end{figure}
+\begin{figure}
+\includegraphics[width=5.9in]{images/generic-bird.jpg}
+\caption{Generic result - Secretary Bird.}    
+\end{figure}
+\begin{figure}
+\includegraphics[width=5.9in]{images/generic-garlic.jpg}
+\caption{Generic result - Garlic.}    
+\end{figure}
+\begin{figure} \centering
+\includegraphics[width=5.1in]{images/generic-hood.jpg}
+\caption{Generic result - Hood.}    
+\end{figure}
+\begin{figure}\centering
+\includegraphics[width=4.5in]{images/generic-oldman.jpg}
+\caption{Generic result - Old man.}    
+\end{figure}
+\begin{figure}\centering
+\includegraphics[width=4.5in]{images/generic-boxer.jpg}
+\caption{Generic result - Boxer.}    
+\end{figure}
+\begin{figure}\centering
+\includegraphics[width=5.9in]{images/generic-street.jpg}
+\caption{Generic result - Street.}    
+\end{figure}
+\begin{figure}\centering
+\includegraphics[width=5.9in]{images/generic-lighthouse.jpg}
+\caption{Generic result - Light house.}    
+\end{figure}
+\begin{figure}\centering
+\includegraphics[width=5.9in]{images/generic-books.jpg}
+\caption{Generic result - Books.}    \label{fig:generic-books}
+\end{figure}
+
+\begin{figure*}\centering
+\includegraphics[height=0.858in]{images/hood-orig.jpg}
+\includegraphics[height=0.858in]{images/cathedral-orig.jpg}
+\includegraphics[height=0.858in]{images/garlic-orig.jpg}
+\includegraphics[height=0.858in]{images/oldman-orig.jpg}
+\includegraphics[height=0.858in]{images/boxer-orig.jpg}
+
+\vspace{0.02in}
+
+\includegraphics[height=0.8980in]{images/lighthouse-orig.jpg}
+\includegraphics[height=0.8980in]{images/street-orig.jpg}
+\includegraphics[height=0.8980in]{images/books-orig.jpg}
+\includegraphics[height=0.8980in]{images/bird-orig.jpg}
+\caption{original images (hood, cathedral, garlic, old man, boxer, lighthouse, street, books, secretarybird).}
+\label{originalImages}
+\end{figure*}
+
+Our non-optimized CPU implementation takes about 50 seconds for a half-megapixel image. This time is broken down into approximately 85\% to compute the SLIC segmentation, 15\% to do the mass-spring
+simulation, and negligible time to do the painterly filter (less than one second). We are confident that this
+time could be improved considerably with some effort; the SLIC calculations, in particular, can be sped up a 
+great deal. These timing figures scale linearly with the number of pixels.
+
+
+
+\begin{figure}[htbp] \centering
+\includegraphics[width=3.4in]{images/spires-strength-1.jpg}
+\includegraphics[width=3.4in]{images/spires-strength-2.jpg}
+\includegraphics[width=3.4in]{images/spires-strength-3.jpg}
+\includegraphics[width=3.4in]{images/spires-strength-4.jpg}
+\caption{Spring strength increases from top to bottom: spring parameters are
+$\gamma=1$, $\gamma=1.5$, $\gamma=2$, $\gamma=3$.}
+\label{fig:spring}
+\end{figure}
+
+
+\begin{figure}[htbp] \centering
+\includegraphics[width=3.4in]{images/street-20.jpg}
+\includegraphics[width=3.4in]{images/street-40.jpg}
+\includegraphics[width=3.4in]{images/street-60.jpg}
+\includegraphics[width=3.4in]{images/street-80.jpg}
+\caption{From top to bottom: SLIC regions of diameter 20, 40, 60, 80 pixels.}
+\label{fig:slic}
+\end{figure}
+
+Figures~\ref{fig:spring} and~\ref{fig:slic} show the results of changing the algorithm's parameters.
+In Figure~\ref{fig:spring}, the images with higher $\gamma$ have stronger springs with more polarized rest lengths, producing more exaggerated distortion. The weak springs with $\gamma=1$ produce an image with scarcely noticeable distortion. As $\gamma$ increases, the distortion becomes more apparent. We prefer the milder distortions of approximately $\gamma=2$, but even more extreme distortions are possible. Note that the exact nature of the distortion depends on the specific parameters assigned to specific regions, and because we assign parameters randomly, different outcomes are available by redoing an image.
+
+In the examples in Figure~\ref{fig:slic}, the SLIC region size ranges from 20 to 80. The smaller regions
+produce more high-frequency structure; with larger, fewer regions, the distortion occurs at a larger scale
+and larger objects can be coherently distorted. The ``street'' input image has structure on multiple scales,
+so which SLIC size is appropriate depends on the user's intent: all of these results are plausible. In images
+with a single important scale, such as portraits, it is more crucial to obtain the right size -- see our failure examples below.
+
+Figure~\ref{fig:sisleycompare} shows a comparison between our results with Sisley~\cite{sisley}
+under a low-abstraction configuration. As befitting its efforts to make a fairly abstract image, Sisley
+removes both shape and color detail; small-scale details are blurred out. With these low-abstraction
+settings, the colors are fairly close to those of the original photograph. There is a strong paint texture
+and visible paint strokes. In our result, the details are somewhat preserved, but are still somewhat
+modified. most notably on the face of the square building just above the sailboat. There is some large-scale distortion: the shoreline is altered, and the right-hand sail of the sailboat is pushed out as if billowing in the wind.
+The aims of the
+two methods are quite different, but somewhat complementary, with Sisley aiming at greater degrees
+of abstraction and ours aiming for an impression of painterliness but retaining significant amounts
+of detail.
+
+\begin{figure}[htbp] \centering
+\includegraphics[width=2.9in]{images/sisley-actual.jpg}
+\includegraphics[width=2.9in]{images/sisley-compare-use.jpg}
+\caption{Comparison of our approach with abstract rendering by Sisley. Left: Sisley. Right: ours.}
+\label{fig:sisleycompare} 
+\end{figure}
+
+\begin{figure}[htbp] \centering
+\includegraphics[width=5.9in]{images/crying-failure.jpg}
+\vspace{1.1mm}
+\includegraphics[width=5.9in]{images/flamingo-failure.jpg}
+\caption{Two failure cases. Above: crying. Below: flamingo.}
+\label{fig:failure}
+\end{figure}
+
+Figure~\ref{fig:failure} shows two failure cases. These images show the effects of the warping only,
+without painterly postprocessing.  In the ``crying'' image, there is a mismatch between
+the size of the facial features and the relatively small SLIC regions. This mismatch, plus the
+use of very strong springs, induces a high-frequency texture over
+the face; the facial features become jagged as neighboring regions pull them in different directions.
+The ``flamingo'' image has quite strong springs as well, but a better match of SLIC region size
+to feature size. However, the blurred but varied background now has a cobblestone-like texture
+from the SLIC regions. Also, the flamingos' legs are particularly distorted: in general, when the image contains extended linear features, the distortion is particularly noticeable, and the effect may or may not be acceptable depending on the user's
+intention. We have used this image to illustrate
+specific problems, but it has some visual interest anyway, and the birds' feathers are nicely conveyed. Overall, though, our process is not well suited to this type of image.
+
+%
+%
+\section{Conclusion} \label{conclusionIW}
+
+In this chapter, we presented a two-stage methodology for creating painterly
+images from photographs: first, the image is distorted using a mass-spring
+system, and then a painterly filter is applied to the warped image. We recommend
+using a painterly filter that does not change the image very much. The warping
+process only changes the size and relative position of details, but does not by
+itself remove detail; by using a painterly filter only lightly, we can unify the
+image into a painterly style but still produce a detailed image. We hope that
+this chapter spurs others to consider more representational automatic painterly
+rendering, as opposed to the more abstract and expressionist examples of the
+medium that have been popular in NPR.
+
+Our warping was done using a mass-spring system, with spring coefficients and
+rest lengths chosen randomly for each region of a SLIC oversegmentation of the
+input photograph. The mass-spring distortion is fast and flexible, properties
+noted by Piponi and Borshukov~\cite{pelting}. Using SLIC gives us a general and
+robust segmentation, where the segments are all approximately the same size.
+Because the segment boundaries tend to lie on image edges, we preserve some
+structure of the input image through this process.
+
+After warping, the image can be processed by any conventional image-space
+painterly rendering system. We used a morphological filtering method to
+produce a watercolor effect, following Bousseau et al.~\cite{Bousseau:2007}.
+
+Our process is effective at generating painted-looking images. The two elements
+of the process cooperate to produce the illusion: the warping ensures that the
+image is not excessively faithful to the underlying photograph, while the
+painterly post-processing makes the image look painted and allows the naive
+viewer to attribute the distortion to the painting process itself.
+Sisley~\cite{sisley}
+ is the process most similar to ours, doing both distortion
+and painterly rendering in a unified stroke-based rendering environment; its aim
+was to create highly abstracted images, whereas ours is to produce
+representational images that nonetheless are painterly and not excessively
+photographic. Collomosse and Hall~\cite{cubism} 
+used separate warping and painterly filtering
+stages in their pipeline, with the aim of creating cubist paintings rather than
+more conventionally representational images.
+
+Our method has some limitations. Its effectiveness depends somewhat on matching
+the scale of the segmentation to the scale of the objects within the image: the
+spatially-varying distortion of textures and very small objects may look
+incoherent. Because of the random assignment of spring parameters, executing the
+process multiple times over the same image produces different results, not all
+of which are equally appealing.
+
+In future work, we are interested in further exploring a detailed painterly
+style that lacks visible brushstrokes. Replacing our content-agnostic
+distortions with shape simplifications and using more spatially coherent
+parameters might be helpful. Although in this work we concentrated on fully
+automatic processing, the system could benefit from a lightweight user-assisted
+labeling interface.
+
+We want to continue the pursuit of realism in painting,
+as practiced by Romantic painters, for example. One aspect of this is to include
+paint texture without necessarily indicating individual brush strokes. Alternatively,
+producing less-realistic paintings could be accomplished by fusing the results of multiple
+different distortions of a single input image. Lastly,
+adapting the technique to video could be interesting: in this case, we would
+want to attach the spring parameters to persistent objects in the video,
+possibly accomplished by performing a segmentation over the video cube.

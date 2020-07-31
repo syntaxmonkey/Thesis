@@ -1,0 +1,406 @@
+\chapter{Filtering-based Image Upsampling}\label {chap:filter}
+\section{Introduction}\label{sectionIntroduction}
+
+\begin{figure}[htbp]\centering
+
+\includegraphics[width=0.25\textwidth]{barktree.jpg}
+\includegraphics[width=0.25\textwidth]{picnictable.jpg}
+\includegraphics[width=0.25\textwidth]{stranger.jpg}
+\includegraphics[width=0.25\textwidth]{roughwater.jpg}
+\includegraphics[width=0.25\textwidth]{sedona.jpg}
+\includegraphics[width=0.25\textwidth]{dragonflyOrig.png}
+\caption{Input images used in this chapter: barktree, picnic table, stranger, roughwater, sedona, and dragonfly.}
+\label{fig:origImages}
+\end{figure}
+
+Figure~\ref{fig:normalInterpolation} shows three basic upsampling interpolation approaches: nearest neighbor interpolation, bilinear interpolation~\cite{Unser:spline}, and bicubic interpolation~\cite{bicubic}. If you examine the boundary and the internal texture of the tree, you will find the interpolation processes have destroyed sharp edges and introduced clustering, smooth, or blurry textures. To make things worse, if we increase the upsampling scale to 10 times or higher, the interpolated pixels\textquotesingle ~colors will significantly drift away from the original input, which will make the upsampled image blurry, dull, and aesthetically unpleasant.
+
+\begin{figure}[htbp] \centering
+\includegraphics[width=1.0\textwidth]{f2}
+\caption{Three basic interpolation methods. Left: Nearest neighbour interpolation, which introduces clustering pixel blocks. Middle: Bilinear interpolation. Right: bicubic interpolation. Both bilinear and bicubic interpolation smooth out the sharp edges.}
+\label{fig:normalInterpolation}
+\end{figure}
+
+The quality of upsampled super-resolution images has risen over the years. Either by using adaptive polynomial interpolations~\cite{Unser:spline,bicubic,warpeddistance,regInterpolation,adaptiveInter} or example-based methods~\cite{Freeman:pct,Kim:singlImg,Glasner:singlSup,Fattal:Hallucination,FAT:EdgeStatistics,kopf:JBilateral}, the main focus of the field is to produce photorealistic super-resolution images that closely resemble the input and have the same level of detail. This is a difficult problem. Therefore, we want to approach it differently. The plan is to simplify the problem by allowing the upsampled images to be abstract or stylized. That is, we detect, sharpen, and preserve only the salient features of the input image, such as object boundaries. Plus, we are free to reduce, modify, or introduce medium or fine-scale details, since the stylized results no longer need to be photorealistic or faithful to the input image. We hope that we can produce super-resolution images that are sharp, stylized, interesting, and aesthetically pleasing.
+
+We attempt to achieve stylized super-resolution images with various filtering techniques. Filtering is a common yet essential part of many signal processing systems, including image processing. Image-space filtering usually involves collecting a pixel\textquotesingle s neighbourhood data, and process the data in some reasonable ways, e.g. taking the average as the output. Often, various filters are applied to blur or sharpen an image, detect or exaggerate object edges, introduce or remove noise, or achieve non-photorealistic stylization. Due to the difference of purpose, various filters may have very different ways of collecting and processing mask data. When we put image filtering in the context of image upsampling, the filtering process can be quite different. Because we have both original image plane and upsampled image plane to gather our mask data, we often need much larger masks compare to common filters; and due to the increased mask size, we can design algorithms that uses a small portion of our mask samples to calculate the output.
+
+In this chapter, we propose variations of two filters: cumulative range geodesic filter~\cite{David:geo, Mould2} and bilateral filter~\cite{Tomasi:bilateral}. Cumulative range geodesic filter is used for image abstraction and stylization; bilateral filter is used for edge-preserving image smoothing. Both filters respect sharp edges, which is a great advantage in image upsampling. By adopting these filters, we intend to inherit their advantage in edge preserving; by varying these filters, we intend to introduce a stylized look to the resulting super-resolution images. We also explore other post-processing techniques that add fine details.
+
+We make two contributions in this chapter:
+
+$\bullet$ We suggest constructing stylized super-resolution images by sacrificing photorealism and the faithfulness to the input. This will simplify the image upsampling problem and produce aesthetically appealing images. We have not found precedent for combining stylization with image upsampling or super-resolution.
+
+$\bullet$ We propose a series of operations that achieve sharp super-resolution images. Based on cumulative range geodesic filter and bilateral filter, these operations gather pixel-neighbourhood data in a versatile, edge-sensitive way.  By controlling parameters like the mask size or the number of cross-filtering passes, we are able to achieve different levels of edge sharpness. The filtering process also abstract the upsampled images, which gives the results a painterly appearance.
+
+This chapter is organized as follows. Section~\ref{sec:algorithm} describes two filters with their variations and respective results. 
+Section~\ref{notes} describes our efforts, successes and failures towards mask data analysis and processing. Section~\ref{sec:FilterResult} demonstrate and discuss the results of proposed methods.
+Section~\ref{sec:conclusion} concludes the chapter by summarizing the successes and difficulties of filter-based upsampling. We also suggest possible future directions. 
+
+\section{Algorithms}\label{sec:algorithm}
+
+Figure~\ref{fig:generalPipeline} shows the general pipeline of our approaches. First we upsample the input image using bicubic interpolation. Then we filter or cross-filter the upsampled image using proposed filters. Following this general pipeline, we explore several variations: pre-filtering the input image, cross-filtering the upsampled image with input image, re-filtering the cross-filtered image, and adding textures to filtered image.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=5.9in]{generalpipeline.pdf}
+\caption{general pipeline of our approaches.}
+\label {fig:generalPipeline}
+\end{figure}
+
+
+\subsection{Cumulative Range Geodesic Filtering}
+
+Many common filtering techniques find masks centered at each input pixel, and use a function to decide how much each pixel in this mask contributes to the output. Since the mask shape is fixed, often it will include some or many pixels that are not similar to the mask center. Due to the contribution of these pixels, sharp edges from the original image can be damaged or destroyed.
+
+Cumulative range geodesic filtering~\cite{David:geo, Mould2} finds arbitrary-shaped masks that can guarantee that all the pixels in this mask are relatively similar to the center. For each input pixel, it keeps a sorted list of neighboring pixels as mask candidates. Equation~\eqref{CRGeoEquation} is how the incremental cost is calculated from one mask pixel to an adjacent pixel.
+
+\begin{equation}\label{CRGeoEquation}
+C_{inc} = |I(h)-I(0)| + \gamma \times |I(h)-I(g)| \text{,}
+\end{equation}
+
+where $|I(h)-I(g)|$ represents the incremental color space distance from top pixel $g$ on the sorted candidate list to its neighbor $h$; $|I(h)-I(0)|$ represents the colorspace distance between the mask center $0$ and $h$. The constant $\gamma$  represents the relative importance of the two terms. 
+
+We grow the masks  in paths that have the lowest incremental costs. Every iteration, the top pixel of the list is added to the mask, and the neighbors of that pixel are added to the sorted list. The top pixels chosen this way are the most similar to mask center. Therefore, instead of including all neighboring pixels, the mask will only contain neighboring pixels that are similar to mask center. Assuming the pixels along one side of an edge are similar, then these pixels\textquotesingle masks will contain these pixels themselves, resulting the output of these pixels to be similar. Thus, by excluding dissimilar neighbouring pixels, instead of being smoothed out, pixels on sharp edges will remain their intensity.
+
+We continue the mask growth iteratively. When the filter reaches the target mask size, it calculates the average color of the mask as the output. Figure~\ref{fig:geodesicExplanation} shows the mask-shape difference between traditional filtering and cumulative range geodesic filtering.
+The complexity of geodesic filtering is $kn\log(n)$ for a k-pixel image with mask size $n$. 
+The results of cumulative range geodesic filtering is discussed in Section~\ref{sec:FilterResult}.
+
+\begin{figure}[htbp]
+\includegraphics[width=1.0\textwidth]{f4}
+\caption{Demonstration of Cumulative range geodesic filter. Left: input. Middle: tradition filters. Right: proposed filter. Note that, instead of having fixed shaped masks, cumulative range geodesic filter\textquotesingle s mask only includes neighboring pixels that are similar to mask center.}
+\label{fig:geodesicExplanation}
+\end{figure}
+
+
+
+In the context of large-scale upsampling, cumulative range geodesic filtering itself may not be sufficient for edge preservation. After upsampling, one row of pixels from an input sharp edge will be interpolated to n rows of smoothly transitioned pixels. When these pixels grow masks, they will tend to traverse along the smoothed edge region rather than landing on or off the sharp edge. Thus, they will keep their initial color, which is interpolated and blurry. Section~\ref{notes} demonstrates this problem and describes our attempts of solving it.
+
+
+
+%insert some result images
+%insert some result images
+%insert some result images
+%insert some result images
+%insert some result images
+%insert some result images
+%insert some result images
+
+
+
+\subsection{Bilateral Roundup Filtering}\label{Bilateral roundup filtering}
+Bilateral filtering is widely used for edge-preserving image noise reduction~\cite{Tomasi:bilateral}. The idea is weighing each mask pixel by taking both color-space distance and Euclidian distance into account, as shown in Equation~\eqref{brndupEquation}
+
+\begin{equation}\label {brndupEquation}
+W = \alpha \times |I(p)-I(c)|  + |X(p)-X(c)| \text{ ,}
+\end{equation}
+
+where $|I(p)-I(c)|$ represents the color space distance between one pixel $p$ in the sampling region and the mask center $c$. The value $|X(p)-X(c)|$ represents their Euclidian distance. 
+
+Our research introduces a variation of bilateral filtering: \textit{Bilateral Roundup}. Roundup means we gather and select only the good ones. In other words, instead of taking all the pixels in a sample region into account, we sort the pixels by their bilateral weight and take only the top n (mask size) pixels as our mask. The process is as follows.
+
+For each pixel $c$ from the input image, for mask size $n$, we take a square-shaped sampling region $M$ of that is much larger than $n$, (e.g. $8n$ to $10n$), centered at $c$. For each pixel $p$ in $M$, calculate its weight using the bilateral weight function, Equation~\eqref{brndupEquation}. Finally, we sort the pixels in $M$, and take the top $n$ pixels as the actual mask. Their average color is the output for pixel $c$. Figure \ref{fig:BrndupExplanation} demonstrates the idea of bilateral roundup filtering.
+
+In Equation~\eqref{brndupEquation}, the constant $\alpha$ defines the relative importance of the color-space distance and image-plane distance. It influences the bilateral roundup filter significantly. When $\alpha$ gets close to zero, this filter will become a smoothing filter. The masks will become circles centered at mask centers. When $\alpha$ is large (e.g. $\alpha = 10$), the resulting mask will contain only neighbouring pixels that are similar in color, which yields clustering blocky artifacts. We empirically choose $\alpha$ from the range $0.1$ to $0.2$. The complexity of bilateral roundup filtering is $km\log(m)$ for a $k$-pixel input image with sampling region size of $m$. Note that bilateral roundup filter is about 5 to 10 times slower than cumulative range geodesic filter, which is caused by the increased sampling region size. 
+
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=1.0\textwidth]{f5}
+\caption{One example of bilateral roundup filter with mask size of 9, sample region size 81. Left: input. Middle: sampling region indicated by the purple boundary. Right: The output, indicated by the blue disconnected squares. Note that unlike cumulative range geodesic filter, here the output is not a connected set of pixels.}
+\label{fig:BrndupExplanation}
+\end{figure}
+
+Bilateral roundup filtering inherits the edge-preserving feature from bilateral filtering. The color space difference term will enforce the similarity of mask pixels. Given a relatively large sampling region, the pixels on a sharp edge will get almost the exact same masks as each other. Thus, they will have the same output color, and the edge is preserved. 
+
+On sharp edges and large smooth regions, bilateral roundup filtering is equivalent to cumulative range geodesic filtering. They both tend to produce irregular-shaped, but continuous masks. However, comparing to cumulative range geodesic filter, bilateral roundup has the advantage of preserving fine details better, as shown in Figure~\ref{fig:comparisonBetweenTwoFilters}. The reason is as follows. Cumulative range geodesic filtering relies on growing mask, so the mask must be a continuous set of pixels. When the mask size exceeds the number of neighboring similar pixels, the mask must cross an edge to keep growing, which will introduce pixels that are not necessarily similar to the starting pixel. However, bilateral roundup filtering samples a large region, and each pixel is weighed individually. Therefore for high-frequency regions, bilateral roundup filtering can extract more similar pixels, which grants better small-scale texture preservation. Figure~\ref{fig:comparisonBetweenTwoFilters} shows the difference between two filters on preserving fine details. On the left panel, cumulative range geodesic filter heavily reduced high frequency details, which leads to a clustering, quantized representation of the hair texture. Whereas for the bilateral roundup filter on the right panel, the fine details are better preserved.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=1.0\textwidth]{f6}
+\caption{Left: Cumulative range geodesic. Right: Bilateral roundup. Bilateral roundup filtering preserves high-frequency, fine details better.}
+\label{fig:comparisonBetweenTwoFilters}
+\end{figure}
+
+In the context of large-scale upsampling, bilateral roundup filtering has one limitation. The upsampling and interpolation process introduces a band of smooth and blurry pixels. If a bilateral roundup filter\textquotesingle s mask center is one of these blurry pixels, the mask will include all other blurry pixels, which result in a blurry edge. In the next section, we present some variations of bilateral roundup filtering to fix this problem.
+
+\subsection{Variations of Bilateral Roundup Filtering}
+
+In order to overcome the blurry edge sampling problem, provide a better edge-sharpening effect, and introduce some high-frequency detail, in this section, we explore the following variations of bilateral roundup filter:
+
+$\bullet$ Cross-filtering with original image to avoid sampling the interpolated blurry pixels.
+
+$\bullet$ Multi-passes of bilateral roundup filtering to further sharpen the results.
+
+$\bullet$ Pre-filtering the original image to increase the input image quality and alleviate jpeg artifacts.
+
+$\bullet$ Post-filtering texture enrichment to introduce new arbitrary fine details.
+
+\subsubsection{Cross-filtering with original image}\label{Cross-filtering with original image}
+Large-scale upsampling will introduce a thick band of blurry pixels along sharp edges. Sampling mask data from these pixels will reduce the edge-sharpening effect of bilateral roundup filtering. Therefore, to avoid these blurry interpolated pixels, we explored the approach of sampling mask data on the original image rather than the upsampled image. Figure~\ref{fig:BrndupCrossFiltering} shows this pipeline.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=1.0\textwidth]{crossfilteringwithinput.pdf}
+\caption{Pipeline of bilateral round up filtering with original image.}
+\label {fig:BrndupCrossFiltering}
+\end{figure}
+
+The cross-filtering process is as follows. In order to calculate the mask on original image, for each upsampled pixel, we use the interpolated color as mask center\textquotesingle s color. We then use the interpolated pixel\textquotesingle s fractional position on the original image plane as mask center coordinates. Finally, we apply bilateral roundup filter on the original image and use that output as upsampled pixel\textquotesingle s color.
+
+This approach has two advantages. First, the mask only samples pixels from the original image. The smooth, interpolated neighboring pixels do not exist on the original image, thus they will not be included in the mask, which helps the filter preserve sharp edges. Furthermore, compared to the upsampled image plane, the original image is much smaller. Therefore, growing masks on the original image usually requires a significantly smaller mask size, which greatly reduced the calculation size.
+
+Figure~\ref{compBRupOnOrig} demonstrates the improvement of cross-filtering with original image. Note that the silhouette of the tree trunk is better preserved. However, the edge sharpness is not consistent along the whole silhouette. Certain segments of the edge are still blurry.
+
+\begin{figure}\centering
+\includegraphics[width=1.0\textwidth]{f8}
+\caption{The improvement from cross-filtering with original image. Left: bilateral roundup on the bicubic upsampled image. Right: bilateral roundup on the original image. Note the inconsistent sharpness along the silhouette. Circled regions are less sharp.}
+\label{compBRupOnOrig}
+\end{figure}
+
+\subsubsection{Multi-pass bilateral roundup filtering }\label{sec:multipass}
+As observed in Figure~\ref{compBRupOnOrig}, the edge sharpness is not consistent along the whole silhouette. Certain segments of the edge can be further sharpened. Therefore, we recommend running several  passes of bilateral roundup filtering on the previous results. The approach is simple: first use interpolated color and fractional position to filter the upsampled image (as described at Section~\ref{Cross-filtering with original image}); then iteratively apply bilateral roundup filtering (as described at Section~\ref{Bilateral roundup filtering}) on previous passes\textquotesingle ~results. Figure~\ref{fig:multi-pass pipeline} shows the pipeline of this process.
+
+\begin{figure}[htbp]
+\includegraphics[width=1.0\textwidth]{multipass.pdf}
+\caption{Pipeline of bilateral roundup filtering multi-passes. }
+\label{fig:multi-pass pipeline}
+\end{figure}
+
+More passes generate images that are more abstract: sharper edges, and less small-scale details.  Figure~\ref{fig:multipass} shows results ranging from 0 passes to 3 passes. We think the 2nd-pass result is the best among them. Its edges are significantly sharper than 1st pass, and the background (forest) is not as destroyed as the 3rd pass. It has a good balance between sharpening edges and preserving texture. Figure~\ref{fig:2ndPassResult} shows another 2nd-pass result. We observe strong edges on boundaries of the picnic table, and the medium-scale textures on grass are preserved. Also, note that in the 3rd-pass result in Figure~\ref{fig:multipass}, some edges are a bit jagged from being over-sharpened. Therefore, we do not recommend running too many passes of bilateral roundup filter, unless the requirement of abstraction or sharpness is paramount. 
+
+\begin{figure}[htbp]
+\includegraphics[width=1.0\textwidth]{f10}
+\caption{Multiple-passes results. From left to right: 0-pass, 1st-pass, 2nd-pass, 3rd-pass. More passes of this filter will keep sharpening the edges and eliminating small scale details. }
+\label{fig:multipass}
+\end{figure}
+
+\begin{figure}[htbp]
+\includegraphics[width=1.0\textwidth]{f11}
+\caption{A 2nd-pass result. Edges are well sharpened while the fine details are not overly removed.}
+\label{fig:2ndPassResult}
+\end{figure}
+
+\subsubsection{Pre-filtering the original image}
+
+
+The process of cross-filtering with the original image suffers from low quality input. If the original image is smooth, has jagged edges, or suffers from jpeg artifacts, we cannot expect the upsampled images to be sharp and appealing. Thus, we recommend pre-sharpening the original image. We apply bilateral roundup filtering on the original image using a relatively small mask size (in the range of 5-7 pixels). This process will sharpen the original image a bit before upsampling. Though not obvious on most images, this extra step improves the results of low-quality input images, by removing jpeg artifacts, and pre-sharpen blurry edges. Figure~\ref{fig:prefiltering} shows the pipeline of this process. As shown in Figure~\ref{fig:pre-filteringResult}, certain edges (marked by the red box) are slightly better constructed by pre-filtering the original image.
+
+\begin{figure}[htbp]
+\includegraphics[width=1.0\textwidth]{prefilter.pdf}
+\caption{Pre-filtering pipeline.}
+\label{fig:prefiltering}
+\end{figure}
+
+\begin{figure}[htbp]
+\includegraphics[width=1.0\textwidth]{f13}
+\caption{Pre-filtering original image improves poor edges.}
+\label{fig:pre-filteringResult}
+\end{figure}
+
+
+
+\subsubsection{Post-filtering texture enrichment}
+
+The upsampling process, cumulative range geodesic filtering and multiple passes of bilateral roundup filtering all reduce the high-frequency, fine details. Even though the results look clean and sharp, we often find the large smooth areas (like the sky) boring, and the areas that are expected to be textured (like grass or sand) are not textured enough. Since our goal is also to produce upsampled images with some high-frequency details, here we present a process for introducing arbitrary fine detail to the sharpened images. Note that we do not intend to introduce textures that match the textures from the input. To find matching textures we would need the following: first, understand the texture from the input, which is often difficult without human involvement; second, maintaining a huge texture database to satisfy different input images. In the future, we may explore the possibility of using example-based techniques to recover matching textures from the input. However, at the moment, we only propose this naive approach that adds some arbitrary high-frequency detail.
+
+\begin{figure}[htbp]
+\includegraphics[width=1.0\textwidth]{textureenrich.pdf}
+\caption{Post-filtering texture enrichment pipeline.}
+\label{fig:textureEnrich}
+\end{figure}
+
+Figure~\ref{fig:textureEnrich} shows the pipeline of this post-filtering texture enrichment process. First we gather several high-frequency texture images from online image databases, using keywords like grass, gravel, hair, hay, fur, paper, or cement. Then based on the selected textures and the input pixel intensity, we calculate the resulting intensity change as follows.
+
+
+We use $\Delta I(\vec{x})$ to denote the resulting intensity change of a pixel located at $\vec{x}$ in the image plane. It is a weighted sum of the $m$ input textures, calculated using Equation~\eqref{eq:textureEnrich}
+
+\begin{equation}\label{eq:textureEnrich}
+\Delta I(\vec{x}) =    \displaystyle\sum_{i=1}^{m} (T_i(\vec{x})  \times \frac{\varphi_i(\vec{x})}{\displaystyle\sum_{i=1}^{m}\varphi_i(\vec{x})}) \text{ ,}
+\end{equation}
+
+where $i$ denotes the label of a texture, ranging from 1 to $m$. In our experimental results, we use 5 input textures, i.e., $m=5$. The value $T_i(\vec{x})$ denotes the $i$th texture\textquotesingle s texture value at location $\vec{x}$. For the pixel at $\vec{x}$, the contribution of each input texture, $\varphi_i(\vec{x})$, is seperately calculated using Equation~\eqref{eq:textureEnrichWeight }, then normalized by the sum of contributions from all $m$ textures.
+
+\begin{equation}\label{eq:textureEnrichWeight }
+\varphi_i(\vec{x})=   
+\begin{cases}
+    1 - \frac{|L_i - I(\vec{x})|}{R(m)}       & \quad \text{if } |L_i - I(\vec{x})|<R(m)\\
+    0                                                         & \quad \text{if } |L_i - I(\vec{x})|>R(m)\\
+  \end{cases} \text{ ,}
+\end{equation}
+
+where $ I(\vec{x})$ denotes the intensity value of the pixel at $\vec{x}$. The value $L_i$ denotes the pre-defined intensity lookup value for the input textures, (in our example, i.e., 0, 64, 128, 192, and 255). The denominator, $R(m)$, represents the maximum \textit{range of effectiveness} of each texture in intensity domain. It is calculated using Equation~\eqref{range}:
+
+\begin{equation}\label{range}
+R(m) = \frac{256}{(m-1)} \times k \text{ ,}
+\end{equation}
+
+The idea is we divide the intensity domain (i.e., from 0 to 255) into~$(m-1)$ segments, and each input texture would influence a range with a radius of $k$ segments. The following experimental results are obtained using 5 input textures with $k=2$. 
+
+Overall, the closer a pixel\textquotesingle s intensity is to a texture\textquotesingle s lookup intensity, $L_i$, the higher this $i$th texture contributes to $\Delta I(\vec{x})$. The weighted combination of all the textures, $\Delta I(\vec{x})$, signals how much the intensity of a pixel should increase or decrease. This increase or decrease is applied to all three channels of the pixel color. Figure~\ref{fig:textureDistribution} demonstrates an example texture distribution scheme with 5 input textures and each texture covers an intensity range of $\pm 128$. 
+
+
+\begin{figure}[htbp]
+\includegraphics[width=1.0\textwidth]{texturedistrib.pdf}
+\caption{The texture distribution scheme. Note that the order of textures appearing on this illustration is for demonstration. The actual textures are ordered randomly.}
+\label{fig:textureDistribution}
+\end{figure}
+
+
+There are two reasons why we distribute the textures this way. First, we want different-colored regions to adopt different textures. For instance, the added texture on the background sky should be different from the foreground table. The varied texture will help exaggerate edges, which makes the results look sharper. Second, we want same-colored regions to adopt similar textures. Therefore, within one object, there will exist a consistency of texture.  For instance, there should not exist huge variation of textures on a blue sky background.
+
+Figure~\ref{fig:textureEnrichBestResult} shows one result stylized by texture enrichment. The table boundary remains sharp, while some textures are added to the table sides. The texture resembles paint brushes or the typical drying marks when paintings age. The texture of the grass ground and the forest-covered mountain are also improved. Overall, this texture enrichment process adds flavor and a stylized look to the upsampled image.
+
+\begin{figure}[htbp]
+\includegraphics[width=1.0\textwidth]{f16}
+\caption{Adding multiple textures to upsampled image.}
+\label{fig:textureEnrichBestResult}
+\end{figure}
+
+\section{Notes towards Mask Data Processing}\label{notes}
+
+As discussed in Section~\ref{sectionIntroduction}, image filtering usually involves both gathering and processing pixel neighbourhood data. The filters described in previous sections focus heavily on data gathering, that is, we collect pixel neighbourhood information via irregular-shaped masks. Unfortunately, the way we process the mask data (averaging pixel colors) has been rather primitive. 
+
+In this section, we discuss our attempts towards mask data analysis and processing. We present our idea of penalizing the smoothly interpolated samples along edges during mask growth or mask output calculation. Having the smoothly interpolated pixels removed or penalized, we hope that the edges can be better reconstructed. Even though the idea has several limitations, we believe it is worthwhile to note down our discoveries. We hope it will be a starting point for future research on this topic.
+
+\subsubsection{Edge Penalization}
+
+As we upsample an image by a large scale (e.g. 10 times), a sharp edge will become a band of smoothly interpolated pixels. When we sample these pixels, the mask is likely to grow along this band, due to their similarity in color and the closeness in Euclidean distance. If we average the pixel colors of this mask, the result would be as blurry as bicubic upsampling. Figure~\ref{fig:problematicMasks} demonstrates this problem. 
+
+\begin{figure}[htbp]\centering
+\includegraphics{f17}
+\includegraphics{f18}
+\caption{Problematic masks along interpolated edges. Left: Cumulative range geodesic. Right: Bilateral roundup. Note that the cluster of disconnected pixels must have very similar color as the mask center.}
+\label{fig:problematicMasks}
+\end{figure}
+
+In previous sections, we tried to address this problem by sampling pixels on the original image, which avoids using the interpolated colors totally. Here we approach the problem differently. Since the problematic region lies along object boundaries, we can use edge detection filters to identify pixels along object boundaries, then penalize or remove these pixels either during mask growth or mask data processing. Figure~\ref{fig:edgePenalize} demonstrates our edge penalizing idea. Ideally, we would be able to identify the edges, avoid using the pixels along the edge, and most importantly, the remainder of the mask data would all fall into one side of the edge (either all in black or all in white in Figure~\ref{fig:edgePenalize}).
+
+\begin{figure}[htbp]\centering
+\includegraphics{EdgePenalizeIdea.pdf}
+\caption{By removing pixels fall in the detected edge region, we are able sample mask data better.}
+\label{fig:edgePenalize}
+\end{figure}
+
+We modify bilateral roundup filter\textquotesingle s weight function, Equation~\eqref{brndupEquation}, to Equation~\eqref{edgePenalizeWeightFunction}.
+
+\begin{equation}\label {edgePenalizeWeightFunction}
+W = \alpha \times |I(p)-I(c)|  + |X(p)-X(c)| + \gamma \times G(p) \text{ ,}
+\end{equation}
+
+We add an extra edge penalizing term: $\gamma \times G(p)$, where $G(p)$ denotes the gradient magnitude of pixel $p$, which is calculated using a Sobel operator~\cite[p.~271-273]{Sobel} (Further described in Section~\ref{sec:edgedetect}). The edge penalizing term greatly increases the weight of blurry interpolated pixels on sharp edges, so they are less likely to be included in the output mask, thus the edge sharpness would remain. The parameter $\gamma$ scales the edge penalizing term. Figure~\ref{fig:effectOfEdgePenalizing} shows the effect of this edge penalizing variation. As we may notice, with the edge-penalizing term, the tree boundary is slightly sharper. 
+
+\begin{figure}[htbp]\centering
+\includegraphics{f21}
+\includegraphics{f22}
+\caption{The effect of edge penalizing. Left: bilateral roundup filter. Right: bilateral roundup filter with edge penalizing term. The marked region is slightly sharper.}
+\label{fig:effectOfEdgePenalizing}
+\end{figure}
+
+However, this edge-penalizing approach sometimes fails. For instance, as shown in Figure~\ref{fig:edgePenalizeProblem1}, if the mask is large enough to cover both sides of the edge, despite penalizing the interpolated edge pixels, the remainder does not have one dominant color. Also, as shown in Figure~\ref{fig:edgePenalizeProblem2}, for long thin features, such as a hair, penalizing the edge may result in excluding all the pixels on the hair, which eventually will eliminate the hair feature. 
+
+\begin{figure}[htbp]\centering
+\includegraphics{Nodominant.pdf}
+\caption{With masks that covers both sides of an edge, penalizing just the edge pixels would result in a mask that still does not have a dominant color.}
+\label{fig:edgePenalizeProblem1}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics{DetailMissing.pdf}
+\caption{If the mask covers both sides and a thin feature itself, penalizing the edge means penalize the thin feature, which will result in losing the thin feature.}
+\label{fig:edgePenalizeProblem2}
+\end{figure}
+
+Overall, in most cases, edge penalizing would locally solve the problem. But we were unable to create a scheme or find out a set of parameters that universally applies. Figure~\ref{fig:edgePenalizeResult} shows one result of the edge penalizing approach. Certain edges, such as the silhouette of the wing, are well preserved. However, some long, thin features, such as the front legs, disappeared. Nevertheless, we think the idea of identifying edges and treat pixels along the edge differently is worth investigating. In a more general sense, the idea of identifying special cases (such as edges, textures, and smooth areas) and treating those areas differently is worth investigating. 
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.17\textwidth]{dragonflyOrig}
+\includegraphics[width=0.51\textwidth]{dragonflyEdgePenal}
+\includegraphics{dragonflywing}
+\includegraphics{dragonflyleg}
+\caption{Edge penalize result. Dragonfly, 3 times upsampled. Top left: input at reduced resolution. Top right: full result image at reduced resolution. Bottom left: silhouette of the wing is well preserved. Bottom right: Thin features such as the legs are destroyed. }
+\label{fig:edgePenalizeResult}
+\end{figure}
+
+
+\section{Results}\label{sec:FilterResult}
+
+
+Figure~\ref{fig:geoTree} to~\ref{fig:geoSedona} show results of cumulative range geodesic filtering. The filter excels at edge sharpening. Figure~\ref{fig:geoTree} shows how well the edges are preserved. The edge of the tree trunk and leaves are as clear-cut as the original input. Moreover, middle-scale, irregular structures and shapes (e.g. the rock surface in Figure~\ref{fig:geoPicnic}, the water surface in Figure~\ref{fig:geoRoughWater}) are also reconstructed. Overall the filter brings an abstract look to the upsample images. This effect resembles hand-drawn paintings. However, this filter has the significant drawback of being unable to preserve fine-scale details. Figure~\ref{fig:geoSedona} shows that the high-frequency textures on the brick surface are removed. We can argue that overall this approach generates abstract upsampled images, which naturally look non-photorealistic and somewhat arty. But over-reducing details makes certain areas of the image look boring, dull or counter-intuitive (such as the smooth surface of rocks or bricks). 
+
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.75\textwidth]{f25}
+\caption{Left: input at reduced resolution. Top row: Bicubic upsampled. Bottom row: Cumulative Ranged Geodesic. Sharp edges are better constructed.}
+\label{fig:geoTree}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.75\textwidth]{f26}
+\caption{Left: input at reduced resolution. Top: Bicubic upsampled. Bottom: Cumulative Ranged Geodesic. Middle-scale irregular structures are preserved.}
+\label{fig:geoPicnic}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.75\textwidth]{f27}
+\caption{Left: input at reduced resolution. Top: Bicubic upsampled. Bottom: Cumulative Ranged Geodesic. Middle-scale structures are preserved.}
+\label{fig:geoRoughWater}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=0.75\textwidth]{f28}
+\caption{Left: input at reduced resolution. Top: Bicubic upsampled. Bottom: Cumulative Ranged Geodesic. Fine textures of the bricks are lost.}
+\label{fig:geoSedona}
+\end{figure}
+
+Figure~\ref{fig:2ndpassDragonfly} shows a 2nd-pass, 3-times upsampled result for the dragonfly image. It is achieved by following the pipeline described in Section~\ref{sec:multipass}. Overall the image looks sharp and abstract. The silhouette of the dragonfly is well preserved. But there are many defects in the image. Thin features such as the front legs are quite damaged. Certain regions with smooth intensity transitions, such as the head, are quantized to a few hasty transitions. Also, there are aliasing effects along some edges. Though we are not satisfied with these artifacts, we think our texture enrichment process can alleviate some of these problems.
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=1\textwidth]{f29}\vspace{1.1mm}
+\includegraphics[width=1\textwidth]{f30}
+\caption{Dragonfly: 3-times upsampled. Top: Bicubic upsampled. Bottom: proposed multi-pass approach.}
+\label{fig:2ndpassDragonfly}
+\end{figure}
+
+Figure~\ref{fig:textureCompwithBicubic} shows our texture enrichment result, accompanied by the same texture applied to a bicubic upsampled image. We observe that the enrichment process significantly increased the amount of fine details. The quantization defect from over-sharpening is almost cured. The aliasing effect is also largely alleviated. The problem on thin features still exists, but that is destroyed by filtering process not the texture enrichment. Comparing with the result of adding textures to bicubic upsampled image, we have a significant advantage on edge sharpening. It is especially obvious along object silhouettes, such as the dragonfly wings. Also, the bicubic upsampled result looks very noisy. Our result is less noisy because the multiple filtering passes already removed all fine details. Thus, the amount of extra fine details that is ideal for us, would be excessive for bicubic upsampling. 
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=1\textwidth]{f31}\vspace{1.1mm}
+\includegraphics[width=1\textwidth]{f32}
+\caption{Texture Enrichment result. Dragonfly: 3-times upsampled. Top: Bicubic upsampled. Bottom: proposed multi-pass upsampled. Same amount of texture added to both images.}
+\label{fig:textureCompwithBicubic}
+\end{figure}
+
+Figure~\ref{fig:textureVaried} shows the result of varying the textures input and their respective strength. Different combinations and choices of textures may bring very different looks to the results, which demonstrates the versatility of our approach, even though hand-picking and tuning the input textures is a bit laborious. Figure~\ref{fig:textureExtreme} demonstrates one result that scaled up all the added textures to 10 times as shown in other results. It is not appealing because the added detail is so strong that it destroyed the shapes and intensities of the input image. 
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=1\textwidth]{f32}\vspace{1.1mm}
+\includegraphics[width=1\textwidth]{f33}
+\caption{The result of varying texture input. Top: cement, plate, grass, gravel, towel. Bottom: hair, hay, fur, canvas, paint. }
+\label{fig:textureVaried}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=1\textwidth]{f36}\vspace{1.1mm}
+\includegraphics[width=1\textwidth]{f34}
+\caption{Extremely strong texture added. Top: proposed texture enrichment approach. Bottom: 10 times the same texture applied. }
+\label{fig:textureExtreme}
+\end{figure}
+
+We observed some similarities between our bilateral roundup filter and median filter. Figure~\ref{compwithMedian} shows a comparison between the two filters. Both filters, to some degree, sharpen edges and reduce noises, with resulting images both exhibit an abstract look. However, even though both filters remove fine details, bilateral roundup damages fine details less. The white paint along the rim of the table, and the varied colors of the foreground grass are much better preserved by bilateral roundup filter. In the context of upsampling, we find our bilateral roundup solution already destroys a lot of fine details. Median filtering, which removes even more fine details, would definitely be excessive. 
+
+\begin{figure}[htbp]\centering
+\includegraphics[width=1\textwidth]{picTable_4.png}\vspace{1.1mm}
+\includegraphics[width=1\textwidth]{orig_hsv_median_5x5.png}
+\caption{Comparison between bilateral roundup filter and median filter. Top: bilateral roundup. Bottom: median filter with a 5x5 mask. }
+\label{compwithMedian}
+\end{figure}
+
+\section{Conclusion}\label{sec:conclusion}
+
+In this chapter, we presented a new perspective towards image upsampling. We believe by relaxing the faithfulness to input and aiming for stylized looks, we can simplify the problem yet still produce aesthetically pleasing results. 
+
+We proposed filtering-based processes to produce sharp, stylized super-resolution images. Both cumulative range geodesic filtering, bilateral roundup filtering and their variations have edge-preserving features. Cumulative range geodesic filtering gives strong edge-preserving effect, while sacrificing small-scale details. Applying multiple passes of bilateral roundup filtering has a good balance between preserving large-scale and small-scale features, but the processes are about 8 to 10 times slower. We also recommended a final touch to the upsampled images: texture enrichment. With the help from other texture images, this last step adds fine details that are removed by previous filtering processes. It makes the results look more stylized and interesting.
+
+Both cumulative range geodesic filter and bilateral filter take the average of mask pixels as output. We find that rather naive and primitive. We hope that a better analysis of mask data will help us design more sophisticated schemes on mask data processing. We investigated the idea of differentiating special regions (such as the edge) from other regions. We hope that with the information of these regions, we can design smarter ways of sampling mask data, or calculating mask output.
+
+Our current experimental results are based on upsampling scales from 3 to 6. As the scale of upsampling increases, the memory requirement and computation time will become very demanding. One focus in the future would be optimizing the implementation and accelerating the computations. Thus we can carry out the experiments more efficiently. We should also explore the possibility of bringing in other styles to upsampled images. It will be nice to have a variety of styles for the users to choose.
+
+

@@ -1,0 +1,288 @@
+\chapter{Pixel Migration}\label{chap:migration}
+
+
+
+\section{Introduction}\label{PM:intro}
+The last chapter described filtering-based solutions to image upsampling, which aim to produce stylized high-resolution images. In this chapter, we simplify the image upsampling problem from a different angle: we focus more on sharp edge preservation and relax our expectation on the quality of textured areas. We present one fast and effective approach to produce sharp upsampled images.  
+
+Figure~\ref{fig:reexamineUpsampling} shows the “treebark” image that is 6-times upsampled using bicubic upsampling. Overall the image looks blurry. Thus, we proposed filtering-based approaches that apply to \textit{all} the pixels, such that all the areas of an image is equally filtered and sharpened. 
+
+This time, we want to examine different areas of the image and approach them differently. First we look at the silhouette of the tree trunk. It is the sharpest edge of the input image, and it exhibits a large intensity jump (from white to dark gray). This jump is destroyed by the interpolation and has become a series of slow, smooth intensity changes (from white to light gray, to gray, then to dark gray). Losing the intensity “jumps” means losing salient features (i.e. sharp edges and object boundaries), which contributes a huge image quality loss. On the other hand, when we observe the textured areas of the input, such as the tree bark, we no longer see huge intensity jumps. Instead, we find many small but frequent intensity changes. These intensity changes may be strong locally, but for the whole textured area, they are smaller and less noticeable than the silhouette. Obviously these small intensity changes are smoothed out by upsampling as well. However, compared to losing sharp edges, the quality loss on textured areas are less severe, and we want to argue that this type of quality loss is somewhat acceptable. 
+
+\begin{figure}[htbp]\centering
+\includegraphics{imagesPM/f2.png}\vspace{1.1mm}
+\includegraphics{imagesPM/f1.png}
+\caption{6-times bicubic upsampled. Red: Sharp edges are terribly destroyed. Yellow: Textured areas are somewhat acceptable.}
+\label{fig:reexamineUpsampling}
+\end{figure}
+
+Silhouettes or sharp edges are usually formed by two rows of differently colored pixels, with one row on one side of the edge, and the other row on the other side. We can detect the location and orientation of an edge using edge-detection operators, such as Sobel operator~\cite[p.~271-273]{Sobel}. We can also quantify the edge-crossing intensity change using the gradient magnitude value. Thus, we think it is relatively easy to understand and describe sharp edges of the input image. On the other hand, textures are more complicated. Texture emerges from the behavior of an area of pixels. The frequency, magnitude, orientation and pattern of how pixels change in an area contribute to a texture. Though we can measure the texture intensity using textureness map proposed by Bae et al.~\cite{Bae:2006}, the pattern changes are difficult to understand and describe. Therefore, compared to textured areas, sharp edges are easier to detect and quantify. Thus, from a reconstruction standpoint, because we understand sharp edges better, we believe we can recover sharp edges better.
+
+This chapter presents our \textit{Pixel Migration} solution to image upsampling, which is briefly demonstrated in Figure~\ref{fig:pixelMigrationDemo}. Pixel migration refers to moving sample pixels on the image plane, so that the distribution of pixels is no longer even. From the input image, we want to identify pixels along sharp edges; and on the upsampled image plane, we want to move these pixels close to each other, such that the gaps along sharp edges are closed. Sharp edges are identified and quantified by applying various edge-detection filters; pixel relocation is achieved by a mass-spring physics simulation. 
+
+\begin{figure}[htbp]\centering
+\includegraphics{imagesPM/f3.png}
+\caption{The difference between common interpolation and the proposed method. Top row: common interpolation. Bottow row: proposed method.}
+\label{fig:pixelMigrationDemo}
+\end{figure}
+
+We make three major contributions in this chapter:
+
+$\bullet$ We propose another perspective to image upsampling problem. We encourage designing algorithms that emphasis on edge sharpness preservation (which is easier but more important), while relaxing the expectation on textured areas (which is difficult but less important).
+
+$\bullet$ We propose the idea of pixel migration. In the context of image upsampling, we want pixels along sharp edges to migrate closer to each other, while other regions remain unchanged. 
+
+$\bullet$ We present a mass-spring implementation of pixel migration. The mass-spring implementation produces large-scale upsampled images with sharp edges that are comparable to other state-of-the-art approaches. 
+
+The following sections are organized as follows. Section~\ref{PM:algo} describes in detail how we implemented the proposed approach. Section~\ref{PM:result} demonstrates and discusses various results achieved by the mass-spring implementation. We conclude the chapter in the last section with comments and directions for future research.
+
+\section{Algorithm}\label{PM:algo}
+This section describes the implementation details of the proposed algorithm, including the pipeline of our processes, the edge-detection operators, the implementation of mass-spring system, and how we vary the spring parameters to achieve pixel migration.
+\subsection{Pipeline}
+
+\begin{figure}[htbp]\centering
+\includegraphics{imagesPM/migrationPipeline.pdf}
+\caption{Pipeline. Left: The proposed pipeline. Right: A simple example that helps demonstrate the processes of each stage.}
+\label{fig:PMpipeline}
+\end{figure}
+
+Figure~\ref{fig:PMpipeline} demonstrates the proposed pipeline. Given an input image, we first use edge-detection filters to extract edge information. We then create our upsampled image plane and evenly distribute the input pixel samples. Next, based on the edge information, we migrate the pixel samples in the sense that neighbouring pixels with higher gradient tend to move closer to each other; and the orientations of neighbouring pixels tend to follow the edge orientations. We iterate this process until the forces within the mass-spring system are stabilized, then we barycentrically interpolate the deformed pixel lattice. 
+\subsection{Edge Detection}\label{sec:edgedetect}
+
+Edges are locations in an image at which the color intensity changes sharply. In the following discussion, we use the notion of \textit{standalone edge} to describe large-scale continuous edges, which are observed along object silhouettes. We focus less on high-frequency intensity changes, which are often observed on highly-textured areas. In the context of image upsampling, we believe it is easier and more important to identify and reconstruct standalone edges. We relax our expectation on recovering edges on high-frequency textures, because it is difficult and often the input does not have enough information for perfect reconstruction.
+
+At the early stage of this research, we assumed the color intensity difference between two neighbouring pixels is enough information for standalone edge detection. The rationale was simple: if there exist a large intensity jump between two neighbouring pixels, there must exist a standalone edge. It seemed reasonable, especially considering that we use a mass-spring system that every pair of neighbouring pixels are connected by a spring. Unfortunately, we met two significant drawbacks. First, noisy areas, such as high-frequency textures, may contain strong local intensity changes too. Pixel pairs located in these areas may all have quite drastic intensity jumps, thus they will tend to move closer to each other. This will cause higher-frequency textured areas to shrink, and nearby lower-frequency textured areas to expand to compensate. Thus, a visible difference of texture will appear, or worse, an edge that did not exist in the input will appear. Another pitfall is that we did not consider the orientation of edges. The color intensity difference between a pair of pixels can only help us decide how much spring force we apply to the pixels, but it will not tell us how to orient the relative position between the two, so that they would align with the edge orientation. 
+
+Our goal is to shrink the springs along standalone edges and let other springs expand to compensate. Our observation is: if a spring crosses a standalone edge, then it will probably have one of the top gradient magnitudes around its neighbourhood. Thus, by identifying the locally highest gradient magnitudes, we can estimate the location of sharp edges. 
+
+For an input image $A$, its gradient magnitude is calculated using the Sobel operator~\cite[p.~271-273]{Sobel} following Equation~\eqref{sobelX} to~\eqref{sobelGM}.
+
+\begin{equation}\label{sobelX}
+G_x = \begin{bmatrix}
+       -1 & 0 & 1           \\
+       -2 & 0 & 2 \\
+       -1 & 0 & 1    
+     \end{bmatrix}  \text{ * } A \text{ ,}
+\end{equation}
+
+\begin{equation}\label{sobelY}
+G_y = \begin{bmatrix}
+       -1 & -2 & -1           \\
+       0 & 0 & 0 \\
+       1 & 2 & 1    
+     \end{bmatrix}  \text{ * } A  \text{ ,}
+\end{equation}
+
+where * denotes the 2D convolution operation. The gradient magnitude $M$ is then calculated using Equation~\eqref{sobelGM}:
+
+\begin{equation}\label{sobelGM}
+M = \sqrt{|G_x|^2+|G_y|^2} 
+\end{equation}
+
+
+We consider $M$ to be a gradient magnitude field, from where we can query gradient magnitude of individual pixel or spring located at $\vec{x}$. 
+
+The local edge orientation is perpendicular to the local gradient direction. Therefore, to address the edge orientation problem, we want to measure the local gradient directions and orient the springs accordingly. A unit vector $\hat{G}(\vec{x})$ denotes the gradient direction of a spring located at $\vec{x}$, which is calculated as the normalized sum of $G_x(\vec{x})$ and $G_y(\vec{x})$. We introduced an angular force that orients a spring, so that it is perpendicular to the gradient direction $\hat{G}(\vec{x})$. Section~\ref{subsec:angular} describes how we use $\hat{G}(\vec{x})$ to adjust spring orientations.
+
+
+\subsection{Mass-spring System}\label{algo:massspring}
+\subsubsection{Initialization}
+We assume on the original image plane with $n$ input pixels, the default spacing between adjacent pixels is $1$ unit. Thus, for an upsampling scale of $U$, the upsampled image plane should have the size of $U^2n$ pixels, with default pixel spacing of $U$ units. We initialize the pixel locations with this same spacing and connect each pixel and their four adjacent neighbours with springs. Figure~\ref{fig:M-Sidea} demonstrates how pixels are connected in the mass-spring system.
+
+\begin{figure}[htbp]\centering
+\includegraphics{imagesPM/f13.png}
+\caption{Mass-spring system. Each pixel is connected to its neighbours with a spring.}
+\label{fig:M-Sidea}
+\end{figure}
+
+\subsubsection{Spring variable assignment}\label{subsec:springAssignment}
+Traditionally, spring force is calculated using Hooke\textquotesingle s law~\eqref{hookslaw}:
+\begin{equation}\label {hookslaw}
+F = k \times \Delta x \text{ ,}
+\end{equation} 
+where $\Delta x$ denotes how much the ends of the spring are displaced from the relaxed position (also known as rest length); and $k$ denotes the strength coefficient of the spring. 
+
+For an arbitrary spring $s$, the value $L(s)$ denotes the current spring length. We use $T(s)$ to represent the rest length (or the target length) of spring $s$. Therefore, the value $\Delta x = L(s) - T(s)$.  We control the spring forces by varying their rest lengths $T(s)$ and their spring coefficient $k$. The mass-spring similation iteratively re-calculates and updates the current spring length $L(s)$.
+
+Our goal is to shrink the springs along standalone edges and let other springs expand to compensate. Thus, we need to distinguish the springs appear on standalone edges or textured areas. Our observation is as follows. If a spring crosses a standalone edge, then it will probably have one of the top gradient magnitudes around its neighbourhood. We should give such springs the minimum rest length, and the strongest strength coefficient, so that they can shrink drastically. If a spring resides in a smooth area, it will probably have a gradient magnitude that is below average of the neighbourhood. We should assign such springs default rest length, and a much weaker spring coefficient, so that they can expand freely. For springs that are on neither standalone edges nor smooth areas, they may be on textured areas or on locally less-significant edges. We want to sharpen these features, but not as much as the standalone edges. Therefore, we linearly interpolate their rest lengths based on their ranking, and use the same spring coefficient as the springs on sharp edges. 
+
+We introduce a ranking system that compares the gradient magnitude $M(s)$ of spring $s$ with the gradient magnitudes of other springs in a $5\times 5$ neighbourhood. Based on the ranking of $s$, denoted as $R(s)$, we assign its rest length and spring coefficient. The assignment scheme is displayed in Table~\ref{table:1}.
+ 
+\begin{table}[h!]
+\centering
+\begin{tabular}{ | l | l | l |} 
+\hline Ranking: R(s) & Rest length: T(s) &  Strength Coefficient: k  \\ 
+\hline $R(s)<R_{\rm top}$ & $T_{\rm min}$ & $K$ \\ 
+\hline $R_{\rm top}<R(s)<R_{\rm mid}$ & $T_{\rm min} + (U-T_{\rm min})\times(\frac{R(s)-R_{\rm top}}{R_{\rm mid}-R_{\rm top}})$ & $K$ \\ 
+\hline $R_{\rm mid}<R(s)$ & $U$ & $K_{\rm weak}$ \\ \hline 
+\end{tabular} 
+\caption{Spring rest length and strength coefficient assignment.}
+\label{table:1}
+\end{table}
+
+The constant $R_{\rm top}$ and $R_{\rm mid}$ denote the ranking thresholds. We consider springs with higher ranking than $R_{\rm top}$ the standalone edge-crossing springs; and springs with lower ranking than $R_{\rm mid}$ the smooth-area springs. The shortest rest length, denoted as $T_{\rm min}$ is assigned to the standalone edge-crossing springs; whereas the default spacing $U$ is assigned to smooth-area springs, accompanied by weak spring coefficients, denoted as $K_{\rm weak}$. For springs with ranking between $R_{\rm top}$ and $R_{\rm mid}$, we linearly interpolate their rest lengths between $T_{\rm min}$ and $U$, based on their ranking.
+
+For our implementation, we empirically choose our parameters as follows: $R_{\rm top} = 0.2$, $R_{\rm mid} = 0.5$, $T_{\rm min} = 0.1$, $K = 1$, $K_{\rm weak} = 0.3$. We observe that increasing $R_{\rm top}$ will produce sharper but more distorted results. A reasonable range for $R_{\rm top}$ would be between 0.2 to 0.3. We recommend choosing $T_{\rm min}$ to be much smaller than the upsampling scale $U$, so that the two end pixels of an edge-crossing spring will move close to each other. Ideally, at the end of the simulation, they would be so close that they overlap. We empirically set $T_{\rm min} = 0.1$. Depends on the metrics and implementation of forces and distances, default spring constant $K$ may vary. However, the relationship between $K$ and $K_{\rm weak}$ should remain similar to $K_{\rm weak} = 0.3K$.
+
+By combining Equation~\eqref {hookslaw} and the spring parameter assignment table: Table~\ref{table:1}, we calculate spring force using Equation~\eqref{springforce}:
+
+\begin{equation}\label{springforce}
+F(s) = 
+\begin{cases} 
+(L(s) - T_{\rm min}) \times K & \quad \text{if } R(s)<R_{\rm top} \\ 
+(L(s)- (T_{\rm min} + (U-T_{\rm min})\times(\frac{R(s)-R_{\rm top}}{R_{\rm mid}-R_{\rm top}})))\times{K} & \quad \text{if } R_{\rm top}<R(s)<R_{\rm mid}\\ 
+(L(s) - U) \times K_{\rm weak} & \quad \text{if } R_{\rm mid}<R(s)\\ 
+\end{cases} 
+\end{equation}
+
+\subsubsection{Angular springs}\label{subsec:angular}
+
+In order to reduce distortion along long, thin edges, we also want to orient the springs so that they are perpendicular to local gradient direction. Therefore, on top of the forces exerted by the connecting springs, we want to add angular forces to orient the pair of pixels. We use $\theta(s)$ to represent the current orientation of a spring $s$. We use $\theta(g)$ to represent the target edge orientation, which is perpendicular to $\hat{G}(\vec{x})$. The goal here is to adjust the current orientation $\theta(s)$ to match the target edge orientation $\theta(g)$. Figure~\ref{fig:angForce} shows how we apply the force.
+
+\begin{figure}[htbp]\centering
+\includegraphics{imagesPM/f12.png}
+\caption{Angular Force. Left: two adjacent pixels along an edge. Middle: Their current orientation. Right: The local gradient, which signals the target orientation. Red arrows show the force directions.}
+\label{fig:angForce}
+\end{figure}
+
+
+We apply angular forces to both ends of a spring, using Equation~\eqref{angForce}:
+ \begin{equation}\label{angForce}
+\hat{F_a(s)} = \hat{G}(\vec{x})  \times (\theta(g) - \theta(s)) \text{ ,}
+\end{equation}
+where unit vector $\hat{G}(\vec{x})$ gives the direction of the force. The angular force is scaled by the difference between current orientation $\theta(s)$ and the target orientation $\theta(g)$. Therefore, if there exists a huge difference between the two, the angular force will soon orient the springs to align with the edge direction. As shown in Figure~\ref{fig:angForce}, angular forces are applied to both end pixels of a spring. The sign of the force is the sign of $\theta(g) - \theta(s)$.
+
+Finally we combine the connecting-spring\textquotesingle s force (Equation~\ref{springforce}) and angular force (Equation~\ref{angForce}) together. We calculate one end pixel\textquotesingle s force using Equation~\eqref{combine}
+\begin{equation}\label{combine}
+F = F(s) + \alpha \times \hat{F_a(s)} \text{ ,}
+\end{equation}
+where $\alpha$ scales the angular force down. Note that angular forces need to be scaled to much lower than the connecting spring forces. The purpose of adding this angular spring term is to mildly adjust the orientation. Since it is also re-calculated and re-applied every iteration, frequently over-orient the springs will incorrectly jitter the pixel locations, which reduces the overall mass-spring system\textquotesingle s stability. In our implementation with a connecting-spring coefficient $K=1$, we empirically choose $\alpha = 0.1$.
+
+
+\subsubsection{Simulation and interpolation}\label{subsec:damp}
+
+We iteratively re-calculate and re-apply the forces within the system. For each pixel, the connecting-springs\textquotesingle ~forces and angular forces are combined. Acceleration is then calculated and pixel velocity is changed. We use the standard forward Euler integrator to calculate pixel\textquotesingle s displacement and location. To enforce stability, we introduce damping force using Equation\eqref{damp}. 
+\begin{equation}\label{damp}
+F_{damp} = -\mu \times v
+\end{equation}
+where $v$ denotes the velocity, and $\mu$ is the damping coefficient. In our implementation, we empirically choose $\mu = 1$ for strong springs and $\mu = 0.3$ for weak springs. 
+
+We terminate the system after 50 iterations, which is when the forces within the system are mostly balanced. Finally, given the deformed pixel lattice, we interpolate the unknown pixel values. We first triangulate each quadrilateral formed by 4 neighbouring pixels, then barycentrically interpolate each triangle. 
+
+The complexity of our proposed method is $qU^2n$ for $n$-pixels input with upsampling scale $U$ and $q$ iterations of mass-spring simulation. It’s extremely fast, because $q$ and $U^2$ are small constant values. Our non-optimized CPU implementation takes about 5 seconds for 8-times upsampling a quarter-megapixel image.
+
+
+
+\section{Results}\label{PM:result}
+
+\subsection{Pixel Migration results}
+
+Figure~\ref{fig:genDuck} to~\ref{fig:compOursFattal} demonstrate our results. We investigated the effect on images with varied subject matter and backgrounds, including portraits, still lifes, animals, plants, and cityscapes. 
+
+We achieved the goal of edge preservation. All of the results show strong sharp-edge preserving effect. Figure~\ref{fig:genDuck} and Figure~\ref{fig:compOursBicubic} show the comparison between bicubic upsampling and the proposed method. In the duck image, the silhouette of the eye and the white stripes are perfectly reconstructed. The boundary between differently textured regions is clear. Overall the sharpened image looks more colorful and vivid. In the dragonfly image, in addition to edge sharpening, the proposed process also removed the blocky texture exhibited along the lower rim of the tail and the chin. Figure~\ref{fig:compOursFattal} shows how much better we preserve sharp edges than another state-of-the-art upsampling approach by Fattal~\cite{FAT:EdgeStatistics}. Notice that for medium-sharp edges, such as the silhouette of the finger, we preserved the same level of sharpness as the input; Fattal\textquotesingle s approach cannot identify the silhouette, thus failed in its recovery.
+
+One advantage of our approach is that we can raise the upsampling scale and achieve the same degree of edge sharpness. This is achieved by setting the minimum spring rest length to 0.1 units. No matter the upsampling scale, the pixels along sharp edges are forced to remain about 0.1 units distance, which will cause them to cluster or overlap, thus reconstruct the same sharp edge as the input. Figure~\ref{fig:genDuck} shows how pixels are clustered along sharp edges. Note that other pixels from smooth regions are spread out to compensate the clustering. 
+
+
+Our approach is also effective in preserving middle-scale details. In Figure~\ref{fig:genHarvest}, we observe that middle-scale details, such as the surface and highlights on the corn, are very well preserved. In Figure~\ref{fig:genPlant}, the spikes look sharp and dangerous; the varied texture on the leaf surface is visible. Note that the tip of the leaf shown in the mid-right panel is distinguishable from the gravel background. This is achieved by retaining the same edge orientation as the input, which is enforced by including the angular spring forces. 
+
+
+The major disadvantage of our approach is the distortion. The distortion is especially noticeable along long, thin, or straight features, as shown in Figure~\ref{fig:genHarvest},~\ref{fig:compOursBicubic},~\ref{fig:compOursFattal}. Because our rest length assignment is based on gradient, minor gradient changes along long features will disturb the local rest length ranking process. Also, a long feature may stretch across several regions of different textures. Distortions will appear on the segments where severe texture changes happen. The distortion is also very noticeable when there exist small to middle scale features that have unique geometric shapes. For instance, upsampled circle-like features may not look as round as the input; sharp corners of polygons may become smooth and roundish; text symbols and letters may be heavily warped to a degree that they are no longer recognizable. That said, we are not so concerned about the warped text. Text is a difficult problem to start with, and we do not usually find a lot of fine-scale text on photographs anyway. We are capable of preserving middle-scale text. They will be distorted, but still recognizable, as shown in~\ref{fig:genHarvest}.
+
+Another disadvantage is the change in texture. We observe some texture change on low- to mid-frequency areas, as shown in Figure~\ref{fig:genBaby},~\ref{fig:compOursBicubic},~\ref{fig:compOursFattal}. In Figure~\ref{fig:genBaby}, the pupil geometry is not as round as the input. Some extra textures are introduced to the baby\textquotesingle s forehead. A slight quantization effect appears on the tip of the baby\textquotesingle s nose. In Figure~\ref{fig:genCity}, there exist an inconsistency in the shapes and sizes of the windows. A strong quantization and distortion effect covered the vehicles. We find some of these changes add flavor to the upsampled image, such as the distorted vehicles that exhibit an impressionism style. However, some of the changes are less appealing, such as the introduced texture to the baby\textquotesingle s forehead, since we expect the baby skin to be very smooth. We discovered that the change of texture is also caused by the gradient ranking system. For low-frequency areas, there usually do not exist any dominant gradients. Thus, additional edges may appear on the pixels that are incorrectly chosen to be the local maximum gradient. However, as described early in this chapter, our focus is on sharp edges rather than textured areas. We think the change of texture is somewhat tolerable. As shown in Figure~\ref{fig:genPlant}, the typical texture caused by our approach resembles the texture of gravel and rock surface, which made our approach a great choice for upsampling images containing a lot of rocks. 
+
+Figure~\ref{fig:compOursFattal} shows a comparison between Fattal\textquotesingle s and our work. At large-scale upsampling (e.g., 8 times), Fattal\textquotesingle s approach reconstructs relatively sharp edges, as shown on the rim of the can. However, our approach sharpens the feature better. Also, for edges that do not exhibit high sharpness from the input, such as the finger, Fattal\textquotesingle s approach smoothed out the object boundary, whereas we reconstructed the same level of edge sharpness. One significant disadvantage of ours is the distortion, which is quite obvious on the area with text. Though the edges of the text are sharp, the distortion almost rendered the text unreadable. 
+
+Overall, our proposed method succeeds in sharp edge and medium-scale detail preservation. The results look sharp, colorful, and vivid. However, uneven pixel migration may cause the change of medium or fine scale geometry, which leads to significant change of textures. We hope that we can solve this problem by better understanding the nature of texture, and improve our current rest length distribution system; or come up with other methods to implement the pixel migration idea.
+
+\begin{figure}[htbp]\centering
+\includegraphics{imagesPM/f5.png}
+\caption{Duck: 5-times upsampled. Top: input at reduced resolution. 2nd Top: showing how pixels are clustered along object bounadries. 3rd Top: bicubic upsampled. Bottom: Our result. Note that object boundaries (the eye and white stripes) are well preserved.}
+\label{fig:genDuck}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics{imagesPM/f6.png}
+\caption{Harvest: 6-times upsampled. Top: input at reduced resolution. 2nd Top: Object boundary greatly sharpened. 3rd Top: Preservation of middle-scale details such as the highlights on corn. Bottom: Linear thin features (like text) are distorted.}
+\label{fig:genHarvest}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics{imagesPM/f7.png}
+\caption{Baby: 6-times upsampled. Top: input at reduced resolution. 2nd Top: Highlight on the eye is sharpened. Pupil geometry is slightly changed. 3rd Top: Nose boundary sharpened. Bottom: Mild Voronoi-shaped textures are introduced to smooth areas.}
+\label{fig:genBaby}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics{imagesPM/f8.png}
+\caption{Cityscape: 4-times upsampled. Top: input at reduced resolution. Mid-left: Building boundary is sharpened with slight distortion. Mid-right: Similar shapes are distorted inconsistently. Bottom: Texture resembles paint strokes. Vehicles are interestingly distorted. }
+\label{fig:genCity}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics{imagesPM/f9.png}
+\caption{Plant: 4-times upsampled. Top: input at reduced resolution. Mid-left: Uneven distortions made the spikes look more ferocious. Mid-right: The tip of the leaf is preserved even when its surrounded by high frequency textures. Bottom: Texture introduced by our approach is similar to the texture of gravel and rocks.}
+\label{fig:genPlant}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics{imagesPM/f11.png}
+\caption{Dragonfly: 6-times upsampled. Top: input at reduced resolution. Left column: bicubic upsampled. Right column: proposed approach. Note that the straight tail is slightly crooked; extra edges introduced around eye; the leaf texture is changed.}
+\label{fig:compOursBicubic}
+\end{figure}
+
+\begin{figure}[htbp]\centering
+\includegraphics{imagesPM/f10.png}
+\caption{Comparison between our and R. Fattal's result~\cite{FAT:EdgeStatistics}. Can: 8-times upsampled. Top row: input at reduced resolution. Left Column: our proposed approach. Right Column: R. Fattal's approach. Overall, we reconstruct sharp edges better. However, migrating pixels may change texture and geometric shapes.}
+\label{fig:compOursFattal}
+\end{figure}
+
+
+\subsection{Comparison between filtering-based approach and pixel migration}
+
+
+Table~\ref{table:2} shows a comparison between filtering-based techniques from the last chapter and pixel migration from this chapter. 
+
+Overall, both approaches generate sharp upsampled results. Filtering-based techniques do not purposely distinguish object boundaries from other image content, whereas pixel migration focuses only on detected edges. Therefore, filtering-based results exhibit an overall clean look (before texture enrichment), whereas pixel migration generates extremely sharp edges along object boundaries with the rest of the image content less sharpened. 
+
+\begin{table}
+\begin{tabular}{ | l | l | l |}
+\hline   & Proposed Filters &  Pixel Migration  \\ 
+\hhline{|=|=|=|} Sharpening location & Global & Mostly along edges \\ 
+\hline Fine-scale details & Lost or arbitrary& Voronoi-like \\ 
+\hline Recommended Scaling factor & 2--4 times & 2--10 times \\ 
+\hline Distortion & None & Along long thin features \\ 
+\hline Timing (8-times upsampled, & About 300 seconds & 5 seconds \\ 
+    quarter-megapixel) &  &  \\ 
+\hline Style & More abstract & Realistic\\  \hline
+\end{tabular} 
+\caption{Comparison between filtering-based approach and pixel migration.}
+\label{table:2}
+\end{table}
+
+The filtering processes preserve large to middle-scale details, while removing most of the fine-scale details. We proposed a naive texture enrichment process that introduces fine-scale details, but the details introduced are arbitrary. The pixel migration approach does not remove fine-scale details. However, it often introduces some Voronoi-like small-scale details on smooth areas, and it often introduces distortion along long thin features.
+
+Pixel migration is well suited for the task of large-scale upsampling (e.g., with a scaling factor of 8 or higher). Theoretically speaking, no matter the scaling factor, it will reconstruct the same sharp edges because it is the expansion of neighbouring loose springs that is compensating the high scaling factor. Therefore, we recommend using pixel migration for large-scale upsampling. On the other hand, for filtering-based techniques, large-scale upsampling will often produce blocky or smooth artifacts. Moreover, since filtering-based techniques are much slower, if we greatly increase the scaling factor, the time consumed will shift from barely tolerable to totally unacceptable. 
+
+As for the styles that exhibit from the two approaches, filtering-based techniques often produce mildly abstract results, due to the sharpening and loss of fine details; whereas pixel migration does not naturally produce any styles. The texture enrichment process adds arbitrary fine details to filtered abstract images. Since the fine details are arbitrary, the resulting style may vary significantly. For pixel migration, occasionally it will produce some Voronoi-like textures that resembles paint strokes. But in general, we consider this process does not produce stylized results. Note that the texture enrichment process could also be applied as a post-processing step to pixel migration results, which may introduce varied styles to pixel migration as well. In future work, we would like to extend our texture enrichment process and try to restrain our stylization to a more specific style, such as oil painting or watercolor. 
+
+
+\section{Conclusion}\label{PM:conclusion}
+
+In this chapter, we presented pixel migration for edge-preserving image upsampling. We suggest breaking the sample-spacing consistency in the upsampled plane, and instead, migrate pixel samples so that pixels along sharp edges will remain close together on the output image. Thus, the interpolation process will not introduce smoothly interpolated pixels along sharp edges, and the same degree of edge-crossing gradient would be preserved in the upsampled images. 
+
+Our pixel migration was achieved using a mass-spring system, with spring coefficients and rest lengths chosen based on the local gradient magnitude distribution. We observed that local maximum gradient usually appears on sharp edges. Thus, by comparing one spring\textquotesingle s gradient with its neighbourhood, we can determine whether the spring is an edge-crossing spring, and assign its rest length and spring coefficient accordingly. We also introduced a supplementary angular force that mildly adjusts spring orientations, such that the springs will tend to have the same orientations as the edges.
+
+Based on the combination of forces, pixel positions are re-calculated and updated iteratively. After the migration is terminated, we triangulate the deformed pixel lattice and barycentrically interpolate the unknown pixel values in the upsampled plane. 
+
+Our process is fast and effective. Compared to filtering-based approaches which would take minutes to process one image, it only takes seconds to complete our mass-spring simulation. The edge-preserving effect is strong, even if we increase the upsampling scale to 8 times or greater. The edges reconstructed are sharper than those from the state-of-the-art upsampling approach by Fattal~\cite{FAT:EdgeStatistics}.
+
+ The major limitation of our approach is distortion, which is visible on long thin linear features or textured areas. The distortion is caused by inconsistent or incorrect local gradient ranking. We consider the distortion on textured areas to be somewhat tolerable, while the distortion on linear features need further investigation. 
+ 
+In future work, we are interested in more sophisticated understanding of the input image, so that we can identify linear features and high-frequency textures. Following this train of thought, we are interested in image segmentation, so that different features are enveloped by separate regions. Thus, we can apply different pixel migration schemes to differently-featured segments accordingly. 
+
+We also want to investigate other ways of migrating pixels. We find our current mass-spring implementation not versatile enough. There are too many differently-featured areas that could appear in an image. The problem is so challenging that it is difficult to model and control with only rest lengths and spring coefficients. 
+
+Moreover, we are interested in combining pixel migration with stylized image upsampling -- the approach from the last chapter. We hope that we can find a pixel migration solution that automatically introduces a stylized look to upsampled images. Currently, our mass-spring implementation results exhibit mild abstract looks, with certain regions showing textures resemble paint strokes. We want to explore the possibility of producing other styles, probably with the help of filtering-based techniques. 
+
+Pixel migration methodology is powerful and not limited to image upsampling. It motivated us to open up another line of research: applying pixel migration on the original image plane. Our preliminary work along that direction was published in Expressive, 2015. The next chapter presents how we achieved warping effect using pixel migration. We hope that in the future, we can continue explore other applications of pixel migration.

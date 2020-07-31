@@ -1,0 +1,120 @@
+\documentclass[12pt,letterpaper]{report}
+%
+% Review cuthesis.sty for more documentation on available options
+% for this package.
+%\usepackage[1committee,phd,nonsequential]{cuthesis}
+\usepackage[4committee,masters,standard,nonsequential]{cuthesis}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{cite}
+\usepackage{subfigure}
+\usepackage{amsmath}
+\usepackage[indent,bf]{caption}
+\usepackage{rotating}
+\usepackage{setspace}
+%\usepackage[colorlinks=false,pdftex,bookmarks=true,bookmarksnumbered=true,breaklinks=true]{hyperref}
+\usepackage[hidelinks]{hyperref}
+\usepackage{pdfsync}
+\usepackage{textcomp}
+\usepackage{hhline}
+
+\DeclareMathOperator\sign{sign}
+
+% Defines relative path to folder containing your figures
+\graphicspath{{figures/}}
+
+% Set the document text spacing
+%\singlespacing
+\onehalfspacing
+%\doublespacing
+
+% Some definitions that could be useful
+\newcommand{\Sec}[1]{Sec.~\ref{#1}}
+\newcommand{\Ch}[1]{Chap.~\ref{#1}}
+%\newcommand{\App}[1]{\appendixname~\ref{#1}}
+\newcommand{\App}[1]{Appendix~\ref{#1}}
+\newcommand{\Fig}[1]{Fig.~\ref{#1}}
+\newcommand{\Figure}[1]{Figure~\ref{#1}}
+\newcommand{\Eq}[1]{(\ref{#1})}
+\setcounter{page}{1}
+\newcommand{\ie}{i.e.}
+\newcommand{\eg}{e.g.}
+
+%\newcommand{\Comment}[1]{{\textbf{\underline{[#1]}}}}
+\newcommand{\Comment}[1]{{[#1]}}
+
+
+
+\begin{document}
+
+% ***** DEFINE VARIABLES *****
+%-----------------------------------------------------------------------
+% Define various variables required by cuthesis.sty to function properly
+
+
+% Define thesis title and author
+\title{Edge-preserving Image Upsampling and Image Warping}
+\author{Jiayu Li}
+\pastdegrees{B.Sc., B.Eng.}
+\dept{The School of Computer Science}
+\degreename{Master of Computer Science}
+%\degreename{Master of Applied Science in Biomedical Engineering}
+%\degreename{Master of Applied Science in Technology Innovation Management}
+%\degreename{Master of Science in Information and Systems Science}
+%\degreename{Doctor of Philosophy in Electrical Engineering}
+
+
+% Specify your Thesis Submission Date
+\submitdate{August, 2015} \copyrightyear{2015} \copyrightmonth{August}
+
+% Thesis committee information for the signature page
+% Be sure to specify size of committee in cuthesis options.
+% Department Chair does not count as a committee member.
+% ie: 1committee = department chair  (doesn't make sense)
+%     2committee = firstcommittee + department chair
+%     3committee = firstcommittee + secondcommittee + department chair
+%     4committee = firstcommittee + secondcommittee + thirdcommittee + department chair
+% Default setting is 1committee
+\firstcommittee{Professor Davie Mould,  Thesis Supervisor}
+\secondcommittee{Professor Oliver van Kaick, School of Computer Science}
+\thirdcommittee{Professor Robert Laganiere, \\ School of Electrical Engineering and Computer Science}
+
+% Specify department chair
+\departmentchair{Professor Michel Barbeau, Chair,\\School of Computer Science}
+
+% This is the name of the .bib files that holds all of your references.
+% It can be a comma separated list if there is more than one file.
+\reffile{references}
+
+% Defines relative path to folder containing your figures
+\graphicspath{{figures/}}
+%-----------------------------------------------------------------------
+
+% ***** Thesis Components *****
+%-----------------------------------------------------------------------
+% Start inserting Thesis components.  Title page, signature page,
+% Table of contents, list of figures and list of tables are inserted
+% automatically.
+
+% These are the names of the .tex files which hold the
+% respective section of the thesis.  If one of these sections
+% is not included, comment out the corresponding line.
+\abstract{abstract}
+\acknowledgements{acknowledgements}
+%\preface{preface}
+%\dedication{dedication}
+
+% Include the chapters.
+\newchapter{chapter1}
+\newchapter{chapter2}
+\newchapter{chapter3}
+\newchapter{chapter4}
+\newchapter{chapter5}
+\newchapter{chapter6}
+
+
+% Include any appendices.
+%\newappendix{appendixA}
+
+\end{document}

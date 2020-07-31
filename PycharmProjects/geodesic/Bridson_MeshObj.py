@@ -379,10 +379,10 @@ class MeshObject:
 					triangleTraversal.append(triangleIndex)
 					if nextIntersection != None:
 						if isFinalIntersection:
-							print("Last Intersection:", nextIntersection)
+							Bridson_Common.logDebug(__name__,"Last Intersection:", nextIntersection)
 							# Reduce the length of the final segment to ensure final intersection is in trifinder.
 							nextIntersection = self.finalIntersectionReduction(rowPoints[-1], nextIntersection)
-							print("Final Last Intersection adjusted:", nextIntersection)
+							Bridson_Common.logDebug(__name__,"Final Last Intersection adjusted:", nextIntersection)
 						rowPoints.append( nextIntersection )
 						intersection = nextIntersection
 						# self.colourTriangle(triangleIndex)
@@ -407,7 +407,7 @@ class MeshObject:
 			# 	else:
 			# 		notFound += 1
 					#Bridson_Common.logDebug(__name__, "**** Point not found in trifinder *****", (pointx, pointy))
-			print(">>>>>>>>>>>>>>>>>>> Triangle Traversal:", triangleTraversal)
+			Bridson_Common.logDebug(__name__,">>>>>>>>>>>>>>>>>>> Triangle Traversal:", triangleTraversal)
 			if len(rowPoints) > 0:
 				rowPoints = np.array(rowPoints)
 				dotPoints.append(rowPoints)
@@ -415,7 +415,6 @@ class MeshObject:
 		# Bridson_Common.logDebug(__name__, dotPoints)
 		dotPoints = np.array(dotPoints)
 		Bridson_Common.logDebug(__name__, "**** Points Not FOUND *****", notFound)
-
 
 		colourArray = ['r', 'w', 'm']
 		markerArray = ['o', '*', 's']
@@ -460,6 +459,28 @@ class MeshObject:
 				x = previousPoint[0] + deltax
 				y = previousPoint[1] + deltay
 		return (x,y)
+
+
+	def clearAxes(self):
+		self.ax.cla()
+
+	def rotateClockwise90(self, angle=90):
+		# rotate the points
+		# rotate the mesh
+		# rotate the countour lines
+		self.points = Bridson_Common.rotateClockwise90(self.points)
+
+		newLinePoints = []
+		# print("PRE line Points:", self.linePoints)
+		for line in self.linePoints:
+			newLine = Bridson_Common.rotateClockwise90(line)
+			newLinePoints.append( newLine )
+
+		self.linePoints = np.array( newLinePoints )
+		# print("POST line Points:", self.linePoints)
+		self.clearAxes()
+		self.displayMesh('Original Mesh rotated CW 90 - ')
+		self.displayLines()
 
 	def DrawHorizontalLinesExteriorSeed(self, density=Bridson_Common.density, linedensity=Bridson_Common.lineDotDensity):
 		seedPoints = self.DualGraph.exteriorPoints.copy()
@@ -634,41 +655,42 @@ class MeshObject:
 			self.fig = plt.figure()
 			# self.ax = plt.axes()
 			self.ax = plt.subplot(1, 1, 1, aspect=1)
-			plt.title('Flat Triangulation ' + self.indexLabel)
-			# plt.triplot(points[:,0], points[:,1], tri.simplices.copy())
-			# Plot the lines representing the mesh.
-			if Bridson_Common.colourCodeMesh:
-				# Based on code from https://stackoverflow.com/questions/28245327/filling-triangles-in-matplotlib-triplot-with-individual-colors
-				print("Length of triangles", len(self.triangulation.triangles))
-				colors = np.array( [ i % Bridson_Common.colourCount for i in range(len(self.triangulation.triangles)) ] )
-				print("Length of colors", len(colors))
-				# plt.tripcolor(self.points[:, 1], self.points[:, 0], self.triangulation.triangles.copy() , facecolors=colors, lw=0.5)
-				plt.tripcolor(self.points[:, 0], self.points[:, 1], self.triangulation.triangles.copy(), facecolors=colors,
-				              lw=0.5)
-			else:
-				if Bridson_Common.invert:
-					plt.triplot(self.points[:, 1], xrange - self.points[:, 0], self.triangulation.triangles, 'b-', lw=0.5)
-				else:
-					plt.triplot(self.points[:, 1], self.points[:, 0], self.triangulation.triangles, 'b-', lw=0.5)
-
-			if False:
-				# Display reference red triangles
-				singleTriangle = np.array([self.triangulation.triangles[0]])
-				singleTriangle = np.vstack((singleTriangle, self.triangulation.triangles[1]))
-				# Bridson_Common.logDebug(__name__, singleTriangle)
-				if Bridson_Common.invert:
-					plt.triplot(self.points[:, 1], xrange - self.points[:, 0], singleTriangle, 'r-', lw=1)
-				else:
-					plt.triplot(self.points[:, 0], self.points[:, 1], singleTriangle, 'r-', lw=1)
-
-				# Display reference green triangles
-				singleTriangle = np.array([self.triangulation.triangles[-1]])
-				singleTriangle = np.vstack((singleTriangle, self.triangulation.triangles[-2]))
-				# Bridson_Common.logDebug(__name__, singleTriangle)
-				if Bridson_Common.invert:
-					plt.triplot(self.points[:, 1], xrange - self.points[:, 0], singleTriangle, 'g-', lw=1)
-				else:
-					plt.triplot(self.points[:, 0], self.points[:, 1], singleTriangle, 'g-', lw=1)
+			self.displayMesh('Flat Triangulation')
+			# plt.title('Flat Triangulation ' + self.indexLabel)
+			# # plt.triplot(points[:,0], points[:,1], tri.simplices.copy())
+			# # Plot the lines representing the mesh.
+			# if Bridson_Common.colourCodeMesh:
+			# 	# Based on code from https://stackoverflow.com/questions/28245327/filling-triangles-in-matplotlib-triplot-with-individual-colors
+			# 	print("Length of triangles", len(self.triangulation.triangles))
+			# 	colors = np.array( [ i % Bridson_Common.colourCount for i in range(len(self.triangulation.triangles)) ] )
+			# 	print("Length of colors", len(colors))
+			# 	# plt.tripcolor(self.points[:, 1], self.points[:, 0], self.triangulation.triangles.copy() , facecolors=colors, lw=0.5)
+			# 	plt.tripcolor(self.points[:, 0], self.points[:, 1], self.triangulation.triangles.copy(), facecolors=colors,
+			# 	              lw=0.5)
+			# else:
+			# 	if Bridson_Common.invert:
+			# 		plt.triplot(self.points[:, 1], xrange - self.points[:, 0], self.triangulation.triangles, 'b-', lw=0.5)
+			# 	else:
+			# 		plt.triplot(self.points[:, 1], self.points[:, 0], self.triangulation.triangles, 'b-', lw=0.5)
+			#
+			# if False:
+			# 	# Display reference red triangles
+			# 	singleTriangle = np.array([self.triangulation.triangles[0]])
+			# 	singleTriangle = np.vstack((singleTriangle, self.triangulation.triangles[1]))
+			# 	# Bridson_Common.logDebug(__name__, singleTriangle)
+			# 	if Bridson_Common.invert:
+			# 		plt.triplot(self.points[:, 1], xrange - self.points[:, 0], singleTriangle, 'r-', lw=1)
+			# 	else:
+			# 		plt.triplot(self.points[:, 0], self.points[:, 1], singleTriangle, 'r-', lw=1)
+			#
+			# 	# Display reference green triangles
+			# 	singleTriangle = np.array([self.triangulation.triangles[-1]])
+			# 	singleTriangle = np.vstack((singleTriangle, self.triangulation.triangles[-2]))
+			# 	# Bridson_Common.logDebug(__name__, singleTriangle)
+			# 	if Bridson_Common.invert:
+			# 		plt.triplot(self.points[:, 1], xrange - self.points[:, 0], singleTriangle, 'g-', lw=1)
+			# 	else:
+			# 		plt.triplot(self.points[:, 0], self.points[:, 1], singleTriangle, 'g-', lw=1)
 
 			# plt.triplot(self.points[:, 0], xrange - self.points[:, 1], self.triangulation.triangles)
 			thismanager = pylab.get_current_fig_manager()
@@ -680,6 +702,67 @@ class MeshObject:
 		return
 
 
+	def displayMesh(self, label):
+		if Bridson_Common.displayMesh:
+			# self.fig = plt.figure()
+			# self.ax = plt.axes()
+			# self.ax = plt.subplot(1, 1, 1, aspect=1)
+			self.ax.set_title(label + self.indexLabel)
+			# plt.triplot(points[:,0], points[:,1], tri.simplices.copy())
+			# Plot the lines representing the mesh.
+			if Bridson_Common.colourCodeMesh:
+				# Based on code from https://stackoverflow.com/questions/28245327/filling-triangles-in-matplotlib-triplot-with-individual-colors
+				print("Length of triangles", len(self.triangulation.triangles))
+				colors = np.array( [ i % Bridson_Common.colourCount for i in range(len(self.triangulation.triangles)) ] )
+				print("Length of colors", len(colors))
+				# plt.tripcolor(self.points[:, 1], self.points[:, 0], self.triangulation.triangles.copy() , facecolors=colors, lw=0.5)
+				self.ax.tripcolor(self.points[:, 0], self.points[:, 1], self.triangulation.triangles.copy(), facecolors=colors,
+				              lw=0.5)
+			else:
+				if Bridson_Common.invert:
+					self.ax.triplot(self.points[:, 1], xrange - self.points[:, 0], self.triangulation.triangles, 'b-', lw=0.5)
+				else:
+					self.ax.triplot(self.points[:, 1], self.points[:, 0], self.triangulation.triangles, 'b-', lw=0.5)
+
+			if False:
+				# Display reference red triangles
+				singleTriangle = np.array([self.triangulation.triangles[0]])
+				singleTriangle = np.vstack((singleTriangle, self.triangulation.triangles[1]))
+				# Bridson_Common.logDebug(__name__, singleTriangle)
+				if Bridson_Common.invert:
+					self.ax.triplot(self.points[:, 1], xrange - self.points[:, 0], singleTriangle, 'r-', lw=1)
+				else:
+					self.ax.triplot(self.points[:, 0], self.points[:, 1], singleTriangle, 'r-', lw=1)
+
+				# Display reference green triangles
+				singleTriangle = np.array([self.triangulation.triangles[-1]])
+				singleTriangle = np.vstack((singleTriangle, self.triangulation.triangles[-2]))
+				# Bridson_Common.logDebug(__name__, singleTriangle)
+				if Bridson_Common.invert:
+					self.ax.triplot(self.points[:, 1], xrange - self.points[:, 0], singleTriangle, 'g-', lw=1)
+				else:
+					self.ax.triplot(self.points[:, 0], self.points[:, 1], singleTriangle, 'g-', lw=1)
+
+			# # plt.triplot(self.points[:, 0], xrange - self.points[:, 1], self.triangulation.triangles)
+			# thismanager = pylab.get_current_fig_manager()
+			# thismanager.window.wm_geometry("+1300+560")
+
+
+	def displayLines(self):
+		colourArray = ['r', 'w', 'm']
+		markerArray = ['o', '*', 's']
+		index = 0
+
+		for line in self.linePoints:
+			# self.ax.plot(line[:, 0], line[:, 1], color='ro')
+			colour = colourArray[ (index % 3) ]
+			if Bridson_Common.drawDots:
+				marker = markerArray[ (index % 3) ]
+			else:
+				marker = None
+			# self.ax.plot(line[:, 0], line[:, 1], color='r', marker='o')
+			self.ax.plot(line[:, 0], line[:, 1], color=colour , marker=marker )
+			index += 1
 
 
 	def GenMeshFromMask(self, mask, dradius, pointCount=0):

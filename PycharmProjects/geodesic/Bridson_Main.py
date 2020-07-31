@@ -239,10 +239,10 @@ def processMask(mask, dradius, indexLabel):
 			else:
 				print("Attempt ", attempts, " UNsuccessful")
 
-	indexLabel="LineSeed"
-	lineReferencePointsObj = Bridson_MeshObj.MeshObject(mask=mask5x, dradius=dradius*Bridson_Common.lineRadiusFactor, indexLabel=indexLabel)
+	# indexLabel="LineSeed"
+	# lineReferencePointsObj = Bridson_MeshObj.MeshObject(mask=mask5x, dradius=dradius*Bridson_Common.lineRadiusFactor, indexLabel=indexLabel)
 
-	return meshObj, flatMeshObj, lineReferencePointsObj, successful
+	return meshObj, flatMeshObj, successful
 
 def displayRegionRaster(regionRaster, index):
 	plt.figure()
@@ -264,7 +264,7 @@ def indexValidation():
 	successfulRegions = 0
 
 	# for index in [31, 34]:
-	for index in [31]:
+	for index in [34]:
 	# for index in range( len(regionMap.keys()) ):
 		print("Starting Region: ", index)
 
@@ -278,7 +278,7 @@ def indexValidation():
 		for i in range(1):
 			indexLabel = index + i / 10
 			Bridson_Common.writeMask(raster)
-			meshObj, flatMeshObj, LineSeedPointsObj, trifindersuccess = processMask(raster, dradius, indexLabel)
+			meshObj, flatMeshObj, trifindersuccess = processMask(raster, dradius, indexLabel)
 
 			if trifindersuccess:
 				successfulRegions += 1
@@ -308,8 +308,11 @@ def indexValidation():
 			else:
 				print("Trifinder was NOT successfully generated for region ", index)
 
+			if True: # Rotate original image 90 CW.
+				meshObj.rotateClockwise90()
 			# meshObj.diagnosticExterior()
-			flatMeshObj.diagnosticExterior()
+			# flatMeshObj.diagnosticExterior()
+
 
 	print("Successful Regions: ", successfulRegions)
 	print("Total Regions: ", len(regionMap.keys()) )

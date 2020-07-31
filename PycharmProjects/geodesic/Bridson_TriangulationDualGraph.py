@@ -410,7 +410,7 @@ class TriangulationDualGraph:
 						continue
 
 				Bridson_Common.logDebug(__name__,"FindFirstIntersection Edge intersection:", edge)
-				print("FindFirstIntersection Intersection:", intersection)
+				Bridson_Common.logDebug(__name__,"Intersection:", intersection)
 				Bridson_Common.logDebug(__name__,"FindFirstIntersection TriangleIndex:", triangleIndex)
 
 				return intersection, edge, triangleIndex, direction
@@ -435,19 +435,19 @@ class TriangulationDualGraph:
 		'''
 		dualEdge = self.EdgeHashMap[ edge ]
 
-		print("AA FindNextIntersection triangleIndex:", triangleIndex)
-		print("AA FindNextIntersection Starting Edge:", edge)
+		Bridson_Common.logDebug(__name__,"triangleIndex:", triangleIndex)
+		Bridson_Common.logDebug(__name__,"Starting Edge:", edge)
 		triangleIndexList = dualEdge.triangleIndeces.copy()
-		print("FindNextIntersection triangleIndexList:", triangleIndexList)
+		Bridson_Common.logDebug(__name__,"triangleIndexList:", triangleIndexList)
 		triangleIndexList.pop( triangleIndexList.index(triangleIndex) ) # Remove the current triangleIndex.
-		print("FindNextIntersection triangleIndexList:", triangleIndexList)
+		Bridson_Common.logDebug(__name__,"triangleIndexList:", triangleIndexList)
 		if len(triangleIndexList) < 1:
 			# No further triangles.
 			return None, None, None, False
 
 		minHeight, maxHeight, triangleIndexList = self.GetMaxTriangleHeightFromEdge(edge, triangleIndex)
 		triangleIndex = triangleIndexList[0]
-		print("FindNextIntersection Heights:", minHeight, maxHeight, triangleIndexList)
+		Bridson_Common.logDebug(__name__,"Heights:", minHeight, maxHeight, triangleIndexList)
 		if minHeight == None:
 			return None, None, triangleIndex, False
 
@@ -457,20 +457,20 @@ class TriangulationDualGraph:
 		CheckLineStart = (x, y )
 		CheckLineEnd = (x, y + 100.0 * maxHeight * direction) # 10.0 to handle triangles that are really squished.
 		ReferenceLine = (CheckLineStart, CheckLineEnd)
-		print("FindNextIntersection ReferenceLine:", ReferenceLine)
+		Bridson_Common.logDebug(__name__,"ReferenceLine:", ReferenceLine)
 		found = False
 
 		edges = self.GetEdgesFromTriangleList(triangleIndexList).copy()
 		# Remove the starting edge from teh list.
 		edges.pop( edges.index(edge) )
-		print("FindNextIntersection Edge List:", edges)
+		Bridson_Common.logDebug(__name__,"Edge List:", edges)
 		# find the intersection
 		for edge in edges:
 			edgeSegment = (self.points[edge[0]], self.points[edge[1]])
-			print("FindNextIntersection ReferenceLine:", ReferenceLine)
-			print("FindNextIntersection edgeSegment:", edgeSegment)
+			Bridson_Common.logDebug(__name__,"ReferenceLine:", ReferenceLine)
+			Bridson_Common.logDebug(__name__,"edgeSegment:", edgeSegment)
 			intersection = Bridson_Common.line_intersect(ReferenceLine, edgeSegment)
-			print("FindNextIntersection Intersection:", intersection)
+			Bridson_Common.logDebug(__name__,"Intersection:", intersection)
 			if intersection == None:
 				continue
 			else:
@@ -481,9 +481,9 @@ class TriangulationDualGraph:
 		if found:
 			if intersection in self.Edges:
 				print("************* FindNextIntersection at Vertex.")
-			print("FindNextIntersection Found Intersection.")
+				Bridson_Common.logDebug(__name__,"Found Intersection.")
 			Bridson_Common.logDebug(__name__, "FindNextIntersection Edge intersection:", edge)
-			print("FindNextIntersection Intersection:", intersection)
+			Bridson_Common.logDebug(__name__,"Intersection:", intersection)
 			Bridson_Common.logDebug(__name__,"FindNextIntersection TriangleIndex:", triangleIndex)
 
 			finalIntersection = self.isFinalIntersection(edge, triangleIndex)
@@ -497,9 +497,9 @@ class TriangulationDualGraph:
 	def isFinalIntersection(self, edge, currentTriangleIndex):
 		dualEdge = self.EdgeHashMap[ edge ]
 		triangleIndexList = dualEdge.triangleIndeces.copy()
-		print("IsFinal TriangleList:", triangleIndexList)
+		Bridson_Common.logDebug(__name__,"TriangleList:", triangleIndexList)
 		triangleIndexList.pop(triangleIndexList.index(currentTriangleIndex))  # Remove the current triangleIndex.
-		print("IsFinal remaining TriangleList:", triangleIndexList)
+		Bridson_Common.logDebug(__name__,"remaining TriangleList:", triangleIndexList)
 		if len(triangleIndexList) == 0:
 			return True
 		else:

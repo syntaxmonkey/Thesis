@@ -39,10 +39,24 @@ density = 0.01
 lineDotDensity = 0.01
 lineRadiusFactor = 1
 
-dradius = 1.1 # Important that dradius is greater than 1.0.
+dradius = 1.1 # Important that dradius is greater than 1.0.  When the value is 1.0 or lower, BFF seems to have lots of issues.
+
+def rotateClockwise90(array, angle=90):
+	'''
+		Swap the X and Y values.  Multiply the Y values with -1.
+	'''
+	# print("Pre Array:", array)
+	newArray = Bridson_Common.swapXY(array) # Swap the X Y values
+	newArray[:, 1] *= -1  # Multiple the Y values with -1
+	# print("Post Array:", newArray)
+	return newArray
 
 
-
+def swapXY(array):
+	newArray = np.copy(array)
+	newArray[:,0] = array[:,1]
+	newArray[:,1] = array[:,0]
+	return newArray
 
 def logDebug(moduleName, *argv):
 	if Bridson_Common.debug:
