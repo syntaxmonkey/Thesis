@@ -140,7 +140,7 @@ class MeshObject:
 		Bridson_Common.logDebug(__name__, "**** Points Not FOUND *****", notFound)
 
 
-		colourArray = ['r', 'w', 'm']
+		# colourArray = ['r', 'w', 'm']
 		markerArray = ['o', '*', 's']
 		index = 0
 
@@ -149,7 +149,7 @@ class MeshObject:
 			# a_BSpline = np.array(scipy.interpolate.make_interp_spline(line[:, 0], line[:, 1]))
 			# self.ax.plot(line[:, 0], a_BSpline, color='r')
 			# self.ax.plot(line[:, 0], line[:, 1], color='r')
-			colour = colourArray[ (index % 3) ]
+			colour = Bridson_Common.colourArray[ (index % 3) ]
 			if Bridson_Common.drawDots:
 				marker = markerArray[ (index % 3) ]
 			else:
@@ -393,7 +393,7 @@ class MeshObject:
 						break
 
 					# 18 Attempts is where the graph flies into space.
-					if attempt > 50:
+					if attempt > 1000:
 						break # Exit the while loop.
 					attempt += 1
 
@@ -420,19 +420,20 @@ class MeshObject:
 		markerArray = ['o', '*', 's']
 		index = 0
 
-		for line in dotPoints:
-			# https://kite.com/python/answers/how-to-plot-a-smooth-line-with-matplotlib-in-python
-			# a_BSpline = np.array(scipy.interpolate.make_interp_spline(line[:, 0], line[:, 1]))
-			# self.ax.plot(line[:, 0], a_BSpline, color='r')
-			# self.ax.plot(line[:, 0], line[:, 1], color='r')
-			colour = colourArray[ (index % 3) ]
-			if Bridson_Common.drawDots:
-				marker = markerArray[ (index % 3) ]
-			else:
-				marker = None
-			# self.ax.plot(line[:, 0], line[:, 1], color='r', marker='o')
-			self.ax.plot(line[:, 0], line[:, 1], color=colour , marker=marker )
-			index += 1
+		if Bridson_Common.displayMesh:
+			for line in dotPoints:
+				# https://kite.com/python/answers/how-to-plot-a-smooth-line-with-matplotlib-in-python
+				# a_BSpline = np.array(scipy.interpolate.make_interp_spline(line[:, 0], line[:, 1]))
+				# self.ax.plot(line[:, 0], a_BSpline, color='r')
+				# self.ax.plot(line[:, 0], line[:, 1], color='r')
+				colour = colourArray[ (index % 3) ]
+				if Bridson_Common.drawDots:
+					marker = markerArray[ (index % 3) ]
+				else:
+					marker = None
+				# self.ax.plot(line[:, 0], line[:, 1], color='r', marker='o')
+				self.ax.plot(line[:, 0], line[:, 1], color=colour , marker=marker )
+				index += 1
 
 		self.linePoints = dotPoints
 
@@ -462,7 +463,8 @@ class MeshObject:
 
 
 	def clearAxes(self):
-		self.ax.cla()
+		if Bridson_Common.displayMesh:
+			self.ax.cla()
 
 	def rotateClockwise90(self, angle=90):
 		# rotate the points
@@ -609,16 +611,17 @@ class MeshObject:
 		markerArray = ['o', '*', 's']
 		index = 0
 
-		for line in self.linePoints:
-			# self.ax.plot(line[:, 0], line[:, 1], color='ro')
-			colour = colourArray[ (index % 3) ]
-			if Bridson_Common.drawDots:
-				marker = markerArray[ (index % 3) ]
-			else:
-				marker = None
-			# self.ax.plot(line[:, 0], line[:, 1], color='r', marker='o')
-			self.ax.plot(line[:, 0], line[:, 1], color=colour , marker=marker )
-			index += 1
+		if Bridson_Common.displayMesh:
+			for line in self.linePoints:
+				# self.ax.plot(line[:, 0], line[:, 1], color='ro')
+				colour = colourArray[ (index % 3) ]
+				if Bridson_Common.drawDots:
+					marker = markerArray[ (index % 3) ]
+				else:
+					marker = None
+				# self.ax.plot(line[:, 0], line[:, 1], color='r', marker='o')
+				self.ax.plot(line[:, 0], line[:, 1], color=colour , marker=marker )
+				index += 1
 		return
 
 
@@ -753,16 +756,17 @@ class MeshObject:
 		markerArray = ['o', '*', 's']
 		index = 0
 
-		for line in self.linePoints:
-			# self.ax.plot(line[:, 0], line[:, 1], color='ro')
-			colour = colourArray[ (index % 3) ]
-			if Bridson_Common.drawDots:
-				marker = markerArray[ (index % 3) ]
-			else:
-				marker = None
-			# self.ax.plot(line[:, 0], line[:, 1], color='r', marker='o')
-			self.ax.plot(line[:, 0], line[:, 1], color=colour , marker=marker )
-			index += 1
+		if Bridson_Common.displayMesh:
+			for line in self.linePoints:
+				# self.ax.plot(line[:, 0], line[:, 1], color='ro')
+				colour = colourArray[ (index % 3) ]
+				if Bridson_Common.drawDots:
+					marker = markerArray[ (index % 3) ]
+				else:
+					marker = None
+				# self.ax.plot(line[:, 0], line[:, 1], color='r', marker='o')
+				self.ax.plot(line[:, 0], line[:, 1], color=colour , marker=marker )
+				index += 1
 
 
 	def GenMeshFromMask(self, mask, dradius, pointCount=0):

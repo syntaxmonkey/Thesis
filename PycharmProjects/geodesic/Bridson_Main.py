@@ -18,6 +18,7 @@ matplotlib.use("tkagg")
 import Bridson_Common
 import random
 import sys
+import Bridson_FinishedImage
 
 
 random.seed(Bridson_Common.seedValue)
@@ -114,7 +115,7 @@ def SLICImage():
 	stopIndex=startIndex+16
 
 	plt.figure()
-	ax3 = plt.subplot(2, 1, 1, aspect=1, label='Image regions')
+	ax3 = plt.subplot(1, 1, 1, aspect=1, label='Image regions')
 	plt.title('Image regions')
 	''' Draw Letter blob '''
 
@@ -245,16 +246,17 @@ def processMask(mask, dradius, indexLabel):
 	return meshObj, flatMeshObj, successful
 
 def displayRegionRaster(regionRaster, index):
-	plt.figure()
-	ax = plt.subplot(1, 1, 1, aspect=1, label='Region Raster ' + str(index))
-	plt.title('Region Raster ' + str(index))
-	''' Draw Letter blob '''
+	if Bridson_Common.displayMesh:
+		plt.figure()
+		ax = plt.subplot(1, 1, 1, aspect=1, label='Region Raster ' + str(index))
+		plt.title('Region Raster ' + str(index))
+		''' Draw Letter blob '''
 
-	# blankRaster = np.zeros(np.shape(imageraster))
-	# ax3 = plt.subplot2grid(gridsize, (0, 1), rowspan=1)
-	# ax3.imshow(blankRaster)
-	ax.imshow(regionRaster)
-	ax.grid()
+		# blankRaster = np.zeros(np.shape(imageraster))
+		# ax3 = plt.subplot2grid(gridsize, (0, 1), rowspan=1)
+		# ax3.imshow(blankRaster)
+		ax.imshow(regionRaster)
+		ax.grid()
 
 
 
@@ -262,15 +264,18 @@ def indexValidation():
 	imageraster, regionMap = SLICImage()
 
 	successfulRegions = 0
+	# Create new image for contour lines.  Should be the same size as original image.
+	finishedImage = Bridson_FinishedImage.FinishedImage()
+	# finishedImage.setXLimit( 0, np.shape(imageraster)[0])
 
 	# for index in [31, 34]:
-	for index in [34]:
+	for index in range(10,15):  # Interesting regions: 11, 12, 14
 	# for index in range( len(regionMap.keys()) ):
 		print("Starting Region: ", index)
 
 		# Generate the raster for the first region.
 		raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
-		print("Raster:", raster)
+		# print("Raster:", raster)
 		displayRegionRaster(raster, index)
 
 		# Bridson_Common.logDebug(__name__, raster)
@@ -305,13 +310,20 @@ def indexValidation():
 							meshObj.DrawHorizontalLinesExteriorSeed() # Draw lines using exterior points as line seed.
 
 						flatMeshObj.TransferLinePointsFromTarget(meshObj)
+
+				if True:  # Rotate original image 90 CW.
+					meshObj.rotateClockwise90()
+				# Draw the region contour lines onto the finished image.
+				finishedImage.drawRegionContourLines(regionMap, index, meshObj)
 			else:
 				print("Trifinder was NOT successfully generated for region ", index)
 
-			if True: # Rotate original image 90 CW.
-				meshObj.rotateClockwise90()
 			# meshObj.diagnosticExterior()
 			# flatMeshObj.diagnosticExterior()
+
+		# finishedImage.drawRegionContourLines(regionMap, index, meshObj)
+
+
 
 
 	print("Successful Regions: ", successfulRegions)

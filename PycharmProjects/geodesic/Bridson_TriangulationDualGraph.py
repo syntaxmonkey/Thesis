@@ -294,8 +294,14 @@ class TriangulationDualGraph:
 		P12 = Bridson_Common.euclidean_distance(p1, p2)
 		P13 = Bridson_Common.euclidean_distance(p1, p3)
 		P23 = Bridson_Common.euclidean_distance(p2, p3)
-
-		angle = math.acos( (P12*P12 + P13*P13 - P23*P23) / (2*P12*P13) )*180/math.pi
+		# print("Bridson_TriangulationDualGraph:", P12, P13, P23) # Output the angles.
+		# print("Bridson_TriangulationDualGraph Denominator:", (P12*P12 + P13*P13 - P23*P23) / (2*P12*P13) )  # Output the angles.
+		value = (P12*P12 + P13*P13 - P23*P23) / (2*P12*P13)
+		if value >= 1.0:
+			value = 0.99999999999999999999
+		elif value <= -1.0:
+			value = -0.99999999999999999999
+		angle = math.acos( value )*180/math.pi
 		# print("angle1: ", angle)
 		return angle
 

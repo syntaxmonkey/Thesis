@@ -39,7 +39,12 @@ density = 0.01
 lineDotDensity = 0.01
 lineRadiusFactor = 1
 
-dradius = 1.1 # Important that dradius is greater than 1.0.  When the value is 1.0 or lower, BFF seems to have lots of issues.
+dradius = 1.5 # Important that dradius is greater than 1.0.  When the value is 1.0 or lower, BFF seems to have lots of issues.
+
+colourArray = ['r', 'b', 'm']
+colourArray = ['b', 'b', 'b']
+
+mergeScale = 0.85
 
 def rotateClockwise90(array, angle=90):
 	'''

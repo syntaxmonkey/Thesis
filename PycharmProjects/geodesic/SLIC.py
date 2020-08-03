@@ -86,6 +86,23 @@ def catalogRegions(segments):
 	return raster, regionMap
 
 
+def calculateTopLeft( regionCoordinates ):
+	topLeft = (np.max(regionCoordinates), np.max(regionCoordinates))
+	bottomRight = (np.min(regionCoordinates), np.min(regionCoordinates))
+	for coord in regionCoordinates:
+		# Bridson_Common.logDebug(__name__, coord)
+		x, y = coord
+		if x < topLeft[0]:
+			topLeft = (x, topLeft[1])
+		if y < topLeft[1]:
+			topLeft = (topLeft[0], y)
+		if x > bottomRight[0]:
+			bottomRight = (x, bottomRight[1])
+		if y > bottomRight[1]:
+			bottomRight = (bottomRight[0], y)
+
+	return topLeft, bottomRight
+
 def createRegionRasters(regionMap, region=0):
 	# For each region, create a raster.
 	actualTopLeft=[0,0]
@@ -95,32 +112,36 @@ def createRegionRasters(regionMap, region=0):
 	regionCoordinates = regionMap.get(region)
 
 	if regionCoordinates != None:
-		topLeft = (np.max(regionCoordinates), np.max(regionCoordinates))
-		bottomRight = (np.min(regionCoordinates), np.min(regionCoordinates))
-		for coord in regionCoordinates:
-			# Bridson_Common.logDebug(__name__, coord)
-			x, y = coord
-			if x < topLeft[0]:
-				topLeft = (x,topLeft[1])
-			if y < topLeft[1]:
-				topLeft = (topLeft[0], y)
-			if x > bottomRight[0]:
-				bottomRight = (x, bottomRight[1])
-			if y > bottomRight[1]:
-				bottomRight = (bottomRight[0],y)
+		# topLeft = (np.max(regionCoordinates), np.max(regionCoordinates))
+		# bottomRight = (np.min(regionCoordinates), np.min(regionCoordinates))
+		# for coord in regionCoordinates:
+		# 	# Bridson_Common.logDebug(__name__, coord)
+		# 	x, y = coord
+		# 	if x < topLeft[0]:
+		# 		topLeft = (x,topLeft[1])
+		# 	if y < topLeft[1]:
+		# 		topLeft = (topLeft[0], y)
+		# 	if x > bottomRight[0]:
+		# 		bottomRight = (x, bottomRight[1])
+		# 	if y > bottomRight[1]:
+		# 		bottomRight = (bottomRight[0],y)
+		topLeft, bottomRight = calculateTopLeft(regionCoordinates)
 
 		actualTopLeft[0]=topLeft[1]
 		actualTopLeft[1]=topLeft[0]
 
 		deltax = bottomRight[0] - topLeft[0] + 10
 		deltay = bottomRight[1] - topLeft[1] + 10
-		deltax = deltay = max(deltax,deltay)
+		deltax = deltay = max(deltax,deltay) # Size of the raster region.
+
 		# deltax, deltay = bottomRight[0] - topLeft[0]+3, bottomRight[1] - topLeft[1]+3
-		shiftx, shifty = topLeft[0]-5, topLeft[1]-5
+
+		shiftx, shifty = topLeft[0]-5, topLeft[1]-5 # This is the amount to shift the actual coordinates such that they fit onto the raster.
 		# shiftx, shifty=topLeft[0]-1, topLeft[1]-1
 
-		Bridson_Common.logDebug(__name__, 'TopLeft:', topLeft, 'BottomRight:',  bottomRight)
-		Bridson_Common.logDebug(__name__, 'DeltaX:', deltax, 'DeltaY:', deltay)
+		print( 'TopLeft:', topLeft, 'BottomRight:',  bottomRight)
+		print( 'DeltaX:', deltax, 'DeltaY:', deltay)
+		print( 'Shiftx:', shiftx, 'Shifty:', shifty)
 		raster = np.zeros((deltax,deltay))
 
 
@@ -130,6 +151,10 @@ def createRegionRasters(regionMap, region=0):
 			y = y - shifty
 			# Bridson_Common.logDebug(__name__, 'Relative coords:', x, y)
 			raster[x][y] = 255
+
+		# print("Raster:", raster)
+		# Highlight the topLeft pixel.
+		raster[topLeft[0]-shiftx-5][topLeft[1]-shifty-5] = 127
 	else:
 		raster = None
 
