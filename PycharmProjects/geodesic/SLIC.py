@@ -20,13 +20,13 @@ def segmentImage(imageName, numSegments):
 	# load the image and convert it to a floating point data type
 	image = img_as_float(io.imread(imageName))
 
-
 	# loop over the number of segments
 	# for numSegments in (100, 200, 300):
 	# for numSegments in (100,):
 		# apply SLIC and extract (approximately) the supplied number
 		# of segments
-	segments = slic(image, n_segments=numSegments, sigma=5, compactness=11, slic_zero=False, enforce_connectivity=False)
+	segments = slic(image, n_segments=numSegments, sigma=5, compactness=11, slic_zero=False, enforce_connectivity=True)
+	# segments = slic(image, n_segments=numSegments, sigma=5, compactness=10, slic_zero=False, enforce_connectivity=True)
 
 	# Bridson_Common.logDebug(__name__, type(segments))
 	# regionIndex = 16
@@ -112,19 +112,6 @@ def createRegionRasters(regionMap, region=0):
 	regionCoordinates = regionMap.get(region)
 
 	if regionCoordinates != None:
-		# topLeft = (np.max(regionCoordinates), np.max(regionCoordinates))
-		# bottomRight = (np.min(regionCoordinates), np.min(regionCoordinates))
-		# for coord in regionCoordinates:
-		# 	# Bridson_Common.logDebug(__name__, coord)
-		# 	x, y = coord
-		# 	if x < topLeft[0]:
-		# 		topLeft = (x,topLeft[1])
-		# 	if y < topLeft[1]:
-		# 		topLeft = (topLeft[0], y)
-		# 	if x > bottomRight[0]:
-		# 		bottomRight = (x, bottomRight[1])
-		# 	if y > bottomRight[1]:
-		# 		bottomRight = (bottomRight[0],y)
 		topLeft, bottomRight = calculateTopLeft(regionCoordinates)
 
 		actualTopLeft[0]=topLeft[1]

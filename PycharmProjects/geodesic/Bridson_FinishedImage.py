@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib
 import SLIC
 import Bridson_Common
+import numpy as np
 
 class FinishedImage:
 	def __init__(self, *args, **kwargs):
@@ -16,15 +17,67 @@ class FinishedImage:
 		self.ax.set_xlim(left=left, right=right)
 
 
-	def drawRegionContourLines(self, regionMap, index, meshObj):
-		regionCoordinates = regionMap.get( index  )
-		# Grab the shiftx and shifty based on regionMap.
-		topLeft, bottomRight = SLIC.calculateTopLeft( regionCoordinates )
+	def cropContourLines(self, linePoints, raster):
+		# Raster will have 255 for valid points.
+		newLinePoints = []
+		for line in linePoints:
+			newLine = []
+			emptyLine = True
+			for point in line:
+				x, y = int(point[0]), int(0-point[1])
+				# print("Point:", x,y)
+				if raster[y][x] == 255: # Because of the differing coordinates system, we have to flip the order of x,y
+					# print("Point:", point)
+					# print("Point in Mask:", x, y)
+					newLine.append( point )
+					emptyLine = False
+				else:
+					# print("Point NOT in Mask:", x, y)
+					pass
 
+			if emptyLine == False:
+				newLinePoints.append(np.array(newLine))
+
+		newLinePoints = np.array(newLinePoints)
+		return newLinePoints
+
+	def maxLinePoints(self, linePoints):
+		maxx, maxy = -1000000, -1000000
+		for line in linePoints:
+			for point in line:
+				x,y = point
+				if x > maxx:
+					maxx = x
+
+				if y > maxy:
+					maxy = y
+
+		return (x,y)
+
+	def drawRegionContourLines(self, regionMap, index, meshObj):
+		# Need to utilize the region Raster.
+		raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
 		# Obtain the linePoints from the meshObj.
 		linePoints = meshObj.linePoints.copy()
+		# topLeftSource = self.maxLinePoints(linePoints)
 
-		print("TopLeft: ", topLeft)
+		# print("Region Coordinates:", regionCoordinates)
+		# print("LinePoints:", linePoints)
+
+		# Grab the shiftx and shifty based on regionMap.
+		regionCoordinates = regionMap.get( index  )
+		topLeftTarget, bottomRightTarget = SLIC.calculateTopLeft( regionCoordinates )
+		# topLeftSource = self.maxLinePoints( linePoints )
+		# shiftCoordinates = (bottomRightTarget[0] - topLeftSource[0], bottomRightTarget[1] - topLeftSource[1])
+
+		linePoints = self.cropContourLines(linePoints, raster)
+
+		# print("NewLinePoints:", linePoints)
+		# print("actualTopLeft: ", actualTopLeft)
+		# print("TopLeftTarget: ", topLeftTarget)
+		# print("bottomRightTarget: ", bottomRightTarget)
+		# print("TopLeftSource: ", topLeftSource)
+		# # print("shiftCoordinates:", shiftCoordinates)
 		# print("LinePoints:",linePoints)
 
 		for index in range(len(linePoints)):
@@ -32,7 +85,7 @@ class FinishedImage:
 			line = linePoints[index].copy()
 			line = line * Bridson_Common.mergeScale
 			# For some reason we need to swap the topLeft x,y with the line x,y.
-			line[:, 0] = line[:, 0] + topLeft[1] + 5
-			line[:, 1] = line[:, 1] - topLeft[0] + 5  # Required to be negative.
+			line[:, 0] = line[:, 0] + topLeftTarget[1] + 5
+			line[:, 1] = line[:, 1] - topLeftTarget[0] + 5  # Required to be negative.
 
 			self.ax.plot(line[:, 0], line[:, 1], color=colour)
