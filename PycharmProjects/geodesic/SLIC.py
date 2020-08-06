@@ -18,8 +18,9 @@ from ChainCodeGenerator import generateChainCode, writeChainCodeFile
 
 def segmentImage(imageName, numSegments):
 	# load the image and convert it to a floating point data type
-	image = img_as_float(io.imread(imageName))
-
+	# image = img_as_float(io.imread(imageName))
+	image = io.imread(imageName)
+	# print("Image:", image)
 	# loop over the number of segments
 	# for numSegments in (100, 200, 300):
 	# for numSegments in (100,):
@@ -61,7 +62,13 @@ def segmentImage(imageName, numSegments):
 	return image, segments
 
 
-def catalogRegions(segments):
+
+# Generate image region Intensity Hashmap.
+
+
+
+
+def catalogRegions( segments, regionIntensityMap ):
 	'''
 	Create a map of region that maps to list of (x,y) coordinates.
 	Create a raster image of the individual
@@ -69,14 +76,15 @@ def catalogRegions(segments):
 	:return: Dictionary of segments.  Map will contain all the x,y coordinates for each segment.
 
 	'''
-
+	print("Segments:", segments)
 	x, y = np.shape(segments)
 	raster = np.zeros((x,y))
 	regionMap = {}
 	for i in range(x):
 		for j in range(y):
 			regionLabel = segments[i][j]
-			raster[i][j] = (regionLabel * 234867)%256
+			# raster[i][j] = (regionLabel * 234867)%256
+			raster[i][j] = regionIntensityMap[ regionLabel ]
 			region = regionMap.get(regionLabel)
 			if region == None:
 				regionMap[regionLabel] = [(i,j)]
@@ -152,6 +160,41 @@ def createRegionRasters(regionMap, region=0):
 
 
 
+def getSegmentLabels(segments):
+	x, y = np.shape(segments)
+	# raster = np.zeros((x,y))
+	segmentLabels = {}
+	for i in range(x):
+		for j in range(y):
+			segmentLabels[ segments[i][j] ] = 1
+	return segmentLabels
+
+def generateImageIntensityHashmap( greyImage, segments):
+	# Generate the average intensity for each region.
+	# Create array for the arverge intensity for each region.
+	segmentLabels = getSegmentLabels( segments )
+
+	regionIntensityMap = {}
+	# Initialize the regionIntensityMap
+	for regionIndex in segmentLabels:
+		regionIntensityMap[ regionIndex ] = 0
+
+	x, y = np.shape(segments)
+	# raster = np.zeros((x,y))
+	for i in range(x):
+		for j in range(y):
+			regionIntensityMap[ segments[i][j] ] += greyImage[i][j]
+
+
+	# Calculate the average for each regionIndex.
+	for regionIndex in segmentLabels:
+		regionIntensityMap[ regionIndex ] = regionIntensityMap[ regionIndex ] / np.count_nonzero( segments == regionIndex ) # Calculate the average intensity for each region.
+
+	print("regionIntensityMap:", regionIntensityMap )
+
+	return regionIntensityMap
+
+
 
 def callSLIC(segmentCount=40):
 	images = []
@@ -162,6 +205,9 @@ def callSLIC(segmentCount=40):
 		for numSegments in (segmentCount,):
 			image, segments = segmentImage(imageFile, numSegments)
 			newImage = np.copy(image)
+
+			greyscaleImage = np.asarray( Image.fromarray(image).convert('L') )
+			print('GreyScale:', greyscaleImage)
 			# regionIndex = 16
 			# show the output of SLIC
 			# fig = plt.figure("Superpixels -- %d segments - file%s" % (numSegments, image))
@@ -171,7 +217,10 @@ def callSLIC(segmentCount=40):
 			# Bridson_Common.logDebug(__name__, segments)
 			# plt.axis("off")
 
-			raster, regionMap = catalogRegions(segments)
+			# Generate region intensity HashMap.
+			regionIntensityMap = generateImageIntensityHashmap(greyscaleImage, segments)
+
+			raster, regionMap = catalogRegions(segments, regionIntensityMap)
 			# fig = plt.figure("Raster --")
 			# ax = fig.add_subplot(3, 3,  2)
 			# regionImage = Image.fromarray(np.uint8(raster), 'L')

@@ -107,6 +107,8 @@ def cleanUpFiles():
 	os.system("rm " + path + "test1_out_flat.obj")
 
 
+
+
 def SLICImage():
 	startIndex = 0 # Index starts at 0.
 	regionIndex = startIndex
@@ -122,7 +124,7 @@ def SLICImage():
 	# blankRaster = np.zeros(np.shape(imageraster))
 	# ax3 = plt.subplot2grid(gridsize, (0, 1), rowspan=1)
 	# ax3.imshow(blankRaster)
-	ax3.imshow(imageraster)
+	ax3.imshow( imageraster, cmap='Greys')
 	ax3.grid()
 	thismanager = pylab.get_current_fig_manager()
 	thismanager.window.wm_geometry("+0+0")
@@ -268,9 +270,9 @@ def indexValidation():
 	finishedImage = Bridson_FinishedImage.FinishedImage()
 	# finishedImage.setXLimit( 0, np.shape(imageraster)[0])
 
-	# for index in [11]:
+	for index in [11]:
 	# for index in range(10,15):  # Interesting regions: 11, 12, 14
-	for index in range( len(regionMap.keys()) ):
+	# for index in range( len(regionMap.keys()) ):
 		print("Starting Region: ", index)
 
 		# Generate the raster for the first region.
