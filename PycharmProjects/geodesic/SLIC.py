@@ -76,7 +76,7 @@ def catalogRegions( segments, regionIntensityMap ):
 	:return: Dictionary of segments.  Map will contain all the x,y coordinates for each segment.
 
 	'''
-	print("Segments:", segments)
+	# print("Segments:", segments)
 	x, y = np.shape(segments)
 	raster = np.zeros((x,y))
 	regionMap = {}
@@ -207,7 +207,7 @@ def callSLIC(segmentCount=40):
 			newImage = np.copy(image)
 
 			greyscaleImage = np.asarray( Image.fromarray(image).convert('L') )
-			print('GreyScale:', greyscaleImage)
+			# print('GreyScale:', greyscaleImage)
 			# regionIndex = 16
 			# show the output of SLIC
 			# fig = plt.figure("Superpixels -- %d segments - file%s" % (numSegments, image))
@@ -227,7 +227,8 @@ def callSLIC(segmentCount=40):
 			# ax.imshow(raster)
 			# ax.imshow(mark_boundaries(regionImage, segments, color=(1,0,0), mode='inner', background_label=regionIndex ))
 
-	return raster, regionMap
+	# raster = raster.astype(int)  # Convert the raster to integer.
+	return raster, regionMap, segments
 
 
 

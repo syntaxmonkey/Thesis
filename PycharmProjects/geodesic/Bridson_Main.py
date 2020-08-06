@@ -19,7 +19,7 @@ import Bridson_Common
 import random
 import sys
 import Bridson_FinishedImage
-
+from skimage.segmentation import mark_boundaries
 
 random.seed(Bridson_Common.seedValue)
 np.random.seed(Bridson_Common.seedValue)
@@ -112,7 +112,8 @@ def cleanUpFiles():
 def SLICImage():
 	startIndex = 0 # Index starts at 0.
 	regionIndex = startIndex
-	imageraster, regionMap = SLIC.callSLIC(segmentCount=40)
+	imageraster, regionMap, segments = SLIC.callSLIC(segmentCount=Bridson_Common.segmentCount)
+
 
 	stopIndex=startIndex+16
 
@@ -124,7 +125,12 @@ def SLICImage():
 	# blankRaster = np.zeros(np.shape(imageraster))
 	# ax3 = plt.subplot2grid(gridsize, (0, 1), rowspan=1)
 	# ax3.imshow(blankRaster)
-	ax3.imshow( imageraster, cmap='Greys')
+	# ax3.imshow( imageraster, cmap='Greys', norm=matplotlib.colors.Normalize())
+	# ax3.imshow( imageraster, cmap='Greys' )
+
+	displayRaster = imageraster / np.max(imageraster)   # Need to normalize the region intensity [0 ... 1.0] to display properly.
+	# print("Raster:", displayRaster)
+	ax3.imshow(mark_boundaries( displayRaster, segments))
 	ax3.grid()
 	thismanager = pylab.get_current_fig_manager()
 	thismanager.window.wm_geometry("+0+0")
@@ -405,7 +411,8 @@ if __name__ == '__main__':
 	# Create Mesh object for flattened file.
 	# flatMeshObj = Bridson_MeshObj.MeshObject(flatvertices=flatvertices, flatfaces=flatfaces, xrange=xrange, yrange=yrange)
 
-	imageraster, regionMap = SLICImage()
+	# imageraster, regionMap = SLICImage()
+	regionMap = []
 
 	if False:
 		startIndex = 0
