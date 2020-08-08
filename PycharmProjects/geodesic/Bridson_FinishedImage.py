@@ -6,6 +6,7 @@ import Bridson_Common
 import numpy as np
 from skimage.segmentation import mark_boundaries
 import math
+from scipy.spatial import distance
 
 class FinishedImage:
 	def __init__(self, *args, **kwargs):
@@ -99,7 +100,8 @@ class FinishedImage:
 		# print("TopLeftSource: ", topLeftSource)
 		# # print("shiftCoordinates:", shiftCoordinates)
 		# print("LinePoints:",linePoints)
-		currentLine = linePoints[0] * -1000000
+		currentLine = linePoints[0] * -100
+		initial=True
 		# count = 0
 		for index in range(len(linePoints)):
 			# if count > 5:
@@ -113,7 +115,13 @@ class FinishedImage:
 				line[:, 1] = line[:, 1] - topLeftTarget[0] + 5  # Required to be negative.
 				if self.calculateLineSpacing(currentLine, line) == True:
 					self.ax.plot(line[:, 0], line[:, 1]*flip, color=colour)
+					if Bridson_Common.closestPointPair:  # Only place the dots when we are calculating closest point pair.
+						if initial == False:  # Do not display this dot the first time around.
+							self.ax.plot(currentLine[self.markPoint[0]][0], currentLine[self.markPoint[0]][1] * flip, marker='*',
+							             markersize=6, color='g')  # Colour middle point.
+						self.ax.plot(line[self.markPoint[1]][0], line[self.markPoint[1]][1]*flip, marker='o', markersize=2, color='r')  # Colour middle point.
 					currentLine = line
+					initial = False
 					# count += 1
 
 
@@ -125,19 +133,37 @@ class FinishedImage:
 		else:
 			return secondDistance
 
+	def findClosestPointPair(self, line1, line2):
+		a = distance.cdist(line1, line2, 'euclidean')
+		# print(a)
+
+		minDistance = a.min()
+		# print("Min Value:", minDistance)
+		result = np.where(a == minDistance)
+		# print("Result:", result)
+		listOfCordinates = list(zip(result[0], result[1]))
+		# print("Min Index:", listOfCordinates)
+
+		minPointIndex = listOfCordinates[0]
+		# print(a[minPointIndex[0], minPointIndex[1]])
+		self.markPoint = minPointIndex
+		return minDistance
 
 	def calculateLineSpacing(self, line1, line2, factor=Bridson_Common.lineCullingDistanceFactor):
 		# Get the endPoints of the lines.
 		distance = 0
-		if Bridson_Common.middleAverageOnly == False:
-			# If middleAverageOnly is set to true,
-			# print("3 point average.")
-			distance += self.findCloserDistance(line1[0], line1[-1], line2[0])
-			distance += self.findCloserDistance(line1[0], line1[-1], line2[-1])
+		if Bridson_Common.closestPointPair == False:
+			if Bridson_Common.middleAverageOnly == False:
+				# If middleAverageOnly is set to true,
+				# print("3 point average.")
+				distance += self.findCloserDistance(line1[0], line1[-1], line2[0])
+				distance += self.findCloserDistance(line1[0], line1[-1], line2[-1])
 
-		distance += Bridson_Common.euclidean_distance(line1[math.floor(len(line1)/2)], line2[math.floor( len(line2)/2)])
+			distance += Bridson_Common.euclidean_distance(line1[math.floor(len(line1)/2)], line2[math.floor( len(line2)/2)])
 
-		distance = distance / Bridson_Common.divisor
+			distance = distance / Bridson_Common.divisor
+		else:
+			distance = self.findClosestPointPair(line1, line2)
 		# print("Distance:", distance, Bridson_Common.dradius*factor)
 		if distance > Bridson_Common.dradius*factor:
 			# print("Far enough")

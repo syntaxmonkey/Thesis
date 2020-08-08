@@ -19,6 +19,7 @@ sortExteriorPoints=True
 lineSkip = 1
 lineCullingDistanceFactor = 3
 
+closestPointPair=True
 middleAverageOnly=True
 if middleAverageOnly == True:
 	divisor = 1.0
