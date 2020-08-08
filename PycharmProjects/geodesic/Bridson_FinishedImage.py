@@ -5,6 +5,7 @@ import SLIC
 import Bridson_Common
 import numpy as np
 from skimage.segmentation import mark_boundaries
+import math
 
 class FinishedImage:
 	def __init__(self, *args, **kwargs):
@@ -19,28 +20,31 @@ class FinishedImage:
 
 
 	def cropContourLines(self, linePoints, raster):
-		# Raster will have 255 for valid points.
-		newLinePoints = []
-		for line in linePoints:
-			newLine = []
-			emptyLine = True
-			for point in line:
-				x, y = int(point[0]), int(0-point[1])
-				# print("Point:", x,y)
-				if raster[y][x] == 255: # Because of the differing coordinates system, we have to flip the order of x,y
-					# print("Point:", point)
-					# print("Point in Mask:", x, y)
-					newLine.append( point )
-					emptyLine = False
-				else:
-					# print("Point NOT in Mask:", x, y)
-					pass
+		if Bridson_Common.cropContours:
+			# Raster will have 255 for valid points.
+			newLinePoints = []
+			for line in linePoints:
+				newLine = []
+				emptyLine = True
+				for point in line:
+					x, y = int(point[0]), int(0-point[1])
+					# print("Point:", x,y)
+					if raster[y][x] == 255: # Because of the differing coordinates system, we have to flip the order of x,y
+						# print("Point:", point)
+						# print("Point in Mask:", x, y)
+						newLine.append( point )
+						emptyLine = False
+					else:
+						# print("Point NOT in Mask:", x, y)
+						pass
 
-			if emptyLine == False:
-				newLinePoints.append(np.array(newLine))
+				if emptyLine == False:
+					newLinePoints.append(np.array(newLine))
 
-		newLinePoints = np.array(newLinePoints)
-		return newLinePoints
+			newLinePoints = np.array(newLinePoints)
+			return newLinePoints
+		else:
+			return linePoints
 
 	def maxLinePoints(self, linePoints):
 		maxx, maxy = -1000000, -1000000
@@ -95,13 +99,40 @@ class FinishedImage:
 		# print("TopLeftSource: ", topLeftSource)
 		# # print("shiftCoordinates:", shiftCoordinates)
 		# print("LinePoints:",linePoints)
-
+		currentLine = linePoints[-1]
 		for index in range(len(linePoints)):
-			colour = Bridson_Common.colourArray[ (index % len(Bridson_Common.colourArray) ) ]
-			line = linePoints[index].copy()
-			line = line * Bridson_Common.mergeScale
-			# For some reason we need to swap the topLeft x,y with the line x,y.
-			line[:, 0] = line[:, 0] + topLeftTarget[1] - 6 # Needed to line up with regions.
-			line[:, 1] = line[:, 1] - topLeftTarget[0] + 6  # Required to be negative.
+			if index % Bridson_Common.lineSkip == 0:
+				colour = Bridson_Common.colourArray[ (index % len(Bridson_Common.colourArray) ) ]
+				line = linePoints[index].copy()
+				line = line * Bridson_Common.mergeScale
+				# For some reason we need to swap the topLeft x,y with the line x,y.
+				line[:, 0] = line[:, 0] + topLeftTarget[1] - 5 # Needed to line up with regions.
+				line[:, 1] = line[:, 1] - topLeftTarget[0] + 5  # Required to be negative.
+				if self.calculateLineSpacing(currentLine, line) == True:
+					self.ax.plot(line[:, 0], line[:, 1]*flip, color=colour)
+					currentLine = line
 
-			self.ax.plot(line[:, 0], line[:, 1]*flip, color=colour)
+
+	def findCloserDistance(self, l1p1, l1p2, l2p1):
+		firstDistance = Bridson_Common.euclidean_distance(l1p1, l2p1)
+		secondDistance = Bridson_Common.euclidean_distance(l1p2, l2p1)
+		if firstDistance < secondDistance:
+			return firstDistance
+		else:
+			return secondDistance
+
+
+	def calculateLineSpacing(self, line1, line2, factor=Bridson_Common.lineCullingDistanceFactor):
+		# Get the endPoints of the lines.
+		distance = 0
+		distance += self.findCloserDistance(line1[0], line1[-1], line2[0])
+		distance += self.findCloserDistance(line1[0], line1[-1], line2[-1])
+
+		# distance += Bridson_Common.euclidean_distance(line1[0], line2[0])
+		# distance += Bridson_Common.euclidean_distance(line1[-1], line2[-1])
+		distance += Bridson_Common.euclidean_distance(line1[math.floor(len(line1)/2)], line2[math.floor( len(line2)/2)])
+		distance = distance / 3.0
+		if distance > Bridson_Common.dradius*factor:
+			return True
+		else:
+			return False

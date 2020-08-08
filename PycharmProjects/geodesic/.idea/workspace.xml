@@ -8,6 +8,8 @@
       <change beforePath="$PROJECT_DIR$/Bridson_Common.py" afterPath="$PROJECT_DIR$/Bridson_Common.py" />
       <change beforePath="$PROJECT_DIR$/Bridson_FinishedImage.py" afterPath="$PROJECT_DIR$/Bridson_FinishedImage.py" />
       <change beforePath="$PROJECT_DIR$/Bridson_Main.py" afterPath="$PROJECT_DIR$/Bridson_Main.py" />
+      <change beforePath="$PROJECT_DIR$/Bridson_MeshObj.py" afterPath="$PROJECT_DIR$/Bridson_MeshObj.py" />
+      <change beforePath="$PROJECT_DIR$/Bridson_TriangulationDualGraph.py" afterPath="$PROJECT_DIR$/Bridson_TriangulationDualGraph.py" />
       <change beforePath="$PROJECT_DIR$/chaincode.txt" afterPath="$PROJECT_DIR$/chaincode.txt" />
       <change beforePath="$PROJECT_DIR$/../../boundary-first-flattening" afterPath="$PROJECT_DIR$/../../boundary-first-flattening" />
     </list>
@@ -35,8 +37,8 @@
       <file leaf-file-name="Bridson_Common.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Bridson_Common.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="22" lean-forward="false" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
+            <state relative-caret-position="285">
+              <caret line="19" column="29" lean-forward="false" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="29" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -47,8 +49,8 @@
       <file leaf-file-name="Bridson_Main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Bridson_Main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="621">
-              <caret line="326" column="40" lean-forward="false" selection-start-line="326" selection-start-column="40" selection-end-line="326" selection-end-column="40" />
+            <state relative-caret-position="265">
+              <caret line="283" column="24" lean-forward="true" selection-start-line="283" selection-start-column="24" selection-end-line="283" selection-end-column="24" />
               <folding>
                 <element signature="e#0#66#0" expanded="true" />
               </folding>
@@ -59,8 +61,8 @@
       <file leaf-file-name="Bridson_FinishedImage.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Bridson_FinishedImage.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="769">
-              <caret line="104" column="58" lean-forward="false" selection-start-line="104" selection-start-column="58" selection-end-line="104" selection-end-column="58" />
+            <state relative-caret-position="432">
+              <caret line="109" column="62" lean-forward="false" selection-start-line="109" selection-start-column="62" selection-end-line="109" selection-end-column="62" />
               <folding>
                 <element signature="e#1#32#0" expanded="true" />
               </folding>
@@ -91,11 +93,21 @@
       <file leaf-file-name="Bridson_MeshObj.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Bridson_MeshObj.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5805">
-              <caret line="395" column="36" lean-forward="false" selection-start-line="395" selection-start-column="36" selection-end-line="395" selection-end-column="36" />
+            <state relative-caret-position="465">
+              <caret line="597" column="4" lean-forward="false" selection-start-line="597" selection-start-column="4" selection-end-line="597" selection-end-column="4" />
               <folding>
                 <element signature="e#0#80#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Bridson_TriangulationDualGraph.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Bridson_TriangulationDualGraph.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="544">
+              <caret line="209" column="54" lean-forward="true" selection-start-line="209" selection-start-column="54" selection-end-line="209" selection-end-column="54" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -112,18 +124,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Bridson_ChainCode.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Bridson_ChainCode.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="38" column="32" lean-forward="false" selection-start-line="38" selection-start-column="32" selection-end-line="38" selection-end-column="32" />
-              <folding>
-                <element signature="e#176#211#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -135,13 +135,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>LineSeedPointsO</find>
-      <find>triplot</find>
-      <find>Final Last</find>
-      <find>Final Last inte</find>
-      <find>Last In</find>
-      <find>dotPoints</find>
-      <find>rotate</find>
       <find>rotta</find>
       <find>actualTopLeft</find>
       <find>plt.fi</find>
@@ -165,6 +158,13 @@
       <find>indexvalid</find>
       <find>SLICImageSLICImage</find>
       <find>SLICImage</find>
+      <find>drawVerticalLinesSeeded</find>
+      <find>drawVerticalLines</find>
+      <find>def GenerateExteriorPoints(self):</find>
+      <find>GenerateExteriorPoints</find>
+      <find>transfer</find>
+      <find>d</find>
+      <find>cropContourLines</find>
     </findStrings>
     <replaceStrings>
       <replace>=</replace>
@@ -214,11 +214,11 @@
         <option value="$PROJECT_DIR$/Bridson_Logging.py" />
         <option value="$PROJECT_DIR$/Bridson_Delaunay.py" />
         <option value="$PROJECT_DIR$/Bridson_Test.py" />
-        <option value="$PROJECT_DIR$/Bridson_TriangulationDualGraph.py" />
-        <option value="$PROJECT_DIR$/Bridson_MeshObj.py" />
         <option value="$PROJECT_DIR$/SLIC.py" />
-        <option value="$PROJECT_DIR$/Bridson_Common.py" />
+        <option value="$PROJECT_DIR$/Bridson_TriangulationDualGraph.py" />
         <option value="$PROJECT_DIR$/Bridson_Main.py" />
+        <option value="$PROJECT_DIR$/Bridson_MeshObj.py" />
+        <option value="$PROJECT_DIR$/Bridson_Common.py" />
         <option value="$PROJECT_DIR$/Bridson_FinishedImage.py" />
       </list>
     </option>
@@ -246,7 +246,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -272,6 +271,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -823,7 +823,7 @@
         <state relative-caret-position="360">
           <caret line="38" column="32" lean-forward="false" selection-start-line="38" selection-start-column="32" selection-end-line="38" selection-end-column="32" />
           <folding>
-            <element signature="e#176#211#0" expanded="true" />
+            <element signature="e#176#211#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -838,37 +838,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Bridson_Delaunay.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="23" column="60" lean-forward="false" selection-start-line="23" selection-start-column="60" selection-end-line="23" selection-end-column="60" />
-          <folding>
-            <element signature="e#0#150#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Bridson_MeshObj.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5805">
-          <caret line="395" column="36" lean-forward="false" selection-start-line="395" selection-start-column="36" selection-end-line="395" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#80#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.7/site-packages/numpy/core/fromnumeric.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="245">
           <caret line="85" column="0" lean-forward="false" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Bridson_TriangulationDualGraph.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="278" column="47" lean-forward="false" selection-start-line="278" selection-start-column="47" selection-end-line="278" selection-end-column="47" />
         </state>
       </provider>
     </entry>
@@ -887,13 +860,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/anaconda3/lib/python3.7/site-packages/skimage/segmentation/boundaries.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="101">
-          <caret line="183" column="4" lean-forward="false" selection-start-line="183" selection-start-column="4" selection-end-line="183" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SLIC.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1560">
@@ -902,30 +868,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Bridson_Common.py">
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.7/site-packages/skimage/segmentation/boundaries.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="22" lean-forward="false" selection-start-line="15" selection-start-column="22" selection-end-line="15" selection-end-column="22" />
+        <state relative-caret-position="303">
+          <caret line="183" column="4" lean-forward="false" selection-start-line="183" selection-start-column="4" selection-end-line="183" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Bridson_TriangulationDualGraph.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="209" column="54" lean-forward="true" selection-start-line="209" selection-start-column="54" selection-end-line="209" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Bridson_MeshObj.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="597" column="4" lean-forward="false" selection-start-line="597" selection-start-column="4" selection-end-line="597" selection-end-column="4" />
           <folding>
-            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#0#80#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Bridson_Main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="621">
-          <caret line="326" column="40" lean-forward="false" selection-start-line="326" selection-start-column="40" selection-end-line="326" selection-end-column="40" />
+        <state relative-caret-position="265">
+          <caret line="283" column="24" lean-forward="true" selection-start-line="283" selection-start-column="24" selection-end-line="283" selection-end-column="24" />
           <folding>
             <element signature="e#0#66#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Bridson_Delaunay.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="23" column="60" lean-forward="false" selection-start-line="23" selection-start-column="60" selection-end-line="23" selection-end-column="60" />
+          <folding>
+            <element signature="e#0#150#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Bridson_Common.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="29" lean-forward="false" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Bridson_FinishedImage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="769">
-          <caret line="104" column="58" lean-forward="false" selection-start-line="104" selection-start-column="58" selection-end-line="104" selection-end-column="58" />
+        <state relative-caret-position="432">
+          <caret line="109" column="62" lean-forward="false" selection-start-line="109" selection-start-column="62" selection-end-line="109" selection-end-column="62" />
           <folding>
             <element signature="e#1#32#0" expanded="true" />
           </folding>

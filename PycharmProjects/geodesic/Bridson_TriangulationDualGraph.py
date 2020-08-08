@@ -186,6 +186,41 @@ class TriangulationDualGraph:
 		self.exteriorEdges = exteriorEdges
 
 
+	def sortExteriorPoints(self):
+
+		tempPoints = []
+		for point in self.points:
+			tempPoints.append( list(point))
+		print("Points:", tempPoints)
+
+		# At this point, the self.exteriorPoints is a list of point indeces.
+		actualPoints = []
+		for pointIndex in self.exteriorPoints:
+			actualPoints.append( tempPoints[ pointIndex ].copy() )
+		# actualPoints = np.array( actualPoints, dtype=[('x', np.float), ('y', np.float)] )
+		actualPoints = np.array( actualPoints )
+		# print("Exterior Point Index:", self.exteriorPoints)
+		# print("Exterior Points:", actualPoints)
+		# actualPoints = actualPoints[ actualPoints[:, 2].argsort() ]
+		# Using the sort algorithm from here: https://stackoverflow.com/questions/2828059/sorting-arrays-in-numpy-by-column/2828121#2828121
+		# sortedActualPoints = actualPoints[actualPoints[:, 1].argsort( kind='mergesort' )]
+		sortedActualPoints = actualPoints[actualPoints[:, 0].argsort( kind='mergesort' )] # Sort by the X axis.
+		# actualPoints.view('f,f,f')
+		# print(type(actualPoints))
+		# print("Sorted Points:", sortedActualPoints )
+
+		newExteriorPoints = []
+		# Recreate the exterior Points as indeces.
+		for point in sortedActualPoints:
+			# result = np.where( self.points == point )
+			# print('Result:', result)
+			# print("Indeces:", tempPoints.index( list(point) ))
+			newExteriorPoints.append( tempPoints.index( list(point) ) )
+
+		# print("New Exterior Point Indeces:", newExteriorPoints)
+		self.exteriorPoints = newExteriorPoints.copy()
+
+
 
 	def GenerateExteriorPoints(self):
 		exteriorPoints = []
@@ -196,6 +231,11 @@ class TriangulationDualGraph:
 				exteriorPoints.append( pointIndex )
 
 		self.exteriorPoints = exteriorPoints
+		if Bridson_Common.sortExteriorPoints == True:
+			self.sortExteriorPoints()
+
+
+
 
 	# (v1,v2,v3) -> DualTriangle
 	def GenerateVertexToTriangleMap(self):

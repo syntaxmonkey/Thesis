@@ -397,16 +397,6 @@ class MeshObject:
 						break # Exit the while loop.
 					attempt += 1
 
-
-			# for i in range(pointCount + 1):
-			# 	# pointx, pointy = xlower + j * xincrement, ylower + yincrement * i
-			# 	pointx, pointy = j, ylower + yincrement * i
-			# 	# pointy, pointx = ylower + yincrement * i, xlower + j * xincrement
-			# 	if self.trifinder(pointx, pointy) > -1:  # How do we guarantee that the dots on the line are in order?
-			# 		rowPoints.append((pointx, pointy))
-			# 	else:
-			# 		notFound += 1
-					#Bridson_Common.logDebug(__name__, "**** Point not found in trifinder *****", (pointx, pointy))
 			Bridson_Common.logDebug(__name__,">>>>>>>>>>>>>>>>>>> Triangle Traversal:", triangleTraversal)
 			if len(rowPoints) > 0:
 				rowPoints = np.array(rowPoints)
@@ -593,6 +583,8 @@ class MeshObject:
 		newPoints = np.array( newPoints ) # Add to list of existing lines
 		return newPoints
 
+
+
 	def TransferLinePointsFromTarget(self, otherMeshObj):
 		self.linePoints = []
 		for otherLinePoints in otherMeshObj.linePoints:
@@ -602,10 +594,14 @@ class MeshObject:
 				x, y = point
 				cartesian = Bridson_Common.convertAxesBarycentric(x, y, otherMeshObj.triangulation, self.triangulation,
 				                                                  otherMeshObj.trifinder, otherMeshObj.points, self.points)
+				# print("Type:", type(cartesian))
 				newLine.append( cartesian ) # Append points to create new line.
 
+			# self.linePoints.append( np.array(newLine) ) # Add to list of existing lines
 			self.linePoints.append( np.array(newLine) ) # Add to list of existing lines
 		self.linePoints = np.array( self.linePoints ) # Convert line into numpy array.
+
+		# print("LinePoints:", self.linePoints)
 
 		colourArray = ['r', 'w', 'm']
 		markerArray = ['o', '*', 's']
@@ -659,43 +655,6 @@ class MeshObject:
 			# self.ax = plt.axes()
 			self.ax = plt.subplot(1, 1, 1, aspect=1)
 			self.displayMesh('Flat Triangulation')
-			# plt.title('Flat Triangulation ' + self.indexLabel)
-			# # plt.triplot(points[:,0], points[:,1], tri.simplices.copy())
-			# # Plot the lines representing the mesh.
-			# if Bridson_Common.colourCodeMesh:
-			# 	# Based on code from https://stackoverflow.com/questions/28245327/filling-triangles-in-matplotlib-triplot-with-individual-colors
-			# 	print("Length of triangles", len(self.triangulation.triangles))
-			# 	colors = np.array( [ i % Bridson_Common.colourCount for i in range(len(self.triangulation.triangles)) ] )
-			# 	print("Length of colors", len(colors))
-			# 	# plt.tripcolor(self.points[:, 1], self.points[:, 0], self.triangulation.triangles.copy() , facecolors=colors, lw=0.5)
-			# 	plt.tripcolor(self.points[:, 0], self.points[:, 1], self.triangulation.triangles.copy(), facecolors=colors,
-			# 	              lw=0.5)
-			# else:
-			# 	if Bridson_Common.invert:
-			# 		plt.triplot(self.points[:, 1], xrange - self.points[:, 0], self.triangulation.triangles, 'b-', lw=0.5)
-			# 	else:
-			# 		plt.triplot(self.points[:, 1], self.points[:, 0], self.triangulation.triangles, 'b-', lw=0.5)
-			#
-			# if False:
-			# 	# Display reference red triangles
-			# 	singleTriangle = np.array([self.triangulation.triangles[0]])
-			# 	singleTriangle = np.vstack((singleTriangle, self.triangulation.triangles[1]))
-			# 	# Bridson_Common.logDebug(__name__, singleTriangle)
-			# 	if Bridson_Common.invert:
-			# 		plt.triplot(self.points[:, 1], xrange - self.points[:, 0], singleTriangle, 'r-', lw=1)
-			# 	else:
-			# 		plt.triplot(self.points[:, 0], self.points[:, 1], singleTriangle, 'r-', lw=1)
-			#
-			# 	# Display reference green triangles
-			# 	singleTriangle = np.array([self.triangulation.triangles[-1]])
-			# 	singleTriangle = np.vstack((singleTriangle, self.triangulation.triangles[-2]))
-			# 	# Bridson_Common.logDebug(__name__, singleTriangle)
-			# 	if Bridson_Common.invert:
-			# 		plt.triplot(self.points[:, 1], xrange - self.points[:, 0], singleTriangle, 'g-', lw=1)
-			# 	else:
-			# 		plt.triplot(self.points[:, 0], self.points[:, 1], singleTriangle, 'g-', lw=1)
-
-			# plt.triplot(self.points[:, 0], xrange - self.points[:, 1], self.triangulation.triangles)
 			thismanager = pylab.get_current_fig_manager()
 			thismanager.window.wm_geometry("+1300+560")
 

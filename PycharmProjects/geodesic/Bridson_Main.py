@@ -278,9 +278,9 @@ def indexValidation():
 	finishedImage.drawSLICRegions( regionRaster, segments )
 	# finishedImage.setXLimit( 0, np.shape(imageraster)[0])
 
-	# for index in [11]:
+	for index in [11]:
 	# for index in range(10,15):  # Interesting regions: 11, 12, 14
-	for index in range( len(regionMap.keys()) ):
+	# for index in range( len(regionMap.keys()) ):
 		print("Starting Region: ", index)
 
 		# Generate the raster for the first region.

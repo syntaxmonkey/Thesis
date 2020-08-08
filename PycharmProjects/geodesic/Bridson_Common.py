@@ -10,13 +10,16 @@ import inspect
 seedValue = 11
 
 debug=False
-displayMesh=False
+displayMesh=True
 diagnostic=False # Generally avoid dispalying meshes.  Only count the number of successful trifinder generations.
 highlightEdgeTriangle=False # Highlight the edge triangle that contains the exterior point of the vertical lines.
 drawSLICRegions = True
 
-normalizeUV = True
+sortExteriorPoints=True
+lineSkip = 1
+lineCullingDistanceFactor = 1
 
+normalizeUV = True
 invert = False
 
 colourCodeMesh = True
@@ -45,8 +48,8 @@ dradius = 1.5 # Important that dradius is greater than 1.0.  When the value is 1
 colourArray = ['r', 'b', 'm']
 colourArray = ['b', 'b', 'b']
 
-mergeScale = 1
-cropContours = False
+mergeScale = 1  # How much to scale the contour lines before merging.
+cropContours = True
 
 def rotateClockwise90(array, angle=90):
 	'''
@@ -121,7 +124,9 @@ def get_cartesian_from_barycentric(b, t):
 	'''
 	tnew = np.transpose(np.array(t))
 	bnew = np.array(b)
-	return tnew.dot(bnew)
+	# print("Barycentric:", tnew.dot(bnew))
+	bary = tnew.dot(bnew)
+	return [bary[0], bary[1]]
 
 
 def euclidean_distance(a, b):
