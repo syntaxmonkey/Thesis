@@ -10,14 +10,22 @@ import inspect
 seedValue = 11
 
 debug=False
-displayMesh=True
+displayMesh=False
 diagnostic=False # Generally avoid dispalying meshes.  Only count the number of successful trifinder generations.
 highlightEdgeTriangle=False # Highlight the edge triangle that contains the exterior point of the vertical lines.
 drawSLICRegions = True
 
 sortExteriorPoints=True
 lineSkip = 1
-lineCullingDistanceFactor = 1
+lineCullingDistanceFactor = 3
+
+middleAverageOnly=True
+if middleAverageOnly == True:
+	divisor = 1.0
+else:
+	divisor = 3.0
+
+print("Divisor:", Bridson_Common.divisor)
 
 normalizeUV = True
 invert = False

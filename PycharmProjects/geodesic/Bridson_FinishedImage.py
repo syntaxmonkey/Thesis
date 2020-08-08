@@ -99,8 +99,11 @@ class FinishedImage:
 		# print("TopLeftSource: ", topLeftSource)
 		# # print("shiftCoordinates:", shiftCoordinates)
 		# print("LinePoints:",linePoints)
-		currentLine = linePoints[-1]
+		currentLine = linePoints[0] * -1000000
+		# count = 0
 		for index in range(len(linePoints)):
+			# if count > 5:
+			# 	break
 			if index % Bridson_Common.lineSkip == 0:
 				colour = Bridson_Common.colourArray[ (index % len(Bridson_Common.colourArray) ) ]
 				line = linePoints[index].copy()
@@ -111,6 +114,7 @@ class FinishedImage:
 				if self.calculateLineSpacing(currentLine, line) == True:
 					self.ax.plot(line[:, 0], line[:, 1]*flip, color=colour)
 					currentLine = line
+					# count += 1
 
 
 	def findCloserDistance(self, l1p1, l1p2, l2p1):
@@ -125,14 +129,19 @@ class FinishedImage:
 	def calculateLineSpacing(self, line1, line2, factor=Bridson_Common.lineCullingDistanceFactor):
 		# Get the endPoints of the lines.
 		distance = 0
-		distance += self.findCloserDistance(line1[0], line1[-1], line2[0])
-		distance += self.findCloserDistance(line1[0], line1[-1], line2[-1])
+		if Bridson_Common.middleAverageOnly == False:
+			# If middleAverageOnly is set to true,
+			# print("3 point average.")
+			distance += self.findCloserDistance(line1[0], line1[-1], line2[0])
+			distance += self.findCloserDistance(line1[0], line1[-1], line2[-1])
 
-		# distance += Bridson_Common.euclidean_distance(line1[0], line2[0])
-		# distance += Bridson_Common.euclidean_distance(line1[-1], line2[-1])
 		distance += Bridson_Common.euclidean_distance(line1[math.floor(len(line1)/2)], line2[math.floor( len(line2)/2)])
-		distance = distance / 3.0
+
+		distance = distance / Bridson_Common.divisor
+		# print("Distance:", distance, Bridson_Common.dradius*factor)
 		if distance > Bridson_Common.dradius*factor:
+			# print("Far enough")
 			return True
 		else:
+			# print("Too close")
 			return False
