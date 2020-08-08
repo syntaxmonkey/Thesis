@@ -4,6 +4,7 @@ import matplotlib
 import SLIC
 import Bridson_Common
 import numpy as np
+from skimage.segmentation import mark_boundaries
 
 class FinishedImage:
 	def __init__(self, *args, **kwargs):
@@ -54,7 +55,22 @@ class FinishedImage:
 
 		return (x,y)
 
+
+	def drawSLICRegions(self, regionRaster, segments):
+		if Bridson_Common.drawSLICRegions:
+			self.ax.imshow(mark_boundaries(regionRaster, segments))
+			self.ax.grid()
+
 	def drawRegionContourLines(self, regionMap, index, meshObj):
+
+		# If we are not drawing the SLIC regions, we do not need to flip the Y coordinates.
+		# If we draw the SLIC regions, we need to flip the Y coordinates.
+		if Bridson_Common.drawSLICRegions == False:
+			flip = 1
+		else:
+			flip = -1
+
+
 		# Need to utilize the region Raster.
 		raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
 		# Obtain the linePoints from the meshObj.
@@ -85,7 +101,7 @@ class FinishedImage:
 			line = linePoints[index].copy()
 			line = line * Bridson_Common.mergeScale
 			# For some reason we need to swap the topLeft x,y with the line x,y.
-			line[:, 0] = line[:, 0] + topLeftTarget[1] + 5
-			line[:, 1] = line[:, 1] - topLeftTarget[0] + 5  # Required to be negative.
+			line[:, 0] = line[:, 0] + topLeftTarget[1] - 6 # Needed to line up with regions.
+			line[:, 1] = line[:, 1] - topLeftTarget[0] + 6  # Required to be negative.
 
-			self.ax.plot(line[:, 0], line[:, 1], color=colour)
+			self.ax.plot(line[:, 0], line[:, 1]*flip, color=colour)

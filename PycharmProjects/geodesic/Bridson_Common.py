@@ -13,7 +13,7 @@ debug=False
 displayMesh=False
 diagnostic=False # Generally avoid dispalying meshes.  Only count the number of successful trifinder generations.
 highlightEdgeTriangle=False # Highlight the edge triangle that contains the exterior point of the vertical lines.
-
+drawSLICRegions = True
 
 normalizeUV = True
 
@@ -39,7 +39,7 @@ density = 0.01
 lineDotDensity = 0.01
 lineRadiusFactor = 1
 
-segmentCount = 100
+segmentCount = 40
 dradius = 1.5 # Important that dradius is greater than 1.0.  When the value is 1.0 or lower, BFF seems to have lots of issues with the mesh.
 
 colourArray = ['r', 'b', 'm']

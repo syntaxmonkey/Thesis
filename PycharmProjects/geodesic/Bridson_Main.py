@@ -128,15 +128,15 @@ def SLICImage():
 	# ax3.imshow( imageraster, cmap='Greys', norm=matplotlib.colors.Normalize())
 	# ax3.imshow( imageraster, cmap='Greys' )
 
-	displayRaster = imageraster / np.max(imageraster)   # Need to normalize the region intensity [0 ... 1.0] to display properly.
+	regionRaster = imageraster / np.max(imageraster)   # Need to normalize the region intensity [0 ... 1.0] to display properly.
 	# print("Raster:", displayRaster)
-	ax3.imshow(mark_boundaries( displayRaster, segments))
+	ax3.imshow(mark_boundaries( regionRaster, segments))
 	ax3.grid()
 	thismanager = pylab.get_current_fig_manager()
 	thismanager.window.wm_geometry("+0+0")
 
 	Bridson_Common.logDebug(__name__, "SLIC Keys:" + str(regionMap.keys()) )
-	return imageraster, regionMap
+	return imageraster, regionMap, regionRaster, segments
 
 
 def featureRemoval(mask, dradius, indexLabel):
@@ -269,16 +269,18 @@ def displayRegionRaster(regionRaster, index):
 
 
 def indexValidation():
-	imageraster, regionMap = SLICImage()
+	imageraster, regionMap, regionRaster, segments = SLICImage()
+
 
 	successfulRegions = 0
 	# Create new image for contour lines.  Should be the same size as original image.
 	finishedImage = Bridson_FinishedImage.FinishedImage()
+	finishedImage.drawSLICRegions( regionRaster, segments )
 	# finishedImage.setXLimit( 0, np.shape(imageraster)[0])
 
-	for index in [11]:
+	# for index in [11]:
 	# for index in range(10,15):  # Interesting regions: 11, 12, 14
-	# for index in range( len(regionMap.keys()) ):
+	for index in range( len(regionMap.keys()) ):
 		print("Starting Region: ", index)
 
 		# Generate the raster for the first region.
