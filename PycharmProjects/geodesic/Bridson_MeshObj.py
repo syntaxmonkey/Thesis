@@ -37,6 +37,7 @@ class MeshObject:
 		else:
 			Bridson_Common.logDebug(__name__, "No enough parameters")
 		self.generateDualGraph()
+		self.linePoints = None
 
 
 	def diagnosticExterior(self):
@@ -548,7 +549,12 @@ class MeshObject:
 				self.ax.plot(line[:, 0], line[:, 1], color=colour , marker=marker )
 				index += 1
 
-		self.linePoints = dotPoints
+
+		if self.linePoints == None:
+			self.linePoints = dotPoints
+		else:
+			self.linePoints = np.hstack( (self.linePoints, dotPoints) )  # Combine the two sets of lines.
+		# print("Drawn LinePoints:", self.linePoints)
 
 
 
@@ -716,6 +722,7 @@ class MeshObject:
 			# Iterate through each line row.
 			newLine = []
 			for point in otherLinePoints:
+				# print("Point:", point)
 				x, y = point
 				cartesian = Bridson_Common.convertAxesBarycentric(x, y, otherMeshObj.triangulation, self.triangulation,
 				                                                  otherMeshObj.trifinder, otherMeshObj.points, self.points)

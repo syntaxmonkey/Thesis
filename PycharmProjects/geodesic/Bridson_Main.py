@@ -278,8 +278,8 @@ def indexValidation():
 	finishedImage.drawSLICRegions( regionRaster, segments )
 	# finishedImage.setXLimit( 0, np.shape(imageraster)[0])
 
-	for index in [11]:
 	# for index in range(10,15):  # Interesting regions: 11, 12, 14
+	for index in [11]:
 	# for index in range( len(regionMap.keys()) ):
 		print("Starting Region: ", index)
 
@@ -305,7 +305,8 @@ def indexValidation():
 							# flatMeshObj.DrawVerticalLines()
 							# flatMeshObj.DrawVerticalLinesSeededFrom(LineSeedPointsObj, meshObj) # Draw lines based on seed from tertiary mesh.
 							# flatMeshObj.DrawVerticalLinesExteriorSeed2() # Draw lines using exterior points as line seed.
-							flatMeshObj.DrawAngleLinesExteriorSeed2()
+							flatMeshObj.DrawAngleLinesExteriorSeed2(angle=0)
+							flatMeshObj.DrawAngleLinesExteriorSeed2(angle=90)
 						else:
 							# flatMeshObj.DrawHorizontalLines()
 							# flatMeshObj.DrawHorizontalLinesExteriorSeed() # Draw lines using exterior points as line seed.

@@ -16,11 +16,11 @@ highlightEdgeTriangle=False # Highlight the edge triangle that contains the exte
 drawSLICRegions = True
 
 sortExteriorPoints=True
-lineSkip = 1
+lineSkip = 3
 lineCullingDistanceFactor = 3
 
 closestPointPair=False
-middleAverageOnly=True
+middleAverageOnly=False
 if middleAverageOnly == True:
 	divisor = 1.0
 else:
@@ -36,7 +36,7 @@ colourCount = 20
 
 linesOnFlat = True
 verticalLines = True
-lineAngle = 0
+lineAngle = 125
 
 
 barycentricVertexCorrection = True
