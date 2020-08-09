@@ -387,7 +387,7 @@ class TriangulationDualGraph:
 
 
 
-	def FindFirstIntersection(self, pointIndex, trifinder):
+	def FindFirstIntersection(self, pointIndex, trifinder, dx=0, dy=1):
 		'''
 			1. Determine the direction of the line.
 			a. Test going up and check to see if new point is in the trifinder.  How far should we step?
@@ -407,7 +407,7 @@ class TriangulationDualGraph:
 		minHeight, maxHeight, triangleIndexList = self.GetMaxTriangleHeightFromPoint(pointIndex)
 
 		# Find the proper direction, either up or down.
-		upX, upY = x, y + maxHeight
+		upX, upY = x + dx*maxHeight, y + dy*maxHeight
 		if trifinder(upX, upY) > -1:
 			# The upDirection is the correct direction.
 			direction = 1.0
@@ -423,8 +423,8 @@ class TriangulationDualGraph:
 
 		# We have the associated edges.
 		# Create the check line.  The CheckLine will start from 0.9*minHeight -> 1.1*maxHeight.
-		CheckLineStart = (x, y + minHeight * direction) # For some reason, it requires the minHeight.
-		CheckLineEnd = (x, y + 100.0 * maxHeight * direction)
+		CheckLineStart = (x + minHeight * dx * direction, y + minHeight * dy * direction) # For some reason, it requires the minHeight.
+		CheckLineEnd = (x + 100.0 * maxHeight * dx * direction, y + 100.0 * maxHeight * dy * direction)
 		ReferenceLine = (CheckLineStart, CheckLineEnd)
 		found = False
 		# find the intersection
@@ -467,7 +467,7 @@ class TriangulationDualGraph:
 			return None, None, None, None
 
 
-	def FindNextIntersection(self, currentIntersection, edge, triangleIndex, direction):
+	def FindNextIntersection(self, currentIntersection, edge, triangleIndex, direction, dx=0, dy=1):
 		'''
 
 		:param currentIntersection: (x, y)
@@ -501,7 +501,7 @@ class TriangulationDualGraph:
 		# We have the associated edges.
 		# Create the check line.  The CheckLine will start from 0.9*minHeight -> 1.1*maxHeight.
 		CheckLineStart = (x, y )
-		CheckLineEnd = (x, y + 100.0 * maxHeight * direction) # 10.0 to handle triangles that are really squished.
+		CheckLineEnd = (x + 100.0 * maxHeight * dx * direction, y + 100.0 * maxHeight * dy * direction) # 10.0 to handle triangles that are really squished.
 		ReferenceLine = (CheckLineStart, CheckLineEnd)
 		Bridson_Common.logDebug(__name__,"ReferenceLine:", ReferenceLine)
 		found = False

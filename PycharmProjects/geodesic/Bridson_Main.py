@@ -278,9 +278,9 @@ def indexValidation():
 	finishedImage.drawSLICRegions( regionRaster, segments )
 	# finishedImage.setXLimit( 0, np.shape(imageraster)[0])
 
-	# for index in [11]:
+	for index in [11]:
 	# for index in range(10,15):  # Interesting regions: 11, 12, 14
-	for index in range( len(regionMap.keys()) ):
+	# for index in range( len(regionMap.keys()) ):
 		print("Starting Region: ", index)
 
 		# Generate the raster for the first region.
@@ -304,20 +304,24 @@ def indexValidation():
 						if Bridson_Common.verticalLines:
 							# flatMeshObj.DrawVerticalLines()
 							# flatMeshObj.DrawVerticalLinesSeededFrom(LineSeedPointsObj, meshObj) # Draw lines based on seed from tertiary mesh.
-							flatMeshObj.DrawVerticalLinesExteriorSeed2() # Draw lines using exterior points as line seed.
+							# flatMeshObj.DrawVerticalLinesExteriorSeed2() # Draw lines using exterior points as line seed.
+							flatMeshObj.DrawAngleLinesExteriorSeed2()
 						else:
 							# flatMeshObj.DrawHorizontalLines()
-							flatMeshObj.DrawHorizontalLinesExteriorSeed() # Draw lines using exterior points as line seed.
+							# flatMeshObj.DrawHorizontalLinesExteriorSeed() # Draw lines using exterior points as line seed.
+							flatMeshObj.DrawAngleLinesExteriorSeed2()
 						# Transfer the lines from the FlatMesh to meshObj.
 						meshObj.TransferLinePointsFromTarget(flatMeshObj)
 					else:
 						if Bridson_Common.verticalLines:
 							# meshObj.DrawVerticalLines()
 							# meshObj.DrawVerticalLinesSeededFrom(LineSeedPointsObj, meshObj) # Draw lines based on seed from tertiary mesh.
-							meshObj.DrawVerticalLinesExteriorSeed() # Draw lines using exterior points as line seed.
+							# meshObj.DrawVerticalLinesExteriorSeed() # Draw lines using exterior points as line seed.
+							meshObj.DrawAngleLinesExteriorSeed2()
 						else:
 							# meshObj.DrawHorizontalLines()
-							meshObj.DrawHorizontalLinesExteriorSeed() # Draw lines using exterior points as line seed.
+							# meshObj.DrawHorizontalLinesExteriorSeed() # Draw lines using exterior points as line seed.
+							meshObj.DrawAngleLinesExteriorSeed2()
 
 						flatMeshObj.TransferLinePointsFromTarget(meshObj)
 

@@ -427,6 +427,131 @@ class MeshObject:
 
 		self.linePoints = dotPoints
 
+	def calculateDirectionChanges(self, angle):
+		angle = angle % 360
+		# based on the angle, return the delta x and delta y.
+		if angle == 0:
+			dx = 0
+			dy = 1
+		elif angle == 180:
+			dx = 0
+			dy = -1
+		elif angle == 90:
+			dx = 1
+			dy = 0
+		elif angle == 270:
+			dx = -1
+			dy = 0
+		elif angle > 0 and angle < 90:
+			dx = math.sin( angle*math.pi/180 )
+			dy = math.cos( angle*math.pi/180 )
+		elif angle > 90 and angle < 180:
+			tempAngle = angle - 90
+			dx = math.cos( tempAngle*math.pi/180 )
+			dy = -math.sin( tempAngle*math.pi/180 )
+		elif angle > 180 and angle < 270:
+			tempAngle = angle - 180
+			dx = -math.sin( tempAngle*math.pi/180 )
+			dy = -math.cos( tempAngle*math.pi/180 )
+		elif angle > 270 and angle < 360:
+			tempAngle = angle - 270
+			dx = -math.cos( tempAngle*math.pi/180 )
+			dy = math.sin( tempAngle*math.pi/180 )
+		return dx, dy
+
+	# Draw vertical lines.  Use exterior points as line seeds.
+	def DrawAngleLinesExteriorSeed2(self, density=Bridson_Common.density, linedensity=Bridson_Common.lineDotDensity, angle=Bridson_Common.lineAngle):
+		# angle: 0 degrees goes north.  90 degrees goes east.  180 degrees goes south.  270 degrees goes west.
+		dx, dy = self.calculateDirectionChanges(angle)
+
+		seedPoints = self.DualGraph.exteriorPoints.copy()
+		notFound = 0
+		dotPoints = []
+		print("DrawAngleLinesExteriorSeed2 seedPoints:", seedPoints)
+		# for pointIndex in seedPoints[28:29]: # Interesting one.  Use Attempt = 17 and Attempt = 18.  Falls off trifinder at Attempt=18.
+		# for pointIndex in seedPoints[23:24]: # Interesting one.  Stuck half way through.
+		for pointIndex in seedPoints:
+			triangleTraversal = []
+			attempt = 0
+		# for pointIndex in seedPoints:
+			# print("DrawVertical Line seed Point: ", point)
+			x, y = point = self.DualGraph.points[pointIndex]
+			# j = x # Obtain the x value and use it for the line.
+			rowPoints = []
+			rowPoints.append((x,y)) # Add the exterior point to the line.
+
+			if False: # Display the first cluster of triangles
+				triangleList = self.DualGraph.GetPointTriangleMembership(pointIndex)
+				print("TriangleList:", triangleList)
+				for triangleIndex in triangleList:
+					self.colourTriangle(triangleIndex)
+
+
+			intersection, edge, triangleIndex, direction = self.DualGraph.FindFirstIntersection( pointIndex, self.trifinder, dx=dx, dy=dy )
+			triangleTraversal.append( triangleIndex )
+			if intersection != None:
+				rowPoints.append(intersection)
+				# self.colourTriangle(triangleIndex)
+				if Bridson_Common.highlightEdgeTriangle:
+					self.colourTriangle(triangleIndex, colour='y')
+				# Find next intersection.
+
+				while True:
+					nextIntersection, edge, triangleIndex, isFinalIntersection = self.DualGraph.FindNextIntersection( intersection, edge, triangleIndex, direction, dx=dx, dy=dy )
+					# self.colourTriangle(triangleIndex)
+					triangleTraversal.append(triangleIndex)
+					if nextIntersection != None:
+						if isFinalIntersection:
+							Bridson_Common.logDebug(__name__,"Last Intersection:", nextIntersection)
+							# Reduce the length of the final segment to ensure final intersection is in trifinder.
+							nextIntersection = self.finalIntersectionReduction(rowPoints[-1], nextIntersection)
+							Bridson_Common.logDebug(__name__,"Final Last Intersection adjusted:", nextIntersection)
+						rowPoints.append( nextIntersection )
+						intersection = nextIntersection
+						# self.colourTriangle(triangleIndex)
+					else:
+						break
+
+					if isFinalIntersection:
+						break
+
+					# 18 Attempts is where the graph flies into space.
+					if attempt > 1000:
+						break # Exit the while loop.
+					attempt += 1
+
+			Bridson_Common.logDebug(__name__,">>>>>>>>>>>>>>>>>>> Triangle Traversal:", triangleTraversal)
+			if len(rowPoints) > 0:
+				rowPoints = np.array(rowPoints)
+				dotPoints.append(rowPoints)
+
+		# Bridson_Common.logDebug(__name__, dotPoints)
+		dotPoints = np.array(dotPoints)
+		Bridson_Common.logDebug(__name__, "**** Points Not FOUND *****", notFound)
+
+		colourArray = ['r', 'w', 'm']
+		markerArray = ['o', '*', 's']
+		index = 0
+
+		if Bridson_Common.displayMesh:
+			for line in dotPoints:
+				# https://kite.com/python/answers/how-to-plot-a-smooth-line-with-matplotlib-in-python
+				# a_BSpline = np.array(scipy.interpolate.make_interp_spline(line[:, 0], line[:, 1]))
+				# self.ax.plot(line[:, 0], a_BSpline, color='r')
+				# self.ax.plot(line[:, 0], line[:, 1], color='r')
+				colour = colourArray[ (index % 3) ]
+				if Bridson_Common.drawDots:
+					marker = markerArray[ (index % 3) ]
+				else:
+					marker = None
+				# self.ax.plot(line[:, 0], line[:, 1], color='r', marker='o')
+				self.ax.plot(line[:, 0], line[:, 1], color=colour , marker=marker )
+				index += 1
+
+		self.linePoints = dotPoints
+
+
+
 
 	def finalIntersectionReduction(self, previousPoint, currentPoint):
 		# print("Current Last Point:", currentPoint)

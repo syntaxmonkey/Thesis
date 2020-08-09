@@ -10,7 +10,7 @@ import inspect
 seedValue = 11
 
 debug=False
-displayMesh=False
+displayMesh=True
 diagnostic=False # Generally avoid dispalying meshes.  Only count the number of successful trifinder generations.
 highlightEdgeTriangle=False # Highlight the edge triangle that contains the exterior point of the vertical lines.
 drawSLICRegions = True
@@ -19,7 +19,7 @@ sortExteriorPoints=True
 lineSkip = 1
 lineCullingDistanceFactor = 3
 
-closestPointPair=True
+closestPointPair=False
 middleAverageOnly=True
 if middleAverageOnly == True:
 	divisor = 1.0
@@ -36,6 +36,8 @@ colourCount = 20
 
 linesOnFlat = True
 verticalLines = True
+lineAngle = 0
+
 
 barycentricVertexCorrection = True
 
