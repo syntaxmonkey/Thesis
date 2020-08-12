@@ -191,7 +191,7 @@ class TriangulationDualGraph:
 		tempPoints = []
 		for point in self.points:
 			tempPoints.append( list(point))
-		print("Points:", tempPoints)
+		# print("Points:", tempPoints)
 
 		# At this point, the self.exteriorPoints is a list of point indeces.
 		actualPoints = []

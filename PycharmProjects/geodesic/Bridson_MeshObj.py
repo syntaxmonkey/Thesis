@@ -468,7 +468,7 @@ class MeshObject:
 		seedPoints = self.DualGraph.exteriorPoints.copy()
 		notFound = 0
 		dotPoints = []
-		print("DrawAngleLinesExteriorSeed2 seedPoints:", seedPoints)
+		# print("DrawAngleLinesExteriorSeed2 seedPoints:", seedPoints)
 		# for pointIndex in seedPoints[28:29]: # Interesting one.  Use Attempt = 17 and Attempt = 18.  Falls off trifinder at Attempt=18.
 		# for pointIndex in seedPoints[23:24]: # Interesting one.  Stuck half way through.
 		for pointIndex in seedPoints:
@@ -483,7 +483,7 @@ class MeshObject:
 
 			if False: # Display the first cluster of triangles
 				triangleList = self.DualGraph.GetPointTriangleMembership(pointIndex)
-				print("TriangleList:", triangleList)
+				# print("TriangleList:", triangleList)
 				for triangleIndex in triangleList:
 					self.colourTriangle(triangleIndex)
 

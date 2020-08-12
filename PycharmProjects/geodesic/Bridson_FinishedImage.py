@@ -30,14 +30,20 @@ class FinishedImage:
 				for point in line:
 					x, y = int(point[0]), int(0-point[1])
 					# print("Point:", x,y)
-					if raster[y][x] == 255: # Because of the differing coordinates system, we have to flip the order of x,y
-						# print("Point:", point)
-						# print("Point in Mask:", x, y)
-						newLine.append( point )
-						emptyLine = False
-					else:
-						# print("Point NOT in Mask:", x, y)
-						pass
+					try:
+						if raster[y][x] == 255: # Because of the differing coordinates system, we have to flip the order of x,y
+							# print("Point:", point)
+							# print("Point in Mask:", x, y)
+							newLine.append( point )
+							emptyLine = False
+						else:
+							# print("Point NOT in Mask:", x, y)
+							pass
+					except:
+						print("********************* Problem with cropping contour lines. **********************")
+						print("X,Y:", x,y)
+						print("Raster dimensions:", np.shape(raster))
+						print("Raster:", raster)
 
 				if emptyLine == False:
 					newLinePoints.append(np.array(newLine))
@@ -66,7 +72,7 @@ class FinishedImage:
 			self.ax.imshow(mark_boundaries(regionRaster, segments))
 			self.ax.grid()
 
-	def drawRegionContourLines(self, regionMap, index, meshObj):
+	def drawRegionContourLines(self, regionMap, index, meshObj, regionIntensity):
 
 		# If we are not drawing the SLIC regions, we do not need to flip the Y coordinates.
 		# If we draw the SLIC regions, we need to flip the Y coordinates.
@@ -113,7 +119,7 @@ class FinishedImage:
 				# For some reason we need to swap the topLeft x,y with the line x,y.
 				line[:, 0] = line[:, 0] + topLeftTarget[1] - 5 # Needed to line up with regions.
 				line[:, 1] = line[:, 1] - topLeftTarget[0] + 5  # Required to be negative.
-				if self.calculateLineSpacing(currentLine, line) == True:
+				if self.calculateLineSpacing(currentLine, line, intensity=regionIntensity) == True:
 					self.ax.plot(line[:, 0], line[:, 1]*flip, color=colour)
 					if Bridson_Common.closestPointPair:  # Only place the dots when we are calculating closest point pair.
 						if initial == False:  # Do not display this dot the first time around.
@@ -149,7 +155,8 @@ class FinishedImage:
 		self.markPoint = minPointIndex
 		return minDistance
 
-	def calculateLineSpacing(self, line1, line2, factor=Bridson_Common.lineCullingDistanceFactor):
+	def calculateLineSpacing(self, line1, line2, factor=Bridson_Common.lineCullingDistanceFactor, intensity=255):
+		intensityDistance = intensity / 25 + 1
 		# Get the endPoints of the lines.
 		distance = 0
 		if Bridson_Common.closestPointPair == False:
@@ -165,7 +172,8 @@ class FinishedImage:
 		else:
 			distance = self.findClosestPointPair(line1, line2)
 		# print("Distance:", distance, Bridson_Common.dradius*factor)
-		if distance > Bridson_Common.dradius*factor:
+		# if distance > Bridson_Common.dradius*factor:
+		if distance > intensityDistance:
 			# print("Far enough")
 			return True
 		else:

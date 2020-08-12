@@ -112,7 +112,7 @@ def cleanUpFiles():
 def SLICImage():
 	startIndex = 0 # Index starts at 0.
 	regionIndex = startIndex
-	imageraster, regionMap, segments = SLIC.callSLIC(segmentCount=Bridson_Common.segmentCount)
+	imageraster, regionMap, segments, regionIntensityMap = SLIC.callSLIC()
 
 
 	stopIndex=startIndex+16
@@ -136,7 +136,7 @@ def SLICImage():
 	thismanager.window.wm_geometry("+0+0")
 
 	Bridson_Common.logDebug(__name__, "SLIC Keys:" + str(regionMap.keys()) )
-	return imageraster, regionMap, regionRaster, segments
+	return imageraster, regionMap, regionRaster, segments, regionIntensityMap
 
 
 def featureRemoval(mask, dradius, indexLabel):
@@ -189,7 +189,7 @@ def processMask(mask, dradius, indexLabel):
 
 	while True:
 		attempts += 1
-		if successful or attempts > 5:
+		if successful or attempts > 10:
 			break
 		else:
 			mask5x = Bridson_CreateMask.InvertMask(mask)
@@ -269,19 +269,22 @@ def displayRegionRaster(regionRaster, index):
 
 
 def indexValidation():
-	imageraster, regionMap, regionRaster, segments = SLICImage()
-
-
+	imageraster, regionMap, regionRaster, segments, regionIntensityMap = SLICImage()
+	# imageShape = np.shape(regionRaster)
+	# Bridson_Common.segmentCount = int((imageShape[0]*imageShape[1]) / Bridson_Common.targetRegionPixelCount)
+	# print("Target Region Count:", Bridson_Common.segmentCount )
+	# print("Image Shape:", imageShape )
 	successfulRegions = 0
 	# Create new image for contour lines.  Should be the same size as original image.
 	finishedImage = Bridson_FinishedImage.FinishedImage()
+	# print( "Region Raster: ", regionRaster )
 	finishedImage.drawSLICRegions( regionRaster, segments )
 	# finishedImage.setXLimit( 0, np.shape(imageraster)[0])
 
 	# for index in range(10,15):  # Interesting regions: 11, 12, 14
-	for index in [11]:
-	# for index in range( len(regionMap.keys()) ):
-		print("Starting Region: ", index)
+	# for index in [47]:
+	for index in range( len(regionMap.keys()) ):
+		print("(*****************  Starting Region: ", index, "  *************************" )
 
 		# Generate the raster for the first region.
 		raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
@@ -306,7 +309,7 @@ def indexValidation():
 							# flatMeshObj.DrawVerticalLinesSeededFrom(LineSeedPointsObj, meshObj) # Draw lines based on seed from tertiary mesh.
 							# flatMeshObj.DrawVerticalLinesExteriorSeed2() # Draw lines using exterior points as line seed.
 							flatMeshObj.DrawAngleLinesExteriorSeed2(angle=0)
-							flatMeshObj.DrawAngleLinesExteriorSeed2(angle=90)
+							# flatMeshObj.DrawAngleLinesExteriorSeed2(angle=90)
 						else:
 							# flatMeshObj.DrawHorizontalLines()
 							# flatMeshObj.DrawHorizontalLinesExteriorSeed() # Draw lines using exterior points as line seed.
@@ -329,7 +332,7 @@ def indexValidation():
 				if True:  # Rotate original image 90 CW.
 					meshObj.rotateClockwise90()
 				# Draw the region contour lines onto the finished image.
-				finishedImage.drawRegionContourLines(regionMap, index, meshObj)
+				finishedImage.drawRegionContourLines(regionMap, index, meshObj, regionIntensityMap[index])
 			else:
 				print("Trifinder was NOT successfully generated for region ", index)
 

@@ -10,14 +10,14 @@ import inspect
 seedValue = 11
 
 debug=False
-displayMesh=True
+displayMesh=False
 diagnostic=False # Generally avoid dispalying meshes.  Only count the number of successful trifinder generations.
 highlightEdgeTriangle=False # Highlight the edge triangle that contains the exterior point of the vertical lines.
-drawSLICRegions = True
+drawSLICRegions = False
 
 sortExteriorPoints=True
-lineSkip = 3
-lineCullingDistanceFactor = 3
+lineSkip = 1
+lineCullingDistanceFactor = 2
 
 closestPointPair=False
 middleAverageOnly=False
@@ -53,7 +53,8 @@ density = 0.01
 lineDotDensity = 0.01
 lineRadiusFactor = 1
 
-segmentCount = 40
+targetRegionPixelCount = 400
+segmentCount = 80
 dradius = 1.5 # Important that dradius is greater than 1.0.  When the value is 1.0 or lower, BFF seems to have lots of issues with the mesh.
 
 colourArray = ['r', 'b', 'm']

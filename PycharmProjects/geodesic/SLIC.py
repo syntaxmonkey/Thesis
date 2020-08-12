@@ -17,6 +17,7 @@ from ChainCodeGenerator import generateChainCode, writeChainCodeFile
 # args = vars(ap.parse_args())
 
 def segmentImage(imageName, numSegments):
+	# print("SLIC Generating segments:", numSegments)
 	# load the image and convert it to a floating point data type
 	# image = img_as_float(io.imread(imageName))
 	image = io.imread(imageName)
@@ -134,9 +135,9 @@ def createRegionRasters(regionMap, region=0):
 		shiftx, shifty = topLeft[0]-5, topLeft[1]-5 # This is the amount to shift the actual coordinates such that they fit onto the raster.
 		# shiftx, shifty=topLeft[0]-1, topLeft[1]-1
 
-		print( 'TopLeft:', topLeft, 'BottomRight:',  bottomRight)
-		print( 'DeltaX:', deltax, 'DeltaY:', deltay)
-		print( 'Shiftx:', shiftx, 'Shifty:', shifty)
+		# print( 'TopLeft:', topLeft, 'BottomRight:',  bottomRight)
+		# print( 'DeltaX:', deltax, 'DeltaY:', deltay)
+		# print( 'Shiftx:', shiftx, 'Shifty:', shifty)
 		raster = np.zeros((deltax,deltay))
 
 
@@ -195,13 +196,21 @@ def generateImageIntensityHashmap( greyImage, segments):
 	return regionIntensityMap
 
 
+def calculateSegmentCount(imageFile):
+	image = io.imread(imageFile)
+	# print("Image shape:", np.shape(image))
+	imageShape = np.shape(image)
+	Bridson_Common.segmentCount = int( (imageShape[0]*imageShape[1]) / Bridson_Common.targetRegionPixelCount )
 
-def callSLIC(segmentCount=40):
+
+def callSLIC():
 	images = []
-	images.append('dog2.jpg')
+	# images.append('dog2.jpg')
+	images.append('SimpleSquare.jpg')
 
 	for imageFile in images:
-
+		calculateSegmentCount( imageFile )
+		segmentCount = Bridson_Common.segmentCount
 		for numSegments in (segmentCount,):
 			image, segments = segmentImage(imageFile, numSegments)
 			newImage = np.copy(image)
@@ -219,7 +228,7 @@ def callSLIC(segmentCount=40):
 
 			# Generate region intensity HashMap.
 			regionIntensityMap = generateImageIntensityHashmap(greyscaleImage, segments)
-
+			# print("Region Intensity Map:", regionIntensityMap)
 			raster, regionMap = catalogRegions(segments, regionIntensityMap)
 			# fig = plt.figure("Raster --")
 			# ax = fig.add_subplot(3, 3,  2)
@@ -228,7 +237,7 @@ def callSLIC(segmentCount=40):
 			# ax.imshow(mark_boundaries(regionImage, segments, color=(1,0,0), mode='inner', background_label=regionIndex ))
 
 	# raster = raster.astype(int)  # Convert the raster to integer.
-	return raster, regionMap, segments
+	return raster, regionMap, segments, regionIntensityMap
 
 
 
