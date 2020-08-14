@@ -457,6 +457,10 @@ if __name__ == '__main__':
 
 	images = []
 	images.append('SimpleR.png')
+	images.append('SimpleC.png')
+	images.append('simpleTriangle.png')
+	images.append('simpleHorizon.png')
+	images.append('FourSquares.png')
 	images.append('SimpleSquare.jpg')
 
 
@@ -465,6 +469,9 @@ if __name__ == '__main__':
 	for filename in images:
 		for targetPixel in targetPixels:
 			Bridson_Common.targetRegionPixelCount = targetPixel
+			# Set the seed each time.
+			random.seed(Bridson_Common.seedValue)
+			np.random.seed(Bridson_Common.seedValue)
 			indexValidation(filename)
 
 	Bridson_Common.logDebug(__name__, "------------------------------------------")

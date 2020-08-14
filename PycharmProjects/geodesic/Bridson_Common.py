@@ -9,6 +9,7 @@ import inspect
 
 seedValue = 11
 
+bulkGeneration = True
 debug=False
 displayMesh=False
 diagnostic=False # Generally avoid dispalying meshes.  Only count the number of successful trifinder generations.
@@ -69,7 +70,8 @@ def saveImage(filename, postFix, fig):
 	# Save the figures to files: https://stackoverflow.com/questions/4325733/save-a-subplot-in-matplotlib
 	actualFileName = "./output/" + filename + "_segments_" + str(Bridson_Common.segmentCount) + "_regionPixels_" + str(Bridson_Common.targetRegionPixelCount) + "_" + postFix + ".png"
 	fig.savefig( actualFileName )
-
+	if Bridson_Common.bulkGeneration: # Delete the figures when we are bulk generating.
+		plt.close(fig=fig)
 
 def rotateClockwise90(array, angle=90):
 	'''

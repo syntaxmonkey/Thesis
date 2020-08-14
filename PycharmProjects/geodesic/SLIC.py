@@ -200,7 +200,7 @@ def calculateSegmentCount(imageFile):
 	image = io.imread(imageFile)
 	print("Image shape:", np.shape(image))
 	imageShape = np.shape(image)
-	Bridson_Common.targetRegionPixelCount = int((imageShape[0]*Bridson_Common.targetPercent * imageShape[1]*Bridson_Common.targetPercent))
+	# Bridson_Common.targetRegionPixelCount = int((imageShape[0]*Bridson_Common.targetPercent * imageShape[1]*Bridson_Common.targetPercent))
 	Bridson_Common.segmentCount = int( (imageShape[0]*imageShape[1]) / Bridson_Common.targetRegionPixelCount )
 	print("SegmentCount:", Bridson_Common.segmentCount)
 	print("Target Pixel Count:", Bridson_Common.targetRegionPixelCount)
