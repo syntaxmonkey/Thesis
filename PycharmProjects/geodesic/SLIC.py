@@ -198,43 +198,46 @@ def generateImageIntensityHashmap( greyImage, segments):
 
 def calculateSegmentCount(imageFile):
 	image = io.imread(imageFile)
-	# print("Image shape:", np.shape(image))
+	print("Image shape:", np.shape(image))
 	imageShape = np.shape(image)
+	Bridson_Common.targetRegionPixelCount = int((imageShape[0]*Bridson_Common.targetPercent * imageShape[1]*Bridson_Common.targetPercent))
 	Bridson_Common.segmentCount = int( (imageShape[0]*imageShape[1]) / Bridson_Common.targetRegionPixelCount )
+	print("SegmentCount:", Bridson_Common.segmentCount)
+	print("Target Pixel Count:", Bridson_Common.targetRegionPixelCount)
 
 
-def callSLIC():
+def callSLIC(filename):
 	images = []
 	# images.append('dog2.jpg')
-	images.append('SimpleSquare.jpg')
+	# images.append('SimpleSquare.jpg')
 
-	for imageFile in images:
-		calculateSegmentCount( imageFile )
-		segmentCount = Bridson_Common.segmentCount
-		for numSegments in (segmentCount,):
-			image, segments = segmentImage(imageFile, numSegments)
-			newImage = np.copy(image)
+	# for imageFile in images:
+	calculateSegmentCount( filename )
+	segmentCount = Bridson_Common.segmentCount
+	for numSegments in (segmentCount,):
+		image, segments = segmentImage(filename, numSegments)
+		newImage = np.copy(image)
 
-			greyscaleImage = np.asarray( Image.fromarray(image).convert('L') )
-			# print('GreyScale:', greyscaleImage)
-			# regionIndex = 16
-			# show the output of SLIC
-			# fig = plt.figure("Superpixels -- %d segments - file%s" % (numSegments, image))
-			# ax = fig.add_subplot(3, 3, 1)
-			# ax.imshow(mark_boundaries(image, segments, color=(1,0,0), mode='inner', background_label=regionIndex))
-			# Bridson_Common.logDebug(__name__, "shape: ", np.shape(segments)) # HSC
-			# Bridson_Common.logDebug(__name__, segments)
-			# plt.axis("off")
+		greyscaleImage = np.asarray( Image.fromarray(image).convert('L') )
+		# print('GreyScale:', greyscaleImage)
+		# regionIndex = 16
+		# show the output of SLIC
+		# fig = plt.figure("Superpixels -- %d segments - file%s" % (numSegments, image))
+		# ax = fig.add_subplot(3, 3, 1)
+		# ax.imshow(mark_boundaries(image, segments, color=(1,0,0), mode='inner', background_label=regionIndex))
+		# Bridson_Common.logDebug(__name__, "shape: ", np.shape(segments)) # HSC
+		# Bridson_Common.logDebug(__name__, segments)
+		# plt.axis("off")
 
-			# Generate region intensity HashMap.
-			regionIntensityMap = generateImageIntensityHashmap(greyscaleImage, segments)
-			# print("Region Intensity Map:", regionIntensityMap)
-			raster, regionMap = catalogRegions(segments, regionIntensityMap)
-			# fig = plt.figure("Raster --")
-			# ax = fig.add_subplot(3, 3,  2)
-			# regionImage = Image.fromarray(np.uint8(raster), 'L')
-			# ax.imshow(raster)
-			# ax.imshow(mark_boundaries(regionImage, segments, color=(1,0,0), mode='inner', background_label=regionIndex ))
+		# Generate region intensity HashMap.
+		regionIntensityMap = generateImageIntensityHashmap(greyscaleImage, segments)
+		# print("Region Intensity Map:", regionIntensityMap)
+		raster, regionMap = catalogRegions(segments, regionIntensityMap)
+		# fig = plt.figure("Raster --")
+		# ax = fig.add_subplot(3, 3,  2)
+		# regionImage = Image.fromarray(np.uint8(raster), 'L')
+		# ax.imshow(raster)
+		# ax.imshow(mark_boundaries(regionImage, segments, color=(1,0,0), mode='inner', background_label=regionIndex ))
 
 	# raster = raster.astype(int)  # Convert the raster to integer.
 	return raster, regionMap, segments, regionIntensityMap

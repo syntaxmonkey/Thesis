@@ -53,7 +53,8 @@ density = 0.01
 lineDotDensity = 0.01
 lineRadiusFactor = 1
 
-targetRegionPixelCount = 400
+targetPercent = 0.15
+targetRegionPixelCount = 800
 segmentCount = 80
 dradius = 1.5 # Important that dradius is greater than 1.0.  When the value is 1.0 or lower, BFF seems to have lots of issues with the mesh.
 
@@ -62,6 +63,13 @@ colourArray = ['b', 'b', 'b']
 
 mergeScale = 1  # How much to scale the contour lines before merging.
 cropContours = True
+
+
+def saveImage(filename, postFix, fig):
+	# Save the figures to files: https://stackoverflow.com/questions/4325733/save-a-subplot-in-matplotlib
+	actualFileName = "./output/" + filename + "_segments_" + str(Bridson_Common.segmentCount) + "_regionPixels_" + str(Bridson_Common.targetRegionPixelCount) + "_" + postFix + ".png"
+	fig.savefig( actualFileName )
+
 
 def rotateClockwise90(array, angle=90):
 	'''

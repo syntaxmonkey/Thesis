@@ -10,8 +10,8 @@ from scipy.spatial import distance
 
 class FinishedImage:
 	def __init__(self, *args, **kwargs):
-		plt.figure()
-		self.ax = plt.subplot(1, 1, 1, aspect=1)
+		self.fig = plt.figure()
+		self.ax = self.fig.add_subplot(1, 1, 1, aspect=1)
 		self.ax.set_title('Merged Image' )
 		# self.ax.invert_yaxis()
 
@@ -68,15 +68,15 @@ class FinishedImage:
 
 
 	def drawSLICRegions(self, regionRaster, segments):
-		if Bridson_Common.drawSLICRegions:
-			self.ax.imshow(mark_boundaries(regionRaster, segments))
-			self.ax.grid()
+		# if Bridson_Common.drawSLICRegions:
+		self.ax.imshow(mark_boundaries(regionRaster, segments, color=(255,0,0)))
+		self.ax.grid()
 
-	def drawRegionContourLines(self, regionMap, index, meshObj, regionIntensity):
+	def drawRegionContourLines(self, regionMap, index, meshObj, regionIntensity, drawSLICRegions = Bridson_Common.drawSLICRegions):
 
 		# If we are not drawing the SLIC regions, we do not need to flip the Y coordinates.
 		# If we draw the SLIC regions, we need to flip the Y coordinates.
-		if Bridson_Common.drawSLICRegions == False:
+		if drawSLICRegions == False:
 			flip = 1
 		else:
 			flip = -1

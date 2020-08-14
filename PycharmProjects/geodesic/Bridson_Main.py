@@ -109,16 +109,16 @@ def cleanUpFiles():
 
 
 
-def SLICImage():
+def SLICImage(filename):
 	startIndex = 0 # Index starts at 0.
 	regionIndex = startIndex
-	imageraster, regionMap, segments, regionIntensityMap = SLIC.callSLIC()
+	imageraster, regionMap, segments, regionIntensityMap = SLIC.callSLIC(filename)
 
 
 	stopIndex=startIndex+16
 
-	plt.figure()
-	ax3 = plt.subplot(1, 1, 1, aspect=1, label='Image regions')
+	fig = plt.figure()
+	ax3 = fig.add_subplot(1, 1, 1, aspect=1, label='Image regions')
 	plt.title('Image regions')
 	''' Draw Letter blob '''
 
@@ -130,8 +130,11 @@ def SLICImage():
 
 	regionRaster = imageraster / np.max(imageraster)   # Need to normalize the region intensity [0 ... 1.0] to display properly.
 	# print("Raster:", displayRaster)
-	ax3.imshow(mark_boundaries( regionRaster, segments))
+	ax3.imshow(mark_boundaries( regionRaster, segments, color=(255,0,0) ))
 	ax3.grid()
+
+	Bridson_Common.saveImage(filename, "GreyscaleSLIC", fig)
+
 	thismanager = pylab.get_current_fig_manager()
 	thismanager.window.wm_geometry("+0+0")
 
@@ -268,18 +271,19 @@ def displayRegionRaster(regionRaster, index):
 
 
 
-def indexValidation():
-	imageraster, regionMap, regionRaster, segments, regionIntensityMap = SLICImage()
+def indexValidation(filename):
+	imageraster, regionMap, regionRaster, segments, regionIntensityMap = SLICImage(filename)
 	# imageShape = np.shape(regionRaster)
 	# Bridson_Common.segmentCount = int((imageShape[0]*imageShape[1]) / Bridson_Common.targetRegionPixelCount)
 	# print("Target Region Count:", Bridson_Common.segmentCount )
 	# print("Image Shape:", imageShape )
 	successfulRegions = 0
 	# Create new image for contour lines.  Should be the same size as original image.
-	finishedImage = Bridson_FinishedImage.FinishedImage()
+	finishedImageSLIC = Bridson_FinishedImage.FinishedImage()
 	# print( "Region Raster: ", regionRaster )
-	finishedImage.drawSLICRegions( regionRaster, segments )
+	finishedImageSLIC.drawSLICRegions( regionRaster, segments )
 	# finishedImage.setXLimit( 0, np.shape(imageraster)[0])
+	finishedImageNoSLIC = Bridson_FinishedImage.FinishedImage()
 
 	# for index in range(10,15):  # Interesting regions: 11, 12, 14
 	# for index in [47]:
@@ -328,11 +332,11 @@ def indexValidation():
 							meshObj.DrawAngleLinesExteriorSeed2()
 
 						flatMeshObj.TransferLinePointsFromTarget(meshObj)
-
 				if True:  # Rotate original image 90 CW.
 					meshObj.rotateClockwise90()
 				# Draw the region contour lines onto the finished image.
-				finishedImage.drawRegionContourLines(regionMap, index, meshObj, regionIntensityMap[index])
+				finishedImageSLIC.drawRegionContourLines(regionMap, index, meshObj, regionIntensityMap[index], drawSLICRegions=True )
+				finishedImageNoSLIC.drawRegionContourLines(regionMap, index, meshObj, regionIntensityMap[index], drawSLICRegions=False )
 			else:
 				print("Trifinder was NOT successfully generated for region ", index)
 
@@ -342,7 +346,8 @@ def indexValidation():
 		# finishedImage.drawRegionContourLines(regionMap, index, meshObj)
 
 
-
+	Bridson_Common.saveImage( filename, "WithSLIC", finishedImageSLIC.fig )
+	Bridson_Common.saveImage(filename, "NoSLIC", finishedImageNoSLIC.fig)
 
 	print("Successful Regions: ", successfulRegions)
 	print("Total Regions: ", len(regionMap.keys()) )
@@ -450,8 +455,17 @@ if __name__ == '__main__':
 				# Transfer the lines from the FlatMesh to meshObj.
 				meshObj.TransferLinePointsFromTarget( flatMeshObj )
 
+	images = []
+	images.append('SimpleR.png')
+	images.append('SimpleSquare.jpg')
 
-	indexValidation()
+
+	# percentages = [0.05, 0.1, 0.15, 0.2]
+	targetPixels = [100, 200, 400, 800, 1600]
+	for filename in images:
+		for targetPixel in targetPixels:
+			Bridson_Common.targetRegionPixelCount = targetPixel
+			indexValidation(filename)
 
 	Bridson_Common.logDebug(__name__, "------------------------------------------")
 	if False:
