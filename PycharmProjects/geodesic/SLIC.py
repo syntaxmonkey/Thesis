@@ -27,8 +27,8 @@ def segmentImage(imageName, numSegments):
 	# for numSegments in (100,):
 		# apply SLIC and extract (approximately) the supplied number
 		# of segments
-	segments = slic(image, n_segments=numSegments, sigma=5, compactness=11, slic_zero=False, enforce_connectivity=True)
-	# segments = slic(image, n_segments=numSegments, sigma=5, compactness=10, slic_zero=False, enforce_connectivity=True)
+	# segments = slic(image, n_segments=numSegments, sigma=5, compactness=11, slic_zero=False, enforce_connectivity=True)
+	segments = slic(image, n_segments=numSegments, sigma=5, compactness=Bridson_Common.compactnessSLIC, slic_zero=Bridson_Common.SLIC0, enforce_connectivity=True)
 
 	# Bridson_Common.logDebug(__name__, type(segments))
 	# regionIndex = 16

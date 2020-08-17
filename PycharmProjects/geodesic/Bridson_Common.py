@@ -6,12 +6,19 @@ import numpy.linalg as la # https://codereview.stackexchange.com/questions/41024
 import Bridson_CreateMask
 import matplotlib.pyplot as plt
 import inspect
+import os
 
 seedValue = 11
 
+SLIC0=False
+compactnessSLIC=1
+
 bulkGeneration = True
 debug=False
-displayMesh=False
+if bulkGeneration == True:
+	displayMesh = False
+else:
+	displayMesh = True
 diagnostic=False # Generally avoid dispalying meshes.  Only count the number of successful trifinder generations.
 highlightEdgeTriangle=False # Highlight the edge triangle that contains the exterior point of the vertical lines.
 drawSLICRegions = False
@@ -19,6 +26,7 @@ drawSLICRegions = False
 sortExteriorPoints=True
 lineSkip = 1
 lineCullingDistanceFactor = 2
+allowBlankRegion=True
 
 closestPointPair=False
 middleAverageOnly=False
@@ -67,6 +75,13 @@ cropContours = True
 
 
 def saveImage(filename, postFix, fig):
+	if os.path.exists("./output") == True:
+		if os.path.isdir("./output") == False:
+			exit(-1)
+	else:
+		os.mkdir("./output")
+
+
 	# Save the figures to files: https://stackoverflow.com/questions/4325733/save-a-subplot-in-matplotlib
 	actualFileName = "./output/" + filename + "_segments_" + str(Bridson_Common.segmentCount) + "_regionPixels_" + str(Bridson_Common.targetRegionPixelCount) + "_" + postFix + ".png"
 	fig.savefig( actualFileName )

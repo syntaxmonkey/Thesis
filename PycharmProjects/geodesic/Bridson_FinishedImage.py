@@ -13,11 +13,19 @@ class FinishedImage:
 		self.fig = plt.figure()
 		self.ax = self.fig.add_subplot(1, 1, 1, aspect=1)
 		self.ax.set_title('Merged Image' )
+		# self.set
 		# self.ax.invert_yaxis()
 
+	def setTitle(self, filename):
+		self.ax.set_title('Merged Image - ' + filename + ' - Segments: ' + str(Bridson_Common.segmentCount) + ' - regionPixels: ' + str(Bridson_Common.targetRegionPixelCount) )
+
 	def setXLimit(self, left, right):
-		print("Left:", left, "Right:", right)
+		# print("Left:", left, "Right:", right)
 		self.ax.set_xlim(left=left, right=right)
+
+	def setYLimit(self, top, bottom):
+		# print("Left:", left, "Right:", right)
+		self.ax.set_ylim(top=top, bottom=bottom)
 
 
 	def cropContourLines(self, linePoints, raster):
@@ -109,6 +117,14 @@ class FinishedImage:
 		currentLine = linePoints[0] * -100
 		initial=True
 		# count = 0
+
+		# Allow regions to be blank.
+		if Bridson_Common.allowBlankRegion == True:
+			if regionIntensity > 250:
+				return
+			# if self.calculateLineSpacing(linePoints[0], linePoints[-1], intensity=regionIntensity) == False:
+			# 	return
+
 		for index in range(len(linePoints)):
 			# if count > 5:
 			# 	break
@@ -156,7 +172,7 @@ class FinishedImage:
 		return minDistance
 
 	def calculateLineSpacing(self, line1, line2, factor=Bridson_Common.lineCullingDistanceFactor, intensity=255):
-		intensityDistance = intensity / 25 + 1
+		intensityDistance = intensity / 25
 		# Get the endPoints of the lines.
 		distance = 0
 		if Bridson_Common.closestPointPair == False:

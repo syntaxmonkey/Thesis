@@ -119,7 +119,7 @@ def SLICImage(filename):
 
 	fig = plt.figure()
 	ax3 = fig.add_subplot(1, 1, 1, aspect=1, label='Image regions')
-	plt.title('Image regions')
+	plt.title('Image regions - ' + filename + ' - Segments: ' + str(Bridson_Common.segmentCount) + ' - regionPixels: ' + str(Bridson_Common.targetRegionPixelCount))
 	''' Draw Letter blob '''
 
 	# blankRaster = np.zeros(np.shape(imageraster))
@@ -280,15 +280,20 @@ def indexValidation(filename):
 	successfulRegions = 0
 	# Create new image for contour lines.  Should be the same size as original image.
 	finishedImageSLIC = Bridson_FinishedImage.FinishedImage()
+	finishedImageSLIC.setTitle(filename)
 	# print( "Region Raster: ", regionRaster )
 	finishedImageSLIC.drawSLICRegions( regionRaster, segments )
+	finishedImageSLIC.setTitle(filename)
 	# finishedImage.setXLimit( 0, np.shape(imageraster)[0])
 	finishedImageNoSLIC = Bridson_FinishedImage.FinishedImage()
+	finishedImageNoSLIC.setTitle(filename)
+	finishedImageNoSLIC.setXLimit(0, np.shape(regionRaster)[1])
+	finishedImageNoSLIC.setYLimit(0, -np.shape(regionRaster)[0])
 
 	# for index in range(10,15):  # Interesting regions: 11, 12, 14
-	# for index in [47]:
+	# for index in [15]:
 	for index in range( len(regionMap.keys()) ):
-		print("(*****************  Starting Region: ", index, "  *************************" )
+		print("(***************** ", filename, " Starting Region: ", index, "of", Bridson_Common.segmentCount, "  *************************" )
 
 		# Generate the raster for the first region.
 		raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
@@ -337,6 +342,7 @@ def indexValidation(filename):
 				# Draw the region contour lines onto the finished image.
 				finishedImageSLIC.drawRegionContourLines(regionMap, index, meshObj, regionIntensityMap[index], drawSLICRegions=True )
 				finishedImageNoSLIC.drawRegionContourLines(regionMap, index, meshObj, regionIntensityMap[index], drawSLICRegions=False )
+				print("Done drawing contour lines")
 			else:
 				print("Trifinder was NOT successfully generated for region ", index)
 
@@ -456,16 +462,27 @@ if __name__ == '__main__':
 				meshObj.TransferLinePointsFromTarget( flatMeshObj )
 
 	images = []
-	images.append('SimpleR.png')
-	images.append('SimpleC.png')
-	images.append('simpleTriangle.png')
-	images.append('simpleHorizon.png')
-	images.append('FourSquares.png')
-	images.append('SimpleSquare.jpg')
+	# images.append('SimpleR.png')
+	# images.append('SimpleC.png')
+	# images.append('simpleTriangle.png')
+	# images.append('simpleHorizon.png')
+	# images.append('FourSquares.png')
+	# # images.append('SimpleSquare.jpg')
+	# images.append("FourCircles.png")
+	# images.append('Stripes.png')
 
+	# Batch A.
+	# images.append('RedApple.jpg')
+	images.append('Sunglasses.jpg')
+	images.append('TapeRolls.jpg')
+	images.append('Massager.jpg')
+
+
+	# Original
+	images.append('dog2.jpg')
 
 	# percentages = [0.05, 0.1, 0.15, 0.2]
-	targetPixels = [100, 200, 400, 800, 1600]
+	targetPixels = [  50, 100, 400, 800, 1600 ]
 	for filename in images:
 		for targetPixel in targetPixels:
 			Bridson_Common.targetRegionPixelCount = targetPixel
@@ -520,6 +537,9 @@ if __name__ == '__main__':
 			# meshObj.TransferLinePointsFromTarget( flatMeshObj )
 
 
-	plt.show()
+	if Bridson_Common.bulkGeneration:
+		exit(0)
+	else:
+		plt.show()
 
 
