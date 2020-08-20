@@ -1,111 +1,76 @@
-# A Python3 program to find if 2 given line segments intersect or not
+import numpy as np
 
-class Point:
-	def __init__(self, x, y):
-		self.x = x
-		self.y = y
+# https://stackoverflow.com/questions/38073433/determine-adjacent-regions-in-numpy-array
 
-# Given three colinear points p, q, r, the function checks if
+x = np.array([[1, 1, 1], [1, 1, 2], [2, 2, 2], [3, 3, 3]], np.int32)
+region = 1   # number of region whose neighbors we want
 
+y = x == region  # convert to Boolean
 
-# point q lies on line segment 'pr'
-def onSegment(p, q, r):
-	if ((q.x <= max(p.x, r.x)) and (q.x >= min(p.x, r.x)) and
-			(q.y <= max(p.y, r.y)) and (q.y >= min(p.y, r.y))):
-		return True
-	return False
+rolled = np.roll(y, 1, axis=0)          # shift down
+rolled[0, :] = False             
+z = np.logical_or(y, rolled)
 
+rolled = np.roll(y, -1, axis=0)         # shift up 
+rolled[-1, :] = False
+z = np.logical_or(z, rolled)
 
-def orientation(p, q, r):
-	# to find the orientation of an ordered triplet (p,q,r)
-	# function returns the following values:
-	# 0 : Colinear points
-	# 1 : Clockwise points
-	# 2 : Counterclockwise
+rolled = np.roll(y, 1, axis=1)          # shift right
+rolled[:, 0] = False
+z = np.logical_or(z, rolled)
 
-	# See https://www.geeksforgeeks.org/orientation-3-ordered-points/amp/
-	# for details of below formula.
+rolled = np.roll(y, -1, axis=1)         # shift left
+rolled[:, -1] = False
+z = np.logical_or(z, rolled)
 
-	val = (float(q.y - p.y) * (r.x - q.x)) - (float(q.x - p.x) * (r.y - q.y))
-	if (val > 0):
-
-		# Clockwise orientation
-		return 1
-	elif (val < 0):
-
-		# Counterclockwise orientation
-		return 2
-	else:
-
-		# Colinear orientation
-		return 0
+neighbors = set(np.unique(np.extract(z, x))) - set([region])
+print(neighbors)
 
 
-# The main function that returns true if
-# the line segment 'p1q1' and 'p2q2' intersect.
-def doIntersect(p1, q1, p2, q2):
-	# Find the 4 orientations required for
-	# the general and special cases
-	o1 = orientation(p1, q1, p2)
-	o2 = orientation(p1, q1, q2)
-	o3 = orientation(p2, q2, p1)
-	o4 = orientation(p2, q2, q1)
+# Find the distance from edge.
+# https://stackoverflow.com/questions/40492159/find-distance-from-the-edge-of-a-numpy-array
 
-	# General case
-	if ((o1 != o2) and (o3 != o4)):
-		return True
+from scipy.ndimage.morphology import binary_erosion
+from scipy.spatial.distance import cdist
+from scipy.ndimage.morphology import distance_transform_cdt
 
-	# Special Cases
+def dist_from_edge(img):
+    I = binary_erosion(img) # Interior mask
+    C = img - I             # Contour mask
+    out = C.astype(int)     # Setup o/p and assign cityblock distances
+    out[I] = cdist(np.argwhere(C), np.argwhere(I), 'cityblock').min(0) + 1
+    return out
 
-	# p1 , q1 and p2 are colinear and p2 lies on segment p1q1
-	if ((o1 == 0) and onSegment(p1, p2, q1)):
-		return True
+def distance_from_edge_a(x):
+    x = np.pad(x, 1, mode='constant')
+    dist = distance_transform_cdt(x, metric='chessboard')
+    return dist[1:-1, 1:-1]
 
-	# p1 , q1 and q2 are colinear and q2 lies on segment p1q1
-	if ((o2 == 0) and onSegment(p1, q2, q1)):
-		return True
-
-	# p2 , q2 and p1 are colinear and p1 lies on segment p2q2
-	if ((o3 == 0) and onSegment(p2, p1, q2)):
-		return True
-
-	# p2 , q2 and q1 are colinear and q1 lies on segment p2q2
-	if ((o4 == 0) and onSegment(p2, q1, q2)):
-		return True
-
-	# If none of the cases
-	return False
+a = np.array([[0, 0, 0, 0, 1, 0, 0],
+       [0, 1, 1, 1, 1, 1, 0],
+       [0, 1, 1, 1, 1, 1, 1],
+       [0, 1, 1, 1, 1, 1, 1],
+       [0, 0, 1, 1, 1, 1, 1],
+       [0, 0, 0, 1, 0, 0, 0]])
 
 
-# Driver program to test above functions:
-p1 = Point(1, 1)
-q1 = Point(10, 1)
-p2 = Point(1, 2)
-q2 = Point(10, 2)
 
-if doIntersect(p1, q1, p2, q2):
-	print("Yes")
-else:
-	print("No")
 
-p1 = Point(10, 0)
-q1 = Point(0, 10)
-p2 = Point(0, 0)
-q2 = Point(10, 10)
+# a = np.array([[0, 0, 0, 0, 1, 0, 0],
+#               [0, 0, 0, 1, 1, 1, 0],
+#               [0, 0, 0, 0, 1, 0, 0],
+#               [0, 0, 0, 0, 1, 0, 0],
+#               [0, 0, 0, 0, 1, 0, 0],
+#               [0, 0, 0, 1, 0, 0, 0]])
 
-if doIntersect(p1, q1, p2, q2):
-	print("Yes")
-else:
-	print("No")
 
-p1 = Point(72.45000411040535, 30.974749814175237)
-q1 = Point(72.45000411040535, 31.00610993916539)
-p2 = Point(72.45753068, 31.10153771)
-q2 = Point(72.45720639, 31.0168051)
+b = dist_from_edge(a)
+print(b)
 
-if doIntersect(p1, q1, p2, q2):
-	print("Yes")
-else:
-	print("No")
+print('\n')
 
-# This code is contributed by Ansh Riyal
+c = distance_from_edge_a(a)
+print(c)
+
+mc = np.ma.masked_array( c, np.invert( np.logical_and(c < 2 , c > 0 ) )  )
+print(mc)

@@ -7,13 +7,14 @@ import Bridson_CreateMask
 import matplotlib.pyplot as plt
 import inspect
 import os
+from scipy.ndimage.morphology import distance_transform_cdt
 
 seedValue = 11
 
 SLIC0=False
-compactnessSLIC=1
+compactnessSLIC=10.0
 
-bulkGeneration = True
+bulkGeneration = False
 debug=False
 if bulkGeneration == True:
 	displayMesh = False
@@ -72,6 +73,12 @@ colourArray = ['b', 'b', 'b']
 
 mergeScale = 1  # How much to scale the contour lines before merging.
 cropContours = True
+
+
+def distance_from_edge(x):
+    x = np.pad(x, 1, mode='constant')
+    dist = distance_transform_cdt(x, metric='chessboard')
+    return dist[1:-1, 1:-1]
 
 
 def saveImage(filename, postFix, fig):

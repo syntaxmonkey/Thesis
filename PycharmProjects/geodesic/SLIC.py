@@ -28,7 +28,10 @@ def segmentImage(imageName, numSegments):
 		# apply SLIC and extract (approximately) the supplied number
 		# of segments
 	# segments = slic(image, n_segments=numSegments, sigma=5, compactness=11, slic_zero=False, enforce_connectivity=True)
-	segments = slic(image, n_segments=numSegments, sigma=5, compactness=Bridson_Common.compactnessSLIC, slic_zero=Bridson_Common.SLIC0, enforce_connectivity=True)
+	if Bridson_Common.SLIC0 == True:
+		segments = slic(image, n_segments=numSegments, sigma=5, compactness=Bridson_Common.compactnessSLIC, slic_zero=True, enforce_connectivity=True)
+	else:
+		segments = slic(image, n_segments=numSegments, sigma=5, compactness=Bridson_Common.compactnessSLIC,  enforce_connectivity=True)
 
 	# Bridson_Common.logDebug(__name__, type(segments))
 	# regionIndex = 16
@@ -150,7 +153,7 @@ def createRegionRasters(regionMap, region=0):
 
 		# print("Raster:", raster)
 		# Highlight the topLeft pixel.
-		raster[topLeft[0]-shiftx-5][topLeft[1]-shifty-5] = 127
+		# raster[topLeft[0]-shiftx-5][topLeft[1]-shifty-5] = 127
 	else:
 		raster = None
 

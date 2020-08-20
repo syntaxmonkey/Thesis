@@ -182,6 +182,30 @@ def blankRow(mask, row):
 
 
 
+def displayDistanceMask(mask, indexLabel):
+	#################################
+	# distanceMask = Bridson_CreateMask.InvertMask( mask5x )
+	distanceMask = mask
+	print("DistanceMask Max", np.max(distanceMask))
+	# distanceMask = Bridson_CreateMask.InvertMask( distanceMask )
+
+	# Generate the distance raster based on the mask.
+	# Should we instead generate the distance raster based on the original mask?
+	distanceRaster = Bridson_Common.distance_from_edge(distanceMask)
+	# distanceRaster = np.ma.masked_array(distanceRaster, np.invert(np.logical_and(distanceRaster < 2, distanceRaster > 0)))
+
+	plt.figure()
+	ax = plt.subplot(1, 1, 1, aspect=1, label='Region Raster ' + str(indexLabel))
+	plt.title('Distance Raster ' + str(indexLabel))
+	''' Draw Letter blob '''
+
+	# blankRaster = np.zeros(np.shape(imageraster))
+	# ax3 = plt.subplot2grid(gridsize, (0, 1), rowspan=1)
+	# ax3.imshow(blankRaster)
+	ax.imshow(distanceRaster)
+	ax.grid()
+
+
 
 
 def processMask(mask, dradius, indexLabel):
@@ -216,6 +240,15 @@ def processMask(mask, dradius, indexLabel):
 			mask5x = Bridson_Common.blurArray(mask5x, blurRadius)
 			mask5x = Bridson_CreateMask.InvertMask(mask5x)
 
+
+			#################################
+			distanceMask = mask
+			displayDistanceMask(distanceMask, indexLabel)
+			####################################
+
+
+
+			# print(distanceRaster)
 			if Bridson_Common.debug:
 				plt.figure()
 				plt.subplot(1, 1, 1, aspect=1)
@@ -291,8 +324,8 @@ def indexValidation(filename):
 	finishedImageNoSLIC.setYLimit(0, -np.shape(regionRaster)[0])
 
 	# for index in range(10,15):  # Interesting regions: 11, 12, 14
-	# for index in [15]:
-	for index in range( len(regionMap.keys()) ):
+	for index in [5]:
+	# for index in range( len(regionMap.keys()) ):
 		print("(***************** ", filename, " Starting Region: ", index, "of", Bridson_Common.segmentCount, "  *************************" )
 
 		# Generate the raster for the first region.
@@ -473,16 +506,19 @@ if __name__ == '__main__':
 
 	# Batch A.
 	# images.append('RedApple.jpg')
-	images.append('Sunglasses.jpg')
-	images.append('TapeRolls.jpg')
-	images.append('Massager.jpg')
-
+	# images.append('Sunglasses.jpg')
+	# images.append('TapeRolls.jpg')
+	# images.append('Massager.jpg')
+	images.append('eyeball.jpg')
+	# images.append('truck.jpg')
+	# images.append('cat1.jpg')
 
 	# Original
-	images.append('dog2.jpg')
+	# images.append('dog2.jpg')
 
 	# percentages = [0.05, 0.1, 0.15, 0.2]
-	targetPixels = [  50, 100, 400, 800, 1600 ]
+	# targetPixels = [  400, 800, 1600 ]
+	targetPixels = [400]
 	for filename in images:
 		for targetPixel in targetPixels:
 			Bridson_Common.targetRegionPixelCount = targetPixel
