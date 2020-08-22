@@ -185,25 +185,26 @@ def blankRow(mask, row):
 def displayDistanceMask(mask, indexLabel):
 	#################################
 	# distanceMask = Bridson_CreateMask.InvertMask( mask5x )
-	distanceMask = mask
-	print("DistanceMask Max", np.max(distanceMask))
-	# distanceMask = Bridson_CreateMask.InvertMask( distanceMask )
+	if Bridson_Common.displayMesh == True:
+		distanceMask = mask
+		print("DistanceMask Max", np.max(distanceMask))
+		# distanceMask = Bridson_CreateMask.InvertMask( distanceMask )
 
-	# Generate the distance raster based on the mask.
-	# Should we instead generate the distance raster based on the original mask?
-	distanceRaster = Bridson_Common.distance_from_edge(distanceMask)
-	# distanceRaster = np.ma.masked_array(distanceRaster, np.invert(np.logical_and(distanceRaster < 2, distanceRaster > 0)))
+		# Generate the distance raster based on the mask.
+		# Should we instead generate the distance raster based on the original mask?
+		distanceRaster = Bridson_Common.distance_from_edge(distanceMask)
+		# distanceRaster = np.ma.masked_array(distanceRaster, np.invert(np.logical_and(distanceRaster < 2, distanceRaster > 0)))
 
-	plt.figure()
-	ax = plt.subplot(1, 1, 1, aspect=1, label='Region Raster ' + str(indexLabel))
-	plt.title('Distance Raster ' + str(indexLabel))
-	''' Draw Letter blob '''
+		plt.figure()
+		ax = plt.subplot(1, 1, 1, aspect=1, label='Region Raster ' + str(indexLabel))
+		plt.title('Distance Raster ' + str(indexLabel))
+		''' Draw Letter blob '''
 
-	# blankRaster = np.zeros(np.shape(imageraster))
-	# ax3 = plt.subplot2grid(gridsize, (0, 1), rowspan=1)
-	# ax3.imshow(blankRaster)
-	ax.imshow(distanceRaster)
-	ax.grid()
+		# blankRaster = np.zeros(np.shape(imageraster))
+		# ax3 = plt.subplot2grid(gridsize, (0, 1), rowspan=1)
+		# ax3.imshow(blankRaster)
+		ax.imshow(distanceRaster)
+		ax.grid()
 
 
 
@@ -245,8 +246,6 @@ def processMask(mask, dradius, indexLabel):
 			distanceMask = mask
 			displayDistanceMask(distanceMask, indexLabel)
 			####################################
-
-
 
 			# print(distanceRaster)
 			if Bridson_Common.debug:
@@ -323,14 +322,19 @@ def indexValidation(filename):
 	finishedImageNoSLIC.setXLimit(0, np.shape(regionRaster)[1])
 	finishedImageNoSLIC.setYLimit(0, -np.shape(regionRaster)[0])
 
+	maskRasterCollection = {}
+	meshObjCollection = {}
+
 	# for index in range(10,15):  # Interesting regions: 11, 12, 14
-	for index in [5]:
+	for index in range(5,7):
 	# for index in range( len(regionMap.keys()) ):
 		print("(***************** ", filename, " Starting Region: ", index, "of", Bridson_Common.segmentCount, "  *************************" )
 
 		# Generate the raster for the first region.
 		raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
 		# print("Raster:", raster)
+		maskRasterCollection[index] = raster.copy()  # Make a copy of the mask raster.
+
 		displayRegionRaster(raster, index)
 
 		# Bridson_Common.logDebug(__name__, raster)
@@ -372,10 +376,9 @@ def indexValidation(filename):
 						flatMeshObj.TransferLinePointsFromTarget(meshObj)
 				if True:  # Rotate original image 90 CW.
 					meshObj.rotateClockwise90()
-				# Draw the region contour lines onto the finished image.
-				finishedImageSLIC.drawRegionContourLines(regionMap, index, meshObj, regionIntensityMap[index], drawSLICRegions=True )
-				finishedImageNoSLIC.drawRegionContourLines(regionMap, index, meshObj, regionIntensityMap[index], drawSLICRegions=False )
-				print("Done drawing contour lines")
+
+				# At this point, we have transferred the lines from the flattened mesh to the original mesh.
+				meshObjCollection[ index ] = meshObj
 			else:
 				print("Trifinder was NOT successfully generated for region ", index)
 
@@ -383,6 +386,19 @@ def indexValidation(filename):
 			# flatMeshObj.diagnosticExterior()
 
 		# finishedImage.drawRegionContourLines(regionMap, index, meshObj)
+
+
+	# At this point, we need can attempt to merge the lines between each region.
+	# Still have a problem with the coordinates though.
+	finishedImageSLIC.mergeLines(regionMap, regionRaster, maskRasterCollection, meshObjCollection)
+
+
+	for index in meshObjCollection.keys():
+		# Draw the region contour lines onto the finished image.
+		meshObj = meshObjCollection[ index ]
+		finishedImageSLIC.drawRegionContourLines(regionMap, index, meshObj, regionIntensityMap[index], drawSLICRegions=True )
+		finishedImageNoSLIC.drawRegionContourLines(regionMap, index, meshObj, regionIntensityMap[index], drawSLICRegions=False )
+		print("Done drawing contour lines")
 
 
 	Bridson_Common.saveImage( filename, "WithSLIC", finishedImageSLIC.fig )

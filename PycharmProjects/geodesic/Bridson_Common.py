@@ -16,10 +16,14 @@ compactnessSLIC=10.0
 
 bulkGeneration = False
 debug=False
+
 if bulkGeneration == True:
 	displayMesh = False
 else:
 	displayMesh = True
+
+displayMesh = True
+
 diagnostic=False # Generally avoid dispalying meshes.  Only count the number of successful trifinder generations.
 highlightEdgeTriangle=False # Highlight the edge triangle that contains the exterior point of the vertical lines.
 drawSLICRegions = False

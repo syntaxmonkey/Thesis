@@ -61,6 +61,7 @@ class FinishedImage:
 		else:
 			return linePoints
 
+
 	def maxLinePoints(self, linePoints):
 		maxx, maxy = -1000000, -1000000
 		for line in linePoints:
@@ -79,6 +80,74 @@ class FinishedImage:
 		# if Bridson_Common.drawSLICRegions:
 		self.ax.imshow(mark_boundaries(regionRaster, segments, color=(255,0,0)))
 		self.ax.grid()
+
+	def shiftRastersMeshObj(self, regionMap, regionRaster, maskRasterCollection, meshObjCollection ):
+		# for index in [5]:
+		for index in maskRasterCollection.keys():
+			raster = maskRasterCollection[ index ]
+			meshObj = meshObjCollection[ index ]
+
+			# print("Shape of Region Raster:", np.shape(regionRaster))
+
+
+			regionCoordinates = regionMap.get(index)
+			topLeftTarget, bottomRightTarget = SLIC.calculateTopLeft(regionCoordinates)
+
+			# Create new raster that has been shifted.
+			x, y = np.shape(raster)
+			linePoints = meshObj.linePoints
+			newRaster = np.zeros(np.shape(regionRaster))
+			# print("Shape of raster:", (x,y))
+			for i in range(x):
+				for j in range(y):
+					newRaster[i - topLeftTarget[0] - 3 ][j + topLeftTarget[1] - 5 ] = raster[i][j]
+					# newRaster[i - topLeftTarget[0] + 5][j + topLeftTarget[1] - 5] = raster[i][j]
+
+			newLinePoints = []
+			for line in linePoints:
+				newline = line.copy()
+				newline[:, 0] = line[:, 0] + topLeftTarget[1] - 5 # Needed to line up with regions.
+				newline[:, 1] = line[:, 1] - topLeftTarget[0] + 3  # Required to be negative.
+				newLinePoints.append( newline )
+
+			plt.figure()
+			ax = plt.subplot(1, 1, 1, aspect=1)
+			plt.title('shifted Lines')
+			plt.grid()
+			for line in newLinePoints:
+				ax.plot(line[:, 0], line[:, 1], color='r', marker='*')
+
+			# meshObj.linePoints = newLinePoints
+			# maskRasterCollection[index] = newRaster
+
+			plt.figure()
+			plt.subplot(1, 1, 1, aspect=1)
+			plt.title('shifted Mask')
+			plt.grid()
+			plt.imshow(newRaster)
+
+
+
+
+
+	def mergeLines(self, regionMap, regionRaster, maskRasterCollection, meshObjCollection ):
+		self.shiftRastersMeshObj( regionMap, regionRaster, maskRasterCollection, meshObjCollection )
+
+		# For each region, determine the points on the lines that are close to the region edge.  Make a registry of these points.
+		for index in maskRasterCollection.keys():
+			raster = maskRasterCollection[ index ]
+			meshObj = meshObjCollection[ index ]
+
+			regionCoordinates = regionMap.get(index)
+			topLeftTarget, bottomRightTarget = SLIC.calculateTopLeft(regionCoordinates)
+
+
+
+
+
+
+		pass
+
 
 	def drawRegionContourLines(self, regionMap, index, meshObj, regionIntensity, drawSLICRegions = Bridson_Common.drawSLICRegions):
 
@@ -114,7 +183,7 @@ class FinishedImage:
 		# print("TopLeftSource: ", topLeftSource)
 		# # print("shiftCoordinates:", shiftCoordinates)
 		# print("LinePoints:",linePoints)
-		currentLine = linePoints[0] * -100
+		currentLine = linePoints[0] * -100  # Set the starting line way off the current raster region.
 		initial=True
 		# count = 0
 

@@ -2,82 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6ab9aa8a-8b4b-405a-a077-6186da762c11" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/../../Extension-Request-Form(2).pdf" afterPath="" />
       <change beforePath="$PROJECT_DIR$/../NNCourse" afterPath="$PROJECT_DIR$/../NNCourse" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/BlurArrayImage.gif" afterPath="$PROJECT_DIR$/BlurArrayImage.gif" />
       <change beforePath="$PROJECT_DIR$/Bridson_Common.py" afterPath="$PROJECT_DIR$/Bridson_Common.py" />
+      <change beforePath="$PROJECT_DIR$/Bridson_FinishedImage.py" afterPath="$PROJECT_DIR$/Bridson_FinishedImage.py" />
       <change beforePath="$PROJECT_DIR$/Bridson_Main.py" afterPath="$PROJECT_DIR$/Bridson_Main.py" />
-      <change beforePath="$PROJECT_DIR$/Bridson_Test.py" afterPath="$PROJECT_DIR$/Bridson_Test.py" />
-      <change beforePath="$PROJECT_DIR$/SLIC.py" afterPath="$PROJECT_DIR$/SLIC.py" />
       <change beforePath="$PROJECT_DIR$/chaincode.txt" afterPath="$PROJECT_DIR$/chaincode.txt" />
-      <change beforePath="$PROJECT_DIR$/output/Massager.jpg_segments_1414_regionPixels_50_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/Massager.jpg_segments_1414_regionPixels_50_NoSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/Massager.jpg_segments_1414_regionPixels_50_WithSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/Massager.jpg_segments_176_regionPixels_400_GreyscaleSLIC.png" afterPath="$PROJECT_DIR$/output/Massager.jpg_segments_176_regionPixels_400_GreyscaleSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/Massager.jpg_segments_176_regionPixels_400_NoSLIC.png" afterPath="$PROJECT_DIR$/output/Massager.jpg_segments_176_regionPixels_400_NoSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/Massager.jpg_segments_176_regionPixels_400_WithSLIC.png" afterPath="$PROJECT_DIR$/output/Massager.jpg_segments_176_regionPixels_400_WithSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/Massager.jpg_segments_44_regionPixels_1600_GreyscaleSLIC.png" afterPath="$PROJECT_DIR$/output/Massager.jpg_segments_44_regionPixels_1600_GreyscaleSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/Massager.jpg_segments_44_regionPixels_1600_NoSLIC.png" afterPath="$PROJECT_DIR$/output/Massager.jpg_segments_44_regionPixels_1600_NoSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/Massager.jpg_segments_44_regionPixels_1600_WithSLIC.png" afterPath="$PROJECT_DIR$/output/Massager.jpg_segments_44_regionPixels_1600_WithSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/Massager.jpg_segments_707_regionPixels_100_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/Massager.jpg_segments_707_regionPixels_100_NoSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/Massager.jpg_segments_707_regionPixels_100_WithSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/Massager.jpg_segments_88_regionPixels_800_GreyscaleSLIC.png" afterPath="$PROJECT_DIR$/output/Massager.jpg_segments_88_regionPixels_800_GreyscaleSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/Massager.jpg_segments_88_regionPixels_800_NoSLIC.png" afterPath="$PROJECT_DIR$/output/Massager.jpg_segments_88_regionPixels_800_NoSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/Massager.jpg_segments_88_regionPixels_800_WithSLIC.png" afterPath="$PROJECT_DIR$/output/Massager.jpg_segments_88_regionPixels_800_WithSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/RedApple.jpg_segments_1240_regionPixels_100_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/RedApple.jpg_segments_1240_regionPixels_100_NoSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/RedApple.jpg_segments_1240_regionPixels_100_WithSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/RedApple.jpg_segments_155_regionPixels_800_GreyscaleSLIC.png" afterPath="$PROJECT_DIR$/output/RedApple.jpg_segments_155_regionPixels_800_GreyscaleSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/RedApple.jpg_segments_155_regionPixels_800_NoSLIC.png" afterPath="$PROJECT_DIR$/output/RedApple.jpg_segments_155_regionPixels_800_NoSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/RedApple.jpg_segments_155_regionPixels_800_WithSLIC.png" afterPath="$PROJECT_DIR$/output/RedApple.jpg_segments_155_regionPixels_800_WithSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/RedApple.jpg_segments_2481_regionPixels_50_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/RedApple.jpg_segments_2481_regionPixels_50_NoSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/RedApple.jpg_segments_2481_regionPixels_50_WithSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/RedApple.jpg_segments_310_regionPixels_400_GreyscaleSLIC.png" afterPath="$PROJECT_DIR$/output/RedApple.jpg_segments_310_regionPixels_400_GreyscaleSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/RedApple.jpg_segments_310_regionPixels_400_NoSLIC.png" afterPath="$PROJECT_DIR$/output/RedApple.jpg_segments_310_regionPixels_400_NoSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/RedApple.jpg_segments_310_regionPixels_400_WithSLIC.png" afterPath="$PROJECT_DIR$/output/RedApple.jpg_segments_310_regionPixels_400_WithSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/RedApple.jpg_segments_77_regionPixels_1600_GreyscaleSLIC.png" afterPath="$PROJECT_DIR$/output/RedApple.jpg_segments_77_regionPixels_1600_GreyscaleSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/RedApple.jpg_segments_77_regionPixels_1600_NoSLIC.png" afterPath="$PROJECT_DIR$/output/RedApple.jpg_segments_77_regionPixels_1600_NoSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/RedApple.jpg_segments_77_regionPixels_1600_WithSLIC.png" afterPath="$PROJECT_DIR$/output/RedApple.jpg_segments_77_regionPixels_1600_WithSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/Sunglasses.jpg_segments_1229_regionPixels_50_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/Sunglasses.jpg_segments_1229_regionPixels_50_NoSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/Sunglasses.jpg_segments_1229_regionPixels_50_WithSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/Sunglasses.jpg_segments_153_regionPixels_400_GreyscaleSLIC.png" afterPath="$PROJECT_DIR$/output/Sunglasses.jpg_segments_153_regionPixels_400_GreyscaleSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/Sunglasses.jpg_segments_153_regionPixels_400_NoSLIC.png" afterPath="$PROJECT_DIR$/output/Sunglasses.jpg_segments_153_regionPixels_400_NoSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/Sunglasses.jpg_segments_153_regionPixels_400_WithSLIC.png" afterPath="$PROJECT_DIR$/output/Sunglasses.jpg_segments_153_regionPixels_400_WithSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/Sunglasses.jpg_segments_38_regionPixels_1600_GreyscaleSLIC.png" afterPath="$PROJECT_DIR$/output/Sunglasses.jpg_segments_38_regionPixels_1600_GreyscaleSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/Sunglasses.jpg_segments_38_regionPixels_1600_NoSLIC.png" afterPath="$PROJECT_DIR$/output/Sunglasses.jpg_segments_38_regionPixels_1600_NoSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/Sunglasses.jpg_segments_38_regionPixels_1600_WithSLIC.png" afterPath="$PROJECT_DIR$/output/Sunglasses.jpg_segments_38_regionPixels_1600_WithSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/Sunglasses.jpg_segments_614_regionPixels_100_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/Sunglasses.jpg_segments_614_regionPixels_100_NoSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/Sunglasses.jpg_segments_614_regionPixels_100_WithSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/Sunglasses.jpg_segments_76_regionPixels_800_GreyscaleSLIC.png" afterPath="$PROJECT_DIR$/output/Sunglasses.jpg_segments_76_regionPixels_800_GreyscaleSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/Sunglasses.jpg_segments_76_regionPixels_800_NoSLIC.png" afterPath="$PROJECT_DIR$/output/Sunglasses.jpg_segments_76_regionPixels_800_NoSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/Sunglasses.jpg_segments_76_regionPixels_800_WithSLIC.png" afterPath="$PROJECT_DIR$/output/Sunglasses.jpg_segments_76_regionPixels_800_WithSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/TapeRolls.jpg_segments_1266_regionPixels_50_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/TapeRolls.jpg_segments_1266_regionPixels_50_NoSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/TapeRolls.jpg_segments_1266_regionPixels_50_WithSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/TapeRolls.jpg_segments_158_regionPixels_400_GreyscaleSLIC.png" afterPath="$PROJECT_DIR$/output/TapeRolls.jpg_segments_158_regionPixels_400_GreyscaleSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/TapeRolls.jpg_segments_158_regionPixels_400_NoSLIC.png" afterPath="$PROJECT_DIR$/output/TapeRolls.jpg_segments_158_regionPixels_400_NoSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/TapeRolls.jpg_segments_158_regionPixels_400_WithSLIC.png" afterPath="$PROJECT_DIR$/output/TapeRolls.jpg_segments_158_regionPixels_400_WithSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/TapeRolls.jpg_segments_39_regionPixels_1600_GreyscaleSLIC.png" afterPath="$PROJECT_DIR$/output/TapeRolls.jpg_segments_39_regionPixels_1600_GreyscaleSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/TapeRolls.jpg_segments_39_regionPixels_1600_NoSLIC.png" afterPath="$PROJECT_DIR$/output/TapeRolls.jpg_segments_39_regionPixels_1600_NoSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/TapeRolls.jpg_segments_39_regionPixels_1600_WithSLIC.png" afterPath="$PROJECT_DIR$/output/TapeRolls.jpg_segments_39_regionPixels_1600_WithSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/TapeRolls.jpg_segments_633_regionPixels_100_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/TapeRolls.jpg_segments_633_regionPixels_100_NoSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/TapeRolls.jpg_segments_633_regionPixels_100_WithSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/TapeRolls.jpg_segments_79_regionPixels_800_GreyscaleSLIC.png" afterPath="$PROJECT_DIR$/output/TapeRolls.jpg_segments_79_regionPixels_800_GreyscaleSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/TapeRolls.jpg_segments_79_regionPixels_800_NoSLIC.png" afterPath="$PROJECT_DIR$/output/TapeRolls.jpg_segments_79_regionPixels_800_NoSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/TapeRolls.jpg_segments_79_regionPixels_800_WithSLIC.png" afterPath="$PROJECT_DIR$/output/TapeRolls.jpg_segments_79_regionPixels_800_WithSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/dog2.jpg_segments_1004_regionPixels_50_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/dog2.jpg_segments_1004_regionPixels_50_NoSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/dog2.jpg_segments_1004_regionPixels_50_WithSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/dog2.jpg_segments_125_regionPixels_400_GreyscaleSLIC.png" afterPath="$PROJECT_DIR$/output/dog2.jpg_segments_125_regionPixels_400_GreyscaleSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/dog2.jpg_segments_502_regionPixels_100_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/dog2.jpg_segments_502_regionPixels_100_NoSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/dog2.jpg_segments_502_regionPixels_100_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/eyeball.jpg_segments_125_regionPixels_400_NoSLIC.png" afterPath="$PROJECT_DIR$/output/eyeball.jpg_segments_125_regionPixels_400_NoSLIC.png" />
+      <change beforePath="$PROJECT_DIR$/output/eyeball.jpg_segments_125_regionPixels_400_WithSLIC.png" afterPath="$PROJECT_DIR$/output/eyeball.jpg_segments_125_regionPixels_400_WithSLIC.png" />
       <change beforePath="$PROJECT_DIR$/../../boundary-first-flattening" afterPath="$PROJECT_DIR$/../../boundary-first-flattening" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -92,8 +25,8 @@
       <file leaf-file-name="Bridson_Common.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Bridson_Common.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="265" column="4" lean-forward="false" selection-start-line="265" selection-start-column="4" selection-end-line="265" selection-end-column="4" />
+            <state relative-caret-position="272">
+              <caret line="24" column="18" lean-forward="false" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -101,11 +34,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Bridson_Main.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Bridson_Main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Bridson_Main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="487">
-              <caret line="196" column="16" lean-forward="true" selection-start-line="196" selection-start-column="16" selection-end-line="196" selection-end-column="16" />
+            <state relative-caret-position="315">
+              <caret line="379" column="106" lean-forward="false" selection-start-line="379" selection-start-column="94" selection-end-line="379" selection-end-column="106" />
               <folding />
             </state>
           </provider>
@@ -114,9 +47,11 @@
       <file leaf-file-name="Bridson_CreateMask.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Bridson_CreateMask.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="69" column="4" lean-forward="false" selection-start-line="69" selection-start-column="4" selection-end-line="69" selection-end-column="4" />
-              <folding />
+            <state relative-caret-position="315">
+              <caret line="30" column="47" lean-forward="false" selection-start-line="30" selection-start-column="47" selection-end-line="30" selection-end-column="47" />
+              <folding>
+                <element signature="e#1#19#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -131,11 +66,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Bridson_FinishedImage.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Bridson_FinishedImage.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Bridson_FinishedImage.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="30" column="12" lean-forward="false" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="12" />
+            <state relative-caret-position="390">
+              <caret line="120" column="53" lean-forward="true" selection-start-line="120" selection-start-column="53" selection-end-line="120" selection-end-column="53" />
               <folding>
                 <element signature="e#1#32#0" expanded="true" />
               </folding>
@@ -146,7 +81,7 @@
       <file leaf-file-name="SLIC.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SLIC.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
+            <state relative-caret-position="1620">
               <caret line="117" column="4" lean-forward="false" selection-start-line="117" selection-start-column="4" selection-end-line="117" selection-end-column="4" />
               <folding>
                 <element signature="e#124#161#0" expanded="true" />
@@ -158,8 +93,8 @@
       <file leaf-file-name="Bridson_Test.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Bridson_Test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="739">
-              <caret line="71" column="4" lean-forward="true" selection-start-line="71" selection-start-column="4" selection-end-line="71" selection-end-column="24" />
+            <state relative-caret-position="1065">
+              <caret line="71" column="4" lean-forward="false" selection-start-line="71" selection-start-column="4" selection-end-line="71" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -168,8 +103,8 @@
       <file leaf-file-name="Bridson_MeshObj.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Bridson_MeshObj.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="840">
-              <caret line="64" column="0" lean-forward="false" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+            <state relative-caret-position="506">
+              <caret line="858" column="83" lean-forward="false" selection-start-line="858" selection-start-column="16" selection-end-line="858" selection-end-column="83" />
               <folding>
                 <element signature="e#0#80#0" expanded="true" />
               </folding>
@@ -188,17 +123,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>drawVerticalLines</find>
-      <find>def GenerateExteriorPoints(self):</find>
-      <find>GenerateExteriorPoints</find>
-      <find>transfer</find>
-      <find>d</find>
-      <find>drawVer</find>
-      <find>lineSkip</find>
-      <find>linePoints</find>
-      <find>drawang</find>
-      <find>drawAngle</find>
-      <find>flattening disk</find>
       <find>Flatten</find>
       <find>Attempt</find>
       <find>loadModel</find>
@@ -208,9 +132,7 @@
       <find>FlattenMesh</find>
       <find>Flattening</find>
       <find>Points:</find>
-      <find>cropContourLines</find>
       <find>flatten</find>
-      <find>drawRegionContourLines</find>
       <find>saveImag</find>
       <find>output</find>
       <find>B</find>
@@ -218,6 +140,19 @@
       <find>finished</find>
       <find>BlurArrayImage</find>
       <find>crop</find>
+      <find>Distance Raster</find>
+      <find>cropContourLines</find>
+      <find>actualTopLeft</find>
+      <find>raster</find>
+      <find>mergeLines</find>
+      <find>drawRegionContourLinesdrawRegionContourLines</find>
+      <find>drawRegionContourLines</find>
+      <find>figure</find>
+      <find>original</find>
+      <find>Original</find>
+      <find>Original Mes</find>
+      <find>Original</find>
+      <find>Origina</find>
     </findStrings>
     <replaceStrings>
       <replace>=</replace>
@@ -271,11 +206,11 @@
         <option value="$PROJECT_DIR$/Test.py" />
         <option value="$PROJECT_DIR$/Bridson_MeshObj.py" />
         <option value="$PROJECT_DIR$/Bridson_TriangulationDualGraph.py" />
-        <option value="$PROJECT_DIR$/Bridson_FinishedImage.py" />
         <option value="$PROJECT_DIR$/Bridson_Test.py" />
-        <option value="$PROJECT_DIR$/Bridson_Common.py" />
         <option value="$PROJECT_DIR$/SLIC.py" />
+        <option value="$PROJECT_DIR$/Bridson_Common.py" />
         <option value="$PROJECT_DIR$/Bridson_Main.py" />
+        <option value="$PROJECT_DIR$/Bridson_FinishedImage.py" />
       </list>
     </option>
   </component>
@@ -570,7 +505,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18796591" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290735" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32389048" sideWeight="0.5018431" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41640043" sideWeight="0.4918378" order="3" side_tool="false" content_ui="tabs" x="973" y="23" width="860" height="1177" />
+      <window_info id="Run" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34771034" sideWeight="0.4918378" order="3" side_tool="false" content_ui="tabs" x="973" y="23" width="860" height="1177" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290735" sideWeight="0.49815693" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32389048" sideWeight="0.49289098" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27277514" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -905,26 +840,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Bridson_MeshObj.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="64" column="0" lean-forward="false" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#80#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Bridson_FinishedImage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="30" column="12" lean-forward="false" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="12" />
-          <folding>
-            <element signature="e#1#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Bridson_readOBJFile.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -937,39 +852,20 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="303">
           <caret line="6360" column="0" lean-forward="false" selection-start-line="6360" selection-start-column="0" selection-end-line="6360" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Bridson_Test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="739">
-          <caret line="71" column="4" lean-forward="true" selection-start-line="71" selection-start-column="4" selection-end-line="71" selection-end-column="24" />
+        <state relative-caret-position="1065">
+          <caret line="71" column="4" lean-forward="false" selection-start-line="71" selection-start-column="4" selection-end-line="71" selection-end-column="24" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Bridson_CreateMask.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="69" column="4" lean-forward="false" selection-start-line="69" selection-start-column="4" selection-end-line="69" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Bridson_Common.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="265" column="4" lean-forward="false" selection-start-line="265" selection-start-column="4" selection-end-line="265" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/SLIC.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
+        <state relative-caret-position="1620">
           <caret line="117" column="4" lean-forward="false" selection-start-line="117" selection-start-column="4" selection-end-line="117" selection-end-column="4" />
           <folding>
             <element signature="e#124#161#0" expanded="true" />
@@ -977,11 +873,51 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Bridson_Common.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="24" column="18" lean-forward="false" selection-start-line="24" selection-start-column="18" selection-end-line="24" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Bridson_Main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="487">
-          <caret line="196" column="16" lean-forward="true" selection-start-line="196" selection-start-column="16" selection-end-line="196" selection-end-column="16" />
+        <state relative-caret-position="315">
+          <caret line="379" column="106" lean-forward="false" selection-start-line="379" selection-start-column="94" selection-end-line="379" selection-end-column="106" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Bridson_CreateMask.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="30" column="47" lean-forward="false" selection-start-line="30" selection-start-column="47" selection-end-line="30" selection-end-column="47" />
+          <folding>
+            <element signature="e#1#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Bridson_MeshObj.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="858" column="83" lean-forward="false" selection-start-line="858" selection-start-column="16" selection-end-line="858" selection-end-column="83" />
+          <folding>
+            <element signature="e#0#80#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Bridson_FinishedImage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="120" column="53" lean-forward="true" selection-start-line="120" selection-start-column="53" selection-end-line="120" selection-end-column="53" />
+          <folding>
+            <element signature="e#1#32#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
