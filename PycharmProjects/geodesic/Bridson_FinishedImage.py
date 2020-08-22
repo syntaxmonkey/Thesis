@@ -48,10 +48,11 @@ class FinishedImage:
 							# print("Point NOT in Mask:", x, y)
 							pass
 					except:
-						print("********************* Problem with cropping contour lines. **********************")
-						print("X,Y:", x,y)
-						print("Raster dimensions:", np.shape(raster))
-						print("Raster:", raster)
+						if Bridson_Common.debug:
+							print("********************* Problem with cropping contour lines. **********************")
+							print("X,Y:", x,y)
+							print("Raster dimensions:", np.shape(raster))
+							print("Raster:", raster)
 
 				if emptyLine == False:
 					newLinePoints.append(np.array(newLine))
@@ -81,11 +82,12 @@ class FinishedImage:
 		self.ax.imshow(mark_boundaries(regionRaster, segments, color=(255,0,0)))
 		self.ax.grid()
 
-	def shiftRastersMeshObj(self, regionMap, regionRaster, maskRasterCollection, meshObjCollection ):
+
+	def shiftRastersMeshObj(self, regionMap, regionRaster):
 		# for index in [5]:
-		for index in maskRasterCollection.keys():
-			raster = maskRasterCollection[ index ]
-			meshObj = meshObjCollection[ index ]
+		for index in self.maskRasterCollection.keys():
+			raster = self.maskRasterCollection[ index ]
+			meshObj = self.meshObjCollection[ index ]
 
 			print("Shape of Region Raster:", np.shape(regionRaster))
 
@@ -114,32 +116,37 @@ class FinishedImage:
 			if Bridson_Common.displayMesh:
 				plt.figure()
 				ax = plt.subplot(1, 1, 1, aspect=1)
-				plt.title('shifted Lines for region ' + index)
+				plt.title('shifted Lines for region ' + str(index))
 				plt.grid()
 				for line in newLinePoints:
 					ax.plot(line[:, 0], line[:, 1], color='r', marker='*')
 
 				plt.figure()
 				plt.subplot(1, 1, 1, aspect=1)
-				plt.title('shifted Mask for region ' + index)
+				plt.title('shifted Mask for region ' + str(index))
 				plt.grid()
 				plt.imshow(newRaster)
 
 
 			meshObj.linePoints = newLinePoints
-			maskRasterCollection[index] = newRaster
+			self.maskRasterCollection[index] = newRaster
 
 
 
-
+	def setCollections(self, maskRasterCollection, meshObjCollection ):
+		self.maskRasterCollection = maskRasterCollection
+		self.meshObjCollection = meshObjCollection
 
 
 	def mergeLines(self, regionMap, regionRaster, maskRasterCollection, meshObjCollection ):
-		self.shiftRastersMeshObj( regionMap, regionRaster, maskRasterCollection, meshObjCollection )
+		self.maskRasterCollection = maskRasterCollection
+		self.meshObjCollection = meshObjCollection
+
+		self.shiftRastersMeshObj( regionMap, regionRaster )
 
 		# For each region, determine the points on the lines that are close to the region edge.  Make a registry of these points.
-		for index in maskRasterCollection.keys():
-			raster = maskRasterCollection[ index ]
+		for index in self.maskRasterCollection.keys():
+			raster = self.maskRasterCollection[ index ]
 			meshObj = meshObjCollection[ index ]
 
 			regionCoordinates = regionMap.get(index)
@@ -175,6 +182,7 @@ class FinishedImage:
 		# shiftCoordinates = (bottomRightTarget[0] - topLeftSource[0], bottomRightTarget[1] - topLeftSource[1])
 
 		# linePoints = self.cropContourLines(linePoints, raster)
+		linePoints = self.cropContourLines(linePoints, self.maskRasterCollection[index] )
 
 
 		# print("NewLinePoints:", linePoints)

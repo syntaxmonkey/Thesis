@@ -324,6 +324,8 @@ def indexValidation(filename):
 
 	maskRasterCollection = {}
 	meshObjCollection = {}
+	NoSLICmaskRasterCollection = {}
+	NoSLICmeshObjCollection = {}
 
 	# for index in range(10,15):  # Interesting regions: 11, 12, 14
 	# for index in [12]:
@@ -334,6 +336,7 @@ def indexValidation(filename):
 		raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
 		# print("Raster:", raster)
 		maskRasterCollection[index] = raster.copy()  # Make a copy of the mask raster.
+		NoSLICmaskRasterCollection[ index ] = raster.copy()
 
 		displayRegionRaster(raster, index)
 
@@ -379,6 +382,7 @@ def indexValidation(filename):
 
 				# At this point, we have transferred the lines from the flattened mesh to the original mesh.
 				meshObjCollection[ index ] = meshObj
+				NoSLICmeshObjCollection[ index ] = meshObj
 			else:
 				print("Trifinder was NOT successfully generated for region ", index)
 
@@ -391,7 +395,7 @@ def indexValidation(filename):
 	# At this point, we need can attempt to merge the lines between each region.
 	# Still have a problem with the coordinates though.
 	finishedImageSLIC.mergeLines(regionMap, regionRaster, maskRasterCollection, meshObjCollection)
-
+	finishedImageNoSLIC.setCollections( maskRasterCollection, meshObjCollection )
 
 	for index in meshObjCollection.keys():
 		# Draw the region contour lines onto the finished image.
