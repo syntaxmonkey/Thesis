@@ -182,32 +182,6 @@ def blankRow(mask, row):
 
 
 
-def displayDistanceMask(mask, indexLabel):
-	#################################
-	# distanceMask = Bridson_CreateMask.InvertMask( mask5x )
-	if Bridson_Common.displayMesh == True:
-		distanceMask = mask
-		print("DistanceMask Max", np.max(distanceMask))
-		# distanceMask = Bridson_CreateMask.InvertMask( distanceMask )
-
-		# Generate the distance raster based on the mask.
-		# Should we instead generate the distance raster based on the original mask?
-		distanceRaster = Bridson_Common.distance_from_edge(distanceMask)
-		# distanceRaster = np.ma.masked_array(distanceRaster, np.invert(np.logical_and(distanceRaster < 2, distanceRaster > 0)))
-
-		plt.figure()
-		ax = plt.subplot(1, 1, 1, aspect=1, label='Region Raster ' + str(indexLabel))
-		plt.title('Distance Raster ' + str(indexLabel))
-		''' Draw Letter blob '''
-
-		# blankRaster = np.zeros(np.shape(imageraster))
-		# ax3 = plt.subplot2grid(gridsize, (0, 1), rowspan=1)
-		# ax3.imshow(blankRaster)
-		ax.imshow(distanceRaster)
-		ax.grid()
-
-
-
 
 def processMask(mask, dradius, indexLabel):
 	# invertedMask = Bridson_CreateMask.InvertMask(mask)
@@ -242,10 +216,6 @@ def processMask(mask, dradius, indexLabel):
 			mask5x = Bridson_CreateMask.InvertMask(mask5x)
 
 
-			#################################
-			distanceMask = mask
-			displayDistanceMask(distanceMask, indexLabel)
-			####################################
 
 			# print(distanceRaster)
 			if Bridson_Common.debug:
@@ -328,8 +298,8 @@ def indexValidation(filename):
 	NoSLICmeshObjCollection = {}
 
 	# for index in range(10,15):  # Interesting regions: 11, 12, 14
-	# for index in [12]:
-	for index in range( len(regionMap.keys()) ):
+	for index in [12]:
+	# for index in range( len(regionMap.keys()) ):
 		print("(***************** ", filename, " Starting Region: ", index, "of", Bridson_Common.segmentCount, "  *************************" )
 
 		# Generate the raster for the first region.
@@ -386,7 +356,8 @@ def indexValidation(filename):
 			else:
 				print("Trifinder was NOT successfully generated for region ", index)
 
-			# meshObj.diagnosticExterior()
+
+	# meshObj.diagnosticExterior()
 			# flatMeshObj.diagnosticExterior()
 
 		# finishedImage.drawRegionContourLines(regionMap, index, meshObj)

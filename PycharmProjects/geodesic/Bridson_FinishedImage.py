@@ -7,6 +7,9 @@ import numpy as np
 from skimage.segmentation import mark_boundaries
 import math
 from scipy.spatial import distance
+import sys
+
+np.set_printoptions(threshold=sys.maxsize)  # allow printing without ellipsis: https://stackoverflow.com/questions/44311664/print-numpy-array-without-ellipsis
 
 class FinishedImage:
 	def __init__(self, *args, **kwargs):
@@ -28,7 +31,10 @@ class FinishedImage:
 		self.ax.set_ylim(top=top, bottom=bottom)
 
 
-	def cropContourLines(self, linePoints, raster):
+
+	def cropContourLines(self, linePoints, raster, topLeftTarget):
+
+
 		if Bridson_Common.cropContours:
 			# Raster will have 255 for valid points.
 			newLinePoints = []
@@ -144,6 +150,8 @@ class FinishedImage:
 
 		self.shiftRastersMeshObj( regionMap, regionRaster )
 
+
+
 		# For each region, determine the points on the lines that are close to the region edge.  Make a registry of these points.
 		for index in self.maskRasterCollection.keys():
 			raster = self.maskRasterCollection[ index ]
@@ -152,6 +160,11 @@ class FinishedImage:
 			regionCoordinates = regionMap.get(index)
 			topLeftTarget, bottomRightTarget = SLIC.calculateTopLeft(regionCoordinates)
 
+
+			#################################
+			distanceMask = raster
+			Bridson_Common.displayDistanceMask(distanceMask, str(index), topLeftTarget, bottomRightTarget)
+			####################################
 
 		pass
 
@@ -182,7 +195,7 @@ class FinishedImage:
 		# shiftCoordinates = (bottomRightTarget[0] - topLeftSource[0], bottomRightTarget[1] - topLeftSource[1])
 
 		# linePoints = self.cropContourLines(linePoints, raster)
-		linePoints = self.cropContourLines(linePoints, self.maskRasterCollection[index] )
+		linePoints = self.cropContourLines(linePoints, self.maskRasterCollection[index], topLeftTarget)
 
 
 		# print("NewLinePoints:", linePoints)

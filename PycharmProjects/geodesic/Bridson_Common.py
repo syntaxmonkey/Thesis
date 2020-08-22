@@ -8,6 +8,13 @@ import matplotlib.pyplot as plt
 import inspect
 import os
 from scipy.ndimage.morphology import distance_transform_cdt
+import pandas as pd
+
+# Increase width of console printing: https://stackoverflow.com/questions/25628496/getting-wider-output-in-pycharms-built-in-console
+desired_width = 320
+pd.set_option('display.width', 400)
+pd.set_option('display.max_columns', 10)
+np.set_printoptions(linewidth=desired_width)
 
 seedValue = 11
 
@@ -22,7 +29,7 @@ if bulkGeneration == True:
 else:
 	displayMesh = True
 
-displayMesh = False
+displayMesh = True
 
 diagnostic=False # Generally avoid dispalying meshes.  Only count the number of successful trifinder generations.
 highlightEdgeTriangle=False # Highlight the edge triangle that contains the exterior point of the vertical lines.
@@ -78,6 +85,52 @@ colourArray = ['b', 'b', 'b']
 mergeScale = 1  # How much to scale the contour lines before merging.
 cropContours = True
 
+
+
+def displayDistanceMask(mask, indexLabel, topLeftTarget, bottomRightTarget):
+	#################################
+	# distanceMask = Bridson_CreateMask.InvertMask( mask5x )
+	if Bridson_Common.displayMesh == True:
+		distanceMask = mask.copy()
+		print("DistanceMask Max", np.max(distanceMask))
+		# distanceMask = Bridson_CreateMask.InvertMask( distanceMask )
+
+		# Generate the distance raster based on the mask.
+		# Should we instead generate the distance raster based on the original mask?
+		distanceRaster = Bridson_Common.distance_from_edge(distanceMask)
+		# distanceRaster = np.ma.masked_array(distanceRaster, np.logical_and(distanceRaster < 2, distanceRaster > 0))  # Filters out the pixels with distance of 1.
+		# Want to retain the pixels that have a distance of 1.  Set the other pixels to zero.
+
+		# Try to retain the zeros and ones.
+		# distanceRaster = np.ma.masked_array(distanceRaster,  distanceRaster > 1) ## Yay, this seems to retain the 1s and zeros.
+
+
+		# Find the pixels that contain the value 1: https://stackoverflow.com/questions/44296310/get-indices-of-elements-that-are-greater-than-a-threshold-in-2d-numpy-array
+		distance1pixelIndices = np.argwhere( distanceRaster == 1)
+		print("Distance 1 Indices count:", len(distance1pixelIndices)  )
+
+		print("-------------------------------")
+		for index in distance1pixelIndices:
+			print(index, " has value: ", distanceRaster[index[0], index[1] ])
+		print("-------------------------------")
+
+		# Count the number of 1's in the raster: https://www.kite.com/python/answers/how-to-count-the-occurrences-of-a-value-in-a-numpy-array-in-python
+		print("Distance 1 Count: ", np.count_nonzero( distanceRaster == 1) )
+
+		plt.figure()
+		ax = plt.subplot(1, 1, 1, aspect=1, label='Region Raster ' + str(indexLabel))
+		plt.title('Distance Raster ' + str(indexLabel))
+		''' Draw Letter blob '''
+
+		# blankRaster = np.zeros(np.shape(imageraster))
+		# ax3 = plt.subplot2grid(gridsize, (0, 1), rowspan=1)
+		# ax3.imshow(blankRaster)
+		# distanceRaster[5][5]=255 # Reference point
+
+		print("DistanceRaster Display:\n",  distanceRaster[topLeftTarget[0]:bottomRightTarget[0]+1, topLeftTarget[1]:bottomRightTarget[1]+1 ] )
+		ax.imshow(distanceRaster)
+		# plt.plot(5, 5, color='r', markersize=10)
+		ax.grid()
 
 def distance_from_edge(x):
     x = np.pad(x, 1, mode='constant')
