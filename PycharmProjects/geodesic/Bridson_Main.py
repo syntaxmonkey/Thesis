@@ -326,8 +326,8 @@ def indexValidation(filename):
 	meshObjCollection = {}
 
 	# for index in range(10,15):  # Interesting regions: 11, 12, 14
-	for index in range(5,7):
-	# for index in range( len(regionMap.keys()) ):
+	# for index in [12]:
+	for index in range( len(regionMap.keys()) ):
 		print("(***************** ", filename, " Starting Region: ", index, "of", Bridson_Common.segmentCount, "  *************************" )
 
 		# Generate the raster for the first region.

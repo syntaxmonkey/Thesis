@@ -87,7 +87,7 @@ class FinishedImage:
 			raster = maskRasterCollection[ index ]
 			meshObj = meshObjCollection[ index ]
 
-			# print("Shape of Region Raster:", np.shape(regionRaster))
+			print("Shape of Region Raster:", np.shape(regionRaster))
 
 
 			regionCoordinates = regionMap.get(index)
@@ -100,31 +100,35 @@ class FinishedImage:
 			# print("Shape of raster:", (x,y))
 			for i in range(x):
 				for j in range(y):
-					newRaster[i - topLeftTarget[0] - 3 ][j + topLeftTarget[1] - 5 ] = raster[i][j]
-					# newRaster[i - topLeftTarget[0] + 5][j + topLeftTarget[1] - 5] = raster[i][j]
+					# newRaster[i - topLeftTarget[0] - 3 ][j + topLeftTarget[1] - 5 ] = raster[i][j]
+					if raster[i][j] != 0: # Only shift the points in the raster that have non-zero values.
+						newRaster[i + topLeftTarget[0] - 5 ][j + topLeftTarget[1] - 5 ] = raster[i][j]
 
 			newLinePoints = []
 			for line in linePoints:
 				newline = line.copy()
-				newline[:, 0] = line[:, 0] + topLeftTarget[1] - 5 # Needed to line up with regions.
-				newline[:, 1] = line[:, 1] - topLeftTarget[0] + 3  # Required to be negative.
+				newline[:, 0] = line[:, 0] + topLeftTarget[1] - 5 # Needed to line up with regions. Affects the x axis.
+				newline[:, 1] = line[:, 1] - topLeftTarget[0] + 5   # Required to be negative.  Affects the y axis.
 				newLinePoints.append( newline )
 
-			plt.figure()
-			ax = plt.subplot(1, 1, 1, aspect=1)
-			plt.title('shifted Lines')
-			plt.grid()
-			for line in newLinePoints:
-				ax.plot(line[:, 0], line[:, 1], color='r', marker='*')
+			if Bridson_Common.displayMesh:
+				plt.figure()
+				ax = plt.subplot(1, 1, 1, aspect=1)
+				plt.title('shifted Lines for region ' + index)
+				plt.grid()
+				for line in newLinePoints:
+					ax.plot(line[:, 0], line[:, 1], color='r', marker='*')
 
-			# meshObj.linePoints = newLinePoints
-			# maskRasterCollection[index] = newRaster
+				plt.figure()
+				plt.subplot(1, 1, 1, aspect=1)
+				plt.title('shifted Mask for region ' + index)
+				plt.grid()
+				plt.imshow(newRaster)
 
-			plt.figure()
-			plt.subplot(1, 1, 1, aspect=1)
-			plt.title('shifted Mask')
-			plt.grid()
-			plt.imshow(newRaster)
+
+			meshObj.linePoints = newLinePoints
+			maskRasterCollection[index] = newRaster
+
 
 
 
@@ -140,10 +144,6 @@ class FinishedImage:
 
 			regionCoordinates = regionMap.get(index)
 			topLeftTarget, bottomRightTarget = SLIC.calculateTopLeft(regionCoordinates)
-
-
-
-
 
 
 		pass
@@ -174,7 +174,8 @@ class FinishedImage:
 		# topLeftSource = self.maxLinePoints( linePoints )
 		# shiftCoordinates = (bottomRightTarget[0] - topLeftSource[0], bottomRightTarget[1] - topLeftSource[1])
 
-		linePoints = self.cropContourLines(linePoints, raster)
+		# linePoints = self.cropContourLines(linePoints, raster)
+
 
 		# print("NewLinePoints:", linePoints)
 		# print("actualTopLeft: ", actualTopLeft)
@@ -202,8 +203,11 @@ class FinishedImage:
 				line = linePoints[index].copy()
 				line = line * Bridson_Common.mergeScale
 				# For some reason we need to swap the topLeft x,y with the line x,y.
-				line[:, 0] = line[:, 0] + topLeftTarget[1] - 5 # Needed to line up with regions.
-				line[:, 1] = line[:, 1] - topLeftTarget[0] + 5  # Required to be negative.
+				############## Shifting the lines.
+				# line[:, 0] = line[:, 0] + topLeftTarget[1] - 5 # Needed to line up with regions.
+				# line[:, 1] = line[:, 1] - topLeftTarget[0] + 5  # Required to be negative.
+
+
 				if self.calculateLineSpacing(currentLine, line, intensity=regionIntensity) == True:
 					self.ax.plot(line[:, 0], line[:, 1]*flip, color=colour)
 					if Bridson_Common.closestPointPair:  # Only place the dots when we are calculating closest point pair.
