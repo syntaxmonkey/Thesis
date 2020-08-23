@@ -366,7 +366,7 @@ def indexValidation(filename):
 	# At this point, we need can attempt to merge the lines between each region.
 	# Still have a problem with the coordinates though.
 	finishedImageSLIC.mergeLines(regionMap, regionRaster, maskRasterCollection, meshObjCollection)
-	finishedImageNoSLIC.setCollections( maskRasterCollection, meshObjCollection )
+	finishedImageNoSLIC.setCollections( maskRasterCollection, meshObjCollection , finishedImageSLIC.regionConnectivity, finishedImageSLIC.distanceRasters)
 
 	for index in meshObjCollection.keys():
 		# Draw the region contour lines onto the finished image.

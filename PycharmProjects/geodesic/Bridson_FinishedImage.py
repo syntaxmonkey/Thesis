@@ -139,9 +139,11 @@ class FinishedImage:
 
 
 
-	def setCollections(self, maskRasterCollection, meshObjCollection ):
+	def setCollections(self, maskRasterCollection, meshObjCollection, regionConnectivity, distanceRasters ):
 		self.maskRasterCollection = maskRasterCollection
 		self.meshObjCollection = meshObjCollection
+		self.regionConnectivity = regionConnectivity
+		self.distanceRasters = distanceRasters
 
 
 	def mergeLines(self, regionMap, regionRaster, maskRasterCollection, meshObjCollection ):
@@ -285,12 +287,12 @@ class FinishedImage:
 			# if self.calculateLineSpacing(linePoints[0], linePoints[-1], intensity=regionIntensity) == False:
 			# 	return
 
-		for index in range(len(linePoints)):
+		for lineIndex in range(len(linePoints)):
 			# if count > 5:
 			# 	break
-			if index % Bridson_Common.lineSkip == 0:
-				colour = Bridson_Common.colourArray[ (index % len(Bridson_Common.colourArray) ) ]
-				line = linePoints[index].copy()
+			if lineIndex % Bridson_Common.lineSkip == 0:
+				colour = Bridson_Common.colourArray[ (lineIndex % len(Bridson_Common.colourArray) ) ]
+				line = linePoints[lineIndex].copy()
 				line = line * Bridson_Common.mergeScale
 				# For some reason we need to swap the topLeft x,y with the line x,y.
 				############## Shifting the lines.
@@ -308,6 +310,10 @@ class FinishedImage:
 					currentLine = line
 					initial = False
 					# count += 1
+
+		regionEdgeConnectivity = self.regionConnectivity[ index ]
+		for point in regionEdgeConnectivity.pointsOnEdge:
+			self.ax.plot(point[0], point[1]*flip, marker='x', color='g', markersize=4)
 
 
 	def findCloserDistance(self, l1p1, l1p2, l2p1):
