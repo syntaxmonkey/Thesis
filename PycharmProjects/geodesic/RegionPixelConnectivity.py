@@ -14,3 +14,23 @@ class RegionPixelConnectivity:
 
 	def setPointOnEdge(self, pointsOnEdge):
 		self.pointsOnEdge = pointsOnEdge
+
+
+	'''
+		Can add adjacency map.
+		<starting region index, ending region index> = [
+			[starting region EdgePoints],
+			[ending regino EdgePoints]
+			]
+			
+			
+			
+		Add EdgePoint class:
+			-> (x,y)
+			-> pixel(x,y)
+			-> line
+			-> region index
+			-> adjacent index
+			
+			
+	'''

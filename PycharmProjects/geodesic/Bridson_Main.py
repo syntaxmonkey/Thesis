@@ -298,7 +298,7 @@ def indexValidation(filename):
 	NoSLICmeshObjCollection = {}
 
 	# for index in range(10,15):  # Interesting regions: 11, 12, 14
-	for index in [8]:
+	for index in [7,8]:
 	# for index in range( len(regionMap.keys()) ):
 		print("(***************** ", filename, " Starting Region: ", index, "of", Bridson_Common.segmentCount, "  *************************" )
 
@@ -365,7 +365,7 @@ def indexValidation(filename):
 
 	# At this point, we need can attempt to merge the lines between each region.
 	# Still have a problem with the coordinates though.
-	finishedImageSLIC.mergeLines(regionMap, regionRaster, maskRasterCollection, meshObjCollection)
+	finishedImageSLIC.mergeLines(regionMap, regionRaster, maskRasterCollection, meshObjCollection, regionIntensityMap)
 	finishedImageNoSLIC.setCollections( maskRasterCollection, meshObjCollection , finishedImageSLIC.regionConnectivity, finishedImageSLIC.distanceRasters)
 
 	for index in meshObjCollection.keys():

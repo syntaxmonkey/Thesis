@@ -69,6 +69,33 @@ class FinishedImage:
 			return linePoints
 
 
+	def cullLines(self, linePoints, regionIntensity):
+
+		newLinePoints = []
+		empty = True
+
+		# Allow regions to be blank.
+		if Bridson_Common.allowBlankRegion == True:
+			if regionIntensity > 250:
+				return empty, newLinePoints
+			# if self.calculateLineSpacing(linePoints[0], linePoints[-1], intensity=regionIntensity) == False:
+			# 	return
+
+		currentLine = linePoints[-1]*-100
+		for lineIndex in range(len(linePoints)):
+			# if lineIndex % Bridson_Common.lineSkip == 0:
+			if True:
+				line = linePoints[lineIndex].copy()
+				line = line * Bridson_Common.mergeScale
+				# newLinePoints.append( line )
+
+				if self.calculateLineSpacing(currentLine, line, intensity=regionIntensity) == True:
+					newLinePoints.append( line )
+					empty=False
+					currentLine = line
+		return empty, newLinePoints
+
+
 	def maxLinePoints(self, linePoints):
 		maxx, maxy = -1000000, -1000000
 		for line in linePoints:
@@ -146,13 +173,14 @@ class FinishedImage:
 		self.distanceRasters = distanceRasters
 
 
-	def mergeLines(self, regionMap, regionRaster, maskRasterCollection, meshObjCollection ):
+	def mergeLines(self, regionMap, regionRaster, maskRasterCollection, meshObjCollection, regionIntensityMap ):
 		self.maskRasterCollection = maskRasterCollection
 		self.meshObjCollection = meshObjCollection
 		self.regionMap = regionMap
 		self.regionRaster = regionRaster
 		self.regionConnectivity = {}
 		self.distanceRasters = {}
+		self.regionIntensityMap = regionIntensityMap
 
 		self.shiftRastersMeshObj( regionMap, regionRaster )
 
@@ -164,7 +192,14 @@ class FinishedImage:
 			regionCoordinates = regionMap.get(index)
 			topLeftTarget, bottomRightTarget = SLIC.calculateTopLeft(regionCoordinates)
 
-			meshObj.setCroppedLines( self.cropContourLines(meshObj.linePoints, self.maskRasterCollection[index], topLeftTarget) )
+			empty, culledLines = self.cullLines(  meshObj.linePoints, regionIntensityMap[index] )
+			# meshObj.setCroppedLines( self.cullLines( index, meshObj.linePoints, regionIntensityMap[index] )  )
+			if not empty:
+				meshObj.setCroppedLines( culledLines )
+			else:
+				meshObj.setCroppedLines( [] )
+
+			meshObj.setCroppedLines( self.cropContourLines(meshObj.croppedLinePoints, self.maskRasterCollection[index], topLeftTarget) )
 
 			# We Generate the edge pixels and then create the edge connectivity object.
 			distanceRaster, distance1pixelIndeces = self.genDistancePixels( raster )
@@ -172,7 +207,11 @@ class FinishedImage:
 			self.regionConnectivity[ index ] = regionEdgeConnectivity
 			self.distanceRasters[ index ] = distanceRaster
 
-			self.displayDistanceMask( index, topLeftTarget, bottomRightTarget )
+			# Find the points that exist in the edge pixels.
+			croppedLinePoints = meshObj.croppedLinePoints
+			self.findLineEdgePoints(regionEdgeConnectivity, croppedLinePoints)
+
+		# self.displayDistanceMask( index, topLeftTarget, bottomRightTarget )
 			###################################
 			# DEBUG DEBUG : This section is for debugging purposes.
 			# distanceMask = raster
@@ -180,14 +219,14 @@ class FinishedImage:
 			####################################
 
 		# Find all the points located in the edge pixels.
-		for index in self.maskRasterCollection.keys():
-			# For each region, find the points in the lines that are contained in the edge pixels.
-			meshObj = self.meshObjCollection[ index ]
-			regionEdgeConnectivity = self.regionConnectivity[ index ]
-
-			croppedLinePoints = meshObj.croppedLinePoints
-			self.findLineEdgePoints( regionEdgeConnectivity, croppedLinePoints )
-			# find the points that are in the edge points.
+		# for index in self.maskRasterCollection.keys():
+		# 	# For each region, find the points in the lines that are contained in the edge pixels.
+		# 	meshObj = self.meshObjCollection[ index ]
+		# 	regionEdgeConnectivity = self.regionConnectivity[ index ]
+		#
+		# 	croppedLinePoints = meshObj.croppedLinePoints
+		# 	self.findLineEdgePoints( regionEdgeConnectivity, croppedLinePoints )
+		# 	# find the points that are in the edge points.
 
 
 	def findLineEdgePoints(self, regionEdgeConnectivity, croppedLinePoints):
@@ -269,13 +308,6 @@ class FinishedImage:
 		# topLeftSource = self.maxLinePoints( linePoints )
 		# shiftCoordinates = (bottomRightTarget[0] - topLeftSource[0], bottomRightTarget[1] - topLeftSource[1])
 
-		# print("NewLinePoints:", linePoints)
-		# print("actualTopLeft: ", actualTopLeft)
-		# print("TopLeftTarget: ", topLeftTarget)
-		# print("bottomRightTarget: ", bottomRightTarget)
-		# print("TopLeftSource: ", topLeftSource)
-		# # print("shiftCoordinates:", shiftCoordinates)
-		# print("LinePoints:",linePoints)
 		currentLine = linePoints[0] * -100  # Set the starting line way off the current raster region.
 		initial=True
 		# count = 0
@@ -290,25 +322,25 @@ class FinishedImage:
 		for lineIndex in range(len(linePoints)):
 			# if count > 5:
 			# 	break
-			if lineIndex % Bridson_Common.lineSkip == 0:
-				colour = Bridson_Common.colourArray[ (lineIndex % len(Bridson_Common.colourArray) ) ]
-				line = linePoints[lineIndex].copy()
-				line = line * Bridson_Common.mergeScale
-				# For some reason we need to swap the topLeft x,y with the line x,y.
-				############## Shifting the lines.
-				# line[:, 0] = line[:, 0] + topLeftTarget[1] - 5 # Needed to line up with regions.
-				# line[:, 1] = line[:, 1] - topLeftTarget[0] + 5  # Required to be negative.
+			# if lineIndex % Bridson_Common.lineSkip == 0:
+			colour = Bridson_Common.colourArray[ (lineIndex % len(Bridson_Common.colourArray) ) ]
+			line = linePoints[lineIndex].copy()
+			line = line * Bridson_Common.mergeScale
+			# For some reason we need to swap the topLeft x,y with the line x,y.
+			############## Shifting the lines.
+			# line[:, 0] = line[:, 0] + topLeftTarget[1] - 5 # Needed to line up with regions.
+			# line[:, 1] = line[:, 1] - topLeftTarget[0] + 5  # Required to be negative.
 
-
-				if self.calculateLineSpacing(currentLine, line, intensity=regionIntensity) == True:
-					self.ax.plot(line[:, 0], line[:, 1]*flip, color=colour)
-					if Bridson_Common.closestPointPair:  # Only place the dots when we are calculating closest point pair.
-						if initial == False:  # Do not display this dot the first time around.
-							self.ax.plot(currentLine[self.markPoint[0]][0], currentLine[self.markPoint[0]][1] * flip, marker='*',
-							             markersize=6, color='g')  # Colour middle point.
-						self.ax.plot(line[self.markPoint[1]][0], line[self.markPoint[1]][1]*flip, marker='o', markersize=2, color='r')  # Colour middle point.
-					currentLine = line
-					initial = False
+			# if self.calculateLineSpacing(currentLine, line, intensity=regionIntensity) == True:
+			if True:
+				self.ax.plot(line[:, 0], line[:, 1]*flip, color=colour)
+				if Bridson_Common.closestPointPair:  # Only place the dots when we are calculating closest point pair.
+					if initial == False:  # Do not display this dot the first time around.
+						self.ax.plot(currentLine[self.markPoint[0]][0], currentLine[self.markPoint[0]][1] * flip, marker='*',
+						             markersize=6, color='g')  # Colour middle point.
+					self.ax.plot(line[self.markPoint[1]][0], line[self.markPoint[1]][1]*flip, marker='o', markersize=2, color='r')  # Colour middle point.
+				currentLine = line
+				initial = False
 					# count += 1
 
 		regionEdgeConnectivity = self.regionConnectivity[ index ]
@@ -356,11 +388,11 @@ class FinishedImage:
 			distance = distance / Bridson_Common.divisor
 		else:
 			distance = self.findClosestPointPair(line1, line2)
-		# print("Distance:", distance, Bridson_Common.dradius*factor)
+		print("Distance:", distance, intensityDistance)
 		# if distance > Bridson_Common.dradius*factor:
 		if distance > intensityDistance:
-			# print("Far enough")
+			print("Far enough")
 			return True
 		else:
-			# print("Too close")
+			print("Too close")
 			return False
