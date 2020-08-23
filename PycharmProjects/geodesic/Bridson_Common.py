@@ -39,6 +39,8 @@ sortExteriorPoints=True
 lineSkip = 1
 lineCullingDistanceFactor = 2
 allowBlankRegion=True
+highlightEndpoints=False
+
 
 closestPointPair=False
 middleAverageOnly=False

@@ -9,6 +9,7 @@ import math
 from scipy.spatial import distance
 import sys
 import RegionPixelConnectivity
+import EdgePoint
 
 np.set_printoptions(threshold=sys.maxsize)  # allow printing without ellipsis: https://stackoverflow.com/questions/44311664/print-numpy-array-without-ellipsis
 
@@ -203,13 +204,18 @@ class FinishedImage:
 
 			# We Generate the edge pixels and then create the edge connectivity object.
 			distanceRaster, distance1pixelIndeces = self.genDistancePixels( raster )
-			regionEdgeConnectivity = RegionPixelConnectivity.RegionPixelConnectivity(distance1pixelIndeces)
-			self.regionConnectivity[ index ] = regionEdgeConnectivity
+			regionEdgePixels = RegionPixelConnectivity.RegionPixelConnectivity(distance1pixelIndeces)
+			self.regionConnectivity[ index ] = regionEdgePixels
 			self.distanceRasters[ index ] = distanceRaster
 
 			# Find the points that exist in the edge pixels.
 			croppedLinePoints = meshObj.croppedLinePoints
-			self.findLineEdgePoints(regionEdgeConnectivity, croppedLinePoints)
+			self.findLineEdgePoints(index, regionEdgePixels, croppedLinePoints)
+
+			self.genAdjacencyMap()
+
+
+			pass
 
 		# self.displayDistanceMask( index, topLeftTarget, bottomRightTarget )
 			###################################
@@ -218,41 +224,48 @@ class FinishedImage:
 			# Bridson_Common.displayDistanceMask(distanceMask, str(index), topLeftTarget, bottomRightTarget)
 			####################################
 
-		# Find all the points located in the edge pixels.
-		# for index in self.maskRasterCollection.keys():
-		# 	# For each region, find the points in the lines that are contained in the edge pixels.
-		# 	meshObj = self.meshObjCollection[ index ]
-		# 	regionEdgeConnectivity = self.regionConnectivity[ index ]
-		#
-		# 	croppedLinePoints = meshObj.croppedLinePoints
-		# 	self.findLineEdgePoints( regionEdgeConnectivity, croppedLinePoints )
-		# 	# find the points that are in the edge points.
 
 
-	def findLineEdgePoints(self, regionEdgeConnectivity, croppedLinePoints):
+	def genAdjacencyMap(self):
+		for index in self.maskRasterCollection.keys():
+			'''
+				1. Iterate through each region.
+				2. Create AdjacencyMap<starting region, end region> = [
+							[starting region EdgePoint],
+							[ending region EdgePoint]
+							]
+
+			'''
+			pass
+
+
+
+	def findLineEdgePoints(self, index, regionEdgePixels, croppedLinePoints):
 		'''
 
 		:param regionEdgeConnectivity: Object containing edge pixel information.
 		:param croppedLinePoints: croppedLinePoints for this region.
 		:return: Will populate regionEdgeConnectivity with line points that exist in the edge pixels.
 		'''
-		print("findLineEdgePoints edgePixels:", regionEdgeConnectivity.edgePixelList)
-		edgePixelList = regionEdgeConnectivity.edgePixelList
+		print("findLineEdgePoints edgePixels:", regionEdgePixels.edgePixelList)
+		edgePixelList = regionEdgePixels.edgePixelList
 		pointsOnEdge = []
 		for line in croppedLinePoints:
 			startPoint = line[0]
 			searchValue = [-int(startPoint[1]), int(startPoint[0])] ## Because of the rotation have to switch the x, y values.  Also have to negate the x value.
 			print("findLineEdgePoints searching For value:", searchValue)
 			if searchValue in edgePixelList:
-				pointsOnEdge.append( startPoint.copy() )
+				startEdgePoint = EdgePoint.EdgePoint( startPoint.copy(), line, index, 0)
+				# pointsOnEdge.append( startPoint.copy() )
+				pointsOnEdge.append( startEdgePoint )
 
 			endPoint = line[-1]
 			searchValue = [-int(endPoint[1]), int(endPoint[0])]
 			if searchValue in edgePixelList:
-				pointsOnEdge.append( endPoint.copy() )
+				endEdgePoint = EdgePoint.EdgePoint(endPoint.copy(), line, index, -1)
+				pointsOnEdge.append( endEdgePoint )
 
-
-		regionEdgeConnectivity.setPointOnEdge ( pointsOnEdge )
+			regionEdgePixels.setPointOnEdge ( pointsOnEdge )
 		print("findLineEdgePoints Points on Edge: ", pointsOnEdge)
 
 
@@ -343,9 +356,10 @@ class FinishedImage:
 				initial = False
 					# count += 1
 
-		regionEdgeConnectivity = self.regionConnectivity[ index ]
-		for point in regionEdgeConnectivity.pointsOnEdge:
-			self.ax.plot(point[0], point[1]*flip, marker='x', color='g', markersize=4)
+		if Bridson_Common.highlightEndpoints:
+			regionEdgePoints = self.regionConnectivity[ index ]
+			for edgePoint in regionEdgePoints.pointsOnEdge:
+				self.ax.plot(edgePoint.xy[0], edgePoint.xy[1]*flip, marker='x', color='g', markersize=4)
 
 
 	def findCloserDistance(self, l1p1, l1p2, l2p1):
