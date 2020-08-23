@@ -45,7 +45,6 @@ class FinishedImage:
 		self.regionAdjacentRegions = otherFinishedImage.regionAdjacentRegions # Map containing list of adjacent regions for current region.
 
 
-
 	def cropContourLines(self, linePoints, raster, topLeftTarget):
 
 		if Bridson_Common.cropContours:
@@ -239,7 +238,7 @@ class FinishedImage:
 			####################################
 
 
-	def highLightEdgePoints(self, index, drawSLICRegions=Bridson_Common.drawSLICRegions):
+	def highLightEdgePoints(self, index, color='g', drawSLICRegions=Bridson_Common.drawSLICRegions):
 		# Get the list adjacencyEdge object.
 		#adjancencyEdge = self.regionAdjancencyMap[ index ]
 		if drawSLICRegions == False:
@@ -247,8 +246,9 @@ class FinishedImage:
 		else:
 			flip = -1
 
-		adjancentRegions = self.regionAdjacentRegions[ index ]
-		for adjacentIndex in adjancentRegions:
+		adjacentRegions = self.regionAdjacentRegions[ index ]
+		print("highLightEdgePoints adjacenct regions: " , adjacentRegions)
+		for adjacentIndex in adjacentRegions:
 			startingIndex = index if index < adjacentIndex else adjacentIndex
 			endingIndex = index if index > adjacentIndex else adjacentIndex
 			adjacencyEdge = self.regionAdjancencyMap[ (startingIndex,endingIndex) ]
@@ -259,7 +259,8 @@ class FinishedImage:
 				edgePoints = adjacencyEdge.adjacentIndexEdgePoints
 
 			for edgePoint in edgePoints:
-				self.ax.plot(edgePoint.xy[0], edgePoint.xy[1]*flip, marker='x', color='g')
+				print("Plotting:", edgePoint.xy)
+				self.ax.plot(edgePoint.xy[0], edgePoint.xy[1]*flip, marker='x', color=color)
 
 
 	def genAdjacencyMap(self):
@@ -276,50 +277,49 @@ class FinishedImage:
 				currentPixel = [-int(currentPixel[1]), int(currentPixel[0])]  ## Switching from x,y to row, column
 				for adjacentPixelRelativePosition in Bridson_Common.traversalMap:
 					adjacentPixel = tuple([currentPixel[0]+adjacentPixelRelativePosition[0], currentPixel[1]+adjacentPixelRelativePosition[1] ])
-					print("genAdjacencyMap Searching for pixel:", adjacentPixel)
+					# print("genAdjacencyMap Searching for pixel:", adjacentPixel)
 					if adjacentPixel in self.globalEdgePointMap: # Is the adjacent pixel an EdgePoint?
-						adjacentEdgePoint = self.globalEdgePointMap[ adjacentPixel ]
-						print("genAdjacencyMap Found adjacent pixels: ", adjacentEdgePoint.xy)
-						adjacentIndex = adjacentEdgePoint.regionIndex
+						adjacentEdgePoints = self.globalEdgePointMap[ adjacentPixel ]
 
-						# Does the region to region map exist for current region?
-						if index in self.regionAdjacentRegions:
-							if not adjacentIndex  in self.regionAdjacentRegions[index]:
-								self.regionAdjacentRegions[index].append(adjacentIndex)
-						else:
-							newRegion = []
-							newRegion.append( adjacentIndex )
-							self.regionAdjacentRegions[ index ] = newRegion
+						for adjacentEdgePoint in adjacentEdgePoints:
+							print("genAdjacencyMap Found adjacent pixels: ", adjacentEdgePoint.xy, adjacentEdgePoint.regionIndex)
+							adjacentIndex = adjacentEdgePoint.regionIndex
 
-						# Does the region to region map exist for other region?
-						if adjacentIndex in self.regionAdjacentRegions:
-							if not index in self.regionAdjacentRegions[adjacentIndex]:
-								self.regionAdjacentRegions[adjacentIndex].append( index )
-						else:
-							newRegion = []
-							newRegion.append( index )
-							self.regionAdjacentRegions[ index ] = newRegion
+							if index != adjacentIndex:
+								print("genAdjacencyMap Adding point")
+								# Does the region to region map exist for current region?
+								if index in self.regionAdjacentRegions:
+									if  adjacentIndex not in self.regionAdjacentRegions[index]:
+										self.regionAdjacentRegions[index].append(adjacentIndex)
+								else:
+									self.regionAdjacentRegions[ index ] = [ adjacentIndex ]
 
-						# Populate the adjacency edge information.
-						if (index,adjacentIndex) in self.regionAdjancencyMap:
-							# Mapping already created.  Add new points.
-							adjacencyEdge = self.regionAdjancencyMap[ (index, adjacentIndex)]
-							currentIndexEdgePoints = adjacencyEdge.currentIndexEdgePoints
-							adjacentIndexEdgePoints = adjacencyEdge.adjacentIndexEdgePoints
+								# Does the region to region map exist for other region?
+								if adjacentIndex in self.regionAdjacentRegions:
+									if  index not in self.regionAdjacentRegions[adjacentIndex]:
+										self.regionAdjacentRegions[adjacentIndex].append( index )
+								else:
+									self.regionAdjacentRegions[ adjacentIndex ] = [ index ]
 
-							currentIndexEdgePoints.append( edgePoint )
-							adjacentIndexEdgePoints.append( adjacentEdgePoint )
-						else:
-							# Mapping doesn't already exist.  Create new adjancency and populate.
-							adjacencyEdge = AdjacencyEdge.AdjancecyEdge( index, adjacentIndex)
-							adjacencyEdge.currentIndexEdgePoints.append( edgePoint )
-							adjacencyEdge.adjacentIndexEdgePoints.append( adjacentEdgePoint )
+								# Ensure starting index is lower than endingindex.
+								startingIndex = index if index < adjacentIndex else adjacentIndex
+								endingIndex = index if index > adjacentIndex else adjacentIndex
 
-							# Ensure starting index is lower than endingindex.
-							startingIndex = index if index < adjacentIndex else adjacentIndex
-							endingIndex = index if index > adjacentIndex else adjacentIndex
+								# Populate the adjacency edge information.
+								if (startingIndex,endingIndex) in self.regionAdjancencyMap:
+									# Mapping already created.  Add new points.
+									adjacencyEdge = self.regionAdjancencyMap[ (startingIndex, endingIndex)]
+								else:
+									# Mapping doesn't already exist.  Create new adjancency and populate.
+									adjacencyEdge = AdjacencyEdge.AdjancecyEdge(startingIndex, endingIndex)
+									self.regionAdjancencyMap[ (startingIndex, endingIndex)] = adjacencyEdge
 
-							self.regionAdjancencyMap[ (startingIndex,endingIndex) ] = adjacencyEdge
+								if edgePoint.regionIndex < adjacentEdgePoint.regionIndex:
+									adjacencyEdge.currentIndexEdgePoints.append( edgePoint )
+									adjacencyEdge.adjacentIndexEdgePoints.append( adjacentEdgePoint )
+								else:
+									adjacencyEdge.currentIndexEdgePoints.append(adjacentEdgePoint)
+									adjacencyEdge.adjacentIndexEdgePoints.append(edgePoint)
 
 
 
@@ -354,14 +354,20 @@ class FinishedImage:
 				startEdgePoint = EdgePoint.EdgePoint( startPoint.copy(), line, index, 0)
 				# pointsOnEdge.append( startPoint.copy() )
 				pointsOnEdge.append( startEdgePoint )
-				self.globalEdgePointMap[ tuple(searchValue)] = startEdgePoint
+				if tuple(searchValue) in self.globalEdgePointMap:
+					self.globalEdgePointMap[tuple(searchValue)].append( startEdgePoint )
+				else:
+					self.globalEdgePointMap[ tuple(searchValue)] = [startEdgePoint]
 
 			endPoint = line[-1]
 			searchValue = [-int(endPoint[1]), int(endPoint[0])] ## Switching from x,y to row, column
 			if searchValue in edgePixelList:
 				endEdgePoint = EdgePoint.EdgePoint(endPoint.copy(), line, index, -1)
 				pointsOnEdge.append( endEdgePoint )
-				self.globalEdgePointMap[ tuple(searchValue) ] = endEdgePoint
+				if tuple(searchValue) in self.globalEdgePointMap:
+					self.globalEdgePointMap[tuple(searchValue)].append(endEdgePoint)
+				else:
+					self.globalEdgePointMap[ tuple(searchValue) ] = [endEdgePoint]
 
 		regionEdgePixels.setPointOnEdge ( pointsOnEdge )
 		print("findLineEdgePoints Points on Edge: ", pointsOnEdge)

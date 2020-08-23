@@ -378,9 +378,10 @@ def indexValidation(filename):
 		finishedImageNoSLIC.drawRegionContourLines(regionMap, index, meshObj, regionIntensityMap[index], drawSLICRegions=False )
 		print("Done drawing contour lines")
 
-	finishedImageNoSLIC.highLightEdgePoints(7,  drawSLICRegions=False )
+	# finishedImageNoSLIC.highLightEdgePoints(7,  drawSLICRegions=False )
 	finishedImageNoSLIC.highLightEdgePoints(8, drawSLICRegions=False )
-	finishedImageSLIC.highLightEdgePoints(7, drawSLICRegions=True )
+	# finishedImageSLIC.highLightEdgePoints(7, color='r', drawSLICRegions=True )
+	# finishedImageSLIC.highLightEdgePoints(8, color='r', drawSLICRegions=True)
 
 	Bridson_Common.saveImage( filename, "WithSLIC", finishedImageSLIC.fig )
 	Bridson_Common.saveImage(filename, "NoSLIC", finishedImageNoSLIC.fig)
