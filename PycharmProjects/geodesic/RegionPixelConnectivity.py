@@ -10,9 +10,11 @@ class RegionPixelConnectivity:
 		pass
 
 	def setEdgePixelList(self, pixelList):
+		# List of pixels on the Edge.
 		self.edgePixelList = pixelList
 
 	def setPointOnEdge(self, pointsOnEdge):
+		# List of EdgePoint objects on the edge.
 		self.pointsOnEdge = pointsOnEdge
 
 

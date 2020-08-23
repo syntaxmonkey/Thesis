@@ -366,7 +366,10 @@ def indexValidation(filename):
 	# At this point, we need can attempt to merge the lines between each region.
 	# Still have a problem with the coordinates though.
 	finishedImageSLIC.mergeLines(regionMap, regionRaster, maskRasterCollection, meshObjCollection, regionIntensityMap)
-	finishedImageNoSLIC.setCollections( maskRasterCollection, meshObjCollection , finishedImageSLIC.regionConnectivity, finishedImageSLIC.distanceRasters)
+	finishedImageSLIC.genAdjacencyMap()
+
+	finishedImageNoSLIC.copyFromOther( finishedImageSLIC )
+
 
 	for index in meshObjCollection.keys():
 		# Draw the region contour lines onto the finished image.
@@ -375,6 +378,9 @@ def indexValidation(filename):
 		finishedImageNoSLIC.drawRegionContourLines(regionMap, index, meshObj, regionIntensityMap[index], drawSLICRegions=False )
 		print("Done drawing contour lines")
 
+	finishedImageNoSLIC.highLightEdgePoints(7,  drawSLICRegions=False )
+	finishedImageNoSLIC.highLightEdgePoints(8, drawSLICRegions=False )
+	finishedImageSLIC.highLightEdgePoints(7, drawSLICRegions=True )
 
 	Bridson_Common.saveImage( filename, "WithSLIC", finishedImageSLIC.fig )
 	Bridson_Common.saveImage(filename, "NoSLIC", finishedImageNoSLIC.fig)

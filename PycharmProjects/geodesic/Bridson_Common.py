@@ -87,7 +87,7 @@ colourArray = ['b', 'b', 'b']
 mergeScale = 1  # How much to scale the contour lines before merging.
 cropContours = True
 
-
+traversalMap = [ [-1,1], [0,1], [1,1], [-1, 0],  [1, 0],[-1, -1], [0, -1], [1, -1] ]
 
 def displayDistanceMask(mask, indexLabel, topLeftTarget, bottomRightTarget):
 	#################################

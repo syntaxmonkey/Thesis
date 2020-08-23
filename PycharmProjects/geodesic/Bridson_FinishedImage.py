@@ -10,6 +10,7 @@ from scipy.spatial import distance
 import sys
 import RegionPixelConnectivity
 import EdgePoint
+import AdjacencyEdge
 
 np.set_printoptions(threshold=sys.maxsize)  # allow printing without ellipsis: https://stackoverflow.com/questions/44311664/print-numpy-array-without-ellipsis
 
@@ -31,6 +32,17 @@ class FinishedImage:
 	def setYLimit(self, top, bottom):
 		# print("Left:", left, "Right:", right)
 		self.ax.set_ylim(top=top, bottom=bottom)
+
+	def copyFromOther(self, otherFinishedImage):
+		self.maskRasterCollection = otherFinishedImage.maskRasterCollection
+		self.meshObjCollection = otherFinishedImage.meshObjCollection
+		self.regionEdgePoints = otherFinishedImage.regionEdgePoints
+		self.distanceRasters = otherFinishedImage.distanceRasters
+		self.globalEdgePointMap = otherFinishedImage.globalEdgePointMap
+
+		self.regionEdgePointMap =  otherFinishedImage.regionEdgePointMap # Map of (x,y) coordinates
+		self.regionAdjancencyMap =  otherFinishedImage.regionAdjancencyMap # Map to contain AdjancencyEdge objects
+		self.regionAdjacentRegions = otherFinishedImage.regionAdjacentRegions # Map containing list of adjacent regions for current region.
 
 
 
@@ -167,10 +179,10 @@ class FinishedImage:
 
 
 
-	def setCollections(self, maskRasterCollection, meshObjCollection, regionConnectivity, distanceRasters ):
+	def setCollections(self, maskRasterCollection, meshObjCollection, regionEdgePoints, distanceRasters ):
 		self.maskRasterCollection = maskRasterCollection
 		self.meshObjCollection = meshObjCollection
-		self.regionConnectivity = regionConnectivity
+		self.regionEdgePoints = regionEdgePoints
 		self.distanceRasters = distanceRasters
 
 
@@ -179,9 +191,13 @@ class FinishedImage:
 		self.meshObjCollection = meshObjCollection
 		self.regionMap = regionMap
 		self.regionRaster = regionRaster
-		self.regionConnectivity = {}
+		self.regionEdgePoints = {}
 		self.distanceRasters = {}
 		self.regionIntensityMap = regionIntensityMap
+		self.globalEdgePointMap = {} # Map of (x,y) coordinates that point to EdgePoint objects, if they exist.
+		self.regionEdgePointMap = {} # Map of (x,y) coordinates
+		self.regionAdjancencyMap = {} # Map to contain AdjancencyEdge objects
+		self.regionAdjacentRegions = {} # Map containing list of adjacent regions for current region.
 
 		self.shiftRastersMeshObj( regionMap, regionRaster )
 
@@ -204,18 +220,16 @@ class FinishedImage:
 
 			# We Generate the edge pixels and then create the edge connectivity object.
 			distanceRaster, distance1pixelIndeces = self.genDistancePixels( raster )
-			regionEdgePixels = RegionPixelConnectivity.RegionPixelConnectivity(distance1pixelIndeces)
-			self.regionConnectivity[ index ] = regionEdgePixels
+			regionEdgePixels = RegionPixelConnectivity.RegionPixelConnectivity( distance1pixelIndeces )
+			print("Setting regionEdgePoints index:", index)
+			self.regionEdgePoints[ index ] = regionEdgePixels
 			self.distanceRasters[ index ] = distanceRaster
 
 			# Find the points that exist in the edge pixels.
 			croppedLinePoints = meshObj.croppedLinePoints
 			self.findLineEdgePoints(index, regionEdgePixels, croppedLinePoints)
 
-			self.genAdjacencyMap()
 
-
-			pass
 
 		# self.displayDistanceMask( index, topLeftTarget, bottomRightTarget )
 			###################################
@@ -225,9 +239,91 @@ class FinishedImage:
 			####################################
 
 
+	def highLightEdgePoints(self, index, drawSLICRegions=Bridson_Common.drawSLICRegions):
+		# Get the list adjacencyEdge object.
+		#adjancencyEdge = self.regionAdjancencyMap[ index ]
+		if drawSLICRegions == False:
+			flip = 1
+		else:
+			flip = -1
+
+		adjancentRegions = self.regionAdjacentRegions[ index ]
+		for adjacentIndex in adjancentRegions:
+			startingIndex = index if index < adjacentIndex else adjacentIndex
+			endingIndex = index if index > adjacentIndex else adjacentIndex
+			adjacencyEdge = self.regionAdjancencyMap[ (startingIndex,endingIndex) ]
+
+			if index < adjacentIndex:
+				edgePoints = adjacencyEdge.currentIndexEdgePoints
+			else:
+				edgePoints = adjacencyEdge.adjacentIndexEdgePoints
+
+			for edgePoint in edgePoints:
+				self.ax.plot(edgePoint.xy[0], edgePoint.xy[1]*flip, marker='x', color='g')
+
 
 	def genAdjacencyMap(self):
+		# traversalMap = [ [-1,1], [0,1], [1,1], [-1, 0],  [1, 0],[-1, -1], [0, -1], [1, -1] ]
 		for index in self.maskRasterCollection.keys():
+			# adjancencyList = []
+			# self.genAdjacencyMap[ index ] =  adjancencyList
+			# edgePoints = self.regionEdgePoints[ index ]
+			print("genAdjacencyMap Searching for regionEdgePoints index:", index)
+			regionEdgePoints = self.regionEdgePoints[ index ]
+
+			for edgePoint in regionEdgePoints.pointsOnEdge:
+				currentPixel = edgePoint.xy
+				currentPixel = [-int(currentPixel[1]), int(currentPixel[0])]  ## Switching from x,y to row, column
+				for adjacentPixelRelativePosition in Bridson_Common.traversalMap:
+					adjacentPixel = tuple([currentPixel[0]+adjacentPixelRelativePosition[0], currentPixel[1]+adjacentPixelRelativePosition[1] ])
+					print("genAdjacencyMap Searching for pixel:", adjacentPixel)
+					if adjacentPixel in self.globalEdgePointMap: # Is the adjacent pixel an EdgePoint?
+						adjacentEdgePoint = self.globalEdgePointMap[ adjacentPixel ]
+						print("genAdjacencyMap Found adjacent pixels: ", adjacentEdgePoint.xy)
+						adjacentIndex = adjacentEdgePoint.regionIndex
+
+						# Does the region to region map exist for current region?
+						if index in self.regionAdjacentRegions:
+							if not adjacentIndex  in self.regionAdjacentRegions[index]:
+								self.regionAdjacentRegions[index].append(adjacentIndex)
+						else:
+							newRegion = []
+							newRegion.append( adjacentIndex )
+							self.regionAdjacentRegions[ index ] = newRegion
+
+						# Does the region to region map exist for other region?
+						if adjacentIndex in self.regionAdjacentRegions:
+							if not index in self.regionAdjacentRegions[adjacentIndex]:
+								self.regionAdjacentRegions[adjacentIndex].append( index )
+						else:
+							newRegion = []
+							newRegion.append( index )
+							self.regionAdjacentRegions[ index ] = newRegion
+
+						# Populate the adjacency edge information.
+						if (index,adjacentIndex) in self.regionAdjancencyMap:
+							# Mapping already created.  Add new points.
+							adjacencyEdge = self.regionAdjancencyMap[ (index, adjacentIndex)]
+							currentIndexEdgePoints = adjacencyEdge.currentIndexEdgePoints
+							adjacentIndexEdgePoints = adjacencyEdge.adjacentIndexEdgePoints
+
+							currentIndexEdgePoints.append( edgePoint )
+							adjacentIndexEdgePoints.append( adjacentEdgePoint )
+						else:
+							# Mapping doesn't already exist.  Create new adjancency and populate.
+							adjacencyEdge = AdjacencyEdge.AdjancecyEdge( index, adjacentIndex)
+							adjacencyEdge.currentIndexEdgePoints.append( edgePoint )
+							adjacencyEdge.adjacentIndexEdgePoints.append( adjacentEdgePoint )
+
+							# Ensure starting index is lower than endingindex.
+							startingIndex = index if index < adjacentIndex else adjacentIndex
+							endingIndex = index if index > adjacentIndex else adjacentIndex
+
+							self.regionAdjancencyMap[ (startingIndex,endingIndex) ] = adjacencyEdge
+
+
+
+
 			'''
 				1. Iterate through each region.
 				2. Create AdjacencyMap<starting region, end region> = [
@@ -236,7 +332,7 @@ class FinishedImage:
 							]
 
 			'''
-			pass
+
 
 
 
@@ -252,20 +348,22 @@ class FinishedImage:
 		pointsOnEdge = []
 		for line in croppedLinePoints:
 			startPoint = line[0]
-			searchValue = [-int(startPoint[1]), int(startPoint[0])] ## Because of the rotation have to switch the x, y values.  Also have to negate the x value.
+			searchValue = [-int(startPoint[1]), int(startPoint[0])] ## Switching from x,y to row, column
 			print("findLineEdgePoints searching For value:", searchValue)
 			if searchValue in edgePixelList:
 				startEdgePoint = EdgePoint.EdgePoint( startPoint.copy(), line, index, 0)
 				# pointsOnEdge.append( startPoint.copy() )
 				pointsOnEdge.append( startEdgePoint )
+				self.globalEdgePointMap[ tuple(searchValue)] = startEdgePoint
 
 			endPoint = line[-1]
-			searchValue = [-int(endPoint[1]), int(endPoint[0])]
+			searchValue = [-int(endPoint[1]), int(endPoint[0])] ## Switching from x,y to row, column
 			if searchValue in edgePixelList:
 				endEdgePoint = EdgePoint.EdgePoint(endPoint.copy(), line, index, -1)
 				pointsOnEdge.append( endEdgePoint )
+				self.globalEdgePointMap[ tuple(searchValue) ] = endEdgePoint
 
-			regionEdgePixels.setPointOnEdge ( pointsOnEdge )
+		regionEdgePixels.setPointOnEdge ( pointsOnEdge )
 		print("findLineEdgePoints Points on Edge: ", pointsOnEdge)
 
 
@@ -357,7 +455,7 @@ class FinishedImage:
 					# count += 1
 
 		if Bridson_Common.highlightEndpoints:
-			regionEdgePoints = self.regionConnectivity[ index ]
+			regionEdgePoints = self.regionEdgePoints[ index ]
 			for edgePoint in regionEdgePoints.pointsOnEdge:
 				self.ax.plot(edgePoint.xy[0], edgePoint.xy[1]*flip, marker='x', color='g', markersize=4)
 

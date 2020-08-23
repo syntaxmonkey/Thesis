@@ -2,11 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6ab9aa8a-8b4b-405a-a077-6186da762c11" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/EdgePoint.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/AdjacencyEdge.py" />
       <change beforePath="$PROJECT_DIR$/../NNCourse" afterPath="$PROJECT_DIR$/../NNCourse" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/Bridson_Common.py" afterPath="$PROJECT_DIR$/Bridson_Common.py" />
       <change beforePath="$PROJECT_DIR$/Bridson_FinishedImage.py" afterPath="$PROJECT_DIR$/Bridson_FinishedImage.py" />
+      <change beforePath="$PROJECT_DIR$/Bridson_Main.py" afterPath="$PROJECT_DIR$/Bridson_Main.py" />
+      <change beforePath="$PROJECT_DIR$/Bridson_Test.py" afterPath="$PROJECT_DIR$/Bridson_Test.py" />
+      <change beforePath="$PROJECT_DIR$/RegionPixelConnectivity.py" afterPath="$PROJECT_DIR$/RegionPixelConnectivity.py" />
       <change beforePath="$PROJECT_DIR$/output/eyeball.jpg_segments_62_regionPixels_800_NoSLIC.png" afterPath="$PROJECT_DIR$/output/eyeball.jpg_segments_62_regionPixels_800_NoSLIC.png" />
       <change beforePath="$PROJECT_DIR$/output/eyeball.jpg_segments_62_regionPixels_800_WithSLIC.png" afterPath="$PROJECT_DIR$/output/eyeball.jpg_segments_62_regionPixels_800_WithSLIC.png" />
       <change beforePath="$PROJECT_DIR$/../../boundary-first-flattening" afterPath="$PROJECT_DIR$/../../boundary-first-flattening" />
@@ -25,8 +28,8 @@
           <file leaf-file-name="Bridson_Common.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Bridson_Common.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="495">
-                  <caret line="33" column="28" lean-forward="false" selection-start-line="33" selection-start-column="28" selection-end-line="33" selection-end-column="28" />
+                <state relative-caret-position="520">
+                  <caret line="89" column="84" lean-forward="false" selection-start-line="89" selection-start-column="84" selection-end-line="89" selection-end-column="84" />
                   <folding>
                     <element signature="e#0#11#0" expanded="true" />
                   </folding>
@@ -37,8 +40,8 @@
           <file leaf-file-name="Bridson_FinishedImage.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Bridson_FinishedImage.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="521">
-                  <caret line="361" column="58" lean-forward="false" selection-start-line="361" selection-start-column="58" selection-end-line="361" selection-end-column="58" />
+                <state relative-caret-position="811">
+                  <caret line="296" column="86" lean-forward="false" selection-start-line="296" selection-start-column="86" selection-end-line="296" selection-end-column="86" />
                   <folding>
                     <element signature="e#1#32#0" expanded="true" />
                   </folding>
@@ -71,21 +74,11 @@
           <file leaf-file-name="SLIC.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/SLIC.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="3030">
+                <state relative-caret-position="727">
                   <caret line="211" column="4" lean-forward="false" selection-start-line="211" selection-start-column="4" selection-end-line="211" selection-end-column="4" />
                   <folding>
                     <element signature="e#124#161#0" expanded="true" />
                   </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Bridson_Test.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Bridson_Test.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1065">
-                  <caret line="71" column="4" lean-forward="false" selection-start-line="71" selection-start-column="4" selection-end-line="71" selection-end-column="24" />
-                  <folding />
                 </state>
               </provider>
             </entry>
@@ -109,28 +102,38 @@
           <file leaf-file-name="RegionPixelConnectivity.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/RegionPixelConnectivity.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="540">
-                  <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+                <state relative-caret-position="45">
+                  <caret line="3" column="8" lean-forward="false" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Bridson_Main.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="Bridson_Main.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Bridson_Main.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="423">
-                  <caret line="367" column="27" lean-forward="false" selection-start-line="367" selection-start-column="27" selection-end-line="367" selection-end-column="27" />
+                <state relative-caret-position="578">
+                  <caret line="381" column="69" lean-forward="false" selection-start-line="381" selection-start-column="69" selection-end-line="381" selection-end-column="69" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="EdgePoint.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="EdgePoint.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/EdgePoint.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="120">
-                  <caret line="8" column="84" lean-forward="false" selection-start-line="8" selection-start-column="84" selection-end-line="8" selection-end-column="84" />
+                <state relative-caret-position="165">
+                  <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="AdjacencyEdge.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/AdjacencyEdge.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="150">
+                  <caret line="10" column="36" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="36" />
                   <folding />
                 </state>
               </provider>
@@ -149,14 +152,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>drawRegionContourLinesdrawRegionContourLines</find>
-      <find>drawRegionContourLines</find>
-      <find>figure</find>
-      <find>original</find>
-      <find>Original</find>
-      <find>Original Mes</find>
-      <find>Origina</find>
-      <find>mergeLine</find>
       <find>m</find>
       <find>merged</find>
       <find>edge</find>
@@ -171,7 +166,6 @@
       <find>cdist</find>
       <find>cropContourLines</find>
       <find>cullLines</find>
-      <find>flip</find>
       <find>cull</find>
       <find>crop</find>
       <find>cropCoun</find>
@@ -179,10 +173,20 @@
       <find>contou</find>
       <find>cullLine</find>
       <find>mergeLines</find>
+      <find>regionConnectivity</find>
+      <find>setting</find>
+      <find>Setting</find>
+      <find>searching</find>
+      <find>globalEdgePointMapglobalEdgePointMap</find>
+      <find>l</find>
+      <find>globalEdgePointMap</find>
+      <find>flip</find>
+      <find>highlight</find>
     </findStrings>
     <replaceStrings>
       <replace>=</replace>
       <replace>Bridson_Common.logDebug(__name__,</replace>
+      <replace>regionEdgePoints</replace>
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$</dir>
@@ -231,13 +235,14 @@
         <option value="$PROJECT_DIR$/Bridson_Delaunay.py" />
         <option value="$PROJECT_DIR$/Test.py" />
         <option value="$PROJECT_DIR$/Bridson_TriangulationDualGraph.py" />
-        <option value="$PROJECT_DIR$/Bridson_Test.py" />
         <option value="$PROJECT_DIR$/SLIC.py" />
         <option value="$PROJECT_DIR$/Bridson_MeshObj.py" />
-        <option value="$PROJECT_DIR$/RegionPixelConnectivity.py" />
-        <option value="$PROJECT_DIR$/Bridson_Main.py" />
-        <option value="$PROJECT_DIR$/Bridson_Common.py" />
         <option value="$PROJECT_DIR$/EdgePoint.py" />
+        <option value="$PROJECT_DIR$/Bridson_Common.py" />
+        <option value="$PROJECT_DIR$/RegionPixelConnectivity.py" />
+        <option value="$PROJECT_DIR$/Bridson_Test.py" />
+        <option value="$PROJECT_DIR$/AdjacencyEdge.py" />
+        <option value="$PROJECT_DIR$/Bridson_Main.py" />
         <option value="$PROJECT_DIR$/Bridson_FinishedImage.py" />
       </list>
     </option>
@@ -250,7 +255,7 @@
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
-    <navigator proportions="" version="1">
+    <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -263,7 +268,30 @@
       <manualOrder />
       <foldersAlwaysOnTop value="true" />
     </navigator>
-    <panes />
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="geodesic" type="b2602c69:ProjectViewProjectNode" />
+              <item name="geodesic" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="geodesic" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+            <path>
+              <item name="geodesic" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; Python 3.6 (venv) &gt;" type="70bed36:NamedLibraryElementNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
+    </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="editor.preferences.completion" />
@@ -564,13 +592,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/DrawLine.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="27" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ginput_manual_clabel_sgskip.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1335">
@@ -851,32 +872,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SLIC.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3030">
-          <caret line="211" column="4" lean-forward="false" selection-start-line="211" selection-start-column="4" selection-end-line="211" selection-end-column="4" />
-          <folding>
-            <element signature="e#124#161#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Bridson_Test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1065">
-          <caret line="71" column="4" lean-forward="false" selection-start-line="71" selection-start-column="4" selection-end-line="71" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RegionPixelConnectivity.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Bridson_MeshObj.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="12525">
@@ -889,34 +884,68 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Bridson_Common.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="33" column="28" lean-forward="false" selection-start-line="33" selection-start-column="28" selection-end-line="33" selection-end-column="28" />
+        <state relative-caret-position="520">
+          <caret line="89" column="84" lean-forward="false" selection-start-line="89" selection-start-column="84" selection-end-line="89" selection-end-column="84" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Bridson_Main.py">
+    <entry file="file://$PROJECT_DIR$/Bridson_Test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="367" column="27" lean-forward="false" selection-start-line="367" selection-start-column="27" selection-end-line="367" selection-end-column="27" />
+        <state relative-caret-position="75">
+          <caret line="5" column="31" lean-forward="false" selection-start-line="5" selection-start-column="31" selection-end-line="5" selection-end-column="31" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SLIC.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="727">
+          <caret line="211" column="4" lean-forward="false" selection-start-line="211" selection-start-column="4" selection-end-line="211" selection-end-column="4" />
+          <folding>
+            <element signature="e#124#161#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/EdgePoint.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="84" lean-forward="false" selection-start-line="8" selection-start-column="84" selection-end-line="8" selection-end-column="84" />
+        <state relative-caret-position="165">
+          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AdjacencyEdge.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="36" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RegionPixelConnectivity.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="8" lean-forward="false" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Bridson_Main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="381" column="69" lean-forward="false" selection-start-line="381" selection-start-column="69" selection-end-line="381" selection-end-column="69" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Bridson_FinishedImage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="521">
-          <caret line="361" column="58" lean-forward="false" selection-start-line="361" selection-start-column="58" selection-end-line="361" selection-end-column="58" />
+        <state relative-caret-position="811">
+          <caret line="296" column="86" lean-forward="false" selection-start-line="296" selection-start-column="86" selection-end-line="296" selection-end-column="86" />
           <folding>
             <element signature="e#1#32#0" expanded="true" />
           </folding>
