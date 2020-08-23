@@ -298,7 +298,7 @@ def indexValidation(filename):
 	NoSLICmeshObjCollection = {}
 
 	# for index in range(10,15):  # Interesting regions: 11, 12, 14
-	for index in [12]:
+	for index in [8]:
 	# for index in range( len(regionMap.keys()) ):
 		print("(***************** ", filename, " Starting Region: ", index, "of", Bridson_Common.segmentCount, "  *************************" )
 
@@ -509,7 +509,7 @@ if __name__ == '__main__':
 
 	# percentages = [0.05, 0.1, 0.15, 0.2]
 	# targetPixels = [  400, 800, 1600 ]
-	targetPixels = [400]
+	targetPixels = [800]
 	for filename in images:
 		for targetPixel in targetPixels:
 			Bridson_Common.targetRegionPixelCount = targetPixel

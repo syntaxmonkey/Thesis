@@ -841,6 +841,11 @@ class MeshObject:
 			# thismanager = pylab.get_current_fig_manager()
 			# thismanager.window.wm_geometry("+1300+560")
 
+	def setCroppedLines(self, croppedLines):
+		self.croppedLinePoints = croppedLines
+
+	def setEdgeLinePoints(self, edgeLinePoints):
+		self.edgeLinePoints = edgeLinePoints
 
 	def displayLines(self):
 		colourArray = ['r', 'w', 'm']

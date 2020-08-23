@@ -8,6 +8,7 @@ from skimage.segmentation import mark_boundaries
 import math
 from scipy.spatial import distance
 import sys
+import RegionPixelConnectivity
 
 np.set_printoptions(threshold=sys.maxsize)  # allow printing without ellipsis: https://stackoverflow.com/questions/44311664/print-numpy-array-without-ellipsis
 
@@ -34,9 +35,8 @@ class FinishedImage:
 
 	def cropContourLines(self, linePoints, raster, topLeftTarget):
 
-
 		if Bridson_Common.cropContours:
-			# Raster will have 255 for valid points.
+			# Raster will have 255 for valid points that should be retained.
 			newLinePoints = []
 			for line in linePoints:
 				newLine = []
@@ -147,10 +147,12 @@ class FinishedImage:
 	def mergeLines(self, regionMap, regionRaster, maskRasterCollection, meshObjCollection ):
 		self.maskRasterCollection = maskRasterCollection
 		self.meshObjCollection = meshObjCollection
+		self.regionMap = regionMap
+		self.regionRaster = regionRaster
+		self.regionConnectivity = {}
+		self.distanceRasters = {}
 
 		self.shiftRastersMeshObj( regionMap, regionRaster )
-
-
 
 		# For each region, determine the points on the lines that are close to the region edge.  Make a registry of these points.
 		for index in self.maskRasterCollection.keys():
@@ -160,13 +162,84 @@ class FinishedImage:
 			regionCoordinates = regionMap.get(index)
 			topLeftTarget, bottomRightTarget = SLIC.calculateTopLeft(regionCoordinates)
 
+			meshObj.setCroppedLines( self.cropContourLines(meshObj.linePoints, self.maskRasterCollection[index], topLeftTarget) )
 
-			#################################
-			distanceMask = raster
-			Bridson_Common.displayDistanceMask(distanceMask, str(index), topLeftTarget, bottomRightTarget)
+			# We Generate the edge pixels and then create the edge connectivity object.
+			distanceRaster, distance1pixelIndeces = self.genDistancePixels( raster )
+			regionEdgeConnectivity = RegionPixelConnectivity.RegionPixelConnectivity(distance1pixelIndeces)
+			self.regionConnectivity[ index ] = regionEdgeConnectivity
+			self.distanceRasters[ index ] = distanceRaster
+
+			self.displayDistanceMask( index, topLeftTarget, bottomRightTarget )
+			###################################
+			# DEBUG DEBUG : This section is for debugging purposes.
+			# distanceMask = raster
+			# Bridson_Common.displayDistanceMask(distanceMask, str(index), topLeftTarget, bottomRightTarget)
 			####################################
 
-		pass
+		# Find all the points located in the edge pixels.
+		for index in self.maskRasterCollection.keys():
+			# For each region, find the points in the lines that are contained in the edge pixels.
+			meshObj = self.meshObjCollection[ index ]
+			regionEdgeConnectivity = self.regionConnectivity[ index ]
+
+			croppedLinePoints = meshObj.croppedLinePoints
+			self.findLineEdgePoints( regionEdgeConnectivity, croppedLinePoints )
+			# find the points that are in the edge points.
+
+
+	def findLineEdgePoints(self, regionEdgeConnectivity, croppedLinePoints):
+		'''
+
+		:param regionEdgeConnectivity: Object containing edge pixel information.
+		:param croppedLinePoints: croppedLinePoints for this region.
+		:return: Will populate regionEdgeConnectivity with line points that exist in the edge pixels.
+		'''
+		print("findLineEdgePoints edgePixels:", regionEdgeConnectivity.edgePixelList)
+		edgePixelList = regionEdgeConnectivity.edgePixelList
+		pointsOnEdge = []
+		for line in croppedLinePoints:
+			startPoint = line[0]
+			searchValue = [-int(startPoint[1]), int(startPoint[0])] ## Because of the rotation have to switch the x, y values.  Also have to negate the x value.
+			print("findLineEdgePoints searching For value:", searchValue)
+			if searchValue in edgePixelList:
+				pointsOnEdge.append( startPoint.copy() )
+
+			endPoint = line[-1]
+			searchValue = [-int(endPoint[1]), int(endPoint[0])]
+			if searchValue in edgePixelList:
+				pointsOnEdge.append( endPoint.copy() )
+
+
+		regionEdgeConnectivity.setPointOnEdge ( pointsOnEdge )
+		print("findLineEdgePoints Points on Edge: ", pointsOnEdge)
+
+
+
+	def displayDistanceMask(self, indexLabel, topLeftTarget, bottomRightTarget):
+		distanceRaster = self.distanceRasters[ indexLabel ]
+
+		plt.figure()
+		ax = plt.subplot(1, 1, 1, aspect=1, label='Region Raster ' + str(indexLabel))
+		plt.title('Distance Raster ' + str(indexLabel))
+		''' Draw Letter blob '''
+
+		# blankRaster = np.zeros(np.shape(imageraster))
+		# ax3 = plt.subplot2grid(gridsize, (0, 1), rowspan=1)
+		# ax3.imshow(blankRaster)
+		# distanceRaster[5][5]=255 # Reference point
+
+		print("DistanceRaster Display:\n",  distanceRaster[topLeftTarget[0]:bottomRightTarget[0]+1, topLeftTarget[1]:bottomRightTarget[1]+1 ] )
+		ax.imshow(distanceRaster)
+		# plt.plot(5, 5, color='r', markersize=10)
+		ax.grid()
+
+
+	def genDistancePixels(self, raster):
+		distanceRaster = Bridson_Common.distance_from_edge(raster.copy())
+		distance1pixelIndices = np.argwhere(distanceRaster == 1)  # Get pixels that have a distance of 1 from the edge.
+		# distance1pixelIndices = np.argwhere((distanceRaster > 0) & (distanceRaster <= 2))  # Get pixels that have a distance of 2 or less, but greater than 0.
+		return distanceRaster, distance1pixelIndices
 
 
 	def drawRegionContourLines(self, regionMap, index, meshObj, regionIntensity, drawSLICRegions = Bridson_Common.drawSLICRegions):
@@ -182,7 +255,7 @@ class FinishedImage:
 		# Need to utilize the region Raster.
 		raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
 		# Obtain the linePoints from the meshObj.
-		linePoints = meshObj.linePoints.copy()
+		linePoints = meshObj.croppedLinePoints.copy()
 		# topLeftSource = self.maxLinePoints(linePoints)
 
 		# print("Region Coordinates:", regionCoordinates)
@@ -193,10 +266,6 @@ class FinishedImage:
 		topLeftTarget, bottomRightTarget = SLIC.calculateTopLeft( regionCoordinates )
 		# topLeftSource = self.maxLinePoints( linePoints )
 		# shiftCoordinates = (bottomRightTarget[0] - topLeftSource[0], bottomRightTarget[1] - topLeftSource[1])
-
-		# linePoints = self.cropContourLines(linePoints, raster)
-		linePoints = self.cropContourLines(linePoints, self.maskRasterCollection[index], topLeftTarget)
-
 
 		# print("NewLinePoints:", linePoints)
 		# print("actualTopLeft: ", actualTopLeft)

@@ -106,7 +106,7 @@ def displayDistanceMask(mask, indexLabel, topLeftTarget, bottomRightTarget):
 
 
 		# Find the pixels that contain the value 1: https://stackoverflow.com/questions/44296310/get-indices-of-elements-that-are-greater-than-a-threshold-in-2d-numpy-array
-		distance1pixelIndices = np.argwhere( distanceRaster == 1)
+		distance1pixelIndices = np.argwhere( (distanceRaster > 0) & (distanceRaster <= 2) )
 		print("Distance 1 Indices count:", len(distance1pixelIndices)  )
 
 		print("-------------------------------")
@@ -115,11 +115,11 @@ def displayDistanceMask(mask, indexLabel, topLeftTarget, bottomRightTarget):
 		print("-------------------------------")
 
 		# Count the number of 1's in the raster: https://www.kite.com/python/answers/how-to-count-the-occurrences-of-a-value-in-a-numpy-array-in-python
-		print("Distance 1 Count: ", np.count_nonzero( distanceRaster == 1) )
+		print("Distance 1 Count: ", np.count_nonzero( distanceRaster <= 2) )
 
 		plt.figure()
 		ax = plt.subplot(1, 1, 1, aspect=1, label='Region Raster ' + str(indexLabel))
-		plt.title('Distance Raster ' + str(indexLabel))
+		plt.title('Distance Raster Debug ' + str(indexLabel))
 		''' Draw Letter blob '''
 
 		# blankRaster = np.zeros(np.shape(imageraster))
