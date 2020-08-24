@@ -9,6 +9,7 @@ import inspect
 import os
 from scipy.ndimage.morphology import distance_transform_cdt
 import pandas as pd
+from scipy.spatial import distance
 
 # Increase width of console printing: https://stackoverflow.com/questions/25628496/getting-wider-output-in-pycharms-built-in-console
 desired_width = 320
@@ -90,6 +91,17 @@ cropContours = True
 traversalMap = [ [-1,1], [0,1], [1,1],
                  [-1, 0],  [1, 0],
                  [-1, -1], [0, -1], [1, -1] ]
+
+
+
+def findClosestIndex(s1, s2):
+	distances = distance.cdist(s1, s2)
+	# shortestDistances = distance.cdist(s1, s2).min(axis=1)
+	location = np.where(distances == distances.min())
+	print('Location:', location, distances.min())
+	# Return the an tuple.  Tuple[0] contains indeces in s1.  Tuple[1] contains indeces in s2.
+	return location
+
 
 def displayDistanceMask(mask, indexLabel, topLeftTarget, bottomRightTarget):
 	#################################

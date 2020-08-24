@@ -185,7 +185,55 @@ class FinishedImage:
 		self.distanceRasters = distanceRasters
 
 
-	def mergeLines(self, regionMap, regionRaster, maskRasterCollection, meshObjCollection, regionIntensityMap ):
+	def mergeLines(self):
+		# Iterate through each region.
+		for index in self.maskRasterCollection.keys():
+			# Obtain the adjacent regions for the current index.
+			adjacentRegions = self.regionAdjacentRegions[ index ]
+			for adjacentIndex in adjacentRegions:
+				startingIndex = index if index < adjacentIndex else adjacentIndex
+				endingIndex = index if index > adjacentIndex else adjacentIndex
+
+				# Obtain the adjacencyEdge.
+				adjacencyEdge = self.regionAdjancencyMap[ (startingIndex, endingIndex) ]
+
+				# Get the current region EdgePoints
+				if index < adjacentIndex:
+					currentIndexEdgePoints = adjacencyEdge.currentIndexEdgePoints
+					adjacentIndexEdgePoints = adjacencyEdge.adjacentIndexEdgePoints
+				else:
+					adjacentIndexEdgePoints = adjacencyEdge.currentIndexEdgePoints
+					currentIndexEdgePoints = adjacencyEdge.adjacentIndexEdgePoints
+
+				currentPoints = self.constructLocationForEdgePoints(currentIndexEdgePoints)
+				adjacentPoints = self.constructLocationForEdgePoints(adjacentIndexEdgePoints)
+
+				print("CurrentPoints:", currentPoints)
+				print("AdjacentPoints:", adjacentPoints)
+
+				shortestPair = Bridson_Common.findClosestIndex(currentPoints, adjacentPoints)
+
+				print("Pair:", currentPoints[shortestPair[0][0]], adjacentPoints[shortestPair[1][0]])
+				# Pair the two EdgePoints.
+				self.connectTwoPoints( currentIndexEdgePoints[shortestPair[0][0]], adjacentIndexEdgePoints[shortestPair[1][0]])
+				# Remove the EdgePoints from the lists.
+
+
+	def connectTwoPoints(self, edgePoint1, edgePoint2):
+		print("EdgePoint1:", edgePoint1)
+		print("EdgePoint2:", edgePoint2)
+		xAvg = (edgePoint1.xy[0] + edgePoint2.xy[0]) / 2
+		yAvg = (edgePoint1.xy[1] + edgePoint2.xy[1]) / 2
+		edgePoint1.associatedLine[ edgePoint1.pointIndex ] = [xAvg, yAvg]
+		edgePoint2.associatedLine[ edgePoint2.pointIndex ] = [xAvg, yAvg]
+
+	def constructLocationForEdgePoints(self, edgePoints):
+		newList = []
+		for edgePoint in edgePoints:
+			newList.append( edgePoint.xy )
+		return newList
+
+	def cropCullLines(self, regionMap, regionRaster, maskRasterCollection, meshObjCollection, regionIntensityMap ):
 		self.maskRasterCollection = maskRasterCollection
 		self.meshObjCollection = meshObjCollection
 		self.regionMap = regionMap
@@ -227,8 +275,6 @@ class FinishedImage:
 			# Find the points that exist in the edge pixels.
 			croppedLinePoints = meshObj.croppedLinePoints
 			self.findLineEdgePoints(index, regionEdgePixels, croppedLinePoints)
-
-
 
 		# self.displayDistanceMask( index, topLeftTarget, bottomRightTarget )
 			###################################
