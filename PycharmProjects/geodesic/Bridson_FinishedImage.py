@@ -11,6 +11,7 @@ import sys
 import RegionPixelConnectivity
 import EdgePoint
 import AdjacencyEdge
+import copy
 
 np.set_printoptions(threshold=sys.maxsize)  # allow printing without ellipsis: https://stackoverflow.com/questions/44311664/print-numpy-array-without-ellipsis
 
@@ -199,33 +200,54 @@ class FinishedImage:
 
 				# Get the current region EdgePoints
 				if index < adjacentIndex:
-					currentIndexEdgePoints = adjacencyEdge.currentIndexEdgePoints
-					adjacentIndexEdgePoints = adjacencyEdge.adjacentIndexEdgePoints
+					currentIndexEdgePoints = copy.copy(adjacencyEdge.currentIndexEdgePoints)
+					adjacentIndexEdgePoints = copy.copy(adjacencyEdge.adjacentIndexEdgePoints)
 				else:
-					adjacentIndexEdgePoints = adjacencyEdge.currentIndexEdgePoints
-					currentIndexEdgePoints = adjacencyEdge.adjacentIndexEdgePoints
+					adjacentIndexEdgePoints = copy.copy(adjacencyEdge.currentIndexEdgePoints)
+					currentIndexEdgePoints = copy.copy(adjacencyEdge.adjacentIndexEdgePoints)
+
 
 				currentPoints = self.constructLocationForEdgePoints(currentIndexEdgePoints)
 				adjacentPoints = self.constructLocationForEdgePoints(adjacentIndexEdgePoints)
 
-				print("CurrentPoints:", currentPoints)
-				print("AdjacentPoints:", adjacentPoints)
+				while len(currentPoints) > 0 and len(adjacentPoints) > 0:
+					print("CurrentPoints:", currentPoints)
+					print("AdjacentPoints:", adjacentPoints)
 
-				shortestPair = Bridson_Common.findClosestIndex(currentPoints, adjacentPoints)
+					shortestPair = Bridson_Common.findClosestIndex(currentPoints, adjacentPoints)
 
-				print("Pair:", currentPoints[shortestPair[0][0]], adjacentPoints[shortestPair[1][0]])
-				# Pair the two EdgePoints.
-				self.connectTwoPoints( currentIndexEdgePoints[shortestPair[0][0]], adjacentIndexEdgePoints[shortestPair[1][0]])
+					print("Pair:", currentPoints[shortestPair[0][0]], adjacentPoints[shortestPair[1][0]])
+					# Pair the two EdgePoints.
+					connected = self.connectTwoPoints( currentIndexEdgePoints[shortestPair[0][0]], adjacentIndexEdgePoints[shortestPair[1][0]])
+					# Increase the distance for the point pair so that they are never close again.
+					if connected == False:
+						# Exit the for loop because the closest points are now too far apart.
+						break
+
+					bigDistance = 100000
+					currentPoints.pop(shortestPair[0][0] ) # Remove the paired points from the list.
+					adjacentPoints.pop(shortestPair[1][0] ) # Remove the paired points from the list.
+					currentIndexEdgePoints.pop(shortestPair[0][0]) # Remove the paired points from the list.
+					adjacentIndexEdgePoints.pop( shortestPair[1][0]) # Remove the paired points from the list.
+				# currentPoints[ shortestPair[0][0] ] = (-bigDistance,-bigDistance)
+				# adjacentPoints[ shortestPair[1][0] ] = (bigDistance, bigDistance)
+
+
 				# Remove the EdgePoints from the lists.
 
 
 	def connectTwoPoints(self, edgePoint1, edgePoint2):
-		print("EdgePoint1:", edgePoint1)
-		print("EdgePoint2:", edgePoint2)
-		xAvg = (edgePoint1.xy[0] + edgePoint2.xy[0]) / 2
-		yAvg = (edgePoint1.xy[1] + edgePoint2.xy[1]) / 2
-		edgePoint1.associatedLine[ edgePoint1.pointIndex ] = [xAvg, yAvg]
-		edgePoint2.associatedLine[ edgePoint2.pointIndex ] = [xAvg, yAvg]
+		distance = Bridson_Common.euclidean_distance(edgePoint1.xy, edgePoint2.xy)
+		if distance < 5.0:
+			print("EdgePoint1:", edgePoint1)
+			print("EdgePoint2:", edgePoint2)
+			xAvg = (edgePoint1.xy[0] + edgePoint2.xy[0]) / 2
+			yAvg = (edgePoint1.xy[1] + edgePoint2.xy[1]) / 2
+			edgePoint1.associatedLine[ edgePoint1.pointIndex ] = [xAvg, yAvg]
+			edgePoint2.associatedLine[ edgePoint2.pointIndex ] = [xAvg, yAvg]
+			return True
+		else:
+			return False
 
 	def constructLocationForEdgePoints(self, edgePoints):
 		newList = []

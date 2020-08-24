@@ -298,8 +298,8 @@ def indexValidation(filename):
 	NoSLICmeshObjCollection = {}
 
 	# for index in range(10,15):  # Interesting regions: 11, 12, 14
-	for index in [7,8]:
-	# for index in range( len(regionMap.keys()) ):
+	# for index in [7,8]:
+	for index in range( len(regionMap.keys()) ):
 		print("(***************** ", filename, " Starting Region: ", index, "of", Bridson_Common.segmentCount, "  *************************" )
 
 		# Generate the raster for the first region.
@@ -367,9 +367,10 @@ def indexValidation(filename):
 	# Still have a problem with the coordinates though.
 	finishedImageSLIC.cropCullLines(regionMap, regionRaster, maskRasterCollection, meshObjCollection, regionIntensityMap)
 	finishedImageSLIC.genAdjacencyMap()
-	# finishedImageSLIC.mergeLines()
+	finishedImageSLIC.mergeLines()
 
 	finishedImageNoSLIC.copyFromOther( finishedImageSLIC )
+
 
 	for index in meshObjCollection.keys():
 		# Draw the region contour lines onto the finished image.
@@ -378,10 +379,10 @@ def indexValidation(filename):
 		finishedImageNoSLIC.drawRegionContourLines(regionMap, index, meshObj, regionIntensityMap[index], drawSLICRegions=False )
 		print("Done drawing contour lines")
 
-	# finishedImageNoSLIC.highLightEdgePoints(7,  drawSLICRegions=False )
-	finishedImageNoSLIC.highLightEdgePoints(8, drawSLICRegions=False )
-	# finishedImageSLIC.highLightEdgePoints(7, color='r', drawSLICRegions=True )
-	# finishedImageSLIC.highLightEdgePoints(8, color='r', drawSLICRegions=True)
+	# finishedImageNoSLIC.highLightEdgePoints(7, color='y', drawSLICRegions=False )
+	# finishedImageNoSLIC.highLightEdgePoints(8, color='g', drawSLICRegions=False )
+	# finishedImageSLIC.highLightEdgePoints(7, color='y', drawSLICRegions=True )
+	# finishedImageSLIC.highLightEdgePoints(8, color='g', drawSLICRegions=True)
 
 	Bridson_Common.saveImage( filename, "WithSLIC", finishedImageSLIC.fig )
 	Bridson_Common.saveImage(filename, "NoSLIC", finishedImageNoSLIC.fig)
