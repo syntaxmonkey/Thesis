@@ -30,7 +30,7 @@ if bulkGeneration == True:
 else:
 	displayMesh = True
 
-displayMesh = True
+displayMesh = False
 
 diagnostic=False # Generally avoid dispalying meshes.  Only count the number of successful trifinder generations.
 highlightEdgeTriangle=False # Highlight the edge triangle that contains the exterior point of the vertical lines.

@@ -188,10 +188,12 @@ def processMask(mask, dradius, indexLabel):
 	# invertedMask = Bridson_Common.blurArray(mask, 3)
 	successful = False
 	attempts = 0
+	maxAttempts = 20
+	blurRadius = 5
 
 	while True:
 		attempts += 1
-		if successful or attempts > 10:
+		if successful or attempts > maxAttempts:
 			break
 		else:
 			mask5x = Bridson_CreateMask.InvertMask(mask)
@@ -206,19 +208,18 @@ def processMask(mask, dradius, indexLabel):
 
 			xrange, yrange = np.shape(mask)
 			# mask5x = Bridson_Common.blurArray(mask5x, 5)
-			blurRadius = math.ceil(dradius)
-			if blurRadius % 2 == 0:
-				blurRadius = blurRadius + 3
-			blurRadius = 5
+			# blurRadius = math.ceil(dradius)
+			# if blurRadius % 2 == 0:
+			# 	blurRadius = blurRadius + 3
+
 			Bridson_Common.logDebug(__name__, "*** BlurRadius: " , blurRadius)
 
 			mask5x = Bridson_Common.blurArray(mask5x, blurRadius)
 			mask5x = Bridson_CreateMask.InvertMask(mask5x)
 
-
-
 			# print(distanceRaster)
 			if Bridson_Common.debug:
+			# if True:
 				plt.figure()
 				plt.subplot(1, 1, 1, aspect=1)
 				plt.title('blurred Mask')
@@ -252,6 +253,7 @@ def processMask(mask, dradius, indexLabel):
 				print("Attempt ", attempts, " successful")
 			else:
 				print("Attempt ", attempts, " UNsuccessful")
+			blurRadius += 2
 
 	# indexLabel="LineSeed"
 	# lineReferencePointsObj = Bridson_MeshObj.MeshObject(mask=mask5x, dradius=dradius*Bridson_Common.lineRadiusFactor, indexLabel=indexLabel)
@@ -298,8 +300,8 @@ def indexValidation(filename):
 	NoSLICmeshObjCollection = {}
 
 	# for index in range(10,15):  # Interesting regions: 11, 12, 14
-	# for index in [7,8]:
-	for index in range( len(regionMap.keys()) ):
+	for index in range(2,6):
+	# for index in range( len(regionMap.keys()) ):
 		print("(***************** ", filename, " Starting Region: ", index, "of", Bridson_Common.segmentCount, "  *************************" )
 
 		# Generate the raster for the first region.
@@ -379,10 +381,8 @@ def indexValidation(filename):
 		finishedImageNoSLIC.drawRegionContourLines(regionMap, index, meshObj, regionIntensityMap[index], drawSLICRegions=False )
 		print("Done drawing contour lines")
 
-	# finishedImageNoSLIC.highLightEdgePoints(7, color='y', drawSLICRegions=False )
-	# finishedImageNoSLIC.highLightEdgePoints(8, color='g', drawSLICRegions=False )
-	# finishedImageSLIC.highLightEdgePoints(7, color='y', drawSLICRegions=True )
-	# finishedImageSLIC.highLightEdgePoints(8, color='g', drawSLICRegions=True)
+	finishedImageNoSLIC.highLightEdgePoints( drawSLICRegions=False )
+	finishedImageSLIC.highLightEdgePoints(drawSLICRegions=True )
 
 	Bridson_Common.saveImage( filename, "WithSLIC", finishedImageSLIC.fig )
 	Bridson_Common.saveImage(filename, "NoSLIC", finishedImageNoSLIC.fig)

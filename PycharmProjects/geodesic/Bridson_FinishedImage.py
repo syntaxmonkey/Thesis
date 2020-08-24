@@ -131,8 +131,11 @@ class FinishedImage:
 
 	def shiftRastersMeshObj(self, regionMap, regionRaster):
 		# for index in [5]:
-		for index in self.maskRasterCollection.keys():
+		# for index in self.maskRasterCollection.keys():
+		for index in self.meshObjCollection.keys():
 			raster = self.maskRasterCollection[ index ]
+
+			# Only process the region is it exists.  Can fail if trifinder is not generated.
 			meshObj = self.meshObjCollection[ index ]
 
 			print("Shape of Region Raster:", np.shape(regionRaster))
@@ -188,7 +191,7 @@ class FinishedImage:
 
 	def mergeLines(self):
 		# Iterate through each region.
-		for index in self.maskRasterCollection.keys():
+		for index in self.regionAdjacentRegions.keys(): # Iterate through regions that have adjacencies defined.
 			# Obtain the adjacent regions for the current index.
 			adjacentRegions = self.regionAdjacentRegions[ index ]
 			for adjacentIndex in adjacentRegions:
@@ -196,39 +199,40 @@ class FinishedImage:
 				endingIndex = index if index > adjacentIndex else adjacentIndex
 
 				# Obtain the adjacencyEdge.
-				adjacencyEdge = self.regionAdjancencyMap[ (startingIndex, endingIndex) ]
+				if (startingIndex, endingIndex) in self.regionAdjancencyMap:
+					# Only continue if the startingIndex, endingIndex pair exists.
+					adjacencyEdge = self.regionAdjancencyMap[ (startingIndex, endingIndex) ]
 
-				# Get the current region EdgePoints
-				if index < adjacentIndex:
-					currentIndexEdgePoints = copy.copy(adjacencyEdge.currentIndexEdgePoints)
-					adjacentIndexEdgePoints = copy.copy(adjacencyEdge.adjacentIndexEdgePoints)
-				else:
-					adjacentIndexEdgePoints = copy.copy(adjacencyEdge.currentIndexEdgePoints)
-					currentIndexEdgePoints = copy.copy(adjacencyEdge.adjacentIndexEdgePoints)
+					# Get the current region EdgePoints
+					if index < adjacentIndex:
+						currentIndexEdgePoints = copy.copy(adjacencyEdge.currentIndexEdgePoints)
+						adjacentIndexEdgePoints = copy.copy(adjacencyEdge.adjacentIndexEdgePoints)
+					else:
+						adjacentIndexEdgePoints = copy.copy(adjacencyEdge.currentIndexEdgePoints)
+						currentIndexEdgePoints = copy.copy(adjacencyEdge.adjacentIndexEdgePoints)
 
 
-				currentPoints = self.constructLocationForEdgePoints(currentIndexEdgePoints)
-				adjacentPoints = self.constructLocationForEdgePoints(adjacentIndexEdgePoints)
+					currentPoints = self.constructLocationForEdgePoints(currentIndexEdgePoints)
+					adjacentPoints = self.constructLocationForEdgePoints(adjacentIndexEdgePoints)
 
-				while len(currentPoints) > 0 and len(adjacentPoints) > 0:
-					print("CurrentPoints:", currentPoints)
-					print("AdjacentPoints:", adjacentPoints)
+					while len(currentPoints) > 0 and len(adjacentPoints) > 0:
+						# print("CurrentPoints:", currentPoints)
+						# print("AdjacentPoints:", adjacentPoints)
 
-					shortestPair = Bridson_Common.findClosestIndex(currentPoints, adjacentPoints)
+						shortestPair = Bridson_Common.findClosestIndex(currentPoints, adjacentPoints)
 
-					print("Pair:", currentPoints[shortestPair[0][0]], adjacentPoints[shortestPair[1][0]])
-					# Pair the two EdgePoints.
-					connected = self.connectTwoPoints( currentIndexEdgePoints[shortestPair[0][0]], adjacentIndexEdgePoints[shortestPair[1][0]])
-					# Increase the distance for the point pair so that they are never close again.
-					if connected == False:
-						# Exit the for loop because the closest points are now too far apart.
-						break
+						# print("Pair:", currentPoints[shortestPair[0][0]], adjacentPoints[shortestPair[1][0]])
+						# Pair the two EdgePoints.
+						connected = self.connectTwoPoints( currentIndexEdgePoints[shortestPair[0][0]], adjacentIndexEdgePoints[shortestPair[1][0]])
+						# Increase the distance for the point pair so that they are never close again.
+						if connected == False:
+							# Exit the for loop because the closest points are now too far apart.
+							break
 
-					bigDistance = 100000
-					currentPoints.pop(shortestPair[0][0] ) # Remove the paired points from the list.
-					adjacentPoints.pop(shortestPair[1][0] ) # Remove the paired points from the list.
-					currentIndexEdgePoints.pop(shortestPair[0][0]) # Remove the paired points from the list.
-					adjacentIndexEdgePoints.pop( shortestPair[1][0]) # Remove the paired points from the list.
+						currentPoints.pop(shortestPair[0][0] ) # Remove the paired points from the list.
+						adjacentPoints.pop(shortestPair[1][0] ) # Remove the paired points from the list.
+						currentIndexEdgePoints.pop(shortestPair[0][0]) # Remove the paired points from the list.
+						adjacentIndexEdgePoints.pop( shortestPair[1][0]) # Remove the paired points from the list.
 				# currentPoints[ shortestPair[0][0] ] = (-bigDistance,-bigDistance)
 				# adjacentPoints[ shortestPair[1][0] ] = (bigDistance, bigDistance)
 
@@ -271,7 +275,7 @@ class FinishedImage:
 		self.shiftRastersMeshObj( regionMap, regionRaster )
 
 		# For each region, determine the points on the lines that are close to the region edge.  Make a registry of these points.
-		for index in self.maskRasterCollection.keys():
+		for index in self.meshObjCollection.keys():
 			raster = self.maskRasterCollection[ index ]
 			meshObj = meshObjCollection[ index ]
 
@@ -306,34 +310,36 @@ class FinishedImage:
 			####################################
 
 
-	def highLightEdgePoints(self, index, color='g', drawSLICRegions=Bridson_Common.drawSLICRegions):
-		# Get the list adjacencyEdge object.
-		#adjancencyEdge = self.regionAdjancencyMap[ index ]
-		if drawSLICRegions == False:
-			flip = 1
-		else:
-			flip = -1
-
-		adjacentRegions = self.regionAdjacentRegions[ index ]
-		print("highLightEdgePoints adjacenct regions: " , adjacentRegions)
-		for adjacentIndex in adjacentRegions:
-			startingIndex = index if index < adjacentIndex else adjacentIndex
-			endingIndex = index if index > adjacentIndex else adjacentIndex
-			adjacencyEdge = self.regionAdjancencyMap[ (startingIndex,endingIndex) ]
-
-			if index < adjacentIndex:
-				edgePoints = adjacencyEdge.currentIndexEdgePoints
+	def highLightEdgePoints(self, color='g', drawSLICRegions=Bridson_Common.drawSLICRegions):
+		for index in self.regionAdjacentRegions:
+			# Get the list adjacencyEdge object.
+			# adjancencyEdge = self.regionAdjancencyMap[ index ]
+			if drawSLICRegions == False:
+				flip = 1
 			else:
-				edgePoints = adjacencyEdge.adjacentIndexEdgePoints
+				flip = -1
 
-			for edgePoint in edgePoints:
-				print("Plotting:", edgePoint.xy)
-				self.ax.plot(edgePoint.xy[0], edgePoint.xy[1]*flip, marker='x', color=color)
+
+			adjacentRegions = self.regionAdjacentRegions[ index ]
+			# print("highLightEdgePoints adjacenct regions: " , adjacentRegions)
+			for adjacentIndex in adjacentRegions:
+				startingIndex = index if index < adjacentIndex else adjacentIndex
+				endingIndex = index if index > adjacentIndex else adjacentIndex
+				adjacencyEdge = self.regionAdjancencyMap[ (startingIndex,endingIndex) ]
+
+				if index < adjacentIndex:
+					edgePoints = adjacencyEdge.currentIndexEdgePoints
+				else:
+					edgePoints = adjacencyEdge.adjacentIndexEdgePoints
+
+				for edgePoint in edgePoints:
+					# print("Plotting:", edgePoint.xy)
+					self.ax.plot(edgePoint.xy[0], edgePoint.xy[1]*flip, marker='x', color=color)
 
 
 	def genAdjacencyMap(self):
 		# traversalMap = [ [-1,1], [0,1], [1,1], [-1, 0],  [1, 0],[-1, -1], [0, -1], [1, -1] ]
-		for index in self.maskRasterCollection.keys():
+		for index in self.meshObjCollection.keys():
 			# adjancencyList = []
 			# self.genAdjacencyMap[ index ] =  adjancencyList
 			# edgePoints = self.regionEdgePoints[ index ]
@@ -350,12 +356,12 @@ class FinishedImage:
 						adjacentEdgePoints = self.globalEdgePointMap[ adjacentPixel ]
 
 						for adjacentEdgePoint in adjacentEdgePoints:
-							print("genAdjacencyMap Found adjacent pixels: ", adjacentEdgePoint.xy, adjacentEdgePoint.regionIndex)
+							# print("genAdjacencyMap Found adjacent pixels: ", adjacentEdgePoint.xy, adjacentEdgePoint.regionIndex)
 							adjacentIndex = adjacentEdgePoint.regionIndex
 
 							if index != adjacentIndex:
-								print("genAdjacencyMap Adding point")
-								# Does the region to region map exist for current region?
+								# print("genAdjacencyMap Adding point")
+								# Does the region to region map e4xist for current region?
 								if index in self.regionAdjacentRegions:
 									if  adjacentIndex not in self.regionAdjacentRegions[index]:
 										self.regionAdjacentRegions[index].append(adjacentIndex)
