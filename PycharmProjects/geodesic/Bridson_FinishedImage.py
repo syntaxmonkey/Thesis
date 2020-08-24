@@ -12,6 +12,7 @@ import RegionPixelConnectivity
 import EdgePoint
 import AdjacencyEdge
 import copy
+import itertools
 
 np.set_printoptions(threshold=sys.maxsize)  # allow printing without ellipsis: https://stackoverflow.com/questions/44311664/print-numpy-array-without-ellipsis
 
@@ -47,31 +48,48 @@ class FinishedImage:
 
 
 	def cropContourLines(self, linePoints, raster, topLeftTarget):
+		'''
+			Operations will contain a combination of - and + symbols.  The - indicate skipping a point.  The + indicate adding a point.
+			To check if we have a situation where we add, skip, then add again, we will split the string based on add.
+			We will then look for +-+ in the string.
+			Use approach here to remove sequentially duplicate values: https://stackoverflow.com/questions/39469691/python-merge-repeating-characters-ins-sequence-in-string
 
+		'''
+		# print("Length of raster:", len(raster))
 		if Bridson_Common.cropContours:
 			# Raster will have 255 for valid points that should be retained.
 			newLinePoints = []
 			for line in linePoints:
+				operations = ''
 				newLine = []
 				emptyLine = True
 				for point in line:
 					x, y = int(point[0]), int(0-point[1])
 					# print("Point:", x,y)
 					try:
-						if raster[y][x] == 255: # Because of the differing coordinates system, we have to flip the order of x,y
+						if y < len(raster) and x < len(raster[y]) and raster[y][x] == 255: # Because of the differing coordinates system, we have to flip the order of x,y
 							# print("Point:", point)
 							# print("Point in Mask:", x, y)
 							newLine.append( point )
 							emptyLine = False
+							operations = operations + '+'
 						else:
-							# print("Point NOT in Mask:", x, y)
-							pass
+							operations = operations + '-'
 					except:
-						if Bridson_Common.debug:
+						operations = operations + '-'
+						# if Bridson_Common.debug:
+						if True:
 							print("********************* Problem with cropping contour lines. **********************")
 							print("X,Y:", x,y)
 							print("Raster dimensions:", np.shape(raster))
 							print("Raster:", raster)
+
+					# print("Operations:", operations)
+
+				operations = ''.join(ch for ch, _ in itertools.groupby(operations))
+				# print("shrunk Operations:", operations)
+				if operations.find('+-+') > -1:
+					emptyLine = True # If we detect add, skip, add sequence, we avoid adding this line.
 
 				if emptyLine == False:
 					newLinePoints.append(np.array(newLine))
@@ -138,8 +156,7 @@ class FinishedImage:
 			# Only process the region is it exists.  Can fail if trifinder is not generated.
 			meshObj = self.meshObjCollection[ index ]
 
-			print("Shape of Region Raster:", np.shape(regionRaster))
-
+			# print("Shape of Region Raster:", np.shape(regionRaster))
 
 			regionCoordinates = regionMap.get(index)
 			topLeftTarget, bottomRightTarget = SLIC.calculateTopLeft(regionCoordinates)
@@ -243,8 +260,8 @@ class FinishedImage:
 	def connectTwoPoints(self, edgePoint1, edgePoint2):
 		distance = Bridson_Common.euclidean_distance(edgePoint1.xy, edgePoint2.xy)
 		if distance < 5.0:
-			print("EdgePoint1:", edgePoint1)
-			print("EdgePoint2:", edgePoint2)
+			# print("EdgePoint1:", edgePoint1)
+			# print("EdgePoint2:", edgePoint2)
 			xAvg = (edgePoint1.xy[0] + edgePoint2.xy[0]) / 2
 			yAvg = (edgePoint1.xy[1] + edgePoint2.xy[1]) / 2
 			edgePoint1.associatedLine[ edgePoint1.pointIndex ] = [xAvg, yAvg]
@@ -282,14 +299,16 @@ class FinishedImage:
 			regionCoordinates = regionMap.get(index)
 			topLeftTarget, bottomRightTarget = SLIC.calculateTopLeft(regionCoordinates)
 
-			empty, culledLines = self.cullLines(  meshObj.linePoints, regionIntensityMap[index] )
+			meshObj.setCroppedLines( self.cropContourLines(meshObj.linePoints, self.maskRasterCollection[index], topLeftTarget) )
+
+			empty, culledLines = self.cullLines(  meshObj.croppedLinePoints, regionIntensityMap[index] )
 			# meshObj.setCroppedLines( self.cullLines( index, meshObj.linePoints, regionIntensityMap[index] )  )
 			if not empty:
 				meshObj.setCroppedLines( culledLines )
 			else:
 				meshObj.setCroppedLines( [] )
 
-			meshObj.setCroppedLines( self.cropContourLines(meshObj.croppedLinePoints, self.maskRasterCollection[index], topLeftTarget) )
+
 
 			# We Generate the edge pixels and then create the edge connectivity object.
 			distanceRaster, distance1pixelIndeces = self.genDistancePixels( raster )
@@ -343,7 +362,7 @@ class FinishedImage:
 			# adjancencyList = []
 			# self.genAdjacencyMap[ index ] =  adjancencyList
 			# edgePoints = self.regionEdgePoints[ index ]
-			print("genAdjacencyMap Searching for regionEdgePoints index:", index)
+			# print("genAdjacencyMap Searching for regionEdgePoints index:", index)
 			regionEdgePoints = self.regionEdgePoints[ index ]
 
 			for edgePoint in regionEdgePoints.pointsOnEdge:
@@ -417,13 +436,13 @@ class FinishedImage:
 		:param croppedLinePoints: croppedLinePoints for this region.
 		:return: Will populate regionEdgeConnectivity with line points that exist in the edge pixels.
 		'''
-		print("findLineEdgePoints edgePixels:", regionEdgePixels.edgePixelList)
+		# print("findLineEdgePoints edgePixels:", regionEdgePixels.edgePixelList)
 		edgePixelList = regionEdgePixels.edgePixelList
 		pointsOnEdge = []
 		for line in croppedLinePoints:
 			startPoint = line[0]
 			searchValue = [-int(startPoint[1]), int(startPoint[0])] ## Switching from x,y to row, column
-			print("findLineEdgePoints searching For value:", searchValue)
+			# print("findLineEdgePoints searching For value:", searchValue)
 			if searchValue in edgePixelList:
 				startEdgePoint = EdgePoint.EdgePoint( startPoint.copy(), line, index, 0)
 				# pointsOnEdge.append( startPoint.copy() )
@@ -444,7 +463,7 @@ class FinishedImage:
 					self.globalEdgePointMap[ tuple(searchValue) ] = [endEdgePoint]
 
 		regionEdgePixels.setPointOnEdge ( pointsOnEdge )
-		print("findLineEdgePoints Points on Edge: ", pointsOnEdge)
+		# print("findLineEdgePoints Points on Edge: ", pointsOnEdge)
 
 
 
@@ -565,7 +584,7 @@ class FinishedImage:
 		return minDistance
 
 	def calculateLineSpacing(self, line1, line2, factor=Bridson_Common.lineCullingDistanceFactor, intensity=255):
-		intensityDistance = intensity / 25
+		intensityDistance = intensity / 15
 		# Get the endPoints of the lines.
 		distance = 0
 		if Bridson_Common.closestPointPair == False:
@@ -580,11 +599,11 @@ class FinishedImage:
 			distance = distance / Bridson_Common.divisor
 		else:
 			distance = self.findClosestPointPair(line1, line2)
-		print("Distance:", distance, intensityDistance)
+		# print("Distance:", distance, intensityDistance)
 		# if distance > Bridson_Common.dradius*factor:
 		if distance > intensityDistance:
-			print("Far enough")
+			# print("Far enough")
 			return True
 		else:
-			print("Too close")
+			# print("Too close")
 			return False

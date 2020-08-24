@@ -207,10 +207,6 @@ def processMask(mask, dradius, indexLabel):
 				thismanager.window.wm_geometry("+0+560")
 
 			xrange, yrange = np.shape(mask)
-			# mask5x = Bridson_Common.blurArray(mask5x, 5)
-			# blurRadius = math.ceil(dradius)
-			# if blurRadius % 2 == 0:
-			# 	blurRadius = blurRadius + 3
 
 			Bridson_Common.logDebug(__name__, "*** BlurRadius: " , blurRadius)
 
@@ -227,28 +223,32 @@ def processMask(mask, dradius, indexLabel):
 				thismanager = pylab.get_current_fig_manager()
 				thismanager.window.wm_geometry("+0+560")
 
+			try:
+				meshObj = Bridson_MeshObj.MeshObject(mask=mask5x, dradius=dradius, indexLabel=indexLabel) # Create Mesh based on Mask.
 
-			meshObj = Bridson_MeshObj.MeshObject(mask=mask5x, dradius=dradius, indexLabel=indexLabel) # Create Mesh based on Mask.
-			points = meshObj.points
-			tri = meshObj.triangulation
-			fakeRadius = max(xrange,yrange)
+				points = meshObj.points
+				tri = meshObj.triangulation
+				fakeRadius = max(xrange,yrange)
 
-			createMeshFile(points, tri, fakeRadius, (xrange/2.0, yrange/2.0))
+				createMeshFile(points, tri, fakeRadius, (xrange/2.0, yrange/2.0))
 
-			# vertices, faces = Bridson_readOBJFile.readFlatObjFile(path="../../boundary-first-flattening/build/",
-			#                                                               filename="test1.obj")
-			# meshObj = Bridson_MeshObj.MeshObject(flatvertices=vertices, flatfaces=faces, xrange=xrange,
-			#                                          yrange=yrange, indexLabel=indexLabel)
-			BFFReshape()
-			FlattenMesh()
+				# vertices, faces = Bridson_readOBJFile.readFlatObjFile(path="../../boundary-first-flattening/build/",
+				#                                                               filename="test1.obj")
+				# meshObj = Bridson_MeshObj.MeshObject(flatvertices=vertices, flatfaces=faces, xrange=xrange,
+				#                                          yrange=yrange, indexLabel=indexLabel)
+				BFFReshape()
+				FlattenMesh()
 
-			flatvertices, flatfaces = Bridson_readOBJFile.readFlatObjFile(path = "../../boundary-first-flattening/build/", filename="test1_out_flat.obj")
+				flatvertices, flatfaces = Bridson_readOBJFile.readFlatObjFile(path = "../../boundary-first-flattening/build/", filename="test1_out_flat.obj")
 
-			Bridson_Common.triangleHistogram(flatvertices, flatfaces, indexLabel)
+				Bridson_Common.triangleHistogram(flatvertices, flatfaces, indexLabel)
 
-			newIndex = str(indexLabel) + ":" + str(indexLabel)
-			flatMeshObj = Bridson_MeshObj.MeshObject(flatvertices=flatvertices, flatfaces=flatfaces, xrange=xrange, yrange=yrange, indexLabel=indexLabel) # Create Mesh based on OBJ file.
-			successful = flatMeshObj.trifinderGenerated
+				newIndex = str(indexLabel) + ":" + str(indexLabel)
+				flatMeshObj = Bridson_MeshObj.MeshObject(flatvertices=flatvertices, flatfaces=flatfaces, xrange=xrange, yrange=yrange, indexLabel=indexLabel) # Create Mesh based on OBJ file.
+				successful = flatMeshObj.trifinderGenerated
+			except:
+				successful = False
+
 			if successful:
 				print("Attempt ", attempts, " successful")
 			else:
@@ -300,8 +300,8 @@ def indexValidation(filename):
 	NoSLICmeshObjCollection = {}
 
 	# for index in range(10,15):  # Interesting regions: 11, 12, 14
-	for index in range(2,6):
-	# for index in range( len(regionMap.keys()) ):
+	# for index in range(9,10):
+	for index in range( len(regionMap.keys()) ):
 		print("(***************** ", filename, " Starting Region: ", index, "of", Bridson_Common.segmentCount, "  *************************" )
 
 		# Generate the raster for the first region.
@@ -379,10 +379,10 @@ def indexValidation(filename):
 		meshObj = meshObjCollection[ index ]
 		finishedImageSLIC.drawRegionContourLines(regionMap, index, meshObj, regionIntensityMap[index], drawSLICRegions=True )
 		finishedImageNoSLIC.drawRegionContourLines(regionMap, index, meshObj, regionIntensityMap[index], drawSLICRegions=False )
-		print("Done drawing contour lines")
+		# print("Done drawing contour lines")
 
-	finishedImageNoSLIC.highLightEdgePoints( drawSLICRegions=False )
-	finishedImageSLIC.highLightEdgePoints(drawSLICRegions=True )
+	# finishedImageNoSLIC.highLightEdgePoints( drawSLICRegions=False )
+	# finishedImageSLIC.highLightEdgePoints(drawSLICRegions=True )
 
 	Bridson_Common.saveImage( filename, "WithSLIC", finishedImageSLIC.fig )
 	Bridson_Common.saveImage(filename, "NoSLIC", finishedImageNoSLIC.fig)
@@ -517,7 +517,7 @@ if __name__ == '__main__':
 
 	# percentages = [0.05, 0.1, 0.15, 0.2]
 	# targetPixels = [  400, 800, 1600 ]
-	targetPixels = [800]
+	targetPixels = [ 800]
 	for filename in images:
 		for targetPixel in targetPixels:
 			Bridson_Common.targetRegionPixelCount = targetPixel

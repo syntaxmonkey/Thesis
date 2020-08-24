@@ -44,7 +44,7 @@ highlightEndpoints=False
 
 
 closestPointPair=False
-middleAverageOnly=False
+middleAverageOnly=True
 if middleAverageOnly == True:
 	divisor = 1.0
 else:
@@ -88,17 +88,27 @@ colourArray = ['b', 'b', 'b']
 mergeScale = 1  # How much to scale the contour lines before merging.
 cropContours = True
 
-traversalMap = [ [-1,1], [0,1], [1,1],
-                 [-1, 0],  [1, 0],
-                 [-1, -1], [0, -1], [1, -1] ]
+# traversalMap = [ [-1,1], [0,1], [1,1],
+#                  [-1, 0],  [1, 0],
+#                  [-1, -1], [0, -1], [1, -1] ]
 
 
+def generateTraversalMap(radius):
+	traversalMap = []
+	for i in range(-radius, radius+1):
+		for j in range(-radius, radius+1):
+			traversalMap.append( [i, j] )
+
+	traversalMap.pop( traversalMap.index([0,0]) )
+	return traversalMap
+
+traversalMap = generateTraversalMap(2)
 
 def findClosestIndex(s1, s2):
 	distances = distance.cdist(s1, s2)
 	# shortestDistances = distance.cdist(s1, s2).min(axis=1)
 	location = np.where(distances == distances.min())
-	print('Location:', location, distances.min())
+	# print('Location:', location, distances.min())
 	# Return the an tuple.  Tuple[0] contains indeces in s1.  Tuple[1] contains indeces in s2.
 	return location
 
