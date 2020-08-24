@@ -22,7 +22,7 @@ seedValue = 11
 SLIC0=False
 compactnessSLIC=10.0
 
-bulkGeneration = False
+bulkGeneration = True
 debug=False
 
 if bulkGeneration == True:

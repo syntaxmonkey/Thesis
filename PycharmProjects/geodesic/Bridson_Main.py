@@ -504,27 +504,30 @@ if __name__ == '__main__':
 	# images.append('Stripes.png')
 
 	# Batch A.
-	# images.append('RedApple.jpg')
-	# images.append('Sunglasses.jpg')
-	# images.append('TapeRolls.jpg')
-	# images.append('Massager.jpg')
+	images.append('RedApple.jpg')
+	images.append('Sunglasses.jpg')
+	images.append('TapeRolls.jpg')
+	images.append('Massager.jpg')
 	images.append('eyeball.jpg')
-	# images.append('truck.jpg')
-	# images.append('cat1.jpg')
+	images.append('truck.jpg')
+	images.append('cat1.jpg')
 
 	# Original
-	# images.append('dog2.jpg')
+	images.append('dog2.jpg')
 
 	# percentages = [0.05, 0.1, 0.15, 0.2]
 	# targetPixels = [  400, 800, 1600 ]
-	targetPixels = [ 800]
+	targetPixels = [ 400, 800, 1600]
 	for filename in images:
 		for targetPixel in targetPixels:
 			Bridson_Common.targetRegionPixelCount = targetPixel
 			# Set the seed each time.
 			random.seed(Bridson_Common.seedValue)
 			np.random.seed(Bridson_Common.seedValue)
-			indexValidation(filename)
+			try:
+				indexValidation(filename)
+			except:
+				pass
 
 	Bridson_Common.logDebug(__name__, "------------------------------------------")
 	if False:
