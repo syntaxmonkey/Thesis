@@ -105,6 +105,62 @@ class MeshObject:
 			self.ax.triplot(self.points[:, 0], self.points[:, 1], singleTriangle, color=colour, linestyle='-', lw=3)
 
 
+
+	def findPointsMatchingAngle(self, angle=0):
+		# Given the angle, find two points that fulfill the angle requirements.
+		# Determine the dx, dy based on the angle.
+		# print("Using angle: ", angle)
+		dx, dy = Bridson_Common.calculateDirection( int( angle ) )
+		dx, dy = dx * Bridson_Common.dradius * 100, dy * Bridson_Common.dradius * 100
+		# print("dx, dy:", dx, dy)
+		pointsFound = False
+
+		# We need to start with dx, dy as large as possible.
+
+		while pointsFound == False:
+			exteriorPoints = self.DualGraph.exteriorPoints
+			pointIndex = self.DualGraph.exteriorPoints[ np.random.randint(len(exteriorPoints)) ]
+			x, y = self.DualGraph.points[pointIndex]
+			# print("Testing x,y:", x, y)
+
+			x2, y2 = x+dx, y+dy
+			triangleIndex = self.trifinder(x2,y2)
+			# print("Second trifinder index:", triangleIndex)
+			if triangleIndex != -1:
+				# have found valid point pair.
+				# print("Valid point pair, p1 and p2:", (x,y), (x2,y2))
+				return (x,y), (x2,y2)
+
+			x3, y3 = x-dx, y-dy
+			triangleIndex = self.trifinder(x3, y3)
+			# print("Second trifinder index:", triangleIndex)
+
+			if triangleIndex != -1:
+				# valid point pair
+				# print("Valid point pair, p1 and p3:", (x,y), (x3,y3))
+				return (x,y), (x3,y3)
+
+			dx, dy = dx*0.9, dy*0.9
+			# print("Trying again.")
+
+
+	def calculateAngle(self, sourceMeshObj, desiredAngle=0):
+		# print("Initial angle:", desiredAngle)
+		# Convert points to using Barycentric.
+		p1, p2 = sourceMeshObj.findPointsMatchingAngle( angle=desiredAngle)
+		# print("Source points:", p1, p2)
+		cartesian1 = Bridson_Common.convertAxesBarycentric(p1[0], p1[1], sourceMeshObj.triangulation, self.triangulation,
+		                                                  sourceMeshObj.trifinder, sourceMeshObj.points, self.points)
+		cartesian2 = Bridson_Common.convertAxesBarycentric(p2[0], p2[1], sourceMeshObj.triangulation, self.triangulation,
+		                                                  sourceMeshObj.trifinder, sourceMeshObj.points, self.points)
+		# print("Target points:", cartesian1, cartesian2)
+		dx, dy = cartesian1[0] - cartesian2[0], cartesian1[1] - cartesian2[1]
+		# print("New dx, dy:", dx, dy)
+		recoveredAngle = Bridson_Common.determineAngle(dx, dy)
+		# print("Recovered Angle:", recoveredAngle)
+		return recoveredAngle
+
+
 	def DrawVerticalLines(self, density=Bridson_Common.density, linedensity=Bridson_Common.lineDotDensity):
 
 		Bridson_Common.logDebug(__name__, "********** XLimit ***********", self.ax.get_xlim())
@@ -428,42 +484,11 @@ class MeshObject:
 
 		self.linePoints = dotPoints
 
-	def calculateDirectionChanges(self, angle):
-		angle = angle % 360
-		# based on the angle, return the delta x and delta y.
-		if angle == 0:
-			dx = 0
-			dy = 1
-		elif angle == 180:
-			dx = 0
-			dy = -1
-		elif angle == 90:
-			dx = 1
-			dy = 0
-		elif angle == 270:
-			dx = -1
-			dy = 0
-		elif angle > 0 and angle < 90:
-			dx = math.sin( angle*math.pi/180 )
-			dy = math.cos( angle*math.pi/180 )
-		elif angle > 90 and angle < 180:
-			tempAngle = angle - 90
-			dx = math.cos( tempAngle*math.pi/180 )
-			dy = -math.sin( tempAngle*math.pi/180 )
-		elif angle > 180 and angle < 270:
-			tempAngle = angle - 180
-			dx = -math.sin( tempAngle*math.pi/180 )
-			dy = -math.cos( tempAngle*math.pi/180 )
-		elif angle > 270 and angle < 360:
-			tempAngle = angle - 270
-			dx = -math.cos( tempAngle*math.pi/180 )
-			dy = math.sin( tempAngle*math.pi/180 )
-		return dx, dy
 
 	# Draw vertical lines.  Use exterior points as line seeds.
 	def DrawAngleLinesExteriorSeed2(self, density=Bridson_Common.density, linedensity=Bridson_Common.lineDotDensity, angle=Bridson_Common.lineAngle):
 		# angle: 0 degrees goes north.  90 degrees goes east.  180 degrees goes south.  270 degrees goes west.
-		dx, dy = self.calculateDirectionChanges(angle)
+		dx, dy = Bridson_Common.calculateDirection(angle)
 
 		seedPoints = self.DualGraph.exteriorPoints.copy()
 		notFound = 0
@@ -702,13 +727,13 @@ class MeshObject:
 		self.linePoints = dotPoints
 
 
-	def TranslateBarycentricPoints(self, otherMeshObj, originalMesh):
+	def TranslateBarycentricPoints(self, targetMeshObj, sourceMeshObj):
 		newPoints = []
 		newLine = []
-		for point in otherMeshObj.points:
+		for point in targetMeshObj.points:
 			x, y = point
-			cartesian = Bridson_Common.convertAxesBarycentric(x, y, originalMesh.triangulation, self.triangulation,
-			                                                  originalMesh.trifinder, originalMesh.points, self.points)
+			cartesian = Bridson_Common.convertAxesBarycentric(x, y, sourceMeshObj.triangulation, self.triangulation,
+			                                                  sourceMeshObj.trifinder, sourceMeshObj.points, self.points)
 			newPoints.append( cartesian ) # Append points to create new line.
 
 		newPoints = np.array( newPoints ) # Add to list of existing lines

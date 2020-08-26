@@ -22,7 +22,7 @@ seedValue = 11
 SLIC0=False
 compactnessSLIC=10.0
 
-bulkGeneration = True
+bulkGeneration = False
 debug=False
 
 if bulkGeneration == True:
@@ -91,6 +91,49 @@ cropContours = True
 # traversalMap = [ [-1,1], [0,1], [1,1],
 #                  [-1, 0],  [1, 0],
 #                  [-1, -1], [0, -1], [1, -1] ]
+
+
+def calculateDirection(angle):
+	angle = angle % 360
+	# print("calculateDirection starting angle:", angle)
+	# based on the angle, return the delta x and delta y.
+	if angle == 0:
+		dx = 0
+		dy = 1
+	elif angle == 180:
+		dx = 0
+		dy = -1
+	elif angle == 90:
+		dx = 1
+		dy = 0
+	elif angle == 270:
+		dx = -1
+		dy = 0
+	elif angle > 0 and angle < 90:
+		dx = math.sin(angle * math.pi / 180)
+		dy = math.cos(angle * math.pi / 180)
+	elif angle > 90 and angle < 180:
+		tempAngle = angle - 90
+		dx = math.cos(tempAngle * math.pi / 180)
+		dy = -math.sin(tempAngle * math.pi / 180)
+	elif angle > 180 and angle < 270:
+		tempAngle = angle - 180
+		dx = -math.sin(tempAngle * math.pi / 180)
+		dy = -math.cos(tempAngle * math.pi / 180)
+	elif angle > 270 and angle < 360:
+		tempAngle = angle - 270
+		dx = -math.cos(tempAngle * math.pi / 180)
+		dy = math.sin(tempAngle * math.pi / 180)
+	# print("calculateDirection dx, dy:", dx, dy)
+	return dx, dy
+
+def determineAngle(dx, dy):
+	# https://stackoverflow.com/questions/36727257/calculating-rotation-degrees-based-on-delta-x-y-movement-of-touch-or-mouse
+	# print("calculateAngle Dx Dy:", dx, dy)
+	# //direction from old to new location in radians, easy to convert to degrees
+	dir = ( math.atan2(dx, dy) * 180 / math.pi ) % 360;
+	# print("calculateAngle Recovered angle:", dir)
+	return dir
 
 
 def generateTraversalMap(radius):

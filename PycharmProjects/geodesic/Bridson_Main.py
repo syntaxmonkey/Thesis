@@ -314,49 +314,64 @@ def indexValidation(filename):
 
 		# Bridson_Common.logDebug(__name__, raster)
 		# Bridson_Common.arrayInformation( raster )
-		for i in range(1):
-			indexLabel = index + i / 10
-			Bridson_Common.writeMask(raster)
-			meshObj, flatMeshObj, trifindersuccess = processMask(raster, dradius, indexLabel)
+		# for i in range(1):
 
-			if trifindersuccess:
-				successfulRegions += 1
-				print("Trifinder was successfully generated for region ", index)
-				if Bridson_Common.diagnostic == False:
-					# Only draw the lines if the trifinder was successful generated.
-					if Bridson_Common.linesOnFlat:
-						if Bridson_Common.verticalLines:
-							# flatMeshObj.DrawVerticalLines()
-							# flatMeshObj.DrawVerticalLinesSeededFrom(LineSeedPointsObj, meshObj) # Draw lines based on seed from tertiary mesh.
-							# flatMeshObj.DrawVerticalLinesExteriorSeed2() # Draw lines using exterior points as line seed.
-							flatMeshObj.DrawAngleLinesExteriorSeed2(angle=0)
-							# flatMeshObj.DrawAngleLinesExteriorSeed2(angle=90)
-						else:
-							# flatMeshObj.DrawHorizontalLines()
-							# flatMeshObj.DrawHorizontalLinesExteriorSeed() # Draw lines using exterior points as line seed.
-							flatMeshObj.DrawAngleLinesExteriorSeed2()
-						# Transfer the lines from the FlatMesh to meshObj.
-						meshObj.TransferLinePointsFromTarget(flatMeshObj)
+		indexLabel = index # + i / 10
+		Bridson_Common.writeMask(raster)
+		meshObj, flatMeshObj, trifindersuccess = processMask(raster, dradius, indexLabel)
+
+		# Find the intensity of this region.
+		# Produce angle based on the intensity.
+		# find the dx, dy.
+		# Find two points that fulfill the dx,dy.
+		# Calculate the barycentric coordinates in flat mesh coordinates.
+		# Calculate the angle in flat mesh coordinates.
+
+		desiredAngle = 0
+		actualAngle = desiredAngle + 90 # Need to rotate by 90 degrees to accomodate raster rotation.
+		# p1, p2 = meshObj.findPointsMatchingAngle( angle=45 )
+		flatAngle = int( flatMeshObj.calculateAngle( meshObj, desiredAngle=actualAngle ) )
+		print("Flat angle:", flatAngle)
+
+		if trifindersuccess:
+			successfulRegions += 1
+			print("Trifinder was successfully generated for region ", index)
+			if Bridson_Common.diagnostic == False:
+				# Only draw the lines if the trifinder was successful generated.
+				if Bridson_Common.linesOnFlat:
+					if Bridson_Common.verticalLines:
+						# flatMeshObj.DrawVerticalLines()
+						# flatMeshObj.DrawVerticalLinesSeededFrom(LineSeedPointsObj, meshObj) # Draw lines based on seed from tertiary mesh.
+						# flatMeshObj.DrawVerticalLinesExteriorSeed2() # Draw lines using exterior points as line seed.
+
+						flatMeshObj.DrawAngleLinesExteriorSeed2(angle=flatAngle)
+						# flatMeshObj.DrawAngleLinesExteriorSeed2(angle=90)
 					else:
-						if Bridson_Common.verticalLines:
-							# meshObj.DrawVerticalLines()
-							# meshObj.DrawVerticalLinesSeededFrom(LineSeedPointsObj, meshObj) # Draw lines based on seed from tertiary mesh.
-							# meshObj.DrawVerticalLinesExteriorSeed() # Draw lines using exterior points as line seed.
-							meshObj.DrawAngleLinesExteriorSeed2()
-						else:
-							# meshObj.DrawHorizontalLines()
-							# meshObj.DrawHorizontalLinesExteriorSeed() # Draw lines using exterior points as line seed.
-							meshObj.DrawAngleLinesExteriorSeed2()
+						# flatMeshObj.DrawHorizontalLines()
+						# flatMeshObj.DrawHorizontalLinesExteriorSeed() # Draw lines using exterior points as line seed.
+						flatMeshObj.DrawAngleLinesExteriorSeed2()
+					# Transfer the lines from the FlatMesh to meshObj.
+					meshObj.TransferLinePointsFromTarget(flatMeshObj)
+				else:
+					if Bridson_Common.verticalLines:
+						# meshObj.DrawVerticalLines()
+						# meshObj.DrawVerticalLinesSeededFrom(LineSeedPointsObj, meshObj) # Draw lines based on seed from tertiary mesh.
+						# meshObj.DrawVerticalLinesExteriorSeed() # Draw lines using exterior points as line seed.
+						meshObj.DrawAngleLinesExteriorSeed2()
+					else:
+						# meshObj.DrawHorizontalLines()
+						# meshObj.DrawHorizontalLinesExteriorSeed() # Draw lines using exterior points as line seed.
+						meshObj.DrawAngleLinesExteriorSeed2()
 
-						flatMeshObj.TransferLinePointsFromTarget(meshObj)
-				if True:  # Rotate original image 90 CW.
-					meshObj.rotateClockwise90()
+					flatMeshObj.TransferLinePointsFromTarget(meshObj)
+			if True:  # Rotate original image 90 CW.
+				meshObj.rotateClockwise90()
 
-				# At this point, we have transferred the lines from the flattened mesh to the original mesh.
-				meshObjCollection[ index ] = meshObj
-				NoSLICmeshObjCollection[ index ] = meshObj
-			else:
-				print("Trifinder was NOT successfully generated for region ", index)
+			# At this point, we have transferred the lines from the flattened mesh to the original mesh.
+			meshObjCollection[ index ] = meshObj
+			NoSLICmeshObjCollection[ index ] = meshObj
+		else:
+			print("Trifinder was NOT successfully generated for region ", index)
 
 
 	# meshObj.diagnosticExterior()
@@ -504,20 +519,20 @@ if __name__ == '__main__':
 	# images.append('Stripes.png')
 
 	# Batch A.
-	images.append('RedApple.jpg')
-	images.append('Sunglasses.jpg')
-	images.append('TapeRolls.jpg')
-	images.append('Massager.jpg')
+	# images.append('RedApple.jpg')
+	# images.append('Sunglasses.jpg')
+	# images.append('TapeRolls.jpg')
+	# images.append('Massager.jpg')
 	images.append('eyeball.jpg')
-	images.append('truck.jpg')
-	images.append('cat1.jpg')
+	# images.append('truck.jpg')
+	# images.append('cat1.jpg')
 
 	# Original
-	images.append('dog2.jpg')
+	# images.append('dog2.jpg')
 
 	# percentages = [0.05, 0.1, 0.15, 0.2]
 	# targetPixels = [  400, 800, 1600 ]
-	targetPixels = [ 400, 800, 1600]
+	targetPixels = [  800 ]
 	for filename in images:
 		for targetPixel in targetPixels:
 			Bridson_Common.targetRegionPixelCount = targetPixel
