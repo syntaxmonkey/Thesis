@@ -7,6 +7,7 @@ import pylab
 import Bridson_Common
 import scipy
 import Bridson_TriangulationDualGraph
+import sys
 
 '''
 For the constructor, pass in the points.
@@ -110,8 +111,9 @@ class MeshObject:
 		# Given the angle, find two points that fulfill the angle requirements.
 		# Determine the dx, dy based on the angle.
 		# print("Using angle: ", angle)
+		startingSize = 50
 		dx, dy = Bridson_Common.calculateDirection( int( angle ) )
-		dx, dy = dx * Bridson_Common.dradius * 100, dy * Bridson_Common.dradius * 100
+		dx, dy = dx * Bridson_Common.dradius * startingSize, dy * Bridson_Common.dradius * startingSize
 		# print("dx, dy:", dx, dy)
 		pointsFound = False
 
@@ -558,8 +560,9 @@ class MeshObject:
 		colourArray = ['r', 'w', 'm']
 		markerArray = ['o', '*', 's']
 		index = 0
-
 		if Bridson_Common.displayMesh:
+			Bridson_Common.logDebug(__name__, "**** About to display lines *****", notFound)
+
 			for line in dotPoints:
 				# https://kite.com/python/answers/how-to-plot-a-smooth-line-with-matplotlib-in-python
 				# a_BSpline = np.array(scipy.interpolate.make_interp_spline(line[:, 0], line[:, 1]))
@@ -574,12 +577,14 @@ class MeshObject:
 				self.ax.plot(line[:, 0], line[:, 1], color=colour , marker=marker )
 				index += 1
 
+		Bridson_Common.logDebug(__name__, "****   *****", notFound)
 
 		if self.linePoints == None:
 			self.linePoints = dotPoints
 		else:
 			self.linePoints = np.hstack( (self.linePoints, dotPoints) )  # Combine the two sets of lines.
 		# print("Drawn LinePoints:", self.linePoints)
+		Bridson_Common.logDebug(__name__, "**** Size of line points  *****", np.shape(self.linePoints))
 
 
 
@@ -617,16 +622,24 @@ class MeshObject:
 		# rotate the mesh
 		# rotate the countour lines
 		self.points = Bridson_Common.rotateClockwise90(self.points)
-
+		Bridson_Common.logDebug(__name__,"Called rotateClockwise90")
 		newLinePoints = []
 		# print("PRE line Points:", self.linePoints)
-		for line in self.linePoints:
-			newLine = Bridson_Common.rotateClockwise90(line)
-			newLinePoints.append( newLine )
+
+		try:
+			for line in self.linePoints:
+				newLine = Bridson_Common.rotateClockwise90(line)
+				newLinePoints.append( newLine )
+		except Exception as e:
+			print("Error in rotateClockwise90:", e)
+			print("Error details:", sys.exc_info()[0])
+
+		Bridson_Common.logDebug(__name__, "Rotated clockwise by 90")
 
 		self.linePoints = np.array( newLinePoints )
 		# print("POST line Points:", self.linePoints)
 		self.clearAxes()
+		Bridson_Common.logDebug(__name__, "Cleared Axes")
 		self.displayMesh('Original Mesh rotated CW 90 - ')
 		self.displayLines()
 
@@ -748,16 +761,19 @@ class MeshObject:
 			newLine = []
 			for point in otherLinePoints:
 				# print("Point:", point)
+				Bridson_Common.logDebug(__name__, "Processing point:", point)
 				x, y = point
 				cartesian = Bridson_Common.convertAxesBarycentric(x, y, otherMeshObj.triangulation, self.triangulation,
 				                                                  otherMeshObj.trifinder, otherMeshObj.points, self.points)
+				Bridson_Common.logDebug(__name__, "Cartesian:", cartesian)
 				# print("Type:", type(cartesian))
-				newLine.append( cartesian ) # Append points to create new line.
+				if cartesian != None:  # If there is an error condition, then the cartesian value will be None.
+					newLine.append( cartesian ) # Append points to create new line.
 
 			# self.linePoints.append( np.array(newLine) ) # Add to list of existing lines
 			self.linePoints.append( np.array(newLine) ) # Add to list of existing lines
 		self.linePoints = np.array( self.linePoints ) # Convert line into numpy array.
-
+		Bridson_Common.logDebug(__name__, "LinePoints:", np.shape(self.linePoints) )
 		# print("LinePoints:", self.linePoints)
 
 		colourArray = ['r', 'w', 'm']

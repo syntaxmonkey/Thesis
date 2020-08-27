@@ -24,7 +24,7 @@ from skimage.segmentation import mark_boundaries
 random.seed(Bridson_Common.seedValue)
 np.random.seed(Bridson_Common.seedValue)
 # Bridson_Common.logDebug(__name__, "Seed was:", Bridson_Common.seedValue)
-
+import subprocess
 
 def generatePointsDisplay(xrange, yrange, dradius):
 	# Generate points and display
@@ -84,13 +84,27 @@ def createMeshFile(samples, tri, radius, center ):
 
 
 def BFFReshape():
+	# Using pipes to kill a hung process: https://stackoverflow.com/questions/41094707/setting-timeout-when-using-os-system-function
 	Bridson_Common.logDebug(__name__, "Reshaping with BFF")
 	path = "../../boundary-first-flattening/build/"
 	# os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --angle=1 --normalizeUVs ")
+	#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+	''''''
 	if Bridson_Common.normalizeUV:
-		os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --flattenToDisk --normalizeUVs ")
+		# os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --flattenToDisk --normalizeUVs ")
+		parameters = " " + path + "test1.obj " + path + "test1_out.obj --flattenToDisk --normalizeUVs "
 	else:
-		os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --flattenToDisk ")
+		# os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --flattenToDisk ")
+		parameters = " " + path + "test1.obj " + path + "test1_out.obj --flattenToDisk "
+
+	#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+	p = subprocess.Popen(path + 'bff-command-line' + parameters, shell=True)
+	try:
+		p.wait(Bridson_Common.timeoutPeriod)
+	except subprocess.TimeoutExpired:
+		p.kill()
+
 	# os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --angle=1 --normalizeUVs --nCones=" + str(perimeterSegments))
 	# os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --angle=1 --normalizeUVs --nCones=6")
 
@@ -117,6 +131,7 @@ def SLICImage(filename):
 
 	stopIndex=startIndex+16
 
+
 	fig = plt.figure()
 	ax3 = fig.add_subplot(1, 1, 1, aspect=1, label='Image regions')
 	plt.title('Image regions - ' + filename + ' - Segments: ' + str(Bridson_Common.segmentCount) + ' - regionPixels: ' + str(Bridson_Common.targetRegionPixelCount))
@@ -134,6 +149,7 @@ def SLICImage(filename):
 	ax3.grid()
 
 	Bridson_Common.saveImage(filename, "GreyscaleSLIC", fig)
+	plt.clf()
 
 	thismanager = pylab.get_current_fig_manager()
 	thismanager.window.wm_geometry("+0+0")
@@ -189,13 +205,11 @@ def processMask(mask, dradius, indexLabel):
 	successful = False
 	attempts = 0
 	maxAttempts = 20
-	blurRadius = 5
+	blurRadius = 3
 
-	while True:
+	while successful == False and attempts < maxAttempts:
 		attempts += 1
-		if successful or attempts > maxAttempts:
-			break
-		else:
+		try:
 			mask5x = Bridson_CreateMask.InvertMask(mask)
 
 			if Bridson_Common.debug:
@@ -209,7 +223,7 @@ def processMask(mask, dradius, indexLabel):
 			xrange, yrange = np.shape(mask)
 
 			Bridson_Common.logDebug(__name__, "*** BlurRadius: " , blurRadius)
-
+			print("blurRadius:", blurRadius)
 			mask5x = Bridson_Common.blurArray(mask5x, blurRadius)
 			mask5x = Bridson_CreateMask.InvertMask(mask5x)
 
@@ -223,37 +237,37 @@ def processMask(mask, dradius, indexLabel):
 				thismanager = pylab.get_current_fig_manager()
 				thismanager.window.wm_geometry("+0+560")
 
-			try:
-				meshObj = Bridson_MeshObj.MeshObject(mask=mask5x, dradius=dradius, indexLabel=indexLabel) # Create Mesh based on Mask.
+		# try:
+			meshObj = Bridson_MeshObj.MeshObject(mask=mask5x, dradius=dradius, indexLabel=indexLabel) # Create Mesh based on Mask.
 
-				points = meshObj.points
-				tri = meshObj.triangulation
-				fakeRadius = max(xrange,yrange)
+			points = meshObj.points
+			tri = meshObj.triangulation
+			fakeRadius = max(xrange,yrange)
 
-				createMeshFile(points, tri, fakeRadius, (xrange/2.0, yrange/2.0))
+			createMeshFile(points, tri, fakeRadius, (xrange/2.0, yrange/2.0))
 
-				# vertices, faces = Bridson_readOBJFile.readFlatObjFile(path="../../boundary-first-flattening/build/",
-				#                                                               filename="test1.obj")
-				# meshObj = Bridson_MeshObj.MeshObject(flatvertices=vertices, flatfaces=faces, xrange=xrange,
-				#                                          yrange=yrange, indexLabel=indexLabel)
-				BFFReshape()
-				FlattenMesh()
+			# vertices, faces = Bridson_readOBJFile.readFlatObjFile(path="../../boundary-first-flattening/build/",
+			#                                                               filename="test1.obj")
+			# meshObj = Bridson_MeshObj.MeshObject(flatvertices=vertices, flatfaces=faces, xrange=xrange,
+			#                                          yrange=yrange, indexLabel=indexLabel)
+			BFFReshape()
+			FlattenMesh()
 
-				flatvertices, flatfaces = Bridson_readOBJFile.readFlatObjFile(path = "../../boundary-first-flattening/build/", filename="test1_out_flat.obj")
+			flatvertices, flatfaces = Bridson_readOBJFile.readFlatObjFile(path = "../../boundary-first-flattening/build/", filename="test1_out_flat.obj")
 
-				Bridson_Common.triangleHistogram(flatvertices, flatfaces, indexLabel)
+			Bridson_Common.triangleHistogram(flatvertices, flatfaces, indexLabel)
 
-				newIndex = str(indexLabel) + ":" + str(indexLabel)
-				flatMeshObj = Bridson_MeshObj.MeshObject(flatvertices=flatvertices, flatfaces=flatfaces, xrange=xrange, yrange=yrange, indexLabel=indexLabel) # Create Mesh based on OBJ file.
-				successful = flatMeshObj.trifinderGenerated
-			except:
-				successful = False
+			newIndex = str(indexLabel) + ":" + str(indexLabel)
+			flatMeshObj = Bridson_MeshObj.MeshObject(flatvertices=flatvertices, flatfaces=flatfaces, xrange=xrange, yrange=yrange, indexLabel=indexLabel) # Create Mesh based on OBJ file.
+			successful = flatMeshObj.trifinderGenerated
+		except:
+			successful = False
 
-			if successful:
-				print("Attempt ", attempts, " successful")
-			else:
-				print("Attempt ", attempts, " UNsuccessful")
-			blurRadius += 2
+		if successful:
+			print("Attempt ", attempts, " successful")
+		else:
+			print("Attempt ", attempts, " UNsuccessful")
+		blurRadius += 2
 
 	# indexLabel="LineSeed"
 	# lineReferencePointsObj = Bridson_MeshObj.MeshObject(mask=mask5x, dradius=dradius*Bridson_Common.lineRadiusFactor, indexLabel=indexLabel)
@@ -276,6 +290,7 @@ def displayRegionRaster(regionRaster, index):
 
 
 def indexValidation(filename):
+	print(">>>>>>>>>>>>>>>> Calling SLIC for ", filename, "<<<<<<<<<<<<<<<<<<<<<<<")
 	imageraster, regionMap, regionRaster, segments, regionIntensityMap = SLICImage(filename)
 	# imageShape = np.shape(regionRaster)
 	# Bridson_Common.segmentCount = int((imageShape[0]*imageShape[1]) / Bridson_Common.targetRegionPixelCount)
@@ -302,7 +317,7 @@ def indexValidation(filename):
 	# for index in range(10,15):  # Interesting regions: 11, 12, 14
 	# for index in range(9,10):
 	for index in range( len(regionMap.keys()) ):
-		print("(***************** ", filename, " Starting Region: ", index, "of", Bridson_Common.segmentCount, "  *************************" )
+		print("(**** ", filename, " Starting Region: ", index, "of", len(regionMap.keys()), "  *****" )
 
 		# Generate the raster for the first region.
 		raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
@@ -317,7 +332,7 @@ def indexValidation(filename):
 		# for i in range(1):
 
 		indexLabel = index # + i / 10
-		Bridson_Common.writeMask(raster)
+		# Bridson_Common.writeMask(raster)
 		meshObj, flatMeshObj, trifindersuccess = processMask(raster, dradius, indexLabel)
 
 		# Find the intensity of this region.
@@ -326,14 +341,17 @@ def indexValidation(filename):
 		# Find two points that fulfill the dx,dy.
 		# Calculate the barycentric coordinates in flat mesh coordinates.
 		# Calculate the angle in flat mesh coordinates.
-
-		desiredAngle = 0
-		actualAngle = desiredAngle + 90 # Need to rotate by 90 degrees to accomodate raster rotation.
-		# p1, p2 = meshObj.findPointsMatchingAngle( angle=45 )
-		flatAngle = int( flatMeshObj.calculateAngle( meshObj, desiredAngle=actualAngle ) )
-		print("Flat angle:", flatAngle)
-
 		if trifindersuccess:
+			desiredAngle = regionIntensityMap[index] / 255.0 * 180 # Use the intensity to an angle.
+
+			# desiredAngle = 0
+			actualAngle = desiredAngle + 90 # Need to rotate by 90 degrees to accomodate raster rotation.
+			# p1, p2 = meshObj.findPointsMatchingAngle( angle=45 )
+			flatAngle = int( flatMeshObj.calculateAngle( meshObj, desiredAngle=actualAngle ) )
+			print("Flat angle:", flatAngle)
+
+
+			# if trifindersuccess:
 			successfulRegions += 1
 			print("Trifinder was successfully generated for region ", index)
 			if Bridson_Common.diagnostic == False:
@@ -345,13 +363,17 @@ def indexValidation(filename):
 						# flatMeshObj.DrawVerticalLinesExteriorSeed2() # Draw lines using exterior points as line seed.
 
 						flatMeshObj.DrawAngleLinesExteriorSeed2(angle=flatAngle)
+						print("Exiting DrawAngleLinesExteriorSeed2")
 						# flatMeshObj.DrawAngleLinesExteriorSeed2(angle=90)
 					else:
 						# flatMeshObj.DrawHorizontalLines()
 						# flatMeshObj.DrawHorizontalLinesExteriorSeed() # Draw lines using exterior points as line seed.
 						flatMeshObj.DrawAngleLinesExteriorSeed2()
 					# Transfer the lines from the FlatMesh to meshObj.
+					print("About to call TransferLinePointsFromTarget")
+
 					meshObj.TransferLinePointsFromTarget(flatMeshObj)
+					print("Finished TransferLinePointsFromTarget")
 				else:
 					if Bridson_Common.verticalLines:
 						# meshObj.DrawVerticalLines()
@@ -364,11 +386,19 @@ def indexValidation(filename):
 						meshObj.DrawAngleLinesExteriorSeed2()
 
 					flatMeshObj.TransferLinePointsFromTarget(meshObj)
+
+			# if index == 65:
+			# 	Bridson_Common.debug = True
+
 			if True:  # Rotate original image 90 CW.
+				print("About to call rotateClockwise90")
 				meshObj.rotateClockwise90()
+				# print("Rotated 90 clockwise")
 
 			# At this point, we have transferred the lines from the flattened mesh to the original mesh.
+			print("Save meshObj")
 			meshObjCollection[ index ] = meshObj
+			print("Save NoSLIC meshObj")
 			NoSLICmeshObjCollection[ index ] = meshObj
 		else:
 			print("Trifinder was NOT successfully generated for region ", index)
@@ -382,10 +412,15 @@ def indexValidation(filename):
 
 	# At this point, we need can attempt to merge the lines between each region.
 	# Still have a problem with the coordinates though.
-	finishedImageSLIC.cropCullLines(regionMap, regionRaster, maskRasterCollection, meshObjCollection, regionIntensityMap)
-	finishedImageSLIC.genAdjacencyMap()
-	finishedImageSLIC.mergeLines()
+	print("About to cropCullLines")
 
+	finishedImageSLIC.cropCullLines(regionMap, regionRaster, maskRasterCollection, meshObjCollection, regionIntensityMap)
+
+	print("About to genAdjacencyMap")
+	finishedImageSLIC.genAdjacencyMap()
+	print("About to mergeLines")
+	finishedImageSLIC.mergeLines()
+	print("About to copyFromOther")
 	finishedImageNoSLIC.copyFromOther( finishedImageSLIC )
 
 
@@ -404,7 +439,8 @@ def indexValidation(filename):
 
 	print("Successful Regions: ", successfulRegions)
 	print("Total Regions: ", len(regionMap.keys()) )
-
+	print("||||||||||||||||||||||||||||||||||")
+	print("")
 
 		# Obtain the points from the
 
@@ -523,26 +559,43 @@ if __name__ == '__main__':
 	# images.append('Sunglasses.jpg')
 	# images.append('TapeRolls.jpg')
 	# images.append('Massager.jpg')
-	images.append('eyeball.jpg')
+	# images.append('eyeball.jpg')
 	# images.append('truck.jpg')
 	# images.append('cat1.jpg')
 
 	# Original
 	# images.append('dog2.jpg')
 
+	# Batch B.
+	images.append('moon1.jpg')
+	images.append('popsicle.jpg')
+	images.append('rainbow.jpg')
+	images.append('fishhead.jpg')
+	images.append('bald-eagle.jpg')
+	images.append('grapes.jpg')
+	images.append('green-tree-frog.jpg')
+	images.append('hand.jpg')
+
 	# percentages = [0.05, 0.1, 0.15, 0.2]
 	# targetPixels = [  400, 800, 1600 ]
-	targetPixels = [  800 ]
+	targetPixels = [  400, 800 ]
+	compactnessList = [0.1, 1, 10]
 	for filename in images:
 		for targetPixel in targetPixels:
-			Bridson_Common.targetRegionPixelCount = targetPixel
-			# Set the seed each time.
-			random.seed(Bridson_Common.seedValue)
-			np.random.seed(Bridson_Common.seedValue)
-			try:
-				indexValidation(filename)
-			except:
-				pass
+			for compactness in compactnessList:
+				Bridson_Common.targetRegionPixelCount = targetPixel
+				# Set the seed each time.
+				random.seed(Bridson_Common.seedValue)
+				np.random.seed(Bridson_Common.seedValue)
+				Bridson_Common.compactnessSLIC=compactness
+				try:
+					indexValidation(filename)
+				except:
+					pass
+
+	print("*************************************************")
+	print("Finished")
+	print("*************************************************")
 
 	Bridson_Common.logDebug(__name__, "------------------------------------------")
 	if False:

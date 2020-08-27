@@ -20,7 +20,7 @@ def segmentImage(imageName, numSegments):
 	# print("SLIC Generating segments:", numSegments)
 	# load the image and convert it to a floating point data type
 	# image = img_as_float(io.imread(imageName))
-	image = io.imread(imageName)
+	image = io.imread(imageName, as_gray=Bridson_Common.SLICGrey)
 	# print("Image:", image)
 	# loop over the number of segments
 	# for numSegments in (100, 200, 300):
@@ -29,9 +29,9 @@ def segmentImage(imageName, numSegments):
 		# of segments
 	# segments = slic(image, n_segments=numSegments, sigma=5, compactness=11, slic_zero=False, enforce_connectivity=True)
 	if Bridson_Common.SLIC0 == True:
-		segments = slic(image, n_segments=numSegments, sigma=5, compactness=Bridson_Common.compactnessSLIC, slic_zero=True, enforce_connectivity=True)
+		segments = slic(image, n_segments=numSegments, sigma=3, compactness=Bridson_Common.compactnessSLIC, slic_zero=True, enforce_connectivity=True)
 	else:
-		segments = slic(image, n_segments=numSegments, sigma=5, compactness=Bridson_Common.compactnessSLIC,  enforce_connectivity=True)
+		segments = slic(image, n_segments=numSegments, sigma=3, compactness=Bridson_Common.compactnessSLIC,  enforce_connectivity=True)
 
 	# Bridson_Common.logDebug(__name__, type(segments))
 	# regionIndex = 16

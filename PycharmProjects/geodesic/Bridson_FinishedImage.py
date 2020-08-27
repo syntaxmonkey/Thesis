@@ -13,6 +13,7 @@ import EdgePoint
 import AdjacencyEdge
 import copy
 import itertools
+import os
 
 np.set_printoptions(threshold=sys.maxsize)  # allow printing without ellipsis: https://stackoverflow.com/questions/44311664/print-numpy-array-without-ellipsis
 
@@ -25,7 +26,7 @@ class FinishedImage:
 		# self.ax.invert_yaxis()
 
 	def setTitle(self, filename):
-		self.ax.set_title('Merged Image - ' + filename + ' - Segments: ' + str(Bridson_Common.segmentCount) + ' - regionPixels: ' + str(Bridson_Common.targetRegionPixelCount) )
+		self.ax.set_title('Merged Image - ' + filename + ' - Segments: ' + str(Bridson_Common.segmentCount) + ' - regionPixels: ' + str(Bridson_Common.targetRegionPixelCount) + ' - compactness: ' + str(Bridson_Common.compactnessSLIC) )
 
 	def setXLimit(self, left, right):
 		# print("Left:", left, "Right:", right)
@@ -293,6 +294,7 @@ class FinishedImage:
 
 		# For each region, determine the points on the lines that are close to the region edge.  Make a registry of these points.
 		for index in self.meshObjCollection.keys():
+			# print("Cropping index:", index)
 			raster = self.maskRasterCollection[ index ]
 			meshObj = meshObjCollection[ index ]
 
@@ -307,21 +309,27 @@ class FinishedImage:
 				meshObj.setCroppedLines( culledLines )
 			else:
 				meshObj.setCroppedLines( [] )
+			# print("Done cropping index:", index)
 
-
-
+			# try:
 			# We Generate the edge pixels and then create the edge connectivity object.
 			distanceRaster, distance1pixelIndeces = self.genDistancePixels( raster )
 			regionEdgePixels = RegionPixelConnectivity.RegionPixelConnectivity( distance1pixelIndeces )
-			print("Setting regionEdgePoints index:", index)
+			Bridson_Common.logDebug(__name__,"Setting regionEdgePoints index:" + str(index) )
 			self.regionEdgePoints[ index ] = regionEdgePixels
 			self.distanceRasters[ index ] = distanceRaster
-
 			# Find the points that exist in the edge pixels.
 			croppedLinePoints = meshObj.croppedLinePoints
 			self.findLineEdgePoints(index, regionEdgePixels, croppedLinePoints)
+			# except Exception as e:
+			# 	# Display stack trace: https://stackoverflow.com/questions/438894/how-do-i-stop-a-program-when-an-exception-is-raised-in-python
+			# 	print("Error calling cropCulllines:", e)
+			# 	exc_type, exc_obj, exc_tb = sys.exc_info()
+			# 	fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+			# 	print(exc_type, fname, exc_tb.tb_lineno)
+			# 	sys.exit(1)
 
-		# self.displayDistanceMask( index, topLeftTarget, bottomRightTarget )
+	# self.displayDistanceMask( index, topLeftTarget, bottomRightTarget )
 			###################################
 			# DEBUG DEBUG : This section is for debugging purposes.
 			# distanceMask = raster
@@ -529,6 +537,7 @@ class FinishedImage:
 			# if self.calculateLineSpacing(linePoints[0], linePoints[-1], intensity=regionIntensity) == False:
 			# 	return
 
+		# print("FinishedImage drawing line count:", len(linePoints))
 		for lineIndex in range(len(linePoints)):
 			# if count > 5:
 			# 	break

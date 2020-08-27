@@ -10,6 +10,7 @@ import os
 from scipy.ndimage.morphology import distance_transform_cdt
 import pandas as pd
 from scipy.spatial import distance
+import sys
 
 # Increase width of console printing: https://stackoverflow.com/questions/25628496/getting-wider-output-in-pycharms-built-in-console
 desired_width = 320
@@ -20,9 +21,12 @@ np.set_printoptions(linewidth=desired_width)
 seedValue = 11
 
 SLIC0=False
-compactnessSLIC=10.0
+compactnessSLIC=1
+timeoutPeriod = 10
+SLICGrey = False
 
-bulkGeneration = False
+
+bulkGeneration = True
 debug=False
 
 if bulkGeneration == True:
@@ -145,7 +149,7 @@ def generateTraversalMap(radius):
 	traversalMap.pop( traversalMap.index([0,0]) )
 	return traversalMap
 
-traversalMap = generateTraversalMap(2)
+traversalMap = generateTraversalMap(1)
 
 def findClosestIndex(s1, s2):
 	distances = distance.cdist(s1, s2)
@@ -216,7 +220,7 @@ def saveImage(filename, postFix, fig):
 
 
 	# Save the figures to files: https://stackoverflow.com/questions/4325733/save-a-subplot-in-matplotlib
-	actualFileName = "./output/" + filename + "_segments_" + str(Bridson_Common.segmentCount) + "_regionPixels_" + str(Bridson_Common.targetRegionPixelCount) + "_" + postFix + ".png"
+	actualFileName = "./output/" + filename + "_segments_" + str(Bridson_Common.segmentCount) + "_regionPixels_" + str(Bridson_Common.targetRegionPixelCount) + "_compactness_" + str(Bridson_Common.compactnessSLIC) + "_" + postFix + ".png"
 	fig.savefig( actualFileName )
 	if Bridson_Common.bulkGeneration: # Delete the figures when we are bulk generating.
 		plt.close(fig=fig)
@@ -250,30 +254,33 @@ def logDebug(moduleName, *argv):
 def convertAxesBarycentric(x, y, sourceTriang, targetTriang, sourcetriFinder, Originalsamples, TargetSamples):
 	# Convert the coordinates on one axes to the cartesian axes on the second axes.
 	# Convert from triang to triang2.
+	cartesian = None
+	try:
+		tri = sourcetriFinder(x, y)
 
-	tri = sourcetriFinder(x, y)
+		# Bridson_Common.logDebug(__name__, "Source Tri: ", tri)
+		# Bridson_Common.logDebug(__name__, triang.triangles[tri])
+		face = []
+		for vertex in sourceTriang.triangles[tri]:  # Create triangle from the coordinates.
+			curVertex = Originalsamples[vertex]
+			face.append([curVertex[0], curVertex[1]])
+		bary1 = calculateBarycentric(face, (x, y))  # Calculate the barycentric coordinates.
 
-	# Bridson_Common.logDebug(__name__, "Source Tri: ", tri)
-	# Bridson_Common.logDebug(__name__, triang.triangles[tri])
-	face = []
-	for vertex in sourceTriang.triangles[tri]:  # Create triangle from the coordinates.
-		curVertex = Originalsamples[vertex]
-		face.append([curVertex[0], curVertex[1]])
-	bary1 = calculateBarycentric(face, (x, y))  # Calculate the barycentric coordinates.
-
-	face2 = []
-	vertices = list(targetTriang.triangles[tri])
-	# print("Original Vertices:", vertices)
-	if Bridson_Common.barycentricVertexCorrection:
-		vertices = vertices[Bridson_Common.barycentricCorrectionValue:] + vertices[:barycentricCorrectionValue] # HSC - rotate
-	# print("New Vertices:", vertices)
-	# for vertex in targetTriang.triangles[tri]:
-	for vertex in vertices:
-		curVertex = TargetSamples[vertex]
-		face2.append([curVertex[0], curVertex[1]])
-	# Bridson_Common.logDebug(__name__, "Target Tri: ", face2)
-	cartesian = get_cartesian_from_barycentric(bary1, face2)
-
+		face2 = []
+		vertices = list(targetTriang.triangles[tri])
+		# print("Original Vertices:", vertices)
+		if Bridson_Common.barycentricVertexCorrection:
+			vertices = vertices[Bridson_Common.barycentricCorrectionValue:] + vertices[:barycentricCorrectionValue] # HSC - rotate
+		# print("New Vertices:", vertices)
+		# for vertex in targetTriang.triangles[tri]:
+		for vertex in vertices:
+			curVertex = TargetSamples[vertex]
+			face2.append([curVertex[0], curVertex[1]])
+		# Bridson_Common.logDebug(__name__, "Target Tri: ", face2)
+		cartesian = get_cartesian_from_barycentric(bary1, face2)
+	except Exception as e:
+		print("Cause of error:", e)
+		print("Execution Info:", sys.exc_info()[0])
 	return cartesian
 
 
