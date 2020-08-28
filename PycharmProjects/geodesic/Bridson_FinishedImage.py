@@ -105,7 +105,7 @@ class FinishedImage:
 
 		newLinePoints = []
 		empty = True
-
+		print("cullLines regionIntensity:", regionIntensity)
 		# Allow regions to be blank.
 		if Bridson_Common.allowBlankRegion == True:
 			if regionIntensity > 250:
@@ -125,6 +125,7 @@ class FinishedImage:
 					newLinePoints.append( line )
 					empty=False
 					currentLine = line
+		print("cullLines empty:", empty)
 		return empty, newLinePoints
 
 
@@ -277,6 +278,22 @@ class FinishedImage:
 			newList.append( edgePoint.xy )
 		return newList
 
+
+	def checkCroppedLines(self):
+		emptyRegions = 0
+		for index in self.meshObjCollection.keys():
+			print("Checking region", index)
+			meshObj = self.meshObjCollection[ index ]
+
+			if meshObj.croppedLinePoints == None:
+				print("CroppedLinePoints not initialized yet.")
+				return
+
+			if len(meshObj.croppedLinePoints) == 0:
+				emptyRegion = emptyRegion + 1
+
+		print("CroppedLinePoints Emptys regions: ", emptyRegions , "/", len(self.meshObjCollection.keys()  ) )
+
 	def cropCullLines(self, regionMap, regionRaster, maskRasterCollection, meshObjCollection, regionIntensityMap ):
 		self.maskRasterCollection = maskRasterCollection
 		self.meshObjCollection = meshObjCollection
@@ -302,9 +319,11 @@ class FinishedImage:
 			topLeftTarget, bottomRightTarget = SLIC.calculateTopLeft(regionCoordinates)
 
 			meshObj.setCroppedLines( self.cropContourLines(meshObj.linePoints, self.maskRasterCollection[index], topLeftTarget) )
+			print("CropCullLines region croppedLines:", index, len(meshObj.croppedLinePoints) )
 
 			empty, culledLines = self.cullLines(  meshObj.croppedLinePoints, regionIntensityMap[index] )
 			# meshObj.setCroppedLines( self.cullLines( index, meshObj.linePoints, regionIntensityMap[index] )  )
+			print("CropCullLines region croppedLines empty:", empty)
 			if not empty:
 				meshObj.setCroppedLines( culledLines )
 			else:
@@ -501,6 +520,8 @@ class FinishedImage:
 		return distanceRaster, distance1pixelIndices
 
 
+
+
 	def drawRegionContourLines(self, regionMap, index, meshObj, regionIntensity, drawSLICRegions = Bridson_Common.drawSLICRegions):
 
 		# If we are not drawing the SLIC regions, we do not need to flip the Y coordinates.
@@ -521,12 +542,18 @@ class FinishedImage:
 		# print("LinePoints:", linePoints)
 
 		# Grab the shiftx and shifty based on regionMap.
+		# print("A")
 		regionCoordinates = regionMap.get( index  )
 		topLeftTarget, bottomRightTarget = SLIC.calculateTopLeft( regionCoordinates )
 		# topLeftSource = self.maxLinePoints( linePoints )
 		# shiftCoordinates = (bottomRightTarget[0] - topLeftSource[0], bottomRightTarget[1] - topLeftSource[1])
 
+		print("Length of linePoints:", len(linePoints))
+		if len(linePoints) == 0:
+			print("Region ", index, "has no lines.")
+			return
 		currentLine = linePoints[0] * -100  # Set the starting line way off the current raster region.
+
 		initial=True
 		# count = 0
 
@@ -545,6 +572,7 @@ class FinishedImage:
 			colour = Bridson_Common.colourArray[ (lineIndex % len(Bridson_Common.colourArray) ) ]
 			line = linePoints[lineIndex].copy()
 			line = line * Bridson_Common.mergeScale
+
 			# For some reason we need to swap the topLeft x,y with the line x,y.
 			############## Shifting the lines.
 			# line[:, 0] = line[:, 0] + topLeftTarget[1] - 5 # Needed to line up with regions.
@@ -566,6 +594,8 @@ class FinishedImage:
 			regionEdgePoints = self.regionEdgePoints[ index ]
 			for edgePoint in regionEdgePoints.pointsOnEdge:
 				self.ax.plot(edgePoint.xy[0], edgePoint.xy[1]*flip, marker='x', color='g', markersize=4)
+
+
 
 
 	def findCloserDistance(self, l1p1, l1p2, l2p1):

@@ -1,15 +1,23 @@
-import subprocess
+# https://scikit-image.org/docs/dev/api/skimage.feature.html#skimage.feature.structure_tensor
 
-path = "../../boundary-first-flattening/build/"
-# os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --angle=1 --normalizeUVs ")
-# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-''''''
+# Tensor Structure testg
 
-parameters =  " " + path + "test1.obj " + path + "test1_out.obj --flattenToDisk "
+from skimage.feature import structure_tensor
+import numpy as np
 
-# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+square = np.zeros((5, 5))
+square[2, 2] = 1
+
+Arr, Arc, Acc = structure_tensor(square, sigma=0.1)
 
 
-#subprocess.call(path + 'bff-command-line' + parameters, shell=True)
-subprocess.run(path + 'bff-command-line' + parameters, shell=True)
+print(square)
+print(Arr)
+print(Arc)
+print(Acc)
 
+# array([[0., 0., 0., 0., 0.],
+#        [0., 1., 0., 1., 0.],
+#        [0., 4., 0., 4., 0.],
+#        [0., 1., 0., 1., 0.],
+#        [0., 0., 0., 0., 0.]])

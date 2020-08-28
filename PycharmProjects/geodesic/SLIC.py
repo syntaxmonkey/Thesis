@@ -20,7 +20,7 @@ def segmentImage(imageName, numSegments):
 	# print("SLIC Generating segments:", numSegments)
 	# load the image and convert it to a floating point data type
 	# image = img_as_float(io.imread(imageName))
-	image = io.imread(imageName, as_gray=Bridson_Common.SLICGrey)
+	image = io.imread(imageName)
 	# print("Image:", image)
 	# loop over the number of segments
 	# for numSegments in (100, 200, 300):
@@ -194,19 +194,17 @@ def generateImageIntensityHashmap( greyImage, segments):
 	for regionIndex in segmentLabels:
 		regionIntensityMap[ regionIndex ] = regionIntensityMap[ regionIndex ] / np.count_nonzero( segments == regionIndex ) # Calculate the average intensity for each region.
 
-	print("regionIntensityMap:", regionIntensityMap )
-
 	return regionIntensityMap
 
 
 def calculateSegmentCount(imageFile):
 	image = io.imread(imageFile)
-	print("Image shape:", np.shape(image))
+	print("calculateSegmentCount Image shape:", np.shape(image))
 	imageShape = np.shape(image)
 	# Bridson_Common.targetRegionPixelCount = int((imageShape[0]*Bridson_Common.targetPercent * imageShape[1]*Bridson_Common.targetPercent))
 	Bridson_Common.segmentCount = int( (imageShape[0]*imageShape[1]) / Bridson_Common.targetRegionPixelCount )
-	print("SegmentCount:", Bridson_Common.segmentCount)
-	print("Target Pixel Count:", Bridson_Common.targetRegionPixelCount)
+	print("calculateSegmentCount SegmentCount:", Bridson_Common.segmentCount)
+	print("calculateSegmentCount Target Pixel Count:", Bridson_Common.targetRegionPixelCount)
 
 
 def callSLIC(filename):

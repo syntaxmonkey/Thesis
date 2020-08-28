@@ -84,6 +84,7 @@ def createMeshFile(samples, tri, radius, center ):
 
 
 def BFFReshape():
+	print("BFFReshape")
 	# Using pipes to kill a hung process: https://stackoverflow.com/questions/41094707/setting-timeout-when-using-os-system-function
 	Bridson_Common.logDebug(__name__, "Reshaping with BFF")
 	path = "../../boundary-first-flattening/build/"
@@ -99,16 +100,22 @@ def BFFReshape():
 
 	#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-	p = subprocess.Popen(path + 'bff-command-line' + parameters, shell=True)
+	p = subprocess.Popen(path + 'bff-command-line' + parameters, shell=True, stdout=subprocess.PIPE)
 	try:
 		p.wait(Bridson_Common.timeoutPeriod)
 	except subprocess.TimeoutExpired:
 		p.kill()
 
+	# This handles the case where BFF has a problem processing the mesh, e.g. the mesh has a manifold.
+	if p.returncode != 0:
+		print("Unexpected error in BFFReshape:", p.returncode)
+		raise Exception
+
 	# os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --angle=1 --normalizeUVs --nCones=" + str(perimeterSegments))
 	# os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --angle=1 --normalizeUVs --nCones=6")
 
 def FlattenMesh():
+	print("FlattenMesh")
 	path = "../../boundary-first-flattening/build/"
 	Bridson_Common.logDebug(__name__, "Extracting 2D image post BFF Reshaping")
 	os.system(path + "extract.py test1_out.obj test1_out_flat.obj")
@@ -128,13 +135,12 @@ def SLICImage(filename):
 	regionIndex = startIndex
 	imageraster, regionMap, segments, regionIntensityMap = SLIC.callSLIC(filename)
 
-
 	stopIndex=startIndex+16
-
 
 	fig = plt.figure()
 	ax3 = fig.add_subplot(1, 1, 1, aspect=1, label='Image regions')
 	plt.title('Image regions - ' + filename + ' - Segments: ' + str(Bridson_Common.segmentCount) + ' - regionPixels: ' + str(Bridson_Common.targetRegionPixelCount))
+	# fig.canvas.set_window_title('Image regions - ' + filename + ' - Segments: ' + str(Bridson_Common.segmentCount) + ' - regionPixels: ' + str(Bridson_Common.targetRegionPixelCount))
 	''' Draw Letter blob '''
 
 	# blankRaster = np.zeros(np.shape(imageraster))
@@ -142,18 +148,18 @@ def SLICImage(filename):
 	# ax3.imshow(blankRaster)
 	# ax3.imshow( imageraster, cmap='Greys', norm=matplotlib.colors.Normalize())
 	# ax3.imshow( imageraster, cmap='Greys' )
-
+	print("B")
 	regionRaster = imageraster / np.max(imageraster)   # Need to normalize the region intensity [0 ... 1.0] to display properly.
 	# print("Raster:", displayRaster)
 	ax3.imshow(mark_boundaries( regionRaster, segments, color=(255,0,0) ))
 	ax3.grid()
-
+	print("C")
 	Bridson_Common.saveImage(filename, "GreyscaleSLIC", fig)
-	plt.clf()
-
+	# plt.clf()
+	print("D")
 	thismanager = pylab.get_current_fig_manager()
 	thismanager.window.wm_geometry("+0+0")
-
+	print("E")
 	Bridson_Common.logDebug(__name__, "SLIC Keys:" + str(regionMap.keys()) )
 	return imageraster, regionMap, regionRaster, segments, regionIntensityMap
 
@@ -204,7 +210,7 @@ def processMask(mask, dradius, indexLabel):
 	# invertedMask = Bridson_Common.blurArray(mask, 3)
 	successful = False
 	attempts = 0
-	maxAttempts = 20
+	maxAttempts = 2
 	blurRadius = 3
 
 	while successful == False and attempts < maxAttempts:
@@ -268,6 +274,8 @@ def processMask(mask, dradius, indexLabel):
 		else:
 			print("Attempt ", attempts, " UNsuccessful")
 		blurRadius += 2
+		blurRadius = 7 if blurRadius > 7 else blurRadius # Limit the blurRadius to 9.
+
 
 	# indexLabel="LineSeed"
 	# lineReferencePointsObj = Bridson_MeshObj.MeshObject(mask=mask5x, dradius=dradius*Bridson_Common.lineRadiusFactor, indexLabel=indexLabel)
@@ -314,6 +322,7 @@ def indexValidation(filename):
 	NoSLICmaskRasterCollection = {}
 	NoSLICmeshObjCollection = {}
 
+
 	# for index in range(10,15):  # Interesting regions: 11, 12, 14
 	# for index in range(9,10):
 	for index in range( len(regionMap.keys()) ):
@@ -334,6 +343,7 @@ def indexValidation(filename):
 		indexLabel = index # + i / 10
 		# Bridson_Common.writeMask(raster)
 		meshObj, flatMeshObj, trifindersuccess = processMask(raster, dradius, indexLabel)
+
 
 		# Find the intensity of this region.
 		# Produce angle based on the intensity.
@@ -363,8 +373,13 @@ def indexValidation(filename):
 						# flatMeshObj.DrawVerticalLinesExteriorSeed2() # Draw lines using exterior points as line seed.
 
 						flatMeshObj.DrawAngleLinesExteriorSeed2(angle=flatAngle)
-						print("Exiting DrawAngleLinesExteriorSeed2")
-						# flatMeshObj.DrawAngleLinesExteriorSeed2(angle=90)
+						print("Exited DrawAngleLinesExteriorSeed2")
+
+						print("Point C")
+						# meshObj.checkLinePoints()
+						flatMeshObj.checkLinePoints()
+
+					# flatMeshObj.DrawAngleLinesExteriorSeed2(angle=90)
 					else:
 						# flatMeshObj.DrawHorizontalLines()
 						# flatMeshObj.DrawHorizontalLinesExteriorSeed() # Draw lines using exterior points as line seed.
@@ -374,6 +389,11 @@ def indexValidation(filename):
 
 					meshObj.TransferLinePointsFromTarget(flatMeshObj)
 					print("Finished TransferLinePointsFromTarget")
+
+					# print("Point D")
+					# meshObj.checkLinePoints()
+					# flatMeshObj.checkLinePoints()
+
 				else:
 					if Bridson_Common.verticalLines:
 						# meshObj.DrawVerticalLines()
@@ -395,10 +415,14 @@ def indexValidation(filename):
 				meshObj.rotateClockwise90()
 				# print("Rotated 90 clockwise")
 
+			# print("Point E")
+			# meshObj.checkLinePoints()
+			# flatMeshObj.checkLinePoints()
+
 			# At this point, we have transferred the lines from the flattened mesh to the original mesh.
-			print("Save meshObj")
+			# print("Save meshObj")
 			meshObjCollection[ index ] = meshObj
-			print("Save NoSLIC meshObj")
+			# print("Save NoSLIC meshObj")
 			NoSLICmeshObjCollection[ index ] = meshObj
 		else:
 			print("Trifinder was NOT successfully generated for region ", index)
@@ -414,25 +438,50 @@ def indexValidation(filename):
 	# Still have a problem with the coordinates though.
 	print("About to cropCullLines")
 
+	print("regionIntensityMap:", regionIntensityMap)
 	finishedImageSLIC.cropCullLines(regionMap, regionRaster, maskRasterCollection, meshObjCollection, regionIntensityMap)
+
+	# print("Point F")
+	# # meshObj.checkLinePoints()
+	# # flatMeshObj.checkLinePoints()
+	# finishedImageSLIC.checkCroppedLines()
 
 	print("About to genAdjacencyMap")
 	finishedImageSLIC.genAdjacencyMap()
+
+	# print("Point G")
+	# # meshObj.checkLinePoints()
+	# # flatMeshObj.checkLinePoints()
+	# finishedImageSLIC.checkCroppedLines()
+
 	print("About to mergeLines")
 	finishedImageSLIC.mergeLines()
+
+	# print("Point G")
+	# # meshObj.checkLinePoints()
+	# # flatMeshObj.checkLinePoints()
+	# finishedImageSLIC.checkCroppedLines()
+
 	print("About to copyFromOther")
 	finishedImageNoSLIC.copyFromOther( finishedImageSLIC )
 
+	# print("Point H")
+	# meshObj.checkLinePoints()
+	# flatMeshObj.checkLinePoints()
 
 	for index in meshObjCollection.keys():
 		# Draw the region contour lines onto the finished image.
 		meshObj = meshObjCollection[ index ]
+		print("About to call drawRegionContourLines on SLIC image.")
+		Bridson_Common.debug = True
 		finishedImageSLIC.drawRegionContourLines(regionMap, index, meshObj, regionIntensityMap[index], drawSLICRegions=True )
+		print("About to call drawRegionContourLines on NON SLIC image.")
 		finishedImageNoSLIC.drawRegionContourLines(regionMap, index, meshObj, regionIntensityMap[index], drawSLICRegions=False )
 		# print("Done drawing contour lines")
 
 	# finishedImageNoSLIC.highLightEdgePoints( drawSLICRegions=False )
 	# finishedImageSLIC.highLightEdgePoints(drawSLICRegions=True )
+
 
 	Bridson_Common.saveImage( filename, "WithSLIC", finishedImageSLIC.fig )
 	Bridson_Common.saveImage(filename, "NoSLIC", finishedImageNoSLIC.fig)
@@ -545,7 +594,7 @@ if __name__ == '__main__':
 				meshObj.TransferLinePointsFromTarget( flatMeshObj )
 
 	images = []
-	# images.append('SimpleR.png')
+	images.append('SimpleR.png')
 	# images.append('SimpleC.png')
 	# images.append('simpleTriangle.png')
 	# images.append('simpleHorizon.png')
@@ -567,19 +616,36 @@ if __name__ == '__main__':
 	# images.append('dog2.jpg')
 
 	# Batch B.
-	images.append('moon1.jpg')
-	images.append('popsicle.jpg')
-	images.append('rainbow.jpg')
-	images.append('fishhead.jpg')
-	images.append('bald-eagle.jpg')
-	images.append('grapes.jpg')
-	images.append('green-tree-frog.jpg')
-	images.append('hand.jpg')
+	# images.append('moon1.jpg')
+	# images.append('popsicle.jpg')
+	# images.append('rainbow.jpg')
+	# images.append('fishhead.jpg')
+	# images.append('bald-eagle.jpg')
+	# images.append('grapes.jpg')
+	# images.append('green-tree-frog.jpg')
+	# images.append('hand.jpg')
+
+
+	# Batch C.
+	# images.append('alex-furgiuele-UkH7L-aag8A-unsplash_Cactus.jpg')
+	# images.append('meritt-thomas-Ao09kk2ovB0-unsplash_Cupcake.jpg')
+	# images.append('aleksandra-antic-Xnqj9FvHycM-unsplash_Cupcake.jpg')
+	# images.append('faris-mohammed-oAlRgZXsXUI-unsplash_Eggs.jpg')
+	# images.append('ruben-rodriguez-GFZZmRbyPFQ-unsplash_Egg.jpg')
+	# images.append('gryffyn-m-rpm07rS8Rl8-unsplash_Shoe.jpg')
+	# images.append('dan-gold-N7RiDzfF2iw-unsplash_VWBeetle.jpg')
+	# images.append('herson-rodriguez-w8CcH9Md4vE-unsplash_Van.jpg')
+	# images.append('lucia-lua-ramirez-lG0AHN1Gapw-unsplash_Bus.jpg')
+	# images.append('pawel-czerwinski-xt1tPXqOdcc-unsplash_TrafficLight.jpg')
+	# images.append('joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg')
+	# images.append('devvrat-jadon-WLNkAHCjYOw-unsplash_Hammer.jpg')
+	# images.append('magic-bowls-3QGtPOqeBEQ-unsplash.jpg')
+	# images.append('ruslan-keba-G5tOIWFZqFE-unsplash_RubiksCube.jpg')
 
 	# percentages = [0.05, 0.1, 0.15, 0.2]
 	# targetPixels = [  400, 800, 1600 ]
-	targetPixels = [  400, 800 ]
-	compactnessList = [0.1, 1, 10]
+	targetPixels = [  800 ]
+	compactnessList = [0.1]
 	for filename in images:
 		for targetPixel in targetPixels:
 			for compactness in compactnessList:

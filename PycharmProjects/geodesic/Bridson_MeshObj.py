@@ -491,8 +491,9 @@ class MeshObject:
 	def DrawAngleLinesExteriorSeed2(self, density=Bridson_Common.density, linedensity=Bridson_Common.lineDotDensity, angle=Bridson_Common.lineAngle):
 		# angle: 0 degrees goes north.  90 degrees goes east.  180 degrees goes south.  270 degrees goes west.
 		dx, dy = Bridson_Common.calculateDirection(angle)
-
+		# print("DrawAngleLinesExteriorSeed2 dx, dy:", dx, dy)
 		seedPoints = self.DualGraph.exteriorPoints.copy()
+		# print("DrawAngleLinesExteriorSeed2 seedPoints:", len(seedPoints))
 		notFound = 0
 		dotPoints = []
 		# print("DrawAngleLinesExteriorSeed2 seedPoints:", seedPoints)
@@ -519,6 +520,7 @@ class MeshObject:
 			triangleTraversal.append( triangleIndex )
 			if intersection != None:
 				rowPoints.append(intersection)
+				# print("DrawAngleLinesExteriorSeed2 found interscection:", intersection, triangleIndex)
 				# self.colourTriangle(triangleIndex)
 				if Bridson_Common.highlightEdgeTriangle:
 					self.colourTriangle(triangleIndex, colour='y')
@@ -550,6 +552,7 @@ class MeshObject:
 
 			Bridson_Common.logDebug(__name__,">>>>>>>>>>>>>>>>>>> Triangle Traversal:", triangleTraversal)
 			if len(rowPoints) > 0:
+				# print("DrawAngleLinesExteriorSeed2 rowPoints not empty:", rowPoints)
 				rowPoints = np.array(rowPoints)
 				dotPoints.append(rowPoints)
 
@@ -579,6 +582,8 @@ class MeshObject:
 
 		Bridson_Common.logDebug(__name__, "****   *****", notFound)
 
+		print("DrawAngleLinesExteriorSeed2 Shape of dotPoints:", np.shape(dotPoints))
+		# print(dotPoints)
 		if self.linePoints == None:
 			self.linePoints = dotPoints
 		else:
@@ -586,6 +591,7 @@ class MeshObject:
 		# print("Drawn LinePoints:", self.linePoints)
 		Bridson_Common.logDebug(__name__, "**** Size of line points  *****", np.shape(self.linePoints))
 
+		print("DrawAngleLinesExteriorSeed2 Size of line points:", np.shape(self.linePoints))
 
 
 
@@ -904,6 +910,22 @@ class MeshObject:
 				# self.ax.plot(line[:, 0], line[:, 1], color='r', marker='o')
 				self.ax.plot(line[:, 0], line[:, 1], color=colour , marker=marker )
 				index += 1
+
+
+	def checkLinePoints(self):
+		# print("LinePoints")
+		print(np.shape(self.linePoints))
+		if self.linePoints == None:
+			print("linePoints not initialized yet.")
+			return
+
+		emptyLines = 0
+
+		for line in self.linePoints:
+			# print("Shape of line:", len(line))
+			if len(line) == 0:
+				emptyLines = emptyLines + 1
+		print("Emptys Lines: ", emptyLines , "/", len(self.linePoints) )
 
 
 	def GenMeshFromMask(self, mask, dradius, pointCount=0):
