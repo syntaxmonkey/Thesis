@@ -61,6 +61,7 @@ class MeshObject:
 
 
 
+
 	def generateDualGraph(self):
 		self.DualGraph = Bridson_TriangulationDualGraph.TriangulationDualGraph(self.points, self.triangulation.edges, self.triangulation.triangles, self.triangulation.neighbors)
 
@@ -487,18 +488,28 @@ class MeshObject:
 		self.linePoints = dotPoints
 
 
+	def rotateSeedPoints(self, angle=Bridson_Common.lineAngle):
+		# rotates lines points by some angle.
+		pass
+
+
+
 	# Draw vertical lines.  Use exterior points as line seeds.
 	def DrawAngleLinesExteriorSeed2(self, density=Bridson_Common.density, linedensity=Bridson_Common.lineDotDensity, angle=Bridson_Common.lineAngle):
 		# angle: 0 degrees goes north.  90 degrees goes east.  180 degrees goes south.  270 degrees goes west.
 		dx, dy = Bridson_Common.calculateDirection(angle)
 		# print("DrawAngleLinesExteriorSeed2 dx, dy:", dx, dy)
 		seedPoints = self.DualGraph.exteriorPoints.copy()
+
+
+
 		# print("DrawAngleLinesExteriorSeed2 seedPoints:", len(seedPoints))
 		notFound = 0
 		dotPoints = []
 		# print("DrawAngleLinesExteriorSeed2 seedPoints:", seedPoints)
 		# for pointIndex in seedPoints[28:29]: # Interesting one.  Use Attempt = 17 and Attempt = 18.  Falls off trifinder at Attempt=18.
 		# for pointIndex in seedPoints[23:24]: # Interesting one.  Stuck half way through.
+		# print("DrawAngleLinesExteriorSeed2 seedPoints:", seedPoints)
 		for pointIndex in seedPoints:
 			triangleTraversal = []
 			attempt = 0
@@ -582,7 +593,7 @@ class MeshObject:
 
 		Bridson_Common.logDebug(__name__, "****   *****", notFound)
 
-		print("DrawAngleLinesExteriorSeed2 Shape of dotPoints:", np.shape(dotPoints))
+		# print("DrawAngleLinesExteriorSeed2 Shape of dotPoints:", np.shape(dotPoints))
 		# print(dotPoints)
 		if self.linePoints == None:
 			self.linePoints = dotPoints
@@ -591,7 +602,7 @@ class MeshObject:
 		# print("Drawn LinePoints:", self.linePoints)
 		Bridson_Common.logDebug(__name__, "**** Size of line points  *****", np.shape(self.linePoints))
 
-		print("DrawAngleLinesExteriorSeed2 Size of line points:", np.shape(self.linePoints))
+		# print("DrawAngleLinesExteriorSeed2 Size of line points:", np.shape(self.linePoints))
 
 
 
@@ -925,7 +936,7 @@ class MeshObject:
 			# print("Shape of line:", len(line))
 			if len(line) == 0:
 				emptyLines = emptyLines + 1
-		print("Emptys Lines: ", emptyLines , "/", len(self.linePoints) )
+		# print("Empty Lines: ", emptyLines , "/", len(self.linePoints) )
 
 
 	def GenMeshFromMask(self, mask, dradius, pointCount=0):
@@ -941,12 +952,12 @@ class MeshObject:
 		# plt.subplot(1, 1, 1, aspect=1)
 		# plt.title('Inverted Mask')
 		# plt.imshow(self.invertedMask)
-
+		# print("GenMeshFromMask A")
 		radius, pointCount = Bridson_sampling.calculateParameters(xrange, yrange, dradius, pointCount)
 
 		points = Bridson_sampling.genSquarePerimeterPoints(xrange, yrange, radius=radius, pointCount=pointCount)
 		Bridson_Common.logDebug(__name__, np.shape(points))
-
+		# print("GenMeshFromMask B")
 		# Merge border with square perimeter.
 		Bridson_Common.logDebug(__name__, "Points Shape: " ,  np.shape(points))
 		Bridson_Common.logDebug(__name__, "Border Shape: " , np.shape(self.border))
@@ -958,16 +969,16 @@ class MeshObject:
 
 		if len(self.invertedMask) > 0:
 			points = self.filterOutPoints(points, self.invertedMask)
-
+		# print("GenMeshFromMask C")
 		self.points = points
 		self.triangulation, self.points = Bridson_Delaunay.displayDelaunayMesh(points, radius, self.invertedMask, xrange)
 		self.trifinder = self.triangulation.get_trifinder()
-
+		# print("GenMeshFromMask D")
 		Bridson_Common.logDebug(__name__, "tri" , self.triangulation)
 		if Bridson_Common.displayMesh:
 			self.fig = plt.figure()
 			# self.ax = plt.axes()
-
+			# print("GenMeshFromMask E")
 			# Plot the mesh.
 			self.ax = plt.subplot(1, 1, 1, aspect=1)
 			plt.title('Generated Mesh Triangulation' + self.indexLabel)
@@ -987,7 +998,7 @@ class MeshObject:
 					plt.triplot(points[:, 1], xrange - points[:, 0], self.triangulation.triangles, lw=0.5)
 				else:
 					plt.triplot(points[:, 1],  points[:, 0], self.triangulation.triangles, lw=0.5)
-
+			# print("GenMeshFromMask G")
 			# Plot red reference triangles
 			singleTriangle = np.array([self.triangulation.triangles[0]])
 			singleTriangle = np.vstack((singleTriangle, self.triangulation.triangles[1]))
@@ -996,7 +1007,7 @@ class MeshObject:
 				plt.triplot(self.points[:, 1], xrange - self.points[:, 0], singleTriangle, 'r-', lw=1)
 			else:
 				plt.triplot(self.points[:, 0], self.points[:, 1], singleTriangle, 'r-', lw=1)
-
+			# print("GenMeshFromMask H")
 			# Plot green reference triangles
 			singleTriangle = np.array([self.triangulation.triangles[-1]])
 			singleTriangle = np.vstack((singleTriangle, self.triangulation.triangles[-2]))
@@ -1006,14 +1017,14 @@ class MeshObject:
 			else:
 				plt.triplot(self.points[:, 0], self.points[:, 1], singleTriangle, 'g-', lw=1)
 
-
-
 			thismanager = pylab.get_current_fig_manager()
 			thismanager.window.wm_geometry("+1300+0")
+		# print("GenMeshFromMask I")
 		# Plot the points on the border.
 		# plt.plot(points[:, 1], xrange - points[:, 0], 'o')
 		self.generateSquareChainCode()
 		self.trifinderGenerated = True
+		# print("GenMeshFromMask J")
 		return
 
 

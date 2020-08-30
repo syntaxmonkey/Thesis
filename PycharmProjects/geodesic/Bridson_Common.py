@@ -22,11 +22,11 @@ seedValue = 11
 
 SLIC0=False
 compactnessSLIC=1
-timeoutPeriod = 10
+timeoutPeriod = 5
 SLICGrey = False
 
 
-bulkGeneration = False
+bulkGeneration = True
 debug=False
 
 if bulkGeneration == True:
@@ -48,7 +48,7 @@ highlightEndpoints=False
 
 
 closestPointPair=False
-middleAverageOnly=True
+middleAverageOnly=False
 if middleAverageOnly == True:
 	divisor = 1.0
 else:

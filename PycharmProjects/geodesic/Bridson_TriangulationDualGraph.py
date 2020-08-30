@@ -5,6 +5,10 @@ import matplotlib.pyplot as plt
 import pylab
 import numpy as np
 import math
+from scipy.spatial import Delaunay
+
+from matplotlib.pyplot import triplot
+
 
 class TriangulationDualGraph:
 
@@ -78,11 +82,17 @@ class TriangulationDualGraph:
 		# 	Edges = kwargs.get('Edges')
 		# 	Triangles = kwargs.get('Triangles')
 		# 	Neighbours = kwargs.get('Neighbours')
+		# print("TriangulationDualGraph A")
 		self.points = points.copy()
+		# print("TriangulationDualGraph B")
 		self.Edges = Edges.copy()
+		# print("TriangulationDualGraph C")
 		self.Triangles = Triangles.copy()
+		# print("TriangulationDualGraph D")
 		self.Neighbours = Neighbours.copy()
+		# print("TriangulationDualGraph E")
 		self.CreateGraph()
+		# print("TriangulationDualGraph F")
 		# else:
 		# 	Exception("TriangulationDualGraph creator - Not enough parameters.")
 
@@ -91,22 +101,26 @@ class TriangulationDualGraph:
 		'''
 
 		'''
+		# print("TriangulationDualGraph CreateGraph A")
 		# Edge(start, end) -> DualEdge: EdgeHashMap
 		# Also populate DualEdge
 		self.GenerateEdgePointsToEdgeMap()
-
+		# print("TriangulationDualGraph CreateGraph B")
 		# Add PointIndex -> DualEdge: PointToEdgeHashMap
 		self.GeneratePointHashMaps()
-
+		# print("TriangulationDualGraph CreateGraph C")
 		# (v1,v2,v3) -> DualTriangle: TriangleHashMap
 		# Also DualEdge -> DualTriangle
 		self.GenerateVertexToTriangleMap()
-
+		# print("TriangulationDualGraph CreateGraph D")
 		# Generate list of exterior point indeces: exteriorPoints
+		# print("TriangulationDualGraph CreateGraph E")
 		self.GenerateExteriorPoints()
 		# Generate list of exterior point -> exterior edge map.
+		# print("TriangulationDualGraph CreateGraph F")
 		self.GenerateExteriorPointToEdgesMap()
 
+		# print("TriangulationDualGraph CreateGraph G")
 
 
 	def GetMaxTriangleHeightFromPoint(self, pointIndex):
@@ -172,17 +186,23 @@ class TriangulationDualGraph:
 
 	def GenerateExteriorPointToEdgesMap(self):
 		exteriorEdges = []
-
+		# print("TriangulationDualGraph GenerateExteriorPointToEdgesMap A")
 		for pointIndex in self.exteriorPoints:
+			# print("TriangulationDualGraph GenerateExteriorPointToEdgesMap B")
 			dualEdgeList = self.PointToEdgeHashMap.get( pointIndex ) # Returns list of DualEdge objects that the point belongs to.
-			for edge in dualEdgeList:
-				start, end = edge
-				if start in self.exteriorPoints and end in self.exteriorPoints:
-					dualEdge = self.EdgeHashMap[ (start,end) ]
-					if len( dualEdge.triangleIndeces ) == 1:
-						# Also need to check if the edge has only one triangle membership.
-						exteriorEdges.append( edge )
-
+			# print("TriangulationDualGraph GenerateExteriorPointToEdgesMap C")
+			if dualEdgeList != None:  # Ensure the pointIndex returns an actual object.
+				for edge in dualEdgeList:
+					# print("TriangulationDualGraph GenerateExteriorPointToEdgesMap D")
+					start, end = edge
+					if start in self.exteriorPoints and end in self.exteriorPoints:
+						# print("TriangulationDualGraph GenerateExteriorPointToEdgesMap E")
+						dualEdge = self.EdgeHashMap[ (start,end) ]
+						# print("TriangulationDualGraph GenerateExteriorPointToEdgesMap F")
+						if len( dualEdge.triangleIndeces ) == 1:
+							# Also need to check if the edge has only one triangle membership.
+							exteriorEdges.append( edge )
+		# print("TriangulationDualGraph GenerateExteriorPointToEdgesMap G")
 		self.exteriorEdges = exteriorEdges
 
 
@@ -209,30 +229,124 @@ class TriangulationDualGraph:
 		# print(type(actualPoints))
 		# print("Sorted Points:", sortedActualPoints )
 
+
 		newExteriorPoints = []
 		# Recreate the exterior Points as indeces.
 		for point in sortedActualPoints:
-			# result = np.where( self.points == point )
-			# print('Result:', result)
-			# print("Indeces:", tempPoints.index( list(point) ))
-			newExteriorPoints.append( tempPoints.index( list(point) ) )
+			newExteriorPoints.append( tempPoints.index( list(point) ) ) # Add the index of the point of exterior list.
 
 		# print("New Exterior Point Indeces:", newExteriorPoints)
 		self.exteriorPoints = newExteriorPoints.copy()
+		# print("Current Sorted exterior points:", self.exteriorPoints)
 
+
+		# exteriorPointsValues = [tempPoints[index] for index in self.exteriorPoints]
+		# print("** Sorted exterior points:", self.exteriorPoints)
+
+		# self.exteriorPoints = self.resortExteriorPoints()
+		# self.resortExteriorPoints(exteriorPointsValues, tempPoints)
+		self.resortExteriorPoints()
+		# print("** New Sorted exterior points:", self.exteriorPoints)
+
+
+
+	def resortExteriorPoints(self):
+		# https://docs.scipy.org/doc/scipy/reference/tutorial/spatial.html
+
+
+		existingPoints = []
+		for point in self.points:
+			existingPoints.append( list(point))
+		exteriorPointsValues = [existingPoints[index] for index in self.exteriorPoints]
+
+		tri = Delaunay( exteriorPointsValues )
+		# print("Vertex neighbour vertex:", tri.vertex_neighbor_vertices)
+		if Bridson_Common.displayMesh:
+			plt.figure()
+			axnew = plt.subplot(1, 1, 1, aspect=1)
+			axnew.set_title("TriangulationDualGraph sortExteriorPoints - Edge Points Delaunay")
+			# Draw mesh
+			# plt.triplot( exteriorPoints[:,0], exteriorPoints[:,1], tri.simplices.copy())
+			# Draw points
+			for point in exteriorPointsValues:
+				axnew.plot( point[0], point[1], markersize=2, marker='o')
+			# # axnew.triplot( exteriorPoints[:, 0], exteriorPoints[:, 1], tri.simplices.copy())
+			for j, p in enumerate(exteriorPointsValues):
+				plt.text(p[0] - 0.03, p[1] + 0.03, j, ha='right')  # label the points
+
+		pindex=0
+		newExteriorPointsIndex = []
+		newExteriorPointsIndex.append( pindex)
+		# triPoints = tri.points.aslist()
+
+		# print("Starting diagnosticDisplayPointOrder")
+		for i in range(len(exteriorPointsValues) - 1):
+			# Find the point that has the shortest distance.
+			nextIndex = self.findNextClosestPointIndex( pindex, tri, newExteriorPointsIndex )
+			if nextIndex == -1:
+				# print("No more neighbours")
+				break
+			newExteriorPointsIndex.append( nextIndex )
+			pindex = nextIndex
+
+		newExteriorPointsValues = [ tri.points[pointIndex].tolist() for pointIndex in newExteriorPointsIndex]
+		# print("New Exterior Points Values:", newExteriorPointsValues)
+		newExteriorPointIndexSorted = [ existingPoints.index(pointValue) for pointValue in newExteriorPointsValues ]
+
+		# print("New Exterior Points:", newExteriorPointIndexSorted)
+		self.exteriorPoints = newExteriorPointIndexSorted
+		# return newExteriorPointIndexSorted
+
+
+
+	def findNextClosestPointIndex(self, pIndex, tri, existingList):
+		# print("ExistingList:", existingList)
+		neighbour_indices = list( self.find_neighbors( pIndex, tri ) )
+		# print("Neighbours for ", pIndex, "are", neighbour_indices)
+		# Remove any indices that have already been selected.
+		newNeighbours = []
+		for neighbour in neighbour_indices:
+			# print("Checking Neighbour ", neighbour)
+			if neighbour not in existingList:
+				newNeighbours.append( neighbour )
+
+		if len(newNeighbours) == 0:
+			# print("findNextClosestPointIndex - No more neighbours")
+			return -1
+
+		# print("Remaining neighbours:", newNeighbours)
+		neighbour_dist = [Bridson_Common.euclidean_distance(tri.points[pIndex], tri.points[nIndex] ) for nIndex in newNeighbours]
+		# print("findNextClosestPointIndex - Neighbour Distance:", neighbour_dist )
+		minDist = np.min(neighbour_dist)
+		nextNeighbour = newNeighbours[ neighbour_dist.index( minDist ) ]
+		# print("Next Neighbour is", nextNeighbour)
+		return nextNeighbour
+
+
+	def find_neighbors(self, pindex, triang):
+
+		return triang.vertex_neighbor_vertices[1][
+		       triang.vertex_neighbor_vertices[0][pindex]:triang.vertex_neighbor_vertices[0][pindex + 1]
+		       ]
 
 
 	def GenerateExteriorPoints(self):
 		exteriorPoints = []
+		# print("TriangulationDualGraph Generate Exterior Points A")
 		for pointIndex in range( len(self.points) ):
+			# print("TriangulationDualGraph Generate Exterior Points B")
 			pointAngle = self.CalculateAngleAroundPoint(pointIndex)
-			# print("Point Angle:", pointAngle)
+			# print("GenerateExteriorPoints Point Angle:", pointAngle)
 			if pointAngle < 359.9999:  # 359.99 as a fudge factor.
+				# print("TriangulationDualGraph Generate Exterior Points B1")
 				exteriorPoints.append( pointIndex )
-
+		# print("TriangulationDualGraph Generate Exterior Points C")
 		self.exteriorPoints = exteriorPoints
+		# print("TriangulationDualGraph Generate Exterior Points D")
 		if Bridson_Common.sortExteriorPoints == True:
+			# print("TriangulationDualGraph Generate Exterior Points E")
 			self.sortExteriorPoints()
+			# print("TriangulationDualGraph Generate Exterior Points F")
 
 
 
@@ -295,19 +409,30 @@ class TriangulationDualGraph:
 	# Given a Point, return a list of Triangles.
 	def GetPointTriangleMembership(self, pointIndex):
 		# Find the edges that the point belongs to.
-		edges = self.PointToEdgeHashMap.get( pointIndex ).copy()
 		triangleIndexList = []
+		# print("TriangulationDualGraph GetPointTriangleMembership Points A")
+		# print("GetPointTriangleMembership Keys:", self.PointToEdgeHashMap.keys() )
+		# print("GetPointTriangleMembership PointIndex:", pointIndex )
+		if pointIndex not in self.PointToEdgeHashMap.keys():
+			# If the point doesn't exist in PointToEdgeHashMap, return an empty list.
+			return triangleIndexList
+
+		edges = self.PointToEdgeHashMap.get( pointIndex ).copy()  # This copy is failing.
+
+		# print("TriangulationDualGraph GetPointTriangleMembership Points B")
 		# print("Edges:", edges )
 		for edgeVertices in edges:
+			# print("TriangulationDualGraph GetPointTriangleMembership Points C")
 			dualEdge = self.EdgeHashMap.get( edgeVertices )
 			# print("DualEdge triangle vertices:", dualEdge.triangleIndeces )
 			triangleIndexList.extend( dualEdge.triangleIndeces.copy() )
-
+		# print("TriangulationDualGraph GetPointTriangleMembership Points D")
 
 		# Make the list unique.
 		triangleIndexList = list ( np.unique(triangleIndexList) )
 		# print("GetPointTriangleMembership triangleIndexList:", triangleIndexList)
 		# print("Triangles:", triangleIndexList)
+		# print("TriangulationDualGraph GetPointTriangleMembership Points E")
 		return triangleIndexList
 
 
@@ -324,8 +449,10 @@ class TriangulationDualGraph:
 
 	def __CalculatePointAngle(self, pointIndex, triangleIndex):
 		p1 = self.points[ pointIndex ]
+		# print("TriangulationDualGraph __CalculatePointAngle Points A")
 		triangleVertices = list(self.Triangles[ triangleIndex ]).copy()
 		# Remove the current point from the list of trianglePoints
+		# print("TriangulationDualGraph __CalculatePointAngle Points B")
 		triangleVertices.pop( triangleVertices.index( pointIndex ) )
 		p2, p3 = triangleVertices
 		p2 = self.points[ p2 ]
@@ -365,6 +492,7 @@ class TriangulationDualGraph:
 
 
 	# HashMap: PointIndex -> Edge(start,end)
+	# Need to check to see if the PointToEdgeHashMap has data.
 	def GeneratePointHashMaps(self):
 		Edges = self.Edges
 		PointToEdgeHashMap = {}
@@ -378,10 +506,12 @@ class TriangulationDualGraph:
 				PointToEdgeHashMap[start] = []
 			pointAssociatedEdges = PointToEdgeHashMap.get(start)
 			pointAssociatedEdges.append( newEdge.vertices )
+
 			if PointToEdgeHashMap.get(end) == None:
 				PointToEdgeHashMap[end] = []
 			pointAssociatedEdges = PointToEdgeHashMap.get(end)
 			pointAssociatedEdges.append( newEdge.vertices )
+
 		self.PointToEdgeHashMap = PointToEdgeHashMap
 		Bridson_Common.logDebug(__name__,"PointToEdgeMap: ", self.PointToEdgeHashMap)
 

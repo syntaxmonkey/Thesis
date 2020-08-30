@@ -84,7 +84,7 @@ def createMeshFile(samples, tri, radius, center ):
 
 
 def BFFReshape():
-	print("BFFReshape")
+	# print("BFFReshape")
 	# Using pipes to kill a hung process: https://stackoverflow.com/questions/41094707/setting-timeout-when-using-os-system-function
 	Bridson_Common.logDebug(__name__, "Reshaping with BFF")
 	path = "../../boundary-first-flattening/build/"
@@ -115,7 +115,7 @@ def BFFReshape():
 	# os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --angle=1 --normalizeUVs --nCones=6")
 
 def FlattenMesh():
-	print("FlattenMesh")
+	# print("FlattenMesh")
 	path = "../../boundary-first-flattening/build/"
 	Bridson_Common.logDebug(__name__, "Extracting 2D image post BFF Reshaping")
 	os.system(path + "extract.py test1_out.obj test1_out_flat.obj")
@@ -148,18 +148,20 @@ def SLICImage(filename):
 	# ax3.imshow(blankRaster)
 	# ax3.imshow( imageraster, cmap='Greys', norm=matplotlib.colors.Normalize())
 	# ax3.imshow( imageraster, cmap='Greys' )
-	print("B")
+	# print("B")
 	regionRaster = imageraster / np.max(imageraster)   # Need to normalize the region intensity [0 ... 1.0] to display properly.
 	# print("Raster:", displayRaster)
 	ax3.imshow(mark_boundaries( regionRaster, segments, color=(255,0,0) ))
 	ax3.grid()
-	print("C")
+	# plt.clf()
+
+	# print("C")
 	Bridson_Common.saveImage(filename, "GreyscaleSLIC", fig)
 	# plt.clf()
-	print("D")
+	# print("D")
 	thismanager = pylab.get_current_fig_manager()
 	thismanager.window.wm_geometry("+0+0")
-	print("E")
+	# print("E")
 	Bridson_Common.logDebug(__name__, "SLIC Keys:" + str(regionMap.keys()) )
 	return imageraster, regionMap, regionRaster, segments, regionIntensityMap
 
@@ -210,7 +212,7 @@ def processMask(mask, dradius, indexLabel):
 	# invertedMask = Bridson_Common.blurArray(mask, 3)
 	successful = False
 	attempts = 0
-	maxAttempts = 2
+	maxAttempts = 10
 	blurRadius = 3
 
 	while successful == False and attempts < maxAttempts:
@@ -242,10 +244,10 @@ def processMask(mask, dradius, indexLabel):
 				plt.imshow(mask5x)
 				thismanager = pylab.get_current_fig_manager()
 				thismanager.window.wm_geometry("+0+560")
-
+			# print("A")
 		# try:
 			meshObj = Bridson_MeshObj.MeshObject(mask=mask5x, dradius=dradius, indexLabel=indexLabel) # Create Mesh based on Mask.
-
+			# print("B")
 			points = meshObj.points
 			tri = meshObj.triangulation
 			fakeRadius = max(xrange,yrange)
@@ -257,6 +259,7 @@ def processMask(mask, dradius, indexLabel):
 			# meshObj = Bridson_MeshObj.MeshObject(flatvertices=vertices, flatfaces=faces, xrange=xrange,
 			#                                          yrange=yrange, indexLabel=indexLabel)
 			BFFReshape()
+
 			FlattenMesh()
 
 			flatvertices, flatfaces = Bridson_readOBJFile.readFlatObjFile(path = "../../boundary-first-flattening/build/", filename="test1_out_flat.obj")
@@ -265,8 +268,10 @@ def processMask(mask, dradius, indexLabel):
 
 			newIndex = str(indexLabel) + ":" + str(indexLabel)
 			flatMeshObj = Bridson_MeshObj.MeshObject(flatvertices=flatvertices, flatfaces=flatfaces, xrange=xrange, yrange=yrange, indexLabel=indexLabel) # Create Mesh based on OBJ file.
+
 			successful = flatMeshObj.trifinderGenerated
-		except:
+		except Exception as e:
+			print("processMask main failure:", e)
 			successful = False
 
 		if successful:
@@ -324,7 +329,8 @@ def indexValidation(filename):
 
 
 	# for index in range(10,15):  # Interesting regions: 11, 12, 14
-	# for index in range(9,10):
+	print("RegionMap keys:", regionMap.keys())
+	# for index in range(1,10):
 	for index in range( len(regionMap.keys()) ):
 		print("(**** ", filename, " Starting Region: ", index, "of", len(regionMap.keys()), "  *****" )
 
@@ -373,9 +379,9 @@ def indexValidation(filename):
 						# flatMeshObj.DrawVerticalLinesExteriorSeed2() # Draw lines using exterior points as line seed.
 
 						flatMeshObj.DrawAngleLinesExteriorSeed2(angle=flatAngle)
-						print("Exited DrawAngleLinesExteriorSeed2")
+						# print("Exited DrawAngleLinesExteriorSeed2")
 
-						print("Point C")
+						# print("Point C")
 						# meshObj.checkLinePoints()
 						flatMeshObj.checkLinePoints()
 
@@ -385,10 +391,10 @@ def indexValidation(filename):
 						# flatMeshObj.DrawHorizontalLinesExteriorSeed() # Draw lines using exterior points as line seed.
 						flatMeshObj.DrawAngleLinesExteriorSeed2()
 					# Transfer the lines from the FlatMesh to meshObj.
-					print("About to call TransferLinePointsFromTarget")
+					# print("About to call TransferLinePointsFromTarget")
 
 					meshObj.TransferLinePointsFromTarget(flatMeshObj)
-					print("Finished TransferLinePointsFromTarget")
+					# print("Finished TransferLinePointsFromTarget")
 
 					# print("Point D")
 					# meshObj.checkLinePoints()
@@ -410,10 +416,10 @@ def indexValidation(filename):
 			# if index == 65:
 			# 	Bridson_Common.debug = True
 
-			if True:  # Rotate original image 90 CW.
-				print("About to call rotateClockwise90")
-				meshObj.rotateClockwise90()
-				# print("Rotated 90 clockwise")
+			# if True:  # Rotate original image 90 CW.
+			# print("About to call rotateClockwise90")
+			meshObj.rotateClockwise90()
+			# print("Rotated 90 clockwise")
 
 			# print("Point E")
 			# meshObj.checkLinePoints()
@@ -472,10 +478,10 @@ def indexValidation(filename):
 	for index in meshObjCollection.keys():
 		# Draw the region contour lines onto the finished image.
 		meshObj = meshObjCollection[ index ]
-		print("About to call drawRegionContourLines on SLIC image.")
-		Bridson_Common.debug = True
+		# print("About to call drawRegionContourLines on SLIC image.")
+		# Bridson_Common.debug = True
 		finishedImageSLIC.drawRegionContourLines(regionMap, index, meshObj, regionIntensityMap[index], drawSLICRegions=True )
-		print("About to call drawRegionContourLines on NON SLIC image.")
+		# print("About to call drawRegionContourLines on NON SLIC image.")
 		finishedImageNoSLIC.drawRegionContourLines(regionMap, index, meshObj, regionIntensityMap[index], drawSLICRegions=False )
 		# print("Done drawing contour lines")
 
@@ -483,7 +489,7 @@ def indexValidation(filename):
 	# finishedImageSLIC.highLightEdgePoints(drawSLICRegions=True )
 
 
-	Bridson_Common.saveImage( filename, "WithSLIC", finishedImageSLIC.fig )
+	Bridson_Common.saveImage(filename, "WithSLIC", finishedImageSLIC.fig )
 	Bridson_Common.saveImage(filename, "NoSLIC", finishedImageNoSLIC.fig)
 
 	print("Successful Regions: ", successfulRegions)
@@ -594,7 +600,7 @@ if __name__ == '__main__':
 				meshObj.TransferLinePointsFromTarget( flatMeshObj )
 
 	images = []
-	images.append('SimpleR.png')
+	# images.append('SimpleR.png')
 	# images.append('SimpleC.png')
 	# images.append('simpleTriangle.png')
 	# images.append('simpleHorizon.png')
@@ -627,7 +633,7 @@ if __name__ == '__main__':
 
 
 	# Batch C.
-	# images.append('alex-furgiuele-UkH7L-aag8A-unsplash_Cactus.jpg')
+	images.append('alex-furgiuele-UkH7L-aag8A-unsplash_Cactus.jpg')
 	# images.append('meritt-thomas-Ao09kk2ovB0-unsplash_Cupcake.jpg')
 	# images.append('aleksandra-antic-Xnqj9FvHycM-unsplash_Cupcake.jpg')
 	# images.append('faris-mohammed-oAlRgZXsXUI-unsplash_Eggs.jpg')
@@ -643,19 +649,26 @@ if __name__ == '__main__':
 	# images.append('ruslan-keba-G5tOIWFZqFE-unsplash_RubiksCube.jpg')
 
 	# percentages = [0.05, 0.1, 0.15, 0.2]
-	# targetPixels = [  400, 800, 1600 ]
-	targetPixels = [  800 ]
-	compactnessList = [0.1]
+	targetPixels = [  400, 800]
+	# targetPixels = [  800 ]
+	targetPixels = [3200]
+	# segmentCounts = [50, 10*10, 15*15]
+	segmentCounts = [10*10]
+	compactnessList = [ 0.3]
+	# compactnessList = [ 1]
 	for filename in images:
-		for targetPixel in targetPixels:
+		# for targetPixel in targetPixels:
+		for segmentCount in segmentCounts:
 			for compactness in compactnessList:
-				Bridson_Common.targetRegionPixelCount = targetPixel
+				# Bridson_Common.targetRegionPixelCount = targetPixel
+				Bridson_Common.segmentCount = segmentCount
 				# Set the seed each time.
 				random.seed(Bridson_Common.seedValue)
 				np.random.seed(Bridson_Common.seedValue)
 				Bridson_Common.compactnessSLIC=compactness
 				try:
 					indexValidation(filename)
+					# plt.close("all")
 				except:
 					pass
 

@@ -101,8 +101,18 @@ class FinishedImage:
 			return linePoints
 
 
-	def cullLines(self, linePoints, regionIntensity):
 
+
+	def cullLines(self, linePoints, regionIntensity):
+		'''
+			We want to cull the lines based on a distance between the lines.
+			When the lines are vertical, we can sort the line order by x coordinates.
+			When the lines are not vertical, we have a problem with sorting the
+
+		:param linePoints:
+		:param regionIntensity:
+		:return:
+		'''
 		newLinePoints = []
 		empty = True
 		print("cullLines regionIntensity:", regionIntensity)
@@ -120,12 +130,13 @@ class FinishedImage:
 				line = linePoints[lineIndex].copy()
 				line = line * Bridson_Common.mergeScale
 				# newLinePoints.append( line )
-
+				# print("Handling Line index:", lineIndex)
+				# print("cullLines:", line[0], line[-1])
 				if self.calculateLineSpacing(currentLine, line, intensity=regionIntensity) == True:
 					newLinePoints.append( line )
 					empty=False
 					currentLine = line
-		print("cullLines empty:", empty)
+		# print("cullLines empty:", empty)
 		return empty, newLinePoints
 
 
@@ -319,11 +330,11 @@ class FinishedImage:
 			topLeftTarget, bottomRightTarget = SLIC.calculateTopLeft(regionCoordinates)
 
 			meshObj.setCroppedLines( self.cropContourLines(meshObj.linePoints, self.maskRasterCollection[index], topLeftTarget) )
-			print("CropCullLines region croppedLines:", index, len(meshObj.croppedLinePoints) )
+			# print("CropCullLines region croppedLines:", index, len(meshObj.croppedLinePoints) )
 
 			empty, culledLines = self.cullLines(  meshObj.croppedLinePoints, regionIntensityMap[index] )
 			# meshObj.setCroppedLines( self.cullLines( index, meshObj.linePoints, regionIntensityMap[index] )  )
-			print("CropCullLines region croppedLines empty:", empty)
+			# print("CropCullLines region croppedLines empty:", empty)
 			if not empty:
 				meshObj.setCroppedLines( culledLines )
 			else:
@@ -548,7 +559,7 @@ class FinishedImage:
 		# topLeftSource = self.maxLinePoints( linePoints )
 		# shiftCoordinates = (bottomRightTarget[0] - topLeftSource[0], bottomRightTarget[1] - topLeftSource[1])
 
-		print("Length of linePoints:", len(linePoints))
+		# print("Length of linePoints:", len(linePoints))
 		if len(linePoints) == 0:
 			print("Region ", index, "has no lines.")
 			return
@@ -626,6 +637,8 @@ class FinishedImage:
 		intensityDistance = intensity / 15
 		# Get the endPoints of the lines.
 		distance = 0
+		# print("calculateLineSpacing Line1:", line1[0], line1[-1] )
+		# print("calculateLineSpacing Line2:", line2[0], line2[-1])
 		if Bridson_Common.closestPointPair == False:
 			if Bridson_Common.middleAverageOnly == False:
 				# If middleAverageOnly is set to true,

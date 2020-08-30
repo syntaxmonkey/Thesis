@@ -213,7 +213,7 @@ def callSLIC(filename):
 	# images.append('SimpleSquare.jpg')
 
 	# for imageFile in images:
-	calculateSegmentCount( filename )
+	# calculateSegmentCount( filename )
 	segmentCount = Bridson_Common.segmentCount
 	for numSegments in (segmentCount,):
 		image, segments = segmentImage(filename, numSegments)
