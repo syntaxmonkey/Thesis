@@ -45,7 +45,7 @@ lineSkip = 1
 lineCullingDistanceFactor = 2
 allowBlankRegion=False
 highlightEndpoints=False
-
+lineCullAlgorithm='exp'  # Valid values: 'log', 'exp', 'none'.
 
 closestPointPair=False
 middleAverageOnly=False

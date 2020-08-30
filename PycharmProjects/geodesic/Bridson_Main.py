@@ -350,7 +350,7 @@ def indexValidation(filename):
 	# for index in range(10,15):  # Interesting regions: 11, 12, 14
 	print("RegionMap keys:", regionMap.keys())
 	if Bridson_Common.bulkGeneration == False:
-		regionList = range(5,10)
+		regionList = range(25, 35)
 	else:
 		regionList = range(len(regionMap.keys()) )
 	# for index in range(5,10):
@@ -678,10 +678,14 @@ if __name__ == '__main__':
 	targetPixels = [  400, 800]
 	# targetPixels = [  800 ]
 	targetPixels = [3200]
-	# segmentCounts = [100, 200]
-	segmentCounts = [200]
-	compactnessList = [ 0.3, 0.6, 1]
-	compactnessList = [ 0.6]
+	if Bridson_Common.bulkGeneration:
+		segmentCounts = [100, 200]
+		compactnessList = [0.3, 0.6, 1]
+
+	else:
+		segmentCounts = [200]
+		compactnessList = [ 0.6,]
+
 	for filename in images:
 		# for targetPixel in targetPixels:
 		for segmentCount in segmentCounts:

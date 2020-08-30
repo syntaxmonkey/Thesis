@@ -650,8 +650,38 @@ class FinishedImage:
 		return minDistance
 
 	def calculateLineSpacing(self, line1, line2, factor=Bridson_Common.lineCullingDistanceFactor, intensity=255):
-		intensityDistance = intensity / 5
-		# print("IntensityDistance:", intensityDistance)
+		if Bridson_Common.lineCullAlgorithm == 'log':
+			'''
+			Logrithmic scale.			
+			Intensity: 255 produces 51.57303927154884
+			Intensity: 200 produces 49.36711720583027
+			Intensity: 128 produces 45.322383916284224
+			Intensity: 100 produces 43.09074884943549
+			Intensity: 50 produces 36.85897369805666
+			Intensity: 30 produces 32.318595570519726
+			Intensity: 10 produces 22.86924638832273
+			Intensity: 1 produces 7.321629908943605
+			Intensity: 0 produces 1.0
+			'''
+			intensityDistance = math.log10(intensity+1)*21 + 1
+		elif Bridson_Common.lineCullAlgorithm == 'exp':
+			'''
+			Exponential scale.  Lighter regions have significantly fewer lines.
+			Intensity: 255 produces 164.0219072999017
+			Intensity: 200 produces 54.598150033144236
+			Intensity: 128 produces 12.935817315543076
+			Intensity: 100 produces 7.38905609893065
+			Intensity: 50 produces 2.718281828459045
+			Intensity: 30 produces 1.8221188003905089
+			Intensity: 10 produces 1.2214027581601699
+			Intensity: 1 produces 1.0202013400267558
+			Intensity: 0 produces 1.0
+			'''
+			intensityDistance = math.exp(intensity/50)
+		else:
+			intensityDistance = intensity / 5
+		print("Intensity:", intensity)
+		print("IntensityDistance:", intensityDistance)
 		# Get the endPoints of the lines.
 		distance = 0
 		# print("calculateLineSpacing Line1:", line1[0], line1[-1] )

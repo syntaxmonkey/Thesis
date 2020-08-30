@@ -21,19 +21,9 @@
 # #        [0., 4., 0., 4., 0.],
 # #        [0., 1., 0., 1., 0.],
 # #        [0., 0., 0., 0., 0.]])
+import math
 
-import numpy as np
-
-points = np.array([[0, 0], [0, 1.1],
-                   [1, 0], [1, 1]])
-from scipy.spatial import Delaunay
-from matplotlib.tri import Triangulation
-tri = Delaunay(points)
-
-print("Points:", tri.points)
-print("Vertex neighbours:", tri.vertex_neighbor_vertices)
-print("vertex_to_simple:", tri.vertex_to_simplex[3])
-print("Neighbours:", tri.neighbors)
-print("Neighbor of point 0:", tri.neighbors[0], tri.points[0])
-print("Neighbor of point 1:", tri.neighbors[1])
+intensityValues = [255, 200, 128, 100, 50, 30, 10, 1,0]
+for intensity in intensityValues:
+	print("Intensity:", intensity, "produces", math.exp(intensity/50))
 
