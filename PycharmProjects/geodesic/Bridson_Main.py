@@ -20,6 +20,7 @@ import random
 import sys
 import Bridson_FinishedImage
 from skimage.segmentation import mark_boundaries
+import datetime
 
 random.seed(Bridson_Common.seedValue)
 np.random.seed(Bridson_Common.seedValue)
@@ -252,30 +253,43 @@ def processMask(mask, dradius, indexLabel):
 				thismanager.window.wm_geometry("+0+560")
 			# print("A")
 		# try:
+			a = datetime.datetime.now()
 			meshObj = Bridson_MeshObj.MeshObject(mask=mask5x, dradius=dradius, indexLabel=indexLabel) # Create Mesh based on Mask.
 			# print("B")
+			b = datetime.datetime.now()
 			points = meshObj.points
+
 			tri = meshObj.triangulation
+			d = datetime.datetime.now()
 			fakeRadius = max(xrange,yrange)
 			# print("C")
+
 			createMeshFile(points, tri, fakeRadius, (xrange/2.0, yrange/2.0))
 
 			# vertices, faces = Bridson_readOBJFile.readFlatObjFile(path="../../boundary-first-flattening/build/",
 			#                                                               filename="test1.obj")
 			# meshObj = Bridson_MeshObj.MeshObject(flatvertices=vertices, flatfaces=faces, xrange=xrange,
 			#                                          yrange=yrange, indexLabel=indexLabel)
+			f = datetime.datetime.now()
 			BFFReshape()
-
+			g = datetime.datetime.now()
 			FlattenMesh()
-
+			h = datetime.datetime.now()
 			flatvertices, flatfaces = Bridson_readOBJFile.readFlatObjFile(path = "../../boundary-first-flattening/build/", filename="test1_out_flat.obj")
-
+			i = datetime.datetime.now()
 			Bridson_Common.triangleHistogram(flatvertices, flatfaces, indexLabel)
 
 			newIndex = str(indexLabel) + ":" + str(indexLabel)
 			flatMeshObj = Bridson_MeshObj.MeshObject(flatvertices=flatvertices, flatfaces=flatfaces, xrange=xrange, yrange=yrange, indexLabel=indexLabel) # Create Mesh based on OBJ file.
-
+			j = datetime.datetime.now()
 			successful = flatMeshObj.trifinderGenerated
+			print("Generate Mesh from Mask:", (b-a).microseconds )
+			print("Generate Triangulation on MeshObj:", (d-b).microseconds )
+			print("CreateMeshFile:", (f-d).microseconds )
+			print("BFFRefreshape:", (g-f).microseconds )
+			print("FlattenMesh:", (h-g).microseconds )
+			print("ReadObjFile:", (i-h).microseconds )
+			print("Create Mesh from File:", (j-i).microseconds )
 		except Exception as e:
 			print("processMask main failure:", e)
 			successful = False
@@ -335,8 +349,13 @@ def indexValidation(filename):
 
 	# for index in range(10,15):  # Interesting regions: 11, 12, 14
 	print("RegionMap keys:", regionMap.keys())
-	# for index in range(1,10):
-	for index in range( len(regionMap.keys()) ):
+	if Bridson_Common.bulkGeneration == False:
+		regionList = range(5,10)
+	else:
+		regionList = range(len(regionMap.keys()) )
+	# for index in range(5,10):
+	# for index in range( len(regionMap.keys()) ):
+	for index in regionList:
 		print("(**** ", filename, " Starting Region: ", index, "of", len(regionMap.keys()), "  *****" )
 
 		# Generate the raster for the first region.
@@ -640,29 +659,29 @@ if __name__ == '__main__':
 
 
 	# Batch C.
-	images.append('alex-furgiuele-UkH7L-aag8A-unsplash_Cactus.jpg')
-	images.append('meritt-thomas-Ao09kk2ovB0-unsplash_Cupcake.jpg')
-	images.append('aleksandra-antic-Xnqj9FvHycM-unsplash_Cupcake.jpg')
-	images.append('faris-mohammed-oAlRgZXsXUI-unsplash_Eggs.jpg')
-	images.append('ruben-rodriguez-GFZZmRbyPFQ-unsplash_Egg.jpg')
-	images.append('gryffyn-m-rpm07rS8Rl8-unsplash_Shoe.jpg')
-	images.append('dan-gold-N7RiDzfF2iw-unsplash_VWBeetle.jpg')
-	images.append('herson-rodriguez-w8CcH9Md4vE-unsplash_Van.jpg')
-	images.append('lucia-lua-ramirez-lG0AHN1Gapw-unsplash_Bus.jpg')
-	images.append('pawel-czerwinski-xt1tPXqOdcc-unsplash_TrafficLight.jpg')
+	# images.append('alex-furgiuele-UkH7L-aag8A-unsplash_Cactus.jpg')
+	# images.append('meritt-thomas-Ao09kk2ovB0-unsplash_Cupcake.jpg')
+	# images.append('aleksandra-antic-Xnqj9FvHycM-unsplash_Cupcake.jpg')
+	# images.append('faris-mohammed-oAlRgZXsXUI-unsplash_Eggs.jpg')
+	# images.append('ruben-rodriguez-GFZZmRbyPFQ-unsplash_Egg.jpg')
+	# images.append('gryffyn-m-rpm07rS8Rl8-unsplash_Shoe.jpg')
+	# images.append('dan-gold-N7RiDzfF2iw-unsplash_VWBeetle.jpg')
+	# images.append('herson-rodriguez-w8CcH9Md4vE-unsplash_Van.jpg')
+	# images.append('lucia-lua-ramirez-lG0AHN1Gapw-unsplash_Bus.jpg')
+	# images.append('pawel-czerwinski-xt1tPXqOdcc-unsplash_TrafficLight.jpg')
 	images.append('joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg')
-	images.append('devvrat-jadon-WLNkAHCjYOw-unsplash_Hammer.jpg')
-	images.append('magic-bowls-3QGtPOqeBEQ-unsplash.jpg')
-	images.append('ruslan-keba-G5tOIWFZqFE-unsplash_RubiksCube.jpg')
+	# images.append('devvrat-jadon-WLNkAHCjYOw-unsplash_Hammer.jpg')
+	# images.append('magic-bowls-3QGtPOqeBEQ-unsplash.jpg')
+	# images.append('ruslan-keba-G5tOIWFZqFE-unsplash_RubiksCube.jpg')
 
 	# percentages = [0.05, 0.1, 0.15, 0.2]
 	targetPixels = [  400, 800]
 	# targetPixels = [  800 ]
 	targetPixels = [3200]
-	segmentCounts = [50]
-	# segmentCounts = [10*10]
+	# segmentCounts = [100, 200]
+	segmentCounts = [200]
 	compactnessList = [ 0.3, 0.6, 1]
-	# compactnessList = [ 1]
+	compactnessList = [ 0.6]
 	for filename in images:
 		# for targetPixel in targetPixels:
 		for segmentCount in segmentCounts:
@@ -675,7 +694,8 @@ if __name__ == '__main__':
 				Bridson_Common.compactnessSLIC=compactness
 				try:
 					indexValidation(filename)
-					plt.close("all")
+					if Bridson_Common.bulkGeneration:
+						plt.close("all")
 				except:
 					pass
 

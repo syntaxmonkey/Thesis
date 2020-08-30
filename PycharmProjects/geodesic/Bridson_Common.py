@@ -26,7 +26,7 @@ timeoutPeriod = 5
 SLICGrey = False
 
 
-bulkGeneration = True
+bulkGeneration = False
 debug=False
 
 if bulkGeneration == True:
@@ -86,7 +86,7 @@ targetRegionPixelCount = 800
 segmentCount = 80
 dradius = 1.5 # Important that dradius is greater than 1.0.  When the value is 1.0 or lower, BFF seems to have lots of issues with the mesh.
 radiusDefault = 1.5
-radiusDivisor = 50 # the number of radii for each region.
+radiusDivisor = 40 # the number of radii for each region.
 regionDynamicRadius = True
 
 

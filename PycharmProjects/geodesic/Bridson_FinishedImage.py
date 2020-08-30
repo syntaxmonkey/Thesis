@@ -115,7 +115,6 @@ class FinishedImage:
 		'''
 		newLinePoints = []
 		empty = True
-		print("cullLines regionIntensity:", regionIntensity)
 		# Allow regions to be blank.
 		if Bridson_Common.allowBlankRegion == True:
 			if regionIntensity > 250:
@@ -133,9 +132,26 @@ class FinishedImage:
 				# print("Handling Line index:", lineIndex)
 				# print("cullLines:", line[0], line[-1])
 				if self.calculateLineSpacing(currentLine, line, intensity=regionIntensity) == True:
-					newLinePoints.append( line )
-					empty=False
-					currentLine = line
+					# The line has passed the initial check against the previous line.
+					# Now have to check against existing lines.
+					if len(newLinePoints) > 0:
+						flippedLine = np.flip(line, axis=0)
+						farEnough = True
+						for addedLine in newLinePoints:
+							if self.calculateLineSpacing(addedLine, line, intensity=regionIntensity) == True and self.calculateLineSpacing(addedLine, np.flip(line, axis=0), intensity=regionIntensity) == True:
+								pass
+							else:
+								farEnough = False
+						# The line is not too close to other added lines.
+						if farEnough:
+							newLinePoints.append( line )
+							empty=False
+							currentLine = line
+					else:
+						newLinePoints.append(line)
+						empty = False
+						currentLine = line
+
 		# print("cullLines empty:", empty)
 		return empty, newLinePoints
 
@@ -634,7 +650,8 @@ class FinishedImage:
 		return minDistance
 
 	def calculateLineSpacing(self, line1, line2, factor=Bridson_Common.lineCullingDistanceFactor, intensity=255):
-		intensityDistance = intensity / 15
+		intensityDistance = intensity / 5
+		# print("IntensityDistance:", intensityDistance)
 		# Get the endPoints of the lines.
 		distance = 0
 		# print("calculateLineSpacing Line1:", line1[0], line1[-1] )
@@ -647,7 +664,6 @@ class FinishedImage:
 				distance += self.findCloserDistance(line1[0], line1[-1], line2[-1])
 
 			distance += Bridson_Common.euclidean_distance(line1[math.floor(len(line1)/2)], line2[math.floor( len(line2)/2)])
-
 			distance = distance / Bridson_Common.divisor
 		else:
 			distance = self.findClosestPointPair(line1, line2)

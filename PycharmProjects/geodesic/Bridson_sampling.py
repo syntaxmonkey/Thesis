@@ -93,6 +93,7 @@ def Bridson_sampling(width=1.0, height=1.0, radius=0.025, k=30, existingPoints=[
 
     points = []
     add_point( np.array([np.random.uniform(width), np.random.uniform(height)]) ) # Initial starting point seeding point.  For some reason it is required.
+    add_point(np.array([np.random.uniform(width), np.random.uniform(height)]))  # Initial starting point seeding point.  For some reason it is required.
 
     # Add existing points to the list.
     for point in existingPoints:
