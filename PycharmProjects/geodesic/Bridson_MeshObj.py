@@ -953,23 +953,33 @@ class MeshObject:
 		# plt.title('Inverted Mask')
 		# plt.imshow(self.invertedMask)
 		# print("GenMeshFromMask A")
+
 		radius, pointCount = Bridson_sampling.calculateParameters(xrange, yrange, dradius, pointCount)
+		# points = np.array([])
 
 		points = Bridson_sampling.genSquarePerimeterPoints(xrange, yrange, radius=radius, pointCount=pointCount)
-		Bridson_Common.logDebug(__name__, np.shape(points))
-		# print("GenMeshFromMask B")
-		# Merge border with square perimeter.
-		Bridson_Common.logDebug(__name__, "Points Shape: " ,  np.shape(points))
-		Bridson_Common.logDebug(__name__, "Border Shape: " , np.shape(self.border))
-		points = np.append(points, self.border, axis=0)
+
+		if Bridson_Common.regionDynamicRadius:
+			radius = Bridson_Common.dradius
+
+		# Bridson_Common.logDebug(__name__, np.shape(points))
+		# print("GenMeshFromMask B length of points:", len(points))
+		# # Merge border with square perimeter.
+		# Bridson_Common.logDebug(__name__, "Points Shape: " ,  np.shape(points))
+		# Bridson_Common.logDebug(__name__, "Border Shape: " , np.shape(self.border))
+		# points = np.append(points, self.border, axis=0)
+
 
 		# Generate all the sample points.
 		points = Bridson_sampling.Bridson_sampling(width=xrange, height=yrange, radius=radius, existingPoints=points, mask=self.invertedMask)
 		Bridson_Common.logDebug(__name__, np.shape(points))
 
+		# print("GenMeshFromMask before filtering:",len(points), points)
+		# print("Inverted Mask:", self.invertedMask)
 		if len(self.invertedMask) > 0:
 			points = self.filterOutPoints(points, self.invertedMask)
-		# print("GenMeshFromMask C")
+		# print("GenMeshFromMask C points:", points)
+
 		self.points = points
 		self.triangulation, self.points = Bridson_Delaunay.displayDelaunayMesh(points, radius, self.invertedMask, xrange)
 		self.trifinder = self.triangulation.get_trifinder()
@@ -1068,12 +1078,19 @@ class MeshObject:
 	def filterOutPoints(self, points, mask):
 		# expects inverted mask.
 		# Remove points that intersect with the mesh.
+		# print("FilterOutPoints Shape of mask:", np.shape(mask))
+		# print("FilterOutPoints Mask:", mask)
 		newPoints = []
 		for point in points:
 			# Points that are '0' should be retained.
-			if mask[int(point[0]), int(point[1])] == 0:
+			if mask[ int(point[0]) , int(point[1])] == 0:
 				newPoints.append(point)
+				# print("Retaining point:", point)
+			else:
+				# print("Point:", int(point[0]) , int(point[1]), " Mask value:",mask[int(point[0]), int(point[1])] )
+				mask[int(point[0]), int(point[1])] += 0.01
 
+		# print("POST Mask:", mask)
 		return np.array(newPoints)
 
 

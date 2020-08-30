@@ -7,6 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 import Bridson_Common
+import datetime
 
 def calculateParameters(xrange, yrange, radius=0, pointCount=0):
     perimeter = xrange * 2.0 + yrange * 2.0
@@ -60,7 +61,7 @@ def Bridson_sampling(width=1.0, height=1.0, radius=0.025, k=30, existingPoints=[
         return False
 
     def add_point(p):
-        points.append(p)
+        points.append(p.tolist())
         i, j = int(p[0]/cellsize), int(p[1]/cellsize)
         P[i, j], M[i, j] = p, True
 
@@ -91,6 +92,7 @@ def Bridson_sampling(width=1.0, height=1.0, radius=0.025, k=30, existingPoints=[
             N[(i, j)] = neighborhood(M.shape, (i, j), 2)
 
     points = []
+    add_point( np.array([np.random.uniform(width), np.random.uniform(height)]) ) # Initial starting point seeding point.  For some reason it is required.
 
     # Add existing points to the list.
     for point in existingPoints:
@@ -101,6 +103,7 @@ def Bridson_sampling(width=1.0, height=1.0, radius=0.025, k=30, existingPoints=[
     while len(points):
         i = np.random.randint(len(points))
         p = points[i]
+        # print("Bridson Disc point:", p)
         del points[i]
         Q = random_point_around(p, k)
         for q in Q:
@@ -190,11 +193,21 @@ def genSquarePerimeterPoints(xrange, yrange, pointCount=0, radius=0):
 if __name__ == '__main__':
 
     dradius = 2
-    xrange, yrange = 10, 10
-
+    xrange, yrange = 200, 200
+    points = np.array([])
+    a = datetime.datetime.now()
     points = genSquarePerimeterPoints(xrange, yrange, radius=dradius)
     Bridson_Common.logDebug(__name__, np.shape(points))
-    points = Bridson_sampling(width=xrange, height=yrange, radius=dradius, existingPoints=points)
+
+    b = datetime.datetime.now()
+    Bridson_Common.determineRadius(xrange, yrange)
+    points = Bridson_sampling(width=xrange, height=yrange, radius=Bridson_Common.dradius, existingPoints=points)
+    c = datetime.datetime.now()
+
     Bridson_Common.logDebug(__name__, np.shape(points))
     displayPoints(points, xrange, yrange)
+    d = datetime.datetime.now()
+    print("Gen Square:", (b-a).microseconds)
+    print("Disc Sampling:", (c-b).microseconds)
+    print("Display Points:", (d-c).microseconds)
     plt.show()

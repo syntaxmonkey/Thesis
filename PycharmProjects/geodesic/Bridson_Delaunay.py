@@ -112,12 +112,13 @@ def isExteriorTriangle(p1, p2, mask):
 
 
 def displayDelaunayMesh(points, radius, mask, xrange):
+	# print("displayDelaunayMesh points:", points)
 	triangulation, points = generateDelaunay(points, radius, mask, xrange)
 
 	# triangles = tri.simplices
 	# for triangle in triangles:
 	# 	Bridson_Common.logDebug(__name__, "Triangle:", triangle)
-
+	# print("Points:", points)
 	if Bridson_Common.debug:
 		Bridson_Common.logDebug(__name__, "tri", triangulation)
 		plt.figure()

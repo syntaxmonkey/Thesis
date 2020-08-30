@@ -85,6 +85,11 @@ targetPercent = 0.15
 targetRegionPixelCount = 800
 segmentCount = 80
 dradius = 1.5 # Important that dradius is greater than 1.0.  When the value is 1.0 or lower, BFF seems to have lots of issues with the mesh.
+radiusDefault = 1.5
+radiusDivisor = 50 # the number of radii for each region.
+regionDynamicRadius = True
+
+
 
 colourArray = ['r', 'b', 'm']
 colourArray = ['b', 'b', 'b']
@@ -96,6 +101,15 @@ cropContours = True
 #                  [-1, 0],  [1, 0],
 #                  [-1, -1], [0, -1], [1, -1] ]
 
+
+def determineRadius(width=1, height=1):
+	if Bridson_Common.regionDynamicRadius:
+		span = width if width < height else height
+		Bridson_Common.dradius = span / Bridson_Common.radiusDivisor
+		Bridson_Common.dradius = Bridson_Common.dradius if Bridson_Common.dradius > Bridson_Common.radiusDefault else Bridson_Common.radiusDefault
+	else:
+		Bridson_Common.dradius = Bridson_Common.radiusDefault
+	print("Bridson_Common.dradius:", Bridson_Common.dradius)
 
 def calculateDirection(angle):
 	angle = angle % 360

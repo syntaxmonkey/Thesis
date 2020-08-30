@@ -100,11 +100,15 @@ def BFFReshape():
 
 	#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
+	print("Attempting BFF")
 	p = subprocess.Popen(path + 'bff-command-line' + parameters, shell=True, stdout=subprocess.PIPE)
 	try:
 		p.wait(Bridson_Common.timeoutPeriod)
 	except subprocess.TimeoutExpired:
+		print("Killed BFF")
 		p.kill()
+		p.kill()
+	print("Finished BFF")
 
 	# This handles the case where BFF has a problem processing the mesh, e.g. the mesh has a manifold.
 	if p.returncode != 0:
@@ -230,11 +234,13 @@ def processMask(mask, dradius, indexLabel):
 
 			xrange, yrange = np.shape(mask)
 
+			# Bridson_Common.determineRadius(xrange, yrange) # Set the region specific radius.
+
 			Bridson_Common.logDebug(__name__, "*** BlurRadius: " , blurRadius)
 			print("blurRadius:", blurRadius)
 			mask5x = Bridson_Common.blurArray(mask5x, blurRadius)
 			mask5x = Bridson_CreateMask.InvertMask(mask5x)
-
+			# print("A")
 			# print(distanceRaster)
 			if Bridson_Common.debug:
 			# if True:
@@ -251,7 +257,7 @@ def processMask(mask, dradius, indexLabel):
 			points = meshObj.points
 			tri = meshObj.triangulation
 			fakeRadius = max(xrange,yrange)
-
+			# print("C")
 			createMeshFile(points, tri, fakeRadius, (xrange/2.0, yrange/2.0))
 
 			# vertices, faces = Bridson_readOBJFile.readFlatObjFile(path="../../boundary-first-flattening/build/",
@@ -273,14 +279,13 @@ def processMask(mask, dradius, indexLabel):
 		except Exception as e:
 			print("processMask main failure:", e)
 			successful = False
-
+		# print("D")
 		if successful:
 			print("Attempt ", attempts, " successful")
 		else:
 			print("Attempt ", attempts, " UNsuccessful")
 		blurRadius += 2
 		blurRadius = 7 if blurRadius > 7 else blurRadius # Limit the blurRadius to 9.
-
 
 	# indexLabel="LineSeed"
 	# lineReferencePointsObj = Bridson_MeshObj.MeshObject(mask=mask5x, dradius=dradius*Bridson_Common.lineRadiusFactor, indexLabel=indexLabel)
@@ -348,6 +353,8 @@ def indexValidation(filename):
 
 		indexLabel = index # + i / 10
 		# Bridson_Common.writeMask(raster)
+		Bridson_Common.determineRadius(np.shape(raster)[0], np.shape(raster)[1])
+		dradius = Bridson_Common.dradius
 		meshObj, flatMeshObj, trifindersuccess = processMask(raster, dradius, indexLabel)
 
 
@@ -634,27 +641,27 @@ if __name__ == '__main__':
 
 	# Batch C.
 	images.append('alex-furgiuele-UkH7L-aag8A-unsplash_Cactus.jpg')
-	# images.append('meritt-thomas-Ao09kk2ovB0-unsplash_Cupcake.jpg')
-	# images.append('aleksandra-antic-Xnqj9FvHycM-unsplash_Cupcake.jpg')
-	# images.append('faris-mohammed-oAlRgZXsXUI-unsplash_Eggs.jpg')
-	# images.append('ruben-rodriguez-GFZZmRbyPFQ-unsplash_Egg.jpg')
-	# images.append('gryffyn-m-rpm07rS8Rl8-unsplash_Shoe.jpg')
-	# images.append('dan-gold-N7RiDzfF2iw-unsplash_VWBeetle.jpg')
-	# images.append('herson-rodriguez-w8CcH9Md4vE-unsplash_Van.jpg')
-	# images.append('lucia-lua-ramirez-lG0AHN1Gapw-unsplash_Bus.jpg')
-	# images.append('pawel-czerwinski-xt1tPXqOdcc-unsplash_TrafficLight.jpg')
-	# images.append('joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg')
-	# images.append('devvrat-jadon-WLNkAHCjYOw-unsplash_Hammer.jpg')
-	# images.append('magic-bowls-3QGtPOqeBEQ-unsplash.jpg')
-	# images.append('ruslan-keba-G5tOIWFZqFE-unsplash_RubiksCube.jpg')
+	images.append('meritt-thomas-Ao09kk2ovB0-unsplash_Cupcake.jpg')
+	images.append('aleksandra-antic-Xnqj9FvHycM-unsplash_Cupcake.jpg')
+	images.append('faris-mohammed-oAlRgZXsXUI-unsplash_Eggs.jpg')
+	images.append('ruben-rodriguez-GFZZmRbyPFQ-unsplash_Egg.jpg')
+	images.append('gryffyn-m-rpm07rS8Rl8-unsplash_Shoe.jpg')
+	images.append('dan-gold-N7RiDzfF2iw-unsplash_VWBeetle.jpg')
+	images.append('herson-rodriguez-w8CcH9Md4vE-unsplash_Van.jpg')
+	images.append('lucia-lua-ramirez-lG0AHN1Gapw-unsplash_Bus.jpg')
+	images.append('pawel-czerwinski-xt1tPXqOdcc-unsplash_TrafficLight.jpg')
+	images.append('joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg')
+	images.append('devvrat-jadon-WLNkAHCjYOw-unsplash_Hammer.jpg')
+	images.append('magic-bowls-3QGtPOqeBEQ-unsplash.jpg')
+	images.append('ruslan-keba-G5tOIWFZqFE-unsplash_RubiksCube.jpg')
 
 	# percentages = [0.05, 0.1, 0.15, 0.2]
 	targetPixels = [  400, 800]
 	# targetPixels = [  800 ]
 	targetPixels = [3200]
-	# segmentCounts = [50, 10*10, 15*15]
-	segmentCounts = [10*10]
-	compactnessList = [ 0.3]
+	segmentCounts = [50]
+	# segmentCounts = [10*10]
+	compactnessList = [ 0.3, 0.6, 1]
 	# compactnessList = [ 1]
 	for filename in images:
 		# for targetPixel in targetPixels:
@@ -668,7 +675,7 @@ if __name__ == '__main__':
 				Bridson_Common.compactnessSLIC=compactness
 				try:
 					indexValidation(filename)
-					# plt.close("all")
+					plt.close("all")
 				except:
 					pass
 
