@@ -9,6 +9,8 @@ import argparse
 import numpy as np
 from PIL import Image
 import Bridson_Common
+from skimage import exposure, filters
+
 from ChainCodeGenerator import generateChainCode, writeChainCodeFile
 
 # construct the argument parser and parse the arguments
@@ -21,6 +23,26 @@ def segmentImage(imageName, numSegments):
 	# load the image and convert it to a floating point data type
 	# image = img_as_float(io.imread(imageName))
 	image = io.imread(imageName)
+	imageArr = np.asarray( Image.fromarray(image).convert('L') )
+	image = np.copy(imageArr)
+
+	print("Shape:",np.shape(image))
+	print("Type:",type(image))
+
+	if Bridson_Common.EqualizeHistogram:
+		# try:
+		image = exposure.equalize_adapthist(image)
+		# except Exception as e:
+		# 	print(np.shape(image))
+		# 	print(type(image))
+		# 	print(">>>>>>>>>>>>> Error equalizing histogram:", e)
+	if Bridson_Common.Median:
+		# try:
+		image = filters.median( image )
+		# except Exception as e:
+		# 	print(np.shape(image))
+		# 	print(type(image))
+		# 	print(">>>>>>>>>>>>>> Error converting to Median:", e)
 	# print("Image:", image)
 	# loop over the number of segments
 	# for numSegments in (100, 200, 300):

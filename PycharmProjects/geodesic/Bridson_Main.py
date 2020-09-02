@@ -1,3 +1,6 @@
+import matplotlib
+matplotlib.use("tkagg")
+
 from Bridson_Delaunay import generateDelaunay, displayDelaunayMesh
 from Bridson_sampling import Bridson_sampling, displayPoints, genSquarePerimeterPoints, calculateParameters
 import numpy as np
@@ -13,14 +16,24 @@ import readOBJFile
 import Bridson_readOBJFile
 import SLIC
 import pylab
-import matplotlib
-matplotlib.use("tkagg")
 import Bridson_Common
 import random
 import sys
 import Bridson_FinishedImage
 from skimage.segmentation import mark_boundaries
 import datetime
+import gc
+import os
+
+if os.path.exists("./output") == True:
+	if os.path.isdir("./output") == False:
+		exit(-1)
+else:
+	os.mkdir("./output")
+
+# Redirect print statements to file.
+if Bridson_Common.bulkGeneration:
+	sys.stdout = open("./output/detailLogs.txt", "w")
 
 random.seed(Bridson_Common.seedValue)
 np.random.seed(Bridson_Common.seedValue)
@@ -241,7 +254,7 @@ def processMask(mask, dradius, indexLabel):
 			print("blurRadius:", blurRadius)
 			mask5x = Bridson_Common.blurArray(mask5x, blurRadius)
 			mask5x = Bridson_CreateMask.InvertMask(mask5x)
-			# print("A")
+			print("A")
 			# print(distanceRaster)
 			if Bridson_Common.debug:
 			# if True:
@@ -255,14 +268,14 @@ def processMask(mask, dradius, indexLabel):
 		# try:
 			a = datetime.datetime.now()
 			meshObj = Bridson_MeshObj.MeshObject(mask=mask5x, dradius=dradius, indexLabel=indexLabel) # Create Mesh based on Mask.
-			# print("B")
+			print("B")
 			b = datetime.datetime.now()
 			points = meshObj.points
 
 			tri = meshObj.triangulation
 			d = datetime.datetime.now()
 			fakeRadius = max(xrange,yrange)
-			# print("C")
+			print("C")
 
 			createMeshFile(points, tri, fakeRadius, (xrange/2.0, yrange/2.0))
 
@@ -278,10 +291,11 @@ def processMask(mask, dradius, indexLabel):
 			flatvertices, flatfaces = Bridson_readOBJFile.readFlatObjFile(path = "../../boundary-first-flattening/build/", filename="test1_out_flat.obj")
 			i = datetime.datetime.now()
 			Bridson_Common.triangleHistogram(flatvertices, flatfaces, indexLabel)
-
+			print("D")
 			newIndex = str(indexLabel) + ":" + str(indexLabel)
 			flatMeshObj = Bridson_MeshObj.MeshObject(flatvertices=flatvertices, flatfaces=flatfaces, xrange=xrange, yrange=yrange, indexLabel=indexLabel) # Create Mesh based on OBJ file.
 			j = datetime.datetime.now()
+			print("E")
 			successful = flatMeshObj.trifinderGenerated
 			print("Generate Mesh from Mask:", (b-a).microseconds )
 			print("Generate Triangulation on MeshObj:", (d-b).microseconds )
@@ -293,7 +307,7 @@ def processMask(mask, dradius, indexLabel):
 		except Exception as e:
 			print("processMask main failure:", e)
 			successful = False
-		# print("D")
+		print("G")
 		if successful:
 			print("Attempt ", attempts, " successful")
 		else:
@@ -659,7 +673,7 @@ if __name__ == '__main__':
 
 
 	# Batch C.
-	# images.append('alex-furgiuele-UkH7L-aag8A-unsplash_Cactus.jpg')
+	images.append('alex-furgiuele-UkH7L-aag8A-unsplash_Cactus.jpg')
 	# images.append('meritt-thomas-Ao09kk2ovB0-unsplash_Cupcake.jpg')
 	# images.append('aleksandra-antic-Xnqj9FvHycM-unsplash_Cupcake.jpg')
 	# images.append('faris-mohammed-oAlRgZXsXUI-unsplash_Eggs.jpg')
@@ -669,10 +683,21 @@ if __name__ == '__main__':
 	# images.append('herson-rodriguez-w8CcH9Md4vE-unsplash_Van.jpg')
 	# images.append('lucia-lua-ramirez-lG0AHN1Gapw-unsplash_Bus.jpg')
 	# images.append('pawel-czerwinski-xt1tPXqOdcc-unsplash_TrafficLight.jpg')
-	images.append('joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg')
+	# images.append('joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg')
 	# images.append('devvrat-jadon-WLNkAHCjYOw-unsplash_Hammer.jpg')
 	# images.append('magic-bowls-3QGtPOqeBEQ-unsplash.jpg')
 	# images.append('ruslan-keba-G5tOIWFZqFE-unsplash_RubiksCube.jpg')
+
+	# Batch D
+	# images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
+	# images.append('everyday-basics-i0ROGKijuek-unsplash.jpg')
+	# images.append('imani-bahati-LxVxPA1LOVM-unsplash.jpg')
+	# images.append('kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg')
+	# images.append('luis-quintero-qKspdY9XUzs-unsplash.jpg')
+	# images.append('miguel-andrade-nAOZCYcLND8-unsplash.jpg')
+	# images.append('mr-o-k--ePHy6jg_7c-unsplash.jpg')
+	# images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
+
 
 	# percentages = [0.05, 0.1, 0.15, 0.2]
 	targetPixels = [  400, 800]
@@ -680,13 +705,15 @@ if __name__ == '__main__':
 	targetPixels = [3200]
 	if Bridson_Common.bulkGeneration:
 		segmentCounts = [100, 200]
+		segmentCounts = [200, 300]
 		compactnessList = [0.3, 0.6, 1]
-
+		compactnessList = [0.3, 0.6]
 	else:
 		segmentCounts = [200]
-		compactnessList = [ 0.6,]
+		compactnessList = [ 0.6 ]
 
 	for filename in images:
+		# sys.stdout = open("./output/" + filename + ".log", "w")
 		# for targetPixel in targetPixels:
 		for segmentCount in segmentCounts:
 			for compactness in compactnessList:
@@ -697,11 +724,15 @@ if __name__ == '__main__':
 				np.random.seed(Bridson_Common.seedValue)
 				Bridson_Common.compactnessSLIC=compactness
 				try:
+					# sys.stdout = open("./output/"+filename+".log", "w")
 					indexValidation(filename)
 					if Bridson_Common.bulkGeneration:
 						plt.close("all")
+						gc.collect()
+					# sys.stdout.close()
 				except:
 					pass
+		# sys.stdout.close()
 
 	print("*************************************************")
 	print("Finished")
@@ -752,7 +783,7 @@ if __name__ == '__main__':
 			# Transfer the lines from the FlatMesh to meshObj.
 			# meshObj.TransferLinePointsFromTarget( flatMeshObj )
 
-
+	sys.stdout.close()
 	if Bridson_Common.bulkGeneration:
 		exit(0)
 	else:

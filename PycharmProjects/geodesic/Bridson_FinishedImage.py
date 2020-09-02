@@ -117,7 +117,7 @@ class FinishedImage:
 		empty = True
 		# Allow regions to be blank.
 		if Bridson_Common.allowBlankRegion == True:
-			if regionIntensity > 250:
+			if regionIntensity >= Bridson_Common.cullingBlankThreshold:
 				return empty, newLinePoints
 			# if self.calculateLineSpacing(linePoints[0], linePoints[-1], intensity=regionIntensity) == False:
 			# 	return
@@ -677,11 +677,11 @@ class FinishedImage:
 			Intensity: 1 produces 1.0202013400267558
 			Intensity: 0 produces 1.0
 			'''
-			intensityDistance = math.exp(intensity/50)
+			intensityDistance = math.exp(intensity/60)
 		else:
 			intensityDistance = intensity / 5
-		print("Intensity:", intensity)
-		print("IntensityDistance:", intensityDistance)
+		# print("Intensity:", intensity)
+		# print("IntensityDistance:", intensityDistance)
 		# Get the endPoints of the lines.
 		distance = 0
 		# print("calculateLineSpacing Line1:", line1[0], line1[-1] )

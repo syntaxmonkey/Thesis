@@ -40,12 +40,17 @@ diagnostic=False # Generally avoid dispalying meshes.  Only count the number of 
 highlightEdgeTriangle=False # Highlight the edge triangle that contains the exterior point of the vertical lines.
 drawSLICRegions = False
 
+
+EqualizeHistogram=False
+Median=True
+
 sortExteriorPoints=True
 lineSkip = 1
 lineCullingDistanceFactor = 2
-allowBlankRegion=False
+allowBlankRegion=False # Allow the region to be blank.  Otherwise, regions can have one single line even if the intensity is high.
+cullingBlankThreshold=230 # If the region has intensity greater than this value, then make the region blank.
 highlightEndpoints=False
-lineCullAlgorithm='exp'  # Valid values: 'log', 'exp', 'none'.
+lineCullAlgorithm='none'  # Valid values: 'log', 'exp', 'none'.
 
 closestPointPair=False
 middleAverageOnly=False
@@ -86,7 +91,7 @@ targetRegionPixelCount = 800
 segmentCount = 80
 dradius = 1.5 # Important that dradius is greater than 1.0.  When the value is 1.0 or lower, BFF seems to have lots of issues with the mesh.
 radiusDefault = 1.5
-radiusDivisor = 40 # the number of radii for each region.
+radiusDivisor = 30 # the number of radii for each region.
 regionDynamicRadius = True
 
 
