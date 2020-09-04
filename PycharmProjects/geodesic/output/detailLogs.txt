@@ -1,0 +1,7467 @@
+>>>>>>>>>>>>>>>> Calling SLIC for  david-dibert-Huza8QOO3tc-unsplash.jpg <<<<<<<<<<<<<<<<<<<<<<<
+Shape: (281, 500)
+Type: <class 'numpy.ndarray'>
+Error saving file: close() got an unexpected keyword argument 'fig'
+RegionMap keys: dict_keys([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186])
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  0 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 329677
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14631
+BFFRefreshape: 22117
+FlattenMesh: 57722
+ReadObjFile: 5099
+Create Mesh from File: 95976
+G
+Attempt  1  successful
+Flat angle: 121
+Trifinder was successfully generated for region  0
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  1 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 273211
+Generate Triangulation on MeshObj: 7
+CreateMeshFile: 14667
+BFFRefreshape: 20398
+FlattenMesh: 70464
+ReadObjFile: 7549
+Create Mesh from File: 165264
+G
+Attempt  1  successful
+Flat angle: 291
+Trifinder was successfully generated for region  1
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  2 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 804755
+Generate Triangulation on MeshObj: 11
+CreateMeshFile: 27779
+BFFRefreshape: 41481
+FlattenMesh: 81870
+ReadObjFile: 7971
+Create Mesh from File: 156153
+G
+Attempt  1  successful
+Flat angle: 22
+Trifinder was successfully generated for region  2
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  3 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 548440
+Generate Triangulation on MeshObj: 11
+CreateMeshFile: 23450
+BFFRefreshape: 39706
+FlattenMesh: 64582
+ReadObjFile: 6136
+Create Mesh from File: 94013
+G
+Attempt  1  successful
+Flat angle: 213
+Trifinder was successfully generated for region  3
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  4 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+processMask main failure: tuple index out of range
+G
+Attempt  1  UNsuccessful
+blurRadius: 5
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 315370
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 16559
+BFFRefreshape: 20553
+FlattenMesh: 47987
+ReadObjFile: 5334
+Create Mesh from File: 101911
+G
+Attempt  2  successful
+Flat angle: 103
+Trifinder was successfully generated for region  4
+(49,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  5 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 281415
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 14153
+BFFRefreshape: 21469
+FlattenMesh: 43823
+ReadObjFile: 4454
+Create Mesh from File: 125062
+G
+Attempt  1  successful
+Flat angle: 233
+Trifinder was successfully generated for region  5
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  6 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 291072
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 14134
+BFFRefreshape: 22127
+FlattenMesh: 47339
+ReadObjFile: 5341
+Create Mesh from File: 87274
+G
+Attempt  1  successful
+Flat angle: 295
+Trifinder was successfully generated for region  6
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  7 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 307857
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 14083
+BFFRefreshape: 20796
+FlattenMesh: 47133
+ReadObjFile: 5020
+Create Mesh from File: 146491
+G
+Attempt  1  successful
+Flat angle: 77
+Trifinder was successfully generated for region  7
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  8 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 334345
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 17474
+BFFRefreshape: 23200
+FlattenMesh: 48967
+ReadObjFile: 5512
+Create Mesh from File: 98440
+G
+Attempt  1  successful
+Flat angle: 222
+Trifinder was successfully generated for region  8
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  9 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 357409
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 13462
+BFFRefreshape: 22844
+FlattenMesh: 48474
+ReadObjFile: 5082
+Create Mesh from File: 82294
+G
+Attempt  1  successful
+Flat angle: 22
+Trifinder was successfully generated for region  9
+(39,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  10 of 187   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 402105
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 17662
+BFFRefreshape: 21506
+FlattenMesh: 50664
+ReadObjFile: 5795
+Create Mesh from File: 105255
+G
+Attempt  1  successful
+Flat angle: 99
+Trifinder was successfully generated for region  10
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  11 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 380960
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 13940
+BFFRefreshape: 21608
+FlattenMesh: 63576
+ReadObjFile: 6634
+Create Mesh from File: 147623
+G
+Attempt  1  successful
+Flat angle: 111
+Trifinder was successfully generated for region  11
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  12 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 428138
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 15749
+BFFRefreshape: 22891
+FlattenMesh: 51106
+ReadObjFile: 5521
+Create Mesh from File: 106650
+G
+Attempt  1  successful
+Flat angle: 130
+Trifinder was successfully generated for region  12
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  13 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 380944
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 14652
+BFFRefreshape: 22168
+FlattenMesh: 44647
+ReadObjFile: 5168
+Create Mesh from File: 84125
+G
+Attempt  1  successful
+Flat angle: 210
+Trifinder was successfully generated for region  13
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  14 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 300369
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 14197
+BFFRefreshape: 20895
+FlattenMesh: 47185
+ReadObjFile: 4287
+Create Mesh from File: 85716
+G
+Attempt  1  successful
+Flat angle: 102
+Trifinder was successfully generated for region  14
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  15 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 379815
+Generate Triangulation on MeshObj: 7
+CreateMeshFile: 13485
+BFFRefreshape: 22704
+FlattenMesh: 45112
+ReadObjFile: 4143
+Create Mesh from File: 77466
+G
+Attempt  1  successful
+Flat angle: 216
+Trifinder was successfully generated for region  15
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  16 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 343817
+Generate Triangulation on MeshObj: 11
+CreateMeshFile: 14766
+BFFRefreshape: 21877
+FlattenMesh: 44951
+ReadObjFile: 4027
+Create Mesh from File: 75217
+G
+Attempt  1  successful
+Flat angle: 296
+Trifinder was successfully generated for region  16
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  17 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 329492
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 11281
+BFFRefreshape: 23123
+FlattenMesh: 46084
+ReadObjFile: 4640
+Create Mesh from File: 70435
+G
+Attempt  1  successful
+Flat angle: 55
+Trifinder was successfully generated for region  17
+(37,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  18 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 250334
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 11095
+BFFRefreshape: 23016
+FlattenMesh: 44886
+ReadObjFile: 4652
+Create Mesh from File: 62936
+G
+Attempt  1  successful
+Flat angle: 266
+Trifinder was successfully generated for region  18
+(38,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  19 of 187   *****
+Bridson_Common.dradius: 1.5666666666666667
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 390644
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 14573
+BFFRefreshape: 25342
+FlattenMesh: 50333
+ReadObjFile: 4799
+Create Mesh from File: 80784
+G
+Attempt  1  successful
+Flat angle: 100
+Trifinder was successfully generated for region  19
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  20 of 187   *****
+Bridson_Common.dradius: 2.1
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 334447
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 11235
+BFFRefreshape: 21219
+FlattenMesh: 43747
+ReadObjFile: 3716
+Create Mesh from File: 81555
+G
+Attempt  1  successful
+Flat angle: 181
+Trifinder was successfully generated for region  20
+(51,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  21 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 414504
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15072
+BFFRefreshape: 22777
+FlattenMesh: 46356
+ReadObjFile: 4827
+Create Mesh from File: 90575
+G
+Attempt  1  successful
+Flat angle: 62
+Trifinder was successfully generated for region  21
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  22 of 187   *****
+Bridson_Common.dradius: 1.6333333333333333
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 398378
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 12596
+BFFRefreshape: 23687
+FlattenMesh: 47153
+ReadObjFile: 4488
+Create Mesh from File: 78087
+G
+Attempt  1  successful
+Flat angle: 51
+Trifinder was successfully generated for region  22
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  23 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 323003
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 16266
+BFFRefreshape: 22189
+FlattenMesh: 43191
+ReadObjFile: 4888
+Create Mesh from File: 90130
+G
+Attempt  1  successful
+Flat angle: 4
+Trifinder was successfully generated for region  23
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  24 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 402941
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 12819
+BFFRefreshape: 21350
+FlattenMesh: 44324
+ReadObjFile: 5775
+Create Mesh from File: 96759
+G
+Attempt  1  successful
+Flat angle: 259
+Trifinder was successfully generated for region  24
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  25 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 374921
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 18614
+BFFRefreshape: 41195
+FlattenMesh: 45733
+ReadObjFile: 4529
+Create Mesh from File: 81379
+G
+Attempt  1  successful
+Flat angle: 111
+Trifinder was successfully generated for region  25
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  26 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 357528
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 13774
+BFFRefreshape: 21727
+FlattenMesh: 44734
+ReadObjFile: 4741
+Create Mesh from File: 83400
+G
+Attempt  1  successful
+Flat angle: 108
+Trifinder was successfully generated for region  26
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  27 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 277222
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 13875
+BFFRefreshape: 21881
+FlattenMesh: 42273
+ReadObjFile: 4935
+Create Mesh from File: 75552
+G
+Attempt  1  successful
+Flat angle: 255
+Trifinder was successfully generated for region  27
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  28 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 268330
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 12900
+BFFRefreshape: 22954
+FlattenMesh: 42520
+ReadObjFile: 4348
+Create Mesh from File: 78869
+G
+Attempt  1  successful
+Flat angle: 283
+Trifinder was successfully generated for region  28
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  29 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 385200
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 13692
+BFFRefreshape: 22584
+FlattenMesh: 43066
+ReadObjFile: 4687
+Create Mesh from File: 81755
+G
+Attempt  1  successful
+Flat angle: 285
+Trifinder was successfully generated for region  29
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  30 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 249095
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 11846
+BFFRefreshape: 22327
+FlattenMesh: 45187
+ReadObjFile: 3775
+Create Mesh from File: 69315
+G
+Attempt  1  successful
+Flat angle: 11
+Trifinder was successfully generated for region  30
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  31 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 342065
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 12671
+BFFRefreshape: 20811
+FlattenMesh: 42833
+ReadObjFile: 3650
+Create Mesh from File: 77604
+G
+Attempt  1  successful
+Flat angle: 244
+Trifinder was successfully generated for region  31
+(36,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  32 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 258752
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 11976
+BFFRefreshape: 21041
+FlattenMesh: 43783
+ReadObjFile: 4459
+Create Mesh from File: 67874
+G
+Attempt  1  successful
+Flat angle: 255
+Trifinder was successfully generated for region  32
+(39,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  33 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 396333
+Generate Triangulation on MeshObj: 7
+CreateMeshFile: 15167
+BFFRefreshape: 20965
+FlattenMesh: 61151
+ReadObjFile: 5816
+Create Mesh from File: 97259
+G
+Attempt  1  successful
+Flat angle: 226
+Trifinder was successfully generated for region  33
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  34 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 359334
+Generate Triangulation on MeshObj: 7
+CreateMeshFile: 16336
+BFFRefreshape: 22846
+FlattenMesh: 49095
+ReadObjFile: 5210
+Create Mesh from File: 95774
+G
+Attempt  1  successful
+Flat angle: 217
+Trifinder was successfully generated for region  34
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  35 of 187   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 408226
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 11512
+BFFRefreshape: 22489
+FlattenMesh: 42659
+ReadObjFile: 3914
+Create Mesh from File: 66974
+G
+Attempt  1  successful
+Flat angle: 208
+Trifinder was successfully generated for region  35
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  36 of 187   *****
+Bridson_Common.dradius: 1.8
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 335019
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14207
+BFFRefreshape: 20657
+FlattenMesh: 44707
+ReadObjFile: 4541
+Create Mesh from File: 199551
+G
+Attempt  1  UNsuccessful
+blurRadius: 5
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 387970
+Generate Triangulation on MeshObj: 16
+CreateMeshFile: 17686
+BFFRefreshape: 22496
+FlattenMesh: 46698
+ReadObjFile: 6028
+Create Mesh from File: 107257
+G
+Attempt  2  successful
+Flat angle: 198
+Trifinder was successfully generated for region  36
+(51,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  37 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 449469
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15194
+BFFRefreshape: 23473
+FlattenMesh: 42965
+ReadObjFile: 4557
+Create Mesh from File: 88316
+G
+Attempt  1  successful
+Flat angle: 274
+Trifinder was successfully generated for region  37
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  38 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 452807
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 22768
+BFFRefreshape: 45930
+FlattenMesh: 56216
+ReadObjFile: 6280
+Create Mesh from File: 90738
+G
+Attempt  1  successful
+Flat angle: 171
+Trifinder was successfully generated for region  38
+(48,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  39 of 187   *****
+Bridson_Common.dradius: 2.4
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 504297
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 8711
+BFFRefreshape: 23389
+FlattenMesh: 47904
+ReadObjFile: 2918
+Create Mesh from File: 64660
+G
+Attempt  1  successful
+Flat angle: 297
+Trifinder was successfully generated for region  39
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  40 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 480441
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 15177
+BFFRefreshape: 20857
+FlattenMesh: 47458
+ReadObjFile: 7052
+Create Mesh from File: 97235
+G
+Attempt  1  successful
+Flat angle: 306
+Trifinder was successfully generated for region  40
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  41 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 378847
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 14324
+BFFRefreshape: 23511
+FlattenMesh: 54280
+ReadObjFile: 4745
+Create Mesh from File: 96569
+G
+Attempt  1  successful
+Flat angle: 167
+Trifinder was successfully generated for region  41
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  42 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 539646
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 14947
+BFFRefreshape: 22042
+FlattenMesh: 52200
+ReadObjFile: 5662
+Create Mesh from File: 93865
+G
+Attempt  1  successful
+Flat angle: 103
+Trifinder was successfully generated for region  42
+(39,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  43 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 362103
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 16541
+BFFRefreshape: 22022
+FlattenMesh: 47111
+ReadObjFile: 4912
+Create Mesh from File: 96113
+G
+Attempt  1  successful
+Flat angle: 186
+Trifinder was successfully generated for region  43
+(47,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  44 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 416942
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 13657
+BFFRefreshape: 22980
+FlattenMesh: 46775
+ReadObjFile: 5277
+Create Mesh from File: 78947
+G
+Attempt  1  successful
+Flat angle: 213
+Trifinder was successfully generated for region  44
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  45 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 301364
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 13776
+BFFRefreshape: 23368
+FlattenMesh: 45009
+ReadObjFile: 4565
+Create Mesh from File: 84753
+G
+Attempt  1  successful
+Flat angle: 260
+Trifinder was successfully generated for region  45
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  46 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 281772
+Generate Triangulation on MeshObj: 7
+CreateMeshFile: 13448
+BFFRefreshape: 22509
+FlattenMesh: 44042
+ReadObjFile: 5074
+Create Mesh from File: 78883
+G
+Attempt  1  successful
+Flat angle: 201
+Trifinder was successfully generated for region  46
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  47 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 407290
+Generate Triangulation on MeshObj: 7
+CreateMeshFile: 14496
+BFFRefreshape: 22176
+FlattenMesh: 46954
+ReadObjFile: 4294
+Create Mesh from File: 83576
+G
+Attempt  1  successful
+Flat angle: 20
+Trifinder was successfully generated for region  47
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  48 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 258478
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 12380
+BFFRefreshape: 21321
+FlattenMesh: 42547
+ReadObjFile: 3804
+Create Mesh from File: 68754
+G
+Attempt  1  successful
+Flat angle: 204
+Trifinder was successfully generated for region  48
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  49 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 273287
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 13201
+BFFRefreshape: 22128
+FlattenMesh: 41696
+ReadObjFile: 4831
+Create Mesh from File: 197734
+G
+Attempt  1  successful
+Flat angle: 83
+Trifinder was successfully generated for region  49
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  50 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 304827
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 14701
+BFFRefreshape: 22036
+FlattenMesh: 44869
+ReadObjFile: 6562
+Create Mesh from File: 87301
+G
+Attempt  1  successful
+Flat angle: 286
+Trifinder was successfully generated for region  50
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  51 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 247081
+Generate Triangulation on MeshObj: 7
+CreateMeshFile: 11170
+BFFRefreshape: 21666
+FlattenMesh: 42826
+ReadObjFile: 4141
+Create Mesh from File: 67543
+G
+Attempt  1  successful
+Flat angle: 44
+Trifinder was successfully generated for region  51
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  52 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 453051
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 14150
+BFFRefreshape: 23371
+FlattenMesh: 42625
+ReadObjFile: 5363
+Create Mesh from File: 83785
+G
+Attempt  1  successful
+Flat angle: 323
+Trifinder was successfully generated for region  52
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  53 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 295183
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 13695
+BFFRefreshape: 21084
+FlattenMesh: 44114
+ReadObjFile: 4265
+Create Mesh from File: 82881
+G
+Attempt  1  successful
+Flat angle: 99
+Trifinder was successfully generated for region  53
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  54 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 431429
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 13528
+BFFRefreshape: 22857
+FlattenMesh: 45287
+ReadObjFile: 4621
+Create Mesh from File: 78589
+G
+Attempt  1  successful
+Flat angle: 276
+Trifinder was successfully generated for region  54
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  55 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 357340
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 21708
+BFFRefreshape: 22764
+FlattenMesh: 43940
+ReadObjFile: 5964
+Create Mesh from File: 91264
+G
+Attempt  1  successful
+Flat angle: 339
+Trifinder was successfully generated for region  55
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  56 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 467086
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15177
+BFFRefreshape: 22457
+FlattenMesh: 41545
+ReadObjFile: 5137
+Create Mesh from File: 86717
+G
+Attempt  1  successful
+Flat angle: 40
+Trifinder was successfully generated for region  56
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  57 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+processMask main failure: tuple index out of range
+G
+Attempt  1  UNsuccessful
+blurRadius: 5
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 455464
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14809
+BFFRefreshape: 22353
+FlattenMesh: 41809
+ReadObjFile: 4931
+Create Mesh from File: 85896
+G
+Attempt  2  successful
+Flat angle: 306
+Trifinder was successfully generated for region  57
+(47,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  58 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 311847
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 14284
+BFFRefreshape: 22968
+FlattenMesh: 41870
+ReadObjFile: 4652
+Create Mesh from File: 80596
+G
+Attempt  1  successful
+Flat angle: 135
+Trifinder was successfully generated for region  58
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  59 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 477147
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 14444
+BFFRefreshape: 21951
+FlattenMesh: 44291
+ReadObjFile: 4679
+Create Mesh from File: 83867
+G
+Attempt  1  successful
+Flat angle: 82
+Trifinder was successfully generated for region  59
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  60 of 187   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 342155
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 14731
+BFFRefreshape: 21507
+FlattenMesh: 45778
+ReadObjFile: 4972
+Create Mesh from File: 83260
+G
+Attempt  1  successful
+Flat angle: 320
+Trifinder was successfully generated for region  60
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  61 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 461768
+Generate Triangulation on MeshObj: 11
+CreateMeshFile: 15946
+BFFRefreshape: 23695
+FlattenMesh: 48631
+ReadObjFile: 5077
+Create Mesh from File: 81003
+G
+Attempt  1  successful
+Flat angle: 122
+Trifinder was successfully generated for region  61
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  62 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 299837
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 18012
+BFFRefreshape: 22487
+FlattenMesh: 50428
+ReadObjFile: 5057
+Create Mesh from File: 90825
+G
+Attempt  1  successful
+Flat angle: 185
+Trifinder was successfully generated for region  62
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  63 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 287744
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 13646
+BFFRefreshape: 21966
+FlattenMesh: 42013
+ReadObjFile: 5082
+Create Mesh from File: 83967
+G
+Attempt  1  successful
+Flat angle: 41
+Trifinder was successfully generated for region  63
+(48,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  64 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 481796
+Generate Triangulation on MeshObj: 7
+CreateMeshFile: 14453
+BFFRefreshape: 22819
+FlattenMesh: 44235
+ReadObjFile: 4673
+Create Mesh from File: 83208
+G
+Attempt  1  successful
+Flat angle: 103
+Trifinder was successfully generated for region  64
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  65 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 272484
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 12612
+BFFRefreshape: 21316
+FlattenMesh: 42328
+ReadObjFile: 4615
+Create Mesh from File: 78753
+G
+Attempt  1  successful
+Flat angle: 273
+Trifinder was successfully generated for region  65
+(47,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  66 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 269309
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 12377
+BFFRefreshape: 24107
+FlattenMesh: 43445
+ReadObjFile: 4018
+Create Mesh from File: 79489
+G
+Attempt  1  successful
+Flat angle: 12
+Trifinder was successfully generated for region  66
+(47,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  67 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 432878
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 12913
+BFFRefreshape: 22796
+FlattenMesh: 44390
+ReadObjFile: 4044
+Create Mesh from File: 74385
+G
+Attempt  1  successful
+Flat angle: 46
+Trifinder was successfully generated for region  67
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  68 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 328894
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 16270
+BFFRefreshape: 22522
+FlattenMesh: 47845
+ReadObjFile: 5722
+Create Mesh from File: 119179
+G
+Attempt  1  successful
+Flat angle: 315
+Trifinder was successfully generated for region  68
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  69 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 365845
+Generate Triangulation on MeshObj: 7
+CreateMeshFile: 14590
+BFFRefreshape: 23701
+FlattenMesh: 49841
+ReadObjFile: 6500
+Create Mesh from File: 97309
+G
+Attempt  1  successful
+Flat angle: 37
+Trifinder was successfully generated for region  69
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  70 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 494472
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14384
+BFFRefreshape: 24955
+FlattenMesh: 49328
+ReadObjFile: 6103
+Create Mesh from File: 83390
+G
+Attempt  1  successful
+Flat angle: 76
+Trifinder was successfully generated for region  70
+(39,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  71 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 342177
+Generate Triangulation on MeshObj: 12
+CreateMeshFile: 18209
+BFFRefreshape: 21842
+FlattenMesh: 47639
+ReadObjFile: 5717
+Create Mesh from File: 91945
+G
+Attempt  1  successful
+Flat angle: 78
+Trifinder was successfully generated for region  71
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  72 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 327448
+Generate Triangulation on MeshObj: 7
+CreateMeshFile: 15523
+BFFRefreshape: 23036
+FlattenMesh: 51269
+ReadObjFile: 6331
+Create Mesh from File: 89975
+G
+Attempt  1  successful
+Flat angle: 108
+Trifinder was successfully generated for region  72
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  73 of 187   *****
+Bridson_Common.dradius: 1.5666666666666667
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 530823
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 15193
+BFFRefreshape: 22604
+FlattenMesh: 53986
+ReadObjFile: 7033
+Create Mesh from File: 92637
+G
+Attempt  1  successful
+Flat angle: 171
+Trifinder was successfully generated for region  73
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  74 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 396306
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 16789
+BFFRefreshape: 22883
+FlattenMesh: 52155
+ReadObjFile: 6363
+Create Mesh from File: 112169
+G
+Attempt  1  successful
+Flat angle: 103
+Trifinder was successfully generated for region  74
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  75 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 340594
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14906
+BFFRefreshape: 21096
+FlattenMesh: 48201
+ReadObjFile: 4718
+Create Mesh from File: 88662
+G
+Attempt  1  successful
+Flat angle: 299
+Trifinder was successfully generated for region  75
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  76 of 187   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 569240
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 17442
+BFFRefreshape: 41839
+FlattenMesh: 62381
+ReadObjFile: 6232
+Create Mesh from File: 106320
+G
+Attempt  1  successful
+Flat angle: 89
+Trifinder was successfully generated for region  76
+(48,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  77 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 357806
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 18233
+BFFRefreshape: 41654
+FlattenMesh: 54375
+ReadObjFile: 7783
+Create Mesh from File: 103041
+G
+Attempt  1  successful
+Flat angle: 201
+Trifinder was successfully generated for region  77
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  78 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 575672
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 18763
+BFFRefreshape: 24783
+FlattenMesh: 53777
+ReadObjFile: 4948
+Create Mesh from File: 97409
+G
+Attempt  1  successful
+Flat angle: 245
+Trifinder was successfully generated for region  78
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  79 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 341041
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15718
+BFFRefreshape: 23017
+FlattenMesh: 51686
+ReadObjFile: 5234
+Create Mesh from File: 85035
+G
+Attempt  1  successful
+Flat angle: 20
+Trifinder was successfully generated for region  79
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  80 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 364531
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 16819
+BFFRefreshape: 23861
+FlattenMesh: 49130
+ReadObjFile: 5769
+Create Mesh from File: 96870
+G
+Attempt  1  successful
+Flat angle: 287
+Trifinder was successfully generated for region  80
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  81 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 387627
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 17016
+BFFRefreshape: 22887
+FlattenMesh: 59951
+ReadObjFile: 6505
+Create Mesh from File: 124716
+G
+Attempt  1  successful
+Flat angle: 210
+Trifinder was successfully generated for region  81
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  82 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 603615
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 17644
+BFFRefreshape: 22837
+FlattenMesh: 54565
+ReadObjFile: 7010
+Create Mesh from File: 107488
+G
+Attempt  1  successful
+Flat angle: 203
+Trifinder was successfully generated for region  82
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  83 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 380898
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 19401
+BFFRefreshape: 23805
+FlattenMesh: 51852
+ReadObjFile: 5249
+Create Mesh from File: 108390
+G
+Attempt  1  successful
+Flat angle: 115
+Trifinder was successfully generated for region  83
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  84 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 363376
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15478
+BFFRefreshape: 23140
+FlattenMesh: 49542
+ReadObjFile: 5434
+Create Mesh from File: 93305
+G
+Attempt  1  successful
+Flat angle: 296
+Trifinder was successfully generated for region  84
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  85 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 639414
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 18053
+BFFRefreshape: 40277
+FlattenMesh: 59124
+ReadObjFile: 6058
+Create Mesh from File: 148743
+G
+Attempt  1  successful
+Flat angle: 265
+Trifinder was successfully generated for region  85
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  86 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 374271
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 20023
+BFFRefreshape: 25487
+FlattenMesh: 52448
+ReadObjFile: 5472
+Create Mesh from File: 117309
+G
+Attempt  1  successful
+Flat angle: 277
+Trifinder was successfully generated for region  86
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  87 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 337144
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 16136
+BFFRefreshape: 23068
+FlattenMesh: 49661
+ReadObjFile: 5007
+Create Mesh from File: 93781
+G
+Attempt  1  successful
+Flat angle: 351
+Trifinder was successfully generated for region  87
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  88 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 354507
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 16769
+BFFRefreshape: 24519
+FlattenMesh: 51840
+ReadObjFile: 5018
+Create Mesh from File: 97167
+G
+Attempt  1  successful
+Flat angle: 87
+Trifinder was successfully generated for region  88
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  89 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 581408
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 19757
+BFFRefreshape: 25416
+FlattenMesh: 62315
+ReadObjFile: 6727
+Create Mesh from File: 114510
+G
+Attempt  1  successful
+Flat angle: 78
+Trifinder was successfully generated for region  89
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  90 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 372243
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14891
+BFFRefreshape: 22222
+FlattenMesh: 54334
+ReadObjFile: 5623
+Create Mesh from File: 81764
+G
+Attempt  1  successful
+Flat angle: 91
+Trifinder was successfully generated for region  90
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  91 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 362217
+Generate Triangulation on MeshObj: 12
+CreateMeshFile: 15368
+BFFRefreshape: 22954
+FlattenMesh: 56449
+ReadObjFile: 7955
+Create Mesh from File: 118947
+G
+Attempt  1  successful
+Flat angle: 262
+Trifinder was successfully generated for region  91
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  92 of 187   *****
+Bridson_Common.dradius: 1.7333333333333334
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 576046
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 14719
+BFFRefreshape: 22472
+FlattenMesh: 58620
+ReadObjFile: 5840
+Create Mesh from File: 78189
+G
+Attempt  1  successful
+Flat angle: 75
+Trifinder was successfully generated for region  92
+(34,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  93 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 646262
+Generate Triangulation on MeshObj: 11
+CreateMeshFile: 23799
+BFFRefreshape: 53614
+FlattenMesh: 79552
+ReadObjFile: 9934
+Create Mesh from File: 235957
+G
+Attempt  1  successful
+Flat angle: 5
+Trifinder was successfully generated for region  93
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  94 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 750048
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 21332
+BFFRefreshape: 42319
+FlattenMesh: 62414
+ReadObjFile: 10823
+Create Mesh from File: 138601
+G
+Attempt  1  successful
+Flat angle: 163
+Trifinder was successfully generated for region  94
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  95 of 187   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+A
+processMask main failure: tuple index out of range
+G
+Attempt  1  UNsuccessful
+blurRadius: 5
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 765573
+Generate Triangulation on MeshObj: 11
+CreateMeshFile: 22397
+BFFRefreshape: 45480
+FlattenMesh: 59773
+ReadObjFile: 8432
+Create Mesh from File: 139309
+G
+Attempt  2  successful
+Flat angle: 279
+Trifinder was successfully generated for region  95
+(50,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  96 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 414850
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 19426
+BFFRefreshape: 23914
+FlattenMesh: 53848
+ReadObjFile: 6384
+Create Mesh from File: 121623
+G
+Attempt  1  successful
+Flat angle: 244
+Trifinder was successfully generated for region  96
+(48,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  97 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 341089
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 16781
+BFFRefreshape: 22565
+FlattenMesh: 51487
+ReadObjFile: 5559
+Create Mesh from File: 91027
+G
+Attempt  1  successful
+Flat angle: 335
+Trifinder was successfully generated for region  97
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  98 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 619533
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 17375
+BFFRefreshape: 24599
+FlattenMesh: 54783
+ReadObjFile: 6215
+Create Mesh from File: 103185
+G
+Attempt  1  successful
+Flat angle: 275
+Trifinder was successfully generated for region  98
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  99 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 349090
+Generate Triangulation on MeshObj: 11
+CreateMeshFile: 16701
+BFFRefreshape: 23119
+FlattenMesh: 52797
+ReadObjFile: 6166
+Create Mesh from File: 105429
+G
+Attempt  1  successful
+Flat angle: 195
+Trifinder was successfully generated for region  99
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  100 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 364975
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 17036
+BFFRefreshape: 25500
+FlattenMesh: 51782
+ReadObjFile: 5848
+Create Mesh from File: 104163
+G
+Attempt  1  successful
+Flat angle: 276
+Trifinder was successfully generated for region  100
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  101 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 313578
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 15065
+BFFRefreshape: 24067
+FlattenMesh: 52059
+ReadObjFile: 5201
+Create Mesh from File: 88163
+G
+Attempt  1  successful
+Flat angle: 158
+Trifinder was successfully generated for region  101
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  102 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 522211
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 12059
+BFFRefreshape: 25157
+FlattenMesh: 50055
+ReadObjFile: 4446
+Create Mesh from File: 78692
+G
+Attempt  1  successful
+Flat angle: 41
+Trifinder was successfully generated for region  102
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  103 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 345252
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 16652
+BFFRefreshape: 23588
+FlattenMesh: 49221
+ReadObjFile: 6020
+Create Mesh from File: 99098
+G
+Attempt  1  successful
+Flat angle: 310
+Trifinder was successfully generated for region  103
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  104 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 347569
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 16629
+BFFRefreshape: 24182
+FlattenMesh: 50047
+ReadObjFile: 6151
+Create Mesh from File: 100194
+G
+Attempt  1  successful
+Flat angle: 36
+Trifinder was successfully generated for region  104
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  105 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 577787
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 15389
+BFFRefreshape: 25318
+FlattenMesh: 47278
+ReadObjFile: 5742
+Create Mesh from File: 91199
+G
+Attempt  1  successful
+Flat angle: 285
+Trifinder was successfully generated for region  105
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  106 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 298379
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 12328
+BFFRefreshape: 23916
+FlattenMesh: 49276
+ReadObjFile: 4509
+Create Mesh from File: 73119
+G
+Attempt  1  successful
+Flat angle: 16
+Trifinder was successfully generated for region  106
+(37,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  107 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+processMask main failure: tuple index out of range
+G
+Attempt  1  UNsuccessful
+blurRadius: 5
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 355655
+Generate Triangulation on MeshObj: 13
+CreateMeshFile: 14491
+BFFRefreshape: 23297
+FlattenMesh: 49657
+ReadObjFile: 4984
+Create Mesh from File: 79675
+G
+Attempt  2  successful
+Flat angle: 133
+Trifinder was successfully generated for region  107
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  108 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 342802
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 16543
+BFFRefreshape: 23032
+FlattenMesh: 54945
+ReadObjFile: 6385
+Create Mesh from File: 343471
+G
+Attempt  1  successful
+Flat angle: 329
+Trifinder was successfully generated for region  108
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  109 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 325845
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 13946
+BFFRefreshape: 23840
+FlattenMesh: 52475
+ReadObjFile: 5459
+Create Mesh from File: 75609
+G
+Attempt  1  successful
+Flat angle: 223
+Trifinder was successfully generated for region  109
+(38,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  110 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 384651
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 16411
+BFFRefreshape: 23687
+FlattenMesh: 50351
+ReadObjFile: 5955
+Create Mesh from File: 101900
+G
+Attempt  1  successful
+Flat angle: 93
+Trifinder was successfully generated for region  110
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  111 of 187   *****
+Bridson_Common.dradius: 1.5666666666666667
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 377122
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 14860
+BFFRefreshape: 22469
+FlattenMesh: 56448
+ReadObjFile: 6823
+Create Mesh from File: 101422
+G
+Attempt  1  successful
+Flat angle: 7
+Trifinder was successfully generated for region  111
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  112 of 187   *****
+Bridson_Common.dradius: 1.6666666666666667
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 617255
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15068
+BFFRefreshape: 23898
+FlattenMesh: 49664
+ReadObjFile: 5361
+Create Mesh from File: 86757
+G
+Attempt  1  successful
+Flat angle: 147
+Trifinder was successfully generated for region  112
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  113 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 338927
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 15437
+BFFRefreshape: 22891
+FlattenMesh: 48304
+ReadObjFile: 5705
+Create Mesh from File: 90397
+G
+Attempt  1  successful
+Flat angle: 224
+Trifinder was successfully generated for region  113
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  114 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+processMask main failure: tuple index out of range
+G
+Attempt  1  UNsuccessful
+blurRadius: 5
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 384684
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 16615
+BFFRefreshape: 24887
+FlattenMesh: 51936
+ReadObjFile: 5758
+Create Mesh from File: 100698
+G
+Attempt  2  successful
+Flat angle: 218
+Trifinder was successfully generated for region  114
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  115 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 632758
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 17891
+BFFRefreshape: 22948
+FlattenMesh: 49462
+ReadObjFile: 6033
+Create Mesh from File: 103475
+G
+Attempt  1  successful
+Flat angle: 138
+Trifinder was successfully generated for region  115
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  116 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 353793
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15435
+BFFRefreshape: 24094
+FlattenMesh: 48523
+ReadObjFile: 5479
+Create Mesh from File: 95292
+G
+Attempt  1  successful
+Flat angle: 208
+Trifinder was successfully generated for region  116
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  117 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 349987
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14657
+BFFRefreshape: 23795
+FlattenMesh: 46677
+ReadObjFile: 5470
+Create Mesh from File: 85505
+G
+Attempt  1  successful
+Flat angle: 315
+Trifinder was successfully generated for region  117
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  118 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 328705
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 16272
+BFFRefreshape: 21841
+FlattenMesh: 50483
+ReadObjFile: 5876
+Create Mesh from File: 89212
+G
+Attempt  1  successful
+Flat angle: 322
+Trifinder was successfully generated for region  118
+(38,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  119 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 655386
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 18260
+BFFRefreshape: 22526
+FlattenMesh: 49815
+ReadObjFile: 6340
+Create Mesh from File: 115845
+G
+Attempt  1  successful
+Flat angle: 322
+Trifinder was successfully generated for region  119
+(53,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  120 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 323475
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15514
+BFFRefreshape: 22381
+FlattenMesh: 47130
+ReadObjFile: 5565
+Create Mesh from File: 93648
+G
+Attempt  1  successful
+Flat angle: 223
+Trifinder was successfully generated for region  120
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  121 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 401771
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 19104
+BFFRefreshape: 23786
+FlattenMesh: 48823
+ReadObjFile: 6811
+Create Mesh from File: 109676
+G
+Attempt  1  successful
+Flat angle: 313
+Trifinder was successfully generated for region  121
+(47,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  122 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 281202
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 13357
+BFFRefreshape: 23562
+FlattenMesh: 45900
+ReadObjFile: 4495
+Create Mesh from File: 76873
+G
+Attempt  1  successful
+Flat angle: 72
+Trifinder was successfully generated for region  122
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  123 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 255176
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 12150
+BFFRefreshape: 24339
+FlattenMesh: 45797
+ReadObjFile: 4364
+Create Mesh from File: 69962
+G
+Attempt  1  successful
+Flat angle: 346
+Trifinder was successfully generated for region  123
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  124 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 574805
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14043
+BFFRefreshape: 23022
+FlattenMesh: 46008
+ReadObjFile: 6042
+Create Mesh from File: 81198
+G
+Attempt  1  successful
+Flat angle: 149
+Trifinder was successfully generated for region  124
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  125 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+processMask main failure: tuple index out of range
+G
+Attempt  1  UNsuccessful
+blurRadius: 5
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 336029
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 16791
+BFFRefreshape: 22888
+FlattenMesh: 46480
+ReadObjFile: 5397
+Create Mesh from File: 98454
+G
+Attempt  2  successful
+Flat angle: 219
+Trifinder was successfully generated for region  125
+(47,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  126 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 346478
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15433
+BFFRefreshape: 23690
+FlattenMesh: 45618
+ReadObjFile: 6943
+Create Mesh from File: 90963
+G
+Attempt  1  successful
+Flat angle: 117
+Trifinder was successfully generated for region  126
+(47,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  127 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 555212
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 13283
+BFFRefreshape: 23423
+FlattenMesh: 45416
+ReadObjFile: 5250
+Create Mesh from File: 77722
+G
+Attempt  1  successful
+Flat angle: 193
+Trifinder was successfully generated for region  127
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  128 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 261559
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 12486
+BFFRefreshape: 23927
+FlattenMesh: 45222
+ReadObjFile: 4010
+Create Mesh from File: 70006
+G
+Attempt  1  successful
+Flat angle: 317
+Trifinder was successfully generated for region  128
+(38,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  129 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 282139
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 13201
+BFFRefreshape: 25450
+FlattenMesh: 46528
+ReadObjFile: 4690
+Create Mesh from File: 80017
+G
+Attempt  1  successful
+Flat angle: 81
+Trifinder was successfully generated for region  129
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  130 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 328896
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15266
+BFFRefreshape: 23564
+FlattenMesh: 48029
+ReadObjFile: 5647
+Create Mesh from File: 93287
+G
+Attempt  1  successful
+Flat angle: 196
+Trifinder was successfully generated for region  130
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  131 of 187   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 327346
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 14303
+BFFRefreshape: 24814
+FlattenMesh: 45992
+ReadObjFile: 5040
+Create Mesh from File: 84429
+G
+Attempt  1  successful
+Flat angle: 295
+Trifinder was successfully generated for region  131
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  132 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 616157
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15606
+BFFRefreshape: 25826
+FlattenMesh: 43083
+ReadObjFile: 5811
+Create Mesh from File: 88524
+G
+Attempt  1  successful
+Flat angle: 318
+Trifinder was successfully generated for region  132
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  133 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 253678
+Generate Triangulation on MeshObj: 7
+CreateMeshFile: 11112
+BFFRefreshape: 24630
+FlattenMesh: 44772
+ReadObjFile: 4078
+Create Mesh from File: 66474
+G
+Attempt  1  successful
+Flat angle: 172
+Trifinder was successfully generated for region  133
+(39,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  134 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 339577
+Generate Triangulation on MeshObj: 7
+CreateMeshFile: 15008
+BFFRefreshape: 23497
+FlattenMesh: 43626
+ReadObjFile: 5331
+Create Mesh from File: 84959
+G
+Attempt  1  successful
+Flat angle: 249
+Trifinder was successfully generated for region  134
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  135 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 291927
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 13763
+BFFRefreshape: 22118
+FlattenMesh: 46740
+ReadObjFile: 5777
+Create Mesh from File: 83476
+G
+Attempt  1  successful
+Flat angle: 203
+Trifinder was successfully generated for region  135
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  136 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 609571
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 13974
+BFFRefreshape: 23616
+FlattenMesh: 44803
+ReadObjFile: 4996
+Create Mesh from File: 80977
+G
+Attempt  1  successful
+Flat angle: 119
+Trifinder was successfully generated for region  136
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  137 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 303054
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 13890
+BFFRefreshape: 22854
+FlattenMesh: 44206
+ReadObjFile: 5013
+Create Mesh from File: 85584
+G
+Attempt  1  successful
+Flat angle: 334
+Trifinder was successfully generated for region  137
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  138 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 326417
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15409
+BFFRefreshape: 21858
+FlattenMesh: 44430
+ReadObjFile: 5945
+Create Mesh from File: 91688
+G
+Attempt  1  successful
+Flat angle: 309
+Trifinder was successfully generated for region  138
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  139 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 358357
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 16250
+BFFRefreshape: 25170
+FlattenMesh: 45502
+ReadObjFile: 5582
+Create Mesh from File: 96969
+G
+Attempt  1  successful
+Flat angle: 14
+Trifinder was successfully generated for region  139
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  140 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 335055
+Generate Triangulation on MeshObj: 7
+CreateMeshFile: 17615
+BFFRefreshape: 24164
+FlattenMesh: 46211
+ReadObjFile: 5764
+Create Mesh from File: 107832
+G
+Attempt  1  successful
+Flat angle: 231
+Trifinder was successfully generated for region  140
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  141 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 618675
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 13329
+BFFRefreshape: 25913
+FlattenMesh: 45527
+ReadObjFile: 4793
+Create Mesh from File: 81707
+G
+Attempt  1  successful
+Flat angle: 41
+Trifinder was successfully generated for region  141
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  142 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 293416
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14264
+BFFRefreshape: 22193
+FlattenMesh: 47863
+ReadObjFile: 5510
+Create Mesh from File: 83589
+G
+Attempt  1  successful
+Flat angle: 324
+Trifinder was successfully generated for region  142
+(38,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  143 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 291571
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 14022
+BFFRefreshape: 23735
+FlattenMesh: 49003
+ReadObjFile: 5693
+Create Mesh from File: 79910
+G
+Attempt  1  successful
+Flat angle: 18
+Trifinder was successfully generated for region  143
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  144 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 349534
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 15712
+BFFRefreshape: 23405
+FlattenMesh: 48645
+ReadObjFile: 5434
+Create Mesh from File: 100542
+G
+Attempt  1  successful
+Flat angle: 157
+Trifinder was successfully generated for region  144
+(48,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  145 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 348620
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 15314
+BFFRefreshape: 22339
+FlattenMesh: 46951
+ReadObjFile: 5862
+Create Mesh from File: 89245
+G
+Attempt  1  successful
+Flat angle: 38
+Trifinder was successfully generated for region  145
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  146 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 694482
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 15105
+BFFRefreshape: 23526
+FlattenMesh: 55491
+ReadObjFile: 6649
+Create Mesh from File: 130331
+G
+Attempt  1  successful
+Flat angle: 311
+Trifinder was successfully generated for region  146
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  147 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 367008
+Generate Triangulation on MeshObj: 30
+CreateMeshFile: 16053
+BFFRefreshape: 40089
+FlattenMesh: 69085
+ReadObjFile: 6128
+Create Mesh from File: 99242
+G
+Attempt  1  successful
+Flat angle: 227
+Trifinder was successfully generated for region  147
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  148 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 325473
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 13218
+BFFRefreshape: 23644
+FlattenMesh: 52904
+ReadObjFile: 5781
+Create Mesh from File: 92017
+G
+Attempt  1  successful
+Flat angle: 131
+Trifinder was successfully generated for region  148
+(39,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  149 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 362101
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 13191
+BFFRefreshape: 24102
+FlattenMesh: 57577
+ReadObjFile: 4754
+Create Mesh from File: 82450
+G
+Attempt  1  successful
+Flat angle: 111
+Trifinder was successfully generated for region  149
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  150 of 187   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 572736
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 21575
+BFFRefreshape: 45031
+FlattenMesh: 64220
+ReadObjFile: 10564
+Create Mesh from File: 116232
+G
+Attempt  1  successful
+Flat angle: 139
+Trifinder was successfully generated for region  150
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  151 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 594842
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 25070
+BFFRefreshape: 25150
+FlattenMesh: 67764
+ReadObjFile: 8953
+Create Mesh from File: 152297
+G
+Attempt  1  successful
+Flat angle: 334
+Trifinder was successfully generated for region  151
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  152 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 861323
+Generate Triangulation on MeshObj: 14
+CreateMeshFile: 21357
+BFFRefreshape: 44932
+FlattenMesh: 55890
+ReadObjFile: 7098
+Create Mesh from File: 130291
+G
+Attempt  1  successful
+Flat angle: 49
+Trifinder was successfully generated for region  152
+(49,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  153 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 415702
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 20739
+BFFRefreshape: 25296
+FlattenMesh: 58813
+ReadObjFile: 8146
+Create Mesh from File: 120195
+G
+Attempt  1  successful
+Flat angle: 210
+Trifinder was successfully generated for region  153
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  154 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 420430
+Generate Triangulation on MeshObj: 11
+CreateMeshFile: 20592
+BFFRefreshape: 24403
+FlattenMesh: 56814
+ReadObjFile: 6243
+Create Mesh from File: 104925
+G
+Attempt  1  successful
+Flat angle: 216
+Trifinder was successfully generated for region  154
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  155 of 187   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 451249
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 21241
+BFFRefreshape: 22722
+FlattenMesh: 54984
+ReadObjFile: 8925
+Create Mesh from File: 126049
+G
+Attempt  1  successful
+Flat angle: 187
+Trifinder was successfully generated for region  155
+(47,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  156 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 396470
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 19029
+BFFRefreshape: 23531
+FlattenMesh: 52119
+ReadObjFile: 6919
+Create Mesh from File: 483824
+G
+Attempt  1  successful
+Flat angle: 143
+Trifinder was successfully generated for region  156
+(47,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  157 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 354606
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 16300
+BFFRefreshape: 24980
+FlattenMesh: 53318
+ReadObjFile: 7058
+Create Mesh from File: 100476
+G
+Attempt  1  successful
+Flat angle: 319
+Trifinder was successfully generated for region  157
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  158 of 187   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 442598
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 19780
+BFFRefreshape: 25183
+FlattenMesh: 58113
+ReadObjFile: 6597
+Create Mesh from File: 114383
+G
+Attempt  1  successful
+Flat angle: 20
+Trifinder was successfully generated for region  158
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  159 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 359038
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 16992
+BFFRefreshape: 24662
+FlattenMesh: 54023
+ReadObjFile: 6423
+Create Mesh from File: 101171
+G
+Attempt  1  successful
+Flat angle: 77
+Trifinder was successfully generated for region  159
+(47,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  160 of 187   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+A
+processMask main failure: tuple index out of range
+G
+Attempt  1  UNsuccessful
+blurRadius: 5
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 442809
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 20915
+BFFRefreshape: 41428
+FlattenMesh: 52763
+ReadObjFile: 6807
+Create Mesh from File: 469834
+G
+Attempt  2  successful
+Flat angle: 31
+Trifinder was successfully generated for region  160
+(48,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  161 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 394628
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 19194
+BFFRefreshape: 24766
+FlattenMesh: 51526
+ReadObjFile: 6054
+Create Mesh from File: 120882
+G
+Attempt  1  successful
+Flat angle: 132
+Trifinder was successfully generated for region  161
+(49,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  162 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 331309
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 15629
+BFFRefreshape: 23564
+FlattenMesh: 51286
+ReadObjFile: 5434
+Create Mesh from File: 97665
+G
+Attempt  1  successful
+Flat angle: 157
+Trifinder was successfully generated for region  162
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  163 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 337702
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 20438
+BFFRefreshape: 24378
+FlattenMesh: 54482
+ReadObjFile: 5030
+Create Mesh from File: 89749
+G
+Attempt  1  successful
+Flat angle: 152
+Trifinder was successfully generated for region  163
+(39,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  164 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 290812
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 14913
+BFFRefreshape: 22477
+FlattenMesh: 52150
+ReadObjFile: 4718
+Create Mesh from File: 79676
+G
+Attempt  1  successful
+Flat angle: 202
+Trifinder was successfully generated for region  164
+(39,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  165 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 345815
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 15822
+BFFRefreshape: 23034
+FlattenMesh: 48609
+ReadObjFile: 5258
+Create Mesh from File: 92759
+G
+Attempt  1  successful
+Flat angle: 58
+Trifinder was successfully generated for region  165
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  166 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 395028
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 17879
+BFFRefreshape: 25205
+FlattenMesh: 48798
+ReadObjFile: 5778
+Create Mesh from File: 458590
+G
+Attempt  1  successful
+Flat angle: 225
+Trifinder was successfully generated for region  166
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  167 of 187   *****
+Bridson_Common.dradius: 1.6333333333333333
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 350310
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15356
+BFFRefreshape: 23745
+FlattenMesh: 47432
+ReadObjFile: 4949
+Create Mesh from File: 90861
+G
+Attempt  1  successful
+Flat angle: 89
+Trifinder was successfully generated for region  167
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  168 of 187   *****
+Bridson_Common.dradius: 1.7333333333333334
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 343361
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 16415
+BFFRefreshape: 23837
+FlattenMesh: 45926
+ReadObjFile: 4596
+Create Mesh from File: 86278
+G
+Attempt  1  successful
+Flat angle: 208
+Trifinder was successfully generated for region  168
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  169 of 187   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 379125
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 17556
+BFFRefreshape: 23741
+FlattenMesh: 47361
+ReadObjFile: 5208
+Create Mesh from File: 101127
+G
+Attempt  1  successful
+Flat angle: 15
+Trifinder was successfully generated for region  169
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  170 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 389215
+Generate Triangulation on MeshObj: 7
+CreateMeshFile: 17093
+BFFRefreshape: 24204
+FlattenMesh: 50650
+ReadObjFile: 5598
+Create Mesh from File: 104072
+G
+Attempt  1  successful
+Flat angle: 6
+Trifinder was successfully generated for region  170
+(48,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  171 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 713957
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 16269
+BFFRefreshape: 24070
+FlattenMesh: 48369
+ReadObjFile: 5068
+Create Mesh from File: 102312
+G
+Attempt  1  successful
+Flat angle: 14
+Trifinder was successfully generated for region  171
+(49,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  172 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 355444
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 17059
+BFFRefreshape: 25263
+FlattenMesh: 46553
+ReadObjFile: 5462
+Create Mesh from File: 102476
+G
+Attempt  1  successful
+Flat angle: 227
+Trifinder was successfully generated for region  172
+(48,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  173 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 365010
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 17216
+BFFRefreshape: 23934
+FlattenMesh: 46259
+ReadObjFile: 5512
+Create Mesh from File: 98305
+G
+Attempt  1  successful
+Flat angle: 344
+Trifinder was successfully generated for region  173
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  174 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 364369
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 18464
+BFFRefreshape: 23531
+FlattenMesh: 47343
+ReadObjFile: 5700
+Create Mesh from File: 100443
+G
+Attempt  1  successful
+Flat angle: 41
+Trifinder was successfully generated for region  174
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  175 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 343963
+Generate Triangulation on MeshObj: 7
+CreateMeshFile: 15864
+BFFRefreshape: 24866
+FlattenMesh: 48214
+ReadObjFile: 6228
+Create Mesh from File: 93903
+G
+Attempt  1  successful
+Flat angle: 174
+Trifinder was successfully generated for region  175
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  176 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 332779
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14850
+BFFRefreshape: 22580
+FlattenMesh: 49428
+ReadObjFile: 4595
+Create Mesh from File: 88741
+G
+Attempt  1  successful
+Flat angle: 210
+Trifinder was successfully generated for region  176
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  177 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 705772
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15572
+BFFRefreshape: 24187
+FlattenMesh: 44562
+ReadObjFile: 4991
+Create Mesh from File: 91161
+G
+Attempt  1  successful
+Flat angle: 16
+Trifinder was successfully generated for region  177
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  178 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 342563
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 16517
+BFFRefreshape: 23548
+FlattenMesh: 45749
+ReadObjFile: 5095
+Create Mesh from File: 92117
+G
+Attempt  1  successful
+Flat angle: 17
+Trifinder was successfully generated for region  178
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  179 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 350710
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 16244
+BFFRefreshape: 23274
+FlattenMesh: 48010
+ReadObjFile: 5385
+Create Mesh from File: 101228
+G
+Attempt  1  successful
+Flat angle: 226
+Trifinder was successfully generated for region  179
+(47,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  180 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 311719
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 14484
+BFFRefreshape: 24822
+FlattenMesh: 44716
+ReadObjFile: 4907
+Create Mesh from File: 84629
+G
+Attempt  1  successful
+Flat angle: 220
+Trifinder was successfully generated for region  180
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  181 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 368378
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 16677
+BFFRefreshape: 22316
+FlattenMesh: 47588
+ReadObjFile: 5695
+Create Mesh from File: 95165
+G
+Attempt  1  successful
+Flat angle: 343
+Trifinder was successfully generated for region  181
+(50,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  182 of 187   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 731310
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15148
+BFFRefreshape: 26783
+FlattenMesh: 46691
+ReadObjFile: 5348
+Create Mesh from File: 94043
+G
+Attempt  1  successful
+Flat angle: 146
+Trifinder was successfully generated for region  182
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  183 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 345270
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15392
+BFFRefreshape: 24610
+FlattenMesh: 47353
+ReadObjFile: 5066
+Create Mesh from File: 91518
+G
+Attempt  1  successful
+Flat angle: 29
+Trifinder was successfully generated for region  183
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  184 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 311055
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14422
+BFFRefreshape: 22983
+FlattenMesh: 45760
+ReadObjFile: 4740
+Create Mesh from File: 89090
+G
+Attempt  1  successful
+Flat angle: 315
+Trifinder was successfully generated for region  184
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  185 of 187   *****
+Bridson_Common.dradius: 1.6333333333333333
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 313619
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 13085
+BFFRefreshape: 24370
+FlattenMesh: 45081
+ReadObjFile: 4363
+Create Mesh from File: 77401
+G
+Attempt  1  successful
+Flat angle: 269
+Trifinder was successfully generated for region  185
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  186 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 359138
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15591
+BFFRefreshape: 25014
+FlattenMesh: 48926
+ReadObjFile: 4711
+Create Mesh from File: 89963
+G
+Attempt  1  successful
+Flat angle: 241
+Trifinder was successfully generated for region  186
+(41,)
+About to cropCullLines
+regionIntensityMap: {0: 217.52537722908093, 1: 220.80932784636488, 2: 223.29903978052127, 3: 225.57692307692307, 4: 227.21456953642385, 5: 229.09315068493152, 6: 230.89216944801026, 7: 232.5267605633803, 8: 233.08028335301063, 9: 234.70682148040638, 10: 234.45589919816723, 11: 225.937125748503, 12: 235.78337236533957, 13: 237.0487144790257, 14: 237.4156378600823, 15: 237.76435935198822, 16: 237.9525925925926, 17: 238.0595813204509, 18: 237.57407407407408, 19: 77.61507936507937, 20: 213.413178984862, 21: 227.07358738501972, 22: 229.08748317631225, 23: 230.17480719794344, 24: 221.93069306930693, 25: 230.46260387811634, 26: 217.9039780521262, 27: 219.7283950617284, 28: 220.52263374485597, 29: 224.35880829015545, 30: 230.526706231454, 31: 230.64852255054433, 32: 230.30756843800322, 33: 222.58549222797927, 34: 224.390452876377, 35: 81.69680851063829, 36: 208.48338081671415, 37: 68.67936117936118, 38: 80.19894598155467, 39: 82.95156407669022, 40: 220.43572395128552, 41: 217.12028985507246, 42: 223.92296918767508, 43: 218.10997442455243, 44: 224.65223880597014, 45: 214.6488340192044, 46: 215.34842249657063, 47: 215.96005509641873, 48: 224.88855421686748, 49: 224.2122186495177, 50: 214.31984829329963, 51: 222.9456, 52: 68.13003901170352, 53: 214.24934725848564, 54: 214.5542328042328, 55: 84.3270300333704, 56: 218.84561403508772, 57: 213.05829596412556, 58: 100.32352941176471, 59: 218.1749311294766, 60: 71.54463130659767, 61: 215.424, 62: 212.5500685871056, 63: 214.09283819628646, 64: 219.48379052369077, 65: 221.26005747126436, 66: 220.74231332357246, 67: 218.78899082568807, 68: 221.60236220472441, 69: 106.24864130434783, 70: 215.03162650602408, 71: 86.63648648648649, 72: 97.78732394366197, 73: 85.93152639087019, 74: 86.74007682458387, 75: 78.72576177285319, 76: 216.24076281287248, 77: 212.2589531680441, 78: 217.47008547008548, 79: 217.9986225895317, 80: 214.30311231393776, 81: 214.3314447592068, 82: 216.18478260869566, 83: 85.98872180451127, 84: 217.54, 85: 217.60863095238096, 86: 101.30699481865285, 87: 90.63492063492063, 88: 215.42455242966753, 89: 217.6870026525199, 90: 215.3953488372093, 91: 85.40298507462687, 92: 144.0057915057915, 93: 186.84415584415584, 94: 62.653442240373394, 95: 73.68087697929354, 96: 213.2196261682243, 97: 201.22141823444284, 98: 210.76271186440678, 99: 212.28187919463087, 100: 202.9457671957672, 101: 151.70710059171597, 102: 166.9106529209622, 103: 79.72990777338603, 104: 73.57033248081841, 105: 63.12774193548387, 106: 144.75364667747164, 107: 176.26680244399185, 108: 148.70396600566573, 109: 147.2512396694215, 110: 63.63191763191763, 111: 126.01178010471205, 112: 97.89044289044288, 113: 142.71766342141865, 114: 75.72636815920399, 115: 149.4756690997567, 116: 137.68790637191157, 117: 131.1958620689655, 118: 138.50574712643677, 119: 145.48898678414096, 120: 150.69819193324062, 121: 143.48531011969533, 122: 153.45547445255474, 123: 148.3893653516295, 124: 146.70359712230217, 125: 136.6484149855908, 126: 105.02059202059202, 127: 155.33900709219859, 128: 142.58524590163935, 129: 137.0870185449358, 130: 147.14249363867685, 131: 105.29301075268818, 132: 120.52168367346938, 133: 144.72473867595818, 134: 149.00981595092026, 135: 142.6258064516129, 136: 104.51456310679612, 137: 143.3367741935484, 138: 144.9151515151515, 139: 135.50849377123444, 140: 136.6674182638106, 141: 141.15965166908563, 142: 155.8063583815029, 143: 135.50291545189503, 144: 139.0074719800747, 145: 157.1021220159151, 146: 133.7685185185185, 147: 134.7910014513788, 148: 154.97631133671743, 149: 102.84745762711864, 150: 126.29960053262317, 151: 159.18662952646238, 152: 130.1433296582139, 153: 128.88083538083538, 154: 128.40740740740742, 155: 163.75341028331584, 156: 128.1746776084408, 157: 137.85694444444445, 158: 172.8833151581243, 159: 164.38675496688742, 160: 120.77502812148481, 161: 129.47651775486827, 162: 144.85531914893616, 163: 144.63762102351313, 164: 155.1719008264463, 165: 152.28418230563003, 166: 157.78200692041523, 167: 166.2665916760405, 168: 151.86165577342047, 169: 150.59840728100113, 170: 147.76490066225165, 171: 131.21032258064517, 172: 152.45958986731, 173: 149.49943374858438, 174: 140.79141835518473, 175: 134.76020408163265, 176: 123.7673469387755, 177: 158.89559748427672, 178: 146.49156626506024, 179: 140.26984126984127, 180: 116.69972826086956, 181: 130.34256926952142, 182: 139.41362530413625, 183: 155.66540404040404, 184: 148.33376288659792, 185: 101.50886766712142, 186: 140.14}
+About to genAdjacencyMap
+About to mergeLines
+About to copyFromOther
+Error saving file: close() got an unexpected keyword argument 'fig'
+Error saving file: close() got an unexpected keyword argument 'fig'
+Successful Regions:  187
+Total Regions:  187
+||||||||||||||||||||||||||||||||||
+
+>>>>>>>>>>>>>>>> Calling SLIC for  david-dibert-Huza8QOO3tc-unsplash.jpg <<<<<<<<<<<<<<<<<<<<<<<
+Shape: (281, 500)
+Type: <class 'numpy.ndarray'>
+Error saving file: close() got an unexpected keyword argument 'fig'
+RegionMap keys: dict_keys([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189])
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  0 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 354210
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 14899
+BFFRefreshape: 23852
+FlattenMesh: 49233
+ReadObjFile: 5989
+Create Mesh from File: 89700
+G
+Attempt  1  successful
+Flat angle: 121
+Trifinder was successfully generated for region  0
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  1 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 285503
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 13600
+BFFRefreshape: 22883
+FlattenMesh: 46642
+ReadObjFile: 4744
+Create Mesh from File: 85167
+G
+Attempt  1  successful
+Flat angle: 291
+Trifinder was successfully generated for region  1
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  2 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 328697
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 14003
+BFFRefreshape: 22598
+FlattenMesh: 49353
+ReadObjFile: 5504
+Create Mesh from File: 85456
+G
+Attempt  1  successful
+Flat angle: 22
+Trifinder was successfully generated for region  2
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  3 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 290172
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14007
+BFFRefreshape: 23186
+FlattenMesh: 46897
+ReadObjFile: 5660
+Create Mesh from File: 84329
+G
+Attempt  1  successful
+Flat angle: 213
+Trifinder was successfully generated for region  3
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  4 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+processMask main failure: tuple index out of range
+G
+Attempt  1  UNsuccessful
+blurRadius: 5
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 372493
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 16705
+BFFRefreshape: 22659
+FlattenMesh: 45344
+ReadObjFile: 5956
+Create Mesh from File: 103001
+G
+Attempt  2  successful
+Flat angle: 103
+Trifinder was successfully generated for region  4
+(49,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  5 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 281302
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14309
+BFFRefreshape: 22471
+FlattenMesh: 47928
+ReadObjFile: 5244
+Create Mesh from File: 81318
+G
+Attempt  1  successful
+Flat angle: 300
+Trifinder was successfully generated for region  5
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  6 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 368500
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 15088
+BFFRefreshape: 24339
+FlattenMesh: 45871
+ReadObjFile: 5344
+Create Mesh from File: 89416
+G
+Attempt  1  successful
+Flat angle: 291
+Trifinder was successfully generated for region  6
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  7 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 290456
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 14524
+BFFRefreshape: 21912
+FlattenMesh: 44473
+ReadObjFile: 4340
+Create Mesh from File: 84208
+G
+Attempt  1  successful
+Flat angle: 226
+Trifinder was successfully generated for region  7
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  8 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 397948
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 16083
+BFFRefreshape: 23837
+FlattenMesh: 46664
+ReadObjFile: 6081
+Create Mesh from File: 93433
+G
+Attempt  1  successful
+Flat angle: 47
+Trifinder was successfully generated for region  8
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  9 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 293927
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 13583
+BFFRefreshape: 23558
+FlattenMesh: 45995
+ReadObjFile: 4270
+Create Mesh from File: 79175
+G
+Attempt  1  successful
+Flat angle: 231
+Trifinder was successfully generated for region  9
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  10 of 190   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 421037
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 17576
+BFFRefreshape: 23953
+FlattenMesh: 44905
+ReadObjFile: 5698
+Create Mesh from File: 93092
+G
+Attempt  1  successful
+Flat angle: 57
+Trifinder was successfully generated for region  10
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  11 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 368938
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 13513
+BFFRefreshape: 22864
+FlattenMesh: 46035
+ReadObjFile: 4890
+Create Mesh from File: 89506
+G
+Attempt  1  successful
+Flat angle: 294
+Trifinder was successfully generated for region  11
+(48,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  12 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 309649
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15193
+BFFRefreshape: 23282
+FlattenMesh: 47657
+ReadObjFile: 5072
+Create Mesh from File: 85637
+G
+Attempt  1  successful
+Flat angle: 108
+Trifinder was successfully generated for region  12
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  13 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 278747
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 15120
+BFFRefreshape: 24311
+FlattenMesh: 47684
+ReadObjFile: 4301
+Create Mesh from File: 154606
+G
+Attempt  1  successful
+Flat angle: 69
+Trifinder was successfully generated for region  13
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  14 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 281781
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 14003
+BFFRefreshape: 24499
+FlattenMesh: 46165
+ReadObjFile: 4389
+Create Mesh from File: 80296
+G
+Attempt  1  successful
+Flat angle: 119
+Trifinder was successfully generated for region  14
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  15 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 271541
+Generate Triangulation on MeshObj: 7
+CreateMeshFile: 13331
+BFFRefreshape: 24151
+FlattenMesh: 44815
+ReadObjFile: 4325
+Create Mesh from File: 77332
+G
+Attempt  1  successful
+Flat angle: 292
+Trifinder was successfully generated for region  15
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  16 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 347547
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 13197
+BFFRefreshape: 21801
+FlattenMesh: 50215
+ReadObjFile: 4572
+Create Mesh from File: 90662
+G
+Attempt  1  successful
+Flat angle: 211
+Trifinder was successfully generated for region  16
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  17 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 262937
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 12257
+BFFRefreshape: 22434
+FlattenMesh: 44998
+ReadObjFile: 3879
+Create Mesh from File: 71964
+G
+Attempt  1  successful
+Flat angle: 56
+Trifinder was successfully generated for region  17
+(38,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  18 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 324531
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 11355
+BFFRefreshape: 24605
+FlattenMesh: 46377
+ReadObjFile: 4315
+Create Mesh from File: 68702
+G
+Attempt  1  successful
+Flat angle: 256
+Trifinder was successfully generated for region  18
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  19 of 190   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 327795
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 13574
+BFFRefreshape: 23278
+FlattenMesh: 44083
+ReadObjFile: 4496
+Create Mesh from File: 84674
+G
+Attempt  1  successful
+Flat angle: 194
+Trifinder was successfully generated for region  19
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  20 of 190   *****
+Bridson_Common.dradius: 1.5666666666666667
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 393297
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14432
+BFFRefreshape: 25563
+FlattenMesh: 44624
+ReadObjFile: 4415
+Create Mesh from File: 78026
+G
+Attempt  1  successful
+Flat angle: 56
+Trifinder was successfully generated for region  20
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  21 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 302528
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 13507
+BFFRefreshape: 22834
+FlattenMesh: 45187
+ReadObjFile: 4099
+Create Mesh from File: 79141
+G
+Attempt  1  successful
+Flat angle: 54
+Trifinder was successfully generated for region  21
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  22 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 363471
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15543
+BFFRefreshape: 24043
+FlattenMesh: 46855
+ReadObjFile: 4252
+Create Mesh from File: 85393
+G
+Attempt  1  successful
+Flat angle: 359
+Trifinder was successfully generated for region  22
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  23 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 338207
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 14855
+BFFRefreshape: 23894
+FlattenMesh: 46433
+ReadObjFile: 5349
+Create Mesh from File: 182013
+G
+Attempt  1  successful
+Flat angle: 243
+Trifinder was successfully generated for region  23
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  24 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 289368
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14155
+BFFRefreshape: 23331
+FlattenMesh: 46947
+ReadObjFile: 4575
+Create Mesh from File: 82926
+G
+Attempt  1  successful
+Flat angle: 257
+Trifinder was successfully generated for region  24
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  25 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 306103
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 13625
+BFFRefreshape: 23511
+FlattenMesh: 48462
+ReadObjFile: 4720
+Create Mesh from File: 87012
+G
+Attempt  1  successful
+Flat angle: 30
+Trifinder was successfully generated for region  25
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  26 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 403621
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 13864
+BFFRefreshape: 23425
+FlattenMesh: 45631
+ReadObjFile: 4954
+Create Mesh from File: 87001
+G
+Attempt  1  successful
+Flat angle: 237
+Trifinder was successfully generated for region  26
+(47,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  27 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 318610
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 16685
+BFFRefreshape: 23453
+FlattenMesh: 49523
+ReadObjFile: 8070
+Create Mesh from File: 105546
+G
+Attempt  1  successful
+Flat angle: 290
+Trifinder was successfully generated for region  27
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  28 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 436571
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 15806
+BFFRefreshape: 25098
+FlattenMesh: 48917
+ReadObjFile: 4986
+Create Mesh from File: 96260
+G
+Attempt  1  successful
+Flat angle: 24
+Trifinder was successfully generated for region  28
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  29 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 307044
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14968
+BFFRefreshape: 24039
+FlattenMesh: 51289
+ReadObjFile: 5123
+Create Mesh from File: 90823
+G
+Attempt  1  successful
+Flat angle: 276
+Trifinder was successfully generated for region  29
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  30 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 408603
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14632
+BFFRefreshape: 23991
+FlattenMesh: 50399
+ReadObjFile: 4594
+Create Mesh from File: 84611
+G
+Attempt  1  successful
+Flat angle: 271
+Trifinder was successfully generated for region  30
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  31 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 290400
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 13531
+BFFRefreshape: 23588
+FlattenMesh: 47397
+ReadObjFile: 4435
+Create Mesh from File: 87363
+G
+Attempt  1  successful
+Flat angle: 109
+Trifinder was successfully generated for region  31
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  32 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 275865
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 12949
+BFFRefreshape: 21923
+FlattenMesh: 49381
+ReadObjFile: 4724
+Create Mesh from File: 180307
+G
+Attempt  1  successful
+Flat angle: 60
+Trifinder was successfully generated for region  32
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  33 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 271089
+Generate Triangulation on MeshObj: 13
+CreateMeshFile: 12270
+BFFRefreshape: 23278
+FlattenMesh: 48704
+ReadObjFile: 4152
+Create Mesh from File: 74615
+G
+Attempt  1  successful
+Flat angle: 229
+Trifinder was successfully generated for region  33
+(39,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  34 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 319658
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15356
+BFFRefreshape: 24677
+FlattenMesh: 46997
+ReadObjFile: 4891
+Create Mesh from File: 92017
+G
+Attempt  1  successful
+Flat angle: 104
+Trifinder was successfully generated for region  34
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  35 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 443317
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 16390
+BFFRefreshape: 23947
+FlattenMesh: 47051
+ReadObjFile: 4989
+Create Mesh from File: 93151
+G
+Attempt  1  successful
+Flat angle: 259
+Trifinder was successfully generated for region  35
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  36 of 190   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 334198
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 14572
+BFFRefreshape: 22055
+FlattenMesh: 47858
+ReadObjFile: 4896
+Create Mesh from File: 186997
+G
+Attempt  1  successful
+Flat angle: 179
+Trifinder was successfully generated for region  36
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  37 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 390646
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 16849
+BFFRefreshape: 23564
+FlattenMesh: 48059
+ReadObjFile: 5618
+Create Mesh from File: 110275
+G
+Attempt  1  successful
+Flat angle: 135
+Trifinder was successfully generated for region  37
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  38 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 609906
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 18780
+BFFRefreshape: 24057
+FlattenMesh: 51117
+ReadObjFile: 5491
+Create Mesh from File: 105774
+G
+Attempt  1  successful
+Flat angle: 38
+Trifinder was successfully generated for region  38
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  39 of 190   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 356428
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15474
+BFFRefreshape: 24409
+FlattenMesh: 50215
+ReadObjFile: 5522
+Create Mesh from File: 89988
+G
+Attempt  1  successful
+Flat angle: 248
+Trifinder was successfully generated for region  39
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  40 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 438742
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14966
+BFFRefreshape: 24411
+FlattenMesh: 48361
+ReadObjFile: 5038
+Create Mesh from File: 98328
+G
+Attempt  1  successful
+Flat angle: 230
+Trifinder was successfully generated for region  40
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  41 of 190   *****
+Bridson_Common.dradius: 1.6333333333333333
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 404395
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 18011
+BFFRefreshape: 39770
+FlattenMesh: 56709
+ReadObjFile: 4773
+Create Mesh from File: 101094
+G
+Attempt  1  successful
+Flat angle: 193
+Trifinder was successfully generated for region  41
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  42 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 769578
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 22303
+BFFRefreshape: 44297
+FlattenMesh: 58004
+ReadObjFile: 6128
+Create Mesh from File: 178853
+G
+Attempt  1  successful
+Flat angle: 24
+Trifinder was successfully generated for region  42
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  43 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 380915
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 16505
+BFFRefreshape: 23558
+FlattenMesh: 54152
+ReadObjFile: 5149
+Create Mesh from File: 235378
+G
+Attempt  1  successful
+Flat angle: 266
+Trifinder was successfully generated for region  43
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  44 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 356259
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 18830
+BFFRefreshape: 23226
+FlattenMesh: 57000
+ReadObjFile: 5821
+Create Mesh from File: 111129
+G
+Attempt  1  successful
+Flat angle: 276
+Trifinder was successfully generated for region  44
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  45 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 356674
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 16373
+BFFRefreshape: 23431
+FlattenMesh: 53617
+ReadObjFile: 6272
+Create Mesh from File: 149444
+G
+Attempt  1  successful
+Flat angle: 202
+Trifinder was successfully generated for region  45
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  46 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 540953
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 17869
+BFFRefreshape: 24573
+FlattenMesh: 55583
+ReadObjFile: 5805
+Create Mesh from File: 112080
+G
+Attempt  1  successful
+Flat angle: 199
+Trifinder was successfully generated for region  46
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  47 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 368265
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 17390
+BFFRefreshape: 22650
+FlattenMesh: 54808
+ReadObjFile: 5711
+Create Mesh from File: 101291
+G
+Attempt  1  successful
+Flat angle: 83
+Trifinder was successfully generated for region  47
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  48 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 485612
+Generate Triangulation on MeshObj: 11
+CreateMeshFile: 15364
+BFFRefreshape: 23472
+FlattenMesh: 54290
+ReadObjFile: 5459
+Create Mesh from File: 89387
+G
+Attempt  1  successful
+Flat angle: 155
+Trifinder was successfully generated for region  48
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  49 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 314713
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15851
+BFFRefreshape: 23628
+FlattenMesh: 50673
+ReadObjFile: 5974
+Create Mesh from File: 91251
+G
+Attempt  1  successful
+Flat angle: 113
+Trifinder was successfully generated for region  49
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  50 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 291216
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 14438
+BFFRefreshape: 24565
+FlattenMesh: 48602
+ReadObjFile: 4485
+Create Mesh from File: 81176
+G
+Attempt  1  successful
+Flat angle: 285
+Trifinder was successfully generated for region  50
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  51 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 415497
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 12756
+BFFRefreshape: 24580
+FlattenMesh: 49494
+ReadObjFile: 5560
+Create Mesh from File: 74179
+G
+Attempt  1  successful
+Flat angle: 110
+Trifinder was successfully generated for region  51
+(37,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  52 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 327075
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 16233
+BFFRefreshape: 25331
+FlattenMesh: 47358
+ReadObjFile: 5053
+Create Mesh from File: 95455
+G
+Attempt  1  successful
+Flat angle: 39
+Trifinder was successfully generated for region  52
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  53 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 339835
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 15700
+BFFRefreshape: 23922
+FlattenMesh: 47416
+ReadObjFile: 5420
+Create Mesh from File: 89137
+G
+Attempt  1  successful
+Flat angle: 218
+Trifinder was successfully generated for region  53
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  54 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 492626
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 16087
+BFFRefreshape: 23443
+FlattenMesh: 47251
+ReadObjFile: 5567
+Create Mesh from File: 94649
+G
+Attempt  1  successful
+Flat angle: 247
+Trifinder was successfully generated for region  54
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  55 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 320608
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14707
+BFFRefreshape: 23564
+FlattenMesh: 48152
+ReadObjFile: 5335
+Create Mesh from File: 86813
+G
+Attempt  1  successful
+Flat angle: 154
+Trifinder was successfully generated for region  55
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  56 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 436589
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 11880
+BFFRefreshape: 22565
+FlattenMesh: 48924
+ReadObjFile: 3924
+Create Mesh from File: 76775
+G
+Attempt  1  successful
+Flat angle: 295
+Trifinder was successfully generated for region  56
+(39,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  57 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 331960
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 14956
+BFFRefreshape: 22956
+FlattenMesh: 44464
+ReadObjFile: 4840
+Create Mesh from File: 83697
+G
+Attempt  1  successful
+Flat angle: 41
+Trifinder was successfully generated for region  57
+(39,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  58 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 494926
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14510
+BFFRefreshape: 24414
+FlattenMesh: 47591
+ReadObjFile: 5017
+Create Mesh from File: 83087
+G
+Attempt  1  successful
+Flat angle: 107
+Trifinder was successfully generated for region  58
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  59 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 346650
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 15212
+BFFRefreshape: 22214
+FlattenMesh: 45977
+ReadObjFile: 5399
+Create Mesh from File: 89798
+G
+Attempt  1  successful
+Flat angle: 223
+Trifinder was successfully generated for region  59
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  60 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 485744
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15081
+BFFRefreshape: 23459
+FlattenMesh: 49000
+ReadObjFile: 5096
+Create Mesh from File: 89894
+G
+Attempt  1  successful
+Flat angle: 306
+Trifinder was successfully generated for region  60
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  61 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 289476
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 13765
+BFFRefreshape: 23051
+FlattenMesh: 46994
+ReadObjFile: 4669
+Create Mesh from File: 86429
+G
+Attempt  1  successful
+Flat angle: 289
+Trifinder was successfully generated for region  61
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  62 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 294150
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 15302
+BFFRefreshape: 23171
+FlattenMesh: 47165
+ReadObjFile: 5646
+Create Mesh from File: 85274
+G
+Attempt  1  successful
+Flat angle: 284
+Trifinder was successfully generated for region  62
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  63 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 471637
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 14147
+BFFRefreshape: 24828
+FlattenMesh: 46143
+ReadObjFile: 5119
+Create Mesh from File: 83979
+G
+Attempt  1  successful
+Flat angle: 118
+Trifinder was successfully generated for region  63
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  64 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 292814
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 13759
+BFFRefreshape: 21146
+FlattenMesh: 44479
+ReadObjFile: 4477
+Create Mesh from File: 78652
+G
+Attempt  1  successful
+Flat angle: 33
+Trifinder was successfully generated for region  64
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  65 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 307772
+Generate Triangulation on MeshObj: 7
+CreateMeshFile: 13447
+BFFRefreshape: 21395
+FlattenMesh: 45297
+ReadObjFile: 4343
+Create Mesh from File: 80007
+G
+Attempt  1  successful
+Flat angle: 103
+Trifinder was successfully generated for region  65
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  66 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 453962
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14273
+BFFRefreshape: 24056
+FlattenMesh: 48202
+ReadObjFile: 4663
+Create Mesh from File: 83133
+G
+Attempt  1  successful
+Flat angle: 281
+Trifinder was successfully generated for region  66
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  67 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 313470
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14435
+BFFRefreshape: 22062
+FlattenMesh: 47151
+ReadObjFile: 5355
+Create Mesh from File: 91015
+G
+Attempt  1  successful
+Flat angle: 260
+Trifinder was successfully generated for region  67
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  68 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 284826
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 13755
+BFFRefreshape: 23116
+FlattenMesh: 46827
+ReadObjFile: 4775
+Create Mesh from File: 83224
+G
+Attempt  1  successful
+Flat angle: 110
+Trifinder was successfully generated for region  68
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  69 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 277204
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 13147
+BFFRefreshape: 23439
+FlattenMesh: 48443
+ReadObjFile: 5106
+Create Mesh from File: 80665
+G
+Attempt  1  successful
+Flat angle: 208
+Trifinder was successfully generated for region  69
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  70 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 468619
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 13306
+BFFRefreshape: 25218
+FlattenMesh: 47815
+ReadObjFile: 5287
+Create Mesh from File: 79708
+G
+Attempt  1  successful
+Flat angle: 107
+Trifinder was successfully generated for region  70
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  71 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 288308
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 13428
+BFFRefreshape: 23782
+FlattenMesh: 46182
+ReadObjFile: 4420
+Create Mesh from File: 82061
+G
+Attempt  1  successful
+Flat angle: 274
+Trifinder was successfully generated for region  71
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  72 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 321176
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 13283
+BFFRefreshape: 25184
+FlattenMesh: 48286
+ReadObjFile: 5197
+Create Mesh from File: 252258
+G
+Attempt  1  successful
+Flat angle: 250
+Trifinder was successfully generated for region  72
+(39,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  73 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+processMask main failure: tuple index out of range
+G
+Attempt  1  UNsuccessful
+blurRadius: 5
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 340897
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 16632
+BFFRefreshape: 23524
+FlattenMesh: 50772
+ReadObjFile: 5300
+Create Mesh from File: 97141
+G
+Attempt  2  successful
+Flat angle: 331
+Trifinder was successfully generated for region  73
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  74 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 503730
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14561
+BFFRefreshape: 24544
+FlattenMesh: 46308
+ReadObjFile: 5027
+Create Mesh from File: 91924
+G
+Attempt  1  successful
+Flat angle: 289
+Trifinder was successfully generated for region  74
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  75 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 334050
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15384
+BFFRefreshape: 23790
+FlattenMesh: 47082
+ReadObjFile: 4942
+Create Mesh from File: 85079
+G
+Attempt  1  successful
+Flat angle: 205
+Trifinder was successfully generated for region  75
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  76 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 347556
+Generate Triangulation on MeshObj: 11
+CreateMeshFile: 16587
+BFFRefreshape: 22490
+FlattenMesh: 48280
+ReadObjFile: 5210
+Create Mesh from File: 98779
+G
+Attempt  1  successful
+Flat angle: 119
+Trifinder was successfully generated for region  76
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  77 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 504406
+Generate Triangulation on MeshObj: 7
+CreateMeshFile: 14176
+BFFRefreshape: 23058
+FlattenMesh: 48313
+ReadObjFile: 5214
+Create Mesh from File: 80429
+G
+Attempt  1  successful
+Flat angle: 114
+Trifinder was successfully generated for region  77
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  78 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 331589
+Generate Triangulation on MeshObj: 7
+CreateMeshFile: 15507
+BFFRefreshape: 23621
+FlattenMesh: 49757
+ReadObjFile: 5652
+Create Mesh from File: 93791
+G
+Attempt  1  successful
+Flat angle: 107
+Trifinder was successfully generated for region  78
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  79 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 314802
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 14858
+BFFRefreshape: 24628
+FlattenMesh: 48959
+ReadObjFile: 4877
+Create Mesh from File: 86343
+G
+Attempt  1  successful
+Flat angle: 9
+Trifinder was successfully generated for region  79
+(38,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  80 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 334592
+Generate Triangulation on MeshObj: 7
+CreateMeshFile: 14584
+BFFRefreshape: 23116
+FlattenMesh: 49393
+ReadObjFile: 4537
+Create Mesh from File: 88108
+G
+Attempt  1  successful
+Flat angle: 113
+Trifinder was successfully generated for region  80
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  81 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 495374
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14229
+BFFRefreshape: 25039
+FlattenMesh: 47693
+ReadObjFile: 5698
+Create Mesh from File: 87551
+G
+Attempt  1  successful
+Flat angle: 111
+Trifinder was successfully generated for region  81
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  82 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 272235
+Generate Triangulation on MeshObj: 7
+CreateMeshFile: 14400
+BFFRefreshape: 22706
+FlattenMesh: 47295
+ReadObjFile: 5066
+Create Mesh from File: 83348
+G
+Attempt  1  successful
+Flat angle: 95
+Trifinder was successfully generated for region  82
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  83 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 327802
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15067
+BFFRefreshape: 23085
+FlattenMesh: 48210
+ReadObjFile: 5372
+Create Mesh from File: 92002
+G
+Attempt  1  successful
+Flat angle: 194
+Trifinder was successfully generated for region  83
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  84 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 507497
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14388
+BFFRefreshape: 22738
+FlattenMesh: 46996
+ReadObjFile: 4440
+Create Mesh from File: 88278
+G
+Attempt  1  successful
+Flat angle: 277
+Trifinder was successfully generated for region  84
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  85 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 271998
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 12973
+BFFRefreshape: 23487
+FlattenMesh: 45591
+ReadObjFile: 4939
+Create Mesh from File: 77100
+G
+Attempt  1  successful
+Flat angle: 26
+Trifinder was successfully generated for region  85
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  86 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 298486
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14225
+BFFRefreshape: 24153
+FlattenMesh: 45765
+ReadObjFile: 5179
+Create Mesh from File: 84045
+G
+Attempt  1  successful
+Flat angle: 98
+Trifinder was successfully generated for region  86
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  87 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 525586
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 15057
+BFFRefreshape: 22549
+FlattenMesh: 44702
+ReadObjFile: 4825
+Create Mesh from File: 93863
+G
+Attempt  1  successful
+Flat angle: 309
+Trifinder was successfully generated for region  87
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  88 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 301001
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14479
+BFFRefreshape: 24635
+FlattenMesh: 46889
+ReadObjFile: 4967
+Create Mesh from File: 84235
+G
+Attempt  1  successful
+Flat angle: 86
+Trifinder was successfully generated for region  88
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  89 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 283396
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 13560
+BFFRefreshape: 23768
+FlattenMesh: 44098
+ReadObjFile: 4457
+Create Mesh from File: 79628
+G
+Attempt  1  successful
+Flat angle: 23
+Trifinder was successfully generated for region  89
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  90 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 308217
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15175
+BFFRefreshape: 24419
+FlattenMesh: 45854
+ReadObjFile: 5105
+Create Mesh from File: 87140
+G
+Attempt  1  successful
+Flat angle: 217
+Trifinder was successfully generated for region  90
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  91 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 483889
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 12509
+BFFRefreshape: 26399
+FlattenMesh: 45374
+ReadObjFile: 4465
+Create Mesh from File: 74185
+G
+Attempt  1  successful
+Flat angle: 141
+Trifinder was successfully generated for region  91
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  92 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 279887
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 12544
+BFFRefreshape: 23919
+FlattenMesh: 44435
+ReadObjFile: 4404
+Create Mesh from File: 74480
+G
+Attempt  1  successful
+Flat angle: 81
+Trifinder was successfully generated for region  92
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  93 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 293676
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 13614
+BFFRefreshape: 24095
+FlattenMesh: 43604
+ReadObjFile: 4502
+Create Mesh from File: 77176
+G
+Attempt  1  successful
+Flat angle: 198
+Trifinder was successfully generated for region  93
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  94 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 280819
+Generate Triangulation on MeshObj: 7
+CreateMeshFile: 13987
+BFFRefreshape: 23401
+FlattenMesh: 47868
+ReadObjFile: 4955
+Create Mesh from File: 84774
+G
+Attempt  1  successful
+Flat angle: 4
+Trifinder was successfully generated for region  94
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  95 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+processMask main failure: tuple index out of range
+G
+Attempt  1  UNsuccessful
+blurRadius: 5
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 302816
+Generate Triangulation on MeshObj: 7
+CreateMeshFile: 12950
+BFFRefreshape: 23895
+FlattenMesh: 44413
+ReadObjFile: 4808
+Create Mesh from File: 82180
+G
+Attempt  2  successful
+Flat angle: 174
+Trifinder was successfully generated for region  95
+(48,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  96 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 307167
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15545
+BFFRefreshape: 24026
+FlattenMesh: 45697
+ReadObjFile: 5594
+Create Mesh from File: 86379
+G
+Attempt  1  successful
+Flat angle: 352
+Trifinder was successfully generated for region  96
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  97 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 516364
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 14809
+BFFRefreshape: 23548
+FlattenMesh: 45904
+ReadObjFile: 4903
+Create Mesh from File: 86268
+G
+Attempt  1  successful
+Flat angle: 4
+Trifinder was successfully generated for region  97
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  98 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 289522
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 12961
+BFFRefreshape: 24335
+FlattenMesh: 46435
+ReadObjFile: 4650
+Create Mesh from File: 84537
+G
+Attempt  1  successful
+Flat angle: 129
+Trifinder was successfully generated for region  98
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  99 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 309889
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14814
+BFFRefreshape: 24411
+FlattenMesh: 46532
+ReadObjFile: 4779
+Create Mesh from File: 89236
+G
+Attempt  1  successful
+Flat angle: 339
+Trifinder was successfully generated for region  99
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  100 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 306039
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 16168
+BFFRefreshape: 23889
+FlattenMesh: 50822
+ReadObjFile: 4164
+Create Mesh from File: 89260
+G
+Attempt  1  successful
+Flat angle: 98
+Trifinder was successfully generated for region  100
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  101 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 295322
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15269
+BFFRefreshape: 23877
+FlattenMesh: 48239
+ReadObjFile: 5184
+Create Mesh from File: 305347
+G
+Attempt  1  successful
+Flat angle: 208
+Trifinder was successfully generated for region  101
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  102 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 299676
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 14490
+BFFRefreshape: 23827
+FlattenMesh: 46180
+ReadObjFile: 5238
+Create Mesh from File: 89741
+G
+Attempt  1  successful
+Flat angle: 269
+Trifinder was successfully generated for region  102
+(49,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  103 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 282522
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 13146
+BFFRefreshape: 23678
+FlattenMesh: 48115
+ReadObjFile: 4764
+Create Mesh from File: 84752
+G
+Attempt  1  successful
+Flat angle: 167
+Trifinder was successfully generated for region  103
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  104 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 276374
+Generate Triangulation on MeshObj: 16
+CreateMeshFile: 12709
+BFFRefreshape: 24428
+FlattenMesh: 45774
+ReadObjFile: 5210
+Create Mesh from File: 77042
+G
+Attempt  1  successful
+Flat angle: 337
+Trifinder was successfully generated for region  104
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  105 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 304310
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 13521
+BFFRefreshape: 23981
+FlattenMesh: 46213
+ReadObjFile: 5154
+Create Mesh from File: 81841
+G
+Attempt  1  successful
+Flat angle: 158
+Trifinder was successfully generated for region  105
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  106 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 550794
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14643
+BFFRefreshape: 24678
+FlattenMesh: 46481
+ReadObjFile: 5389
+Create Mesh from File: 89950
+G
+Attempt  1  successful
+Flat angle: 283
+Trifinder was successfully generated for region  106
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  107 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 321918
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15164
+BFFRefreshape: 23149
+FlattenMesh: 44259
+ReadObjFile: 5552
+Create Mesh from File: 90159
+G
+Attempt  1  successful
+Flat angle: 120
+Trifinder was successfully generated for region  107
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  108 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 314868
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 14916
+BFFRefreshape: 23780
+FlattenMesh: 46241
+ReadObjFile: 5015
+Create Mesh from File: 85445
+G
+Attempt  1  successful
+Flat angle: 125
+Trifinder was successfully generated for region  108
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  109 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 293867
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14551
+BFFRefreshape: 24845
+FlattenMesh: 44647
+ReadObjFile: 5344
+Create Mesh from File: 81534
+G
+Attempt  1  successful
+Flat angle: 157
+Trifinder was successfully generated for region  109
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  110 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 475826
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 11573
+BFFRefreshape: 24430
+FlattenMesh: 42778
+ReadObjFile: 4430
+Create Mesh from File: 63997
+G
+Attempt  1  successful
+Flat angle: 233
+Trifinder was successfully generated for region  110
+(33,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  111 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 239262
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 10628
+BFFRefreshape: 23542
+FlattenMesh: 43590
+ReadObjFile: 4271
+Create Mesh from File: 68826
+G
+Attempt  1  successful
+Flat angle: 232
+Trifinder was successfully generated for region  111
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  112 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 296064
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 13655
+BFFRefreshape: 22112
+FlattenMesh: 43380
+ReadObjFile: 5107
+Create Mesh from File: 84732
+G
+Attempt  1  successful
+Flat angle: 86
+Trifinder was successfully generated for region  112
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  113 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 306251
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 15041
+BFFRefreshape: 22345
+FlattenMesh: 44749
+ReadObjFile: 5674
+Create Mesh from File: 90257
+G
+Attempt  1  successful
+Flat angle: 104
+Trifinder was successfully generated for region  113
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  114 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 318417
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14088
+BFFRefreshape: 23378
+FlattenMesh: 46341
+ReadObjFile: 4518
+Create Mesh from File: 88923
+G
+Attempt  1  successful
+Flat angle: 136
+Trifinder was successfully generated for region  114
+(47,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  115 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 535621
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14040
+BFFRefreshape: 23425
+FlattenMesh: 44995
+ReadObjFile: 4587
+Create Mesh from File: 79667
+G
+Attempt  1  successful
+Flat angle: 296
+Trifinder was successfully generated for region  115
+(39,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  116 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 313646
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15019
+BFFRefreshape: 23736
+FlattenMesh: 43309
+ReadObjFile: 5455
+Create Mesh from File: 83663
+G
+Attempt  1  successful
+Flat angle: 160
+Trifinder was successfully generated for region  116
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  117 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 300623
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14521
+BFFRefreshape: 22704
+FlattenMesh: 46449
+ReadObjFile: 4654
+Create Mesh from File: 86759
+G
+Attempt  1  successful
+Flat angle: 320
+Trifinder was successfully generated for region  117
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  118 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 288951
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 13931
+BFFRefreshape: 22552
+FlattenMesh: 44828
+ReadObjFile: 5725
+Create Mesh from File: 80870
+G
+Attempt  1  successful
+Flat angle: 229
+Trifinder was successfully generated for region  118
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  119 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 536340
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 14460
+BFFRefreshape: 24205
+FlattenMesh: 46479
+ReadObjFile: 4783
+Create Mesh from File: 90347
+G
+Attempt  1  successful
+Flat angle: 330
+Trifinder was successfully generated for region  119
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  120 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 307518
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 15111
+BFFRefreshape: 24614
+FlattenMesh: 48871
+ReadObjFile: 5125
+Create Mesh from File: 87299
+G
+Attempt  1  successful
+Flat angle: 33
+Trifinder was successfully generated for region  120
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  121 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 317047
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14563
+BFFRefreshape: 24432
+FlattenMesh: 47398
+ReadObjFile: 5447
+Create Mesh from File: 91642
+G
+Attempt  1  successful
+Flat angle: 315
+Trifinder was successfully generated for region  121
+(47,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  122 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 314629
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 14562
+BFFRefreshape: 24505
+FlattenMesh: 46865
+ReadObjFile: 5695
+Create Mesh from File: 87638
+G
+Attempt  1  successful
+Flat angle: 318
+Trifinder was successfully generated for region  122
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  123 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 309134
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15186
+BFFRefreshape: 23865
+FlattenMesh: 50054
+ReadObjFile: 4514
+Create Mesh from File: 80353
+G
+Attempt  1  successful
+Flat angle: 211
+Trifinder was successfully generated for region  123
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  124 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 641068
+Generate Triangulation on MeshObj: 10
+CreateMeshFile: 18309
+BFFRefreshape: 26754
+FlattenMesh: 55895
+ReadObjFile: 6016
+Create Mesh from File: 117786
+G
+Attempt  1  successful
+Flat angle: 6
+Trifinder was successfully generated for region  124
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  125 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 449828
+Generate Triangulation on MeshObj: 7
+CreateMeshFile: 18764
+BFFRefreshape: 26653
+FlattenMesh: 53052
+ReadObjFile: 5743
+Create Mesh from File: 114489
+G
+Attempt  1  successful
+Flat angle: 235
+Trifinder was successfully generated for region  125
+(48,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  126 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 292742
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 13701
+BFFRefreshape: 24130
+FlattenMesh: 52791
+ReadObjFile: 4545
+Create Mesh from File: 82383
+G
+Attempt  1  successful
+Flat angle: 44
+Trifinder was successfully generated for region  126
+(37,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  127 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 278137
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 13777
+BFFRefreshape: 23566
+FlattenMesh: 47989
+ReadObjFile: 4801
+Create Mesh from File: 78007
+G
+Attempt  1  successful
+Flat angle: 209
+Trifinder was successfully generated for region  127
+(38,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  128 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 352666
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 16274
+BFFRefreshape: 23999
+FlattenMesh: 50278
+ReadObjFile: 5509
+Create Mesh from File: 104008
+G
+Attempt  1  successful
+Flat angle: 299
+Trifinder was successfully generated for region  128
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  129 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 597797
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15739
+BFFRefreshape: 25435
+FlattenMesh: 48540
+ReadObjFile: 5214
+Create Mesh from File: 94471
+G
+Attempt  1  successful
+Flat angle: 333
+Trifinder was successfully generated for region  129
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  130 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 317472
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 13861
+BFFRefreshape: 23647
+FlattenMesh: 48091
+ReadObjFile: 5480
+Create Mesh from File: 85858
+G
+Attempt  1  successful
+Flat angle: 152
+Trifinder was successfully generated for region  130
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  131 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 346258
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 15409
+BFFRefreshape: 23979
+FlattenMesh: 47273
+ReadObjFile: 5596
+Create Mesh from File: 99170
+G
+Attempt  1  successful
+Flat angle: 6
+Trifinder was successfully generated for region  131
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  132 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 311471
+Generate Triangulation on MeshObj: 11
+CreateMeshFile: 16677
+BFFRefreshape: 23959
+FlattenMesh: 52080
+ReadObjFile: 4649
+Create Mesh from File: 83627
+G
+Attempt  1  successful
+Flat angle: 2
+Trifinder was successfully generated for region  132
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  133 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 355086
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 17909
+BFFRefreshape: 24994
+FlattenMesh: 53164
+ReadObjFile: 6628
+Create Mesh from File: 95151
+G
+Attempt  1  successful
+Flat angle: 312
+Trifinder was successfully generated for region  133
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  134 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 649724
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 16407
+BFFRefreshape: 25151
+FlattenMesh: 49994
+ReadObjFile: 4898
+Create Mesh from File: 101966
+G
+Attempt  1  successful
+Flat angle: 138
+Trifinder was successfully generated for region  134
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  135 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 384034
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 16705
+BFFRefreshape: 25291
+FlattenMesh: 49212
+ReadObjFile: 5314
+Create Mesh from File: 93882
+G
+Attempt  1  successful
+Flat angle: 235
+Trifinder was successfully generated for region  135
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  136 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 342590
+Generate Triangulation on MeshObj: 11
+CreateMeshFile: 19696
+BFFRefreshape: 25361
+FlattenMesh: 49244
+ReadObjFile: 5098
+Create Mesh from File: 98933
+G
+Attempt  1  successful
+Flat angle: 141
+Trifinder was successfully generated for region  136
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  137 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 329920
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15592
+BFFRefreshape: 23391
+FlattenMesh: 48629
+ReadObjFile: 5358
+Create Mesh from File: 96736
+G
+Attempt  1  successful
+Flat angle: 342
+Trifinder was successfully generated for region  137
+(47,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  138 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 328636
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 15580
+BFFRefreshape: 26013
+FlattenMesh: 46938
+ReadObjFile: 5167
+Create Mesh from File: 90111
+G
+Attempt  1  successful
+Flat angle: 147
+Trifinder was successfully generated for region  138
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  139 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 620506
+Generate Triangulation on MeshObj: 17
+CreateMeshFile: 15277
+BFFRefreshape: 27450
+FlattenMesh: 46154
+ReadObjFile: 5407
+Create Mesh from File: 92082
+G
+Attempt  1  successful
+Flat angle: 324
+Trifinder was successfully generated for region  139
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  140 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 438004
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 17100
+BFFRefreshape: 24838
+FlattenMesh: 52512
+ReadObjFile: 5561
+Create Mesh from File: 119840
+G
+Attempt  1  successful
+Flat angle: 218
+Trifinder was successfully generated for region  140
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  141 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 362595
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 17464
+BFFRefreshape: 24910
+FlattenMesh: 51283
+ReadObjFile: 6288
+Create Mesh from File: 101828
+G
+Attempt  1  successful
+Flat angle: 221
+Trifinder was successfully generated for region  141
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  142 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 345915
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 16526
+BFFRefreshape: 23305
+FlattenMesh: 55484
+ReadObjFile: 6078
+Create Mesh from File: 100038
+G
+Attempt  1  successful
+Flat angle: 219
+Trifinder was successfully generated for region  142
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  143 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+processMask main failure: tuple index out of range
+G
+Attempt  1  UNsuccessful
+blurRadius: 5
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 407546
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 22381
+BFFRefreshape: 41441
+FlattenMesh: 50364
+ReadObjFile: 6939
+Create Mesh from File: 435633
+G
+Attempt  2  successful
+Flat angle: 145
+Trifinder was successfully generated for region  143
+(47,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  144 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 495473
+Generate Triangulation on MeshObj: 8
+CreateMeshFile: 19277
+BFFRefreshape: 25681
+FlattenMesh: 54072
+ReadObjFile: 5034
+Create Mesh from File: 95285
+G
+Attempt  1  successful
+Flat angle: 34
+Trifinder was successfully generated for region  144
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  145 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+processMask main failure: tuple index out of range
+G
+Attempt  1  UNsuccessful
+blurRadius: 5
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 329625
+Generate Triangulation on MeshObj: 19
+CreateMeshFile: 19930
+BFFRefreshape: 23797
+FlattenMesh: 54186
+ReadObjFile: 6049
+Create Mesh from File: 109902
+G
+Attempt  2  successful
+Flat angle: 183
+Trifinder was successfully generated for region  145
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  146 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 397779
+Generate Triangulation on MeshObj: 12
+CreateMeshFile: 17776
+BFFRefreshape: 24171
+FlattenMesh: 55933
+ReadObjFile: 6379
+Create Mesh from File: 109484
+G
+Attempt  1  successful
+Flat angle: 37
+Trifinder was successfully generated for region  146
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  147 of 190   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+A
+B
+C
+Attempting BFF
+Finished BFF
+D
+E
+Generate Mesh from Mask: 293312
+Generate Triangulation on MeshObj: 9
+CreateMeshFile: 14844
+BFFRefreshape: 25141
+FlattenMesh: 51937
+ReadObjFile: 4577
+Create Mesh from File: 87088
+G
+Attempt  1  successful
+Flat angle: 152
+Trifinder was successfully generated for region 

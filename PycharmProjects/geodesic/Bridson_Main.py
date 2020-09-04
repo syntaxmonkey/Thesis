@@ -673,7 +673,7 @@ if __name__ == '__main__':
 
 
 	# Batch C.
-	images.append('alex-furgiuele-UkH7L-aag8A-unsplash_Cactus.jpg')
+	# images.append('alex-furgiuele-UkH7L-aag8A-unsplash_Cactus.jpg')
 	# images.append('meritt-thomas-Ao09kk2ovB0-unsplash_Cupcake.jpg')
 	# images.append('aleksandra-antic-Xnqj9FvHycM-unsplash_Cupcake.jpg')
 	# images.append('faris-mohammed-oAlRgZXsXUI-unsplash_Eggs.jpg')
@@ -689,7 +689,7 @@ if __name__ == '__main__':
 	# images.append('ruslan-keba-G5tOIWFZqFE-unsplash_RubiksCube.jpg')
 
 	# Batch D
-	# images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
+	images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
 	# images.append('everyday-basics-i0ROGKijuek-unsplash.jpg')
 	# images.append('imani-bahati-LxVxPA1LOVM-unsplash.jpg')
 	# images.append('kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg')

@@ -18,9 +18,10 @@ from skimage import data, img_as_float
 from skimage import exposure
 from skimage.morphology import disk
 from skimage.filters import rank
+from numpy.linalg import eig
 
 print("Test")
-if True:
+if False:
 	square = np.ones((5, 5))
 	square[2:5, 3] = 5
 	square[2:5, 2] = 3
@@ -199,6 +200,34 @@ if False:
 	# fig.tight_layout()
 	plt.show()
 
+
+
+a =  [[1,1], [1,2]]
+b =  [[2,2], [2,3]]
+c =  [[3,3],[3,4]]
+d =  [[4,4],[4,5]]
+
+print(a)
+print(b)
+print(c)
+print(d)
+
+
+
+# e = np.hstack((a,b))
+# f = np.vstack((a,b))
+# print(e)
+# print(f)
+
+h = np.array([[a, b],[c,d]])
+print(h)
+
+values, vectors = eig(h)
+
+print("Values:",values)
+print("Vectors:",vectors)
+
+print("Sum a:", np.sum( a ))
 
 # print("Coherency:", np.power((I1 - I2) / (I1+I2), 2) )
 # array([[0., 0., 0., 0., 0.],
