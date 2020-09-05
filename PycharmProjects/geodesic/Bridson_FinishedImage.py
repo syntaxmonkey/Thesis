@@ -37,6 +37,7 @@ class FinishedImage:
 		self.ax.set_ylim(top=top, bottom=bottom)
 
 	def copyFromOther(self, otherFinishedImage):
+		self.unshiftedImageMaskedRegion = otherFinishedImage.unshiftedImageMaskedRegion
 		self.shiftedMaskRasterCollection = otherFinishedImage.shiftedMaskRasterCollection
 		self.maskRasterCollection = otherFinishedImage.maskRasterCollection
 		self.meshObjCollection = otherFinishedImage.meshObjCollection
@@ -178,9 +179,10 @@ class FinishedImage:
 		self.ax.grid()
 
 
-	def shiftRastersMeshObj(self, regionMap, regionRaster):
-		# for index in [5]:
-		# for index in self.maskRasterCollection.keys():
+	def shiftRastersMeshObj(self, regionMap, regionRaster, originalImage):
+		# Will shift the raster to actual x,y
+		# Will create the masked region of the original image.  Will unshift imageMaskedRegion for Structure Tensor.
+		self.unshiftedImageMaskedRegion = {}
 		self.shiftedMaskRasterCollection = {}
 		for index in self.maskRasterCollection.keys():
 			raster = self.maskRasterCollection[ index ]
@@ -196,13 +198,37 @@ class FinishedImage:
 			# Create new raster that has been shifted.
 			x, y = np.shape(raster)
 			# linePoints = meshObj.linePoints
-			newRaster = np.zeros(np.shape(regionRaster))
+			shiftedRaster = np.zeros(np.shape(regionRaster))
 			# print("Shape of raster:", (x,y))
 			for i in range(x):
 				for j in range(y):
 					# newRaster[i - topLeftTarget[0] - 3 ][j + topLeftTarget[1] - 5 ] = raster[i][j]
 					if raster[i][j] != 0: # Only shift the points in the raster that have non-zero values.
-						newRaster[i + topLeftTarget[0] - 5 ][j + topLeftTarget[1] - 5 ] = raster[i][j]
+						shiftedRaster[i + topLeftTarget[0] - 5 ][j + topLeftTarget[1] - 5 ] = raster[i][j]
+
+			# meshObj.linePoints = newLinePoints
+			self.shiftedMaskRasterCollection[index] = shiftedRaster
+
+			# Create the image mask of original image.
+			maxValue = np.max(shiftedRaster)
+			# print("Max Value:", maxValue)
+			normalizedMask = shiftedRaster / maxValue
+			shiftedMaskedImage = normalizedMask * originalImage
+
+			# print("Creating unshiftedMaskedImage")
+			# print("Shape of Raster:", np.shape(raster))
+			# Create new region that is the same size as the original raster.
+			unshiftedMaskedImage = np.zeros( np.shape(raster) )
+			# Create the unshifted image mask of original image.
+			for i in range(x):
+				for j in range(y):
+					# newRaster[i - topLeftTarget[0] - 3 ][j + topLeftTarget[1] - 5 ] = raster[i][j]
+					if raster[i][j] != 0: # Only shift the points in the raster that have non-zero values.
+						unshiftedMaskedImage[i][j] = shiftedMaskedImage[i + topLeftTarget[0] - 5 ][j + topLeftTarget[1] - 5 ]
+
+			# print("unshiftedMaskedImage created.")
+			self.unshiftedImageMaskedRegion[index] = unshiftedMaskedImage
+			# print("UnshiftedMaskedImage:", unshiftedMaskedImage)
 
 			# newLinePoints = []
 			# for line in linePoints:
@@ -223,11 +249,9 @@ class FinishedImage:
 				plt.subplot(1, 1, 1, aspect=1)
 				plt.title('shifted Mask for region ' + str(index))
 				plt.grid()
-				plt.imshow(newRaster)
+				plt.imshow(shiftedRaster)
 
 
-			# meshObj.linePoints = newLinePoints
-			self.shiftedMaskRasterCollection[index] = newRaster
 
 
 	def shiftLinePoints(self, regionMap, regionRaster):

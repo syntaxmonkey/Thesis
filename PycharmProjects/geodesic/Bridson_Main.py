@@ -382,7 +382,6 @@ def indexValidation(filename):
 	for index in regionList:
 		# Generate the raster for the first region.
 		raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
-
 		maskRasterCollection[index] = raster.copy()  # Make a copy of the mask raster.
 		NoSLICmaskRasterCollection[ index ] = raster.copy()
 
@@ -390,8 +389,9 @@ def indexValidation(filename):
 	# Set the variables
 	finishedImageSLIC.setMaps(regionMap, regionRaster, maskRasterCollection, meshObjCollection, regionIntensityMap)
 	# Create region raster in the actual location.
-	finishedImageSLIC.shiftRastersMeshObj(regionMap, regionRaster)
-
+	print("A")
+	finishedImageSLIC.shiftRastersMeshObj(regionMap, regionRaster, originalImage)
+	print("B")
 
 	for index in regionList:
 		print("(**** ", filename, " Starting Region: ", index, "of", len(regionMap.keys()), "  *****" )
@@ -429,21 +429,32 @@ def indexValidation(filename):
 			# Obtain the region mask.
 			# Obtain the masked region of the original image.
 			# Obtain the angle from the Structure Tensor.
-			currentMask = maskRasterCollection[index]
+			# currentMask = maskRasterCollection[index]
 
 
 			# desiredAngle = 0
-			actualAngle = desiredAngle + 90 # Need to rotate by 90 degrees to accomodate raster rotation.
+			# actualAngle = desiredAngle + 90 # Need to rotate by 90 degrees to accomodate raster rotation.
 			# p1, p2 = meshObj.findPointsMatchingAngle( angle=45 )
 
 			# Create the shifted Region Mask of the original image.
-			shiftedRaster = finishedImageSLIC.shiftedMaskRasterCollection[index].copy()
-			maxValue = np.max(shiftedRaster)
-			print("Max Value:", maxValue)
-			normalizedMask = shiftedRaster / maxValue
-			shiftedMaskedImage = normalizedMask * originalImage
-			st = Bridson_StructTensor.ST(shiftedMaskedImage)
+			# shiftedRaster = finishedImageSLIC.shiftedMaskRasterCollection[index].copy()
+			# maxValue = np.max(shiftedRaster)
+			# print("Max Value:", maxValue)
+			# normalizedMask = shiftedRaster / maxValue
+			# shiftedMaskedImage = normalizedMask * originalImage
+			# print("C")
+			unshiftedMaskedImage = finishedImageSLIC.unshiftedImageMaskedRegion[index].copy()
+			# print("D")
+			st = Bridson_StructTensor.ST(unshiftedMaskedImage)
+			# print("E")
 			direction, coherency = st.calculateEigenVector()
+			# print("F")
+
+			# plt.figure()
+			# plt.imshow(unshiftedMaskedImage)
+			# return
+			# sys.exit(0)
+
 
 			if coherency > Bridson_Common.coherencyThreshold:
 				meshAngle = Bridson_Common.determineAngle(direction[0], direction[1]) + 90
@@ -451,7 +462,7 @@ def indexValidation(filename):
 				meshAngle = Bridson_Common.lineAngle + 90
 
 			flatAngle = int( flatMeshObj.calculateAngle( meshObj, desiredAngle=meshAngle ) )
-			print("Flat angle:", flatAngle)
+			print("MeshAngle:", meshAngle, "Flat angle:", flatAngle)
 
 
 			# if trifindersuccess:
@@ -686,13 +697,13 @@ if __name__ == '__main__':
 
 	# Batch D
 	images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
-	images.append('everyday-basics-i0ROGKijuek-unsplash.jpg')
-	images.append('imani-bahati-LxVxPA1LOVM-unsplash.jpg')
-	images.append('kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg')
-	images.append('luis-quintero-qKspdY9XUzs-unsplash.jpg')
-	images.append('miguel-andrade-nAOZCYcLND8-unsplash.jpg')
-	images.append('mr-o-k--ePHy6jg_7c-unsplash.jpg')
-	images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
+	# images.append('everyday-basics-i0ROGKijuek-unsplash.jpg')
+	# images.append('imani-bahati-LxVxPA1LOVM-unsplash.jpg')
+	# images.append('kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg')
+	# images.append('luis-quintero-qKspdY9XUzs-unsplash.jpg')
+	# images.append('miguel-andrade-nAOZCYcLND8-unsplash.jpg')
+	# images.append('mr-o-k--ePHy6jg_7c-unsplash.jpg')
+	# images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
 
 
 	# percentages = [0.05, 0.1, 0.15, 0.2]
@@ -701,7 +712,7 @@ if __name__ == '__main__':
 	targetPixels = [3200]
 	if Bridson_Common.bulkGeneration:
 		segmentCounts = [100, 200]
-		segmentCounts = [200, 300]
+		segmentCounts = [100, 200, 300]
 		compactnessList = [0.1, 0.5, 0.9]
 		# compactnessList = [0.3, 0.6]
 	else:
@@ -726,8 +737,8 @@ if __name__ == '__main__':
 						plt.close("all")
 						gc.collect()
 					# sys.stdout.close()
-				except:
-					pass
+				except Exception as e:
+					print("Exception callin indexValidation:", e)
 		# sys.stdout.close()
 
 	print("*************************************************")

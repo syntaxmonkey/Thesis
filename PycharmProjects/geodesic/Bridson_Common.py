@@ -27,7 +27,7 @@ timeoutPeriod = 5
 SLICGrey = False
 
 
-bulkGeneration = True
+bulkGeneration = False
 debug=False
 
 if bulkGeneration == True:
