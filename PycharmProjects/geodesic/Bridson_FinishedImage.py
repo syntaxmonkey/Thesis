@@ -37,6 +37,7 @@ class FinishedImage:
 		self.ax.set_ylim(top=top, bottom=bottom)
 
 	def copyFromOther(self, otherFinishedImage):
+		self.shiftedMaskRasterCollection = otherFinishedImage.shiftedMaskRasterCollection
 		self.maskRasterCollection = otherFinishedImage.maskRasterCollection
 		self.meshObjCollection = otherFinishedImage.meshObjCollection
 		self.regionEdgePoints = otherFinishedImage.regionEdgePoints
@@ -180,6 +181,59 @@ class FinishedImage:
 	def shiftRastersMeshObj(self, regionMap, regionRaster):
 		# for index in [5]:
 		# for index in self.maskRasterCollection.keys():
+		self.shiftedMaskRasterCollection = {}
+		for index in self.maskRasterCollection.keys():
+			raster = self.maskRasterCollection[ index ]
+
+			# Only process the region is it exists.  Can fail if trifinder is not generated.
+			# meshObj = self.meshObjCollection[ index ]
+
+			# print("Shape of Region Raster:", np.shape(regionRaster))
+
+			regionCoordinates = regionMap.get(index)
+			topLeftTarget, bottomRightTarget = SLIC.calculateTopLeft(regionCoordinates)
+
+			# Create new raster that has been shifted.
+			x, y = np.shape(raster)
+			# linePoints = meshObj.linePoints
+			newRaster = np.zeros(np.shape(regionRaster))
+			# print("Shape of raster:", (x,y))
+			for i in range(x):
+				for j in range(y):
+					# newRaster[i - topLeftTarget[0] - 3 ][j + topLeftTarget[1] - 5 ] = raster[i][j]
+					if raster[i][j] != 0: # Only shift the points in the raster that have non-zero values.
+						newRaster[i + topLeftTarget[0] - 5 ][j + topLeftTarget[1] - 5 ] = raster[i][j]
+
+			# newLinePoints = []
+			# for line in linePoints:
+			# 	newline = line.copy()
+			# 	newline[:, 0] = line[:, 0] + topLeftTarget[1] - 5 # Needed to line up with regions. Affects the x axis.
+			# 	newline[:, 1] = line[:, 1] - topLeftTarget[0] + 5   # Required to be negative.  Affects the y axis.
+			# 	newLinePoints.append( newline )
+
+			if Bridson_Common.displayMesh:
+				# plt.figure()
+				# ax = plt.subplot(1, 1, 1, aspect=1)
+				# plt.title('shifted Lines for region ' + str(index))
+				# plt.grid()
+				# for line in newLinePoints:
+				# 	ax.plot(line[:, 0], line[:, 1], color='r', marker='*')
+
+				plt.figure()
+				plt.subplot(1, 1, 1, aspect=1)
+				plt.title('shifted Mask for region ' + str(index))
+				plt.grid()
+				plt.imshow(newRaster)
+
+
+			# meshObj.linePoints = newLinePoints
+			self.shiftedMaskRasterCollection[index] = newRaster
+
+
+	def shiftLinePoints(self, regionMap, regionRaster):
+		# for index in [5]:
+		# for index in self.maskRasterCollection.keys():
+
 		for index in self.meshObjCollection.keys():
 			raster = self.maskRasterCollection[ index ]
 
@@ -194,13 +248,13 @@ class FinishedImage:
 			# Create new raster that has been shifted.
 			x, y = np.shape(raster)
 			linePoints = meshObj.linePoints
-			newRaster = np.zeros(np.shape(regionRaster))
+			# newRaster = np.zeros(np.shape(regionRaster))
 			# print("Shape of raster:", (x,y))
-			for i in range(x):
-				for j in range(y):
-					# newRaster[i - topLeftTarget[0] - 3 ][j + topLeftTarget[1] - 5 ] = raster[i][j]
-					if raster[i][j] != 0: # Only shift the points in the raster that have non-zero values.
-						newRaster[i + topLeftTarget[0] - 5 ][j + topLeftTarget[1] - 5 ] = raster[i][j]
+			# for i in range(x):
+			# 	for j in range(y):
+			# 		# newRaster[i - topLeftTarget[0] - 3 ][j + topLeftTarget[1] - 5 ] = raster[i][j]
+			# 		if raster[i][j] != 0: # Only shift the points in the raster that have non-zero values.
+			# 			newRaster[i + topLeftTarget[0] - 5 ][j + topLeftTarget[1] - 5 ] = raster[i][j]
 
 			newLinePoints = []
 			for line in linePoints:
@@ -217,17 +271,15 @@ class FinishedImage:
 				for line in newLinePoints:
 					ax.plot(line[:, 0], line[:, 1], color='r', marker='*')
 
-				plt.figure()
-				plt.subplot(1, 1, 1, aspect=1)
-				plt.title('shifted Mask for region ' + str(index))
-				plt.grid()
-				plt.imshow(newRaster)
+				# plt.figure()
+				# plt.subplot(1, 1, 1, aspect=1)
+				# plt.title('shifted Mask for region ' + str(index))
+				# plt.grid()
+				# plt.imshow(newRaster)
 
 
 			meshObj.linePoints = newLinePoints
-			self.maskRasterCollection[index] = newRaster
-
-
+			# self.shiftedMaskRasterCollection[index] = newRaster
 
 	def setCollections(self, maskRasterCollection, meshObjCollection, regionEdgePoints, distanceRasters ):
 		self.maskRasterCollection = maskRasterCollection
@@ -322,7 +374,8 @@ class FinishedImage:
 
 		print("CroppedLinePoints Emptys regions: ", emptyRegions , "/", len(self.meshObjCollection.keys()  ) )
 
-	def cropCullLines(self, regionMap, regionRaster, maskRasterCollection, meshObjCollection, regionIntensityMap ):
+
+	def setMaps(self,regionMap, regionRaster, maskRasterCollection, meshObjCollection, regionIntensityMap):
 		self.maskRasterCollection = maskRasterCollection
 		self.meshObjCollection = meshObjCollection
 		self.regionMap = regionMap
@@ -335,18 +388,31 @@ class FinishedImage:
 		self.regionAdjancencyMap = {} # Map to contain AdjancencyEdge objects
 		self.regionAdjacentRegions = {} # Map containing list of adjacent regions for current region.
 
-		self.shiftRastersMeshObj( regionMap, regionRaster )
+	def cropCullLines(self, regionMap, regionRaster, maskRasterCollection, meshObjCollection, regionIntensityMap ):
+		# self.maskRasterCollection = maskRasterCollection
+		# self.meshObjCollection = meshObjCollection
+		# self.regionMap = regionMap
+		# self.regionRaster = regionRaster
+		# self.regionEdgePoints = {}
+		# self.distanceRasters = {}
+		# self.regionIntensityMap = regionIntensityMap
+		# self.globalEdgePointMap = {} # Map of (x,y) coordinates that point to EdgePoint objects, if they exist.
+		# self.regionEdgePointMap = {} # Map of (x,y) coordinates
+		# self.regionAdjancencyMap = {} # Map to contain AdjancencyEdge objects
+		# self.regionAdjacentRegions = {} # Map containing list of adjacent regions for current region.
+
+		# self.shiftRastersMeshObj( regionMap, regionRaster )
 
 		# For each region, determine the points on the lines that are close to the region edge.  Make a registry of these points.
 		for index in self.meshObjCollection.keys():
 			# print("Cropping index:", index)
-			raster = self.maskRasterCollection[ index ]
+			raster = self.shiftedMaskRasterCollection[ index ]
 			meshObj = meshObjCollection[ index ]
 
 			regionCoordinates = regionMap.get(index)
 			topLeftTarget, bottomRightTarget = SLIC.calculateTopLeft(regionCoordinates)
 
-			meshObj.setCroppedLines( self.cropContourLines(meshObj.linePoints, self.maskRasterCollection[index], topLeftTarget) )
+			meshObj.setCroppedLines( self.cropContourLines(meshObj.linePoints, self.shiftedMaskRasterCollection[index], topLeftTarget) )
 			# print("CropCullLines region croppedLines:", index, len(meshObj.croppedLinePoints) )
 
 			empty, culledLines = self.cullLines(  meshObj.croppedLinePoints, regionIntensityMap[index] )

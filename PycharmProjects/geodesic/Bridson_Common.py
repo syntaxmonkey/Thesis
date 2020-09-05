@@ -27,7 +27,7 @@ timeoutPeriod = 5
 SLICGrey = False
 
 
-bulkGeneration = False
+bulkGeneration = True
 debug=False
 
 if bulkGeneration == True:
@@ -70,7 +70,8 @@ colourCount = 20
 
 linesOnFlat = True
 verticalLines = True
-lineAngle = 125
+lineAngle = 135
+coherencyThreshold = 0.15
 
 
 barycentricVertexCorrection = True

@@ -23,7 +23,9 @@ import Bridson_FinishedImage
 from skimage.segmentation import mark_boundaries
 import datetime
 import gc
-import os
+
+import Bridson_StructTensor
+
 
 if os.path.exists("./output") == True:
 	if os.path.isdir("./output") == False:
@@ -254,7 +256,7 @@ def processMask(mask, dradius, indexLabel):
 			print("blurRadius:", blurRadius)
 			mask5x = Bridson_Common.blurArray(mask5x, blurRadius)
 			mask5x = Bridson_CreateMask.InvertMask(mask5x)
-			print("A")
+			# print("A")
 			# print(distanceRaster)
 			if Bridson_Common.debug:
 			# if True:
@@ -268,14 +270,14 @@ def processMask(mask, dradius, indexLabel):
 		# try:
 			a = datetime.datetime.now()
 			meshObj = Bridson_MeshObj.MeshObject(mask=mask5x, dradius=dradius, indexLabel=indexLabel) # Create Mesh based on Mask.
-			print("B")
+			# print("B")
 			b = datetime.datetime.now()
 			points = meshObj.points
 
 			tri = meshObj.triangulation
 			d = datetime.datetime.now()
 			fakeRadius = max(xrange,yrange)
-			print("C")
+			# print("C")
 
 			createMeshFile(points, tri, fakeRadius, (xrange/2.0, yrange/2.0))
 
@@ -291,23 +293,24 @@ def processMask(mask, dradius, indexLabel):
 			flatvertices, flatfaces = Bridson_readOBJFile.readFlatObjFile(path = "../../boundary-first-flattening/build/", filename="test1_out_flat.obj")
 			i = datetime.datetime.now()
 			Bridson_Common.triangleHistogram(flatvertices, flatfaces, indexLabel)
-			print("D")
+			# print("D")
 			newIndex = str(indexLabel) + ":" + str(indexLabel)
 			flatMeshObj = Bridson_MeshObj.MeshObject(flatvertices=flatvertices, flatfaces=flatfaces, xrange=xrange, yrange=yrange, indexLabel=indexLabel) # Create Mesh based on OBJ file.
 			j = datetime.datetime.now()
-			print("E")
+			# print("E")
 			successful = flatMeshObj.trifinderGenerated
-			print("Generate Mesh from Mask:", (b-a).microseconds )
-			print("Generate Triangulation on MeshObj:", (d-b).microseconds )
-			print("CreateMeshFile:", (f-d).microseconds )
-			print("BFFRefreshape:", (g-f).microseconds )
-			print("FlattenMesh:", (h-g).microseconds )
-			print("ReadObjFile:", (i-h).microseconds )
-			print("Create Mesh from File:", (j-i).microseconds )
+			if False:
+				print("Generate Mesh from Mask:", (b-a).microseconds )
+				print("Generate Triangulation on MeshObj:", (d-b).microseconds )
+				print("CreateMeshFile:", (f-d).microseconds )
+				print("BFFRefreshape:", (g-f).microseconds )
+				print("FlattenMesh:", (h-g).microseconds )
+				print("ReadObjFile:", (i-h).microseconds )
+				print("Create Mesh from File:", (j-i).microseconds )
 		except Exception as e:
 			print("processMask main failure:", e)
 			successful = False
-		print("G")
+		# print("G")
 		if successful:
 			print("Attempt ", attempts, " successful")
 		else:
@@ -365,6 +368,7 @@ def indexValidation(filename):
 	print("RegionMap keys:", regionMap.keys())
 	if Bridson_Common.bulkGeneration == False:
 		regionList = range(  55, 57)
+		regionList = range(len(regionMap.keys()))
 	else:
 		regionList = range(len(regionMap.keys()) )
 	# for index in range(5,10):
@@ -376,14 +380,28 @@ def indexValidation(filename):
 	plt.imshow( originalImage )
 
 	for index in regionList:
-		print("(**** ", filename, " Starting Region: ", index, "of", len(regionMap.keys()), "  *****" )
-
 		# Generate the raster for the first region.
 		raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
 
 		maskRasterCollection[index] = raster.copy()  # Make a copy of the mask raster.
 		NoSLICmaskRasterCollection[ index ] = raster.copy()
 
+
+	# Set the variables
+	finishedImageSLIC.setMaps(regionMap, regionRaster, maskRasterCollection, meshObjCollection, regionIntensityMap)
+	# Create region raster in the actual location.
+	finishedImageSLIC.shiftRastersMeshObj(regionMap, regionRaster)
+
+
+	for index in regionList:
+		print("(**** ", filename, " Starting Region: ", index, "of", len(regionMap.keys()), "  *****" )
+
+		# # Generate the raster for the first region.
+		# raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
+		#
+		# maskRasterCollection[index] = raster.copy()  # Make a copy of the mask raster.
+		# NoSLICmaskRasterCollection[ index ] = raster.copy()
+		raster = maskRasterCollection[index]
 		displayRegionRaster(raster, index)
 
 		# Bridson_Common.logDebug(__name__, raster)
@@ -417,7 +435,22 @@ def indexValidation(filename):
 			# desiredAngle = 0
 			actualAngle = desiredAngle + 90 # Need to rotate by 90 degrees to accomodate raster rotation.
 			# p1, p2 = meshObj.findPointsMatchingAngle( angle=45 )
-			flatAngle = int( flatMeshObj.calculateAngle( meshObj, desiredAngle=actualAngle ) )
+
+			# Create the shifted Region Mask of the original image.
+			shiftedRaster = finishedImageSLIC.shiftedMaskRasterCollection[index].copy()
+			maxValue = np.max(shiftedRaster)
+			print("Max Value:", maxValue)
+			normalizedMask = shiftedRaster / maxValue
+			shiftedMaskedImage = normalizedMask * originalImage
+			st = Bridson_StructTensor.ST(shiftedMaskedImage)
+			direction, coherency = st.calculateEigenVector()
+
+			if coherency > Bridson_Common.coherencyThreshold:
+				meshAngle = Bridson_Common.determineAngle(direction[0], direction[1]) + 90
+			else:
+				meshAngle = Bridson_Common.lineAngle + 90
+
+			flatAngle = int( flatMeshObj.calculateAngle( meshObj, desiredAngle=meshAngle ) )
 			print("Flat angle:", flatAngle)
 
 
@@ -431,6 +464,7 @@ def indexValidation(filename):
 						# flatMeshObj.DrawVerticalLines()
 						# flatMeshObj.DrawVerticalLinesSeededFrom(LineSeedPointsObj, meshObj) # Draw lines based on seed from tertiary mesh.
 						# flatMeshObj.DrawVerticalLinesExteriorSeed2() # Draw lines using exterior points as line seed.
+
 
 						flatMeshObj.DrawAngleLinesExteriorSeed2(angle=flatAngle)
 						# print("Exited DrawAngleLinesExteriorSeed2")
@@ -500,12 +534,17 @@ def indexValidation(filename):
 
 	# Shift the raster regions.
 	# finishedImageSLIC.shiftRastersMeshObj(regionMap, regionRaster)
+	# finishedImageSLIC.setMaps(regionMap, regionRaster, maskRasterCollection, meshObjCollection, regionIntensityMap)
+	# finishedImageSLIC.shiftRastersMeshObj( regionMap, regionRaster )
+
+	# Shift the lines into the region actual location.
+	finishedImageSLIC.shiftLinePoints(regionMap, regionRaster)
 
 	print("regionIntensityMap:", regionIntensityMap)
 	finishedImageSLIC.cropCullLines(regionMap, regionRaster, maskRasterCollection, meshObjCollection, regionIntensityMap)
 	# print("***************** Raster:", maskRasterCollection[30])
-	if True:
-		normalizedMask = maskRasterCollection[55].copy()
+	if False:
+		normalizedMask = finishedImageSLIC.shiftedMaskRasterCollection[55].copy()
 		maxValue = np.max(normalizedMask)
 		print("Max Value:", maxValue )
 		normalizedMask /= maxValue
@@ -647,13 +686,13 @@ if __name__ == '__main__':
 
 	# Batch D
 	images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
-	# images.append('everyday-basics-i0ROGKijuek-unsplash.jpg')
-	# images.append('imani-bahati-LxVxPA1LOVM-unsplash.jpg')
-	# images.append('kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg')
-	# images.append('luis-quintero-qKspdY9XUzs-unsplash.jpg')
-	# images.append('miguel-andrade-nAOZCYcLND8-unsplash.jpg')
-	# images.append('mr-o-k--ePHy6jg_7c-unsplash.jpg')
-	# images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
+	images.append('everyday-basics-i0ROGKijuek-unsplash.jpg')
+	images.append('imani-bahati-LxVxPA1LOVM-unsplash.jpg')
+	images.append('kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg')
+	images.append('luis-quintero-qKspdY9XUzs-unsplash.jpg')
+	images.append('miguel-andrade-nAOZCYcLND8-unsplash.jpg')
+	images.append('mr-o-k--ePHy6jg_7c-unsplash.jpg')
+	images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
 
 
 	# percentages = [0.05, 0.1, 0.15, 0.2]
@@ -663,11 +702,11 @@ if __name__ == '__main__':
 	if Bridson_Common.bulkGeneration:
 		segmentCounts = [100, 200]
 		segmentCounts = [200, 300]
-		compactnessList = [0.3, 0.6, 1]
-		compactnessList = [0.3, 0.6]
+		compactnessList = [0.1, 0.5, 0.9]
+		# compactnessList = [0.3, 0.6]
 	else:
 		segmentCounts = [200]
-		compactnessList = [ 0.6 ]
+		compactnessList = [ 0.1 ]
 
 	for filename in images:
 		# sys.stdout = open("./output/" + filename + ".log", "w")

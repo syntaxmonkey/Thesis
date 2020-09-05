@@ -26,7 +26,7 @@ class ST:
 	def __init__(self, inputIMG):
 		self.inputIMG = inputIMG
 		self.calcGST()
-		self.calculateEigenVector()
+		# self.calculateEigenVector()
 
 	def calcGST(self):
 		imageShape = np.shape( self.inputIMG )
@@ -43,9 +43,9 @@ class ST:
 		self.J11 = cv.boxFilter(imgDiffXX, cv.CV_32F, (w, w))
 		self.J22 = cv.boxFilter(imgDiffYY, cv.CV_32F, (w, w))
 		self.J12 = cv.boxFilter(imgDiffXY, cv.CV_32F, (w, w))
-		print("Shape of J11:", np.shape( self.J11 ))
-		print("Shape of J12:", np.shape(self.J12))
-		print("Shape of J22:", np.shape(self.J22))
+		# print("Shape of J11:", np.shape( self.J11 ))
+		# print("Shape of J12:", np.shape(self.J12))
+		# print("Shape of J22:", np.shape(self.J22))
 		# GST components calculations (stop)
 		# eigenvalue calculation (start)
 		# lambda1 = J11 + J22 + sqrt((J11-J22)^2 + 4*J12^2)
@@ -80,21 +80,29 @@ class ST:
 		# Construct the 2x2 matrix structure tensor.
 		self.st = np.array( [[self.J11[x,y], self.J12[x,y]], [self.J12[x,y], self.J22[x,y]]] )
 
-		print("ST: ", self.st)
+		# print("ST: ", self.st)
 
 		# Calculate the Eigen Vectors and Eigen Values of structure tensor.
 		self.values, self.vectors = eig( self.st )
-		print("Shape of ST:", np.shape(self.st))
-		print("Eigen Values:", self.values )
-		print("Eigen Vectors:", self.vectors)
+
+		# print("Shape of ST:", np.shape(self.st))
+		# print("Eigen Values:", self.values )
+		# print("Eigen Vectors:", self.vectors)
 		listValues = self.values.tolist()
 		# The direction is the eigenvector associated with the larger eigenvalue.
 		largerIndex = 0 if abs(listValues[0]) > abs(listValues[1]) else 1  # Find the larger eigenValue index based on absolute value.  -10000 should be larger than 100.
 		direction = self.vectors[ largerIndex ]
 		direction[0], direction[1] = -direction[1], direction[0] # Rotate direction by 90 degrees CCW.
 		self.direction = direction
-		print("Direction: ",  direction)
-		return direction
+
+
+		eig1 = listValues[0] if listValues[0] > listValues[1] else listValues[1]
+		eig2 = listValues[0] if listValues[0] < listValues[1] else listValues[1]
+
+		self.coherency = (eig1 - eig2) / (eig1 + eig2)
+
+		print("Direction: ", direction, "Coherency:", self.coherency)
+		return direction, self.coherency
 
 
 
