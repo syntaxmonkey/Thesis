@@ -364,17 +364,23 @@ def indexValidation(filename):
 	# for index in range(10,15):  # Interesting regions: 11, 12, 14
 	print("RegionMap keys:", regionMap.keys())
 	if Bridson_Common.bulkGeneration == False:
-		regionList = range(25, 35)
+		regionList = range(  55, 57)
 	else:
 		regionList = range(len(regionMap.keys()) )
 	# for index in range(5,10):
 	# for index in range( len(regionMap.keys()) ):
+
+	originalImage = Bridson_Common.readImagefile( filename )
+
+	plt.figure()
+	plt.imshow( originalImage )
+
 	for index in regionList:
 		print("(**** ", filename, " Starting Region: ", index, "of", len(regionMap.keys()), "  *****" )
 
 		# Generate the raster for the first region.
 		raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
-		# print("Raster:", raster)
+
 		maskRasterCollection[index] = raster.copy()  # Make a copy of the mask raster.
 		NoSLICmaskRasterCollection[ index ] = raster.copy()
 
@@ -399,6 +405,14 @@ def indexValidation(filename):
 		# Calculate the angle in flat mesh coordinates.
 		if trifindersuccess:
 			desiredAngle = regionIntensityMap[index] / 255.0 * 180 # Use the intensity to an angle.
+
+			# Here we need to figure out the angle.
+
+			# Obtain the region mask.
+			# Obtain the masked region of the original image.
+			# Obtain the angle from the Structure Tensor.
+			currentMask = maskRasterCollection[index]
+
 
 			# desiredAngle = 0
 			actualAngle = desiredAngle + 90 # Need to rotate by 90 degrees to accomodate raster rotation.
@@ -484,8 +498,20 @@ def indexValidation(filename):
 	# Still have a problem with the coordinates though.
 	print("About to cropCullLines")
 
+	# Shift the raster regions.
+	# finishedImageSLIC.shiftRastersMeshObj(regionMap, regionRaster)
+
 	print("regionIntensityMap:", regionIntensityMap)
 	finishedImageSLIC.cropCullLines(regionMap, regionRaster, maskRasterCollection, meshObjCollection, regionIntensityMap)
+	# print("***************** Raster:", maskRasterCollection[30])
+	if True:
+		normalizedMask = maskRasterCollection[55].copy()
+		maxValue = np.max(normalizedMask)
+		print("Max Value:", maxValue )
+		normalizedMask /= maxValue
+		maskedImage = normalizedMask * originalImage
+		plt.figure()
+		plt.imshow( maskedImage )
 
 	# print("Point F")
 	# # meshObj.checkLinePoints()
@@ -568,77 +594,8 @@ if __name__ == '__main__':
 
 	# mask = Bridson_CreateMask.CreateCircleMask(xrange, yrange, 10)
 
-	if False:
-		mask = Bridson_CreateMask.genLetter(xrange, yrange, character='Y')
-		meshObj, flatMeshObj = processMask(mask, dradius, 0)
-		# flatMeshObj.DrawVerticalLines()
-		# meshObj.DrawVerticalLines()
-		# Transfer the lines from the FlatMesh to meshObj.
-		# meshObj.TransferLinePointsFromTarget( flatMeshObj )
 
-	# meshObj = Bridson_MeshObj.MeshObject(mask=mask, dradius=dradius)
-
-
-	'''
-	# Original code for generating the Mesh with Mask.
-		count, chain, chainDirection, border = Bridson_ChainCode.generateChainCode(mask, rotate=False)
-		border = Bridson_ChainCode.generateBorder(border, dradius)
-
-		invertedMask =  Bridson_CreateMask.InvertMask( mask )
-
-		# Bridson_Common.logDebug(__name__, invertedMask)
-		plt.figure()
-		plt.subplot(1, 1, 1, aspect=1)
-		plt.title('Inverted Mask')
-		plt.imshow(invertedMask)
-		plt.plot([i[1] for i in border], [i[0] for i in border], 'og') # Plot the "boundaries" points as green dots.
-
-		# generatePointsDisplay(xrange, yrange, dradius)
-		# generateDelaunayDisplay(xrange, yrange, dradius)
-		points, tri = genSquareDelaunayDisplay(xrange, yrange, radius=dradius, mask=invertedMask, border=border)
-	'''
-	# points = meshObj.points
-	# tri = meshObj.triangulation
-	# fakeRadius = max(xrange,yrange)
-	#
-	# createMeshFile(points, tri, fakeRadius, (xrange/2.0, yrange/2.0))
-	# BFFReshape()
-	# FlattenMesh()
-	#
-	# flatvertices, flatfaces = Bridson_readOBJFile.readFlatObjFile(path = "../../boundary-first-flattening/build/", filename="test1_out_flat.obj")
-	#
-	# Create Mesh object for flattened file.
-	# flatMeshObj = Bridson_MeshObj.MeshObject(flatvertices=flatvertices, flatfaces=flatfaces, xrange=xrange, yrange=yrange)
-
-	# imageraster, regionMap = SLICImage()
-	regionMap = []
-
-	if False:
-		startIndex = 0
-		stopIndex = 2
-		for regionIndex in range(startIndex, stopIndex):
-		# for regionIndex in regionMap.keys():
-			Bridson_Common.logDebug(__name__, ">>>>>>>>>>> Start of cycle")
-			# resetVariables()
-			# try:
-			Bridson_Common.logDebug(__name__, "Generating index:", regionIndex)
-			raster, actualTopLeft = SLIC.createRegionRasters(regionMap, regionIndex)
-			displayRegionRaster( raster[:], regionIndex )
-
-	if False:
-			for index in range(1,2):
-				# Generate the raster for the first region.
-				raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
-				# Bridson_Common.logDebug(__name__, raster)
-				# Bridson_Common.arrayInformation( raster )
-				for i in range(1):
-					Bridson_Common.writeMask(raster)
-					meshObj, flatMeshObj = processMask(raster, dradius, index + i / 10)
-					flatMeshObj.DrawVerticalLines()
-
-				# Transfer the lines from the FlatMesh to meshObj.
-				meshObj.TransferLinePointsFromTarget( flatMeshObj )
-
+	# regionMap = []
 	images = []
 	# images.append('SimpleR.png')
 	# images.append('SimpleC.png')
@@ -738,50 +695,6 @@ if __name__ == '__main__':
 	print("Finished")
 	print("*************************************************")
 
-	Bridson_Common.logDebug(__name__, "------------------------------------------")
-	if False:
-		index = 999
-		# File are in /Users/hengsun/Documents/Thesis/PycharmProjects/geodesic.
-		mask = Bridson_Common.readMask()
-		# mask = Bridson_Common.readMask(filename='BlurSquare.gif')
-		# mask = Bridson_Common.readMask(filename='BlurTriangle.gif')
-		meshObj, flatMeshObj = processMask(mask, dradius, index)
-		# flatMeshObj.DrawVerticalLines()
-
-	# Perform feature removal, row by row.
-	if False:
-		for index in range(5,6):
-			# Generate the raster for the first region.
-			# raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
-			# Bridson_Common.logDebug(__name__, raster)
-			# Bridson_Common.arrayInformation( raster )
-			# Bridson_Common.writeMask(raster)
-			raster = Bridson_Common.readMask(filename='BlurTriangle.gif')
-			Bridson_Common.logDebug(__name__, "Minimum value of Raster: " , np.min(raster))
-			Bridson_Common.logDebug(__name__, "Maximum value of Raster: ", np.max(raster))
-			raster = Bridson_CreateMask.InvertMask(raster)
-			Bridson_Common.logDebug(__name__, "Minimum value of Inverted Raster: ", np.min(raster))
-			Bridson_Common.logDebug(__name__, "Maximum value of Inverted Raster: ", np.max(raster))
-			featureRemoval(raster, dradius, index)
-			# flatMeshObj.DrawVerticalLines()
-
-			# Transfer the lines from the FlatMesh to meshObj.
-			# meshObj.TransferLinePointsFromTarget( flatMeshObj )
-
-
-	if False:
-		for index in range(1,2):
-			# Generate the raster for the first region.
-			raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
-			# raster = SLIC.createRegionRasters(regionMap, index)
-			# Bridson_Common.logDebug(__name__, raster)
-			# Bridson_Common.arrayInformation( raster )
-			# Bridson_Common.writeMask(raster)
-			featureRemoval(raster, dradius, index)
-			# flatMeshObj.DrawVerticalLines()
-
-			# Transfer the lines from the FlatMesh to meshObj.
-			# meshObj.TransferLinePointsFromTarget( flatMeshObj )
 
 	sys.stdout.close()
 	if Bridson_Common.bulkGeneration:

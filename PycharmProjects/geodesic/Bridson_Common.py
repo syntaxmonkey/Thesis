@@ -11,6 +11,7 @@ from scipy.ndimage.morphology import distance_transform_cdt
 import pandas as pd
 from scipy.spatial import distance
 import sys
+from skimage import io
 
 # Increase width of console printing: https://stackoverflow.com/questions/25628496/getting-wider-output-in-pycharms-built-in-console
 desired_width = 320
@@ -26,7 +27,7 @@ timeoutPeriod = 5
 SLICGrey = False
 
 
-bulkGeneration = True
+bulkGeneration = False
 debug=False
 
 if bulkGeneration == True:
@@ -106,6 +107,11 @@ cropContours = True
 #                  [-1, 0],  [1, 0],
 #                  [-1, -1], [0, -1], [1, -1] ]
 
+
+def readImagefile(filename):
+	image = io.imread(filename)
+	imageArr = np.asarray( Image.fromarray(image).convert('L') )
+	return imageArr
 
 def determineRadius(width=1, height=1):
 	if Bridson_Common.regionDynamicRadius:

@@ -87,6 +87,7 @@ class FinishedImage:
 
 					# print("Operations:", operations)
 
+				# Merge repeat characters.  Use this to detect region, no region, region.
 				operations = ''.join(ch for ch, _ in itertools.groupby(operations))
 				# print("shrunk Operations:", operations)
 				if operations.find('+-+') > -1:
