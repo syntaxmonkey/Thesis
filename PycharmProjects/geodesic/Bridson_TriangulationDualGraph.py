@@ -253,7 +253,6 @@ class TriangulationDualGraph:
 	def resortExteriorPoints(self):
 		# https://docs.scipy.org/doc/scipy/reference/tutorial/spatial.html
 
-
 		existingPoints = []
 		for point in self.points:
 			existingPoints.append( list(point))

@@ -20,6 +20,12 @@ from skimage.morphology import disk
 from skimage.filters import rank
 from numpy.linalg import eig
 
+from multiprocessing import Process, freeze_support, set_start_method, Pool
+import time
+import random
+
+import uuid
+
 print("Test")
 if False:
 	square = np.ones((5, 5))
@@ -200,34 +206,37 @@ if False:
 	# fig.tight_layout()
 	plt.show()
 
+external = 'name'
+
+if False:
+	def f():
+		time.sleep( random.random()*5 + 2 )
+		print('hello,', external)
+
+	def wrapper(name, secondName):
+		global external
+		print(name)
+		external=secondName
+		f()
+
+	with Pool(processes=4) as pool:
+		names = [('bob', 'john'), ('mack', 'another')]
+		pool.starmap(wrapper, names)
 
 
-a =  [[1,1], [1,2]]
-b =  [[2,2], [2,3]]
-c =  [[3,3],[3,4]]
-d =  [[4,4],[4,5]]
+unique_filename = str(uuid.uuid4().hex)
+print(unique_filename)
 
-print(a)
-print(b)
-print(c)
-print(d)
+	# for name in ['bob', 'john', 'mack']:
+	# 	# freeze_support()
+	# 	# set_start_method('spawn')
+	# 	external = name
+	# 	p = Process(target=f)
+	# 	p.start()
+	# 	# p.join()
 
-
-
-# e = np.hstack((a,b))
-# f = np.vstack((a,b))
-# print(e)
-# print(f)
-
-h = np.array([[a, b],[c,d]])
-print(h)
-
-values, vectors = eig(h)
-
-print("Values:",values)
-print("Vectors:",vectors)
-
-print("Sum a:", np.sum( a ))
+	# p = Pool(5)
+	# p.map(f, ['bob', 'john', 'mack'])
 
 # print("Coherency:", np.power((I1 - I2) / (I1+I2), 2) )
 # array([[0., 0., 0., 0., 0.],

@@ -24,10 +24,11 @@ seedValue = 11
 SLIC0=False
 compactnessSLIC=1
 timeoutPeriod = 5
+SLICIterations=100
 SLICGrey = False
 
 
-bulkGeneration = False
+bulkGeneration = True
 debug=False
 
 if bulkGeneration == True:
@@ -41,7 +42,6 @@ diagnostic=False # Generally avoid dispalying meshes.  Only count the number of 
 highlightEdgeTriangle=False # Highlight the edge triangle that contains the exterior point of the vertical lines.
 drawSLICRegions = False
 
-
 EqualizeHistogram=False
 Median=True
 
@@ -51,7 +51,7 @@ lineCullingDistanceFactor = 2
 allowBlankRegion=False # Allow the region to be blank.  Otherwise, regions can have one single line even if the intensity is high.
 cullingBlankThreshold=230 # If the region has intensity greater than this value, then make the region blank.
 highlightEndpoints=False
-lineCullAlgorithm='none'  # Valid values: 'log', 'exp', 'none'.
+lineCullAlgorithm='segmented'  # Valid values: 'log', 'exp', 'none', 'segmented'.
 
 closestPointPair=False
 middleAverageOnly=False
@@ -70,8 +70,8 @@ colourCount = 20
 
 linesOnFlat = True
 verticalLines = True
-lineAngle = 135
-coherencyThreshold = 0.15
+lineAngle = 90
+coherencyThreshold = 0.1
 
 
 barycentricVertexCorrection = True
@@ -95,7 +95,10 @@ dradius = 1.5 # Important that dradius is greater than 1.0.  When the value is 1
 radiusDefault = 1.5
 radiusDivisor = 30 # the number of radii for each region.
 regionDynamicRadius = True
+nearbyDistance = 5
 
+increaseContrast=True
+contrastFactor=1.5 # Values above 1 increase contrast.  Values below 1 reduce contrast.
 
 
 colourArray = ['r', 'b', 'm']
@@ -104,9 +107,74 @@ colourArray = ['b', 'b', 'b']
 mergeScale = 1  # How much to scale the contour lines before merging.
 cropContours = True
 
+Bridson_Common.test1obj = ""
+Bridson_Common.test1_outobj = ""
+Bridson_Common.test1_out_flatobj = ""
+
+
 # traversalMap = [ [-1,1], [0,1], [1,1],
 #                  [-1, 0],  [1, 0],
 #                  [-1, -1], [0, -1], [1, -1] ]
+
+
+def outputEnvironmentVariables():
+	print("------- Environment Variables ----------------------------------- ")
+	print("segmentCount:", Bridson_Common.segmentCount)
+	print("lineCullAlgorithm: ", Bridson_Common.lineCullAlgorithm)
+	print("lineAngle:", Bridson_Common.lineAngle)
+	print("coherencyThreshold:", Bridson_Common.coherencyThreshold)
+	print("highlightEndpoints:", Bridson_Common.highlightEndpoints)
+	print("middleAverageOnly:", Bridson_Common.middleAverageOnly)
+	print("compactnessSLIC:", Bridson_Common.compactnessSLIC)
+	print("SLICIterations:", Bridson_Common.SLICIterations)
+	print("allowBlankRegion:", Bridson_Common.allowBlankRegion)
+	print("cullingBlankThreshold:", Bridson_Common.cullingBlankThreshold)
+	print("nearbyDistance:", nearbyDistance)
+	print("------------------------------------------------------------------")
+
+def determineLineSpacing( intensity):
+	if Bridson_Common.lineCullAlgorithm == 'log':
+		'''
+		Logrithmic scale.			
+		Intensity: 255 produces 51.57303927154884
+		Intensity: 200 produces 49.36711720583027
+		Intensity: 128 produces 45.322383916284224
+		Intensity: 100 produces 43.09074884943549
+		Intensity: 50 produces 36.85897369805666
+		Intensity: 30 produces 32.318595570519726
+		Intensity: 10 produces 22.86924638832273
+		Intensity: 1 produces 7.321629908943605
+		Intensity: 0 produces 1.0
+		'''
+		intensityDistance = math.log10(intensity+1)*21 + 1
+	elif Bridson_Common.lineCullAlgorithm == 'exp':
+		'''
+		Exponential scale.  Lighter regions have significantly fewer lines.
+		Intensity: 255 produces 164.0219072999017
+		Intensity: 200 produces 54.598150033144236
+		Intensity: 128 produces 12.935817315543076
+		Intensity: 100 produces 7.38905609893065
+		Intensity: 50 produces 2.718281828459045
+		Intensity: 30 produces 1.8221188003905089
+		Intensity: 10 produces 1.2214027581601699
+		Intensity: 1 produces 1.0202013400267558
+		Intensity: 0 produces 1.0
+		'''
+		intensityDistance = math.exp(intensity/60)
+	elif Bridson_Common.lineCullAlgorithm == 'segmented':
+		if intensity < 128:
+			intensityDistance = intensity / 10
+		elif intensity < 200:
+			intensityDistance = intensity / 5
+		else:
+			intensityDistance = intensity
+	else:
+		intensityDistance = intensity
+
+		intensityDistance += 1
+	return intensityDistance
+
+
 
 
 def readImagefile(filename):
@@ -175,7 +243,7 @@ def generateTraversalMap(radius):
 	traversalMap.pop( traversalMap.index([0,0]) )
 	return traversalMap
 
-traversalMap = generateTraversalMap(1)
+traversalMap = generateTraversalMap(Bridson_Common.nearbyDistance)
 
 def findClosestIndex(s1, s2):
 	distances = distance.cdist(s1, s2)

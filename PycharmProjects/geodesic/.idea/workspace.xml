@@ -2,13 +2,234 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6ab9aa8a-8b4b-405a-a077-6186da762c11" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/Bridson_ImageModify.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/color2gray.py" />
       <change beforePath="$PROJECT_DIR$/../NNCourse" afterPath="$PROJECT_DIR$/../NNCourse" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/Akanska_Color2Gray.py" afterPath="" />
       <change beforePath="$PROJECT_DIR$/Bridson_Common.py" afterPath="$PROJECT_DIR$/Bridson_Common.py" />
       <change beforePath="$PROJECT_DIR$/Bridson_FinishedImage.py" afterPath="$PROJECT_DIR$/Bridson_FinishedImage.py" />
       <change beforePath="$PROJECT_DIR$/Bridson_Main.py" afterPath="$PROJECT_DIR$/Bridson_Main.py" />
+      <change beforePath="$PROJECT_DIR$/Bridson_MeshObj.py" afterPath="$PROJECT_DIR$/Bridson_MeshObj.py" />
+      <change beforePath="$PROJECT_DIR$/Bridson_Test.py" afterPath="$PROJECT_DIR$/Bridson_Test.py" />
+      <change beforePath="$PROJECT_DIR$/Bridson_TriangulationDualGraph.py" afterPath="$PROJECT_DIR$/Bridson_TriangulationDualGraph.py" />
+      <change beforePath="$PROJECT_DIR$/SLIC.py" afterPath="$PROJECT_DIR$/SLIC.py" />
       <change beforePath="$PROJECT_DIR$/chaincode.txt" afterPath="$PROJECT_DIR$/chaincode.txt" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_100_regionPixels_800_compactness_0.1_GreyscaleSLIC.png" afterPath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_100_regionPixels_800_compactness_0.1_GreyscaleSLIC.png" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_100_regionPixels_800_compactness_0.1_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_100_regionPixels_800_compactness_0.1_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_100_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" afterPath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_100_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_100_regionPixels_800_compactness_0.5_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_100_regionPixels_800_compactness_0.5_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_100_regionPixels_800_compactness_0.9_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_100_regionPixels_800_compactness_0.9_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_100_regionPixels_800_compactness_0.9_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_0.01_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_0.01_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_0.01_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_0.05_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_0.05_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_0.05_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_0.1_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_0.1_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_0.1_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" afterPath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_0.5_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_0.5_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_0.9_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_0.9_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_0.9_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_300_regionPixels_800_compactness_0.1_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_300_regionPixels_800_compactness_0.1_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_300_regionPixels_800_compactness_0.1_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_300_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_300_regionPixels_800_compactness_0.5_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_300_regionPixels_800_compactness_0.5_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_300_regionPixels_800_compactness_0.9_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_300_regionPixels_800_compactness_0.9_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_300_regionPixels_800_compactness_0.9_WithSLIC.png" afterPath="" />
       <change beforePath="$PROJECT_DIR$/output/detailLogs.txt" afterPath="$PROJECT_DIR$/output/detailLogs.txt" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_100_regionPixels_800_compactness_0.1_GreyscaleSLIC.png" afterPath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_100_regionPixels_800_compactness_0.1_GreyscaleSLIC.png" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_100_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" afterPath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_100_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_100_regionPixels_800_compactness_0.5_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_100_regionPixels_800_compactness_0.5_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_100_regionPixels_800_compactness_0.9_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_100_regionPixels_800_compactness_0.9_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_100_regionPixels_800_compactness_0.9_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_0.1_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_0.1_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_0.1_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" afterPath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_0.5_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_0.5_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_0.9_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_0.9_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_0.9_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_300_regionPixels_800_compactness_0.1_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_300_regionPixels_800_compactness_0.1_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_300_regionPixels_800_compactness_0.1_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_300_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_300_regionPixels_800_compactness_0.5_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_300_regionPixels_800_compactness_0.5_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_300_regionPixels_800_compactness_0.9_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_300_regionPixels_800_compactness_0.9_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_300_regionPixels_800_compactness_0.9_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_100_regionPixels_800_compactness_0.1_GreyscaleSLIC.png" afterPath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_100_regionPixels_800_compactness_0.1_GreyscaleSLIC.png" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_100_regionPixels_800_compactness_0.1_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_100_regionPixels_800_compactness_0.1_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_100_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_100_regionPixels_800_compactness_0.5_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_100_regionPixels_800_compactness_0.5_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_100_regionPixels_800_compactness_0.9_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_100_regionPixels_800_compactness_0.9_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_100_regionPixels_800_compactness_0.9_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_0.1_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_0.1_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_0.1_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_0.5_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_0.5_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_0.9_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_0.9_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_0.9_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_300_regionPixels_800_compactness_0.1_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_300_regionPixels_800_compactness_0.1_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_300_regionPixels_800_compactness_0.1_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_300_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_300_regionPixels_800_compactness_0.5_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_300_regionPixels_800_compactness_0.5_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_300_regionPixels_800_compactness_0.9_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_300_regionPixels_800_compactness_0.9_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_300_regionPixels_800_compactness_0.9_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_100_regionPixels_800_compactness_0.1_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_100_regionPixels_800_compactness_0.1_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_100_regionPixels_800_compactness_0.1_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_100_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_100_regionPixels_800_compactness_0.5_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_100_regionPixels_800_compactness_0.5_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_100_regionPixels_800_compactness_0.9_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_100_regionPixels_800_compactness_0.9_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_100_regionPixels_800_compactness_0.9_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_0.1_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_0.1_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_0.1_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_0.5_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_0.5_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_0.9_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_0.9_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_0.9_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_300_regionPixels_800_compactness_0.1_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_300_regionPixels_800_compactness_0.1_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_300_regionPixels_800_compactness_0.1_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_300_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_300_regionPixels_800_compactness_0.5_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_300_regionPixels_800_compactness_0.5_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_300_regionPixels_800_compactness_0.9_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_300_regionPixels_800_compactness_0.9_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_300_regionPixels_800_compactness_0.9_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_100_regionPixels_800_compactness_0.1_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_100_regionPixels_800_compactness_0.1_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_100_regionPixels_800_compactness_0.1_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_100_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_100_regionPixels_800_compactness_0.5_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_100_regionPixels_800_compactness_0.5_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_100_regionPixels_800_compactness_0.9_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_100_regionPixels_800_compactness_0.9_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_100_regionPixels_800_compactness_0.9_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_0.1_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_0.1_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_0.1_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_0.5_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_0.5_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_0.9_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_0.9_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_0.9_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_300_regionPixels_800_compactness_0.1_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_300_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_300_regionPixels_800_compactness_0.5_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_300_regionPixels_800_compactness_0.5_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_300_regionPixels_800_compactness_0.9_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_300_regionPixels_800_compactness_0.9_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_300_regionPixels_800_compactness_0.9_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_100_regionPixels_800_compactness_0.1_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_100_regionPixels_800_compactness_0.1_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_100_regionPixels_800_compactness_0.1_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_100_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_100_regionPixels_800_compactness_0.5_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_100_regionPixels_800_compactness_0.5_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_100_regionPixels_800_compactness_0.9_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_100_regionPixels_800_compactness_0.9_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_100_regionPixels_800_compactness_0.9_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_0.1_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_0.1_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_0.1_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_0.5_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_0.5_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_0.9_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_0.9_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_0.9_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_300_regionPixels_800_compactness_0.1_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_300_regionPixels_800_compactness_0.1_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_300_regionPixels_800_compactness_0.1_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_300_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_300_regionPixels_800_compactness_0.9_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_300_regionPixels_800_compactness_0.9_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_300_regionPixels_800_compactness_0.9_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_100_regionPixels_800_compactness_0.1_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_100_regionPixels_800_compactness_0.1_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_100_regionPixels_800_compactness_0.1_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_100_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_100_regionPixels_800_compactness_0.5_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_100_regionPixels_800_compactness_0.5_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_100_regionPixels_800_compactness_0.9_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_100_regionPixels_800_compactness_0.9_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_100_regionPixels_800_compactness_0.9_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_0.1_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_0.1_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_0.1_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_0.5_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_0.5_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_0.9_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_0.9_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_0.9_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_300_regionPixels_800_compactness_0.1_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_300_regionPixels_800_compactness_0.1_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_300_regionPixels_800_compactness_0.1_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_300_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_300_regionPixels_800_compactness_0.5_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_300_regionPixels_800_compactness_0.5_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_300_regionPixels_800_compactness_0.9_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_300_regionPixels_800_compactness_0.9_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_300_regionPixels_800_compactness_0.9_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_100_regionPixels_800_compactness_0.1_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_100_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_100_regionPixels_800_compactness_0.5_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_100_regionPixels_800_compactness_0.5_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_100_regionPixels_800_compactness_0.9_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_100_regionPixels_800_compactness_0.9_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_100_regionPixels_800_compactness_0.9_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_0.1_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_0.1_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_0.1_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_0.5_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_0.5_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_0.9_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_0.9_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_0.9_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_300_regionPixels_800_compactness_0.1_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_300_regionPixels_800_compactness_0.1_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_300_regionPixels_800_compactness_0.1_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_300_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_300_regionPixels_800_compactness_0.5_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_300_regionPixels_800_compactness_0.5_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_300_regionPixels_800_compactness_0.9_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_300_regionPixels_800_compactness_0.9_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_300_regionPixels_800_compactness_0.9_WithSLIC.png" afterPath="" />
       <change beforePath="$PROJECT_DIR$/../../boundary-first-flattening" afterPath="$PROJECT_DIR$/../../boundary-first-flattening" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,14 +240,14 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.45971563">
+    <splitter split-orientation="horizontal" split-proportion="0.34017906">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="Bridson_FinishedImage.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="Bridson_FinishedImage.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Bridson_FinishedImage.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="306">
-                  <caret line="39" column="87" lean-forward="false" selection-start-line="39" selection-start-column="87" selection-end-line="39" selection-end-column="87" />
+                <state relative-caret-position="800">
+                  <caret line="771" column="24" lean-forward="false" selection-start-line="771" selection-start-column="24" selection-end-line="771" selection-end-column="24" />
                   <folding>
                     <element signature="e#1#32#0" expanded="true" />
                   </folding>
@@ -34,11 +255,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Bridson_Test.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="Bridson_Test.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Bridson_Test.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="3000">
-                  <caret line="214" column="0" lean-forward="false" selection-start-line="214" selection-start-column="0" selection-end-line="214" selection-end-column="0" />
+                <state relative-caret-position="5">
+                  <caret line="203" column="5" lean-forward="false" selection-start-line="203" selection-start-column="4" selection-end-line="203" selection-end-column="5" />
                   <folding>
                     <element signature="e#256#300#0" expanded="true" />
                   </folding>
@@ -59,8 +280,8 @@
           <file leaf-file-name="Bridson_TriangulationDualGraph.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Bridson_TriangulationDualGraph.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="3465">
-                  <caret line="240" column="0" lean-forward="false" selection-start-line="240" selection-start-column="0" selection-end-line="240" selection-end-column="0" />
+                <state relative-caret-position="556">
+                  <caret line="281" column="54" lean-forward="false" selection-start-line="281" selection-start-column="54" selection-end-line="281" selection-end-column="54" />
                   <folding>
                     <element signature="e#0#21#0" expanded="true" />
                   </folding>
@@ -75,8 +296,8 @@
           <file leaf-file-name="Bridson_Common.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Bridson_Common.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="321">
-                  <caret line="29" column="22" lean-forward="false" selection-start-line="29" selection-start-column="22" selection-end-line="29" selection-end-column="22" />
+                <state relative-caret-position="450">
+                  <caret line="30" column="21" lean-forward="false" selection-start-line="30" selection-start-column="21" selection-end-line="30" selection-end-column="21" />
                   <folding>
                     <element signature="e#0#11#0" expanded="true" />
                   </folding>
@@ -99,22 +320,10 @@
           <file leaf-file-name="Bridson_MeshObj.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Bridson_MeshObj.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="7425">
-                  <caret line="504" column="0" lean-forward="false" selection-start-line="504" selection-start-column="0" selection-end-line="504" selection-end-column="0" />
+                <state relative-caret-position="432">
+                  <caret line="525" column="26" lean-forward="false" selection-start-line="525" selection-start-column="26" selection-end-line="525" selection-end-column="26" />
                   <folding>
                     <element signature="e#0#80#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Bridson_sampling.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Bridson_sampling.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2910">
-                  <caret line="198" column="31" lean-forward="false" selection-start-line="198" selection-start-column="4" selection-end-line="198" selection-end-column="31" />
-                  <folding>
-                    <element signature="e#295#313#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -123,8 +332,18 @@
           <file leaf-file-name="Bridson_Main.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Bridson_Main.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="304">
-                  <caret line="719" column="31" lean-forward="false" selection-start-line="719" selection-start-column="31" selection-end-line="719" selection-end-column="31" />
+                <state relative-caret-position="125">
+                  <caret line="706" column="9" lean-forward="true" selection-start-line="706" selection-start-column="9" selection-end-line="706" selection-end-column="9" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Bridson_createOBJFile.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Bridson_createOBJFile.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="60">
+                  <caret line="5" column="4" lean-forward="false" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="4" />
                   <folding />
                 </state>
               </provider>
@@ -133,11 +352,43 @@
           <file leaf-file-name="SLIC.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/SLIC.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1665">
-                  <caret line="122" column="4" lean-forward="false" selection-start-line="122" selection-start-column="4" selection-end-line="122" selection-end-column="4" />
+                <state relative-caret-position="262">
+                  <caret line="241" column="4" lean-forward="false" selection-start-line="241" selection-start-column="4" selection-end-line="241" selection-end-column="4" />
                   <folding>
                     <element signature="e#124#161#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Bridson_ImageModify.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Bridson_ImageModify.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="120">
+                  <caret line="8" column="20" lean-forward="false" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="20" />
+                  <folding>
+                    <element signature="e#30#65#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="color2gray.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/color2gray.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="180">
+                  <caret line="12" column="25" lean-forward="false" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Bridson_readOBJFile.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Bridson_readOBJFile.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="90">
+                  <caret line="9" column="4" lean-forward="false" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -165,36 +416,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>dianost</find>
-      <find>diag</find>
-      <find>rotate</find>
-      <find>diagnost</find>
-      <find>transfer</find>
-      <find>DrawAngleLinesExteriorSeed2</find>
-      <find>drad</find>
-      <find>processMask</find>
-      <find>datetime</find>
-      <find>cullL</find>
-      <find>cropCull</find>
-      <find>mergeL</find>
-      <find>distance</find>
-      <find>proc</find>
-      <find>indexVali</find>
-      <find>cullLine</find>
-      <find>blurRadius</find>
-      <find>write</find>
-      <find>cullLines</find>
-      <find>indexvali</find>
-      <find>output</find>
-      <find>stdout.close</find>
-      <find>imread</find>
-      <find>from</find>
-      <find>asarra</find>
-      <find>normal</find>
-      <find>regionMap</find>
-      <find>shift</find>
-      <find>Shift</find>
       <find>Generate Mesh</find>
+      <find>outputEnvironmentVariables</find>
+      <find>Greysal</find>
+      <find>meshAngle</find>
+      <find>segmentC</find>
+      <find>traversalMap</find>
+      <find>merge</find>
+      <find>generate</find>
+      <find>indexValid</find>
+      <find>markerSize</find>
+      <find>cull</find>
+      <find>topLef</find>
+      <find>3</find>
+      <find>.plot(</find>
+      <find>generateDual</find>
+      <find>findNex</find>
+      <find>write</find>
+      <find>dot_prod</find>
+      <find>io.</find>
+      <find>misc</find>
+      <find>createM</find>
+      <find>Bridson_Common.test1obj</find>
+      <find>test1obj</find>
+      <find>Bridson_Common.test1_out</find>
+      <find>createMesh</find>
+      <find>Creating</find>
+      <find>wrapper</find>
+      <find>Creatin</find>
+      <find>Bridson_Common.test1ou</find>
+      <find>test1_out_flat.obj</find>
     </findStrings>
     <replaceStrings>
       <replace>=</replace>
@@ -248,24 +499,25 @@
         <option value="$PROJECT_DIR$/EdgePoint.py" />
         <option value="$PROJECT_DIR$/RegionPixelConnectivity.py" />
         <option value="$PROJECT_DIR$/AdjacencyEdge.py" />
-        <option value="$PROJECT_DIR$/Bridson_TriangulationDualGraph.py" />
-        <option value="$PROJECT_DIR$/Bridson_MeshObj.py" />
         <option value="$PROJECT_DIR$/Bridson_Delaunay.py" />
         <option value="$PROJECT_DIR$/Bridson_sampling.py" />
+        <option value="$PROJECT_DIR$/Bridson_Region.py" />
+        <option value="$PROJECT_DIR$/Bridson_StructTensor.py" />
+        <option value="$PROJECT_DIR$/Bridson_TriangulationDualGraph.py" />
+        <option value="$PROJECT_DIR$/Bridson_MeshObj.py" />
+        <option value="$PROJECT_DIR$/Bridson_FinishedImage.py" />
         <option value="$PROJECT_DIR$/Akanska_Color2Gray.py" />
+        <option value="$PROJECT_DIR$/color2gray.py" />
+        <option value="$PROJECT_DIR$/Bridson_ImageModify.py" />
         <option value="$PROJECT_DIR$/SLIC.py" />
         <option value="$PROJECT_DIR$/Bridson_Test.py" />
-        <option value="$PROJECT_DIR$/Bridson_Region.py" />
         <option value="$PROJECT_DIR$/Bridson_Common.py" />
-        <option value="$PROJECT_DIR$/Bridson_StructTensor.py" />
-        <option value="$PROJECT_DIR$/Bridson_FinishedImage.py" />
         <option value="$PROJECT_DIR$/Bridson_Main.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-3839" />
-    <option name="y" value="23" />
+  <component name="ProjectFrameBounds">
+    <option name="y" value="143" />
     <option name="width" value="1920" />
     <option name="height" value="1057" />
   </component>
@@ -285,8 +537,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -298,6 +548,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -356,6 +608,24 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
+    <configuration name="Bridson_ImageModify" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$PROJECT_DIR$/../Thesis/venv/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="geodesic" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Bridson_ImageModify.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <configuration name="Bridson_Main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -369,24 +639,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="geodesic" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Bridson_Main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="Bridson_StructTensor" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="$PROJECT_DIR$/../Thesis/venv/bin/python" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="geodesic" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Bridson_StructTensor.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -410,24 +662,6 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="Bridson_sampling" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="$PROJECT_DIR$/../Thesis/venv/bin/python" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="geodesic" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Bridson_sampling.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -446,20 +680,38 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
+    <configuration name="color2gray" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$PROJECT_DIR$/../Thesis/venv/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="geodesic" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/color2gray.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.Bridson_Main" />
-      <item index="1" class="java.lang.String" itemvalue="Python.Bridson_Test" />
-      <item index="2" class="java.lang.String" itemvalue="Python.Bridson_sampling" />
-      <item index="3" class="java.lang.String" itemvalue="Python.Akanska_Color2Gray" />
-      <item index="4" class="java.lang.String" itemvalue="Python.Bridson_StructTensor" />
+      <item index="1" class="java.lang.String" itemvalue="Python.Akanska_Color2Gray" />
+      <item index="2" class="java.lang.String" itemvalue="Python.color2gray" />
+      <item index="3" class="java.lang.String" itemvalue="Python.Bridson_ImageModify" />
+      <item index="4" class="java.lang.String" itemvalue="Python.Bridson_Test" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.Bridson_Main" />
-        <item index="1" class="java.lang.String" itemvalue="Python.Bridson_StructTensor" />
-        <item index="2" class="java.lang.String" itemvalue="Python.Bridson_Test" />
-        <item index="3" class="java.lang.String" itemvalue="Python.Akanska_Color2Gray" />
-        <item index="4" class="java.lang.String" itemvalue="Python.Bridson_sampling" />
+        <item index="1" class="java.lang.String" itemvalue="Python.Bridson_Test" />
+        <item index="2" class="java.lang.String" itemvalue="Python.Bridson_ImageModify" />
+        <item index="3" class="java.lang.String" itemvalue="Python.color2gray" />
+        <item index="4" class="java.lang.String" itemvalue="Python.Akanska_Color2Gray" />
       </list>
     </recent_temporary>
   </component>
@@ -535,13 +787,13 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-3839" y="23" width="1920" height="1057" extended-state="6" />
+    <frame x="0" y="143" width="1920" height="1057" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5308057" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290735" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49946752" sideWeight="0.51026857" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.40894568" sideWeight="0.48973143" order="10" side_tool="false" content_ui="tabs" x="-1920" y="23" width="960" height="1177" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40894568" sideWeight="0.48973143" order="10" side_tool="false" content_ui="tabs" x="-1920" y="23" width="1280" height="1177" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290735" sideWeight="0.4918378" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32374868" sideWeight="0.49289098" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27224857" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -595,7 +847,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="17" />
+      <option name="time" value="18" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
@@ -604,21 +856,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/driver.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1020">
-          <caret line="69" column="4" lean-forward="false" selection-start-line="69" selection-start-column="4" selection-end-line="69" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SquareMesh.py" />
-    <entry file="file://$PROJECT_DIR$/poisson_disc_bridson_free.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-891">
-          <caret line="45" column="24" lean-forward="false" selection-start-line="45" selection-start-column="4" selection-end-line="45" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/poisson_disc_bridson_pure.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -767,13 +1004,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Bridson_readOBJFile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="9" column="4" lean-forward="false" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/EdgePoint.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -817,22 +1047,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Bridson_TriangulationDualGraph.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3465">
-          <caret line="240" column="0" lean-forward="false" selection-start-line="240" selection-start-column="0" selection-end-line="240" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Bridson_sampling.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2910">
           <caret line="198" column="31" lean-forward="false" selection-start-line="198" selection-start-column="4" selection-end-line="198" selection-end-column="31" />
           <folding>
-            <element signature="e#295#313#0" expanded="true" />
+            <element signature="e#295#313#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -849,13 +1069,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="14" column="4" lean-forward="false" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Bridson_createOBJFile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="5" column="4" lean-forward="false" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="4" />
         </state>
       </provider>
     </entry>
@@ -877,13 +1090,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Akanska_Color2Gray.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" column="26" lean-forward="true" selection-start-line="30" selection-start-column="26" selection-end-line="30" selection-end-column="26" />
         </state>
       </provider>
     </entry>
@@ -909,33 +1115,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Bridson_Test.py">
+    <entry file="file://$PROJECT_DIR$/Bridson_TriangulationDualGraph.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3000">
-          <caret line="214" column="0" lean-forward="false" selection-start-line="214" selection-start-column="0" selection-end-line="214" selection-end-column="0" />
+        <state relative-caret-position="556">
+          <caret line="281" column="54" lean-forward="false" selection-start-line="281" selection-start-column="54" selection-end-line="281" selection-end-column="54" />
           <folding>
-            <element signature="e#256#300#0" expanded="true" />
+            <element signature="e#0#21#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SLIC.py">
+    <entry file="file://$USER_HOME$/anaconda3/envs/opencvenv/lib/python3.5/site-packages/skimage/segmentation/slic_superpixels.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1665">
-          <caret line="122" column="4" lean-forward="false" selection-start-line="122" selection-start-column="4" selection-end-line="122" selection-end-column="4" />
-          <folding>
-            <element signature="e#124#161#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-66">
+          <caret line="12" column="4" lean-forward="false" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="8" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Bridson_MeshObj.py">
+    <entry file="file://$PROJECT_DIR$/Bridson_readOBJFile.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7425">
-          <caret line="504" column="0" lean-forward="false" selection-start-line="504" selection-start-column="0" selection-end-line="504" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#80#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="90">
+          <caret line="9" column="4" lean-forward="false" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Akanska_Color2Gray.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="619">
+          <caret line="137" column="0" lean-forward="false" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -949,30 +1159,86 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Bridson_Common.py">
+    <entry file="file://$PROJECT_DIR$/color2gray.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="29" column="22" lean-forward="false" selection-start-line="29" selection-start-column="22" selection-end-line="29" selection-end-column="22" />
+        <state relative-caret-position="180">
+          <caret line="12" column="25" lean-forward="false" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Bridson_ImageModify.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="20" lean-forward="false" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="20" />
           <folding>
-            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#30#65#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Bridson_FinishedImage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="39" column="87" lean-forward="false" selection-start-line="39" selection-start-column="87" selection-end-line="39" selection-end-column="87" />
+        <state relative-caret-position="800">
+          <caret line="771" column="24" lean-forward="false" selection-start-line="771" selection-start-column="24" selection-end-line="771" selection-end-column="24" />
           <folding>
             <element signature="e#1#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Bridson_Test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5">
+          <caret line="203" column="5" lean-forward="false" selection-start-line="203" selection-start-column="4" selection-end-line="203" selection-end-column="5" />
+          <folding>
+            <element signature="e#256#300#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SLIC.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="262">
+          <caret line="241" column="4" lean-forward="false" selection-start-line="241" selection-start-column="4" selection-end-line="241" selection-end-column="4" />
+          <folding>
+            <element signature="e#124#161#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Bridson_createOBJFile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="5" column="4" lean-forward="false" selection-start-line="5" selection-start-column="4" selection-end-line="5" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Bridson_MeshObj.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="525" column="26" lean-forward="false" selection-start-line="525" selection-start-column="26" selection-end-line="525" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#80#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Bridson_Common.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="30" column="21" lean-forward="false" selection-start-line="30" selection-start-column="21" selection-end-line="30" selection-end-column="21" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Bridson_Main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="719" column="31" lean-forward="false" selection-start-line="719" selection-start-column="31" selection-end-line="719" selection-end-column="31" />
+        <state relative-caret-position="125">
+          <caret line="706" column="9" lean-forward="true" selection-start-line="706" selection-start-column="9" selection-end-line="706" selection-end-column="9" />
           <folding />
         </state>
       </provider>

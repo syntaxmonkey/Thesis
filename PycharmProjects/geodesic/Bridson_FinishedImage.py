@@ -365,7 +365,7 @@ class FinishedImage:
 
 	def connectTwoPoints(self, edgePoint1, edgePoint2):
 		distance = Bridson_Common.euclidean_distance(edgePoint1.xy, edgePoint2.xy)
-		if distance < 5.0:
+		if distance < 20.0:
 			# print("EdgePoint1:", edgePoint1)
 			# print("EdgePoint2:", edgePoint2)
 			xAvg = (edgePoint1.xy[0] + edgePoint2.xy[0]) / 2
@@ -740,38 +740,12 @@ class FinishedImage:
 		self.markPoint = minPointIndex
 		return minDistance
 
+
+
 	def calculateLineSpacing(self, line1, line2, factor=Bridson_Common.lineCullingDistanceFactor, intensity=255):
-		if Bridson_Common.lineCullAlgorithm == 'log':
-			'''
-			Logrithmic scale.			
-			Intensity: 255 produces 51.57303927154884
-			Intensity: 200 produces 49.36711720583027
-			Intensity: 128 produces 45.322383916284224
-			Intensity: 100 produces 43.09074884943549
-			Intensity: 50 produces 36.85897369805666
-			Intensity: 30 produces 32.318595570519726
-			Intensity: 10 produces 22.86924638832273
-			Intensity: 1 produces 7.321629908943605
-			Intensity: 0 produces 1.0
-			'''
-			intensityDistance = math.log10(intensity+1)*21 + 1
-		elif Bridson_Common.lineCullAlgorithm == 'exp':
-			'''
-			Exponential scale.  Lighter regions have significantly fewer lines.
-			Intensity: 255 produces 164.0219072999017
-			Intensity: 200 produces 54.598150033144236
-			Intensity: 128 produces 12.935817315543076
-			Intensity: 100 produces 7.38905609893065
-			Intensity: 50 produces 2.718281828459045
-			Intensity: 30 produces 1.8221188003905089
-			Intensity: 10 produces 1.2214027581601699
-			Intensity: 1 produces 1.0202013400267558
-			Intensity: 0 produces 1.0
-			'''
-			intensityDistance = math.exp(intensity/60)
-		else:
-			intensityDistance = intensity / 5
-		# print("Intensity:", intensity)
+		intensityDistance = Bridson_Common.determineLineSpacing(intensity)
+
+		# print("Intensity:", intensity, "intensityDistance:", intensityDistance)
 		# print("IntensityDistance:", intensityDistance)
 		# Get the endPoints of the lines.
 		distance = 0

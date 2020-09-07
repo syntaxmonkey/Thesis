@@ -10,6 +10,8 @@ import numpy as np
 from PIL import Image
 import Bridson_Common
 from skimage import exposure, filters
+import cv2 as cv
+import Bridson_ImageModify
 
 from ChainCodeGenerator import generateChainCode, writeChainCodeFile
 
@@ -22,8 +24,14 @@ def segmentImage(imageName, numSegments):
 	# print("SLIC Generating segments:", numSegments)
 	# load the image and convert it to a floating point data type
 	# image = img_as_float(io.imread(imageName))
+
+
 	image = io.imread(imageName)
-	imageArr = np.asarray( Image.fromarray(image).convert('L') )
+	if Bridson_Common.increaseContrast:
+		image = np.asarray( Bridson_ImageModify.increaseContrast( Image.fromarray(image),  Bridson_Common.contrastFactor ) )
+	image = cv.cvtColor( image, cv.COLOR_RGB2GRAY)
+	# imageArr = np.asarray( Image.fromarray(image).convert('L') )
+	imageArr = np.asarray( image )
 	image = np.copy(imageArr)
 
 	print("Shape:",np.shape(image))
@@ -51,10 +59,12 @@ def segmentImage(imageName, numSegments):
 		# of segments
 	# segments = slic(image, n_segments=numSegments, sigma=5, compactness=11, slic_zero=False, enforce_connectivity=True)
 	if Bridson_Common.SLIC0 == True:
-		segments = slic(image, n_segments=numSegments, sigma=3, compactness=Bridson_Common.compactnessSLIC, slic_zero=True, enforce_connectivity=True)
+		segments = slic(image, n_segments=numSegments, sigma=3, compactness=Bridson_Common.compactnessSLIC, slic_zero=True, enforce_connectivity=True, max_iter=Bridson_Common.SLICIterations)
 	else:
-		segments = slic(image, n_segments=numSegments, sigma=3, compactness=Bridson_Common.compactnessSLIC,  enforce_connectivity=True)
+		segments = slic(image, n_segments=numSegments, sigma=3, compactness=Bridson_Common.compactnessSLIC,  enforce_connectivity=True, max_iter=Bridson_Common.SLICIterations)
 
+	# print("SLIC:segmentImage setting segment Count")
+	# Bridson_Common.segmentCount = len(segments)
 	# Bridson_Common.logDebug(__name__, type(segments))
 	# regionIndex = 16
 	# # show the output of SLIC

@@ -8,6 +8,7 @@ import Bridson_Common
 import scipy
 import Bridson_TriangulationDualGraph
 import sys
+import SLIC
 
 '''
 For the constructor, pass in the points.
@@ -501,8 +502,6 @@ class MeshObject:
 		# print("DrawAngleLinesExteriorSeed2 dx, dy:", dx, dy)
 		seedPoints = self.DualGraph.exteriorPoints.copy()
 
-
-
 		# print("DrawAngleLinesExteriorSeed2 seedPoints:", len(seedPoints))
 		notFound = 0
 		dotPoints = []
@@ -510,7 +509,14 @@ class MeshObject:
 		# for pointIndex in seedPoints[28:29]: # Interesting one.  Use Attempt = 17 and Attempt = 18.  Falls off trifinder at Attempt=18.
 		# for pointIndex in seedPoints[23:24]: # Interesting one.  Stuck half way through.
 		# print("DrawAngleLinesExteriorSeed2 seedPoints:", seedPoints)
-		for pointIndex in seedPoints:
+		seedPointCount = len(seedPoints)
+
+		# Start a this point.
+		indexOffset = int(seedPointCount / 3)
+
+		# for pointIndex in seedPoints:
+		for index in range(seedPointCount):
+			pointIndex = seedPoints[ (index + indexOffset) % seedPointCount ]
 			triangleTraversal = []
 			attempt = 0
 		# for pointIndex in seedPoints:
@@ -604,6 +610,226 @@ class MeshObject:
 
 		# print("DrawAngleLinesExteriorSeed2 Size of line points:", np.shape(self.linePoints))
 
+
+	# Draw lines using arbitrary distance based on the intensity.
+
+	def DrawAngleLinesExteriorSeed3(self, raster, regionMap, index, intensity=128, density=Bridson_Common.density, linedensity=Bridson_Common.lineDotDensity, angle=Bridson_Common.lineAngle):
+		intensityDistance = Bridson_Common.determineLineSpacing(intensity)
+		intensityDistance = 2 # For testing.
+
+		'''
+		1. Determine the number of lines that we need to draw.
+		a. Based on the intensity Distance and the angle, determine the number of points that will fit in the raster.
+		b. We want the first point to be in the middle of the image.
+		2. Draw first line in the middle of the image.
+		3. Draw the subsequent lines in an alternative patter on either side of the first point.
+		
+		'''
+		# angle: 0 degrees goes north.  90 degrees goes east.  180 degrees goes south.  270 degrees goes west.
+		angle = (0) % 360
+		dx, dy = Bridson_Common.calculateDirection(angle)  # The direction the lines will travel.
+		print("Dx Dy:", dx, dy)
+		#
+		lineShiftx, lineShifty = dy, dx  # Have to swap x and y because numpy array.  Numpy utilizes row, column.
+
+		seedPoints = []
+
+		# seedPoints.append( [1, 15] ) # Because the raster utilizes numpy array, the x is actually the row index while the y is the column index.
+		# Populate the first point.
+		rasterShape = np.shape(raster)
+
+		# Get the corners of region, not just of the enclosing raster.
+		regionCoordinates = regionMap.get(index)
+		topLeft, bottomRight = SLIC.calculateTopLeft(regionCoordinates)
+		deltax = bottomRight[0] - topLeft[0] + 10
+		deltay = bottomRight[1] - topLeft[1] + 10
+
+		print("RasterShape:", rasterShape)
+		print("deltax:", deltax, "deltay:", deltay)
+		firstPoint = [rasterShape[0] / 2, rasterShape[1]/2]
+		print("Raster first point value:", raster[int(firstPoint[0])][ int(firstPoint[1]) ])
+		seedPoints.append( firstPoint )
+		inRaster = True
+		index = 1
+		failedPointCheck = 0
+		while inRaster:
+			nextPoint = [firstPoint[0] + lineShiftx*intensityDistance*index, firstPoint[1] + lineShifty*intensityDistance*index]
+			print("NextPoint:", nextPoint)
+			if nextPoint[0] > rasterShape[0] or nextPoint[1] > rasterShape[1] or nextPoint[0] < 0 or nextPoint[1] < 0:
+				failedPointCheck += 1
+				print("Point off Raster")
+				# if failedPointCheck == 2:
+				break
+			# elif raster[int(nextPoint[1])][ int(nextPoint[0])] == 255:
+			else:
+				print("Adding point to seed:", raster[int(nextPoint[1])][ int(nextPoint[0])])
+				seedPoints.append( nextPoint )
+			index += 1
+
+		index = 1
+		failedPointCheck = 0
+		while inRaster:
+			nextPoint = [firstPoint[0] + lineShiftx*intensityDistance*index*-1, firstPoint[1] + lineShifty*intensityDistance*index*-1]
+			print("NextPoint:", nextPoint)
+			if nextPoint[0] > rasterShape[0] or nextPoint[1] > rasterShape[1] or nextPoint[0] < 0 or nextPoint[1] < 0:
+				failedPointCheck += 1
+				print("Point off Raster")
+				# if failedPointCheck == 2:
+				break
+			# elif raster[int(nextPoint[1])][ int(nextPoint[0])] == 255:
+			else:
+				print("Adding point to seed:", raster[int(nextPoint[1])][ int(nextPoint[0])])
+				seedPoints.append( nextPoint )
+			index += 1
+		# seedPoints = np.array( seedPoints )
+
+		'''
+		1. Draw lines to the edge of the mesh.
+		'''
+
+
+		edgePoints = []
+		for seedPoint in seedPoints:
+			linePoints = []
+			linePoints.append( seedPoint )
+			edgePoint = [seedPoint[0] + dx*10, seedPoint[1]+ dy*10*-1]  # Because of the orientation of the image, we have to multiply with -1.
+			linePoints.append( edgePoint )
+			# edgePoints.append( edgePoint )
+			edgePoints.append( linePoints )
+
+		print("EdgePoints:", edgePoints)
+		edgePoints = np.array( edgePoints )
+
+
+		plt.figure()
+		plt.imshow(raster)
+		# plt.get
+		if True:
+			for linePoints in edgePoints:
+				print("Plotting point:", linePoints)
+				plt.plot(linePoints[:, 0], linePoints[:, 1], markersize=8, color='g', marker="+")
+
+			for point in seedPoints:
+				plt.plot(point[0], point[1],  markersize=8, color='r', marker="*")
+
+		else:
+			for point in seedPoints:
+				plt.plot(point[0], point[1],  markersize=8, color='r', marker="*")
+
+
+
+		plt.show()
+
+
+		seedPoints = self.DualGraph.exteriorPoints.copy()
+
+		# print("DrawAngleLinesExteriorSeed2 seedPoints:", len(seedPoints))
+		notFound = 0
+		dotPoints = []
+		# print("DrawAngleLinesExteriorSeed2 seedPoints:", seedPoints)
+		# for pointIndex in seedPoints[28:29]: # Interesting one.  Use Attempt = 17 and Attempt = 18.  Falls off trifinder at Attempt=18.
+		# for pointIndex in seedPoints[23:24]: # Interesting one.  Stuck half way through.
+		# print("DrawAngleLinesExteriorSeed2 seedPoints:", seedPoints)
+		seedPointCount = len(seedPoints)
+
+		# Start a this point.
+		indexOffset = int(seedPointCount / 3)
+
+		# for pointIndex in seedPoints:
+		for index in range(seedPointCount):
+			pointIndex = seedPoints[ (index + indexOffset) % seedPointCount ]
+			triangleTraversal = []
+			attempt = 0
+		# for pointIndex in seedPoints:
+			# print("DrawVertical Line seed Point: ", point)
+			x, y = point = self.DualGraph.points[pointIndex]
+			# j = x # Obtain the x value and use it for the line.
+			rowPoints = []
+			rowPoints.append((x,y)) # Add the exterior point to the line.
+
+			if False: # Display the first cluster of triangles
+				triangleList = self.DualGraph.GetPointTriangleMembership(pointIndex)
+				# print("TriangleList:", triangleList)
+				for triangleIndex in triangleList:
+					self.colourTriangle(triangleIndex)
+
+
+			intersection, edge, triangleIndex, direction = self.DualGraph.FindFirstIntersection( pointIndex, self.trifinder, dx=dx, dy=dy )
+			triangleTraversal.append( triangleIndex )
+			if intersection != None:
+				rowPoints.append(intersection)
+				# print("DrawAngleLinesExteriorSeed2 found interscection:", intersection, triangleIndex)
+				# self.colourTriangle(triangleIndex)
+				if Bridson_Common.highlightEdgeTriangle:
+					self.colourTriangle(triangleIndex, colour='y')
+				# Find next intersection.
+
+				while True:
+					nextIntersection, edge, triangleIndex, isFinalIntersection = self.DualGraph.FindNextIntersection( intersection, edge, triangleIndex, direction, dx=dx, dy=dy )
+					# self.colourTriangle(triangleIndex)
+					triangleTraversal.append(triangleIndex)
+					if nextIntersection != None:
+						if isFinalIntersection:
+							Bridson_Common.logDebug(__name__,"Last Intersection:", nextIntersection)
+							# Reduce the length of the final segment to ensure final intersection is in trifinder.
+							nextIntersection = self.finalIntersectionReduction(rowPoints[-1], nextIntersection)
+							Bridson_Common.logDebug(__name__,"Final Last Intersection adjusted:", nextIntersection)
+						rowPoints.append( nextIntersection )
+						intersection = nextIntersection
+						# self.colourTriangle(triangleIndex)
+					else:
+						break
+
+					if isFinalIntersection:
+						break
+
+					# 18 Attempts is where the graph flies into space.
+					if attempt > 1000:
+						break # Exit the while loop.
+					attempt += 1
+
+			Bridson_Common.logDebug(__name__,">>>>>>>>>>>>>>>>>>> Triangle Traversal:", triangleTraversal)
+			if len(rowPoints) > 0:
+				# print("DrawAngleLinesExteriorSeed2 rowPoints not empty:", rowPoints)
+				rowPoints = np.array(rowPoints)
+				dotPoints.append(rowPoints)
+
+		# Bridson_Common.logDebug(__name__, dotPoints)
+		dotPoints = np.array(dotPoints)
+		Bridson_Common.logDebug(__name__, "**** Points Not FOUND *****", notFound)
+
+		colourArray = ['r', 'w', 'm']
+		markerArray = ['o', '*', 's']
+		index = 0
+		if Bridson_Common.displayMesh:
+			Bridson_Common.logDebug(__name__, "**** About to display lines *****", notFound)
+
+			for line in dotPoints:
+				# https://kite.com/python/answers/how-to-plot-a-smooth-line-with-matplotlib-in-python
+				# a_BSpline = np.array(scipy.interpolate.make_interp_spline(line[:, 0], line[:, 1]))
+				# self.ax.plot(line[:, 0], a_BSpline, color='r')
+				# self.ax.plot(line[:, 0], line[:, 1], color='r')
+				colour = colourArray[ (index % 3) ]
+				if Bridson_Common.drawDots:
+					marker = markerArray[ (index % 3) ]
+				else:
+					marker = None
+				# self.ax.plot(line[:, 0], line[:, 1], color='r', marker='o')
+				self.ax.plot(line[:, 0], line[:, 1], color=colour , marker=marker )
+				index += 1
+
+		Bridson_Common.logDebug(__name__, "****   *****", notFound)
+
+		# print("DrawAngleLinesExteriorSeed2 Shape of dotPoints:", np.shape(dotPoints))
+		# print(dotPoints)
+		if self.linePoints == None:
+			self.linePoints = dotPoints
+		else:
+			self.linePoints = np.hstack( (self.linePoints, dotPoints) )  # Combine the two sets of lines.
+		# print("Drawn LinePoints:", self.linePoints)
+		Bridson_Common.logDebug(__name__, "**** Size of line points  *****", np.shape(self.linePoints))
+
+		# print("DrawAngleLinesExteriorSeed2 Size of line points:", np.shape(self.linePoints))
 
 
 	def finalIntersectionReduction(self, previousPoint, currentPoint):

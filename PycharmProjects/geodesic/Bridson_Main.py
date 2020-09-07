@@ -25,7 +25,9 @@ import datetime
 import gc
 
 import Bridson_StructTensor
-
+from multiprocessing import Process, freeze_support, set_start_method, Pool
+import multiprocessing as mp
+import uuid
 
 if os.path.exists("./output") == True:
 	if os.path.isdir("./output") == False:
@@ -36,6 +38,8 @@ else:
 # Redirect print statements to file.
 if Bridson_Common.bulkGeneration:
 	sys.stdout = open("./output/detailLogs.txt", "w")
+	# Bridson_Common.outputEnvironmentVariables()
+
 
 random.seed(Bridson_Common.seedValue)
 np.random.seed(Bridson_Common.seedValue)
@@ -92,9 +96,11 @@ def euclidean_distance(a, b):
 
 def createMeshFile(samples, tri, radius, center ):
 	# Produce the mesh file.  Flatten the mesh with BFF.  Extract the 2D from BFF flattened mesh.
+	print("Creating Mesh File: ", Bridson_Common.test1obj)
 	path = "../../boundary-first-flattening/build/"
 	# Create object file for image.
-	Bridson_createOBJFile.createObjFile2D(path, "test1.obj", samples, tri, radius, center, distance=euclidean_distance)
+	# Bridson_createOBJFile.createObjFile2D(path, "test1.obj", samples, tri, radius, center, distance=euclidean_distance)
+	Bridson_createOBJFile.createObjFile2D(path, Bridson_Common.test1obj, samples, tri, radius, center, distance=euclidean_distance)
 
 
 
@@ -109,10 +115,12 @@ def BFFReshape():
 	''''''
 	if Bridson_Common.normalizeUV:
 		# os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --flattenToDisk --normalizeUVs ")
-		parameters = " " + path + "test1.obj " + path + "test1_out.obj --flattenToDisk --normalizeUVs "
+		# parameters = " " + path + "test1.obj " + path + "test1_out.obj --flattenToDisk --normalizeUVs "
+		parameters = " " + path + Bridson_Common.test1obj + " " + path + Bridson_Common.test1_outobj  + " --flattenToDisk --normalizeUVs "
 	else:
 		# os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --flattenToDisk ")
-		parameters = " " + path + "test1.obj " + path + "test1_out.obj --flattenToDisk "
+		# parameters = " " + path + "test1.obj " + path + "test1_out.obj --flattenToDisk "
+		parameters = " " + path + Bridson_Common.test1obj + " " + path + Bridson_Common.test1_outobj + " --flattenToDisk "
 
 	#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -138,24 +146,26 @@ def FlattenMesh():
 	# print("FlattenMesh")
 	path = "../../boundary-first-flattening/build/"
 	Bridson_Common.logDebug(__name__, "Extracting 2D image post BFF Reshaping")
-	os.system(path + "extract.py test1_out.obj test1_out_flat.obj")
-
+	# os.system(path + "extract.py test1_out.obj test1_out_flat.obj")
+	os.system(path + "extract.py " + Bridson_Common.test1_outobj + " " + Bridson_Common.test1_out_flatobj)
 
 def cleanUpFiles():
 	path = "../../boundary-first-flattening/build/"
-	os.system("rm " + path + "test1.obj ")
-	os.system("rm "+ path + "test1_out.obj")
-	os.system("rm " + path + "test1_out_flat.obj")
-
-
+	# os.system("rm " + path + "test1.obj ")
+	# os.system("rm "+ path + "test1_out.obj")
+	# os.system("rm " + path + "test1_out_flat.obj")
+	os.system("rm " + path + Bridson_Common.test1obj)
+	os.system("rm "+ path + Bridson_Common.test1_outobj)
+	os.system("rm " + path + Bridson_Common.test1_out_flatobj)
 
 
 def SLICImage(filename):
 	startIndex = 0 # Index starts at 0.
 	regionIndex = startIndex
 	imageraster, regionMap, segments, regionIntensityMap = SLIC.callSLIC(filename)
+	Bridson_Common.outputEnvironmentVariables()
 
-	stopIndex=startIndex+16
+	# stopIndex=startIndex+16
 
 	fig = plt.figure()
 	ax3 = fig.add_subplot(1, 1, 1, aspect=1, label='Image regions')
@@ -290,7 +300,9 @@ def processMask(mask, dradius, indexLabel):
 			g = datetime.datetime.now()
 			FlattenMesh()
 			h = datetime.datetime.now()
-			flatvertices, flatfaces = Bridson_readOBJFile.readFlatObjFile(path = "../../boundary-first-flattening/build/", filename="test1_out_flat.obj")
+			# flatvertices, flatfaces = Bridson_readOBJFile.readFlatObjFile(path = "../../boundary-first-flattening/build/", filename="test1_out_flat.obj")
+			flatvertices, flatfaces = Bridson_readOBJFile.readFlatObjFile(path="../../boundary-first-flattening/build/",
+			                                                              filename=Bridson_Common.test1_out_flatobj)
 			i = datetime.datetime.now()
 			Bridson_Common.triangleHistogram(flatvertices, flatfaces, indexLabel)
 			# print("D")
@@ -367,8 +379,8 @@ def indexValidation(filename):
 	# for index in range(10,15):  # Interesting regions: 11, 12, 14
 	print("RegionMap keys:", regionMap.keys())
 	if Bridson_Common.bulkGeneration == False:
-		regionList = range(  55, 57)
-		regionList = range(len(regionMap.keys()))
+		regionList = range(  55, 60)
+		# regionList = range(len(regionMap.keys()))
 	else:
 		regionList = range(len(regionMap.keys()) )
 	# for index in range(5,10):
@@ -396,17 +408,8 @@ def indexValidation(filename):
 	for index in regionList:
 		print("(**** ", filename, " Starting Region: ", index, "of", len(regionMap.keys()), "  *****" )
 
-		# # Generate the raster for the first region.
-		# raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
-		#
-		# maskRasterCollection[index] = raster.copy()  # Make a copy of the mask raster.
-		# NoSLICmaskRasterCollection[ index ] = raster.copy()
 		raster = maskRasterCollection[index]
 		displayRegionRaster(raster, index)
-
-		# Bridson_Common.logDebug(__name__, raster)
-		# Bridson_Common.arrayInformation( raster )
-		# for i in range(1):
 
 		indexLabel = index # + i / 10
 		# Bridson_Common.writeMask(raster)
@@ -424,25 +427,6 @@ def indexValidation(filename):
 		if trifindersuccess:
 			desiredAngle = regionIntensityMap[index] / 255.0 * 180 # Use the intensity to an angle.
 
-			# Here we need to figure out the angle.
-
-			# Obtain the region mask.
-			# Obtain the masked region of the original image.
-			# Obtain the angle from the Structure Tensor.
-			# currentMask = maskRasterCollection[index]
-
-
-			# desiredAngle = 0
-			# actualAngle = desiredAngle + 90 # Need to rotate by 90 degrees to accomodate raster rotation.
-			# p1, p2 = meshObj.findPointsMatchingAngle( angle=45 )
-
-			# Create the shifted Region Mask of the original image.
-			# shiftedRaster = finishedImageSLIC.shiftedMaskRasterCollection[index].copy()
-			# maxValue = np.max(shiftedRaster)
-			# print("Max Value:", maxValue)
-			# normalizedMask = shiftedRaster / maxValue
-			# shiftedMaskedImage = normalizedMask * originalImage
-			# print("C")
 			unshiftedMaskedImage = finishedImageSLIC.unshiftedImageMaskedRegion[index].copy()
 			# print("D")
 			st = Bridson_StructTensor.ST(unshiftedMaskedImage)
@@ -450,17 +434,13 @@ def indexValidation(filename):
 			direction, coherency = st.calculateEigenVector()
 			# print("F")
 
-			# plt.figure()
-			# plt.imshow(unshiftedMaskedImage)
-			# return
-			# sys.exit(0)
-
 
 			if coherency > Bridson_Common.coherencyThreshold:
 				meshAngle = Bridson_Common.determineAngle(direction[0], direction[1]) + 90
 			else:
 				meshAngle = Bridson_Common.lineAngle + 90
 
+			meshAngle = meshAngle % 360
 			flatAngle = int( flatMeshObj.calculateAngle( meshObj, desiredAngle=meshAngle ) )
 			print("MeshAngle:", meshAngle, "Flat angle:", flatAngle)
 
@@ -475,9 +455,8 @@ def indexValidation(filename):
 						# flatMeshObj.DrawVerticalLines()
 						# flatMeshObj.DrawVerticalLinesSeededFrom(LineSeedPointsObj, meshObj) # Draw lines based on seed from tertiary mesh.
 						# flatMeshObj.DrawVerticalLinesExteriorSeed2() # Draw lines using exterior points as line seed.
-
-
-						flatMeshObj.DrawAngleLinesExteriorSeed2(angle=flatAngle)
+						flatMeshObj.DrawAngleLinesExteriorSeed2( angle=flatAngle )
+						# flatMeshObj.DrawAngleLinesExteriorSeed3(raster, regionMap, index, intensity=regionIntensityMap[index], angle=flatAngle)
 						# print("Exited DrawAngleLinesExteriorSeed2")
 
 						# print("Point C")
@@ -501,31 +480,16 @@ def indexValidation(filename):
 
 				else:
 					if Bridson_Common.verticalLines:
-						# meshObj.DrawVerticalLines()
-						# meshObj.DrawVerticalLinesSeededFrom(LineSeedPointsObj, meshObj) # Draw lines based on seed from tertiary mesh.
-						# meshObj.DrawVerticalLinesExteriorSeed() # Draw lines using exterior points as line seed.
 						meshObj.DrawAngleLinesExteriorSeed2()
 					else:
-						# meshObj.DrawHorizontalLines()
-						# meshObj.DrawHorizontalLinesExteriorSeed() # Draw lines using exterior points as line seed.
 						meshObj.DrawAngleLinesExteriorSeed2()
 
 					flatMeshObj.TransferLinePointsFromTarget(meshObj)
-
-			# if index == 65:
-			# 	Bridson_Common.debug = True
 
 			# if True:  # Rotate original image 90 CW.
 			# print("About to call rotateClockwise90")
 			meshObj.rotateClockwise90()
 			# print("Rotated 90 clockwise")
-
-			# print("Point E")
-			# meshObj.checkLinePoints()
-			# flatMeshObj.checkLinePoints()
-
-			# At this point, we have transferred the lines from the flattened mesh to the original mesh.
-			# print("Save meshObj")
 			meshObjCollection[ index ] = meshObj
 			# print("Save NoSLIC meshObj")
 			NoSLICmeshObjCollection[ index ] = meshObj
@@ -636,9 +600,32 @@ def indexValidation(filename):
 	# meshObj2, flatMeshObj2 = processMask(raster, dradius, index + i / 10 + 0.0012345)
 	# flatMeshObj2.TransferLinePoints(flatMeshObj)
 
+def wrapper(filename, segmentCount, compactness):
+	baseName = 'f' + str(uuid.uuid4().hex)
+	Bridson_Common.test1obj = baseName + '.obj'
+	Bridson_Common.test1_outobj = baseName + '_out.obj'
+	Bridson_Common.test1_out_flatobj = baseName + '_out_flat.obj'
+
+	# cleanUpFiles()
+	random.seed(Bridson_Common.seedValue)
+	np.random.seed(Bridson_Common.seedValue)
+	# Bridson_Common.targetRegionPixelCount = targetPixel
+	Bridson_Common.segmentCount = segmentCount
+	# Set the seed each time.
+	Bridson_Common.compactnessSLIC = compactness
+	try:
+		indexValidation(filename)
+		if Bridson_Common.bulkGeneration:
+			plt.close("all")
+			gc.collect()
+	# sys.stdout.close()
+	except Exception as e:
+		print("Exception calling indexValidation for filename:", filename, e)
+	cleanUpFiles()
+
 
 if __name__ == '__main__':
-	cleanUpFiles()
+	# Create unique names for output files.
 	dradius = Bridson_Common.dradius # 3 seems to be the maximum value.
 	xrange, yrange = 10, 10
 
@@ -697,49 +684,59 @@ if __name__ == '__main__':
 
 	# Batch D
 	images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
-	# images.append('everyday-basics-i0ROGKijuek-unsplash.jpg')
-	# images.append('imani-bahati-LxVxPA1LOVM-unsplash.jpg')
-	# images.append('kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg')
-	# images.append('luis-quintero-qKspdY9XUzs-unsplash.jpg')
-	# images.append('miguel-andrade-nAOZCYcLND8-unsplash.jpg')
-	# images.append('mr-o-k--ePHy6jg_7c-unsplash.jpg')
-	# images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
+	images.append('everyday-basics-i0ROGKijuek-unsplash.jpg')
+	images.append('imani-bahati-LxVxPA1LOVM-unsplash.jpg')
+	images.append('kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg')
+	images.append('luis-quintero-qKspdY9XUzs-unsplash.jpg')
+	images.append('miguel-andrade-nAOZCYcLND8-unsplash.jpg')
+	images.append('mr-o-k--ePHy6jg_7c-unsplash.jpg')
+	images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
 
+	if Bridson_Common.bulkGeneration == False:
+		images = ['david-dibert-Huza8QOO3tc-unsplash.jpg']
 
 	# percentages = [0.05, 0.1, 0.15, 0.2]
 	targetPixels = [  400, 800]
 	# targetPixels = [  800 ]
 	targetPixels = [3200]
 	if Bridson_Common.bulkGeneration:
-		segmentCounts = [100, 200]
+		# segmentCounts = [100, 200]
 		segmentCounts = [100, 200, 300]
-		compactnessList = [0.1, 0.5, 0.9]
+		compactnessList = [ 0.1, 0.5]
 		# compactnessList = [0.3, 0.6]
 	else:
 		segmentCounts = [200]
 		compactnessList = [ 0.1 ]
 
+	variables = []
 	for filename in images:
 		# sys.stdout = open("./output/" + filename + ".log", "w")
 		# for targetPixel in targetPixels:
 		for segmentCount in segmentCounts:
 			for compactness in compactnessList:
-				# Bridson_Common.targetRegionPixelCount = targetPixel
-				Bridson_Common.segmentCount = segmentCount
-				# Set the seed each time.
-				random.seed(Bridson_Common.seedValue)
-				np.random.seed(Bridson_Common.seedValue)
-				Bridson_Common.compactnessSLIC=compactness
-				try:
-					# sys.stdout = open("./output/"+filename+".log", "w")
-					indexValidation(filename)
-					if Bridson_Common.bulkGeneration:
-						plt.close("all")
-						gc.collect()
-					# sys.stdout.close()
-				except Exception as e:
-					print("Exception callin indexValidation:", e)
-		# sys.stdout.close()
+				variables.append( (filename, segmentCount, compactness) )
+
+				if Bridson_Common.bulkGeneration == False:
+					random.seed(Bridson_Common.seedValue)
+					np.random.seed(Bridson_Common.seedValue)
+					# Bridson_Common.targetRegionPixelCount = targetPixel
+					Bridson_Common.segmentCount = segmentCount
+					# Set the seed each time.
+					Bridson_Common.compactnessSLIC=compactness
+					try:
+						indexValidation(filename)
+						if Bridson_Common.bulkGeneration:
+							plt.close("all")
+							gc.collect()
+						# sys.stdout.close()
+					except Exception as e:
+						print("Exception calling indexValidation:", e)
+
+
+	if Bridson_Common.bulkGeneration:
+		mp.set_start_method('spawn')
+		with Pool(processes=4) as pool:
+			pool.starmap( wrapper, variables )
 
 	print("*************************************************")
 	print("Finished")
