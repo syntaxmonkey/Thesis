@@ -493,10 +493,34 @@ class MeshObject:
 		# rotates lines points by some angle.
 		pass
 
+	def findMiddleLineIndex(self, middle ):
+		# This method will find the index of the middle line.
+		minIndex = -1
+		minDistance = 999999
+		middleSet = [ middle ]
+
+		for index in range(len(self.linePoints)):
+			line = self.linePoints[index]
+			# print("Bridson_MeshObj:findMiddleLineIndex Line:", line)
+			location = Bridson_Common.findClosestIndex( line, middleSet)
+			print("Location: ", location)
+			foundPoint = line[ location[0] ]
+			# print("Found point:", foundPoint[0])
+			currentDistance = Bridson_Common.euclidean_distance(middle, foundPoint[0])
+			if currentDistance < minDistance:
+				minDistance = currentDistance
+				minIndex = index
+		print("MinDistance:", minDistance, "minIndex:", minIndex)
+		self.middleLine = minIndex
 
 
 	# Draw vertical lines.  Use exterior points as line seeds.
-	def DrawAngleLinesExteriorSeed2(self, density=Bridson_Common.density, linedensity=Bridson_Common.lineDotDensity, angle=Bridson_Common.lineAngle):
+	def DrawAngleLinesExteriorSeed2(self, raster, density=Bridson_Common.density, linedensity=Bridson_Common.lineDotDensity, angle=Bridson_Common.lineAngle):
+		# Find the middle point of the raster.
+		rasterShape = np.shape( raster )
+		middle = [ int(rasterShape[0] / 2), int(rasterShape[1]/2) ]
+
+		print("Middle Point:", middle)
 		# angle: 0 degrees goes north.  90 degrees goes east.  180 degrees goes south.  270 degrees goes west.
 		dx, dy = Bridson_Common.calculateDirection(angle)
 		# print("DrawAngleLinesExteriorSeed2 dx, dy:", dx, dy)
@@ -608,6 +632,8 @@ class MeshObject:
 		# print("Drawn LinePoints:", self.linePoints)
 		Bridson_Common.logDebug(__name__, "**** Size of line points  *****", np.shape(self.linePoints))
 
+
+		# self.findMiddleLineIndex( middle )
 		# print("DrawAngleLinesExteriorSeed2 Size of line points:", np.shape(self.linePoints))
 
 

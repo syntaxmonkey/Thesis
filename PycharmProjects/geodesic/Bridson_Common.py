@@ -27,7 +27,6 @@ timeoutPeriod = 5
 SLICIterations=100
 SLICGrey = False
 
-
 bulkGeneration = True
 debug=False
 
@@ -72,7 +71,9 @@ linesOnFlat = True
 verticalLines = True
 lineAngle = 90
 coherencyThreshold = 0.1
+lineWidth = 0.25
 
+semanticSegmentation='none' # Valid values: 'deeplabv3', 'mask_rcnn'
 
 barycentricVertexCorrection = True
 
@@ -97,7 +98,7 @@ radiusDivisor = 30 # the number of radii for each region.
 regionDynamicRadius = True
 nearbyDistance = 5
 
-increaseContrast=True
+increaseContrast=False
 contrastFactor=1.5 # Values above 1 increase contrast.  Values below 1 reduce contrast.
 
 
@@ -246,6 +247,10 @@ def generateTraversalMap(radius):
 traversalMap = generateTraversalMap(Bridson_Common.nearbyDistance)
 
 def findClosestIndex(s1, s2):
+	# print("Bridson_Common:findClosestIndex s1:", s1)
+	# print("Bridson_Common:findClosestIndex s2:", s2)
+	# both s1 and s2 should be 2D.
+
 	distances = distance.cdist(s1, s2)
 	# shortestDistances = distance.cdist(s1, s2).min(axis=1)
 	location = np.where(distances == distances.min())
@@ -314,7 +319,7 @@ def saveImage(filename, postFix, fig):
 
 	try:
 		# Save the figures to files: https://stackoverflow.com/questions/4325733/save-a-subplot-in-matplotlib
-		actualFileName = "./output/" + filename + "_segments_" + str(Bridson_Common.segmentCount) + "_regionPixels_" + str(Bridson_Common.targetRegionPixelCount) + "_compactness_" + str(Bridson_Common.compactnessSLIC) + "_" + postFix + ".png"
+		actualFileName = "./output/" + filename + "_segments_" + str(Bridson_Common.segmentCount) + "_regionPixels_" + str(Bridson_Common.targetRegionPixelCount) + "_compactness_" + str(Bridson_Common.compactnessSLIC) + "_cnn_" + Bridson_Common.semanticSegmentation + "_" + postFix + ".png"
 		fig.savefig( actualFileName )
 		if Bridson_Common.bulkGeneration: # Delete the figures when we are bulk generating.
 			plt.close(fig=fig)

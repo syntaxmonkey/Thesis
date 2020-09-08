@@ -12,6 +12,7 @@ import Bridson_Common
 from skimage import exposure, filters
 import cv2 as cv
 import Bridson_ImageModify
+import SemanticSegmentation
 
 from ChainCodeGenerator import generateChainCode, writeChainCodeFile
 
@@ -25,14 +26,32 @@ def segmentImage(imageName, numSegments):
 	# load the image and convert it to a floating point data type
 	# image = img_as_float(io.imread(imageName))
 
+	if Bridson_Common.semanticSegmentation == 'mask_rcnn':
+		cnn = SemanticSegmentation.Mask_RCNN()
+		image = cnn.processImage(imageName)
+		image = np.asarray(image)
+		del cnn
+	elif Bridson_Common.semanticSegmentation == 'deeplabv3':
+		cnn = SemanticSegmentation.Deeplabv3()
+		image = cnn.processImage(imageName)
+		image = np.asarray(image)
+		del cnn
+	else:
+		image = io.imread(imageName)
 
-	image = io.imread(imageName)
+	if Bridson_Common.bulkGeneration == False:
+		plt.figure()
+		plt.title(imageName + 'Semantic Segmentation')
+		plt.imshow(image)
+
 	if Bridson_Common.increaseContrast:
 		image = np.asarray( Bridson_ImageModify.increaseContrast( Image.fromarray(image),  Bridson_Common.contrastFactor ) )
-	image = cv.cvtColor( image, cv.COLOR_RGB2GRAY)
-	# imageArr = np.asarray( Image.fromarray(image).convert('L') )
-	imageArr = np.asarray( image )
-	image = np.copy(imageArr)
+	if Bridson_Common.SLICGrey:
+		# image = cv.cvtColor( Image.fromarray(image), cv.COLOR_RGB2GRAY)
+		# image = np.asarray( image )
+		image = np.asarray( Image.fromarray(image).convert('L') )
+	# imageArr = np.asarray( image )
+	# image = np.copy(image)
 
 	print("Shape:",np.shape(image))
 	print("Type:",type(image))

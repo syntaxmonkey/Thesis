@@ -105,6 +105,10 @@ class FinishedImage:
 
 
 
+	def findMiddleLine(self, linePoints):
+
+		pass
+
 
 	def cullLines(self, linePoints, regionIntensity):
 		'''
@@ -439,7 +443,7 @@ class FinishedImage:
 			meshObj.setCroppedLines( self.cropContourLines(meshObj.linePoints, self.shiftedMaskRasterCollection[index], topLeftTarget) )
 			# print("CropCullLines region croppedLines:", index, len(meshObj.croppedLinePoints) )
 
-			empty, culledLines = self.cullLines(  meshObj.croppedLinePoints, regionIntensityMap[index] )
+			empty, culledLines = self.cullLines(  meshObj.croppedLinePoints, regionIntensityMap[index])
 			# meshObj.setCroppedLines( self.cullLines( index, meshObj.linePoints, regionIntensityMap[index] )  )
 			# print("CropCullLines region croppedLines empty:", empty)
 			if not empty:
@@ -698,7 +702,7 @@ class FinishedImage:
 
 			# if self.calculateLineSpacing(currentLine, line, intensity=regionIntensity) == True:
 			if True:
-				self.ax.plot(line[:, 0], line[:, 1]*flip, color=colour)
+				self.ax.plot(line[:, 0], line[:, 1]*flip, color=colour, linewidth=Bridson_Common.lineWidth)
 				if Bridson_Common.closestPointPair:  # Only place the dots when we are calculating closest point pair.
 					if initial == False:  # Do not display this dot the first time around.
 						self.ax.plot(currentLine[self.markPoint[0]][0], currentLine[self.markPoint[0]][1] * flip, marker='*',

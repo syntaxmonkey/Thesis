@@ -379,7 +379,7 @@ def indexValidation(filename):
 	# for index in range(10,15):  # Interesting regions: 11, 12, 14
 	print("RegionMap keys:", regionMap.keys())
 	if Bridson_Common.bulkGeneration == False:
-		regionList = range(  55, 60)
+		regionList = range(  54, 57)
 		# regionList = range(len(regionMap.keys()))
 	else:
 		regionList = range(len(regionMap.keys()) )
@@ -452,32 +452,14 @@ def indexValidation(filename):
 				# Only draw the lines if the trifinder was successful generated.
 				if Bridson_Common.linesOnFlat:
 					if Bridson_Common.verticalLines:
-						# flatMeshObj.DrawVerticalLines()
-						# flatMeshObj.DrawVerticalLinesSeededFrom(LineSeedPointsObj, meshObj) # Draw lines based on seed from tertiary mesh.
-						# flatMeshObj.DrawVerticalLinesExteriorSeed2() # Draw lines using exterior points as line seed.
-						flatMeshObj.DrawAngleLinesExteriorSeed2( angle=flatAngle )
+						flatMeshObj.DrawAngleLinesExteriorSeed2(raster, angle=flatAngle )
 						# flatMeshObj.DrawAngleLinesExteriorSeed3(raster, regionMap, index, intensity=regionIntensityMap[index], angle=flatAngle)
-						# print("Exited DrawAngleLinesExteriorSeed2")
-
-						# print("Point C")
-						# meshObj.checkLinePoints()
-						flatMeshObj.checkLinePoints()
-
-					# flatMeshObj.DrawAngleLinesExteriorSeed2(angle=90)
+						flatMeshObj.checkLinePoints() # diagnostic check for empty lines.
 					else:
-						# flatMeshObj.DrawHorizontalLines()
-						# flatMeshObj.DrawHorizontalLinesExteriorSeed() # Draw lines using exterior points as line seed.
 						flatMeshObj.DrawAngleLinesExteriorSeed2()
-					# Transfer the lines from the FlatMesh to meshObj.
-					# print("About to call TransferLinePointsFromTarget")
 
+					# Transfer the lines from the FlatMesh.
 					meshObj.TransferLinePointsFromTarget(flatMeshObj)
-					# print("Finished TransferLinePointsFromTarget")
-
-					# print("Point D")
-					# meshObj.checkLinePoints()
-					# flatMeshObj.checkLinePoints()
-
 				else:
 					if Bridson_Common.verticalLines:
 						meshObj.DrawAngleLinesExteriorSeed2()
@@ -600,7 +582,7 @@ def indexValidation(filename):
 	# meshObj2, flatMeshObj2 = processMask(raster, dradius, index + i / 10 + 0.0012345)
 	# flatMeshObj2.TransferLinePoints(flatMeshObj)
 
-def wrapper(filename, segmentCount, compactness):
+def wrapper(filename, segmentCount, compactness, cnn):
 	baseName = 'f' + str(uuid.uuid4().hex)
 	Bridson_Common.test1obj = baseName + '.obj'
 	Bridson_Common.test1_outobj = baseName + '_out.obj'
@@ -613,6 +595,7 @@ def wrapper(filename, segmentCount, compactness):
 	Bridson_Common.segmentCount = segmentCount
 	# Set the seed each time.
 	Bridson_Common.compactnessSLIC = compactness
+	Bridson_Common.semanticSegmentation = cnn
 	try:
 		indexValidation(filename)
 		if Bridson_Common.bulkGeneration:
@@ -621,6 +604,7 @@ def wrapper(filename, segmentCount, compactness):
 	# sys.stdout.close()
 	except Exception as e:
 		print("Exception calling indexValidation for filename:", filename, e)
+		print("Error details:", sys.exc_info()[0])
 	cleanUpFiles()
 
 
@@ -692,8 +676,13 @@ if __name__ == '__main__':
 	images.append('mr-o-k--ePHy6jg_7c-unsplash.jpg')
 	images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
 
+	semanticSegmentation = ['mask_rcnn', 'deeplabv3', 'none']
+	# semanticSegmentation.append('none')
+
+
 	if Bridson_Common.bulkGeneration == False:
 		images = ['david-dibert-Huza8QOO3tc-unsplash.jpg']
+		semanticSegmentation = ['mask_rcnn']
 
 	# percentages = [0.05, 0.1, 0.15, 0.2]
 	targetPixels = [  400, 800]
@@ -702,11 +691,11 @@ if __name__ == '__main__':
 	if Bridson_Common.bulkGeneration:
 		# segmentCounts = [100, 200]
 		segmentCounts = [100, 200, 300]
-		compactnessList = [ 0.1, 0.5]
-		# compactnessList = [0.3, 0.6]
+		compactnessList = [ 0.1, 0.25, 0.5,]
+		compactnessList = [1, 5, 10]
 	else:
 		segmentCounts = [200]
-		compactnessList = [ 0.1 ]
+		compactnessList = [ 5 ]
 
 	variables = []
 	for filename in images:
@@ -714,28 +703,39 @@ if __name__ == '__main__':
 		# for targetPixel in targetPixels:
 		for segmentCount in segmentCounts:
 			for compactness in compactnessList:
-				variables.append( (filename, segmentCount, compactness) )
+				for cnn in semanticSegmentation:
+					variables.append( (filename, segmentCount, compactness, cnn) )
 
-				if Bridson_Common.bulkGeneration == False:
-					random.seed(Bridson_Common.seedValue)
-					np.random.seed(Bridson_Common.seedValue)
-					# Bridson_Common.targetRegionPixelCount = targetPixel
-					Bridson_Common.segmentCount = segmentCount
-					# Set the seed each time.
-					Bridson_Common.compactnessSLIC=compactness
-					try:
-						indexValidation(filename)
-						if Bridson_Common.bulkGeneration:
-							plt.close("all")
-							gc.collect()
-						# sys.stdout.close()
-					except Exception as e:
-						print("Exception calling indexValidation:", e)
+					if Bridson_Common.bulkGeneration == False:
+						baseName = 'f' + str(uuid.uuid4().hex)
+						Bridson_Common.test1obj = baseName + '.obj'
+						Bridson_Common.test1_outobj = baseName + '_out.obj'
+						Bridson_Common.test1_out_flatobj = baseName + '_out_flat.obj'
+
+						random.seed(Bridson_Common.seedValue)
+						np.random.seed(Bridson_Common.seedValue)
+						# Bridson_Common.targetRegionPixelCount = targetPixel
+						Bridson_Common.segmentCount = segmentCount
+						# Set the seed each time.
+						Bridson_Common.compactnessSLIC=compactness
+						Bridson_Common.semanticSegmentation = cnn
+						try:
+							indexValidation(filename)
+							if Bridson_Common.bulkGeneration:
+								plt.close("all")
+								gc.collect()
+							# sys.stdout.close()
+						except Exception as e:
+							print("Exception calling indexValidation:", e)
+							print("Error details:", sys.exc_info()[0])
 
 
 	if Bridson_Common.bulkGeneration:
+		coreCount = mp.cpu_count() - 4
+		# coreCount = 4
+		print("CoreCount:", coreCount)
 		mp.set_start_method('spawn')
-		with Pool(processes=4) as pool:
+		with Pool(processes=coreCount) as pool:
 			pool.starmap( wrapper, variables )
 
 	print("*************************************************")
