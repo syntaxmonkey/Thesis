@@ -24,7 +24,7 @@ seedValue = 11
 SLIC0=False
 compactnessSLIC=1
 timeoutPeriod = 5
-SLICIterations=100
+SLICIterations=50
 SLICGrey = False
 
 bulkGeneration = True
@@ -128,6 +128,7 @@ def outputEnvironmentVariables():
 	print("middleAverageOnly:", Bridson_Common.middleAverageOnly)
 	print("compactnessSLIC:", Bridson_Common.compactnessSLIC)
 	print("SLICIterations:", Bridson_Common.SLICIterations)
+	print("SLIC0:", Bridson_Common.SLIC0)
 	print("allowBlankRegion:", Bridson_Common.allowBlankRegion)
 	print("cullingBlankThreshold:", Bridson_Common.cullingBlankThreshold)
 	print("nearbyDistance:", nearbyDistance)

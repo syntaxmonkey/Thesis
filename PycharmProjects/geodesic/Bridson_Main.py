@@ -677,6 +677,7 @@ if __name__ == '__main__':
 	images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
 
 	semanticSegmentation = ['mask_rcnn', 'deeplabv3', 'none']
+	semanticSegmentation = ['deeplabv3', 'none']
 	# semanticSegmentation.append('none')
 
 
@@ -690,9 +691,10 @@ if __name__ == '__main__':
 	targetPixels = [3200]
 	if Bridson_Common.bulkGeneration:
 		# segmentCounts = [100, 200]
-		segmentCounts = [100, 200, 300]
+		segmentCounts = [200, 300, 400]
 		compactnessList = [ 0.1, 0.25, 0.5,]
 		compactnessList = [1, 5, 10]
+		# compactnessList = [1]
 	else:
 		segmentCounts = [200]
 		compactnessList = [ 5 ]
@@ -731,8 +733,8 @@ if __name__ == '__main__':
 
 
 	if Bridson_Common.bulkGeneration:
-		coreCount = mp.cpu_count() - 4
-		# coreCount = 4
+		# coreCount = mp.cpu_count() - 5
+		coreCount = 3
 		print("CoreCount:", coreCount)
 		mp.set_start_method('spawn')
 		with Pool(processes=coreCount) as pool:

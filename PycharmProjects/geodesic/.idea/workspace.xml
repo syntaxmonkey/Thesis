@@ -2,27 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6ab9aa8a-8b4b-405a-a077-6186da762c11" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/SemanticSegmentation.py" />
       <change beforePath="$PROJECT_DIR$/../NNCourse" afterPath="$PROJECT_DIR$/../NNCourse" />
-      <change beforePath="$PROJECT_DIR$/.idea/geodesic.iml" afterPath="$PROJECT_DIR$/.idea/geodesic.iml" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/Bridson_Common.py" afterPath="$PROJECT_DIR$/Bridson_Common.py" />
-      <change beforePath="$PROJECT_DIR$/Bridson_FinishedImage.py" afterPath="$PROJECT_DIR$/Bridson_FinishedImage.py" />
       <change beforePath="$PROJECT_DIR$/Bridson_Main.py" afterPath="$PROJECT_DIR$/Bridson_Main.py" />
-      <change beforePath="$PROJECT_DIR$/Bridson_MeshObj.py" afterPath="$PROJECT_DIR$/Bridson_MeshObj.py" />
-      <change beforePath="$PROJECT_DIR$/SLIC.py" afterPath="$PROJECT_DIR$/SLIC.py" />
+      <change beforePath="$PROJECT_DIR$/SemanticSegmentation.py" afterPath="$PROJECT_DIR$/SemanticSegmentation.py" />
       <change beforePath="$PROJECT_DIR$/chaincode.txt" afterPath="$PROJECT_DIR$/chaincode.txt" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_100_regionPixels_800_compactness_0.1_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_100_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/detailLogs.txt" afterPath="$PROJECT_DIR$/output/detailLogs.txt" />
-      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_100_regionPixels_800_compactness_0.1_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_100_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_0.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_100_regionPixels_800_compactness_0.1_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/ruben-rodriguez-GFZZmRbyPFQ-unsplash_Egg.jpg" afterPath="$PROJECT_DIR$/ruben-rodriguez-GFZZmRbyPFQ-unsplash_Egg.jpg" />
-      <change beforePath="$PROJECT_DIR$/ruslan-keba-G5tOIWFZqFE-unsplash_RubiksCube.jpg" afterPath="$PROJECT_DIR$/ruslan-keba-G5tOIWFZqFE-unsplash_RubiksCube.jpg" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_100_regionPixels_800_compactness_1_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_100_regionPixels_800_compactness_1_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_100_regionPixels_800_compactness_1_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_100_regionPixels_800_compactness_5_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_10_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_5_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_5_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_5_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/detailLogs.txt" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_100_regionPixels_800_compactness_1_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_100_regionPixels_800_compactness_1_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_100_regionPixels_800_compactness_1_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_100_regionPixels_800_compactness_5_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_100_regionPixels_800_compactness_5_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_10_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_10_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_10_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_10_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
       <change beforePath="$PROJECT_DIR$/../../boundary-first-flattening" afterPath="$PROJECT_DIR$/../../boundary-first-flattening" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -33,14 +36,14 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.2969984">
+    <splitter split-orientation="horizontal" split-proportion="0.3201685">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="Bridson_FinishedImage.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Bridson_FinishedImage.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="465">
-                  <caret line="385" column="42" lean-forward="false" selection-start-line="385" selection-start-column="42" selection-end-line="385" selection-end-column="42" />
+                <state relative-caret-position="15">
+                  <caret line="384" column="36" lean-forward="false" selection-start-line="384" selection-start-column="36" selection-end-line="384" selection-end-column="36" />
                   <folding>
                     <element signature="e#1#32#0" expanded="true" />
                   </folding>
@@ -86,11 +89,11 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="Bridson_Common.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="Bridson_Common.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Bridson_Common.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="279">
-                  <caret line="312" column="4" lean-forward="false" selection-start-line="312" selection-start-column="4" selection-end-line="312" selection-end-column="4" />
+                <state relative-caret-position="307">
+                  <caret line="23" column="11" lean-forward="false" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
                   <folding>
                     <element signature="e#0#11#0" expanded="true" />
                   </folding>
@@ -122,11 +125,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Bridson_Main.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="Bridson_Main.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Bridson_Main.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="384">
-                  <caret line="553" column="22" lean-forward="false" selection-start-line="553" selection-start-column="22" selection-end-line="553" selection-end-column="22" />
+                <state relative-caret-position="337">
+                  <caret line="679" column="28" lean-forward="false" selection-start-line="679" selection-start-column="28" selection-end-line="679" selection-end-column="28" />
                   <folding />
                 </state>
               </provider>
@@ -135,8 +138,8 @@
           <file leaf-file-name="SemanticSegmentation.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/SemanticSegmentation.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="396">
-                  <caret line="31" column="82" lean-forward="false" selection-start-line="31" selection-start-column="82" selection-end-line="31" selection-end-column="82" />
+                <state relative-caret-position="409">
+                  <caret line="49" column="26" lean-forward="true" selection-start-line="49" selection-start-column="26" selection-end-line="49" selection-end-column="26" />
                   <folding>
                     <element signature="e#253#304#0" expanded="true" />
                   </folding>
@@ -157,7 +160,7 @@
           <file leaf-file-name="SLIC.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/SLIC.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="313">
+                <state relative-caret-position="285">
                   <caret line="33" column="58" lean-forward="false" selection-start-line="33" selection-start-column="49" selection-end-line="33" selection-end-column="58" />
                   <folding>
                     <element signature="e#124#161#0" expanded="true" />
@@ -294,9 +297,9 @@
         <option value="$PROJECT_DIR$/Bridson_FinishedImage.py" />
         <option value="$PROJECT_DIR$/Bridson_MeshObj.py" />
         <option value="$USER_HOME$/anaconda3/envs/opencvenv/lib/python3.5/site-packages/pixellib/semantic.py" />
-        <option value="$PROJECT_DIR$/SemanticSegmentation.py" />
         <option value="$PROJECT_DIR$/SLIC.py" />
         <option value="$PROJECT_DIR$/Bridson_Common.py" />
+        <option value="$PROJECT_DIR$/SemanticSegmentation.py" />
         <option value="$PROJECT_DIR$/Bridson_Main.py" />
       </list>
     </option>
@@ -349,7 +352,6 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="full.screen.before.presentation.mode" value="false" />
-    <property name="ToolWindowRun.ShowToolbar" value="false" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -380,7 +382,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Bridson_Main">
+  <component name="RunManager" selected="Python.SemanticSegmentation">
     <configuration name="Bridson_ImageModify" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -498,8 +500,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.Bridson_Main" />
-        <item index="1" class="java.lang.String" itemvalue="Python.SemanticSegmentation" />
+        <item index="0" class="java.lang.String" itemvalue="Python.SemanticSegmentation" />
+        <item index="1" class="java.lang.String" itemvalue="Python.Bridson_Main" />
         <item index="2" class="java.lang.String" itemvalue="Python.Bridson_Test" />
         <item index="3" class="java.lang.String" itemvalue="Python.Bridson_ImageModify" />
         <item index="4" class="java.lang.String" itemvalue="Python.color2gray" />
@@ -584,7 +586,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42706686" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290735" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49946752" sideWeight="0.51026857" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3088392" sideWeight="0.48973143" order="10" side_tool="false" content_ui="tabs" x="-1920" y="23" width="960" height="1177" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5037274" sideWeight="0.48973143" order="10" side_tool="false" content_ui="tabs" x="-1920" y="23" width="960" height="1177" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290735" sideWeight="0.4918378" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32374868" sideWeight="0.49289098" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27224857" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -954,21 +956,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Bridson_FinishedImage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="385" column="42" lean-forward="false" selection-start-line="385" selection-start-column="42" selection-end-line="385" selection-end-column="42" />
-          <folding>
-            <element signature="e#1#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/anaconda3/envs/opencvenv/lib/python3.8/site-packages/pixellib/semantic.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="519">
           <caret line="121" column="11" lean-forward="false" selection-start-line="121" selection-start-column="4" selection-end-line="121" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -980,19 +971,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SemanticSegmentation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="31" column="82" lean-forward="false" selection-start-line="31" selection-start-column="82" selection-end-line="31" selection-end-column="82" />
-          <folding>
-            <element signature="e#253#304#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SLIC.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
+        <state relative-caret-position="285">
           <caret line="33" column="58" lean-forward="false" selection-start-line="33" selection-start-column="49" selection-end-line="33" selection-end-column="58" />
           <folding>
             <element signature="e#124#161#0" expanded="true" />
@@ -1000,21 +981,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Bridson_Main.py">
+    <entry file="file://$PROJECT_DIR$/Bridson_FinishedImage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="553" column="22" lean-forward="false" selection-start-line="553" selection-start-column="22" selection-end-line="553" selection-end-column="22" />
-          <folding />
+        <state relative-caret-position="15">
+          <caret line="384" column="36" lean-forward="false" selection-start-line="384" selection-start-column="36" selection-end-line="384" selection-end-column="36" />
+          <folding>
+            <element signature="e#1#32#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Bridson_Common.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="312" column="4" lean-forward="false" selection-start-line="312" selection-start-column="4" selection-end-line="312" selection-end-column="4" />
+        <state relative-caret-position="307">
+          <caret line="23" column="11" lean-forward="false" selection-start-line="23" selection-start-column="11" selection-end-line="23" selection-end-column="11" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SemanticSegmentation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="409">
+          <caret line="49" column="26" lean-forward="true" selection-start-line="49" selection-start-column="26" selection-end-line="49" selection-end-column="26" />
+          <folding>
+            <element signature="e#253#304#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Bridson_Main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="337">
+          <caret line="679" column="28" lean-forward="false" selection-start-line="679" selection-start-column="28" selection-end-line="679" selection-end-column="28" />
+          <folding />
         </state>
       </provider>
     </entry>
