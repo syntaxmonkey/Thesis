@@ -73,7 +73,7 @@ lineAngle = 90
 coherencyThreshold = 0.1
 lineWidth = 0.25
 
-semanticSegmentation='none' # Valid values: 'deeplabv3', 'mask_rcnn'
+semanticSegmentation='none' # Valid values: 'deeplabv3', 'mask_rcnn', 'both', 'none'
 
 barycentricVertexCorrection = True
 

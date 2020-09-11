@@ -37,7 +37,7 @@ else:
 
 # Redirect print statements to file.
 if Bridson_Common.bulkGeneration:
-	sys.stdout = open("./output/detailLogs.txt", "w")
+	sys.stdout = open("./output/detailLogs.txt", "a")
 	# Bridson_Common.outputEnvironmentVariables()
 
 
@@ -583,6 +583,7 @@ def indexValidation(filename):
 	# flatMeshObj2.TransferLinePoints(flatMeshObj)
 
 def wrapper(filename, segmentCount, compactness, cnn):
+	gc.collect()
 	baseName = 'f' + str(uuid.uuid4().hex)
 	Bridson_Common.test1obj = baseName + '.obj'
 	Bridson_Common.test1_outobj = baseName + '_out.obj'
@@ -598,14 +599,16 @@ def wrapper(filename, segmentCount, compactness, cnn):
 	Bridson_Common.semanticSegmentation = cnn
 	try:
 		indexValidation(filename)
-		if Bridson_Common.bulkGeneration:
-			plt.close("all")
-			gc.collect()
+		# print('Handling file ', filename + Bridson_Common.test1obj )
 	# sys.stdout.close()
 	except Exception as e:
 		print("Exception calling indexValidation for filename:", filename, e)
 		print("Error details:", sys.exc_info()[0])
+
+	plt.close("all")
+	gc.collect()
 	cleanUpFiles()
+	# sys.exit(0)
 
 
 if __name__ == '__main__':
@@ -676,8 +679,8 @@ if __name__ == '__main__':
 	images.append('mr-o-k--ePHy6jg_7c-unsplash.jpg')
 	images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
 
-	semanticSegmentation = ['mask_rcnn', 'deeplabv3', 'none']
-	semanticSegmentation = ['deeplabv3', 'none']
+	semanticSegmentation = ['mask_rcnn', 'deeplabv3', 'both', 'none']
+	# semanticSegmentation = ['both', 'none']
 	# semanticSegmentation.append('none')
 
 
@@ -691,9 +694,9 @@ if __name__ == '__main__':
 	targetPixels = [3200]
 	if Bridson_Common.bulkGeneration:
 		# segmentCounts = [100, 200]
-		segmentCounts = [200, 300, 400]
+		segmentCounts = [200, 400]
 		compactnessList = [ 0.1, 0.25, 0.5,]
-		compactnessList = [1, 5, 10]
+		compactnessList = [ 20, 35, 50]
 		# compactnessList = [1]
 	else:
 		segmentCounts = [200]
@@ -733,21 +736,34 @@ if __name__ == '__main__':
 
 
 	if Bridson_Common.bulkGeneration:
-		# coreCount = mp.cpu_count() - 5
+		# coreCount = mp.cpu_count() - 4
 		coreCount = 3
+		'''
+			Have to implement this looping mechanism.
+			For some reason, if we provide the whole list to the pool, the pool eventually hangs or all the chidren crash.
+		'''
+		blocks = coreCount*2
+		iterations = int(len(variables) / blocks + 1)
+
 		print("CoreCount:", coreCount)
-		mp.set_start_method('spawn')
-		with Pool(processes=coreCount) as pool:
-			pool.starmap( wrapper, variables )
+		mp.set_start_method('spawn')  # Valid options are 'fork', 'spawn', and 'forkserver'
+		for iteration in range( iterations ):
+			iterationVariables = variables[iteration*blocks:(iteration+1)*blocks].copy()
+			print(iterationVariables)
+			with Pool(processes=coreCount) as pool:
+				pool.starmap( wrapper, iterationVariables )
+			pool.terminate()
 
 	print("*************************************************")
 	print("Finished")
 	print("*************************************************")
 
-
-	sys.stdout.close()
 	if Bridson_Common.bulkGeneration:
-		exit(0)
+		print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+		print(">>>>>>>>>>>>>>>>>>>>>>> Main Exit <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+		print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
+		# exit(0)
+		sys.exit(0)
 	else:
 		plt.show()
 

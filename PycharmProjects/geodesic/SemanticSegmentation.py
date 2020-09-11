@@ -6,8 +6,9 @@ from pixellib.semantic import semantic_segmentation
 from pixellib.instance import instance_segmentation
 import datetime
 import cv2
-
-
+import matplotlib.pyplot as plt
+import numpy as np
+from PIL import Image
 
 class Mask_RCNN:
 	def __init__(self):
@@ -19,9 +20,30 @@ class Mask_RCNN:
 		originalImage = cv2.imread(path_to_image)
 
 		# segmask, output = self.model.segmentImage(path_to_image, show_bboxes=False,output_image_name=path_to_output_image)
-		segmask, output = self.model.segmentImage(path_to_image, show_bboxes=False)
+		self.segmask, self.output = self.model.segmentImage(path_to_image, show_bboxes=False)
 
-		return output
+		self.genMask()
+
+		return self.maskImage
+
+	def getImageMaskMerged(self):
+		return self.output
+
+	def genMask(self):
+		shape = np.shape(self.segmask['masks'])
+		# print("Shape:", shape)
+		mask = np.zeros((shape[0], shape[1]), dtype=(int, 3))
+
+		truthMask = self.segmask['masks']
+
+		for x in range(shape[0]):
+			for y in range(shape[1]):
+				if truthMask[x, y] == True:
+					mask[x, y] = (255, 0, 0)
+
+		mask = mask.astype(np.uint8)
+		# self.maskImage = Image.fromarray(mask)
+		self.maskImage = mask
 
 class Deeplabv3:
 	def __init__(self):
@@ -30,18 +52,20 @@ class Deeplabv3:
 
 	def processImage(self, filename):
 		path_to_image = './' + filename
-		originalImage = cv2.imread( path_to_image )
+		# originalImage = cv2.imread( path_to_image )
+
 		rawLabels, output = self.model.segmentAsAde20k(path_to_image, overlay=False)
 
 		dimensions = output.shape
 		distance = min(dimensions[0], dimensions[1])
+		# Make the distance 10% of the smaller dimension of the image.
 		distance = int( distance / 10 )
 		if distance % 2 == 0:
 			distance += 1
 
 		output = cv2.medianBlur(output, distance)
 
-		output = cv2.addWeighted(originalImage, 0.5, output, 0.5, 0.0)
+		# output = cv2.addWeighted(originalImage, 0.5, output, 0.5, 0.0)
 
 		return output
 
@@ -51,10 +75,10 @@ if __name__ == '__main__':
 	filenames = []
 	# filenames.append('ruben-rodriguez-GFZZmRbyPFQ-unsplash_Egg.jpg')
 	filenames.append('kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg')
-	filenames.append('BaseLineImage1.jpeg')
-	filenames.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
-	filenames.append('ruslan-keba-G5tOIWFZqFE-unsplash_RubiksCube.jpg')
-	filenames.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
+	# filenames.append('BaseLineImage1.jpeg')
+	# filenames.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
+	# filenames.append('ruslan-keba-G5tOIWFZqFE-unsplash_RubiksCube.jpg')
+	# filenames.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
 
 	type = 'mask_rcnn' # Valid values: 'deeplabv3', 'mask_rcnn'
 
@@ -68,12 +92,21 @@ if __name__ == '__main__':
 	for filename in filenames:
 		path_to_image = './' + filename
 		path_to_output_image = './' + 'segmented_' + filename
+		originalImage = cv2.imread(path_to_image)
 
 		d = datetime.datetime.now()
 		output = mask_rcnn.processImage( filename )
-		cv2.imshow('mask_rcnn' + path_to_output_image, output)
+		# maskImage = mask_rcnn.getMask()
 
-		output = deeplabv3.processImage( filename )
+		# mask = mask * (128.0,128.0,128.0)
+		# mask = mask * segmask
+		# print(mask)
+		# plt.figure()
+		# plt.imshow(mask)
+		cv2.imshow('Masked region', output)
+		# plt.figure()
+		# plt.imshow( maskImage )
+		# output = deeplabv3.processImage( filename )
 		# output = cv2.blur(output, (20,20))
 		# dimensions = output.shape
 		# distance = min(dimensions[0], dimensions[1])
@@ -85,10 +118,11 @@ if __name__ == '__main__':
 		# # output = cv2.medianBlur(output, distance)
 		#
 		# output = cv2.bilateralFilter(output, distance, 75, 75 )
-		cv2.imshow('deeplabv3' + path_to_output_image, output)
+		# cv2.imshow('deeplabv3' + path_to_output_image, output)
 		e = datetime.datetime.now()
 
 		print('Saved image: ', filename, 'Processing time:', (e-d).microseconds )
 
+	# plt.show()
 	cv2.waitKey()
 

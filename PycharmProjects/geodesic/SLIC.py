@@ -13,6 +13,7 @@ from skimage import exposure, filters
 import cv2 as cv
 import Bridson_ImageModify
 import SemanticSegmentation
+import os
 
 from ChainCodeGenerator import generateChainCode, writeChainCodeFile
 
@@ -21,24 +22,62 @@ from ChainCodeGenerator import generateChainCode, writeChainCodeFile
 # ap.add_argument("-i", "--image", required=True, help="Path to the image")
 # args = vars(ap.parse_args())
 
+def saveImage(filename, postFix, image):
+	if os.path.exists("./output") == True:
+		if os.path.isdir("./output") == False:
+			exit(-1)
+	else:
+		os.mkdir("./output")
+
+	try:
+		# Save the figures to files: https://stackoverflow.com/questions/4325733/save-a-subplot-in-matplotlib
+		actualFileName = "./output/" + filename + "_segments_" + str(Bridson_Common.segmentCount) + "_regionPixels_" + str(Bridson_Common.targetRegionPixelCount) + "_compactness_" + str(Bridson_Common.compactnessSLIC) + "_cnn_" + Bridson_Common.semanticSegmentation + "_" + postFix + ".png"
+		cv.imwrite(actualFileName, image)
+		# fig.savefig( actualFileName )
+		if Bridson_Common.bulkGeneration: # Delete the figures when we are bulk generating.
+			plt.close(fig=fig)
+	except Exception as e:
+		print("Error saving file:", e)
+
 def segmentImage(imageName, numSegments):
 	# print("SLIC Generating segments:", numSegments)
 	# load the image and convert it to a floating point data type
 	# image = img_as_float(io.imread(imageName))
-
+	originalImage = cv.imread( imageName )
+	postFix = ''
 	if Bridson_Common.semanticSegmentation == 'mask_rcnn':
 		cnn = SemanticSegmentation.Mask_RCNN()
 		image = cnn.processImage(imageName)
-		image = np.asarray(image)
+		saveImage(imageName, 'MASKRCNN_SEMANTIC', image)
+		postFix = postFix + 'MASKRCNN_'
+		# image = np.asarray(image)
 		del cnn
 	elif Bridson_Common.semanticSegmentation == 'deeplabv3':
 		cnn = SemanticSegmentation.Deeplabv3()
 		image = cnn.processImage(imageName)
-		image = np.asarray(image)
+		saveImage(imageName, 'DEEPLABV3_SEMANTIC', image)
+		postFix = postFix + 'DEEPLABV3_'
+		# image = np.asarray(image)
 		del cnn
+	elif Bridson_Common.semanticSegmentation == 'both':
+		cnn = SemanticSegmentation.Mask_RCNN()
+		image1 = cnn.processImage(imageName)
+		del cnn
+		cnn = SemanticSegmentation.Deeplabv3()
+		image2 = cnn.processImage(imageName)
+		del cnn
+		image = cv.addWeighted(image1, 0.5, image2, 0.5, 0.0)
+		saveImage(imageName, 'BOTH_SEMANTIC', image)
+		postFix = postFix + 'BOTH_'
 	else:
+		# Bridson_Common.semanticSegmentation == 'none':
 		image = io.imread(imageName)
 
+	# Alpha mix the the
+	image = cv.addWeighted(originalImage, 0.5, image, 0.5, 0.0)
+
+	postFix = postFix + 'OVERLAY'
+	saveImage(imageName, postFix, image)
 	if Bridson_Common.bulkGeneration == False:
 		plt.figure()
 		plt.title(imageName + 'Semantic Segmentation')
