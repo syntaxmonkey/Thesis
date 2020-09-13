@@ -680,6 +680,7 @@ if __name__ == '__main__':
 	images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
 
 	semanticSegmentation = ['mask_rcnn', 'deeplabv3', 'both', 'none']
+	# semanticSegmentation = ['mask_rcnn', 'deeplabv3', 'both']
 	# semanticSegmentation = ['both', 'none']
 	# semanticSegmentation.append('none')
 
@@ -696,7 +697,7 @@ if __name__ == '__main__':
 		# segmentCounts = [100, 200]
 		segmentCounts = [200, 400]
 		compactnessList = [ 0.1, 0.25, 0.5,]
-		compactnessList = [ 20, 35, 50]
+		compactnessList = [ 10, 20, 40]
 		# compactnessList = [1]
 	else:
 		segmentCounts = [200]
@@ -737,7 +738,7 @@ if __name__ == '__main__':
 
 	if Bridson_Common.bulkGeneration:
 		# coreCount = mp.cpu_count() - 4
-		coreCount = 3
+		coreCount = 5
 		'''
 			Have to implement this looping mechanism.
 			For some reason, if we provide the whole list to the pool, the pool eventually hangs or all the chidren crash.
@@ -746,7 +747,7 @@ if __name__ == '__main__':
 		iterations = int(len(variables) / blocks + 1)
 
 		print("CoreCount:", coreCount)
-		mp.set_start_method('spawn')  # Valid options are 'fork', 'spawn', and 'forkserver'
+		mp.set_start_method('forkserver')  # Valid options are 'fork', 'spawn', and 'forkserver'
 		for iteration in range( iterations ):
 			iterationVariables = variables[iteration*blocks:(iteration+1)*blocks].copy()
 			print(iterationVariables)

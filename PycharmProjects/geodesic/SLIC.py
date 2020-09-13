@@ -31,11 +31,8 @@ def saveImage(filename, postFix, image):
 
 	try:
 		# Save the figures to files: https://stackoverflow.com/questions/4325733/save-a-subplot-in-matplotlib
-		actualFileName = "./output/" + filename + "_segments_" + str(Bridson_Common.segmentCount) + "_regionPixels_" + str(Bridson_Common.targetRegionPixelCount) + "_compactness_" + str(Bridson_Common.compactnessSLIC) + "_cnn_" + Bridson_Common.semanticSegmentation + "_" + postFix + ".png"
+		actualFileName = "./output/" + filename + "_segments_" + str(Bridson_Common.segmentCount)  + "_compactness_" + str(Bridson_Common.compactnessSLIC) + "_cnn_" + Bridson_Common.semanticSegmentation + "_semanticRatio_" + str(Bridson_Common.semanticSegmentationRatio) + "_" + postFix + ".png"
 		cv.imwrite(actualFileName, image)
-		# fig.savefig( actualFileName )
-		if Bridson_Common.bulkGeneration: # Delete the figures when we are bulk generating.
-			plt.close(fig=fig)
 	except Exception as e:
 		print("Error saving file:", e)
 
@@ -74,7 +71,8 @@ def segmentImage(imageName, numSegments):
 		image = io.imread(imageName)
 
 	# Alpha mix the the
-	image = cv.addWeighted(originalImage, 0.5, image, 0.5, 0.0)
+	imageRatio = 1 - Bridson_Common.semanticSegmentationRatio
+	image = cv.addWeighted(originalImage, imageRatio, image, Bridson_Common.semanticSegmentationRatio, 0.0)
 
 	postFix = postFix + 'OVERLAY'
 	saveImage(imageName, postFix, image)

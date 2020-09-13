@@ -74,6 +74,8 @@ coherencyThreshold = 0.1
 lineWidth = 0.25
 
 semanticSegmentation='none' # Valid values: 'deeplabv3', 'mask_rcnn', 'both', 'none'
+semanticSegmentationRatio=0.5 # This is the weighting of the semantic segmentation.
+semanticInvertMaskrcnn=True
 
 barycentricVertexCorrection = True
 
@@ -132,6 +134,9 @@ def outputEnvironmentVariables():
 	print("allowBlankRegion:", Bridson_Common.allowBlankRegion)
 	print("cullingBlankThreshold:", Bridson_Common.cullingBlankThreshold)
 	print("nearbyDistance:", nearbyDistance)
+	print("semanticSegmentation:", semanticSegmentation)
+	print("semanticSegmentationRatio:", semanticSegmentationRatio)
+	print("semanticInvertMaskrcnn:", semanticInvertMaskrcnn)
 	print("------------------------------------------------------------------")
 
 def determineLineSpacing( intensity):
@@ -320,7 +325,10 @@ def saveImage(filename, postFix, fig):
 
 	try:
 		# Save the figures to files: https://stackoverflow.com/questions/4325733/save-a-subplot-in-matplotlib
-		actualFileName = "./output/" + filename + "_segments_" + str(Bridson_Common.segmentCount) + "_regionPixels_" + str(Bridson_Common.targetRegionPixelCount) + "_compactness_" + str(Bridson_Common.compactnessSLIC) + "_cnn_" + Bridson_Common.semanticSegmentation + "_" + postFix + ".png"
+		actualFileName = "./output/" + filename + "_segments_" + str(
+			Bridson_Common.segmentCount) + "_compactness_" + str(
+			Bridson_Common.compactnessSLIC) + "_cnn_" + Bridson_Common.semanticSegmentation + "_semanticRatio_" + str(
+			Bridson_Common.semanticSegmentationRatio) + "_" + postFix + ".png"
 		fig.savefig( actualFileName )
 		if Bridson_Common.bulkGeneration: # Delete the figures when we are bulk generating.
 			plt.close(fig=fig)

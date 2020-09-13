@@ -9,6 +9,7 @@ import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
+import Bridson_Common
 
 class Mask_RCNN:
 	def __init__(self):
@@ -42,7 +43,14 @@ class Mask_RCNN:
 					mask[x, y] = (255, 0, 0)
 
 		mask = mask.astype(np.uint8)
-		# self.maskImage = Image.fromarray(mask)
+
+		uniqueColours = set(tuple(v) for m2d in mask for v in m2d)
+		print("Unique colours:", uniqueColours)  # https://stackoverflow.com/questions/24780697/numpy-unique-list-of-colors-in-the-image
+
+		if Bridson_Common.semanticInvertMaskrcnn:
+			for colour in uniqueColours:
+				mask = np.bitwise_xor(mask, colour)
+			# self.maskImage = cv2.bitwise_not(mask)  # Second implementation from here: https://stackoverflow.com/questions/19580102/inverting-image-in-python-with-opencv
 		self.maskImage = mask
 
 class Deeplabv3:
@@ -104,6 +112,10 @@ if __name__ == '__main__':
 		# plt.figure()
 		# plt.imshow(mask)
 		cv2.imshow('Masked region', output)
+		# outputArray = np.asarray( output )
+		# print("Unique values:", np.unique(outputArray, axis=1 ) )
+
+
 		# plt.figure()
 		# plt.imshow( maskImage )
 		# output = deeplabv3.processImage( filename )

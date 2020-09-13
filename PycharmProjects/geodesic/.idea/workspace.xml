@@ -9,6 +9,853 @@
       <change beforePath="$PROJECT_DIR$/SLIC.py" afterPath="$PROJECT_DIR$/SLIC.py" />
       <change beforePath="$PROJECT_DIR$/SemanticSegmentation.py" afterPath="$PROJECT_DIR$/SemanticSegmentation.py" />
       <change beforePath="$PROJECT_DIR$/chaincode.txt" afterPath="$PROJECT_DIR$/chaincode.txt" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/detailLogs.txt" afterPath="$PROJECT_DIR$/output/detailLogs.txt" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_20_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_35_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_regionPixels_800_compactness_50_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_20_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_35_cnn_none_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_BOTH_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_BOTH_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_both_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_DEEPLABV3_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_deeplabv3_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_MASKRCNN_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_MASKRCNN_SEMANTIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_mask_rcnn_WithSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_GreyscaleSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_NoSLIC.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_regionPixels_800_compactness_50_cnn_none_WithSLIC.png" afterPath="" />
       <change beforePath="$PROJECT_DIR$/../../boundary-first-flattening" afterPath="$PROJECT_DIR$/../../boundary-first-flattening" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,7 +866,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.3201685">
+    <splitter split-orientation="horizontal" split-proportion="0.18167457">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="Bridson_FinishedImage.py" pinned="false" current-in-tab="true">
@@ -72,11 +919,11 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="Bridson_Common.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="Bridson_Common.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Bridson_Common.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="520">
-                  <caret line="327" column="38" lean-forward="false" selection-start-line="313" selection-start-column="0" selection-end-line="327" selection-end-column="38" />
+                <state relative-caret-position="999">
+                  <caret line="122" column="33" lean-forward="false" selection-start-line="122" selection-start-column="33" selection-end-line="122" selection-end-column="33" />
                   <folding>
                     <element signature="e#0#11#0" expanded="true" />
                   </folding>
@@ -108,11 +955,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Bridson_Main.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="Bridson_Main.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Bridson_Main.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="395">
-                  <caret line="744" column="28" lean-forward="false" selection-start-line="744" selection-start-column="28" selection-end-line="744" selection-end-column="28" />
+                <state relative-caret-position="349">
+                  <caret line="733" column="20" lean-forward="false" selection-start-line="733" selection-start-column="20" selection-end-line="733" selection-end-column="20" />
                   <folding />
                 </state>
               </provider>
@@ -121,8 +968,8 @@
           <file leaf-file-name="SemanticSegmentation.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/SemanticSegmentation.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="98">
-                  <caret line="43" column="36" lean-forward="false" selection-start-line="43" selection-start-column="36" selection-end-line="43" selection-end-column="36" />
+                <state relative-caret-position="636">
+                  <caret line="53" column="29" lean-forward="false" selection-start-line="53" selection-start-column="29" selection-end-line="53" selection-end-column="29" />
                   <folding>
                     <element signature="e#253#304#0" expanded="true" />
                   </folding>
@@ -143,8 +990,8 @@
           <file leaf-file-name="SLIC.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/SLIC.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="389">
-                  <caret line="78" column="32" lean-forward="false" selection-start-line="78" selection-start-column="32" selection-end-line="78" selection-end-column="32" />
+                <state relative-caret-position="422">
+                  <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
                   <folding>
                     <element signature="e#124#161#0" expanded="true" />
                   </folding>
@@ -187,7 +1034,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Bridson_Common.test1_out</find>
       <find>createMesh</find>
       <find>Creating</find>
       <find>wrapper</find>
@@ -217,6 +1063,7 @@
       <find>SLICGrey</find>
       <find>histo</find>
       <find>exit(</find>
+      <find>saveI</find>
     </findStrings>
     <replaceStrings>
       <replace>=</replace>
@@ -280,17 +1127,18 @@
         <option value="$PROJECT_DIR$/Bridson_FinishedImage.py" />
         <option value="$PROJECT_DIR$/Bridson_MeshObj.py" />
         <option value="$USER_HOME$/anaconda3/envs/opencvenv/lib/python3.5/site-packages/pixellib/semantic.py" />
-        <option value="$PROJECT_DIR$/Bridson_Common.py" />
-        <option value="$PROJECT_DIR$/SemanticSegmentation.py" />
         <option value="$PROJECT_DIR$/SLIC.py" />
+        <option value="$PROJECT_DIR$/SemanticSegmentation.py" />
+        <option value="$PROJECT_DIR$/Bridson_Common.py" />
         <option value="$PROJECT_DIR$/Bridson_Main.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="143" />
+    <option name="x" value="-1920" />
+    <option name="y" value="23" />
     <option name="width" value="1920" />
-    <option name="height" value="1057" />
+    <option name="height" value="1177" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -562,13 +1410,13 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="143" width="1920" height="1057" extended-state="0" />
+    <frame x="-1920" y="23" width="1920" height="1177" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42706686" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290735" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49946752" sideWeight="0.51026857" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25665602" sideWeight="0.48973143" order="10" side_tool="false" content_ui="tabs" x="-1920" y="23" width="960" height="1177" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25590178" sideWeight="0.48973143" order="10" side_tool="false" content_ui="tabs" x="-1920" y="23" width="960" height="1177" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290735" sideWeight="0.4918378" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32374868" sideWeight="0.49289098" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27224857" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -963,41 +1811,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Bridson_Common.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="327" column="38" lean-forward="false" selection-start-line="313" selection-start-column="0" selection-end-line="327" selection-end-column="38" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SemanticSegmentation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="98">
-          <caret line="43" column="36" lean-forward="false" selection-start-line="43" selection-start-column="36" selection-end-line="43" selection-end-column="36" />
-          <folding>
-            <element signature="e#253#304#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/SLIC.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="389">
-          <caret line="78" column="32" lean-forward="false" selection-start-line="78" selection-start-column="32" selection-end-line="78" selection-end-column="32" />
+        <state relative-caret-position="422">
+          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
           <folding>
             <element signature="e#124#161#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/SemanticSegmentation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="636">
+          <caret line="53" column="29" lean-forward="false" selection-start-line="53" selection-start-column="29" selection-end-line="53" selection-end-column="29" />
+          <folding>
+            <element signature="e#253#304#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Bridson_Main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="395">
-          <caret line="744" column="28" lean-forward="false" selection-start-line="744" selection-start-column="28" selection-end-line="744" selection-end-column="28" />
+        <state relative-caret-position="349">
+          <caret line="733" column="20" lean-forward="false" selection-start-line="733" selection-start-column="20" selection-end-line="733" selection-end-column="20" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Bridson_Common.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="999">
+          <caret line="122" column="33" lean-forward="false" selection-start-line="122" selection-start-column="33" selection-end-line="122" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
