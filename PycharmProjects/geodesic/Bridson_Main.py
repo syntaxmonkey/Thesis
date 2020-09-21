@@ -380,16 +380,17 @@ def indexValidation(filename):
 	print("RegionMap keys:", regionMap.keys())
 	if Bridson_Common.bulkGeneration == False:
 		regionList = range(  54, 57)
-		# regionList = range(len(regionMap.keys()))
+		regionList = range(len(regionMap.keys()))
 	else:
 		regionList = range(len(regionMap.keys()) )
 	# for index in range(5,10):
 	# for index in range( len(regionMap.keys()) ):
 
-	originalImage = Bridson_Common.readImagefile( filename )
+	originalImage = Bridson_Common.readImagefile( filename )  # We read the image in as greyscale... should we?
 
 	plt.figure()
 	plt.imshow( originalImage )
+	plt.title("Original Image")
 
 	for index in regionList:
 		# Generate the raster for the first region.
@@ -679,7 +680,7 @@ if __name__ == '__main__':
 	images.append('mr-o-k--ePHy6jg_7c-unsplash.jpg')
 	images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
 
-	semanticSegmentation = ['mask_rcnn', 'deeplabv3', 'both', 'none']
+	semanticSegmentation = ['none', 'mask_rcnn', 'deeplabv3', 'both']
 	# semanticSegmentation = ['mask_rcnn', 'deeplabv3', 'both']
 	# semanticSegmentation = ['both', 'none']
 	# semanticSegmentation.append('none')
@@ -688,6 +689,7 @@ if __name__ == '__main__':
 	if Bridson_Common.bulkGeneration == False:
 		images = ['david-dibert-Huza8QOO3tc-unsplash.jpg']
 		semanticSegmentation = ['mask_rcnn']
+		semanticSegmentation = ['none']
 
 	# percentages = [0.05, 0.1, 0.15, 0.2]
 	targetPixels = [  400, 800]
@@ -738,7 +740,7 @@ if __name__ == '__main__':
 
 	if Bridson_Common.bulkGeneration:
 		# coreCount = mp.cpu_count() - 4
-		coreCount = 5
+		coreCount = 4
 		'''
 			Have to implement this looping mechanism.
 			For some reason, if we provide the whole list to the pool, the pool eventually hangs or all the chidren crash.

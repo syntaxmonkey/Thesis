@@ -13,6 +13,8 @@ from scipy.spatial import distance
 import sys
 from skimage import io
 
+
+
 # Increase width of console printing: https://stackoverflow.com/questions/25628496/getting-wider-output-in-pycharms-built-in-console
 desired_width = 320
 pd.set_option('display.width', 400)
@@ -21,13 +23,13 @@ np.set_printoptions(linewidth=desired_width)
 
 seedValue = 11
 
-SLIC0=False
+SLIC0=True
 compactnessSLIC=1
 timeoutPeriod = 5
 SLICIterations=50
 SLICGrey = False
 
-bulkGeneration = True
+bulkGeneration = False
 debug=False
 
 if bulkGeneration == True:
@@ -74,7 +76,7 @@ coherencyThreshold = 0.1
 lineWidth = 0.25
 
 semanticSegmentation='none' # Valid values: 'deeplabv3', 'mask_rcnn', 'both', 'none'
-semanticSegmentationRatio=0.5 # This is the weighting of the semantic segmentation.
+semanticSegmentationRatio=0.75 # This is the weighting of the semantic segmentation.
 semanticInvertMaskrcnn=True
 
 barycentricVertexCorrection = True

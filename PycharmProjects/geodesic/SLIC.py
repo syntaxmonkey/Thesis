@@ -114,6 +114,13 @@ def segmentImage(imageName, numSegments):
 		# apply SLIC and extract (approximately) the supplied number
 		# of segments
 	# segments = slic(image, n_segments=numSegments, sigma=5, compactness=11, slic_zero=False, enforce_connectivity=True)
+	if False:
+		image = cv.cvtColor(image, cv.COLOR_RGB2Lab)
+
+		plt.figure()
+		plt.imshow(image)
+		plt.title('CIELab image')
+
 	if Bridson_Common.SLIC0 == True:
 		segments = slic(image, n_segments=numSegments, sigma=3, compactness=Bridson_Common.compactnessSLIC, slic_zero=True, enforce_connectivity=True, max_iter=Bridson_Common.SLICIterations)
 	else:
@@ -284,6 +291,33 @@ def generateImageIntensityHashmap( greyImage, segments):
 
 	return regionIntensityMap
 
+def generateImageColourHashmap( colourImage, segments):
+	# Generate the average colour for each region.  Convert the RGB to CIELab.
+	colourImage = cv.cvtColor(colourImage, cv.COLOR_RGB2Lab)  # Convert to CIELab
+
+	# Generate the average intensity for each region.
+	# Create array for the arverge intensity for each region.
+	segmentLabels = getSegmentLabels( segments )
+
+	regionColourMap = {}
+	# Initialize the regionIntensityMap
+	for regionIndex in segmentLabels:
+		regionColourMap[ regionIndex ] = [0,0,0]
+
+	x, y = np.shape(segments)
+	# raster = np.zeros((x,y))
+	for i in range(x):
+		for j in range(y):
+			regionColourMap[ segments[i][j] ] += colourImage[i][j]
+
+	# Calculate the average for each regionIndex.
+	for regionIndex in segmentLabels:
+		regionColourMap[ regionIndex ] = ( regionColourMap[ regionIndex ] / np.count_nonzero( segments == regionIndex ) ).astype(int) # Calculate the average intensity for each region.
+
+	return regionColourMap
+
+
+
 
 def calculateSegmentCount(imageFile):
 	image = io.imread(imageFile)
@@ -318,6 +352,13 @@ def callSLIC(filename):
 		# Bridson_Common.logDebug(__name__, segments)
 		# plt.axis("off")
 
+		originalImage = cv.imread(filename)
+		regionColourMap = generateImageColourHashmap(originalImage, segments)
+
+		print("regionColourMap:", regionColourMap)
+
+		greyscaleImage = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
+			# np.asarray(Image.fromarray(image).convert('L'))
 		# Generate region intensity HashMap.
 		regionIntensityMap = generateImageIntensityHashmap(greyscaleImage, segments)
 		# print("Region Intensity Map:", regionIntensityMap)

@@ -223,9 +223,9 @@ if False:
 		names = [('bob', 'john'), ('mack', 'another')]
 		pool.starmap(wrapper, names)
 
-
-unique_filename = str(uuid.uuid4().hex)
-print(unique_filename)
+if False:
+	unique_filename = str(uuid.uuid4().hex)
+	print(unique_filename)
 
 	# for name in ['bob', 'john', 'mack']:
 	# 	# freeze_support()
@@ -254,3 +254,26 @@ print(unique_filename)
 
 
 
+# Utilize colormath to compare two different colours.
+
+
+from colormath.color_objects import sRGBColor, LabColor
+from colormath.color_conversions import convert_color
+from colormath.color_diff import delta_e_cie2000
+
+rgb1 = sRGBColor(255, 255, 0, True)
+cie1 = convert_color(rgb1, LabColor)
+print(rgb1, "-->", cie1)
+
+rgb2 = sRGBColor(0, 255, 0, True)
+cie2 = convert_color(rgb2, LabColor)
+print(rgb2, "-->", cie2)
+
+rgb3 = sRGBColor(0, 0, 255, True)
+cie3 = convert_color(rgb3, LabColor)
+print(rgb3, "-->", cie3)
+
+
+print("rgb1 --> rgb2", delta_e_cie2000(cie1, cie2))
+print("rgb1 --> rgb3", delta_e_cie2000(cie1, cie3))
+print("rgb2 --> rgb3", delta_e_cie2000(cie2, cie3))
