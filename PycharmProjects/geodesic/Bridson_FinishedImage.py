@@ -14,6 +14,7 @@ import AdjacencyEdge
 import copy
 import itertools
 import os
+import Bridson_StructTensor
 
 np.set_printoptions(threshold=sys.maxsize)  # allow printing without ellipsis: https://stackoverflow.com/questions/44311664/print-numpy-array-without-ellipsis
 
@@ -503,6 +504,48 @@ class FinishedImage:
 				for edgePoint in edgePoints:
 					# print("Plotting:", edgePoint.xy)
 					self.ax.plot(edgePoint.xy[0], edgePoint.xy[1]*flip, marker='x', color=color)
+
+
+	def iterateRegionDirection(self, regionList, iterations=0):
+		self.regionDirection = {}
+
+		'''
+		1. Determine the direction of current region.
+		2. Compare the regions and adjust directions.
+		'''
+
+		# Calculate initial direction.
+		for index in regionList:
+			unshiftedMaskedImage = self.unshiftedImageMaskedRegion[ index ].copy()
+			# print("D")
+			st = Bridson_StructTensor.ST(unshiftedMaskedImage)
+			# print("E")
+			direction, coherency = st.calculateEigenVector()
+			self.regionDirection[ index ] = direction
+
+			if coherency > Bridson_Common.coherencyThreshold:
+				meshAngle = Bridson_Common.determineAngle(direction[0], direction[1]) + 90
+			else:
+				meshAngle = Bridson_Common.lineAngle + 90
+
+			meshAngle = meshAngle % 360
+			self.regionDirection[ index ] = meshAngle
+
+
+		for i in range(iterations):
+			self.currentDirections = self.regionDirection.copy()
+			for index in regionList:
+				self.compareRegionAgainstNeighbours( index )
+
+
+	def compareRegionAgainstNeighbours(self, index):
+		'''
+		1. Compare the region against neighbour's current angle.
+		2. Adjust current angle of the current region.
+		'''
+
+		adjacentRegions = self.regionAdjacentRegions[ index ]
+
 
 
 	def genAdjacencyMap(self):

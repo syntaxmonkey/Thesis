@@ -101,7 +101,7 @@ class ST:
 
 		self.coherency = (eig1 - eig2) / (eig1 + eig2)
 
-		print("Direction: ", direction, "Coherency:", self.coherency)
+		# print("Direction: ", direction, "Coherency:", self.coherency)
 		return direction, self.coherency
 
 

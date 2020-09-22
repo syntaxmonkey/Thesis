@@ -162,7 +162,7 @@ def cleanUpFiles():
 def SLICImage(filename):
 	startIndex = 0 # Index starts at 0.
 	regionIndex = startIndex
-	imageraster, regionMap, segments, regionIntensityMap = SLIC.callSLIC(filename)
+	imageraster, regionMap, segments, regionIntensityMap, regionColourMap = SLIC.callSLIC(filename)
 	Bridson_Common.outputEnvironmentVariables()
 
 	# stopIndex=startIndex+16
@@ -193,7 +193,7 @@ def SLICImage(filename):
 	thismanager.window.wm_geometry("+0+0")
 	# print("E")
 	Bridson_Common.logDebug(__name__, "SLIC Keys:" + str(regionMap.keys()) )
-	return imageraster, regionMap, regionRaster, segments, regionIntensityMap
+	return imageraster, regionMap, regionRaster, segments, regionIntensityMap, regionColourMap
 
 
 def featureRemoval(mask, dradius, indexLabel):
@@ -350,9 +350,11 @@ def displayRegionRaster(regionRaster, index):
 
 
 
+
+
 def indexValidation(filename):
 	print(">>>>>>>>>>>>>>>> Calling SLIC for ", filename, "<<<<<<<<<<<<<<<<<<<<<<<")
-	imageraster, regionMap, regionRaster, segments, regionIntensityMap = SLICImage(filename)
+	imageraster, regionMap, regionRaster, segments, regionIntensityMap, regionColourMap = SLICImage(filename)
 	# imageShape = np.shape(regionRaster)
 	# Bridson_Common.segmentCount = int((imageShape[0]*imageShape[1]) / Bridson_Common.targetRegionPixelCount)
 	# print("Target Region Count:", Bridson_Common.segmentCount )
@@ -374,7 +376,7 @@ def indexValidation(filename):
 	meshObjCollection = {}
 	NoSLICmaskRasterCollection = {}
 	NoSLICmeshObjCollection = {}
-
+	regionDirection = {}
 
 	# for index in range(10,15):  # Interesting regions: 11, 12, 14
 	print("RegionMap keys:", regionMap.keys())
@@ -397,6 +399,7 @@ def indexValidation(filename):
 		raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
 		maskRasterCollection[index] = raster.copy()  # Make a copy of the mask raster.
 		NoSLICmaskRasterCollection[ index ] = raster.copy()
+		regionDirection[ index ] = 0  # Default the direction to 0.
 
 
 	# Set the variables
@@ -405,6 +408,13 @@ def indexValidation(filename):
 	print("A")
 	finishedImageSLIC.shiftRastersMeshObj(regionMap, regionRaster, originalImage)
 	print("B")
+
+
+	print("About to genAdjacencyMap")
+	finishedImageSLIC.genAdjacencyMap()
+
+	finishedImageSLIC.iterateRegionDirection( regionList )
+
 
 	for index in regionList:
 		print("(**** ", filename, " Starting Region: ", index, "of", len(regionMap.keys()), "  *****" )
@@ -426,25 +436,10 @@ def indexValidation(filename):
 		# Calculate the barycentric coordinates in flat mesh coordinates.
 		# Calculate the angle in flat mesh coordinates.
 		if trifindersuccess:
-			desiredAngle = regionIntensityMap[index] / 255.0 * 180 # Use the intensity to an angle.
 
-			unshiftedMaskedImage = finishedImageSLIC.unshiftedImageMaskedRegion[index].copy()
-			# print("D")
-			st = Bridson_StructTensor.ST(unshiftedMaskedImage)
-			# print("E")
-			direction, coherency = st.calculateEigenVector()
-			# print("F")
-
-
-			if coherency > Bridson_Common.coherencyThreshold:
-				meshAngle = Bridson_Common.determineAngle(direction[0], direction[1]) + 90
-			else:
-				meshAngle = Bridson_Common.lineAngle + 90
-
-			meshAngle = meshAngle % 360
-			flatAngle = int( flatMeshObj.calculateAngle( meshObj, desiredAngle=meshAngle ) )
+			meshAngle = finishedImageSLIC.regionDirection[ index ]  # Obtain the angle that was calculated.
+			flatAngle = int( flatMeshObj.calculateAngle( meshObj, desiredAngle=meshAngle ) )  # Determine the angle on the flat mesh.
 			print("MeshAngle:", meshAngle, "Flat angle:", flatAngle)
-
 
 			# if trifindersuccess:
 			successfulRegions += 1
@@ -515,8 +510,6 @@ def indexValidation(filename):
 	# # flatMeshObj.checkLinePoints()
 	# finishedImageSLIC.checkCroppedLines()
 
-	print("About to genAdjacencyMap")
-	finishedImageSLIC.genAdjacencyMap()
 
 	# print("Point G")
 	# # meshObj.checkLinePoints()

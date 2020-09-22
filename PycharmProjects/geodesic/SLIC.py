@@ -114,12 +114,15 @@ def segmentImage(imageName, numSegments):
 		# apply SLIC and extract (approximately) the supplied number
 		# of segments
 	# segments = slic(image, n_segments=numSegments, sigma=5, compactness=11, slic_zero=False, enforce_connectivity=True)
-	if False:
-		image = cv.cvtColor(image, cv.COLOR_RGB2Lab)
 
-		plt.figure()
-		plt.imshow(image)
-		plt.title('CIELab image')
+
+	# if False:
+	# 	image = cv.cvtColor(image, cv.COLOR_RGB2Lab)
+	#
+	# 	plt.figure()
+	# 	plt.imshow(image)
+	# 	plt.title('CIELab image')
+
 
 	if Bridson_Common.SLIC0 == True:
 		segments = slic(image, n_segments=numSegments, sigma=3, compactness=Bridson_Common.compactnessSLIC, slic_zero=True, enforce_connectivity=True, max_iter=Bridson_Common.SLICIterations)
@@ -370,7 +373,7 @@ def callSLIC(filename):
 		# ax.imshow(mark_boundaries(regionImage, segments, color=(1,0,0), mode='inner', background_label=regionIndex ))
 
 	# raster = raster.astype(int)  # Convert the raster to integer.
-	return raster, regionMap, segments, regionIntensityMap
+	return raster, regionMap, segments, regionIntensityMap, regionColourMap
 
 
 
