@@ -15,6 +15,9 @@ import copy
 import itertools
 import os
 import Bridson_StructTensor
+import Bridson_ColourOperations
+import cv2 as cv
+from skimage.future import graph
 
 np.set_printoptions(threshold=sys.maxsize)  # allow printing without ellipsis: https://stackoverflow.com/questions/44311664/print-numpy-array-without-ellipsis
 
@@ -506,8 +509,21 @@ class FinishedImage:
 					self.ax.plot(edgePoint.xy[0], edgePoint.xy[1]*flip, marker='x', color=color)
 
 
-	def iterateRegionDirection(self, regionList, iterations=0):
+	def generateRAG(self, filename, segments):
+		# Generate RAG (Region Adjacency Graph)
+		originalImage = cv.imread(filename)
+		rag = graph.rag_mean_color(originalImage, segments)  # Generate the Region AdjacencyGraph.
+		self.rag = rag
+		print("RAG Nodes:", rag.nodes)
+		print("RAG Edges:", rag.edges)
+
+
+
+	def iterateRegionDirection(self, regionList, regionColourMap, iterations=0):
 		self.regionDirection = {}
+		self.regionCoherency = {}
+		self.regionToRegions = {}
+		self.regionColourMap = regionColourMap
 
 		'''
 		1. Determine the direction of current region.
@@ -530,31 +546,37 @@ class FinishedImage:
 
 			meshAngle = meshAngle % 360
 			self.regionDirection[ index ] = meshAngle
+			self.regionCoherency[ index ] = coherency
+
+		self.calculateRegionDifferences()
 
 
-		for i in range(iterations):
-			self.currentDirections = self.regionDirection.copy()
-			for index in regionList:
-				self.compareRegionAgainstNeighbours( index )
-
-
-	def compareRegionAgainstNeighbours(self, index):
+	def calculateRegionDifferences(self):
 		'''
-		1. Compare the region against neighbour's current angle.
-		2. Adjust current angle of the current region.
+		Data structure
+		1. Iterate through all regions.
+		2. Calculate their "difference".
+		3. Store their "difference" in a map.  Store the (startIndex,endIndex) key and the reverse direction.
 		'''
+		regionDifferences = {}
+		for regionPair in self.rag.edges:
+			startIndex, endIndex = regionPair
+			if regionPair not in regionDifferences.keys():
+				diff = Bridson_ColourOperations.diffCIEColours(self.regionColourMap[startIndex], self.regionColourMap[endIndex])
+				regionDifferences[regionPair] = diff
+				reverseRegionPair = (endIndex, startIndex)
+				regionDifferences[ reverseRegionPair ] = diff
 
-		adjacentRegions = self.regionAdjacentRegions[ index ]
+		self.regionDifferences = regionDifferences
+		print("Region Differences:", self.regionDifferences)
 
-
-
-	def genAdjacencyMap(self):
+	def genLineAdjacencyMap(self):
 		# traversalMap = [ [-1,1], [0,1], [1,1], [-1, 0],  [1, 0],[-1, -1], [0, -1], [1, -1] ]
 		for index in self.meshObjCollection.keys():
 			# adjancencyList = []
-			# self.genAdjacencyMap[ index ] =  adjancencyList
+			# self.genLineAdjacencyMap[ index ] =  adjancencyList
 			# edgePoints = self.regionEdgePoints[ index ]
-			# print("genAdjacencyMap Searching for regionEdgePoints index:", index)
+			# print("genLineAdjacencyMap Searching for regionEdgePoints index:", index)
 			regionEdgePoints = self.regionEdgePoints[ index ]
 
 			for edgePoint in regionEdgePoints.pointsOnEdge:
@@ -562,16 +584,16 @@ class FinishedImage:
 				currentPixel = [-int(currentPixel[1]), int(currentPixel[0])]  ## Switching from x,y to row, column
 				for adjacentPixelRelativePosition in Bridson_Common.traversalMap:
 					adjacentPixel = tuple([currentPixel[0]+adjacentPixelRelativePosition[0], currentPixel[1]+adjacentPixelRelativePosition[1] ])
-					# print("genAdjacencyMap Searching for pixel:", adjacentPixel)
+					# print("genLineAdjacencyMap Searching for pixel:", adjacentPixel)
 					if adjacentPixel in self.globalEdgePointMap: # Is the adjacent pixel an EdgePoint?
 						adjacentEdgePoints = self.globalEdgePointMap[ adjacentPixel ]
 
 						for adjacentEdgePoint in adjacentEdgePoints:
-							# print("genAdjacencyMap Found adjacent pixels: ", adjacentEdgePoint.xy, adjacentEdgePoint.regionIndex)
+							# print("genLineAdjacencyMap Found adjacent pixels: ", adjacentEdgePoint.xy, adjacentEdgePoint.regionIndex)
 							adjacentIndex = adjacentEdgePoint.regionIndex
 
 							if index != adjacentIndex:
-								# print("genAdjacencyMap Adding point")
+								# print("genLineAdjacencyMap Adding point")
 								# Does the region to region map e4xist for current region?
 								if index in self.regionAdjacentRegions:
 									if  adjacentIndex not in self.regionAdjacentRegions[index]:
@@ -607,16 +629,17 @@ class FinishedImage:
 									adjacencyEdge.adjacentIndexEdgePoints.append(edgePoint)
 
 
+		print("genLineAdjacencyMap.regionAdjacencyRegions keys", self.regionAdjacentRegions.keys())
+		print("genLineAdjacencyMap.regionAdjancencyMap keys", self.regionAdjancencyMap.keys())
 
+		'''
+			1. Iterate through each region.
+			2. Create AdjacencyMap<starting region, end region> = [
+						[starting region EdgePoint],
+						[ending region EdgePoint]
+						]
 
-			'''
-				1. Iterate through each region.
-				2. Create AdjacencyMap<starting region, end region> = [
-							[starting region EdgePoint],
-							[ending region EdgePoint]
-							]
-
-			'''
+		'''
 
 
 

@@ -409,12 +409,9 @@ def indexValidation(filename):
 	finishedImageSLIC.shiftRastersMeshObj(regionMap, regionRaster, originalImage)
 	print("B")
 
+	finishedImageSLIC.generateRAG(filename, segments)
 
-	print("About to genAdjacencyMap")
-	finishedImageSLIC.genAdjacencyMap()
-
-	finishedImageSLIC.iterateRegionDirection( regionList )
-
+	finishedImageSLIC.iterateRegionDirection( regionList, regionColourMap )
 
 	for index in regionList:
 		print("(**** ", filename, " Starting Region: ", index, "of", len(regionMap.keys()), "  *****" )
@@ -509,7 +506,8 @@ def indexValidation(filename):
 	# # meshObj.checkLinePoints()
 	# # flatMeshObj.checkLinePoints()
 	# finishedImageSLIC.checkCroppedLines()
-
+	print("About to genLineAdjacencyMap")
+	finishedImageSLIC.genLineAdjacencyMap()
 
 	# print("Point G")
 	# # meshObj.checkLinePoints()

@@ -14,6 +14,7 @@ import cv2 as cv
 import Bridson_ImageModify
 import SemanticSegmentation
 import os
+import Bridson_ColourOperations
 
 from ChainCodeGenerator import generateChainCode, writeChainCodeFile
 
@@ -296,7 +297,7 @@ def generateImageIntensityHashmap( greyImage, segments):
 
 def generateImageColourHashmap( colourImage, segments):
 	# Generate the average colour for each region.  Convert the RGB to CIELab.
-	colourImage = cv.cvtColor(colourImage, cv.COLOR_RGB2Lab)  # Convert to CIELab
+	# colourImage = cv.cvtColor(colourImage, cv.COLOR_RGB2Lab)  # Convert to CIELab
 
 	# Generate the average intensity for each region.
 	# Create array for the arverge intensity for each region.
@@ -316,6 +317,8 @@ def generateImageColourHashmap( colourImage, segments):
 	# Calculate the average for each regionIndex.
 	for regionIndex in segmentLabels:
 		regionColourMap[ regionIndex ] = ( regionColourMap[ regionIndex ] / np.count_nonzero( segments == regionIndex ) ).astype(int) # Calculate the average intensity for each region.
+		# print(regionIndex, " colour ", regionColourMap[ regionIndex ])
+		regionColourMap[ regionIndex ] = Bridson_ColourOperations.convertRGB_CIE( regionColourMap[ regionIndex ] )
 
 	return regionColourMap
 

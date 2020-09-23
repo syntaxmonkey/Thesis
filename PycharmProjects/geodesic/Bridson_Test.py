@@ -256,24 +256,105 @@ if False:
 
 # Utilize colormath to compare two different colours.
 
+if False:
+	from colormath.color_objects import sRGBColor, LabColor
+	from colormath.color_conversions import convert_color
+	from colormath.color_diff import delta_e_cie2000
 
-from colormath.color_objects import sRGBColor, LabColor
-from colormath.color_conversions import convert_color
-from colormath.color_diff import delta_e_cie2000
+	rgb1 = sRGBColor(255, 255, 0, True)
+	cie1 = convert_color(rgb1, LabColor)
+	print(rgb1, "-->", cie1)
 
-rgb1 = sRGBColor(255, 255, 0, True)
-cie1 = convert_color(rgb1, LabColor)
-print(rgb1, "-->", cie1)
+	rgb2 = sRGBColor(0, 255, 0, True)
+	cie2 = convert_color(rgb2, LabColor)
+	print(rgb2, "-->", cie2)
 
-rgb2 = sRGBColor(0, 255, 0, True)
-cie2 = convert_color(rgb2, LabColor)
-print(rgb2, "-->", cie2)
-
-rgb3 = sRGBColor(0, 0, 255, True)
-cie3 = convert_color(rgb3, LabColor)
-print(rgb3, "-->", cie3)
+	rgb3 = sRGBColor(0, 0, 255, True)
+	cie3 = convert_color(rgb3, LabColor)
+	print(rgb3, "-->", cie3)
 
 
-print("rgb1 --> rgb2", delta_e_cie2000(cie1, cie2))
-print("rgb1 --> rgb3", delta_e_cie2000(cie1, cie3))
-print("rgb2 --> rgb3", delta_e_cie2000(cie2, cie3))
+	print("rgb1 --> rgb2", delta_e_cie2000(cie1, cie2))
+	print("rgb1 --> rgb3", delta_e_cie2000(cie1, cie3))
+	print("rgb2 --> rgb3", delta_e_cie2000(cie2, cie3))
+
+from skimage.future import graph
+from skimage import data, io, segmentation, color
+from matplotlib import pyplot as plt
+from skimage.measure import regionprops
+from skimage import draw
+import numpy as np
+
+
+def show_img(img):
+	width = 10.0
+	height = img.shape[0] * width / img.shape[1]
+	f = plt.figure(figsize=(width, height))
+	plt.imshow(img)
+
+
+
+img = data.coffee()
+show_img(img)
+
+labels = segmentation.slic(img, compactness=30, n_segments=400)
+print(labels)
+# labels = labels + 1  # So that no labelled region is 0 and ignored by regionprops
+# regions = regionprops(labels)
+
+label_rgb = color.label2rgb(labels, img, kind='avg')
+show_img(label_rgb)
+
+label_rgb = segmentation.mark_boundaries(label_rgb, labels, (0, 0, 0))
+show_img(label_rgb)
+
+rag = graph.rag_mean_color(img, labels)
+
+print("RAG nodes", rag.nodes)  # the nodes are the regions.
+print("RAG edges", rag.edges)  # the edges are the pairs of adjacency regions.
+
+
+# for region in regions:
+#     rag.nodes[region['label']]['centroid'] = region['centroid']
+
+def display_edges(image, g, threshold):
+	"""Draw edges of a RAG on its image
+
+	Returns a modified image with the edges drawn.Edges are drawn in green
+	and nodes are drawn in yellow.
+
+	Parameters
+	----------
+	image : ndarray
+		The image to be drawn on.
+	g : RAG
+		The Region Adjacency Graph.
+	threshold : float
+		Only edges in `g` below `threshold` are drawn.
+
+	Returns:
+	out: ndarray
+		Image with the edges drawn.
+	"""
+	image = image.copy()
+	# for edge in g.edges_iter():
+	for edge in g.edges:
+		n1, n2 = edge
+
+		r1, c1 = map(int, rag.nodes[n1]['centroid'])
+		r2, c2 = map(int, rag.nodes[n2]['centroid'])
+
+		line = draw.line(r1, c1, r2, c2)
+		circle = draw.circle(r1, c1, 2)
+
+		if g[n1][n2]['weight'] < threshold:
+			image[line] = 0, 1, 0
+		image[circle] = 1, 1, 0
+
+	return image
+
+# edges_drawn_all = display_edges(label_rgb, rag, np.inf )
+
+# show_img(edges_drawn_all)
+
+plt.show()
