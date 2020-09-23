@@ -509,27 +509,16 @@ class FinishedImage:
 					self.ax.plot(edgePoint.xy[0], edgePoint.xy[1]*flip, marker='x', color=color)
 
 
-	def generateRAG(self, filename, segments):
-		# Generate RAG (Region Adjacency Graph)
-		originalImage = cv.imread(filename)
-		rag = graph.rag_mean_color(originalImage, segments)  # Generate the Region AdjacencyGraph.
-		self.rag = rag
-		print("RAG Nodes:", rag.nodes)
-		print("RAG Edges:", rag.edges)
 
 
-
-	def iterateRegionDirection(self, regionList, regionColourMap, iterations=0):
+	def calculateRegionDirection(self, regionList, iterations=0):
 		self.regionDirection = {}
 		self.regionCoherency = {}
 		self.regionToRegions = {}
-		self.regionColourMap = regionColourMap
-
 		'''
 		1. Determine the direction of current region.
 		2. Compare the regions and adjust directions.
 		'''
-
 		# Calculate initial direction.
 		for index in regionList:
 			unshiftedMaskedImage = self.unshiftedImageMaskedRegion[ index ].copy()
@@ -548,6 +537,18 @@ class FinishedImage:
 			self.regionDirection[ index ] = meshAngle
 			self.regionCoherency[ index ] = coherency
 
+
+
+
+	def generateRAG(self, filename, segments, regionColourMap):
+		# Generate RAG (Region Adjacency Graph)
+		self.regionColourMap = regionColourMap
+		originalImage = cv.imread(filename)
+		rag = graph.rag_mean_color(originalImage, segments)  # Generate the Region AdjacencyGraph.
+		self.rag = rag
+		print("RAG Nodes:", rag.nodes)
+		print("RAG Edges:", rag.edges)
+
 		self.calculateRegionDifferences()
 
 
@@ -564,11 +565,23 @@ class FinishedImage:
 			if regionPair not in regionDifferences.keys():
 				diff = Bridson_ColourOperations.diffCIEColours(self.regionColourMap[startIndex], self.regionColourMap[endIndex])
 				regionDifferences[regionPair] = diff
-				reverseRegionPair = (endIndex, startIndex)
-				regionDifferences[ reverseRegionPair ] = diff
+
+			# Create region to region mapping.
+			if startIndex not in self.regionToRegions.keys():
+				self.regionToRegions[ startIndex ] = [ endIndex ]
+			else:
+				self.regionToRegions[ startIndex ].append( endIndex )
+
+			if endIndex not in self.regionToRegions.keys():
+				self.regionToRegions[ endIndex ] = [ startIndex ]
+			else:
+				self.regionToRegions[ endIndex ].append( startIndex )
 
 		self.regionDifferences = regionDifferences
 		print("Region Differences:", self.regionDifferences)
+		print("regionToRegions:", self.regionToRegions)
+
+
 
 	def genLineAdjacencyMap(self):
 		# traversalMap = [ [-1,1], [0,1], [1,1], [-1, 0],  [1, 0],[-1, -1], [0, -1], [1, -1] ]
@@ -631,6 +644,7 @@ class FinishedImage:
 
 		print("genLineAdjacencyMap.regionAdjacencyRegions keys", self.regionAdjacentRegions.keys())
 		print("genLineAdjacencyMap.regionAdjancencyMap keys", self.regionAdjancencyMap.keys())
+
 
 		'''
 			1. Iterate through each region.
