@@ -18,6 +18,7 @@ import Bridson_StructTensor
 import Bridson_ColourOperations
 import cv2 as cv
 from skimage.future import graph
+import Bridson_Angles
 
 np.set_printoptions(threshold=sys.maxsize)  # allow printing without ellipsis: https://stackoverflow.com/questions/44311664/print-numpy-array-without-ellipsis
 
@@ -536,7 +537,7 @@ class FinishedImage:
 			meshAngle = meshAngle % 360
 			self.regionDirection[ index ] = meshAngle
 			self.regionCoherency[ index ] = coherency
-
+		print("Region Coherency", self.regionCoherency)
 
 
 
@@ -580,6 +581,45 @@ class FinishedImage:
 		self.regionDifferences = regionDifferences
 		print("Region Differences:", self.regionDifferences)
 		print("regionToRegions:", self.regionToRegions)
+		# Calculate the difference threshold.  Regions with differences below this threshold are
+		# candidates for changing their direction.
+		print( "Region Differences Values:", list( self.regionDifferences.values() ))
+		self.diffThreshold = np.percentile( list( self.regionDifferences.values() ), Bridson_Common.differencePercentile)
+		print("diff threshold", self.diffThreshold)
+
+
+	def adjustRegionAngles(self, iterations=1):
+		# Iterate through all regions.
+		# Check the coherency for stableRegionThreshold
+		# Check the differences between the regions.
+		# If the difference value is below the diffThreshold, average the angles.
+		print("Region Directions:", self.regionDirection)
+		for i in range(iterations):
+			for index in self.regionToRegions.keys():
+				# print("Current region:", index)
+				# print("region ", index, "coherency", self.regionCoherency[index] )
+				if index not in self.regionCoherency.keys():
+					print("Region", index, "not in coherency map")
+				elif self.regionCoherency[ index ] < Bridson_Common.stableRegionThreshold:
+					# print("Not Stable region:", index)
+					# If the region coherency is below the threshold, continue with checking
+					adjacentRegions = self.regionToRegions[ index ]
+					# print("Adjacency regions", adjacentRegions)
+					for adjacentIndex in adjacentRegions:
+						startIndex, endIndex = index, adjacentIndex
+						if startIndex > endIndex:
+							startIndex, endIndex = adjacentIndex, index
+
+						pairIndex = (startIndex, endIndex)
+						# print("Pair Index", pairIndex)
+						if self.regionDifferences[ pairIndex ] < self.diffThreshold:
+							# Adjust this region's angle.
+							# print("Index", index, "Previous Angle", self.regionDirection[ index ] )
+							self.regionDirection[ index ] = Bridson_Angles.calcAverageAngle( self.regionDirection[ index ], self.regionDirection[ adjacentIndex ] )
+							# print("Adjusting angle of region", index, "now has direction",self.regionDirection[index])
+				# else:
+				# 	print("Region is stable", index)
+		print("POST Region Directions:", self.regionDirection)
 
 
 

@@ -18,13 +18,11 @@ def calcAverageAngle(angle1, angle2):
 	toRad = math.pi/180
 	numerator = math.sin(angle1*toRad ) + math.sin(angle2*toRad)
 	denominator = math.cos(angle1*toRad) + math.cos(angle2*toRad)
-	print('numerator', numerator, 'denominator', denominator)
-	# value = numerator / denominator
-	# print("Value:", value)
-	# averageAngle = math.atan( value )
-	# averageAngle = np.arctan( value ) * 180 / math.pi # Need to convert to
+	# print('numerator', numerator, 'denominator', denominator)
+
 	averageAngle = np.arctan2( numerator, denominator ) * 180 / math.pi
-	return averageAngle, angle1, angle2
+	averageAngle = averageAngle % 360
+	return averageAngle
 
 
 def findMinAngleDiff(angle1, angle2):
@@ -47,6 +45,16 @@ def findAngleDiff(targetA, sourceA):
 	a = targetA - sourceA
 	a = (a + 180) % 360 - 180
 	return abs(a)
+
+
+def repelAngles(stableAngle, movingAngle):
+	'''
+	Need to figure out a way to push angles away from each other.
+	:param stableAngle:
+	:param movingAngle:
+	:return:
+	'''
+	pass
 
 if __name__ == '__main__':
 

@@ -382,7 +382,7 @@ def indexValidation(filename):
 	print("RegionMap keys:", regionMap.keys())
 	if Bridson_Common.bulkGeneration == False:
 		regionList = range(  54, 57)
-		# regionList = range(len(regionMap.keys()))
+		regionList = range(len(regionMap.keys()))
 	else:
 		regionList = range(len(regionMap.keys()) )
 	# for index in range(5,10):
@@ -412,6 +412,7 @@ def indexValidation(filename):
 	# Calculate RAG (Region Adjacency Graph)
 	finishedImageSLIC.calculateRegionDirection(regionList)
 	finishedImageSLIC.generateRAG(filename, segments, regionColourMap)
+	finishedImageSLIC.adjustRegionAngles(50)
 
 
 

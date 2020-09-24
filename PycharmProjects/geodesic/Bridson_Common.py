@@ -74,6 +74,8 @@ verticalLines = True
 lineAngle = 90
 coherencyThreshold = 0.1
 lineWidth = 0.25
+stableRegionThreshold = 0.5 # Regions with a coherency above this value are considered stable.
+differencePercentile = 20 #
 
 semanticSegmentation='none' # Valid values: 'deeplabv3', 'mask_rcnn', 'both', 'none'
 semanticSegmentationRatio=0.75 # This is the weighting of the semantic segmentation.
@@ -104,6 +106,8 @@ nearbyDistance = 5
 
 increaseContrast=False
 contrastFactor=1.5 # Values above 1 increase contrast.  Values below 1 reduce contrast.
+
+
 
 
 colourArray = ['r', 'b', 'm']
