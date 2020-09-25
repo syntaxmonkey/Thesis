@@ -29,7 +29,7 @@ timeoutPeriod = 5
 SLICIterations=50
 SLICGrey = False
 
-bulkGeneration = False
+bulkGeneration = True
 debug=False
 
 if bulkGeneration == True:
@@ -43,7 +43,7 @@ diagnostic=False # Generally avoid dispalying meshes.  Only count the number of 
 highlightEdgeTriangle=False # Highlight the edge triangle that contains the exterior point of the vertical lines.
 drawSLICRegions = False
 
-EqualizeHistogram=False
+EqualizeHistogram=True
 Median=True
 
 sortExteriorPoints=True
@@ -74,9 +74,9 @@ verticalLines = True
 lineAngle = 90
 coherencyThreshold = 0.1
 lineWidth = 0.25
-stableCoherencyPercentile = 80 # Regions percentile with a coherency above this value are considered stable.
-diffAttractPercentile = 25 #
-diffRepelPercentile = 75
+stableCoherencyPercentile = 95 # Regions percentile with a coherency above this value are considered stable.
+diffAttractPercentile = 40 # Regions with differences below this percentile will attract.
+diffRepelPercentile = 75 # Regions with differences above this percentile will repel.
 
 semanticSegmentation='none' # Valid values: 'deeplabv3', 'mask_rcnn', 'both', 'none'
 semanticSegmentationRatio=0.75 # This is the weighting of the semantic segmentation.
@@ -122,6 +122,7 @@ cropContours = True
 Bridson_Common.test1obj = ""
 Bridson_Common.test1_outobj = ""
 Bridson_Common.test1_out_flatobj = ""
+objPath = "../../boundary-first-flattening/build/"
 
 
 # traversalMap = [ [-1,1], [0,1], [1,1],
@@ -337,9 +338,13 @@ def saveImage(filename, postFix, fig):
 
 	try:
 		# Save the figures to files: https://stackoverflow.com/questions/4325733/save-a-subplot-in-matplotlib
-		actualFileName = "./output/" + filename + "_segments_" + str(
-			Bridson_Common.segmentCount) + "_compactness_" + str(
-			Bridson_Common.compactnessSLIC) + "_cnn_" + Bridson_Common.semanticSegmentation + "_semanticRatio_" + str(
+		actualFileName = "./output/" + filename + "_segments_"+ str(Bridson_Common.segmentCount)
+		if Bridson_Common.SLIC0:
+			actualFileName = actualFileName + "_compactness_SLIC0"
+		else:
+			actualFileName = actualFileName + "_compactness_" + str(Bridson_Common.compactnessSLIC)
+
+		actualFileName = actualFileName + "_cnn_" + Bridson_Common.semanticSegmentation + "_semanticRatio_" + str(
 			Bridson_Common.semanticSegmentationRatio) + "_" + postFix + ".png"
 		fig.savefig( actualFileName )
 		if Bridson_Common.bulkGeneration: # Delete the figures when we are bulk generating.

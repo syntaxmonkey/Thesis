@@ -31,7 +31,10 @@ class FinishedImage:
 		# self.ax.invert_yaxis()
 
 	def setTitle(self, filename):
-		self.ax.set_title('Merged Image - ' + filename + ' - Segments: ' + str(Bridson_Common.segmentCount) + '\n - compactness: ' + str(Bridson_Common.compactnessSLIC) )
+		if Bridson_Common.SLIC0:
+			self.ax.set_title('Merged Image - ' + filename + '\nSegments: ' + str(Bridson_Common.segmentCount) + ' - compactness: SLIC0' )
+		else:
+			self.ax.set_title('Merged Image - ' + filename + '\nSegments: ' + str(Bridson_Common.segmentCount) + ' - compactness: ' + str(Bridson_Common.compactnessSLIC) )
 
 	def setXLimit(self, left, right):
 		# print("Left:", left, "Right:", right)
@@ -539,7 +542,7 @@ class FinishedImage:
 			meshAngle = meshAngle % 360
 			self.regionDirection[ index ] = meshAngle
 			self.regionCoherency[ index ] = coherency
-		print("Region Coherency", self.regionCoherency)
+		# print("Region Coherency:", self.regionCoherency)
 
 
 
@@ -549,8 +552,8 @@ class FinishedImage:
 		originalImage = cv.imread(filename)
 		rag = graph.rag_mean_color(originalImage, segments)  # Generate the Region AdjacencyGraph.
 		self.rag = rag
-		print("RAG Nodes:", rag.nodes)
-		print("RAG Edges:", rag.edges)
+		# print("RAG Nodes:", rag.nodes)
+		# print("RAG Edges:", rag.edges)
 
 		self.calculateRegionDifferences()
 
@@ -581,11 +584,11 @@ class FinishedImage:
 				self.regionToRegions[ endIndex ].append( startIndex )
 
 		self.regionDifferences = regionDifferences
-		print("Region Differences:", self.regionDifferences)
-		print("regionToRegions:", self.regionToRegions)
+		# print("Region Differences:", self.regionDifferences)
+		# print("regionToRegions:", self.regionToRegions)
 		# Calculate the difference threshold.  Regions with differences below this threshold are
 		# candidates for changing their direction.
-		print( "Region Differences Values:", list( self.regionDifferences.values() ))
+		# print( "Region Differences Values:", list( self.regionDifferences.values() ))
 		self.diffAttractThreshold = np.percentile(list( self.regionDifferences.values() ), Bridson_Common.diffAttractPercentile)
 		print("diff threshold", self.diffAttractThreshold)
 
@@ -599,7 +602,7 @@ class FinishedImage:
 		# Check the coherency for stableRegionThreshold
 		# Check the differences between the regions.
 		# If the difference value is below the diffThreshold, average the angles.
-		print("Region Directions:", self.regionDirection)
+		# print("Region Directions:", self.regionDirection)
 		for i in range(iterations):
 			for index in self.regionToRegions.keys():
 				# print("Current region:", index)
@@ -619,19 +622,19 @@ class FinishedImage:
 						pairIndex = (startIndex, endIndex)
 						# print("Pair Index", pairIndex)
 
+						# Attract case.
 						if self.regionDifferences[ pairIndex ] < self.diffAttractThreshold:
-							# Attraction case.
 							# print("Index", index, "Previous Angle", self.regionDirection[ index ] )
 							self.regionDirection[ index ] = Bridson_Angles.calcAverageAngle( self.regionDirection[ index ], self.regionDirection[ adjacentIndex ] )
 							# print("Adjusting angle of region", index, "now has direction",self.regionDirection[index])
 
+						# Repel case.
 						if self.regionDifferences[ pairIndex ] > self.diffRepelThreshold:
-							# Repel case.
 							self.regionDirection[ index ] = Bridson_Angles.calcAverageAngle( self.regionDirection[ index ], (self.regionDirection[ adjacentIndex ] + 90) % 360 )
 
 				# else:
 				# 	print("Region is stable", index)
-		print("POST Region Directions:", self.regionDirection)
+		# print("POST Region Directions:", self.regionDirection)
 
 
 

@@ -32,7 +32,12 @@ def saveImage(filename, postFix, image):
 
 	try:
 		# Save the figures to files: https://stackoverflow.com/questions/4325733/save-a-subplot-in-matplotlib
-		actualFileName = "./output/" + filename + "_segments_" + str(Bridson_Common.segmentCount)  + "_compactness_" + str(Bridson_Common.compactnessSLIC) + "_cnn_" + Bridson_Common.semanticSegmentation + "_semanticRatio_" + str(Bridson_Common.semanticSegmentationRatio) + "_" + postFix + ".png"
+		actualFileName = "./output/" + filename + "_segments_" + str(Bridson_Common.segmentCount)
+		if Bridson_Common.SLIC0:
+			actualFileName = actualFileName + "_compactness_SLIC0"
+		else:
+			actualFileName = actualFileName + "_compactness_" + str(Bridson_Common.compactnessSLIC)
+		actualFileName = actualFileName + "_cnn_" + Bridson_Common.semanticSegmentation + "_semanticRatio_" + str(Bridson_Common.semanticSegmentationRatio) + "_" + postFix + ".png"
 		cv.imwrite(actualFileName, image)
 	except Exception as e:
 		print("Error saving file:", e)
@@ -94,13 +99,6 @@ def segmentImage(imageName, numSegments):
 	print("Shape:",np.shape(image))
 	print("Type:",type(image))
 
-	if Bridson_Common.EqualizeHistogram:
-		# try:
-		image = exposure.equalize_adapthist(image)
-		# except Exception as e:
-		# 	print(np.shape(image))
-		# 	print(type(image))
-		# 	print(">>>>>>>>>>>>> Error equalizing histogram:", e)
 	if Bridson_Common.Median:
 		# try:
 		image = filters.median( image )
@@ -115,6 +113,14 @@ def segmentImage(imageName, numSegments):
 		# apply SLIC and extract (approximately) the supplied number
 		# of segments
 	# segments = slic(image, n_segments=numSegments, sigma=5, compactness=11, slic_zero=False, enforce_connectivity=True)
+
+	if Bridson_Common.EqualizeHistogram:
+		# try:
+		image = exposure.equalize_adapthist(image)
+		# except Exception as e:
+		# 	print(np.shape(image))
+		# 	print(type(image))
+		# 	print(">>>>>>>>>>>>> Error equalizing histogram:", e)
 
 
 	# if False:
@@ -361,7 +367,7 @@ def callSLIC(filename):
 		originalImage = cv.imread(filename)
 		regionColourMap = generateImageColourHashmap(originalImage, segments)
 
-		print("regionColourMap:", regionColourMap)
+		# print("regionColourMap:", regionColourMap)
 
 		greyscaleImage = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
 			# np.asarray(Image.fromarray(image).convert('L'))

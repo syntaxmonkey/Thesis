@@ -350,8 +350,8 @@ if False:
 
 	rag = graph.rag_mean_color(img, labels)
 
-	print("RAG nodes", rag.nodes)  # the nodes are the regions.
-	print("RAG edges", rag.edges)  # the edges are the pairs of adjacency regions.
+	# print("RAG nodes", rag.nodes)  # the nodes are the regions.
+	# print("RAG edges", rag.edges)  # the edges are the pairs of adjacency regions.
 
 	plt.show()
 

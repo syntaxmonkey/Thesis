@@ -39,6 +39,7 @@ else:
 if Bridson_Common.bulkGeneration:
 	sys.stdout = open("./output/detailLogs.txt", "a")
 	# Bridson_Common.outputEnvironmentVariables()
+	pass
 
 
 random.seed(Bridson_Common.seedValue)
@@ -97,7 +98,7 @@ def euclidean_distance(a, b):
 def createMeshFile(samples, tri, radius, center ):
 	# Produce the mesh file.  Flatten the mesh with BFF.  Extract the 2D from BFF flattened mesh.
 	print("Creating Mesh File: ", Bridson_Common.test1obj)
-	path = "../../boundary-first-flattening/build/"
+	path = Bridson_Common.objPath
 	# Create object file for image.
 	# Bridson_createOBJFile.createObjFile2D(path, "test1.obj", samples, tri, radius, center, distance=euclidean_distance)
 	Bridson_createOBJFile.createObjFile2D(path, Bridson_Common.test1obj, samples, tri, radius, center, distance=euclidean_distance)
@@ -109,7 +110,7 @@ def BFFReshape():
 	# print("BFFReshape")
 	# Using pipes to kill a hung process: https://stackoverflow.com/questions/41094707/setting-timeout-when-using-os-system-function
 	Bridson_Common.logDebug(__name__, "Reshaping with BFF")
-	path = "../../boundary-first-flattening/build/"
+	path = Bridson_Common.objPath
 	# os.system(path + "bff-command-line " + path + "test1.obj " + path + "test1_out.obj --angle=1 --normalizeUVs ")
 	#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	''''''
@@ -144,13 +145,13 @@ def BFFReshape():
 
 def FlattenMesh():
 	# print("FlattenMesh")
-	path = "../../boundary-first-flattening/build/"
+	path = Bridson_Common.objPath
 	Bridson_Common.logDebug(__name__, "Extracting 2D image post BFF Reshaping")
 	# os.system(path + "extract.py test1_out.obj test1_out_flat.obj")
 	os.system(path + "extract.py " + Bridson_Common.test1_outobj + " " + Bridson_Common.test1_out_flatobj)
 
 def cleanUpFiles():
-	path = "../../boundary-first-flattening/build/"
+	path = Bridson_Common.objPath
 	# os.system("rm " + path + "test1.obj ")
 	# os.system("rm "+ path + "test1_out.obj")
 	# os.system("rm " + path + "test1_out_flat.obj")
@@ -302,7 +303,7 @@ def processMask(mask, dradius, indexLabel):
 			FlattenMesh()
 			h = datetime.datetime.now()
 			# flatvertices, flatfaces = Bridson_readOBJFile.readFlatObjFile(path = "../../boundary-first-flattening/build/", filename="test1_out_flat.obj")
-			flatvertices, flatfaces = Bridson_readOBJFile.readFlatObjFile(path="../../boundary-first-flattening/build/",
+			flatvertices, flatfaces = Bridson_readOBJFile.readFlatObjFile(path=Bridson_Common.objPath,
 			                                                              filename=Bridson_Common.test1_out_flatobj)
 			i = datetime.datetime.now()
 			Bridson_Common.triangleHistogram(flatvertices, flatfaces, indexLabel)
@@ -351,7 +352,7 @@ def displayRegionRaster(regionRaster, index):
 
 
 
-def drawRegionLines( finishedImage, regionList):
+def drawRegionLines( filename, finishedImage, regionList):
 
 	regionMap = finishedImage.regionMap
 	maskRasterCollection = finishedImage.maskRasterCollection
@@ -455,7 +456,7 @@ def indexValidation(filename):
 	regionDirection = {}
 
 	# for index in range(10,15):  # Interesting regions: 11, 12, 14
-	print("RegionMap keys:", regionMap.keys())
+	# print("RegionMap keys:", regionMap.keys())
 	if Bridson_Common.bulkGeneration == False:
 		regionList = range(  54, 57)
 		regionList = range(len(regionMap.keys()))
@@ -489,19 +490,18 @@ def indexValidation(filename):
 
 	finishedImageNoSLICPRE.calculateRegionDirection(regionList)
 	finishedImageNoSLICPRE.generateRAG(filename, segments, regionColourMap)
-	drawRegionLines( finishedImageNoSLICPRE, regionList )
+	drawRegionLines( filename, finishedImageNoSLICPRE, regionList )
 
 	# Calculate RAG (Region Adjacency Graph)
 	finishedImageSLIC.calculateRegionDirection(regionList)
 	finishedImageSLIC.generateRAG(filename, segments, regionColourMap)
 	finishedImageSLIC.adjustRegionAngles(50)
-	drawRegionLines( finishedImageSLIC, regionList )
+	drawRegionLines( filename, finishedImageSLIC, regionList )
 
 	# meshObj.diagnosticExterior()
 			# flatMeshObj.diagnosticExterior()
 
 		# finishedImage.drawRegionContourLines(regionMap, index, meshObj)
-
 
 	# At this point, we need can attempt to merge the lines between each region.
 	# Still have a problem with the coordinates though.
@@ -575,7 +575,7 @@ def indexValidation(filename):
 	# finishedImageNoSLIC.highLightEdgePoints( drawSLICRegions=False )
 	# finishedImageSLIC.highLightEdgePoints(drawSLICRegions=True )
 
-	Bridson_Common.saveImage(filename, "PRE_NoSLIC", finishedImageNoSLICPRE.fig)
+	Bridson_Common.saveImage(filename, "NoSLIC_PRE", finishedImageNoSLICPRE.fig)
 	Bridson_Common.saveImage(filename, "WithSLIC", finishedImageSLIC.fig )
 	Bridson_Common.saveImage(filename, "NoSLIC", finishedImageNoSLIC.fig)
 
@@ -724,7 +724,10 @@ if __name__ == '__main__':
 		# segmentCounts = [100, 200]
 		segmentCounts = [200, 300, 400]
 		compactnessList = [ 0.1, 0.25, 0.5]
-		compactnessList = [ 10, 20, 40]
+		if Bridson_Common.SLIC0:
+			compactnessList = [10]
+		else:
+			compactnessList = [ 10, 20, 40]
 		# compactnessList = [1]
 	else:
 		segmentCounts = [200]
