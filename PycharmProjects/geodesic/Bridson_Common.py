@@ -74,8 +74,9 @@ verticalLines = True
 lineAngle = 90
 coherencyThreshold = 0.1
 lineWidth = 0.25
-stableRegionThreshold = 0.5 # Regions with a coherency above this value are considered stable.
-differencePercentile = 20 #
+stableCoherencyPercentile = 80 # Regions percentile with a coherency above this value are considered stable.
+diffAttractPercentile = 25 #
+diffRepelPercentile = 75
 
 semanticSegmentation='none' # Valid values: 'deeplabv3', 'mask_rcnn', 'both', 'none'
 semanticSegmentationRatio=0.75 # This is the weighting of the semantic segmentation.
@@ -108,6 +109,8 @@ increaseContrast=False
 contrastFactor=1.5 # Values above 1 increase contrast.  Values below 1 reduce contrast.
 
 
+# Image Generation
+GreyscaleSLIC = False
 
 
 colourArray = ['r', 'b', 'm']
@@ -143,6 +146,9 @@ def outputEnvironmentVariables():
 	print("semanticSegmentation:", semanticSegmentation)
 	print("semanticSegmentationRatio:", semanticSegmentationRatio)
 	print("semanticInvertMaskrcnn:", semanticInvertMaskrcnn)
+	print("stableCoherencyPercentile:", stableCoherencyPercentile)
+	print("differencePercentile:", diffAttractPercentile)
+	print("diffRepelPercentile:", diffRepelPercentile)
 	print("------------------------------------------------------------------")
 
 def determineLineSpacing( intensity):

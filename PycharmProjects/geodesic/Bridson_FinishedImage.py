@@ -31,7 +31,7 @@ class FinishedImage:
 		# self.ax.invert_yaxis()
 
 	def setTitle(self, filename):
-		self.ax.set_title('Merged Image - ' + filename + ' - Segments: ' + str(Bridson_Common.segmentCount) + ' - regionPixels: ' + str(Bridson_Common.targetRegionPixelCount) + ' - compactness: ' + str(Bridson_Common.compactnessSLIC) )
+		self.ax.set_title('Merged Image - ' + filename + ' - Segments: ' + str(Bridson_Common.segmentCount) + '\n - compactness: ' + str(Bridson_Common.compactnessSLIC) )
 
 	def setXLimit(self, left, right):
 		# print("Left:", left, "Right:", right)
@@ -53,7 +53,8 @@ class FinishedImage:
 		self.regionEdgePointMap =  otherFinishedImage.regionEdgePointMap # Map of (x,y) coordinates
 		self.regionAdjancencyMap =  otherFinishedImage.regionAdjancencyMap # Map to contain AdjancencyEdge objects
 		self.regionAdjacentRegions = otherFinishedImage.regionAdjacentRegions # Map containing list of adjacent regions for current region.
-
+		self.regionMap = otherFinishedImage.regionMap
+		self.regionIntensityMap = otherFinishedImage.regionIntensityMap
 
 	def cropContourLines(self, linePoints, raster, topLeftTarget):
 		'''
@@ -263,7 +264,7 @@ class FinishedImage:
 
 
 
-	def shiftLinePoints(self, regionMap, regionRaster):
+	def shiftLinePoints(self):
 		# for index in [5]:
 		# for index in self.maskRasterCollection.keys():
 
@@ -275,7 +276,7 @@ class FinishedImage:
 
 			# print("Shape of Region Raster:", np.shape(regionRaster))
 
-			regionCoordinates = regionMap.get(index)
+			regionCoordinates = self.regionMap.get(index)
 			topLeftTarget, bottomRightTarget = SLIC.calculateTopLeft(regionCoordinates)
 
 			# Create new raster that has been shifted.
@@ -421,7 +422,8 @@ class FinishedImage:
 		self.regionAdjancencyMap = {} # Map to contain AdjancencyEdge objects
 		self.regionAdjacentRegions = {} # Map containing list of adjacent regions for current region.
 
-	def cropCullLines(self, regionMap, regionRaster, maskRasterCollection, meshObjCollection, regionIntensityMap ):
+
+	def cropCullLines(self ):
 		# self.maskRasterCollection = maskRasterCollection
 		# self.meshObjCollection = meshObjCollection
 		# self.regionMap = regionMap
@@ -440,15 +442,15 @@ class FinishedImage:
 		for index in self.meshObjCollection.keys():
 			# print("Cropping index:", index)
 			raster = self.shiftedMaskRasterCollection[ index ]
-			meshObj = meshObjCollection[ index ]
+			meshObj = self.meshObjCollection[ index ]
 
-			regionCoordinates = regionMap.get(index)
+			regionCoordinates = self.regionMap.get(index)
 			topLeftTarget, bottomRightTarget = SLIC.calculateTopLeft(regionCoordinates)
 
 			meshObj.setCroppedLines( self.cropContourLines(meshObj.linePoints, self.shiftedMaskRasterCollection[index], topLeftTarget) )
 			# print("CropCullLines region croppedLines:", index, len(meshObj.croppedLinePoints) )
 
-			empty, culledLines = self.cullLines(  meshObj.croppedLinePoints, regionIntensityMap[index])
+			empty, culledLines = self.cullLines(  meshObj.croppedLinePoints, self.regionIntensityMap[index])
 			# meshObj.setCroppedLines( self.cullLines( index, meshObj.linePoints, regionIntensityMap[index] )  )
 			# print("CropCullLines region croppedLines empty:", empty)
 			if not empty:
@@ -584,8 +586,12 @@ class FinishedImage:
 		# Calculate the difference threshold.  Regions with differences below this threshold are
 		# candidates for changing their direction.
 		print( "Region Differences Values:", list( self.regionDifferences.values() ))
-		self.diffThreshold = np.percentile( list( self.regionDifferences.values() ), Bridson_Common.differencePercentile)
-		print("diff threshold", self.diffThreshold)
+		self.diffAttractThreshold = np.percentile(list( self.regionDifferences.values() ), Bridson_Common.diffAttractPercentile)
+		print("diff threshold", self.diffAttractThreshold)
+
+		self.diffRepelThreshold = np.percentile(list( self.regionDifferences.values() ), Bridson_Common.diffRepelPercentile)
+
+		self.stableThreshold = np.percentile( list(self.regionCoherency.values()), Bridson_Common.stableCoherencyPercentile)
 
 
 	def adjustRegionAngles(self, iterations=1):
@@ -600,7 +606,7 @@ class FinishedImage:
 				# print("region ", index, "coherency", self.regionCoherency[index] )
 				if index not in self.regionCoherency.keys():
 					print("Region", index, "not in coherency map")
-				elif self.regionCoherency[ index ] < Bridson_Common.stableRegionThreshold:
+				elif self.regionCoherency[ index ] < self.stableThreshold:
 					# print("Not Stable region:", index)
 					# If the region coherency is below the threshold, continue with checking
 					adjacentRegions = self.regionToRegions[ index ]
@@ -612,11 +618,17 @@ class FinishedImage:
 
 						pairIndex = (startIndex, endIndex)
 						# print("Pair Index", pairIndex)
-						if self.regionDifferences[ pairIndex ] < self.diffThreshold:
-							# Adjust this region's angle.
+
+						if self.regionDifferences[ pairIndex ] < self.diffAttractThreshold:
+							# Attraction case.
 							# print("Index", index, "Previous Angle", self.regionDirection[ index ] )
 							self.regionDirection[ index ] = Bridson_Angles.calcAverageAngle( self.regionDirection[ index ], self.regionDirection[ adjacentIndex ] )
 							# print("Adjusting angle of region", index, "now has direction",self.regionDirection[index])
+
+						if self.regionDifferences[ pairIndex ] > self.diffRepelThreshold:
+							# Repel case.
+							self.regionDirection[ index ] = Bridson_Angles.calcAverageAngle( self.regionDirection[ index ], (self.regionDirection[ adjacentIndex ] + 90) % 360 )
+
 				# else:
 				# 	print("Region is stable", index)
 		print("POST Region Directions:", self.regionDirection)
@@ -764,7 +776,7 @@ class FinishedImage:
 
 
 
-	def drawRegionContourLines(self, regionMap, index, meshObj, regionIntensity, drawSLICRegions = Bridson_Common.drawSLICRegions):
+	def drawRegionContourLines(self, index, drawSLICRegions = Bridson_Common.drawSLICRegions):
 
 		# If we are not drawing the SLIC regions, we do not need to flip the Y coordinates.
 		# If we draw the SLIC regions, we need to flip the Y coordinates.
@@ -773,6 +785,9 @@ class FinishedImage:
 		else:
 			flip = -1
 
+		regionMap = self.regionMap
+		meshObj = self.meshObjCollection[ index ]
+		regionIntensity = self.regionIntensityMap[ index ]
 
 		# Need to utilize the region Raster.
 		raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)

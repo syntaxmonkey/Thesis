@@ -169,7 +169,7 @@ def SLICImage(filename):
 
 	fig = plt.figure()
 	ax3 = fig.add_subplot(1, 1, 1, aspect=1, label='Image regions')
-	plt.title('Image regions - ' + filename + ' - Segments: ' + str(Bridson_Common.segmentCount) + ' - regionPixels: ' + str(Bridson_Common.targetRegionPixelCount))
+	plt.title('Image regions - ' + filename + ' - Segments: ' + str(Bridson_Common.segmentCount) )
 	# fig.canvas.set_window_title('Image regions - ' + filename + ' - Segments: ' + str(Bridson_Common.segmentCount) + ' - regionPixels: ' + str(Bridson_Common.targetRegionPixelCount))
 	''' Draw Letter blob '''
 
@@ -186,7 +186,8 @@ def SLICImage(filename):
 	# plt.clf()
 
 	# print("C")
-	Bridson_Common.saveImage(filename, "GreyscaleSLIC", fig)
+	if Bridson_Common.GreyscaleSLIC:
+		Bridson_Common.saveImage(filename, "GreyscaleSLIC", fig)
 	# plt.clf()
 	# print("D")
 	thismanager = pylab.get_current_fig_manager()
@@ -350,71 +351,13 @@ def displayRegionRaster(regionRaster, index):
 
 
 
+def drawRegionLines( finishedImage, regionList):
 
+	regionMap = finishedImage.regionMap
+	maskRasterCollection = finishedImage.maskRasterCollection
+	meshObjCollection = finishedImage.meshObjCollection
 
-def indexValidation(filename):
-	print(">>>>>>>>>>>>>>>> Calling SLIC for ", filename, "<<<<<<<<<<<<<<<<<<<<<<<")
-	imageraster, regionMap, regionRaster, segments, regionIntensityMap, regionColourMap = SLICImage(filename)
-	# imageShape = np.shape(regionRaster)
-	# Bridson_Common.segmentCount = int((imageShape[0]*imageShape[1]) / Bridson_Common.targetRegionPixelCount)
-	# print("Target Region Count:", Bridson_Common.segmentCount )
-	# print("Image Shape:", imageShape )
 	successfulRegions = 0
-	# Create new image for contour lines.  Should be the same size as original image.
-	finishedImageSLIC = Bridson_FinishedImage.FinishedImage()
-	finishedImageSLIC.setTitle(filename)
-	# print( "Region Raster: ", regionRaster )
-	finishedImageSLIC.drawSLICRegions( regionRaster, segments )
-	finishedImageSLIC.setTitle(filename)
-	# finishedImage.setXLimit( 0, np.shape(imageraster)[0])
-	finishedImageNoSLIC = Bridson_FinishedImage.FinishedImage()
-	finishedImageNoSLIC.setTitle(filename)
-	finishedImageNoSLIC.setXLimit(0, np.shape(regionRaster)[1])
-	finishedImageNoSLIC.setYLimit(0, -np.shape(regionRaster)[0])
-
-	maskRasterCollection = {}
-	meshObjCollection = {}
-	NoSLICmaskRasterCollection = {}
-	NoSLICmeshObjCollection = {}
-	regionDirection = {}
-
-	# for index in range(10,15):  # Interesting regions: 11, 12, 14
-	print("RegionMap keys:", regionMap.keys())
-	if Bridson_Common.bulkGeneration == False:
-		regionList = range(  54, 57)
-		regionList = range(len(regionMap.keys()))
-	else:
-		regionList = range(len(regionMap.keys()) )
-	# for index in range(5,10):
-	# for index in range( len(regionMap.keys()) ):
-
-	originalImage = Bridson_Common.readImagefile( filename )  # We read the image in as greyscale... should we?
-
-	plt.figure()
-	plt.imshow( originalImage )
-	plt.title("Original Image")
-
-	for index in regionList:
-		# Generate the raster for the first region.
-		raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
-		maskRasterCollection[index] = raster.copy()  # Make a copy of the mask raster.
-		NoSLICmaskRasterCollection[ index ] = raster.copy()
-		regionDirection[ index ] = 0  # Default the direction to 0.
-
-
-	# Set the variables
-	finishedImageSLIC.setMaps(regionMap, regionRaster, maskRasterCollection, meshObjCollection, regionIntensityMap)
-	# Create region raster in the actual location.
-	print("A")
-	finishedImageSLIC.shiftRastersMeshObj(regionMap, regionRaster, originalImage)
-	print("B")
-
-	# Calculate RAG (Region Adjacency Graph)
-	finishedImageSLIC.calculateRegionDirection(regionList)
-	finishedImageSLIC.generateRAG(filename, segments, regionColourMap)
-	finishedImageSLIC.adjustRegionAngles(50)
-
-
 
 	for index in regionList:
 		print("(**** ", filename, " Starting Region: ", index, "of", len(regionMap.keys()), "  *****" )
@@ -437,7 +380,7 @@ def indexValidation(filename):
 		# Calculate the angle in flat mesh coordinates.
 		if trifindersuccess:
 
-			meshAngle = finishedImageSLIC.regionDirection[ index ]  # Obtain the angle that was calculated.
+			meshAngle = finishedImage.regionDirection[ index ]  # Obtain the angle that was calculated.
 			flatAngle = int( flatMeshObj.calculateAngle( meshObj, desiredAngle=meshAngle ) )  # Determine the angle on the flat mesh.
 			print("MeshAngle:", meshAngle, "Flat angle:", flatAngle)
 
@@ -470,10 +413,89 @@ def indexValidation(filename):
 			# print("Rotated 90 clockwise")
 			meshObjCollection[ index ] = meshObj
 			# print("Save NoSLIC meshObj")
-			NoSLICmeshObjCollection[ index ] = meshObj
+			# NoSLICmeshObjCollection[ index ] = meshObj
 		else:
 			print("Trifinder was NOT successfully generated for region ", index)
 
+
+
+def indexValidation(filename):
+	print(">>>>>>>>>>>>>>>> Calling SLIC for ", filename, "<<<<<<<<<<<<<<<<<<<<<<<")
+	imageraster, regionMap, regionRaster, segments, regionIntensityMap, regionColourMap = SLICImage(filename)
+	# imageShape = np.shape(regionRaster)
+	# Bridson_Common.segmentCount = int((imageShape[0]*imageShape[1]) / Bridson_Common.targetRegionPixelCount)
+	# print("Target Region Count:", Bridson_Common.segmentCount )
+	# print("Image Shape:", imageShape )
+	successfulRegions = 0
+	# Create new image for contour lines.  Should be the same size as original image.
+	finishedImageSLIC = Bridson_FinishedImage.FinishedImage()
+	finishedImageSLIC.setTitle(filename)
+	# print( "Region Raster: ", regionRaster )
+	finishedImageSLIC.drawSLICRegions( regionRaster, segments )
+	finishedImageSLIC.setTitle(filename)
+
+
+	# finishedImage.setXLimit( 0, np.shape(imageraster)[0])
+	finishedImageNoSLIC = Bridson_FinishedImage.FinishedImage()
+	finishedImageNoSLIC.setTitle(filename)
+	finishedImageNoSLIC.setXLimit(0, np.shape(regionRaster)[1])
+	finishedImageNoSLIC.setYLimit(0, -np.shape(regionRaster)[0])
+
+	# finishedImage.setXLimit( 0, np.shape(imageraster)[0])
+	finishedImageNoSLICPRE = Bridson_FinishedImage.FinishedImage()
+	finishedImageNoSLICPRE.setTitle(filename + "_PRE_")
+	finishedImageNoSLICPRE.setXLimit(0, np.shape(regionRaster)[1])
+	finishedImageNoSLICPRE.setYLimit(0, -np.shape(regionRaster)[0])
+
+
+	maskRasterCollection = {}
+	meshObjCollection = {}
+	NoSLICmaskRasterCollection = {}
+	# NoSLICmeshObjCollection = {}
+	regionDirection = {}
+
+	# for index in range(10,15):  # Interesting regions: 11, 12, 14
+	print("RegionMap keys:", regionMap.keys())
+	if Bridson_Common.bulkGeneration == False:
+		regionList = range(  54, 57)
+		regionList = range(len(regionMap.keys()))
+	else:
+		regionList = range(len(regionMap.keys()) )
+	# for index in range(5,10):
+	# for index in range( len(regionMap.keys()) ):
+
+	originalImage = Bridson_Common.readImagefile( filename )  # We read the image in as greyscale... should we?
+
+	plt.figure()
+	plt.imshow( originalImage )
+	plt.title("Original Image")
+
+	for index in regionList:
+		# Generate the raster for the first region.
+		raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
+		maskRasterCollection[index] = raster.copy()  # Make a copy of the mask raster.
+		NoSLICmaskRasterCollection[ index ] = raster.copy()
+		regionDirection[ index ] = 0  # Default the direction to 0.
+
+
+	# Set the variables
+	finishedImageSLIC.setMaps(regionMap, regionRaster, maskRasterCollection, meshObjCollection, regionIntensityMap)
+	finishedImageNoSLICPRE.setMaps(regionMap.copy(), regionRaster.copy(), maskRasterCollection.copy(), meshObjCollection.copy(), regionIntensityMap.copy())
+	# Create region raster in the actual location.
+	print("A")
+	finishedImageSLIC.shiftRastersMeshObj(regionMap, regionRaster, originalImage)
+	finishedImageNoSLICPRE.shiftRastersMeshObj(regionMap, regionRaster, originalImage)
+	print("B")
+
+	finishedImageNoSLICPRE.calculateRegionDirection(regionList)
+	finishedImageNoSLICPRE.generateRAG(filename, segments, regionColourMap)
+	drawRegionLines( finishedImageNoSLICPRE, regionList )
+
+	# Calculate RAG (Region Adjacency Graph)
+	finishedImageSLIC.calculateRegionDirection(regionList)
+	finishedImageSLIC.generateRAG(filename, segments, regionColourMap)
+	finishedImageSLIC.adjustRegionAngles(50)
+	drawRegionLines( finishedImageSLIC, regionList )
 
 	# meshObj.diagnosticExterior()
 			# flatMeshObj.diagnosticExterior()
@@ -491,10 +513,13 @@ def indexValidation(filename):
 	# finishedImageSLIC.shiftRastersMeshObj( regionMap, regionRaster )
 
 	# Shift the lines into the region actual location.
-	finishedImageSLIC.shiftLinePoints(regionMap, regionRaster)
+	finishedImageNoSLICPRE.shiftLinePoints( )
+	finishedImageSLIC.shiftLinePoints( )
+
 
 	print("regionIntensityMap:", regionIntensityMap)
-	finishedImageSLIC.cropCullLines(regionMap, regionRaster, maskRasterCollection, meshObjCollection, regionIntensityMap)
+	finishedImageNoSLICPRE.cropCullLines()
+	finishedImageSLIC.cropCullLines()
 	# print("***************** Raster:", maskRasterCollection[30])
 	if False:
 		normalizedMask = finishedImageSLIC.shiftedMaskRasterCollection[55].copy()
@@ -510,6 +535,7 @@ def indexValidation(filename):
 	# # flatMeshObj.checkLinePoints()
 	# finishedImageSLIC.checkCroppedLines()
 	print("About to genLineAdjacencyMap")
+	finishedImageNoSLICPRE.genLineAdjacencyMap()
 	finishedImageSLIC.genLineAdjacencyMap()
 
 	# print("Point G")
@@ -518,6 +544,7 @@ def indexValidation(filename):
 	# finishedImageSLIC.checkCroppedLines()
 
 	print("About to mergeLines")
+	finishedImageNoSLICPRE.mergeLines()
 	finishedImageSLIC.mergeLines()
 
 	# print("Point G")
@@ -537,15 +564,18 @@ def indexValidation(filename):
 		meshObj = meshObjCollection[ index ]
 		# print("About to call drawRegionContourLines on SLIC image.")
 		# Bridson_Common.debug = True
-		finishedImageSLIC.drawRegionContourLines(regionMap, index, meshObj, regionIntensityMap[index], drawSLICRegions=True )
+		finishedImageNoSLICPRE.drawRegionContourLines( index, drawSLICRegions=False )
+		finishedImageSLIC.drawRegionContourLines( index,  drawSLICRegions=True )
 		# print("About to call drawRegionContourLines on NON SLIC image.")
-		finishedImageNoSLIC.drawRegionContourLines(regionMap, index, meshObj, regionIntensityMap[index], drawSLICRegions=False )
+		finishedImageNoSLIC.drawRegionContourLines( index,  drawSLICRegions=False )
+
+
 		# print("Done drawing contour lines")
 
 	# finishedImageNoSLIC.highLightEdgePoints( drawSLICRegions=False )
 	# finishedImageSLIC.highLightEdgePoints(drawSLICRegions=True )
 
-
+	Bridson_Common.saveImage(filename, "PRE_NoSLIC", finishedImageNoSLICPRE.fig)
 	Bridson_Common.saveImage(filename, "WithSLIC", finishedImageSLIC.fig )
 	Bridson_Common.saveImage(filename, "NoSLIC", finishedImageNoSLIC.fig)
 
@@ -674,7 +704,8 @@ if __name__ == '__main__':
 	images.append('mr-o-k--ePHy6jg_7c-unsplash.jpg')
 	images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
 
-	semanticSegmentation = ['none', 'mask_rcnn', 'deeplabv3', 'both']
+	semanticSegmentation = ['none', 'mask_rcnn',  'both']
+	# semanticSegmentation = ['none', 'mask_rcnn', 'deeplabv3', 'both']
 	# semanticSegmentation = ['mask_rcnn', 'deeplabv3', 'both']
 	# semanticSegmentation = ['both', 'none']
 	# semanticSegmentation.append('none')
@@ -691,8 +722,8 @@ if __name__ == '__main__':
 	targetPixels = [3200]
 	if Bridson_Common.bulkGeneration:
 		# segmentCounts = [100, 200]
-		segmentCounts = [200, 400]
-		compactnessList = [ 0.1, 0.25, 0.5,]
+		segmentCounts = [200, 300, 400]
+		compactnessList = [ 0.1, 0.25, 0.5]
 		compactnessList = [ 10, 20, 40]
 		# compactnessList = [1]
 	else:
