@@ -1,2 +1,6 @@
 CoreCount: 4
-[('david-dibert-Huza8QOO3tc-unsplash.jpg', 200, 0.01, 'none'), ('david-dibert-Huza8QOO3tc-unsplash.jpg', 200, 0.01, 'mask_rcnn'), ('david-dibert-Huza8QOO3tc-unsplash.jpg', 200, 0.01, 'both'), ('david-dibert-Huza8QOO3tc-unsplash.jpg', 300, 0.01, 'none'), ('david-dibert-Huza8QOO3tc-unsplash.jpg', 300, 0.01, 'mask_rcnn'), ('david-dibert-Huza8QOO3tc-unsplash.jpg', 300, 0.01, 'both'), ('david-dibert-Huza8QOO3tc-unsplash.jpg', 400, 0.01, 'none'), ('david-dibert-Huza8QOO3tc-unsplash.jpg', 400, 0.01, 'mask_rcnn')]
+[('simpleTriangle.png', 200, 0.001, 'none'), ('simpleTriangle.png', 200, 0.001, 'mask_rcnn'), ('simpleTriangle.png', 200, 0.001, 'both'), ('simpleTriangle.png', 300, 0.001, 'none'), ('simpleTriangle.png', 300, 0.001, 'mask_rcnn'), ('simpleTriangle.png', 300, 0.001, 'both'), ('simpleTriangle.png', 400, 0.001, 'none'), ('simpleTriangle.png', 400, 0.001, 'mask_rcnn')]
+CoreCount: 1
+[('simpleTriangle.png', 200, 0.001, 'none'), ('simpleTriangle.png', 200, 0.001, 'mask_rcnn')]
+CoreCount: 1
+[('simpleTriangle.png', 200, 0.001, 'none'), ('simpleTriangle.png', 200, 0.001, 'mask_rcnn')]

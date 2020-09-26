@@ -28,6 +28,7 @@ import Bridson_StructTensor
 from multiprocessing import Process, freeze_support, set_start_method, Pool
 import multiprocessing as mp
 import uuid
+import traceback
 
 if os.path.exists("./output") == True:
 	if os.path.isdir("./output") == False:
@@ -164,11 +165,11 @@ def SLICImage(filename):
 	startIndex = 0 # Index starts at 0.
 	regionIndex = startIndex
 	imageraster, regionMap, segments, regionIntensityMap, regionColourMap = SLIC.callSLIC(filename)
-	# print("CC")
+	print("CC")
 	Bridson_Common.outputEnvironmentVariables()
 
 	# stopIndex=startIndex+16
-
+	print("CC1")
 	fig = plt.figure()
 	ax3 = fig.add_subplot(1, 1, 1, aspect=1, label='Image regions')
 	plt.title('Image regions - ' + filename + ' - Segments: ' + str(Bridson_Common.segmentCount) )
@@ -180,14 +181,14 @@ def SLICImage(filename):
 	# ax3.imshow(blankRaster)
 	# ax3.imshow( imageraster, cmap='Greys', norm=matplotlib.colors.Normalize())
 	# ax3.imshow( imageraster, cmap='Greys' )
-	# print("B")
+	print("B")
 	regionRaster = imageraster / np.max(imageraster)   # Need to normalize the region intensity [0 ... 1.0] to display properly.
 	# print("Raster:", displayRaster)
 	ax3.imshow(mark_boundaries( regionRaster, segments, color=(255,0,0) ))
 	ax3.grid()
 	# plt.clf()
 
-	# print("C")
+	print("C")
 	if Bridson_Common.GreyscaleSLIC:
 		Bridson_Common.saveImage(filename, "GreyscaleSLIC", fig)
 	# plt.clf()
@@ -424,6 +425,7 @@ def drawRegionLines( filename, finishedImage, regionList):
 def indexValidation(filename):
 	print(">>>>>>>>>>>>>>>> Calling SLIC for ", filename, "<<<<<<<<<<<<<<<<<<<<<<<")
 	imageraster, regionMap, regionRaster, segments, regionIntensityMap, regionColourMap = SLICImage(filename)
+
 	# imageShape = np.shape(regionRaster)
 	# Bridson_Common.segmentCount = int((imageShape[0]*imageShape[1]) / Bridson_Common.targetRegionPixelCount)
 	# print("Target Region Count:", Bridson_Common.segmentCount )
@@ -484,14 +486,17 @@ def indexValidation(filename):
 	finishedImageSLIC.setMaps(regionMap, regionRaster, maskRasterCollection, meshObjCollection, regionIntensityMap)
 	finishedImageNoSLICPRE.setMaps(regionMap.copy(), regionRaster.copy(), maskRasterCollection.copy(), meshObjCollection.copy(), regionIntensityMap.copy())
 	# Create region raster in the actual location.
-	print("A")
+	print("0A")
 	finishedImageSLIC.shiftRastersMeshObj(regionMap, regionRaster, originalImage)
 	finishedImageNoSLICPRE.shiftRastersMeshObj(regionMap, regionRaster, originalImage)
-	print("B")
+	print("0B")
 
 	finishedImageNoSLICPRE.calculateRegionDirection(regionList)
+	print("0B1")
 	finishedImageNoSLICPRE.generateRAG(filename, segments, regionColourMap)
+	print("0B2")
 	drawRegionLines( filename, finishedImageNoSLICPRE, regionList )
+	print("0C")
 
 	# Calculate RAG (Region Adjacency Graph)
 	finishedImageSLIC.calculateRegionDirection(regionList)
@@ -499,6 +504,7 @@ def indexValidation(filename):
 	finishedImageSLIC.adjustRegionAngles(50)
 	drawRegionLines( filename, finishedImageSLIC, regionList )
 
+	print("0D")
 	# meshObj.diagnosticExterior()
 			# flatMeshObj.diagnosticExterior()
 
@@ -516,11 +522,12 @@ def indexValidation(filename):
 	# Shift the lines into the region actual location.
 	finishedImageNoSLICPRE.shiftLinePoints( )
 	finishedImageSLIC.shiftLinePoints( )
-
+	print("0E")
 
 	print("regionIntensityMap:", regionIntensityMap)
 	finishedImageNoSLICPRE.cropCullLines()
 	finishedImageSLIC.cropCullLines()
+	print("0F")
 	# print("***************** Raster:", maskRasterCollection[30])
 	if False:
 		normalizedMask = finishedImageSLIC.shiftedMaskRasterCollection[55].copy()
@@ -538,7 +545,7 @@ def indexValidation(filename):
 	print("About to genLineAdjacencyMap")
 	finishedImageNoSLICPRE.genLineAdjacencyMap()
 	finishedImageSLIC.genLineAdjacencyMap()
-
+	print("0G")
 	# print("Point G")
 	# # meshObj.checkLinePoints()
 	# # flatMeshObj.checkLinePoints()
@@ -547,7 +554,7 @@ def indexValidation(filename):
 	print("About to mergeLines")
 	finishedImageNoSLICPRE.mergeLines()
 	finishedImageSLIC.mergeLines()
-
+	print("0H")
 	# print("Point G")
 	# # meshObj.checkLinePoints()
 	# # flatMeshObj.checkLinePoints()
@@ -555,7 +562,7 @@ def indexValidation(filename):
 
 	print("About to copyFromOther")
 	finishedImageNoSLIC.copyFromOther( finishedImageSLIC )
-
+	print("0I")
 	# print("Point H")
 	# meshObj.checkLinePoints()
 	# flatMeshObj.checkLinePoints()
@@ -569,7 +576,7 @@ def indexValidation(filename):
 		finishedImageSLIC.drawRegionContourLines( index,  drawSLICRegions=True )
 		# print("About to call drawRegionContourLines on NON SLIC image.")
 		finishedImageNoSLIC.drawRegionContourLines( index,  drawSLICRegions=False )
-
+	print("0J")
 
 		# print("Done drawing contour lines")
 
@@ -579,7 +586,7 @@ def indexValidation(filename):
 	Bridson_Common.saveImage(filename, "NoSLIC_PRE", finishedImageNoSLICPRE.fig)
 	Bridson_Common.saveImage(filename, "WithSLIC", finishedImageSLIC.fig )
 	Bridson_Common.saveImage(filename, "NoSLIC", finishedImageNoSLIC.fig)
-
+	print("0K")
 	print("Successful Regions: ", successfulRegions)
 	print("Total Regions: ", len(regionMap.keys()) )
 	print("||||||||||||||||||||||||||||||||||")
@@ -630,6 +637,10 @@ def wrapper(filename, segmentCount, compactness, cnn):
 	except Exception as e:
 		print("Exception calling indexValidation for filename:", filename, e)
 		print("Error details:", sys.exc_info()[0])
+		exc_info = sys.exc_info()
+		traceback.print_exception(*exc_info)
+		del exc_info
+
 
 	plt.close("all")
 	gc.collect()
@@ -649,12 +660,12 @@ if __name__ == '__main__':
 	images = []
 	# images.append('SimpleR.png')
 	# images.append('SimpleC.png')
-	# images.append('simpleTriangle.png')
+	images.append('simpleTriangle.png')
 	# images.append('simpleHorizon.png')
-	# images.append('FourSquares.png')
-	# # images.append('SimpleSquare.jpg')
-	# images.append("FourCircles.png")
-	# images.append('Stripes.png')
+	images.append('FourSquares.png')
+	images.append('SimpleSquare.jpg')
+	images.append("FourCircles.png")
+	images.append('Stripes.png')
 
 	# Batch A.
 	# images.append('RedApple.jpg')
@@ -696,14 +707,14 @@ if __name__ == '__main__':
 	# images.append('ruslan-keba-G5tOIWFZqFE-unsplash_RubiksCube.jpg')
 
 	# Batch D
-	images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
-	images.append('everyday-basics-i0ROGKijuek-unsplash.jpg')
-	images.append('imani-bahati-LxVxPA1LOVM-unsplash.jpg')
-	images.append('kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg')
-	images.append('luis-quintero-qKspdY9XUzs-unsplash.jpg')
-	images.append('miguel-andrade-nAOZCYcLND8-unsplash.jpg')
-	images.append('mr-o-k--ePHy6jg_7c-unsplash.jpg')
-	images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
+	# images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
+	# images.append('everyday-basics-i0ROGKijuek-unsplash.jpg')
+	# images.append('imani-bahati-LxVxPA1LOVM-unsplash.jpg')
+	# images.append('kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg')
+	# images.append('luis-quintero-qKspdY9XUzs-unsplash.jpg')
+	# images.append('miguel-andrade-nAOZCYcLND8-unsplash.jpg')
+	# images.append('mr-o-k--ePHy6jg_7c-unsplash.jpg')
+	# images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
 
 	semanticSegmentation = ['none', 'mask_rcnn',  'both']
 	# semanticSegmentation = ['none', 'mask_rcnn', 'deeplabv3', 'both']
@@ -726,7 +737,7 @@ if __name__ == '__main__':
 		segmentCounts = [200, 300, 400]
 		compactnessList = [ 0.1, 0.25, 0.5]
 		if Bridson_Common.SLIC0:
-			compactnessList = [0.01]
+			compactnessList = [0.001]
 		else:
 			compactnessList = [ 10, 20, 40]
 		# compactnessList = [1]
@@ -765,7 +776,9 @@ if __name__ == '__main__':
 						except Exception as e:
 							print("Exception calling indexValidation:", e)
 							print("Error details:", sys.exc_info()[0])
-
+							exc_info = sys.exc_info()
+							traceback.print_exception(*exc_info)
+							del exc_info
 
 	if Bridson_Common.bulkGeneration:
 		# coreCount = mp.cpu_count() - 4

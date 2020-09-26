@@ -527,11 +527,15 @@ class FinishedImage:
 		'''
 		# Calculate initial direction.
 		for index in regionList:
+			# print("calculateRegionDirection1")
 			unshiftedMaskedImage = self.unshiftedImageMaskedRegion[ index ].copy()
 			# print("D")
+			# print("calculateRegionDirection2")
 			st = Bridson_StructTensor.ST(unshiftedMaskedImage)
 			# print("E")
+			# print("calculateRegionDirection3")
 			direction, coherency = st.calculateEigenVector()
+			# print("calculateRegionDirection4")
 			self.regionDirection[ index ] = direction
 
 			if coherency > Bridson_Common.coherencyThreshold:
@@ -542,6 +546,7 @@ class FinishedImage:
 			meshAngle = meshAngle % 360
 			self.regionDirection[ index ] = meshAngle
 			self.regionCoherency[ index ] = coherency
+			# print("calculateRegionDirection5")
 		# print("Region Coherency:", self.regionCoherency)
 
 

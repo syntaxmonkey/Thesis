@@ -99,7 +99,10 @@ class ST:
 		eig1 = listValues[0] if listValues[0] > listValues[1] else listValues[1]
 		eig2 = listValues[0] if listValues[0] < listValues[1] else listValues[1]
 
-		self.coherency = (eig1 - eig2) / (eig1 + eig2)
+		try:
+			self.coherency = (eig1 - eig2) / (eig1 + eig2)
+		except ZeroDivisionError:
+			self.coherency = (eig1 - eig2) / 0.00000000001
 
 		# print("Direction: ", direction, "Coherency:", self.coherency)
 		return direction, self.coherency

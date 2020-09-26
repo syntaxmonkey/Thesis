@@ -76,18 +76,18 @@ def segmentImage(imageName, numSegments):
 	else:
 		# Bridson_Common.semanticSegmentation == 'none':
 		image = io.imread(imageName)
-
+	print("EE1")
 	# Alpha mix the the
 	imageRatio = 1 - Bridson_Common.semanticSegmentationRatio
 	image = cv.addWeighted(originalImage, imageRatio, image, Bridson_Common.semanticSegmentationRatio, 0.0)
-
+	print("EE2")
 	postFix = postFix + 'OVERLAY'
 	saveImage(imageName, postFix, image)
 	if Bridson_Common.bulkGeneration == False:
 		plt.figure()
 		plt.title(imageName + 'Semantic Segmentation')
 		plt.imshow(image)
-
+	print("EE2")
 	if Bridson_Common.increaseContrast:
 		image = np.asarray( Bridson_ImageModify.increaseContrast( Image.fromarray(image),  Bridson_Common.contrastFactor ) )
 	if Bridson_Common.SLICGrey:
@@ -96,10 +96,10 @@ def segmentImage(imageName, numSegments):
 		image = np.asarray( Image.fromarray(image).convert('L') )
 	# imageArr = np.asarray( image )
 	# image = np.copy(image)
-
+	print("EE3")
 	print("Shape:",np.shape(image))
 	print("Type:",type(image))
-
+	print("EE4")
 	if Bridson_Common.Median:
 		# try:
 		image = filters.median( image )
@@ -352,9 +352,9 @@ def callSLIC(filename):
 	segmentCount = Bridson_Common.segmentCount
 	for numSegments in (segmentCount,):
 		image, segments = segmentImage(filename, numSegments)
-		# print("DD")
+		print("DD")
 		newImage = np.copy(image)
-		# print("DD1")
+		print("DD1")
 		# greyscaleImage = np.asarray( Image.fromarray(image).convert('L') )
 		# print('GreyScale:', greyscaleImage)
 		# regionIndex = 16
@@ -365,17 +365,17 @@ def callSLIC(filename):
 		# Bridson_Common.logDebug(__name__, "shape: ", np.shape(segments)) # HSC
 		# Bridson_Common.logDebug(__name__, segments)
 		# plt.axis("off")
-		# print("DD2")
+		print("DD2")
 		originalImage = cv.imread(filename)
 		# originalImage = np.asarray( originalImage )
-		# print("DD3")
+		print("DD3")
 		regionColourMap = generateImageColourHashmap(originalImage, segments)
-		# print("DD4")
+		print("DD4")
 		# print("regionColourMap:", regionColourMap)
 
 		# greyscaleImage = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
 		greyscaleImage = cv.cvtColor(originalImage, cv.COLOR_BGR2GRAY)
-		# print("DD5")
+		print("DD5")
 			# np.asarray(Image.fromarray(image).convert('L'))
 		# Generate region intensity HashMap.
 		regionIntensityMap = generateImageIntensityHashmap(greyscaleImage, segments)
