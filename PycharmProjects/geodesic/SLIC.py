@@ -47,6 +47,7 @@ def segmentImage(imageName, numSegments):
 	# load the image and convert it to a floating point data type
 	# image = img_as_float(io.imread(imageName))
 	originalImage = cv.imread( imageName )
+	print("EE")
 	postFix = ''
 	if Bridson_Common.semanticSegmentation == 'mask_rcnn':
 		cnn = SemanticSegmentation.Mask_RCNN()
@@ -351,9 +352,10 @@ def callSLIC(filename):
 	segmentCount = Bridson_Common.segmentCount
 	for numSegments in (segmentCount,):
 		image, segments = segmentImage(filename, numSegments)
+		# print("DD")
 		newImage = np.copy(image)
-
-		greyscaleImage = np.asarray( Image.fromarray(image).convert('L') )
+		# print("DD1")
+		# greyscaleImage = np.asarray( Image.fromarray(image).convert('L') )
 		# print('GreyScale:', greyscaleImage)
 		# regionIndex = 16
 		# show the output of SLIC
@@ -363,18 +365,24 @@ def callSLIC(filename):
 		# Bridson_Common.logDebug(__name__, "shape: ", np.shape(segments)) # HSC
 		# Bridson_Common.logDebug(__name__, segments)
 		# plt.axis("off")
-
+		# print("DD2")
 		originalImage = cv.imread(filename)
+		# originalImage = np.asarray( originalImage )
+		# print("DD3")
 		regionColourMap = generateImageColourHashmap(originalImage, segments)
-
+		# print("DD4")
 		# print("regionColourMap:", regionColourMap)
 
-		greyscaleImage = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
+		# greyscaleImage = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
+		greyscaleImage = cv.cvtColor(originalImage, cv.COLOR_BGR2GRAY)
+		# print("DD5")
 			# np.asarray(Image.fromarray(image).convert('L'))
 		# Generate region intensity HashMap.
 		regionIntensityMap = generateImageIntensityHashmap(greyscaleImage, segments)
+		# print("DD6")
 		# print("Region Intensity Map:", regionIntensityMap)
 		raster, regionMap = catalogRegions(segments, regionIntensityMap)
+		# print("DD7")
 		# fig = plt.figure("Raster --")
 		# ax = fig.add_subplot(3, 3,  2)
 		# regionImage = Image.fromarray(np.uint8(raster), 'L')

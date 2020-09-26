@@ -622,10 +622,11 @@ class FinishedImage:
 						pairIndex = (startIndex, endIndex)
 						# print("Pair Index", pairIndex)
 
-						# Attract case.
+						# Attract case.  Repeat this step twice.
 						if self.regionDifferences[ pairIndex ] < self.diffAttractThreshold:
 							# print("Index", index, "Previous Angle", self.regionDirection[ index ] )
 							self.regionDirection[ index ] = Bridson_Angles.calcAverageAngle( self.regionDirection[ index ], self.regionDirection[ adjacentIndex ] )
+							self.regionDirection[index] = Bridson_Angles.calcAverageAngle(self.regionDirection[index], self.regionDirection[adjacentIndex])
 							# print("Adjusting angle of region", index, "now has direction",self.regionDirection[index])
 
 						# Repel case.

@@ -37,7 +37,7 @@ else:
 
 # Redirect print statements to file.
 if Bridson_Common.bulkGeneration:
-	sys.stdout = open("./output/detailLogs.txt", "a")
+	# sys.stdout = open("./output/detailLogs.txt", "a")
 	# Bridson_Common.outputEnvironmentVariables()
 	pass
 
@@ -164,6 +164,7 @@ def SLICImage(filename):
 	startIndex = 0 # Index starts at 0.
 	regionIndex = startIndex
 	imageraster, regionMap, segments, regionIntensityMap, regionColourMap = SLIC.callSLIC(filename)
+	# print("CC")
 	Bridson_Common.outputEnvironmentVariables()
 
 	# stopIndex=startIndex+16
@@ -725,7 +726,7 @@ if __name__ == '__main__':
 		segmentCounts = [200, 300, 400]
 		compactnessList = [ 0.1, 0.25, 0.5]
 		if Bridson_Common.SLIC0:
-			compactnessList = [10]
+			compactnessList = [0.01]
 		else:
 			compactnessList = [ 10, 20, 40]
 		# compactnessList = [1]
@@ -768,7 +769,7 @@ if __name__ == '__main__':
 
 	if Bridson_Common.bulkGeneration:
 		# coreCount = mp.cpu_count() - 4
-		coreCount = 4
+		coreCount = 1
 		'''
 			Have to implement this looping mechanism.
 			For some reason, if we provide the whole list to the pool, the pool eventually hangs or all the chidren crash.

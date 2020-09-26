@@ -1,0 +1,2 @@
+CoreCount: 4
+[('david-dibert-Huza8QOO3tc-unsplash.jpg', 200, 0.01, 'none'), ('david-dibert-Huza8QOO3tc-unsplash.jpg', 200, 0.01, 'mask_rcnn'), ('david-dibert-Huza8QOO3tc-unsplash.jpg', 200, 0.01, 'both'), ('david-dibert-Huza8QOO3tc-unsplash.jpg', 300, 0.01, 'none'), ('david-dibert-Huza8QOO3tc-unsplash.jpg', 300, 0.01, 'mask_rcnn'), ('david-dibert-Huza8QOO3tc-unsplash.jpg', 300, 0.01, 'both'), ('david-dibert-Huza8QOO3tc-unsplash.jpg', 400, 0.01, 'none'), ('david-dibert-Huza8QOO3tc-unsplash.jpg', 400, 0.01, 'mask_rcnn')]
