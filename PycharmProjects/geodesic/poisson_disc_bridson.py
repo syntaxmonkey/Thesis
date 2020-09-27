@@ -34,6 +34,7 @@ from FindMeshBoundary import generateBoundaryPoints, findTopBottom, findLeftRigh
 from circularLines import generateCircularPoints
 
 from SLIC import callSLIC, createRegionRasters
+import Bridson_Common
 
 def euclidean_distance(a, b):
 	dx = a[0] - b[0]
@@ -709,7 +710,8 @@ def genMesh():
 		count, chain, chainDirection, border = generateChainCode(letter)
 		print('ChainDirection:', len(chainDirection), chainDirection)
 		# writeChainCodeFile('./', 'testChainCode.txt', chainDirection)
-		writeChainCodeFile('./', 'chaincode.txt', chainDirection)
+
+		writeChainCodeFile('', Bridson_Common.chaincodefile, chainDirection)
 		print(len(chainDirection))
 		perimeterSegments = len(chainDirection)
 		startingR = perimeterSegments / 10
@@ -937,7 +939,7 @@ def genMeshFromRaster():
 
 			print('ChainDirection:', len(chainDirection), chainDirection)
 			# writeChainCodeFile('./', 'testChainCode.txt', chainDirection)
-			writeChainCodeFile('./', 'chaincode.txt', chainDirection)
+			writeChainCodeFile('', Bridson_Common.chaincodefile, chainDirection)
 			print(len(chainDirection))
 			perimeterSegments = len(chainDirection)
 			startingR = perimeterSegments / 20
@@ -1100,7 +1102,7 @@ def genMeshFromRaster2():
 
 			print('ChainDirection:', len(chainDirection), chainDirection)
 			# writeChainCodeFile('./', 'testChainCode.txt', chainDirection)
-			writeChainCodeFile('./', 'chaincode.txt', chainDirection)
+			writeChainCodeFile('', Bridson_Common.chaincodefile, chainDirection)
 			print(len(chainDirection))
 			perimeterSegments = len(chainDirection)
 			startingR = perimeterSegments / 20

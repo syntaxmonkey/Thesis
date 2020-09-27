@@ -30,17 +30,8 @@ import multiprocessing as mp
 import uuid
 import traceback
 
-if os.path.exists("./output") == True:
-	if os.path.isdir("./output") == False:
-		exit(-1)
-else:
-	os.mkdir("./output")
 
 # Redirect print statements to file.
-if Bridson_Common.bulkGeneration:
-	# sys.stdout = open("./output/detailLogs.txt", "a")
-	# Bridson_Common.outputEnvironmentVariables()
-	pass
 
 
 random.seed(Bridson_Common.seedValue)
@@ -156,9 +147,10 @@ def cleanUpFiles():
 	# os.system("rm " + path + "test1.obj ")
 	# os.system("rm "+ path + "test1_out.obj")
 	# os.system("rm " + path + "test1_out_flat.obj")
-	os.system("rm " + path + Bridson_Common.test1obj)
-	os.system("rm "+ path + Bridson_Common.test1_outobj)
-	os.system("rm " + path + Bridson_Common.test1_out_flatobj)
+	os.system("rm " +  Bridson_Common.test1obj)
+	os.system("rm "+  Bridson_Common.test1_outobj)
+	os.system("rm " +  Bridson_Common.test1_out_flatobj)
+	os.system("rm " +  Bridson_Common.chaincodefile)
 
 
 def SLICImage(filename):
@@ -438,10 +430,9 @@ def indexValidation(filename):
 	finishedImageSLIC.drawSLICRegions( regionRaster, segments )
 	finishedImageSLIC.setTitle(filename)
 
-
 	# finishedImage.setXLimit( 0, np.shape(imageraster)[0])
 	finishedImageNoSLIC = Bridson_FinishedImage.FinishedImage()
-	finishedImageNoSLIC.setTitle(filename)
+	finishedImageNoSLIC.setTitle(filename + "_POST_")
 	finishedImageNoSLIC.setXLimit(0, np.shape(regionRaster)[1])
 	finishedImageNoSLIC.setYLimit(0, -np.shape(regionRaster)[0])
 
@@ -524,7 +515,7 @@ def indexValidation(filename):
 	finishedImageSLIC.shiftLinePoints( )
 	print("0E")
 
-	print("regionIntensityMap:", regionIntensityMap)
+	# print("regionIntensityMap:", regionIntensityMap)
 	finishedImageNoSLICPRE.cropCullLines()
 	finishedImageSLIC.cropCullLines()
 	print("0F")
@@ -585,7 +576,7 @@ def indexValidation(filename):
 
 	Bridson_Common.saveImage(filename, "NoSLIC_PRE", finishedImageNoSLICPRE.fig)
 	Bridson_Common.saveImage(filename, "WithSLIC", finishedImageSLIC.fig )
-	Bridson_Common.saveImage(filename, "NoSLIC", finishedImageNoSLIC.fig)
+	Bridson_Common.saveImage(filename, "NoSLIC_POST", finishedImageNoSLIC.fig)
 	print("0K")
 	print("Successful Regions: ", successfulRegions)
 	print("Total Regions: ", len(regionMap.keys()) )
@@ -621,6 +612,7 @@ def wrapper(filename, segmentCount, compactness, cnn):
 	Bridson_Common.test1obj = baseName + '.obj'
 	Bridson_Common.test1_outobj = baseName + '_out.obj'
 	Bridson_Common.test1_out_flatobj = baseName + '_out_flat.obj'
+	Bridson_Common.chaincodefile = baseName + '_chaincode.txt'
 
 	# cleanUpFiles()
 	random.seed(Bridson_Common.seedValue)
@@ -662,10 +654,11 @@ if __name__ == '__main__':
 	# images.append('SimpleC.png')
 	images.append('simpleTriangle.png')
 	# images.append('simpleHorizon.png')
-	images.append('FourSquares.png')
-	images.append('SimpleSquare.jpg')
-	images.append("FourCircles.png")
+	# images.append('FourSquares.png')
+	# images.append('SimpleSquare.jpg')
+	# images.append("FourCircles.png")
 	images.append('Stripes.png')
+	images.append("SimpleSquares.png")
 
 	# Batch A.
 	# images.append('RedApple.jpg')
@@ -717,6 +710,7 @@ if __name__ == '__main__':
 	# images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
 
 	semanticSegmentation = ['none', 'mask_rcnn',  'both']
+	semanticSegmentation = ['none']
 	# semanticSegmentation = ['none', 'mask_rcnn', 'deeplabv3', 'both']
 	# semanticSegmentation = ['mask_rcnn', 'deeplabv3', 'both']
 	# semanticSegmentation = ['both', 'none']
@@ -735,6 +729,7 @@ if __name__ == '__main__':
 	if Bridson_Common.bulkGeneration:
 		# segmentCounts = [100, 200]
 		segmentCounts = [200, 300, 400]
+		segmentCounts = [200]
 		compactnessList = [ 0.1, 0.25, 0.5]
 		if Bridson_Common.SLIC0:
 			compactnessList = [0.001]
@@ -782,7 +777,7 @@ if __name__ == '__main__':
 
 	if Bridson_Common.bulkGeneration:
 		# coreCount = mp.cpu_count() - 4
-		coreCount = 1
+		coreCount = 4
 		'''
 			Have to implement this looping mechanism.
 			For some reason, if we provide the whole list to the pool, the pool eventually hangs or all the chidren crash.

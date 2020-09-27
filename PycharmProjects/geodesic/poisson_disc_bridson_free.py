@@ -32,6 +32,7 @@ from ChainCodeGenerator import generateChainCode, writeChainCodeFile
 
 from FindMeshBoundary import generateBoundaryPoints, findTopBottom, findLeftRight
 from circularLines import generateCircularPoints
+import Bridson_Common
 
 from SLIC import callSLIC, createRegionRasters
 
@@ -848,7 +849,7 @@ def genMesh():
 		count, chain, chainDirection, border = generateChainCode(letter)
 		print('ChainDirection:', len(chainDirection), chainDirection)
 		# writeChainCodeFile('./', 'testChainCode.txt', chainDirection)
-		writeChainCodeFile('./', 'chaincode.txt', chainDirection)
+		writeChainCodeFile('', Bridson_Common.chaincodefile, chainDirection)
 		print(len(chainDirection))
 		perimeterSegments = len(chainDirection)
 		startingR = perimeterSegments / 10

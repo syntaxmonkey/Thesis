@@ -30,6 +30,7 @@ from FilledLetter import genLetter
 # plt.imshow(image, cmap='Greys')
 #
 
+
 def sumPreviousX(array, currentIndex, x ):
 	return sum(array[currentIndex-x: currentIndex])
 
@@ -240,6 +241,7 @@ def reverseDirection(chainDirection):
 
 def writeChainCodeFile(path, filename, chainDirection):
 	f = open(path + filename, "w+")
+	# f = open(path + filename, "w+")
 
 	for direction in chainDirection:
 		f.write("%d\r\n" % (direction))

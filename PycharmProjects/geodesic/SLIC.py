@@ -75,7 +75,8 @@ def segmentImage(imageName, numSegments):
 		postFix = postFix + 'BOTH_'
 	else:
 		# Bridson_Common.semanticSegmentation == 'none':
-		image = io.imread(imageName)
+		# image = io.imread(imageName)
+		image = cv.imread( imageName )
 	print("EE1")
 	# Alpha mix the the
 	imageRatio = 1 - Bridson_Common.semanticSegmentationRatio

@@ -102,7 +102,8 @@ class ST:
 		try:
 			self.coherency = (eig1 - eig2) / (eig1 + eig2)
 		except ZeroDivisionError:
-			self.coherency = (eig1 - eig2) / 0.00000000001
+			self.coherency = 0.00000000001
+			print("*************** ERROR generating coherency.  Assigning value ", self.coherency)
 
 		# print("Direction: ", direction, "Coherency:", self.coherency)
 		return direction, self.coherency

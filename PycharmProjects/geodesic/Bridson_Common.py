@@ -30,6 +30,16 @@ SLICIterations=50
 SLICGrey = False
 
 bulkGeneration = True
+if os.path.exists("./output") == True:
+	if os.path.isdir("./output") == False:
+		exit(-1)
+else:
+	os.mkdir("./output")
+
+if Bridson_Common.bulkGeneration:
+	sys.stdout = open("./output/detailLogs.txt", "a")
+	pass
+
 debug=False
 
 if bulkGeneration == True:
@@ -75,8 +85,8 @@ lineAngle = 90
 coherencyThreshold = 0.1
 lineWidth = 0.25
 stableCoherencyPercentile = 95 # Regions percentile with a coherency above this value are considered stable.
-diffAttractPercentile = 40 # Regions with differences below this percentile will attract.
-diffRepelPercentile = 75 # Regions with differences above this percentile will repel.
+diffAttractPercentile = 20 # Regions with differences below this percentile will attract.
+diffRepelPercentile = 50 # Regions with differences above this percentile will repel.
 
 semanticSegmentation='none' # Valid values: 'deeplabv3', 'mask_rcnn', 'both', 'none'
 semanticSegmentationRatio=0.75 # This is the weighting of the semantic segmentation.
@@ -103,14 +113,14 @@ dradius = 1.5 # Important that dradius is greater than 1.0.  When the value is 1
 radiusDefault = 1.5
 radiusDivisor = 30 # the number of radii for each region.
 regionDynamicRadius = True
-nearbyDistance = 5
+nearbyDistance = 3
 
 increaseContrast=False
 contrastFactor=1.5 # Values above 1 increase contrast.  Values below 1 reduce contrast.
 
 
 # Image Generation
-GreyscaleSLIC = False
+GreyscaleSLIC = True  # Generate the greyscale image of the regions.
 
 
 colourArray = ['r', 'b', 'm']
@@ -122,6 +132,7 @@ cropContours = True
 Bridson_Common.test1obj = ""
 Bridson_Common.test1_outobj = ""
 Bridson_Common.test1_out_flatobj = ""
+Bridson_Common.chaincodefile = ""
 objPath = "../../boundary-first-flattening/build/"
 
 

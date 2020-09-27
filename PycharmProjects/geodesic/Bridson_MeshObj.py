@@ -1322,7 +1322,8 @@ class MeshObject:
 		squareChain.append(90)
 
 		self.squareChain = squareChain
-		Bridson_ChainCode.writeChainCodeFile('./', 'chaincode.txt', self.squareChain)
+		# Bridson_ChainCode.writeChainCodeFile('./', 'chaincode.txt', self.squareChain)
+		Bridson_ChainCode.writeChainCodeFile('', Bridson_Common.chaincodefile, self.squareChain)
 
 		Bridson_Common.logDebug(__name__, 'Chain code length: ', len(self.squareChain))
 
