@@ -80,7 +80,13 @@ def segmentImage(imageName, numSegments):
 	print("EE1")
 	# Alpha mix the the
 	imageRatio = 1 - Bridson_Common.semanticSegmentationRatio
+
 	image = cv.addWeighted(originalImage, imageRatio, image, Bridson_Common.semanticSegmentationRatio, 0.0)
+	print("AA Max and Min of greyscaleImage:", np.amax(image), np.amin(image))
+	image = image / np.amax(image)
+	image = image * 255
+	image = np.asarray(image, dtype=np.uint8)
+	print("BB Max and Min of greyscaleImage:", np.amax(image), np.amin(image))
 	print("EE2")
 	postFix = postFix + 'OVERLAY'
 	saveImage(imageName, postFix, image)
@@ -91,6 +97,7 @@ def segmentImage(imageName, numSegments):
 	print("EE2")
 	if Bridson_Common.increaseContrast:
 		image = np.asarray( Bridson_ImageModify.increaseContrast( Image.fromarray(image),  Bridson_Common.contrastFactor ) )
+
 	if Bridson_Common.SLICGrey:
 		# image = cv.cvtColor( Image.fromarray(image), cv.COLOR_RGB2GRAY)
 		# image = np.asarray( image )
@@ -104,6 +111,7 @@ def segmentImage(imageName, numSegments):
 	if Bridson_Common.Median:
 		# try:
 		image = filters.median( image )
+	print("CC Max and Min of greyscaleImage:", np.amax(image), np.amin(image))
 		# except Exception as e:
 		# 	print(np.shape(image))
 		# 	print(type(image))
@@ -123,7 +131,7 @@ def segmentImage(imageName, numSegments):
 		# 	print(np.shape(image))
 		# 	print(type(image))
 		# 	print(">>>>>>>>>>>>> Error equalizing histogram:", e)
-
+	print("DD Max and Min of greyscaleImage:", np.amax(image), np.amin(image))
 
 	# if False:
 	# 	image = cv.cvtColor(image, cv.COLOR_RGB2Lab)
@@ -137,7 +145,7 @@ def segmentImage(imageName, numSegments):
 		segments = slic(image, n_segments=numSegments, sigma=3, compactness=Bridson_Common.compactnessSLIC, slic_zero=True, enforce_connectivity=True, max_iter=Bridson_Common.SLICIterations)
 	else:
 		segments = slic(image, n_segments=numSegments, sigma=3, compactness=Bridson_Common.compactnessSLIC,  enforce_connectivity=True, max_iter=Bridson_Common.SLICIterations)
-
+	print("EE Max and Min of greyscaleImage:", np.amax(image), np.amin(image))
 	# print("SLIC:segmentImage setting segment Count")
 	# Bridson_Common.segmentCount = len(segments)
 	# Bridson_Common.logDebug(__name__, type(segments))
@@ -194,6 +202,7 @@ def catalogRegions( segments, regionIntensityMap ):
 	for i in range(x):
 		for j in range(y):
 			regionLabel = segments[i][j]
+			# print("regionLabel:", regionLabel)
 			# raster[i][j] = (regionLabel * 234867)%256
 			raster[i][j] = regionIntensityMap[ regionLabel ]
 			region = regionMap.get(regionLabel)
@@ -354,7 +363,7 @@ def callSLIC(filename):
 	for numSegments in (segmentCount,):
 		image, segments = segmentImage(filename, numSegments)
 		print("DD")
-		newImage = np.copy(image)
+		# newImage = np.copy(image)
 		print("DD1")
 		# greyscaleImage = np.asarray( Image.fromarray(image).convert('L') )
 		# print('GreyScale:', greyscaleImage)
@@ -374,12 +383,19 @@ def callSLIC(filename):
 		print("DD4")
 		# print("regionColourMap:", regionColourMap)
 
-		# greyscaleImage = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
-		greyscaleImage = cv.cvtColor(originalImage, cv.COLOR_BGR2GRAY)
 		print("DD5")
-			# np.asarray(Image.fromarray(image).convert('L'))
+		# print("Type of image:", type(image))
+		print("YY Max and Min of image:", np.amax(image), np.amin(image))
+		if Bridson_Common.intensityMapUserMergeCNN:
+			image = np.asarray(image, dtype=np.uint8) # Need to convert to uint8.  Image.fromarray will throw an error otherwise.
+			greyscaleImage = np.asarray( Image.fromarray(image).convert('L') )
+		else:
+			greyscaleImage = cv.cvtColor(originalImage, cv.COLOR_BGR2GRAY)
+
+		print("ZZ Max and Min of greyscaleImage:", np.amax(greyscaleImage), np.amin(greyscaleImage))
 		# Generate region intensity HashMap.
 		regionIntensityMap = generateImageIntensityHashmap(greyscaleImage, segments)
+
 		# print("DD6")
 		# print("Region Intensity Map:", regionIntensityMap)
 		raster, regionMap = catalogRegions(segments, regionIntensityMap)

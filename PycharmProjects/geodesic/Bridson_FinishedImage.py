@@ -59,6 +59,11 @@ class FinishedImage:
 		self.regionMap = otherFinishedImage.regionMap
 		self.regionIntensityMap = otherFinishedImage.regionIntensityMap
 
+		self.regionCoherency = otherFinishedImage.regionCoherency
+		self.diffAttractThreshold = otherFinishedImage.diffAttractThreshold
+		self.diffRepelThreshold = otherFinishedImage.diffRepelThreshold
+		self.stableThreshold = otherFinishedImage.stableThreshold
+
 	def cropContourLines(self, linePoints, raster, topLeftTarget):
 		'''
 			Operations will contain a combination of - and + symbols.  The - indicate skipping a point.  The + indicate adding a point.
@@ -643,13 +648,84 @@ class FinishedImage:
 							RepelList.append( (self.regionDirection[ adjacentIndex ] + 90) % 360  )
 							# self.regionDirection[ index ] = Bridson_Angles.calcAverageAngle( self.regionDirection[ index ], (self.regionDirection[ adjacentIndex ] + 90) % 360 )
 
-				if len(RepelList) > 0:
-					for angle in RepelList:
-						newDirection[index] = Bridson_Angles.calcAverageAngle(newDirection[index], angle)
+					if len(RepelList) > 0:
+						for angle in RepelList:
+							newDirection[index] = Bridson_Angles.calcAverageAngle(newDirection[index], angle)
 
-				if len(AttractList) > 0:
-					for angle in AttractList:
-						newDirection[index] = Bridson_Angles.calcAverageAngle(newDirection[index], angle)
+					if len(AttractList) > 0:
+						for angle in AttractList:
+							newDirection[index] = Bridson_Angles.calcAverageAngle(newDirection[index], angle)
+				else:
+					# Region has coherency above stableThreshold.  Do nothing.
+					pass
+			self.regionDirection = newDirection
+
+				# else:
+				# 	print("Region is stable", index)
+		# print("POST Region Directions:", self.regionDirection)
+
+
+
+	def adjustRegionAngles2(self, iterations=1):
+		# Iterate through all regions.
+		# Check the coherency for stableRegionThreshold
+		# Check the differences between the regions.
+		# If the difference value is below the diffThreshold, average the angles.
+		# print("Region Directions:", self.regionDirection)
+		for i in range(iterations):
+			newDirection = self.regionDirection.copy()
+			for index in self.regionToRegions.keys():
+				# print("Current region:", index)
+				# print("region ", index, "coherency", self.regionCoherency[index] )
+				if index not in self.regionCoherency.keys():
+					print("Region", index, "not in coherency map")
+				elif self.regionCoherency[ index ] < self.stableThreshold:
+					# print("Not Stable region:", index)
+					# If the region coherency is below the threshold, continue with checking
+					adjacentRegions = self.regionToRegions[ index ]
+					# print("Adjacency regions", adjacentRegions)
+					AttractList = []
+					RepelList = []
+					for adjacentIndex in adjacentRegions:
+						startIndex, endIndex = index, adjacentIndex
+						if startIndex > endIndex:
+							startIndex, endIndex = adjacentIndex, index
+
+						pairIndex = (startIndex, endIndex)
+						# print("Pair Index", pairIndex)
+
+						# Attract case.  Repeat this step twice.
+						if self.regionDifferences[ pairIndex ] < self.diffAttractThreshold:
+							AttractList.append( self.regionDirection[ adjacentIndex ] )
+
+						# Repel case.
+						if self.regionDifferences[ pairIndex ] > self.diffRepelThreshold and self.regionIntensityMap[index] < self.regionIntensityMap[adjacentIndex] :
+							RepelList.append( (self.regionDirection[ adjacentIndex ] + 90) % 360  )
+
+					if len(RepelList) > 0:
+						for angle in RepelList:
+							newDirection[index] = Bridson_Angles.calcAverageAngle(newDirection[index], angle)
+
+					if len(AttractList) > 0:
+						for angle in AttractList:
+							newDirection[index] = Bridson_Angles.calcAverageAngle(newDirection[index], angle)
+				elif self.regionCoherency[ index ] >= self.stableThreshold:
+					# The current region is stable.
+					adjacentRegions = self.regionToRegions[index]
+					for adjacentIndex in adjacentRegions:
+						startIndex, endIndex = index, adjacentIndex
+						if startIndex > endIndex:
+							startIndex, endIndex = adjacentIndex, index
+
+						pairIndex = (startIndex, endIndex)
+
+						if self.regionDifferences[ pairIndex ] < self.diffAttractThreshold and self.regionCoherency[adjacentIndex] < self.stableThreshold:
+							# Force the adjacent region to the same angle.
+							# newDirection[ adjacentIndex ] = Bridson_Angles.calcAverageAngle(newDirection[adjacentIndex], self.regionDirection[index])
+							newDirection[ adjacentIndex ] = self.regionDirection[ index ]
+						elif self.regionDifferences[ pairIndex ] >= self.diffRepelThreshold and self.regionIntensityMap[index] < self.regionIntensityMap[adjacentIndex] :
+							# Force the repel of adjacent regions to perpendicular angle.
+							newDirection[ adjacentIndex ] = Bridson_Angles.calcAverageAngle(newDirection[adjacentIndex], (self.regionDirection[index] + 90) % 360)
 
 			self.regionDirection = newDirection
 
@@ -861,6 +937,9 @@ class FinishedImage:
 
 			# if self.calculateLineSpacing(currentLine, line, intensity=regionIntensity) == True:
 			if True:
+				# Add code to high light stable regions.
+				if self.regionCoherency[index] >= self.stableThreshold:
+					colour = 'r'
 				self.ax.plot(line[:, 0], line[:, 1]*flip, color=colour, linewidth=Bridson_Common.lineWidth)
 				if Bridson_Common.closestPointPair:  # Only place the dots when we are calculating closest point pair.
 					if initial == False:  # Do not display this dot the first time around.

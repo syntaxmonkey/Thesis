@@ -483,23 +483,21 @@ def indexValidation(filename):
 	print("0B")
 
 	finishedImageNoSLICPRE.calculateRegionDirection(regionList)
-	print("0B1")
 	finishedImageNoSLICPRE.generateRAG(filename, segments, regionColourMap)
-	print("0B2")
 	drawRegionLines( filename, finishedImageNoSLICPRE, regionList )
 	print("0C")
 
 	# Calculate RAG (Region Adjacency Graph)
 	finishedImageSLIC.calculateRegionDirection(regionList)
 	finishedImageSLIC.generateRAG(filename, segments, regionColourMap)
-	finishedImageSLIC.adjustRegionAngles(50)
+	finishedImageSLIC.adjustRegionAngles2(50)
 	drawRegionLines( filename, finishedImageSLIC, regionList )
 
 	print("0D")
 	# meshObj.diagnosticExterior()
-			# flatMeshObj.diagnosticExterior()
+	# flatMeshObj.diagnosticExterior()
 
-		# finishedImage.drawRegionContourLines(regionMap, index, meshObj)
+	# finishedImage.drawRegionContourLines(regionMap, index, meshObj)
 
 	# At this point, we need can attempt to merge the lines between each region.
 	# Still have a problem with the coordinates though.
@@ -652,13 +650,13 @@ if __name__ == '__main__':
 	images = []
 	# images.append('SimpleR.png')
 	# images.append('SimpleC.png')
-	images.append('simpleTriangle.png')
 	# images.append('simpleHorizon.png')
 	# images.append('FourSquares.png')
 	# images.append('SimpleSquare.jpg')
 	# images.append("FourCircles.png")
+	# images.append("SimpleSquares.png")
+	images.append('simpleTriangle.png')
 	images.append('Stripes.png')
-	images.append("SimpleSquares.png")
 
 	# Batch A.
 	# images.append('RedApple.jpg')
@@ -700,17 +698,17 @@ if __name__ == '__main__':
 	# images.append('ruslan-keba-G5tOIWFZqFE-unsplash_RubiksCube.jpg')
 
 	# Batch D
-	# images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
-	# images.append('everyday-basics-i0ROGKijuek-unsplash.jpg')
-	# images.append('imani-bahati-LxVxPA1LOVM-unsplash.jpg')
-	# images.append('kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg')
-	# images.append('luis-quintero-qKspdY9XUzs-unsplash.jpg')
-	# images.append('miguel-andrade-nAOZCYcLND8-unsplash.jpg')
-	# images.append('mr-o-k--ePHy6jg_7c-unsplash.jpg')
-	# images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
+	images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
+	images.append('everyday-basics-i0ROGKijuek-unsplash.jpg')
+	images.append('imani-bahati-LxVxPA1LOVM-unsplash.jpg')
+	images.append('kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg')
+	images.append('luis-quintero-qKspdY9XUzs-unsplash.jpg')
+	images.append('miguel-andrade-nAOZCYcLND8-unsplash.jpg')
+	images.append('mr-o-k--ePHy6jg_7c-unsplash.jpg')
+	images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
 
 	semanticSegmentation = ['none', 'mask_rcnn',  'both']
-	semanticSegmentation = ['none']
+	# semanticSegmentation = ['none']
 	# semanticSegmentation = ['none', 'mask_rcnn', 'deeplabv3', 'both']
 	# semanticSegmentation = ['mask_rcnn', 'deeplabv3', 'both']
 	# semanticSegmentation = ['both', 'none']
@@ -729,7 +727,7 @@ if __name__ == '__main__':
 	if Bridson_Common.bulkGeneration:
 		# segmentCounts = [100, 200]
 		segmentCounts = [200, 300, 400]
-		segmentCounts = [200]
+		# segmentCounts = [200]
 		compactnessList = [ 0.1, 0.25, 0.5]
 		if Bridson_Common.SLIC0:
 			compactnessList = [0.001]
@@ -777,7 +775,7 @@ if __name__ == '__main__':
 
 	if Bridson_Common.bulkGeneration:
 		# coreCount = mp.cpu_count() - 4
-		coreCount = 4
+		coreCount = Bridson_Common.coreCount
 		'''
 			Have to implement this looping mechanism.
 			For some reason, if we provide the whole list to the pool, the pool eventually hangs or all the chidren crash.

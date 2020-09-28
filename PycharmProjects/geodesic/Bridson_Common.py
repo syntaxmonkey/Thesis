@@ -30,6 +30,7 @@ SLICIterations=50
 SLICGrey = False
 
 bulkGeneration = True
+coreCount = 3
 if os.path.exists("./output") == True:
 	if os.path.isdir("./output") == False:
 		exit(-1)
@@ -53,7 +54,7 @@ diagnostic=False # Generally avoid dispalying meshes.  Only count the number of 
 highlightEdgeTriangle=False # Highlight the edge triangle that contains the exterior point of the vertical lines.
 drawSLICRegions = False
 
-EqualizeHistogram=True
+EqualizeHistogram=False
 Median=True
 
 sortExteriorPoints=True
@@ -85,12 +86,14 @@ lineAngle = 90
 coherencyThreshold = 0.1
 lineWidth = 0.25
 stableCoherencyPercentile = 95 # Regions percentile with a coherency above this value are considered stable.
-diffAttractPercentile = 20 # Regions with differences below this percentile will attract.
-diffRepelPercentile = 50 # Regions with differences above this percentile will repel.
+diffAttractPercentile = 40 # Regions with differences below this percentile will attract.
+diffRepelPercentile = 65 # Regions with differences above this percentile will repel.
 
 semanticSegmentation='none' # Valid values: 'deeplabv3', 'mask_rcnn', 'both', 'none'
-semanticSegmentationRatio=0.75 # This is the weighting of the semantic segmentation.
+semanticSegmentationRatio=0.5 # This is the weighting of the semantic segmentation.
 semanticInvertMaskrcnn=True
+intensityMapUserMergeCNN=True # When generating the regionIntensityMap, utilize the CNN merged image when set to True.  Otherwise, use the original image.
+
 
 barycentricVertexCorrection = True
 
