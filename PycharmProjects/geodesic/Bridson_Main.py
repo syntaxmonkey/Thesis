@@ -381,7 +381,7 @@ def drawRegionLines( filename, finishedImage, regionList):
 
 			# if trifindersuccess:
 			successfulRegions += 1
-			print("Trifinder was successfully generated for region ", index)
+			print("Trifinder was successfully generated for region", index)
 			if Bridson_Common.diagnostic == False:
 				# Only draw the lines if the trifinder was successful generated.
 				if Bridson_Common.linesOnFlat:
@@ -414,6 +414,7 @@ def drawRegionLines( filename, finishedImage, regionList):
 
 
 
+
 def indexValidation(filename):
 	print(">>>>>>>>>>>>>>>> Calling SLIC for ", filename, "<<<<<<<<<<<<<<<<<<<<<<<")
 	imageraster, regionMap, regionRaster, segments, regionIntensityMap, regionColourMap = SLICImage(filename)
@@ -439,8 +440,8 @@ def indexValidation(filename):
 	# finishedImage.setXLimit( 0, np.shape(imageraster)[0])
 	finishedImageNoSLICPRE = Bridson_FinishedImage.FinishedImage()
 	finishedImageNoSLICPRE.setTitle(filename + "_PRE_")
-	finishedImageNoSLICPRE.setXLimit(0, np.shape(regionRaster)[1])
-	finishedImageNoSLICPRE.setYLimit(0, -np.shape(regionRaster)[0])
+	# finishedImageNoSLICPRE.setXLimit(0, np.shape(regionRaster)[1])
+	# finishedImageNoSLICPRE.setYLimit(0, -np.shape(regionRaster)[0])
 
 
 	maskRasterCollection = {}
@@ -472,109 +473,79 @@ def indexValidation(filename):
 		NoSLICmaskRasterCollection[ index ] = raster.copy()
 		regionDirection[ index ] = 0  # Default the direction to 0.
 
-
 	# Set the variables
+
+
+
+	##### Process PRE image
+	if Bridson_Common.generatePREImage:
+		finishedImageNoSLICPRE.setMaps(regionMap.copy(), regionRaster.copy(), maskRasterCollection.copy(), meshObjCollection.copy(), regionIntensityMap.copy())
+		finishedImageNoSLICPRE.shiftRastersMeshObj(regionMap, regionRaster, originalImage)
+		finishedImageNoSLICPRE.calculateRegionDirection(regionList)
+		finishedImageNoSLICPRE.generateRAG(filename, segments, regionColourMap)
+		# Generate the PRE version of the image.
+		drawRegionLines(filename, finishedImageNoSLICPRE, regionList)
+		finishedImageNoSLICPRE.shiftLinePoints()
+		finishedImageNoSLICPRE.cropCullLines()
+		finishedImageNoSLICPRE.genLineAdjacencyMap()
+		finishedImageNoSLICPRE.mergeLines()
+		for index in meshObjCollection.keys():
+			finishedImageNoSLICPRE.drawRegionContourLines(index, drawSLICRegions=False)
+		Bridson_Common.saveImage(filename, "NoSlic_PRE", finishedImageNoSLICPRE.fig)
+
+
+	###### Process finishedImageSLIC
 	finishedImageSLIC.setMaps(regionMap, regionRaster, maskRasterCollection, meshObjCollection, regionIntensityMap)
-	finishedImageNoSLICPRE.setMaps(regionMap.copy(), regionRaster.copy(), maskRasterCollection.copy(), meshObjCollection.copy(), regionIntensityMap.copy())
 	# Create region raster in the actual location.
 	print("0A")
 	finishedImageSLIC.shiftRastersMeshObj(regionMap, regionRaster, originalImage)
-	finishedImageNoSLICPRE.shiftRastersMeshObj(regionMap, regionRaster, originalImage)
 	print("0B")
-
-	finishedImageNoSLICPRE.calculateRegionDirection(regionList)
-	finishedImageNoSLICPRE.generateRAG(filename, segments, regionColourMap)
-	drawRegionLines( filename, finishedImageNoSLICPRE, regionList )
-	print("0C")
-
 	# Calculate RAG (Region Adjacency Graph)
 	finishedImageSLIC.calculateRegionDirection(regionList)
 	finishedImageSLIC.generateRAG(filename, segments, regionColourMap)
 	finishedImageSLIC.adjustRegionAngles2(50)
 	drawRegionLines( filename, finishedImageSLIC, regionList )
-
-	print("0D")
-	# meshObj.diagnosticExterior()
-	# flatMeshObj.diagnosticExterior()
-
-	# finishedImage.drawRegionContourLines(regionMap, index, meshObj)
-
+	finishedImageSLIC.shiftLinePoints()
 	# At this point, we need can attempt to merge the lines between each region.
 	# Still have a problem with the coordinates though.
 	print("About to cropCullLines")
-
-	# Shift the raster regions.
-	# finishedImageSLIC.shiftRastersMeshObj(regionMap, regionRaster)
-	# finishedImageSLIC.setMaps(regionMap, regionRaster, maskRasterCollection, meshObjCollection, regionIntensityMap)
-	# finishedImageSLIC.shiftRastersMeshObj( regionMap, regionRaster )
-
-	# Shift the lines into the region actual location.
-	finishedImageNoSLICPRE.shiftLinePoints( )
-	finishedImageSLIC.shiftLinePoints( )
-	print("0E")
-
-	# print("regionIntensityMap:", regionIntensityMap)
-	finishedImageNoSLICPRE.cropCullLines()
 	finishedImageSLIC.cropCullLines()
-	print("0F")
-	# print("***************** Raster:", maskRasterCollection[30])
-	if False:
-		normalizedMask = finishedImageSLIC.shiftedMaskRasterCollection[55].copy()
-		maxValue = np.max(normalizedMask)
-		print("Max Value:", maxValue )
-		normalizedMask /= maxValue
-		maskedImage = normalizedMask * originalImage
-		plt.figure()
-		plt.imshow( maskedImage )
-
-	# print("Point F")
-	# # meshObj.checkLinePoints()
-	# # flatMeshObj.checkLinePoints()
-	# finishedImageSLIC.checkCroppedLines()
 	print("About to genLineAdjacencyMap")
-	finishedImageNoSLICPRE.genLineAdjacencyMap()
 	finishedImageSLIC.genLineAdjacencyMap()
-	print("0G")
-	# print("Point G")
-	# # meshObj.checkLinePoints()
-	# # flatMeshObj.checkLinePoints()
-	# finishedImageSLIC.checkCroppedLines()
-
 	print("About to mergeLines")
-	finishedImageNoSLICPRE.mergeLines()
 	finishedImageSLIC.mergeLines()
-	print("0H")
-	# print("Point G")
-	# # meshObj.checkLinePoints()
-	# # flatMeshObj.checkLinePoints()
-	# finishedImageSLIC.checkCroppedLines()
+
+
+	print("0D")
+
+
+		# for index in meshObjCollection.keys():
+		# 	finishedImageNoSLICPRE.drawRegionContourLines(index, drawSLICRegions=False)
+		# Bridson_Common.saveImage(filename, "NoSLIC_PRE", finishedImageNoSLICPRE.fig)
+
 
 	print("About to copyFromOther")
 	finishedImageNoSLIC.copyFromOther( finishedImageSLIC )
 	print("0I")
-	# print("Point H")
-	# meshObj.checkLinePoints()
-	# flatMeshObj.checkLinePoints()
 
 	for index in meshObjCollection.keys():
 		# Draw the region contour lines onto the finished image.
-		meshObj = meshObjCollection[ index ]
+		# meshObj = meshObjCollection[ index ]
 		# print("About to call drawRegionContourLines on SLIC image.")
 		# Bridson_Common.debug = True
-		finishedImageNoSLICPRE.drawRegionContourLines( index, drawSLICRegions=False )
 		finishedImageSLIC.drawRegionContourLines( index,  drawSLICRegions=True )
 		# print("About to call drawRegionContourLines on NON SLIC image.")
 		finishedImageNoSLIC.drawRegionContourLines( index,  drawSLICRegions=False )
+		# finishedImageNoSLICPRE.drawRegionContourLines(index, drawSLICRegions=False)
 	print("0J")
-
-		# print("Done drawing contour lines")
 
 	# finishedImageNoSLIC.highLightEdgePoints( drawSLICRegions=False )
 	# finishedImageSLIC.highLightEdgePoints(drawSLICRegions=True )
 
-	Bridson_Common.saveImage(filename, "NoSLIC_PRE", finishedImageNoSLICPRE.fig)
 	Bridson_Common.saveImage(filename, "WithSLIC", finishedImageSLIC.fig )
 	Bridson_Common.saveImage(filename, "NoSLIC_POST", finishedImageNoSLIC.fig)
+	# Bridson_Common.saveImage(filename, "NoSlic_PRE", finishedImageNoSLICPRE.fig)
+
 	print("0K")
 	print("Successful Regions: ", successfulRegions)
 	print("Total Regions: ", len(regionMap.keys()) )
@@ -730,13 +701,23 @@ if __name__ == '__main__':
 		# segmentCounts = [200]
 		compactnessList = [ 0.1, 0.25, 0.5]
 		if Bridson_Common.SLIC0:
-			compactnessList = [0.001]
+			compactnessList = [0.01]
 		else:
 			compactnessList = [ 10, 20, 40]
 		# compactnessList = [1]
 	else:
 		segmentCounts = [200]
 		compactnessList = [ 5 ]
+
+	if Bridson_Common.smallBatch:
+		images = []
+		images.append('simpleTriangle.png')
+		# images.append('Stripes.png')
+		# images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
+		images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
+		semanticSegmentation = ['none']
+		segmentCounts = [200]
+		compactnessList = [0.01]
 
 	variables = []
 	for filename in images:
@@ -784,7 +765,7 @@ if __name__ == '__main__':
 		iterations = int(len(variables) / blocks + 1)
 
 		print("CoreCount:", coreCount)
-		mp.set_start_method('forkserver')  # Valid options are 'fork', 'spawn', and 'forkserver'
+		mp.set_start_method('spawn')  # Valid options are 'fork', 'spawn', and 'forkserver'
 		for iteration in range( iterations ):
 			iterationVariables = variables[iteration*blocks:(iteration+1)*blocks].copy()
 			print(iterationVariables)

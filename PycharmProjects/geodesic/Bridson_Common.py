@@ -30,7 +30,9 @@ SLICIterations=50
 SLICGrey = False
 
 bulkGeneration = True
-coreCount = 3
+smallBatch=True
+
+coreCount = 1
 if os.path.exists("./output") == True:
 	if os.path.isdir("./output") == False:
 		exit(-1)
@@ -38,7 +40,7 @@ else:
 	os.mkdir("./output")
 
 if Bridson_Common.bulkGeneration:
-	sys.stdout = open("./output/detailLogs.txt", "a")
+	# sys.stdout = open("./output/detailLogs.txt", "a")
 	pass
 
 debug=False
@@ -47,6 +49,8 @@ if bulkGeneration == True:
 	displayMesh = False
 else:
 	displayMesh = True
+
+generatePREImage=False
 
 displayMesh = False
 
@@ -86,8 +90,8 @@ lineAngle = 90
 coherencyThreshold = 0.1
 lineWidth = 0.25
 stableCoherencyPercentile = 95 # Regions percentile with a coherency above this value are considered stable.
-diffAttractPercentile = 40 # Regions with differences below this percentile will attract.
-diffRepelPercentile = 65 # Regions with differences above this percentile will repel.
+diffAttractPercentile = 60 # Regions with differences below this percentile will attract.
+diffRepelPercentile =85 # Regions with differences above this percentile will repel.
 
 semanticSegmentation='none' # Valid values: 'deeplabv3', 'mask_rcnn', 'both', 'none'
 semanticSegmentationRatio=0.5 # This is the weighting of the semantic segmentation.
@@ -164,6 +168,7 @@ def outputEnvironmentVariables():
 	print("stableCoherencyPercentile:", stableCoherencyPercentile)
 	print("differencePercentile:", diffAttractPercentile)
 	print("diffRepelPercentile:", diffRepelPercentile)
+	print("generatePREImage:", generatePREImage)
 	print("------------------------------------------------------------------")
 
 def determineLineSpacing( intensity):

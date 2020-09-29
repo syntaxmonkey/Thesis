@@ -45,24 +45,26 @@ class FinishedImage:
 		self.ax.set_ylim(top=top, bottom=bottom)
 
 	def copyFromOther(self, otherFinishedImage):
-		self.unshiftedImageMaskedRegion = otherFinishedImage.unshiftedImageMaskedRegion
-		self.shiftedMaskRasterCollection = otherFinishedImage.shiftedMaskRasterCollection
-		self.maskRasterCollection = otherFinishedImage.maskRasterCollection
-		self.meshObjCollection = otherFinishedImage.meshObjCollection
-		self.regionEdgePoints = otherFinishedImage.regionEdgePoints
-		self.distanceRasters = otherFinishedImage.distanceRasters
-		self.globalEdgePointMap = otherFinishedImage.globalEdgePointMap
 
-		self.regionEdgePointMap =  otherFinishedImage.regionEdgePointMap # Map of (x,y) coordinates
-		self.regionAdjancencyMap =  otherFinishedImage.regionAdjancencyMap # Map to contain AdjancencyEdge objects
-		self.regionAdjacentRegions = otherFinishedImage.regionAdjacentRegions # Map containing list of adjacent regions for current region.
-		self.regionMap = otherFinishedImage.regionMap
-		self.regionIntensityMap = otherFinishedImage.regionIntensityMap
+		if hasattr(otherFinishedImage, 'unshiftedImageMaskedRegion') : self.unshiftedImageMaskedRegion = otherFinishedImage.unshiftedImageMaskedRegion.copy()
+		if hasattr(otherFinishedImage, 'shiftedMaskRasterCollection'): self.shiftedMaskRasterCollection = otherFinishedImage.shiftedMaskRasterCollection.copy()
+		if hasattr(otherFinishedImage, 'maskRasterCollection'): self.maskRasterCollection = otherFinishedImage.maskRasterCollection.copy()
+		if hasattr(otherFinishedImage, 'meshObjCollection'): self.meshObjCollection = otherFinishedImage.meshObjCollection.copy()
+		if hasattr(otherFinishedImage, 'regionEdgePoints'): self.regionEdgePoints = otherFinishedImage.regionEdgePoints.copy()
+		if hasattr(otherFinishedImage, 'distanceRasters'): self.distanceRasters = otherFinishedImage.distanceRasters.copy()
+		if hasattr(otherFinishedImage, 'globalEdgePointMap'): self.globalEdgePointMap = otherFinishedImage.globalEdgePointMap.copy()
 
-		self.regionCoherency = otherFinishedImage.regionCoherency
-		self.diffAttractThreshold = otherFinishedImage.diffAttractThreshold
-		self.diffRepelThreshold = otherFinishedImage.diffRepelThreshold
-		self.stableThreshold = otherFinishedImage.stableThreshold
+		if hasattr(otherFinishedImage, 'regionEdgePointMap'): self.regionEdgePointMap =  otherFinishedImage.regionEdgePointMap.copy() # Map of (x,y) coordinates
+		if hasattr(otherFinishedImage, 'regionAdjancencyMap'): self.regionAdjancencyMap =  otherFinishedImage.regionAdjancencyMap.copy() # Map to contain AdjancencyEdge objects
+		if hasattr(otherFinishedImage, 'regionAdjacentRegions'): self.regionAdjacentRegions = otherFinishedImage.regionAdjacentRegions.copy() # Map containing list of adjacent regions for current region.
+		if hasattr(otherFinishedImage, 'regionMap'): self.regionMap = otherFinishedImage.regionMap.copy()
+		if hasattr(otherFinishedImage, 'regionIntensityMap'): self.regionIntensityMap = otherFinishedImage.regionIntensityMap.copy()
+		if hasattr(otherFinishedImage, 'regionDirection'): self.regionDirection = otherFinishedImage.regionDirection.copy()
+
+		if hasattr(otherFinishedImage, 'regionCoherency'): self.regionCoherency = otherFinishedImage.regionCoherency.copy()
+		if hasattr(otherFinishedImage, 'diffAttractThreshold'): self.diffAttractThreshold = otherFinishedImage.diffAttractThreshold
+		if hasattr(otherFinishedImage, 'diffRepelThreshold'): self.diffRepelThreshold = otherFinishedImage.diffRepelThreshold
+		if hasattr(otherFinishedImage, 'stableThreshold'): self.stableThreshold = otherFinishedImage.stableThreshold
 
 	def cropContourLines(self, linePoints, raster, topLeftTarget):
 		'''
@@ -598,75 +600,21 @@ class FinishedImage:
 		# print("regionToRegions:", self.regionToRegions)
 		# Calculate the difference threshold.  Regions with differences below this threshold are
 		# candidates for changing their direction.
-		# print( "Region Differences Values:", list( self.regionDifferences.values() ))
+		print( "Region Differences Values:", list( self.regionDifferences.values() ))
 		self.diffAttractThreshold = np.percentile(list( self.regionDifferences.values() ), Bridson_Common.diffAttractPercentile)
-		print("diff threshold", self.diffAttractThreshold)
+		print("diff attract threshold:", self.diffAttractThreshold)
 
 		self.diffRepelThreshold = np.percentile(list( self.regionDifferences.values() ), Bridson_Common.diffRepelPercentile)
-
+		print("diff repel threshold:", self.diffRepelThreshold)
 		self.stableThreshold = np.percentile( list(self.regionCoherency.values()), Bridson_Common.stableCoherencyPercentile)
+		print("stable threshold:", self.stableThreshold)
 
 
-	def adjustRegionAngles(self, iterations=1):
-		# Iterate through all regions.
-		# Check the coherency for stableRegionThreshold
-		# Check the differences between the regions.
-		# If the difference value is below the diffThreshold, average the angles.
-		# print("Region Directions:", self.regionDirection)
-		for i in range(iterations):
-			newDirection = self.regionDirection.copy()
-			for index in self.regionToRegions.keys():
-				# print("Current region:", index)
-				# print("region ", index, "coherency", self.regionCoherency[index] )
-				if index not in self.regionCoherency.keys():
-					print("Region", index, "not in coherency map")
-				elif self.regionCoherency[ index ] < self.stableThreshold:
-					# print("Not Stable region:", index)
-					# If the region coherency is below the threshold, continue with checking
-					adjacentRegions = self.regionToRegions[ index ]
-					# print("Adjacency regions", adjacentRegions)
-					AttractList = []
-					RepelList = []
-					for adjacentIndex in adjacentRegions:
-						startIndex, endIndex = index, adjacentIndex
-						if startIndex > endIndex:
-							startIndex, endIndex = adjacentIndex, index
-
-						pairIndex = (startIndex, endIndex)
-						# print("Pair Index", pairIndex)
-
-						# Attract case.  Repeat this step twice.
-						if self.regionDifferences[ pairIndex ] < self.diffAttractThreshold:
-							AttractList.append( self.regionDirection[ adjacentIndex ] )
-							# print("Index", index, "Previous Angle", self.regionDirection[ index ] )
-							# self.regionDirection[ index ] = Bridson_Angles.calcAverageAngle( self.regionDirection[ index ], self.regionDirection[ adjacentIndex ] )
-							# self.regionDirection[index] = Bridson_Angles.calcAverageAngle(self.regionDirection[index], self.regionDirection[adjacentIndex])
-							# print("Adjusting angle of region", index, "now has direction",self.regionDirection[index])
-
-						# Repel case.
-						if self.regionDifferences[ pairIndex ] > self.diffRepelThreshold and self.regionIntensityMap[adjacentIndex] < self.regionIntensityMap[index] :
-							RepelList.append( (self.regionDirection[ adjacentIndex ] + 90) % 360  )
-							# self.regionDirection[ index ] = Bridson_Angles.calcAverageAngle( self.regionDirection[ index ], (self.regionDirection[ adjacentIndex ] + 90) % 360 )
-
-					if len(RepelList) > 0:
-						for angle in RepelList:
-							newDirection[index] = Bridson_Angles.calcAverageAngle(newDirection[index], angle)
-
-					if len(AttractList) > 0:
-						for angle in AttractList:
-							newDirection[index] = Bridson_Angles.calcAverageAngle(newDirection[index], angle)
-				else:
-					# Region has coherency above stableThreshold.  Do nothing.
-					pass
-			self.regionDirection = newDirection
-
-				# else:
-				# 	print("Region is stable", index)
-		# print("POST Region Directions:", self.regionDirection)
 
 
 
 	def adjustRegionAngles2(self, iterations=1):
+		print("Iterations:", iterations)
 		# Iterate through all regions.
 		# Check the coherency for stableRegionThreshold
 		# Check the differences between the regions.
@@ -679,53 +627,67 @@ class FinishedImage:
 				# print("region ", index, "coherency", self.regionCoherency[index] )
 				if index not in self.regionCoherency.keys():
 					print("Region", index, "not in coherency map")
-				elif self.regionCoherency[ index ] < self.stableThreshold:
-					# print("Not Stable region:", index)
-					# If the region coherency is below the threshold, continue with checking
-					adjacentRegions = self.regionToRegions[ index ]
-					# print("Adjacency regions", adjacentRegions)
-					AttractList = []
-					RepelList = []
-					for adjacentIndex in adjacentRegions:
-						startIndex, endIndex = index, adjacentIndex
-						if startIndex > endIndex:
-							startIndex, endIndex = adjacentIndex, index
-
-						pairIndex = (startIndex, endIndex)
-						# print("Pair Index", pairIndex)
-
-						# Attract case.  Repeat this step twice.
-						if self.regionDifferences[ pairIndex ] < self.diffAttractThreshold:
-							AttractList.append( self.regionDirection[ adjacentIndex ] )
-
-						# Repel case.
-						if self.regionDifferences[ pairIndex ] > self.diffRepelThreshold and self.regionIntensityMap[index] < self.regionIntensityMap[adjacentIndex] :
-							RepelList.append( (self.regionDirection[ adjacentIndex ] + 90) % 360  )
-
-					if len(RepelList) > 0:
-						for angle in RepelList:
-							newDirection[index] = Bridson_Angles.calcAverageAngle(newDirection[index], angle)
-
-					if len(AttractList) > 0:
-						for angle in AttractList:
-							newDirection[index] = Bridson_Angles.calcAverageAngle(newDirection[index], angle)
+				# elif self.regionCoherency[ index ] < self.stableThreshold:
+				# 	# print("Not Stable region:", index)
+				# 	# If the region coherency is below the threshold, continue with checking
+				# 	adjacentRegions = self.regionToRegions[ index ]
+				# 	# print("Adjacency regions", adjacentRegions)
+				# 	AttractList = []
+				# 	RepelList = []
+				# 	for adjacentIndex in adjacentRegions:
+				# 		startIndex, endIndex = index, adjacentIndex
+				# 		if startIndex > endIndex:
+				# 			startIndex, endIndex = adjacentIndex, index
+				#
+				# 		pairIndex = (startIndex, endIndex)
+				# 		# print("Pair Index", pairIndex)
+				#
+				# 		if pairIndex in self.regionDifferences.keys():
+				# 		# Attract case.  Repeat this step twice.
+				# 			if self.regionDifferences[ pairIndex ] < self.diffAttractThreshold:
+				# 				AttractList.append( self.regionDirection[ adjacentIndex ] )
+				#
+				# 			# Repel case.
+				# 			if self.regionDifferences[ pairIndex ] >= self.diffRepelThreshold and self.regionIntensityMap[index] < self.regionIntensityMap[adjacentIndex] :
+				# 				RepelList.append( (self.regionDirection[ adjacentIndex ] + 90) % 360  )
+				#
+				# 	if len(RepelList) > 0:
+				# 		for angle in RepelList:
+				# 			newDirection[index] = Bridson_Angles.calcAverageAngle(newDirection[index], angle)
+				#
+				# 	if len(AttractList) > 0:
+				# 		for angle in AttractList:
+				# 			newDirection[index] = Bridson_Angles.calcAverageAngle(newDirection[index], angle)
 				elif self.regionCoherency[ index ] >= self.stableThreshold:
+					print("Stable region:", index)
 					# The current region is stable.
 					adjacentRegions = self.regionToRegions[index]
+					print("Adjacent regions:", adjacentRegions)
 					for adjacentIndex in adjacentRegions:
 						startIndex, endIndex = index, adjacentIndex
 						if startIndex > endIndex:
 							startIndex, endIndex = adjacentIndex, index
 
 						pairIndex = (startIndex, endIndex)
-
-						if self.regionDifferences[ pairIndex ] < self.diffAttractThreshold and self.regionCoherency[adjacentIndex] < self.stableThreshold:
-							# Force the adjacent region to the same angle.
-							# newDirection[ adjacentIndex ] = Bridson_Angles.calcAverageAngle(newDirection[adjacentIndex], self.regionDirection[index])
-							newDirection[ adjacentIndex ] = self.regionDirection[ index ]
-						elif self.regionDifferences[ pairIndex ] >= self.diffRepelThreshold and self.regionIntensityMap[index] < self.regionIntensityMap[adjacentIndex] :
-							# Force the repel of adjacent regions to perpendicular angle.
-							newDirection[ adjacentIndex ] = Bridson_Angles.calcAverageAngle(newDirection[adjacentIndex], (self.regionDirection[index] + 90) % 360)
+						print("Pair Index:", pairIndex)
+						if pairIndex in self.regionDifferences.keys():
+							# if self.regionDifferences[ pairIndex ] < self.diffAttractThreshold and self.regionCoherency[adjacentIndex] < self.stableThreshold:
+							print("Pair Index", pairIndex, "difference:", self.regionDifferences[pairIndex])
+							if self.regionDifferences[pairIndex] < self.diffAttractThreshold:
+								print("Region ", index, "attracted to", adjacentIndex)
+								# Force the adjacent region to the same angle.
+								# newDirection[ adjacentIndex ] = Bridson_Angles.calcAverageAngle(newDirection[adjacentIndex], self.regionDirection[index])
+								newDirection[ adjacentIndex ] = self.regionDirection[ index ]
+								print("Setting region", adjacentIndex, "to angle", newDirection[ adjacentIndex ] )
+							elif self.regionDifferences[ pairIndex ] >= self.diffRepelThreshold and self.regionIntensityMap[index] < self.regionIntensityMap[adjacentIndex] :
+								# Force the repel of adjacent regions to perpendicular angle.
+								newDirection[ adjacentIndex ] = Bridson_Angles.calcAverageAngle(newDirection[adjacentIndex], (self.regionDirection[index] + 90) % 360)
+								print("Region", index, "repels region", adjacentIndex)
+								print("Setting region", adjacentIndex, "to angle", newDirection[adjacentIndex])
+							else:
+								print("Neutral pair:", pairIndex)
+						else:
+							print("PairIndex does not exist:", pairIndex)
 
 			self.regionDirection = newDirection
 
@@ -930,25 +892,18 @@ class FinishedImage:
 			line = linePoints[lineIndex].copy()
 			line = line * Bridson_Common.mergeScale
 
-			# For some reason we need to swap the topLeft x,y with the line x,y.
-			############## Shifting the lines.
-			# line[:, 0] = line[:, 0] + topLeftTarget[1] - 5 # Needed to line up with regions.
-			# line[:, 1] = line[:, 1] - topLeftTarget[0] + 5  # Required to be negative.
-
-			# if self.calculateLineSpacing(currentLine, line, intensity=regionIntensity) == True:
-			if True:
-				# Add code to high light stable regions.
-				if self.regionCoherency[index] >= self.stableThreshold:
-					colour = 'r'
-				self.ax.plot(line[:, 0], line[:, 1]*flip, color=colour, linewidth=Bridson_Common.lineWidth)
-				if Bridson_Common.closestPointPair:  # Only place the dots when we are calculating closest point pair.
-					if initial == False:  # Do not display this dot the first time around.
-						self.ax.plot(currentLine[self.markPoint[0]][0], currentLine[self.markPoint[0]][1] * flip, marker='*',
-						             markersize=6, color='g')  # Colour middle point.
-					self.ax.plot(line[self.markPoint[1]][0], line[self.markPoint[1]][1]*flip, marker='o', markersize=2, color='r')  # Colour middle point.
-				currentLine = line
-				initial = False
-					# count += 1
+			# Add code to high light stable regions.
+			if self.regionCoherency[index] >= self.stableThreshold:
+				colour = 'r'
+			self.ax.plot(line[:, 0], line[:, 1]*flip, color=colour, linewidth=Bridson_Common.lineWidth)
+			if Bridson_Common.closestPointPair:  # Only place the dots when we are calculating closest point pair.
+				if initial == False:  # Do not display this dot the first time around.
+					self.ax.plot(currentLine[self.markPoint[0]][0], currentLine[self.markPoint[0]][1] * flip, marker='*',
+					             markersize=6, color='g')  # Colour middle point.
+				self.ax.plot(line[self.markPoint[1]][0], line[self.markPoint[1]][1]*flip, marker='o', markersize=2, color='r')  # Colour middle point.
+			currentLine = line
+			initial = False
+				# count += 1
 
 		if Bridson_Common.highlightEndpoints:
 			regionEdgePoints = self.regionEdgePoints[ index ]
