@@ -600,19 +600,20 @@ class FinishedImage:
 		# print("regionToRegions:", self.regionToRegions)
 		# Calculate the difference threshold.  Regions with differences below this threshold are
 		# candidates for changing their direction.
+		self.calculateThresholds()
 
 
 	def calculateThresholds(self):
 
 		if True:
 			# Use the histogram bins.
-			hist, bin_edges = np.histogram(self.regionDifferences, bins=10)
+			hist, bin_edges = np.histogram( list(self.regionDifferences.values()), bins=10)
 			self.diffAttractThreshold = bin_edges[1]
 			print("Attraction bin:", bin_edges[1])
 			self.diffRepelThreshold = bin_edges[3]
 			print("Repel bin:", bin_edges[3])
 
-			hist, bin_edges = np.histogram(self.stableThreshold, bins=10)
+			hist, bin_edges = np.histogram( list(self.regionCoherency.values()) , bins=10)
 			self.stableThreshold = bin_edges[-3]
 
 		if False:
@@ -642,37 +643,37 @@ class FinishedImage:
 				# print("region ", index, "coherency", self.regionCoherency[index] )
 				if index not in self.regionCoherency.keys():
 					print("Region", index, "not in coherency map")
-				# elif self.regionCoherency[ index ] < self.stableThreshold:
-				# 	# print("Not Stable region:", index)
-				# 	# If the region coherency is below the threshold, continue with checking
-				# 	adjacentRegions = self.regionToRegions[ index ]
-				# 	# print("Adjacency regions", adjacentRegions)
-				# 	AttractList = []
-				# 	RepelList = []
-				# 	for adjacentIndex in adjacentRegions:
-				# 		startIndex, endIndex = index, adjacentIndex
-				# 		if startIndex > endIndex:
-				# 			startIndex, endIndex = adjacentIndex, index
-				#
-				# 		pairIndex = (startIndex, endIndex)
-				# 		# print("Pair Index", pairIndex)
-				#
-				# 		if pairIndex in self.regionDifferences.keys():
-				# 		# Attract case.  Repeat this step twice.
-				# 			if self.regionDifferences[ pairIndex ] < self.diffAttractThreshold:
-				# 				AttractList.append( self.regionDirection[ adjacentIndex ] )
-				#
-				# 			# Repel case.
-				# 			if self.regionDifferences[ pairIndex ] >= self.diffRepelThreshold and self.regionIntensityMap[index] < self.regionIntensityMap[adjacentIndex] :
-				# 				RepelList.append( (self.regionDirection[ adjacentIndex ] + 90) % 360  )
-				#
-				# 	if len(RepelList) > 0:
-				# 		for angle in RepelList:
-				# 			newDirection[index] = Bridson_Angles.calcAverageAngle(newDirection[index], angle)
-				#
-				# 	if len(AttractList) > 0:
-				# 		for angle in AttractList:
-				# 			newDirection[index] = Bridson_Angles.calcAverageAngle(newDirection[index], angle)
+				elif self.regionCoherency[ index ] < self.stableThreshold:
+					# print("Not Stable region:", index)
+					# If the region coherency is below the threshold, continue with checking
+					adjacentRegions = self.regionToRegions[ index ]
+					# print("Adjacency regions", adjacentRegions)
+					AttractList = []
+					RepelList = []
+					for adjacentIndex in adjacentRegions:
+						startIndex, endIndex = index, adjacentIndex
+						if startIndex > endIndex:
+							startIndex, endIndex = adjacentIndex, index
+
+						pairIndex = (startIndex, endIndex)
+						# print("Pair Index", pairIndex)
+
+						if pairIndex in self.regionDifferences.keys():
+						# Attract case.  Repeat this step twice.
+							if self.regionDifferences[ pairIndex ] < self.diffAttractThreshold:
+								AttractList.append( self.regionDirection[ adjacentIndex ] )
+
+							# Repel case.
+							if self.regionDifferences[ pairIndex ] >= self.diffRepelThreshold and self.regionIntensityMap[index] < self.regionIntensityMap[adjacentIndex] :
+								RepelList.append( (self.regionDirection[ adjacentIndex ] + 90) % 360  )
+
+					if len(RepelList) > 0:
+						for angle in RepelList:
+							newDirection[index] = Bridson_Angles.calcAverageAngle(newDirection[index], angle)
+
+					if len(AttractList) > 0:
+						for angle in AttractList:
+							newDirection[index] = Bridson_Angles.calcAverageAngle(newDirection[index], angle)
 				elif self.regionCoherency[ index ] >= self.stableThreshold:
 					print("Stable region:", index)
 					# The current region is stable.

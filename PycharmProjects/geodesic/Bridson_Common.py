@@ -32,7 +32,7 @@ SLICGrey = False
 bulkGeneration = True
 smallBatch=True
 
-coreCount = 1
+coreCount = 3
 if os.path.exists("./output") == True:
 	if os.path.isdir("./output") == False:
 		exit(-1)
