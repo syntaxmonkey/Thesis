@@ -24,6 +24,25 @@ def calcAverageAngle(angle1, angle2):
 	averageAngle = averageAngle % 360
 	return averageAngle
 
+def calcAverageAngleWeighted(angle1, angle2, weight1, weight2):
+	'''
+	Given two different angles, calculate the naive average.
+	'''
+
+	totalWeight = weight1 + weight2
+	weight1 = weight1 / totalWeight
+	weight2 = weight2 / totalWeight
+	angle1, angle2 = findMinAngleDiff(angle1, angle2)
+
+	toRad = math.pi/180
+	numerator = math.sin(angle1*toRad )*weight1 + math.sin(angle2*toRad)*weight2
+	denominator = math.cos(angle1*toRad)*weight1 + math.cos(angle2*toRad)*weight2
+	# print('numerator', numerator, 'denominator', denominator)
+
+	averageAngle = np.arctan2( numerator, denominator ) * 180 / math.pi
+	averageAngle = averageAngle % 360
+	return averageAngle
+
 
 def findMinAngleDiff(angle1, angle2):
 	if angle1 > angle2:
@@ -70,12 +89,15 @@ if __name__ == '__main__':
 	angles.append([0, 0])
 	angles.append([350, 10])
 	angles.append([270, 135])
+	angles.append([350, 359])
+	angles.append([350, 1])
+	angles.append([350, 181])
 
 	for anglePair in angles:
 		angle1, angle2 = anglePair
 		print("Angle", angle1, "and", angle2)
 
-		if False:
+		if True:
 			angle1, angle2 = findMinAngleDiff(angle1, angle2)
 			print("Closer Angles", angle1, "and", angle2, "\n")
 
@@ -84,8 +106,12 @@ if __name__ == '__main__':
 			print("Angle", angle1, "and", angle2, "diff:", diff, "\n")
 
 		if True:
-			averageAngle, angle1, angle2 = calcAverageAngle(angle1, angle2)
+			averageAngle = calcAverageAngle(angle1, angle2)
 			print("Angle", angle1, "and", angle2, "Average:", averageAngle, "\n")
+
+		if True:
+			averageAngle = calcAverageAngleWeighted(angle1, angle2, 0.2, 0.1)
+			print("Angle", angle1, "and", angle2, "Average Weighted:", averageAngle, "\n")
 
 
 

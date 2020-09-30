@@ -503,7 +503,7 @@ def indexValidation(filename):
 	# Calculate RAG (Region Adjacency Graph)
 	finishedImageSLIC.calculateRegionDirection(regionList)
 	finishedImageSLIC.generateRAG(filename, segments, regionColourMap)
-	finishedImageSLIC.adjustRegionAngles2(50)
+	finishedImageSLIC.adjustRegionAngles2()
 	drawRegionLines( filename, finishedImageSLIC, regionList )
 	finishedImageSLIC.shiftLinePoints()
 	# At this point, we need can attempt to merge the lines between each region.
@@ -713,6 +713,7 @@ if __name__ == '__main__':
 		images = []
 		images.append('simpleTriangle.png')
 		# images.append('Stripes.png')
+		images.append('kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg')
 		images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
 		images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
 		semanticSegmentation = ['none']
@@ -782,6 +783,7 @@ if __name__ == '__main__':
 		print(">>>>>>>>>>>>>>>>>>>>>>> Main Exit <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 		print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 		# exit(0)
+		os.system('rm *_chaincode.txt')
 		sys.exit(0)
 	else:
 		plt.show()

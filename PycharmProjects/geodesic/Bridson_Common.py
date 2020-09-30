@@ -32,7 +32,7 @@ SLICGrey = False
 bulkGeneration = True
 smallBatch=True
 
-coreCount = 3
+coreCount = 4
 if os.path.exists("./output") == True:
 	if os.path.isdir("./output") == False:
 		exit(-1)
@@ -40,7 +40,7 @@ else:
 	os.mkdir("./output")
 
 if Bridson_Common.bulkGeneration:
-	# sys.stdout = open("./output/detailLogs.txt", "a")
+	sys.stdout = open("./output/detailLogs.txt", "a")
 	pass
 
 debug=False
@@ -92,6 +92,12 @@ lineWidth = 0.25
 stableCoherencyPercentile = 95 # Regions percentile with a coherency above this value are considered stable.
 diffAttractPercentile = 60 # Regions with differences below this percentile will attract.
 diffRepelPercentile =85 # Regions with differences above this percentile will repel.
+attractionBin = 4
+repelBin = 5
+stableBin = -4
+stableAttractSet=True  # If true, during the attract, stable regions will simply set adjacent regions equal to the desired angle.  Otherwise, it will take the average.
+binSize=10
+angleAdjustIterations=400
 
 semanticSegmentation='none' # Valid values: 'deeplabv3', 'mask_rcnn', 'both', 'none'
 semanticSegmentationRatio=0.5 # This is the weighting of the semantic segmentation.
@@ -169,6 +175,11 @@ def outputEnvironmentVariables():
 	print("differencePercentile:", diffAttractPercentile)
 	print("diffRepelPercentile:", diffRepelPercentile)
 	print("generatePREImage:", generatePREImage)
+	print("attractionBin:", attractionBin)
+	print("repelBin:", repelBin)
+	print("stableBin:", stableBin)
+	print("stableAttractSet:", stableAttractSet)
+	print("binSize:", binSize)
 	print("------------------------------------------------------------------")
 
 def determineLineSpacing( intensity):

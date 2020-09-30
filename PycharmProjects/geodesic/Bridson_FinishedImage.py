@@ -607,14 +607,14 @@ class FinishedImage:
 
 		if True:
 			# Use the histogram bins.
-			hist, bin_edges = np.histogram( list(self.regionDifferences.values()), bins=10)
-			self.diffAttractThreshold = bin_edges[1]
-			print("Attraction bin:", bin_edges[1])
-			self.diffRepelThreshold = bin_edges[3]
-			print("Repel bin:", bin_edges[3])
+			hist, bin_edges = np.histogram( list(self.regionDifferences.values()), bins=Bridson_Common.binSize)
+			self.diffAttractThreshold = bin_edges[ Bridson_Common.attractionBin ]
+			print("Attraction bin:", bin_edges[ Bridson_Common.attractionBin ])
+			self.diffRepelThreshold = bin_edges[ Bridson_Common.repelBin ]
+			print("Repel bin:", bin_edges[ Bridson_Common.repelBin ])
 
-			hist, bin_edges = np.histogram( list(self.regionCoherency.values()) , bins=10)
-			self.stableThreshold = bin_edges[-3]
+			hist, bin_edges = np.histogram( list(self.regionCoherency.values()) , bins=Bridson_Common.binSize)
+			self.stableThreshold = bin_edges[ Bridson_Common.stableBin ]
 
 		if False:
 			# Percentile approach for calculating the thresholds.
@@ -629,8 +629,8 @@ class FinishedImage:
 
 
 
-	def adjustRegionAngles2(self, iterations=1):
-		print("Iterations:", iterations)
+	def adjustRegionAngles2(self, iterations=Bridson_Common.angleAdjustIterations):
+		# print("Iterations:", iterations)
 		# Iterate through all regions.
 		# Check the coherency for stableRegionThreshold
 		# Check the differences between the regions.
@@ -660,46 +660,52 @@ class FinishedImage:
 
 						if pairIndex in self.regionDifferences.keys():
 						# Attract case.  Repeat this step twice.
-							if self.regionDifferences[ pairIndex ] < self.diffAttractThreshold:
-								AttractList.append( self.regionDirection[ adjacentIndex ] )
+							if self.regionDifferences[ pairIndex ] < self.diffAttractThreshold and self.regionIntensityMap[index] <= self.regionIntensityMap[adjacentIndex]*1.1:
+								# AttractList.append( self.regionDirection[ adjacentIndex ] )
+								newDirection[index] = Bridson_Angles.calcAverageAngleWeighted(newDirection[index], self.regionDirection[adjacentIndex], self.regionCoherency[index], self.regionCoherency[adjacentIndex])
 
 							# Repel case.
-							if self.regionDifferences[ pairIndex ] >= self.diffRepelThreshold and self.regionIntensityMap[index] < self.regionIntensityMap[adjacentIndex] :
-								RepelList.append( (self.regionDirection[ adjacentIndex ] + 90) % 360  )
+							if self.regionDifferences[ pairIndex ] >= self.diffRepelThreshold and self.regionIntensityMap[index] < self.regionIntensityMap[adjacentIndex]:
+								# RepelList.append( (self.regionDirection[ adjacentIndex ] + 90) % 360  )
+								newDirection[index] = Bridson_Angles.calcAverageAngleWeighted(newDirection[index], (self.regionDirection[adjacentIndex] + 90) % 360, self.regionCoherency[index], self.regionCoherency[adjacentIndex])
+					# if len(RepelList) > 0:
+					# 	for angle in RepelList:
+					# 		newDirection[index] = Bridson_Angles.calcAverageAngle(newDirection[index], angle)
+					#
+					# if len(AttractList) > 0:
+					# 	for angle in AttractList:
+					# 		newDirection[index] = Bridson_Angles.calcAverageAngle(newDirection[index], angle)
 
-					if len(RepelList) > 0:
-						for angle in RepelList:
-							newDirection[index] = Bridson_Angles.calcAverageAngle(newDirection[index], angle)
-
-					if len(AttractList) > 0:
-						for angle in AttractList:
-							newDirection[index] = Bridson_Angles.calcAverageAngle(newDirection[index], angle)
 				elif self.regionCoherency[ index ] >= self.stableThreshold:
-					print("Stable region:", index)
+					# print("Stable region:", index)
 					# The current region is stable.
 					adjacentRegions = self.regionToRegions[index]
-					print("Adjacent regions:", adjacentRegions)
+					# print("Adjacent regions:", adjacentRegions)
 					for adjacentIndex in adjacentRegions:
 						startIndex, endIndex = index, adjacentIndex
 						if startIndex > endIndex:
 							startIndex, endIndex = adjacentIndex, index
 
 						pairIndex = (startIndex, endIndex)
-						print("Pair Index:", pairIndex)
+						# print("Pair Index:", pairIndex)
 						if pairIndex in self.regionDifferences.keys():
-							# if self.regionDifferences[ pairIndex ] < self.diffAttractThreshold and self.regionCoherency[adjacentIndex] < self.stableThreshold:
-							print("Pair Index", pairIndex, "difference:", self.regionDifferences[pairIndex])
-							if self.regionDifferences[pairIndex] < self.diffAttractThreshold:
-								print("Region ", index, "attracted to", adjacentIndex)
+							if self.regionDifferences[ pairIndex ] < self.diffAttractThreshold and self.regionCoherency[adjacentIndex] < self.stableThreshold:
+							# print("Pair Index", pairIndex, "difference:", self.regionDifferences[pairIndex])
+							# if self.regionDifferences[pairIndex] < self.diffAttractThreshold:
+								# print("Region ", index, "attracted to", adjacentIndex)
 								# Force the adjacent region to the same angle.
 								# newDirection[ adjacentIndex ] = Bridson_Angles.calcAverageAngle(newDirection[adjacentIndex], self.regionDirection[index])
-								newDirection[ adjacentIndex ] = self.regionDirection[ index ]
-								print("Setting region", adjacentIndex, "to angle", newDirection[ adjacentIndex ] )
-							elif self.regionDifferences[ pairIndex ] >= self.diffRepelThreshold and self.regionIntensityMap[index] < self.regionIntensityMap[adjacentIndex] :
+								# newDirection[ adjacentIndex ] = self.regionDirection[ index ]
+								if Bridson_Common.stableAttractSet:
+									newDirection[adjacentIndex] = self.regionDirection[index]
+								else:
+									newDirection[adjacentIndex] = Bridson_Angles.calcAverageAngleWeighted(newDirection[adjacentIndex], self.regionDirection[index], self.regionCoherency[adjacentIndex], self.regionCoherency[index])
+								# print("Setting region", adjacentIndex, "to angle", newDirection[ adjacentIndex ] )
+							elif self.regionDifferences[ pairIndex ] >= self.diffRepelThreshold and self.regionIntensityMap[index] < self.regionIntensityMap[adjacentIndex]:
 								# Force the repel of adjacent regions to perpendicular angle.
-								newDirection[ adjacentIndex ] = Bridson_Angles.calcAverageAngle(newDirection[adjacentIndex], (self.regionDirection[index] + 90) % 360)
-								print("Region", index, "repels region", adjacentIndex)
-								print("Setting region", adjacentIndex, "to angle", newDirection[adjacentIndex])
+								newDirection[ adjacentIndex ] = Bridson_Angles.calcAverageAngleWeighted(newDirection[adjacentIndex], (self.regionDirection[index] + 90) % 360, self.regionCoherency[adjacentIndex], self.regionCoherency[index])
+								# print("Region", index, "repels region", adjacentIndex)
+								# print("Setting region", adjacentIndex, "to angle", newDirection[adjacentIndex])
 							else:
 								print("Neutral pair:", pairIndex)
 						else:
