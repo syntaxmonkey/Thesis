@@ -117,7 +117,7 @@ def BFFReshape():
 
 	#<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-	print("Attempting BFF")
+	# print("Attempting BFF")
 	p = subprocess.Popen(path + 'bff-command-line' + parameters, shell=True, stdout=subprocess.PIPE)
 	try:
 		p.wait(Bridson_Common.timeoutPeriod)
@@ -125,7 +125,7 @@ def BFFReshape():
 		print("Killed BFF")
 		p.kill()
 		p.kill()
-	print("Finished BFF")
+	# print("Finished BFF")
 
 	# This handles the case where BFF has a problem processing the mesh, e.g. the mesh has a manifold.
 	if p.returncode != 0:
@@ -381,7 +381,7 @@ def drawRegionLines( filename, finishedImage, regionList):
 
 			# if trifindersuccess:
 			successfulRegions += 1
-			print("Trifinder was successfully generated for region", index)
+			# print("Trifinder was successfully generated for region", index)
 			if Bridson_Common.diagnostic == False:
 				# Only draw the lines if the trifinder was successful generated.
 				if Bridson_Common.linesOnFlat:

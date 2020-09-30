@@ -520,7 +520,7 @@ class MeshObject:
 		rasterShape = np.shape( raster )
 		middle = [ int(rasterShape[0] / 2), int(rasterShape[1]/2) ]
 
-		print("Middle Point:", middle)
+		# print("Middle Point:", middle)
 		# angle: 0 degrees goes north.  90 degrees goes east.  180 degrees goes south.  270 degrees goes west.
 		dx, dy = Bridson_Common.calculateDirection(angle)
 		# print("DrawAngleLinesExteriorSeed2 dx, dy:", dx, dy)
