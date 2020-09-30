@@ -713,7 +713,7 @@ if __name__ == '__main__':
 		images = []
 		images.append('simpleTriangle.png')
 		# images.append('Stripes.png')
-		# images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
+		images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
 		images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
 		semanticSegmentation = ['none']
 		segmentCounts = [200]

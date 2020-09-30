@@ -600,16 +600,31 @@ class FinishedImage:
 		# print("regionToRegions:", self.regionToRegions)
 		# Calculate the difference threshold.  Regions with differences below this threshold are
 		# candidates for changing their direction.
-		print( "Region Differences Values:", list( self.regionDifferences.values() ))
-		self.diffAttractThreshold = np.percentile(list( self.regionDifferences.values() ), Bridson_Common.diffAttractPercentile)
-		print("diff attract threshold:", self.diffAttractThreshold)
-
-		self.diffRepelThreshold = np.percentile(list( self.regionDifferences.values() ), Bridson_Common.diffRepelPercentile)
-		print("diff repel threshold:", self.diffRepelThreshold)
-		self.stableThreshold = np.percentile( list(self.regionCoherency.values()), Bridson_Common.stableCoherencyPercentile)
-		print("stable threshold:", self.stableThreshold)
 
 
+	def calculateThresholds(self):
+
+		if True:
+			# Use the histogram bins.
+			hist, bin_edges = np.histogram(self.regionDifferences, bins=10)
+			self.diffAttractThreshold = bin_edges[1]
+			print("Attraction bin:", bin_edges[1])
+			self.diffRepelThreshold = bin_edges[3]
+			print("Repel bin:", bin_edges[3])
+
+			hist, bin_edges = np.histogram(self.stableThreshold, bins=10)
+			self.stableThreshold = bin_edges[-3]
+
+		if False:
+			# Percentile approach for calculating the thresholds.
+			print( "Region Differences Values:", list( self.regionDifferences.values() ))
+			self.diffAttractThreshold = np.percentile(list( self.regionDifferences.values() ), Bridson_Common.diffAttractPercentile)
+			print("diff attract threshold:", self.diffAttractThreshold)
+
+			self.diffRepelThreshold = np.percentile(list( self.regionDifferences.values() ), Bridson_Common.diffRepelPercentile)
+			print("diff repel threshold:", self.diffRepelThreshold)
+			self.stableThreshold = np.percentile( list(self.regionCoherency.values()), Bridson_Common.stableCoherencyPercentile)
+			print("stable threshold:", self.stableThreshold)
 
 
 
