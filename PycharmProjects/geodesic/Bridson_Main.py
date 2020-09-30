@@ -703,7 +703,7 @@ if __name__ == '__main__':
 		if Bridson_Common.SLIC0:
 			compactnessList = [0.01]
 		else:
-			compactnessList = [ 10, 20, 40]
+			compactnessList = [ 20, 40]
 		# compactnessList = [1]
 	else:
 		segmentCounts = [200]
@@ -718,7 +718,7 @@ if __name__ == '__main__':
 		images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
 		semanticSegmentation = ['none']
 		segmentCounts = [200]
-		compactnessList = [0.01]
+		compactnessList = [20]
 
 	variables = []
 	for filename in images:
@@ -735,13 +735,13 @@ if __name__ == '__main__':
 						Bridson_Common.test1_outobj = baseName + '_out.obj'
 						Bridson_Common.test1_out_flatobj = baseName + '_out_flat.obj'
 
-						random.seed(Bridson_Common.seedValue)
-						np.random.seed(Bridson_Common.seedValue)
 						# Bridson_Common.targetRegionPixelCount = targetPixel
 						Bridson_Common.segmentCount = segmentCount
 						# Set the seed each time.
 						Bridson_Common.compactnessSLIC=compactness
 						Bridson_Common.semanticSegmentation = cnn
+						random.seed(Bridson_Common.seedValue)
+						np.random.seed(Bridson_Common.seedValue)
 						try:
 							indexValidation(filename)
 							if Bridson_Common.bulkGeneration:
@@ -766,7 +766,7 @@ if __name__ == '__main__':
 		iterations = int(len(variables) / blocks + 1)
 
 		print("CoreCount:", coreCount)
-		mp.set_start_method('spawn')  # Valid options are 'fork', 'spawn', and 'forkserver'
+		mp.set_start_method('forkserver')  # Valid options are 'fork', 'spawn', and 'forkserver'
 		for iteration in range( iterations ):
 			iterationVariables = variables[iteration*blocks:(iteration+1)*blocks].copy()
 			print(iterationVariables)

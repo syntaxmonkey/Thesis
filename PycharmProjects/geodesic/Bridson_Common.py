@@ -23,7 +23,7 @@ np.set_printoptions(linewidth=desired_width)
 
 seedValue = 11
 
-SLIC0=True
+SLIC0=False
 compactnessSLIC=1
 timeoutPeriod = 5
 SLICIterations=50
@@ -32,7 +32,7 @@ SLICGrey = False
 bulkGeneration = True
 smallBatch=True
 
-coreCount = 4
+coreCount = 1
 if os.path.exists("./output") == True:
 	if os.path.isdir("./output") == False:
 		exit(-1)
@@ -40,7 +40,7 @@ else:
 	os.mkdir("./output")
 
 if Bridson_Common.bulkGeneration:
-	sys.stdout = open("./output/detailLogs.txt", "a")
+	# sys.stdout = open("./output/detailLogs.txt", "a")
 	pass
 
 debug=False
