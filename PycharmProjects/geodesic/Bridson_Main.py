@@ -589,7 +589,13 @@ def wrapper(filename, segmentCount, compactness, cnn):
 	# Bridson_Common.targetRegionPixelCount = targetPixel
 	Bridson_Common.segmentCount = segmentCount
 	# Set the seed each time.
-	Bridson_Common.compactnessSLIC = compactness
+	if compactness == 'SLIC0':
+		Bridson_Common.SLIC0 = True
+		Bridson_Common.compactnessSLIC = 0.01
+	else:
+		Bridson_Common.SLIC0 = False
+		Bridson_Common.compactnessSLIC = compactness
+
 	Bridson_Common.semanticSegmentation = cnn
 	try:
 		indexValidation(filename)
@@ -700,10 +706,10 @@ if __name__ == '__main__':
 		segmentCounts = [200, 300, 400]
 		# segmentCounts = [200]
 		compactnessList = [ 0.1, 0.25, 0.5]
-		if Bridson_Common.SLIC0:
-			compactnessList = [0.01]
-		else:
-			compactnessList = [ 20, 40]
+		# if Bridson_Common.SLIC0:
+		# 	compactnessList = [0.01]
+		# else:
+		compactnessList = [ 'SLIC0', 20, 40]
 		# compactnessList = [1]
 	else:
 		segmentCounts = [200]

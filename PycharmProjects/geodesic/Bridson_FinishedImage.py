@@ -717,18 +717,10 @@ class FinishedImage:
 								# newDirection[adjacentIndex] = (self.regionDirection[index] + 90) % 360
 								# print("Region", index, "repels region", adjacentIndex)
 								# print("Setting region", adjacentIndex, "to angle", newDirection[adjacentIndex])
-							else:
-								pass
-								# print("Neutral pair:", pairIndex, "has diff:", self.regionDifferences[pairIndex], "Adjacent coherency:", self.regionCoherency[adjacentIndex])
-
 						else:
 							print("PairIndex does not exist:", pairIndex)
 
 			self.regionDirection = newDirection
-
-				# else:
-				# 	print("Region is stable", index)
-		# print("POST Region Directions:", self.regionDirection)
 
 
 

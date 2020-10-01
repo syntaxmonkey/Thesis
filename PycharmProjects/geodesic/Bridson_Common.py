@@ -30,7 +30,7 @@ SLICIterations=50
 SLICGrey = False
 
 bulkGeneration = True
-smallBatch=True
+smallBatch=False
 
 coreCount = 4
 if os.path.exists("./output") == True:
@@ -97,7 +97,7 @@ repelBin = 3
 stableBin = -4
 stableAttractSet=False  # If true, during the attract, stable regions will simply set adjacent regions equal to the desired angle.  Otherwise, it will take the average.
 binSize=10
-angleAdjustIterations=2000
+angleAdjustIterations=1000
 attractFudge=1.5 # Fudge factor to use when comparing region intensities.
 
 semanticSegmentation='none' # Valid values: 'deeplabv3', 'mask_rcnn', 'both', 'none'
