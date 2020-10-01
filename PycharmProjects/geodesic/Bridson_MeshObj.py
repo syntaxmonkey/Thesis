@@ -114,7 +114,9 @@ class MeshObject:
 		# Determine the dx, dy based on the angle.
 		# print("Using angle: ", angle)
 		startingSize = 50
+		if math.isnan(angle): angle = 0
 		dx, dy = Bridson_Common.calculateDirection( int( angle ) )
+
 		dx, dy = dx * Bridson_Common.dradius * startingSize, dy * Bridson_Common.dradius * startingSize
 		# print("dx, dy:", dx, dy)
 		pointsFound = False

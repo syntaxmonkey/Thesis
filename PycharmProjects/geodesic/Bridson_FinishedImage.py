@@ -126,11 +126,29 @@ class FinishedImage:
 		pass
 
 
+	def findLongestLine(self, linePoints):
+		longestLength = -1
+		longestIndex = -1
+		for lineIndex in range(len(linePoints)):
+			line = linePoints[lineIndex]
+			lineDistance = 0
+			for pointIndex in range(len(line) - 1):
+				lineDistance += Bridson_Common.euclidean_distance(line[pointIndex], line[pointIndex+1])
+
+			if lineDistance > longestLength:
+				longestLength = lineDistance
+				longestIndex = lineIndex
+
+		# Rearrange the lines so that our starting index is at the longest line.
+		linePoints = np.roll(linePoints, -longestIndex)
+
+		return linePoints
+
 	def cullLines(self, linePoints, regionIntensity):
 		'''
 			We want to cull the lines based on a distance between the lines.
 			When the lines are vertical, we can sort the line order by x coordinates.
-			When the lines are not vertical, we have a problem with sorting the
+			When the lines are not vertical, we have a problem with sorting the lines.
 
 		:param linePoints:
 		:param regionIntensity:
@@ -145,35 +163,37 @@ class FinishedImage:
 			# if self.calculateLineSpacing(linePoints[0], linePoints[-1], intensity=regionIntensity) == False:
 			# 	return
 
+		# Find the longest line.  Rotate the array such that the longest line is the first element.
+		linePoints = self.findLongestLine( linePoints )
+
 		currentLine = linePoints[-1]*-100
 		for lineIndex in range(len(linePoints)):
 			# if lineIndex % Bridson_Common.lineSkip == 0:
-			if True:
-				line = linePoints[lineIndex].copy()
-				line = line * Bridson_Common.mergeScale
-				# newLinePoints.append( line )
-				# print("Handling Line index:", lineIndex)
-				# print("cullLines:", line[0], line[-1])
-				if self.calculateLineSpacing(currentLine, line, intensity=regionIntensity) == True:
-					# The line has passed the initial check against the previous line.
-					# Now have to check against existing lines.
-					if len(newLinePoints) > 0:
-						flippedLine = np.flip(line, axis=0)
-						farEnough = True
-						for addedLine in newLinePoints:
-							if self.calculateLineSpacing(addedLine, line, intensity=regionIntensity) == True and self.calculateLineSpacing(addedLine, np.flip(line, axis=0), intensity=regionIntensity) == True:
-								pass
-							else:
-								farEnough = False
-						# The line is not too close to other added lines.
-						if farEnough:
-							newLinePoints.append( line )
-							empty=False
-							currentLine = line
-					else:
-						newLinePoints.append(line)
-						empty = False
+			line = linePoints[lineIndex].copy()
+			line = line * Bridson_Common.mergeScale
+			# newLinePoints.append( line )
+			# print("Handling Line index:", lineIndex)
+			# print("cullLines:", line[0], line[-1])
+			if self.calculateLineSpacing(currentLine, line, intensity=regionIntensity) == True:
+				# The line has passed the initial check against the previous line.
+				# Now have to check against existing lines.
+				if len(newLinePoints) > 0:
+					flippedLine = np.flip(line, axis=0)
+					farEnough = True
+					for addedLine in newLinePoints:
+						if self.calculateLineSpacing(addedLine, line, intensity=regionIntensity) == True and self.calculateLineSpacing(addedLine, np.flip(line, axis=0), intensity=regionIntensity) == True:
+							pass
+						else:
+							farEnough = False
+					# The line is not too close to other added lines.
+					if farEnough:
+						newLinePoints.append( line )
+						empty=False
 						currentLine = line
+				else:
+					newLinePoints.append(line)
+					empty = False
+					currentLine = line
 
 		# print("cullLines empty:", empty)
 		return empty, newLinePoints
@@ -554,9 +574,9 @@ class FinishedImage:
 			self.regionDirection[ index ] = meshAngle
 			self.regionCoherency[ index ] = coherency
 			# print("calculateRegionDirection5")
-		print("Region Coherency:", list(self.regionCoherency.values()) )
-		print("Size of Coherency:", len(list(self.regionCoherency.values())))
-		print("Region Intensity:", list(self.regionIntensityMap.values()) )
+		# print("Region Coherency:", list(self.regionCoherency.values()) )
+		# print("Size of Coherency:", len(list(self.regionCoherency.values())))
+		# print("Region Intensity:", list(self.regionIntensityMap.values()) )
 
 
 
@@ -611,12 +631,13 @@ class FinishedImage:
 			# Use the histogram bins.
 			hist, bin_edges = np.histogram( list(self.regionDifferences.values()), bins=Bridson_Common.binSize)
 			self.diffAttractThreshold = bin_edges[ Bridson_Common.attractionBin ]
-			print("Attraction bin:", bin_edges[ Bridson_Common.attractionBin ])
+			print("DiffAttractThreshold:", self.diffAttractThreshold)
 			self.diffRepelThreshold = bin_edges[ Bridson_Common.repelBin ]
-			print("Repel bin:", bin_edges[ Bridson_Common.repelBin ])
+			print("DiffRepelThreshold:", self.diffRepelThreshold)
 
 			hist, bin_edges = np.histogram( list(self.regionCoherency.values()) , bins=Bridson_Common.binSize)
 			self.stableThreshold = bin_edges[ Bridson_Common.stableBin ]
+			print("stable threshold:", self.stableThreshold)
 
 		if False:
 			# Percentile approach for calculating the thresholds.
@@ -632,7 +653,6 @@ class FinishedImage:
 
 
 	def adjustRegionAngles2(self, iterations=Bridson_Common.angleAdjustIterations):
-		invert = lambda x: 255 - x
 		invertNormalize = lambda x: (255 - x) / 255
 		# print("Iterations:", iterations)
 		# Iterate through all regions.
@@ -660,27 +680,17 @@ class FinishedImage:
 							startIndex, endIndex = adjacentIndex, index
 
 						pairIndex = (startIndex, endIndex)
-						# print("Pair Index", pairIndex)
 
 						if pairIndex in self.regionDifferences.keys():
-						# Attract case.  Repeat this step twice.
-							if self.regionDifferences[ pairIndex ] < self.diffAttractThreshold and invert(self.regionIntensityMap[index])*1.1 >= invert(self.regionIntensityMap[adjacentIndex]):
+							if self.regionDifferences[ pairIndex ] < self.diffAttractThreshold and invertNormalize(self.regionIntensityMap[index]) <= invertNormalize(self.regionIntensityMap[adjacentIndex])*Bridson_Common.attractFudge:
+								# Attract case.  Repeat this step twice.
 								# AttractList.append( self.regionDirection[ adjacentIndex ] )
 								# newDirection[index] = Bridson_Angles.calcAverageAngleWeighted(newDirection[index], self.regionDirection[adjacentIndex], self.regionCoherency[index], self.regionCoherency[adjacentIndex])
 								newDirection[index] = Bridson_Angles.calcAverageAngleWeighted(newDirection[index], self.regionDirection[adjacentIndex], invertNormalize(self.regionIntensityMap[index]), invertNormalize(self.regionIntensityMap[adjacentIndex]) )
-
-
-							# Repel case.
-							if self.regionDifferences[ pairIndex ] >= self.diffRepelThreshold and invert(self.regionIntensityMap[index]) > invert(self.regionIntensityMap[adjacentIndex]):
+							elif self.regionDifferences[ pairIndex ] >= self.diffRepelThreshold and invertNormalize(self.regionIntensityMap[index])*Bridson_Common.attractFudge > invertNormalize(self.regionIntensityMap[adjacentIndex]):
+								# Repel case.
 								# RepelList.append( (self.regionDirection[ adjacentIndex ] + 90) % 360  )
 								newDirection[index] = Bridson_Angles.calcAverageAngleWeighted(newDirection[index], (self.regionDirection[adjacentIndex] + 90) % 360, invertNormalize(self.regionIntensityMap[index]), invertNormalize(self.regionIntensityMap[adjacentIndex]) )
-					# if len(RepelList) > 0:
-					# 	for angle in RepelList:
-					# 		newDirection[index] = Bridson_Angles.calcAverageAngle(newDirection[index], angle)
-					#
-					# if len(AttractList) > 0:
-					# 	for angle in AttractList:
-					# 		newDirection[index] = Bridson_Angles.calcAverageAngle(newDirection[index], angle)
 
 				elif self.regionCoherency[ index ] >= self.stableThreshold:
 					# print("Stable region:", index)
@@ -696,25 +706,21 @@ class FinishedImage:
 						# print("Pair Index:", pairIndex)
 						if pairIndex in self.regionDifferences.keys():
 							if self.regionDifferences[ pairIndex ] < self.diffAttractThreshold and self.regionCoherency[adjacentIndex] < self.stableThreshold:
-							# print("Pair Index", pairIndex, "difference:", self.regionDifferences[pairIndex])
-							# if self.regionDifferences[pairIndex] < self.diffAttractThreshold:
-								# print("Region ", index, "attracted to", adjacentIndex)
-								# Force the adjacent region to the same angle.
-								# newDirection[ adjacentIndex ] = Bridson_Angles.calcAverageAngle(newDirection[adjacentIndex], self.regionDirection[index])
-								# newDirection[ adjacentIndex ] = self.regionDirection[ index ]
 								if Bridson_Common.stableAttractSet:
 									newDirection[adjacentIndex] = self.regionDirection[index]
 								else:
 									newDirection[adjacentIndex] = Bridson_Angles.calcAverageAngleWeighted(newDirection[adjacentIndex], self.regionDirection[index], invertNormalize(self.regionIntensityMap[adjacentIndex]), invertNormalize(self.regionIntensityMap[index]) )
 								# print("Setting region", adjacentIndex, "to angle", newDirection[ adjacentIndex ] )
-							elif self.regionDifferences[ pairIndex ] >= self.diffRepelThreshold and invert(self.regionIntensityMap[index]) > invert(self.regionIntensityMap[adjacentIndex]):
+							elif self.regionDifferences[ pairIndex ] >= self.diffRepelThreshold and invertNormalize(self.regionIntensityMap[index])*Bridson_Common.attractFudge > invertNormalize(self.regionIntensityMap[adjacentIndex]):
 								# Force the repel of adjacent regions to perpendicular angle.
 								newDirection[ adjacentIndex ] = Bridson_Angles.calcAverageAngleWeighted(newDirection[adjacentIndex], (self.regionDirection[index] + 90) % 360, invertNormalize(self.regionIntensityMap[adjacentIndex]), invertNormalize(self.regionIntensityMap[index]) )
+								# newDirection[adjacentIndex] = (self.regionDirection[index] + 90) % 360
 								# print("Region", index, "repels region", adjacentIndex)
 								# print("Setting region", adjacentIndex, "to angle", newDirection[adjacentIndex])
 							else:
 								pass
-								# print("Neutral pair:", pairIndex)
+								# print("Neutral pair:", pairIndex, "has diff:", self.regionDifferences[pairIndex], "Adjacent coherency:", self.regionCoherency[adjacentIndex])
+
 						else:
 							print("PairIndex does not exist:", pairIndex)
 

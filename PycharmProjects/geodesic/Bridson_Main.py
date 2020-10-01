@@ -718,7 +718,7 @@ if __name__ == '__main__':
 		images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
 		semanticSegmentation = ['none']
 		segmentCounts = [200]
-		compactnessList = [20]
+		compactnessList = [40]
 
 	variables = []
 	for filename in images:

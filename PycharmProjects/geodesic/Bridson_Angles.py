@@ -28,10 +28,15 @@ def calcAverageAngleWeighted(angle1, angle2, weight1, weight2):
 	'''
 	Given two different angles, calculate the naive average.
 	'''
+	if weight1 == 0 and weight2 == 0:
+		weight1 += 0.00001 # Make sure this value is not zero.
+		weight2 += 0.00001 # Make sure this value is not zero.
 
 	totalWeight = weight1 + weight2
 	weight1 = weight1 / totalWeight
 	weight2 = weight2 / totalWeight
+
+
 	angle1, angle2 = findMinAngleDiff(angle1, angle2)
 
 	toRad = math.pi/180
@@ -110,7 +115,7 @@ if __name__ == '__main__':
 			print("Angle", angle1, "and", angle2, "Average:", averageAngle, "\n")
 
 		if True:
-			averageAngle = calcAverageAngleWeighted(angle1, angle2, 0.2, 0.1)
+			averageAngle = calcAverageAngleWeighted(angle1, angle2, 0.01, 0.0)
 			print("Angle", angle1, "and", angle2, "Average Weighted:", averageAngle, "\n")
 
 
