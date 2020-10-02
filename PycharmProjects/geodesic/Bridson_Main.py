@@ -473,9 +473,6 @@ def indexValidation(filename):
 		NoSLICmaskRasterCollection[ index ] = raster.copy()
 		regionDirection[ index ] = 0  # Default the direction to 0.
 
-	# Set the variables
-
-
 
 	##### Process PRE image
 	if Bridson_Common.generatePREImage:
@@ -529,14 +526,18 @@ def indexValidation(filename):
 	print("0I")
 
 	for index in meshObjCollection.keys():
-		# Draw the region contour lines onto the finished image.
-		# meshObj = meshObjCollection[ index ]
-		# print("About to call drawRegionContourLines on SLIC image.")
-		# Bridson_Common.debug = True
+		finishedImageSLIC.drawOnlyLongestLine( index, drawSLICRegions=True)
+		finishedImageNoSLIC.drawOnlyLongestLine( index,  drawSLICRegions=False )
+
+	Bridson_Common.saveImage(filename, "SLIC_DIRECTION", finishedImageSLIC.fig)
+	Bridson_Common.saveImage(filename, "NoSLIC_DIRECTION", finishedImageNoSLIC.fig)
+
+	finishedImageSLIC.removeTempLines()
+	finishedImageNoSLIC.removeTempLines()
+
+	for index in meshObjCollection.keys():
 		finishedImageSLIC.drawRegionContourLines( index,  drawSLICRegions=True )
-		# print("About to call drawRegionContourLines on NON SLIC image.")
 		finishedImageNoSLIC.drawRegionContourLines( index,  drawSLICRegions=False )
-		# finishedImageNoSLICPRE.drawRegionContourLines(index, drawSLICRegions=False)
 	print("0J")
 
 	# finishedImageNoSLIC.highLightEdgePoints( drawSLICRegions=False )
@@ -703,13 +704,13 @@ if __name__ == '__main__':
 	targetPixels = [3200]
 	if Bridson_Common.bulkGeneration:
 		# segmentCounts = [100, 200]
-		segmentCounts = [200, 300, 400]
+		segmentCounts = [100, 200, 400]
 		# segmentCounts = [200]
 		compactnessList = [ 0.1, 0.25, 0.5]
 		# if Bridson_Common.SLIC0:
 		# 	compactnessList = [0.01]
 		# else:
-		compactnessList = [ 'SLIC0', 20, 40]
+		compactnessList = [ 'SLIC0', 15, 30]
 		# compactnessList = [1]
 	else:
 		segmentCounts = [200]
@@ -724,7 +725,7 @@ if __name__ == '__main__':
 		images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
 		semanticSegmentation = ['none']
 		segmentCounts = [200]
-		compactnessList = [40]
+		compactnessList = ['SLIC0']
 
 	variables = []
 	for filename in images:

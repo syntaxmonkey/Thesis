@@ -27,6 +27,7 @@ class FinishedImage:
 		self.fig = plt.figure()
 		self.ax = self.fig.add_subplot(1, 1, 1, aspect=1)
 		self.ax.set_title('Merged Image' )
+		self.tempLines = []
 		# self.set
 		# self.ax.invert_yaxis()
 
@@ -215,8 +216,8 @@ class FinishedImage:
 
 	def drawSLICRegions(self, regionRaster, segments):
 		# if Bridson_Common.drawSLICRegions:
-		self.ax.imshow(mark_boundaries(regionRaster, segments, color=(255,0,0)))
-		self.ax.grid()
+		self.ax.imshow(mark_boundaries(regionRaster, segments, color=(214/255, 214/255, 136/255)))
+		# self.ax.grid()
 
 
 	def shiftRastersMeshObj(self, regionMap, regionRaster, originalImage):
@@ -863,10 +864,67 @@ class FinishedImage:
 		return distanceRaster, distance1pixelIndices
 
 
+	def drawOnlyLongestLine(self, index, drawSLICRegions = Bridson_Common.drawSLICRegions):
+		# If we are not drawing the SLIC regions, we do not need to flip the Y coordinates.
+		# If we draw the SLIC regions, we need to flip the Y coordinates.
+		if drawSLICRegions == False:
+			flip = 1
+		else:
+			flip = -1
+
+		regionMap = self.regionMap
+		meshObj = self.meshObjCollection[ index ]
+		regionIntensity = self.regionIntensityMap[ index ]
+
+		# Need to utilize the region Raster.
+		raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
+		# Obtain the linePoints from the meshObj.
+		linePoints = meshObj.croppedLinePoints.copy()
+		# print("A")
+		regionCoordinates = regionMap.get( index  )
+		topLeftTarget, bottomRightTarget = SLIC.calculateTopLeft( regionCoordinates )
+
+		# print("Length of linePoints:", len(linePoints))
+		if len(linePoints) == 0:
+			print("Region ", index, "has no lines.")
+			return
+		currentLine = linePoints[0] * -100  # Set the starting line way off the current raster region.
+
+		# Allow regions to be blank.
+		if Bridson_Common.allowBlankRegion == True:
+			if regionIntensity > 250:
+				return
+
+		# print("FinishedImage drawing line count:", len(linePoints))
+		# for lineIndex in range(len(linePoints)):
+		lineIndex = 0
+		# colour = Bridson_Common.colourArray[ (lineIndex % len(Bridson_Common.colourArray) ) ]
+		colour = '#711fa3'
+		line = linePoints[lineIndex].copy()
+		line = line * Bridson_Common.mergeScale
+
+		# Add code to high light stable regions.
+		if self.regionCoherency[index] >= self.stableThreshold:
+			colour = 'r'
+		self.tempLines.append( self.ax.plot(line[:, 0], line[:, 1]*flip, color=colour, linewidth=1.5) )
+		if Bridson_Common.closestPointPair:  # Only place the dots when we are calculating closest point pair.
+			self.ax.plot(currentLine[self.markPoint[0]][0], currentLine[self.markPoint[0]][1] * flip, marker='*',
+			             markersize=6, color='g')  # Colour middle point.
+			self.ax.plot(line[self.markPoint[1]][0], line[self.markPoint[1]][1]*flip, marker='o', markersize=2, color='r')  # Colour middle point.
+
+		if Bridson_Common.highlightEndpoints:
+			regionEdgePoints = self.regionEdgePoints[ index ]
+			for edgePoint in regionEdgePoints.pointsOnEdge:
+				self.ax.plot(edgePoint.xy[0], edgePoint.xy[1]*flip, marker='x', color='g', markersize=4)
+
+
+	def removeTempLines(self):
+		# The returned data structure requires us to pop and remove the line that was drawn.
+		for line in self.tempLines:
+			line.pop().remove()
 
 
 	def drawRegionContourLines(self, index, drawSLICRegions = Bridson_Common.drawSLICRegions):
-
 		# If we are not drawing the SLIC regions, we do not need to flip the Y coordinates.
 		# If we draw the SLIC regions, we need to flip the Y coordinates.
 		if drawSLICRegions == False:
@@ -916,6 +974,7 @@ class FinishedImage:
 			# 	break
 			# if lineIndex % Bridson_Common.lineSkip == 0:
 			colour = Bridson_Common.colourArray[ (lineIndex % len(Bridson_Common.colourArray) ) ]
+			colour = '#711fa3'
 			line = linePoints[lineIndex].copy()
 			line = line * Bridson_Common.mergeScale
 

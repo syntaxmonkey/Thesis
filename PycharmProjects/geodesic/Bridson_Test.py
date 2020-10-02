@@ -407,6 +407,16 @@ plt.title('Random Gaussian data (fixed bin size)')
 plt.xlabel('variable X (bin size = 5)')
 plt.ylabel('count')
 
+x = np.array([5, 10, 12, 20])
+y = np.array([1, 20, 2, 11])
+fig = plt.figure()
+lines = plt.plot(x, y)
+print(lines)
+lines.pop().remove()
+# for line in lines:
+# 	line.remove()
+# 	print()
+
 plt.show()
 # plt.show()
 

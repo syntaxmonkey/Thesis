@@ -29,6 +29,7 @@ timeoutPeriod = 5
 SLICIterations=50
 SLICGrey = False
 
+#####################################
 bulkGeneration = True
 smallBatch=False
 
@@ -42,6 +43,8 @@ else:
 if Bridson_Common.bulkGeneration:
 	sys.stdout = open("./output/detailLogs.txt", "a")
 	pass
+
+#####################################
 
 debug=False
 
@@ -98,7 +101,7 @@ stableBin = -4
 stableAttractSet=False  # If true, during the attract, stable regions will simply set adjacent regions equal to the desired angle.  Otherwise, it will take the average.
 binSize=10
 angleAdjustIterations=1000
-attractFudge=1.5 # Fudge factor to use when comparing region intensities.
+attractFudge=1.05 # Fudge factor to use when comparing region intensities.
 
 semanticSegmentation='none' # Valid values: 'deeplabv3', 'mask_rcnn', 'both', 'none'
 semanticSegmentationRatio=0.5 # This is the weighting of the semantic segmentation.
@@ -127,7 +130,7 @@ dradius = 1.5 # Important that dradius is greater than 1.0.  When the value is 1
 radiusDefault = 1.5
 radiusDivisor = 30 # the number of radii for each region.
 regionDynamicRadius = True
-nearbyDistance = 3
+mergeDistance = 6 # radius to
 
 increaseContrast=False
 contrastFactor=1.5 # Values above 1 increase contrast.  Values below 1 reduce contrast.
@@ -168,7 +171,7 @@ def outputEnvironmentVariables():
 	print("SLIC0:", Bridson_Common.SLIC0)
 	print("allowBlankRegion:", Bridson_Common.allowBlankRegion)
 	print("cullingBlankThreshold:", Bridson_Common.cullingBlankThreshold)
-	print("nearbyDistance:", nearbyDistance)
+	print("nearbyDistance:", mergeDistance)
 	print("semanticSegmentation:", semanticSegmentation)
 	print("semanticSegmentationRatio:", semanticSegmentationRatio)
 	print("semanticInvertMaskrcnn:", semanticInvertMaskrcnn)
@@ -181,6 +184,8 @@ def outputEnvironmentVariables():
 	print("stableBin:", stableBin)
 	print("stableAttractSet:", stableAttractSet)
 	print("binSize:", binSize)
+	print("attractFudge:", attractFudge)
+
 	print("------------------------------------------------------------------")
 
 def determineLineSpacing( intensity):
@@ -294,7 +299,7 @@ def generateTraversalMap(radius):
 	traversalMap.pop( traversalMap.index([0,0]) )
 	return traversalMap
 
-traversalMap = generateTraversalMap(Bridson_Common.nearbyDistance)
+traversalMap = generateTraversalMap(Bridson_Common.mergeDistance)
 
 def findClosestIndex(s1, s2):
 	# print("Bridson_Common:findClosestIndex s1:", s1)
