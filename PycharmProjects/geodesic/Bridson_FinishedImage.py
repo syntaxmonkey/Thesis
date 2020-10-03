@@ -216,7 +216,10 @@ class FinishedImage:
 
 	def drawSLICRegions(self, regionRaster, segments):
 		# if Bridson_Common.drawSLICRegions:
-		self.ax.imshow(mark_boundaries(regionRaster, segments, color=(214/255, 214/255, 136/255)))
+		newRegionRaster = Bridson_Common.scaleArray(regionRaster)
+		newSegments = Bridson_Common.scaleArray(segments)
+		# self.ax.imshow(mark_boundaries(regionRaster, segments, color=(214/255, 214/255, 136/255)))
+		self.ax.imshow(mark_boundaries(newRegionRaster, newSegments, color=(214 / 255, 214 / 255, 136 / 255)))
 		# self.ax.grid()
 
 
@@ -628,7 +631,7 @@ class FinishedImage:
 
 	def calculateThresholds(self):
 
-		if True:
+		if False:
 			# Use the histogram bins.
 			hist, bin_edges = np.histogram( list(self.regionDifferences.values()), bins=Bridson_Common.binSize)
 			self.diffAttractThreshold = bin_edges[ Bridson_Common.attractionBin ]
@@ -640,7 +643,7 @@ class FinishedImage:
 			self.stableThreshold = bin_edges[ Bridson_Common.stableBin ]
 			print("stable threshold:", self.stableThreshold)
 
-		if False:
+		if True:
 			# Percentile approach for calculating the thresholds.
 			print( "Region Differences Values:", list( self.regionDifferences.values() ))
 			self.diffAttractThreshold = np.percentile(list( self.regionDifferences.values() ), Bridson_Common.diffAttractPercentile)

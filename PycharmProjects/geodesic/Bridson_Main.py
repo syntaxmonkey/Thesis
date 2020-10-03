@@ -176,7 +176,10 @@ def SLICImage(filename):
 	print("B")
 	regionRaster = imageraster / np.max(imageraster)   # Need to normalize the region intensity [0 ... 1.0] to display properly.
 	# print("Raster:", displayRaster)
-	ax3.imshow(mark_boundaries( regionRaster, segments, color=(255,0,0) ))
+	newRegionRaster = Bridson_Common.scaleArray(regionRaster)
+	newSegments = Bridson_Common.scaleArray(segments)
+	# ax3.imshow(mark_boundaries( regionRaster, segments, color=(255,0,0) ))
+	ax3.imshow(mark_boundaries( newRegionRaster, newSegments, color=(255,0,0) ))
 	ax3.grid()
 	# plt.clf()
 
@@ -428,7 +431,7 @@ def indexValidation(filename):
 	finishedImageSLIC = Bridson_FinishedImage.FinishedImage()
 	finishedImageSLIC.setTitle(filename)
 	# print( "Region Raster: ", regionRaster )
-	finishedImageSLIC.drawSLICRegions( regionRaster, segments )
+	# finishedImageSLIC.drawSLICRegions( regionRaster, segments )
 	finishedImageSLIC.setTitle(filename)
 
 	# finishedImage.setXLimit( 0, np.shape(imageraster)[0])
@@ -524,6 +527,8 @@ def indexValidation(filename):
 	print("About to copyFromOther")
 	finishedImageNoSLIC.copyFromOther( finishedImageSLIC )
 	print("0I")
+
+	finishedImageSLIC.drawSLICRegions(regionRaster, segments)
 
 	for index in meshObjCollection.keys():
 		finishedImageSLIC.drawOnlyLongestLine( index, drawSLICRegions=True)
@@ -704,13 +709,13 @@ if __name__ == '__main__':
 	targetPixels = [3200]
 	if Bridson_Common.bulkGeneration:
 		# segmentCounts = [100, 200]
-		segmentCounts = [100, 200, 400]
+		segmentCounts = [ 200, 400]
 		# segmentCounts = [200]
 		compactnessList = [ 0.1, 0.25, 0.5]
 		# if Bridson_Common.SLIC0:
 		# 	compactnessList = [0.01]
 		# else:
-		compactnessList = [ 'SLIC0', 15, 30]
+		compactnessList = [ 'SLIC0' ]
 		# compactnessList = [1]
 	else:
 		segmentCounts = [200]
@@ -720,8 +725,8 @@ if __name__ == '__main__':
 		images = []
 		images.append('simpleTriangle.png')
 		# images.append('Stripes.png')
-		images.append('kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg')
-		images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
+		# images.append('kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg')
+		# images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
 		images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
 		semanticSegmentation = ['none']
 		segmentCounts = [200]

@@ -1,0 +1,2627 @@
+Divisor: 3.0
+CoreCount: 2
+[('simpleTriangle.png', 200, 'SLIC0', 'none'), ('david-dibert-Huza8QOO3tc-unsplash.jpg', 200, 'SLIC0', 'none')]
+Divisor: 3.0
+>>>>>>>>>>>>>>>> Calling SLIC for  david-dibert-Huza8QOO3tc-unsplash.jpg <<<<<<<<<<<<<<<<<<<<<<<
+EE
+EE1
+AA Max and Min of greyscaleImage: 255 0
+BB Max and Min of greyscaleImage: 255 0
+EE2
+EE2
+EE3
+Shape: (281, 500, 3)
+Type: <class 'numpy.ndarray'>
+EE4
+CC Max and Min of greyscaleImage: 255 0
+DD Max and Min of greyscaleImage: 255 0
+EE Max and Min of greyscaleImage: 255 0
+DD
+DD1
+DD2
+DD3
+DD4
+DD5
+YY Max and Min of image: 255 0
+ZZ Max and Min of greyscaleImage: 243 7
+CC
+------- Environment Variables ----------------------------------- 
+segmentCount: 200
+lineCullAlgorithm:  generous
+lineAngle: 90
+coherencyThreshold: 0.1
+highlightEndpoints: False
+middleAverageOnly: False
+compactnessSLIC: 0.01
+SLICIterations: 50
+SLIC0: True
+allowBlankRegion: False
+cullingBlankThreshold: 230
+nearbyDistance: 6
+semanticSegmentation: none
+semanticSegmentationRatio: 0.5
+semanticInvertMaskrcnn: True
+stableCoherencyPercentile: 95
+differencePercentile: 80
+diffRepelPercentile: 80
+generatePREImage: False
+attractionBin: 3
+repelBin: 3
+stableBin: -4
+stableAttractSet: False
+binSize: 10
+attractFudge: 1.05
+------------------------------------------------------------------
+CC1
+B
+C
+0A
+0B
+Region Differences Values: [0.795015442506969, 1.0954361943413373, 1.129041102740479, 0.7790194336324061, 0.7652192285428259, 1.0367962071558037, 1.253131674730626, 0.4402927786879194, 0.9081389280936039, 1.2312028365002017, 0.21771903581845184, 1.147872322744021, 1.519648697808124, 1.3015062416549827, 1.2312028365001997, 0.9634570098961512, 0.508242616669928, 1.2973616599329563, 1.5196486978081278, 1.7710593873510634, 0.7991543218377104, 1.464441550803471, 1.2086018477625227, 1.1285435107386705, 2.0105000823708656, 0.508218928165495, 1.6266859928607778, 7.4179197785095905, 1.6903720447444814, 58.8299125530583, 6.625074092846694, 52.714662453785806, 3.5464681133719376, 54.549600454070095, 2.2446950950207136, 1.0750745773178838, 3.532077829920168, 0.8056328446693657, 2.081729569413507, 0.5381281102639, 1.6328787998168346, 1.5669995330569195, 0.8057960391645465, 1.7391664067644816, 0.9772738039287255, 2.0777442684124146, 0.6435840068500098, 2.1944219589206395, 1.525084953196466, 0.9420625058898416, 0.9510091809431382, 3.2367535665497265, 2.0038559475368056, 1.5902787840296455, 1.0485398556079641, 0.21771903581845184, 2.3056532394524414, 1.7007623996901902, 2.2030884855454165, 2.525457209271626, 1.2312028365002017, 2.4027640580874308, 2.9863833423127497, 1.1558365044304966, 0.22185756898223935, 0.4446443695774594, 0.22185756898223935, 0.9953112013629025, 1.3675645066473385, 1.4848856561075738, 2.186416630664288, 3.3531320587614237, 0.48149869861469724, 3.7057578642556375, 2.015490986614004, 3.239177455045409, 0.5340026731920523, 2.3991372983518193, 57.93198116507098, 2.4641732178476423, 54.48551820700546, 1.1925470121626183, 0.4893594261504566, 0.4949217523458008, 1.9125436337251993, 1.2210918585565917, 2.506293501878083, 1.5480516656907766, 54.09827093725858, 4.675041046029514, 2.9386589488849215, 1.3408729204368715, 5.602331609229222, 57.393102910576104, 0.22278807004199763, 0.7822546147224854, 3.29401585573111, 2.5344043307413147, 2.2846401051400345, 0.22278807004199774, 0.6178058852849443, 1.3656706566798762, 1.7539776298988008, 1.9065287689920163, 1.2119951935005655, 2.30258597975133, 1.4114411523113817, 54.12192245919962, 47.5550865698071, 0.8247095505309217, 0.995993411266206, 0.4405206217554861, 0.7901685769655069, 1.1208219206991084, 1.298072946993178, 1.1178219828713851, 1.0560445854275389, 1.904998191278592, 1.5342773665486553, 1.8322800312177832, 1.4706562347434384, 1.450601802950683, 1.4676200239663837, 1.2223682424361675, 1.8280398617119389, 1.178917869988298, 42.41205343486391, 1.2143602464223657, 0.9525275534346369, 59.46694548187752, 1.3312532075358763, 0.45074376340107325, 0.7863530498529672, 2.188553185115669, 2.5972278887915343, 3.6350268116771836, 63.13191912047228, 62.88080706153795, 58.493522688877356, 58.930162090289365, 0.9542862534076239, 1.882261408815722, 1.341265824230434, 3.8823340787589853, 2.407460601060908, 5.358594267040693, 1.644479291310468, 1.8943036554218453, 2.088741611415196, 0.4484945116093349, 0.826937871910938, 46.73522317760874, 40.78571319334004, 45.89779440382658, 1.70539863154923, 0.5152036976890316, 1.2518714536503919, 0.9455461283069325, 0.45118585749978085, 0.6800503691031545, 41.302681702167376, 53.68492145986837, 0.9948044776509566, 53.442087184765434, 0.4865070930650199, 1.7554213159340617, 1.088984819994601, 0.7808072928336905, 1.2866435123792508, 59.26463663833739, 2.654062510412641, 4.017754710489843, 53.15072421646103, 3.4557719860877407, 2.479639598273294, 3.495466281298089, 1.7287517388202376, 1.7571894068129845, 1.9297450054017502, 1.9297450054017502, 0.47216174339383626, 2.266110562413902, 0.9862589477481387, 0.466553298465384, 1.9475669128874231, 0.4835257890784864, 0.9765376781726575, 6.576247043413784, 4.232017274566195, 1.031060537206173, 14.90371558135915, 2.08044712275936, 1.4851135566332176, 0.6010673320687371, 0.9302956653458953, 0.8992569725518661, 0.8866163440153484, 5.158749040523171, 10.803920718403516, 4.043791109450384, 2.0648031891471557, 1.0422874056723646, 5.1928722095441255, 3.665147221481857, 3.100897510451393, 0.5456788901150235, 7.8027707329850555, 2.048107777444507, 0.49782598830856656, 0.7925458380813071, 1.332190530159502, 0.8077189760397284, 0.9828462813825252, 3.549975718662298, 1.7945534446882165, 0.9111367951808684, 1.1398316148718999, 2.3342909562361056, 2.4529589921814083, 0.7365629540731424, 53.51781068265369, 1.7096002105520216, 6.6443049866114325, 2.106565890488361, 2.172916454207826, 46.83369206877029, 3.0080064053970195, 8.277615922515057, 18.934421631117186, 2.4096643379685174, 47.925656793710985, 5.448808100088877, 12.589269406500406, 16.790596012763064, 15.962700840050914, 27.09996620480603, 16.489275187052073, 0.9152103431501241, 0.9152103431501241, 0.4143073425301962, 0.0, 1.09706947203907, 3.4851310969405036, 15.087677929574367, 3.8043241632890537, 5.837087180423239, 3.767238195322047, 0.614083983336743, 0.4143073425301962, 3.4225533975567144, 15.132730130641256, 2.589854602413996, 14.666788724112063, 1.8203348858939632, 3.100817491737067, 2.31746876739211, 14.39749030840018, 0.0, 3.358206305837033, 7.0512993855803945, 4.66314699786249, 7.091515426402856, 8.115206302211782, 3.6944558746160756, 11.89650596486005, 12.140245634962724, 14.473815050367177, 16.00483320580562, 6.045091214976019, 7.731499210440116, 1.7280602505633884, 0.4540309423164262, 21.52771472767705, 17.02827960783618, 6.308371230604508, 17.45269916965393, 3.4842617735800894, 7.0512993855803945, 6.2328627265694285, 26.886379408588663, 2.152447501716767, 17.440143800342923, 35.01020967593723, 14.249732147543497, 18.0673897967668, 1.5894621833596443, 4.1138184780778335, 6.901681032471346, 35.90296516756862, 12.126978653428187, 33.11314868008254, 11.756463475444198, 3.719165482812666, 15.044755330267279, 6.887231749946345, 8.136154890767648, 40.175859732722415, 36.3342582162878, 8.874211763359208, 4.280382992022026, 3.5267177060338772, 2.3785953501531054, 4.9562313153395285, 3.3481340964596082, 2.415848529317322, 1.5537890576395532, 3.5857644546896212, 3.0594445681613256, 1.0232912988000638, 17.90437881752422, 3.1770369643124563, 31.15524942562704, 13.833260967175065, 3.6047124383670663, 15.516329871408601, 16.84760601440855, 1.6300223099969327, 2.0127112716375373, 11.36275456559937, 11.957293950131728, 15.546394750299418, 21.24792484013736, 32.593851112825995, 2.951035462420703, 15.692851674833719, 39.26957483727854, 44.645260124235975, 4.0699524781818965, 41.471490700197975, 1.7699490023185012, 6.033262101850122, 3.8611936189858937, 0.6881645980204084, 2.6839637228012894, 1.9724995297090526, 4.599149548247692, 4.404866226146947, 4.45778602768184, 1.9620399361087386, 1.7928516890490807, 31.737606597319786, 11.814690070586796, 22.515950144248237, 29.482770666499025, 0.9661063401563355, 3.1775088924078227, 3.9029320577571913, 11.468348614516003, 0.8195231899196279, 1.3903046739425018, 1.984388292153975, 4.8573153327985255, 25.012274512030306, 22.990552732697285, 12.09605176696917, 35.6701938771178, 2.0898774650409586, 37.79558011727702, 6.255152928127483, 5.962141023358884, 5.319803359203064, 33.233681418285705, 4.761754533134629, 4.665199235375648, 4.498875951309313, 3.435725643450158, 1.64669576136282, 3.599194394428635, 6.105487525047099, 20.522624223461584, 2.379502417826119, 5.322528833622452, 3.29413413590507, 3.244201644627737, 23.75938614389474, 41.47358981942051, 0.8786924290293802, 1.150944576504739, 1.3996881931581608, 20.08779818318567, 28.385594017004525, 29.865271810214608, 3.3526016802549097, 26.588090432512157, 29.914224449308865, 23.70430221082901, 26.330226609627537, 24.40300797983947, 22.224329831603303, 31.341418105585785, 40.80978404827322, 38.93320857612114, 28.48433875503336, 35.48411751775513, 34.849740560085856, 34.30856297182002, 32.72318974467765, 3.9723176735263332, 8.313086197743544, 22.54860698481833, 23.2677861934301, 0.7297022885554904, 3.493199639960381, 6.173652032563516, 6.600271709076931, 0.7759009176711076, 0.4580314913529325, 1.5157256492749178, 3.033421902171276, 2.51857203822585, 4.553569665046212, 1.605128860184313, 25.491869677735377, 24.796071757180908, 26.779602831844674, 25.421488658400776, 0.9269932376083645, 1.8764169253713086, 6.291793121655651, 17.29215002841283, 2.905849483691071, 8.233396439349397, 7.91061673444974, 7.3463352615737945, 4.170574908167482, 5.298952195321813, 5.774490244475911, 1.475513567496102, 12.374168386565282, 1.251889711558566, 11.040422355799196, 27.35475772045331, 1.385651416040807, 2.2673867719203282, 4.20517256120279, 17.997771280102356, 22.870617619886232, 4.578119907248225, 1.3683484869894345, 7.688003680328573, 23.028006419920125, 22.208367855784463, 13.679030156614179, 6.351122380278155, 10.999510579542381, 0.5884588935001928, 0.5814945146589732, 26.03934948797211, 25.958225861320162, 3.245863960482307, 27.363583636093566, 25.78296295241788, 25.718930486594324, 3.5495041164964993, 31.469524744630572, 26.677079571676114, 26.433149435281447, 2.6914833083332743, 1.2990602416567936, 7.423917349796174, 5.6704391681344575, 29.907156816139214, 25.55052880953131, 24.598210438022758, 3.49072514969068, 5.099001553039389, 20.226490821933528, 18.834698796675717, 17.925602053941162, 18.421369561245076, 0.9820894562988052, 8.312230220467614, 1.0344763591628263, 7.604003038647918, 8.388255858389787, 18.56479760423098, 22.22341837317566, 22.98925991514454, 7.27354574749608, 5.199651670929979, 11.005666329053863, 7.673855921506263, 12.579307682687746, 1.069327795223993, 9.074081744103161, 11.607047287073017, 7.584229971606898, 12.489575699158527, 3.6187836634596144, 2.1042202543203725, 4.051900239542921, 3.1599716435702723, 1.6353310960866374, 2.8365923644591455, 12.068584186902402, 0.8301115204750525, 5.074890676741468, 1.9861585247864086, 9.719472515293642, 2.3737287241883887, 11.176945114988266, 1.8645708847884999, 15.159300576986958, 9.48972955528337, 16.668146387217647, 5.2070472387170295, 10.44166945074396, 3.8726784149722002]Divisor: 3.0
+>>>>>>>>>>>>>>>> Calling SLIC for  simpleTriangle.png <<<<<<<<<<<<<<<<<<<<<<<
+EE
+EE1
+AA Max and Min of greyscaleImage: 255 0
+BB Max and Min of greyscaleImage: 255 0
+EE2
+EE2
+EE3
+Shape: (600, 600, 3)
+Type: <class 'numpy.ndarray'>
+EE4
+CC Max and Min of greyscaleImage: 255 0
+DD Max and Min of greyscaleImage: 255 0
+EE Max and Min of greyscaleImage: 255 0
+DD
+DD1
+DD2
+DD3
+DD4
+DD5
+YY Max and Min of image: 255 0
+ZZ Max and Min of greyscaleImage: 255 0
+CC
+------- Environment Variables ----------------------------------- 
+segmentCount: 200
+lineCullAlgorithm:  generous
+lineAngle: 90
+coherencyThreshold: 0.1
+highlightEndpoints: False
+middleAverageOnly: False
+compactnessSLIC: 0.01
+SLICIterations: 50
+SLIC0: True
+allowBlankRegion: False
+cullingBlankThreshold: 230
+nearbyDistance: 6
+semanticSegmentation: none
+semanticSegmentationRatio: 0.5
+semanticInvertMaskrcnn: True
+stableCoherencyPercentile: 95
+differencePercentile: 80
+diffRepelPercentile: 80
+generatePREImage: False
+attractionBin: 3
+repelBin: 3
+stableBin: -4
+stableAttractSet: False
+binSize: 10
+attractFudge: 1.05
+------------------------------------------------------------------
+CC1
+B
+C
+0A
+0B
+*************** ERROR generating coherency.  Assigning value  1e-11
+*************** ERROR generating coherency.  Assigning value  1e-11
+*************** ERROR generating coherency.  Assigning value  1e-11
+*************** ERROR generating coherency.  Assigning value  1e-11
+*************** ERROR generating coherency.  Assigning value  1e-11
+*************** ERROR generating coherency.  Assigning value  1e-11
+*************** ERROR generating coherency.  Assigning value  1e-11
+*************** ERROR generating coherency.  Assigning value  1e-11
+*************** ERROR generating coherency.  Assigning value  1e-11
+*************** ERROR generating coherency.  Assigning value  1e-11
+*************** ERROR generating coherency.  Assigning value  1e-11
+*************** ERROR generating coherency.  Assigning value  1e-11
+*************** ERROR generating coherency.  Assigning value  1e-11
+*************** ERROR generating coherency.  Assigning value  1e-11
+*************** ERROR generating coherency.  Assigning value  1e-11
+*************** ERROR generating coherency.  Assigning value  1e-11
+*************** ERROR generating coherency.  Assigning value  1e-11
+*************** ERROR generating coherency.  Assigning value  1e-11
+*************** ERROR generating coherency.  Assigning value  1e-11
+*************** ERROR generating coherency.  Assigning value  1e-11
+Region Differences Values: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.1978181001292257, 0.0, 0.0, 0.1978181001292257, 1.400400533666807, 0.0, 0.0, 1.400400533666807, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.1978181001292257, 1.2026015027685206, 0.5979095141731418, 0.0, 0.7957222286620632, 0.0, 0.0, 1.400400533666807, 0.1978181001292257, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.2026015027685206, 0.604716886513333, 95.63961511995579, 0.0, 0.0, 0.0, 96.67554623153735, 0.7957222286620632, 0.2000531326191331, 0.1978181001292257, 97.53610566477386, 1.6095621421938056, 0.0, 0.0, 0.0, 0.0, 0.0, 0.5956745231492205, 0.0, 0.0, 1.8073472973076241, 0.0, 94.85295674670361, 1.10772905108466, 96.98163807640141, 0.3183912497601754, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.5956745231492205, 97.58394280475687, 2.242945290425162, 1.8073472973076241, 96.14611171866879, 95.4700863863288, 1.2117474737048666, 0.0, 0.5956745231492205, 0.0, 0.0, 2.8384025583862647, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.7893537387931056, 0.6307331773513081, 0.0, 0.0, 0.0, 92.89309566769981, 0.7893537387931056, 0.7893537387931056, 0.15900498390520146, 97.8669821673048, 0.6307331773513081, 0.6307331773513081, 0.6307331773513081, 93.54469612730239, 0.5956745231492205, 2.035114913670053, 2.8384025583862647, 1.6406418685552526, 92.74576891279166, 0.0, 2.630606761941405, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.1980804108310228, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.9483519091545973, 0.0, 0.0, 2.630606761941405, 94.06306136607185, 93.68523236427183, 2.035114913670053, 1.1980804108310228, 96.26572933458151, 1.0002758789864203, 0.0, 0.0, 0.0, 0.0, 0.0, 0.1978181001292257, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.5956745231492205, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.47248886883988045, 0.0, 0.9483519091545973, 97.87262396752007, 0.9483519091545973, 0.9483519091545973, 0.0, 0.0, 0.0, 0.0, 0.0, 98.13770760166841, 0.47248886883988045, 0.47248886883988045, 0.47248886883988045, 89.88969487099043, 0.0, 0.0, 0.0, 0.1978181001292257, 1.405695274592769, 99.64496408955884, 0.5956745231492205, 3.507038169919849, 0.0, 0.0, 1.6034878502706646, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.102221436932521, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 96.63900232373543, 0.7893537387931056, 0.0, 0.0, 1.6034878502706646, 0.0, 0.0, 0.0, 0.0, 0.0, 1.6034878502706646, 95.70646243370891, 0.6070208052044406, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 4.102221436932521, 90.16320145017316, 89.88969487099043, 2.9049597159393534, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.47248886883988045, 0.0, 0.0, 0.0, 1.1980804108310228, 0.0, 0.0, 0.0, 0.0, 0.9965225909844719, 0.7893537387931056, 96.89078814597356, 0.6322346061030641, 0.7893537387931056, 0.47248886883988045, 96.9769064145407, 0.47248886883988045, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.9965225909844719, 0.0, 0.0, 1.1980804108310228, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.1980804108310228, 96.9769064145407, 0.40545204905399723, 97.82670327051467, 0.9965225909844719, 0.6001614409956072, 95.11675432377862, 0.0, 0.0, 4.895377902481964, 0.0, 0.0, 0.47248886883988045, 0.1571236196945876, 1.5960640079470843, 6.933054131608085, 4.895377902481964, 7.0897344350234475, 0.0, 1.6034878502706646, 0.0, 0.0, 0.39637471792755136, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.47248886883988045, 0.47248886883988045, 0.47248886883988045, 88.45486134002667, 96.11152764219104, 88.19909933807563, 4.895377902481964, 0.47248886883988045, 95.86350415986688, 0.39637471792755136, 0.39637471792755136, 0.19930249800771588, 1.6034878502706646, 3.1432165175540794, 1.6034878502706646, 1.6034878502706646, 5.340385631039091, 95.63204931572946, 88.19909933807563, 4.42347575019297, 95.65403039913113, 94.69496774786928, 2.1987495423109107, 86.65953514812041, 88.05307078127638, 0.0, 0.0, 0.0, 0.0, 82.13432464417504, 82.44907172364401, 82.44907172364401, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 2.939431410582237, 4.745332158587915, 4.745332158587915, 4.745332158587915, 0.41014945906995826, 1.8073472973076241, 1.8073472973076241, 2.267687496689373, 2.2174025622709723, 2.2174025622709723, 2.2174025622709723, 0.0, 0.0, 0.0, 0.5374345102622712, 0.0, 0.5374345102622712, 0.5374345102622712, 0.5956745231492205, 0.0, 0.0, 0.0, 0.7916142965657174, 0.5956745231492205, 0.5956745231492205, 0.5374345102622712, 0.5374345102622712, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+diff attract threshold: 0.7907100734566727
+diff repel threshold: 0.7907100734566727
+stable threshold: 0.46100804578577725
+(****  simpleTriangle.png  Starting Region:  0 of 196   *****
+Bridson_Common.dradius: 1.8
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 47.4871327978304 Flat angle: 78
+(56,)
+(****  simpleTriangle.png  Starting Region:  1 of 196   *****
+Bridson_Common.dradius: 1.9
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 47.587822369943005
+diff attract threshold: 17.38094629157089
+diff repel threshold: 17.38094629157089
+stable threshold: 0.5432148190807063
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  0 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 87.72306816973764 Flat angle: 269
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  1 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 15.76890741359001 Flat angle: 239
+(39,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  2 of 187   *****
+Bridson_Common.dradius: 1.7333333333333334
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 177.95930192415867 Flat angle: 73
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  3 of 187   *****
+Bridson_Common.dradius: 1.5666666666666667
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 176.6548622505897 Flat angle: 215
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  4 of 187   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 182.62499298262867 Flat angle: 50
+(37,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  5 of 187   *****
+Bridson_Common.dradius: 2.2
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  UNsuccessful
+blurRadius: 5
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  2  successful
+MeshAngle: 188.28970695299373 Flat angle: 272
+(37,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  6 of 187   *****
+Bridson_Common.dradius: 1.5666666666666667
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 177.3392265191495 Flat angle: 77
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  7 of 187   *****
+Bridson_Common.dradius: 1.6333333333333333
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 172.9239990084943 Flat angle: 253
+(37,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  8 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 173.3804541868683 Flat angle: 0
+(34,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  9 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 175.4959235782944 Flat angle: 135
+(47,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  10 of 187   *****
+Bridson_Common.dradius: 1.7666666666666666
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 180.0 Flat angle: 58
+(51,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  11 of 187   *****
+Bridson_Common.dradius: 1.6
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 7.228143368176489 Flat angle: 305
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  12 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 13.06392937177467 Flat angle: 277
+(32,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  13 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 7.67543243472443 Flat angle: 192
+(37,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  14 of 187   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 0.5667418687125619 Flat angle: 72
+(36,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  15 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 177.89679756916476 Flat angle: 63
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  16 of 187   *****
+Bridson_Common.dradius: 1.5666666666666667
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 178.15707887055603 Flat angle: 250
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  17 of 187   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 172.66930745031485 Flat angle: 45
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  18 of 187   *****
+Bridson_Common.dradius: 1.5666666666666667
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 178.22711927250796 Flat angle: 103
+(38,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  19 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 176.3480003705853 Flat angle: 220
+(38,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  20 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 174.93399341683718 Flat angle: 211
+(38,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  21 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 176.67881674080587 Flat angle: 225
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  22 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 178.26100010210664 Flat angle: 199
+(35,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  23 of 187   *****
+Bridson_Common.dradius: 1.5666666666666667
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 176.45620394545716 Flat angle: 39
+(47,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  24 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 175.82034846271753 Flat angle: 251
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  25 of 187   *****
+Bridson_Common.dradius: 1.6333333333333333
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 19.98037776677958 Flat angle: 66
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  26 of 187   *****
+Bridson_Common.dradius: 1.6
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 0.8447453264999832 Flat angle: 298
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  27 of 187   *****
+Bridson_Common.dradius: 2.033333333333333
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 172.0903359399585 Flat angle: 84
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  28 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+processMask main failure: tuple index out of range
+Attempt  1  UNsuccessful
+blurRadius: 5
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  2  successful
+MeshAngle: 176.56905428283162 Flat angle: 2
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  29 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 176.87212960294903 Flat angle: 127
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  30 of 187   *****
+Bridson_Common.dradius: 1.7666666666666666
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 162.10659607726893 Flat angle: 198
+(39,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  31 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 179.01330039660493 Flat angle: 107
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  32 of 187   *****
+Bridson_Common.dradius: 1.6666666666666667
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 180.0 Flat angle: 21
+(47,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  33 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 4.8700251814360875 Flat angle: 148
+(38,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  34 of 187   *****
+Bridson_Common.dradius: 1.5666666666666667
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 136.81042175319212 Flat angle: 62
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  35 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 356.6525745024684 Flat angle: 223
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  36 of 187   *****
+Bridson_Common.dradius: 1.7333333333333334
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 172.70046392929976 Flat angle: 264
+(38,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  37 of 187   *****
+Bridson_Common.dradius: 1.7666666666666666
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 172.09033593995846 Flat angle: 66
+(47,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  38 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 356.32544472224123 Flat angle: 28
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  39 of 187   *****
+Bridson_Common.dradius: 1.7
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 176.07414639684185 Flat angle: 217
+(47,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  40 of 187   *****
+Bridson_Common.dradius: 1.8666666666666667
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 180.07213432595762 Flat angle: 75
+(35,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  41 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 176.5409873704879 Flat angle: 252
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  42 of 187   *****
+Bridson_Common.dradius: 1.6666666666666667
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 179.358146911218 Flat angle: 263
+(35,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  43 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 176.3535533519263 Flat angle: 315
+(38,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  44 of 187   *****
+Bridson_Common.dradius: 1.7
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 175.26370460448587 Flat angle: 205
+(51,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  45 of 187   *****
+Bridson_Common.dradius: 1.8
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 142.3101193589787 Flat angle: 132
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  46 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 153.21741252985592 Flat angle: 313
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  47 of 187   *****
+Bridson_Common.dradius: 1.5666666666666667
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 179.12727736965485 Flat angle: 265
+(39,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  48 of 187   *****
+Bridson_Common.dradius: 1.7666666666666666
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 152.06362282725345 Flat angle: 342
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  49 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 169.23272608566458 Flat angle: 59
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  50 of 187   *****
+Bridson_Common.dradius: 1.9666666666666666
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 99.99210365862899 Flat angle: 348
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  51 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 145.68952539101363 Flat angle: 212
+(39,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  52 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 173.1005174560558 Flat angle: 220
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  53 of 187   *****
+Bridson_Common.dradius: 2.0
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 172.09033593995844 Flat angle: 320
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  54 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 156.72535026770717 Flat angle: 300
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  55 of 187   *****
+Bridson_Common.dradius: 1.5666666666666667
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 356.3865641412501 Flat angle: 290
+(50,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  56 of 187   *****
+Bridson_Common.dradius: 1.9
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 356.3990890622464 Flat angle: 308
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  57 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 356.4853567249293 Flat angle: 342
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  58 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 356.422650015263 Flat angle: 135
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  59 of 187   *****
+Bridson_Common.dradius: 1.6333333333333333
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 121.35916599593673 Flat angle: 324
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  60 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 72.59833724034202 Flat angle: 225
+(38,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  Flat angle: 357
+(49,)
+(****  simpleTriangle.png  Starting Region:  2 of 196   *****
+Bridson_Common.dradius: 1.9
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 47.82732801911068 Flat angle: 31
+(53,)
+(****  simpleTriangle.png  Starting Region:  3 of 196   *****
+Bridson_Common.dradius: 1.9
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 46.92964711028033 Flat angle: 180
+(50,)
+(****  simpleTriangle.png  Starting Region:  4 of 196   *****
+Bridson_Common.dradius: 1.8666666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 41.036158207634756 Flat angle: 277
+(52,)
+(****  simpleTriangle.png  Starting Region:  5 of 196   *****
+Bridson_Common.dradius: 1.8
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 18.49442275677897 Flat angle: 317
+(51,)
+(****  simpleTriangle.png  Starting Region:  6 of 196   *****
+Bridson_Common.dradius: 1.8333333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 354.1586777515464 Flat angle: 196
+(52,)
+(****  simpleTriangle.png  Starting Region:  7 of 196   *****
+Bridson_Common.dradius: 1.9
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 178.05201279155267 Flat angle: 171
+(55,)
+(****  simpleTriangle.png  Starting Region:  8 of 196   *****
+Bridson_Common.dradius: 1.8666666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 359.5854035216236 Flat angle: 9
+(54,)
+(****  simpleTriangle.png  Starting Region:  9 of 196   *****
+Bridson_Common.dradius: 1.9
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 1.4576990093862137 Flat angle: 217
+(54,)
+(****  simpleTriangle.png  Starting Region:  10 of 196   *****
+Bridson_Common.dradius: 1.9
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 3.8500411830968364 Flat angle: 137
+(53,)
+(****  simpleTriangle.png  Starting Region:  11 of 196   *****
+Bridson_Common.dradius: 1.9
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 6.39900491071268 Flat angle: 319
+(51,)
+(****  simpleTriangle.png  Starting Region:  12 of 196   *****
+Bridson_Common.dradius: 1.8666666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 8.17546450183033 Flat angle: 308
+(54,)
+(****  simpleTriangle.png  Starting Region:  13 of 196   *****
+Bridson_Common.dradius: 1.8333333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 8.763631741095743 Flat angle: 230
+(61,)
+(****  simpleTriangle.png  Starting Region:  14 of 196   *****
+Bridson_Common.dradius: 1.9333333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 346.397885518332 Flat angle: 173
+(49,)
+(****  simpleTriangle.png  Starting Region:  15 of 196   *****
+Bridson_Common.dradius: 2.033333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 37.80678440588705 Flat angle: 170
+(50,)
+(****  simpleTriangle.png  Starting Region:  16 of 196   *****
+Bridson_Common.dradius: 2.033333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 177.0238806639577 Flat angle: 119
+(49,)
+(****  simpleTriangle.png  Starting Region:  17 of 196   *****
+Bridson_Common.dradius: 2.0
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 48.421464005258315 Flat angle: 43
+(49,)
+(****  simpleTriangle.png  Starting Region:  18 of 196   *****
+Bridson_Common.dradius: 2.033333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 357.40968157890603 Flat angle: 358
+(50,)
+(****  simpleTriangle.png  Starting Region:  19 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 0.9471644853004134 Flat angle: 351
+(46,)
+(****  simpleTriangle.png  Starting Region:  20 of 196   *****
+Bridson_Common.dradius: 2.1
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 4.301103743911954 Flat angle: 264
+(49,)
+(****  simpleTriangle.png  Starting Region:  21 of 196   *****
+Bridson_Common.dradius: 2.033333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 47.554537201451296 Flat angle: 288
+(49,)
+(****  simpleTriangle.png  Starting Region:  22 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 7.289392540080748 Flat angle: 345
+(47,)
+(****  simpleTriangle.png  Starting Region:  23 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 8.772311957564321 Flat angle: 325
+(47,)
+(****  simpleTriangle.png  Starting Region:  24 of 196   *****
+Bridson_Common.dradius: 1.9666666666666666
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 47.79522935910899 Flat angle: 190
+(51,)
+(****  simpleTriangle.png  Starting Region:  25 of 196   *****
+Bridson_Common.dradius: 2.3333333333333335
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 348.1368659819364 Flat angle: 332
+(51,)
+(****  simpleTriangle.png  Starting Region:  26 of 196   *****
+Bridson_Common.dradius: 1.8666666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 47.44757304767262 Flat angle: 188
+(58,)
+(****  simpleTriangle.png  Starting Region:  27 of 196   *****
+Bridson_Common.dradius: 1.9
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 8.949958294465441 Flat angle: 221
+(52,)
+(****  simpleTriangle.png  Starting Region:  28 of 196   *****
+Bridson_Common.dradius: 2.1666666666666665
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 166.39794475705304 Flat angle: 296
+(48,)
+(****  simpleTriangle.png  Starting Region:  29 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 168.42308931461574 Flat angle: 221
+(50,)
+(****  simpleTriangle.png  Starting Region:  30 of 196   *****
+Bridson_Common.dradius: 2.0
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 48.50213542668878 Flat angle: 81
+(46,)
+(****  simpleTriangle.png  Starting Region:  31 of 196   *****
+Bridson_Common.dradius: 2.0
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 48.004097380008034 Flat angle: 120
+(48,)
+(****  simpleTriangle.png  Starting Region:  32 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 177.18590966721155 Flat angle: 157
+(50,)
+(****  simpleTriangle.png  Starting Region:  33 of 196   *****
+Bridson_Common.dradius: 2.433333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 76.76071384442349 Flat angle: 138
+(51,)
+(****  simpleTriangle.png  Starting Region:  34 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 177.70000139061082 Flat angle: 348
+(46,)
+(****  simpleTriangle.png 61 of 187   *****
+Bridson_Common.dradius: 1.7333333333333334
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 112.92446260190731 Flat angle: 293
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  62 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 131.53084941641646 Flat angle: 254
+(38,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  63 of 187   *****
+Bridson_Common.dradius: 1.6333333333333333
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 153.64813185276944 Flat angle: 112
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  64 of 187   *****
+Bridson_Common.dradius: 2.0
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 82.62327095869067 Flat angle: 179
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  65 of 187   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 97.55975851784123 Flat angle: 17
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  66 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 96.73621416023201 Flat angle: 75
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  67 of 187   *****
+Bridson_Common.dradius: 1.6666666666666667
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 171.87793675756132 Flat angle: 273
+(31,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  68 of 187   *****
+Bridson_Common.dradius: 1.5666666666666667
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 92.98756921206292 Flat angle: 326
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  69 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 60.99506403269599 Flat angle: 51
+(36,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  70 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 90.53421951900107 Flat angle: 38
+(47,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  71 of 187   *****
+Bridson_Common.dradius: 1.6
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 96.90046516671987 Flat angle: 67
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  72 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 133.87070298790016 Flat angle: 121
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  73 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 143.021228034789 Flat angle: 336
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  74 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 131.91281845829195 Flat angle: 309
+(37,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  75 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 356.1946650047396 Flat angle: 270
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  76 of 187   *****
+Bridson_Common.dradius: 1.5666666666666667
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 356.22577646455534 Flat angle: 102
+(48,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  77 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 356.18685092806624 Flat angle: 45
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  78 of 187   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 18.566274242846436 Flat angle: 155
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  79 of 187   *****
+Bridson_Common.dradius: 1.8333333333333333
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 100.14081248545224 Flat angle: 276
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  80 of 187   *****
+Bridson_Common.dradius: 1.9333333333333333
+blurRadius: 3
+processMask main failure: tuple index out of range
+Attempt  1  UNsuccessful
+blurRadius: 5
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  2  successful
+MeshAngle: 114.74370264612185 Flat angle: 286
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  81 of 187   *****
+Bridson_Common.dradius: 1.5666666666666667
+blurRadius: 3
+processMask main failure: tuple index out of range
+Attempt  1  UNsuccessful
+blurRadius: 5
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  2  successful
+MeshAngle: 113.96379175721458 Flat angle: 2
+(48,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  82 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 117.23477041539715 Flat angle: 6
+(35,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  83 of 187   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 154.90542575991012 Flat angle: 41
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  84 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 66.83241931864454 Flat angle: 204
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  85 of 187   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 139.22342883434192 Flat angle: 153
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  86 of 187   *****
+Bridson_Common.dradius: 1.7
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  UNsuccessful
+blurRadius: 5
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  2  successful
+MeshAngle: 142.7887336291255 Flat angle: 132
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  87 of 187   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 87.83779889429456 Flat angle: 69
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  88 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 151.65129064300837 Flat angle: 124
+(39,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  89 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 128.9473912386629 Flat angle: 330
+(38,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  90 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 93.45328011306843 Flat angle: 73
+(38,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  91 of 187  Starting Region:  35 of 196   *****
+Bridson_Common.dradius: 2.0
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 48.76830316698939 Flat angle: 180
+(47,)
+(****  simpleTriangle.png  Starting Region:  36 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 0.9771738608664814 Flat angle: 49
+(45,)
+(****  simpleTriangle.png  Starting Region:  37 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 4.428526857565184 Flat angle: 173
+(48,)
+(****  simpleTriangle.png  Starting Region:  38 of 196   *****
+Bridson_Common.dradius: 2.033333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 8.387387079807072 Flat angle: 83
+(48,)
+(****  simpleTriangle.png  Starting Region:  39 of 196   *****
+Bridson_Common.dradius: 1.8
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 47.21932652413286 Flat angle: 82
+(55,)
+(****  simpleTriangle.png  Starting Region:  40 of 196   *****
+Bridson_Common.dradius: 1.9666666666666666
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 47.46558012324707 Flat angle: 6
+(47,)
+(****  simpleTriangle.png  Starting Region:  41 of 196   *****
+Bridson_Common.dradius: 1.9
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 9.134847358196746 Flat angle: 346
+(55,)
+(****  simpleTriangle.png  Starting Region:  42 of 196   *****
+Bridson_Common.dradius: 2.1
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 194.8492576051298 Flat angle: 134
+(47,)
+(****  simpleTriangle.png  Starting Region:  43 of 196   *****
+Bridson_Common.dradius: 2.1666666666666665
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 161.66452119604546 Flat angle: 218
+(49,)
+(****  simpleTriangle.png  Starting Region:  44 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 177.63143938148897 Flat angle: 169
+(50,)
+(****  simpleTriangle.png  Starting Region:  45 of 196   *****
+Bridson_Common.dradius: 2.033333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 49.019110342819786 Flat angle: 64
+(46,)
+(****  simpleTriangle.png  Starting Region:  46 of 196   *****
+Bridson_Common.dradius: 2.1333333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 7.239813908811698 Flat angle: 176
+(48,)
+(****  simpleTriangle.png  Starting Region:  47 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 9.154362355712111 Flat angle: 117
+(43,)
+(****  simpleTriangle.png  Starting Region:  48 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 0.23844720689715954 Flat angle: 169
+(48,)
+(****  simpleTriangle.png  Starting Region:  49 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 2.8313038457258153 Flat angle: 158
+(49,)
+(****  simpleTriangle.png  Starting Region:  50 of 196   *****
+Bridson_Common.dradius: 2.0
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 48.143977613285394 Flat angle: 99
+(46,)
+(****  simpleTriangle.png  Starting Region:  51 of 196   *****
+Bridson_Common.dradius: 1.9
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 9.363025374078646 Flat angle: 344
+(53,)
+(****  simpleTriangle.png  Starting Region:  52 of 196   *****
+Bridson_Common.dradius: 1.8333333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 47.05000658596655 Flat angle: 134
+(55,)
+(****  simpleTriangle.png  Starting Region:  53 of 196   *****
+Bridson_Common.dradius: 2.0
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 48.96428288503226 Flat angle: 248
+(50,)
+(****  simpleTriangle.png  Starting Region:  54 of 196   *****
+Bridson_Common.dradius: 2.3
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 101.39530907800633 Flat angle: 297
+(47,)
+(****  simpleTriangle.png  Starting Region:  55 of 196   *****
+Bridson_Common.dradius: 1.9
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 47.47597616006574 Flat angle: 282
+(50,)
+(****  simpleTriangle.png  Starting Region:  56 of 196   *****
+Bridson_Common.dradius: 2.8666666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 104.94606425792514 Flat angle: 13
+(49,)
+(****  simpleTriangle.png  Starting Region:  57 of 196   *****
+Bridson_Common.dradius: 2.6
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  UNsuccessful
+blurRadius: 5
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  2  UNsuccessful
+blurRadius: 7
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  3  successful
+MeshAngle: 73.54034776042943 Flat angle: 102
+(49,)
+(****  simpleTriangle.png  Starting Region:  58 of 196   *****
+Bridson_Common.dradius: 2.1333333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 163.54153879713908 Flat angle: 344
+(51,)
+(****  simpleTriangle.png  Starting Region:  59 of 196   *****
+Bridson_Common.dradius: 2.2333333333333334
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 14.689028861434535 Flat angle: 66
+(47,)
+(****  simpleTriangle.png  Starting Region:  60 of 196   *****
+Bridson_Common.dradius: 2.1
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 0.14814048665170818 Flat angle: 291
+(52,)
+(****  simpleTriangle.png  Starting Region:  61 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 1.8575306959388447 Flat angle: 172
+(48,)
+(****  simpleTriangle.png  Starting Region:  62 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 5.130541777125279 Flat angle: 259
+(47,)
+(****  simpleTriangle.png  Starting Region:  63 of 196   *****
+Bridson_Common.dradius: 2.033333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 8.79859649715076 Flat angle: 197
+(48,)
+(****  simpleTriangle.png  Starting Region:  64 of 196   *****
+Bridson_Common.dradius: 2.033333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 48.870563721698566 Flat angle: 97
+(48,)
+(****  simpleTriangle.png  Starting Region:  65 of 196   *****
+Bridson_Common.dradius: 2.0
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 49.2464284566753 Flat angle: 359
+(47,)
+(****  simpleTriangle.png  Starting Region:  66 of 196   *****
+Bridson_Common.dradius: 1.9
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 9.53054868640554 Flat angle: 195
+(53,)
+(****  simpleTriangle.png  Starting Region:  67 of 196   *****
+Bridson_Common.dradius: 1.8666666666666667
+blurRadius: 3
+Creating Mesh File:    *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 89.59402682696788 Flat angle: 134
+(36,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  92 of 187   *****
+Bridson_Common.dradius: 2.2333333333333334
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 163.32048139066313 Flat angle: 163
+(37,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  93 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 99.63529489528241 Flat angle: 160
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  94 of 187   *****
+Bridson_Common.dradius: 1.7
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 356.8793969546384 Flat angle: 207
+(48,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  95 of 187   *****
+Bridson_Common.dradius: 1.6
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 356.0737869438761 Flat angle: 321
+(48,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  96 of 187   *****
+Bridson_Common.dradius: 1.6
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 129.31579000425663 Flat angle: 105
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  97 of 187   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 27.598343392596966 Flat angle: 167
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  98 of 187   *****
+Bridson_Common.dradius: 1.5666666666666667
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 356.6186933437955 Flat angle: 356
+(48,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  99 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 86.42441903828957 Flat angle: 266
+(39,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  100 of 187   *****
+Bridson_Common.dradius: 1.7
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 81.81345896546462 Flat angle: 178
+(39,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  101 of 187   *****
+Bridson_Common.dradius: 1.9333333333333333
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 140.26518420325812 Flat angle: 11
+(36,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  102 of 187   *****
+Bridson_Common.dradius: 1.7666666666666666
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 90.37282597536858 Flat angle: 179
+(50,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  103 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 176.5575514138136 Flat angle: 235
+(50,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  104 of 187   *****
+Bridson_Common.dradius: 1.9
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 155.26369085287027 Flat angle: 339
+(49,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  105 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 177.3252888983712 Flat angle: 58
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  106 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 111.39446737255238 Flat angle: 53
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  107 of 187   *****
+Bridson_Common.dradius: 1.5666666666666667
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 140.54088843542993 Flat angle: 113
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  108 of 187   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 183.47378206516024 Flat angle: 15
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  109 of 187   *****
+Bridson_Common.dradius: 1.7
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 139.04525153371304 Flat angle: 111
+(39,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  110 of 187   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 111.38841973232184 Flat angle: 202
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  111 of 187   *****
+Bridson_Common.dradius: 1.8
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 98.69296474037854 Flat angle: 93
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  112 of 187   *****
+Bridson_Common.dradius: 1.8666666666666667
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 91.05007806825454 Flat angle: 306
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  113 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+processMask main failure: tuple index out of range
+Attempt  1  UNsuccessful
+blurRadius: 5
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  2  successful
+MeshAngle: 90.0 Flat angle: 172
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  114 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 151.76675100874064 Flat angle: 144
+(35,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  115 of 187   *****
+Bridson_Common.dradius: 1.6
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 151.8411421031491 Flat angle: 277
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  116 of 187   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 85.93906184757654 Flat angle: 237
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  117 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 354.4913857204792 Flat angle: 116
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  118 of 187   *****
+Bridson_Common.dradius: 1.8
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 99.96889361297264 Flat angle: 286
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  119 of 187   *****
+Bridson_Common.dradius: 1.7666666666666666
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 205.58967713095277 Flat angle: 118
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  120 of 187   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 13.3103870222742 Flat angle: 24
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  121 of 187   *****
+Bridson_Common.dradius: 1.6
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 140.0724282636348 Flat angle: 235
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 46.72288033558263 Flat angle: 197
+(51,)
+(****  simpleTriangle.png  Starting Region:  68 of 196   *****
+Bridson_Common.dradius: 1.9666666666666666
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 47.88696368270701 Flat angle: 3
+(49,)
+(****  simpleTriangle.png  Starting Region:  69 of 196   *****
+Bridson_Common.dradius: 2.0
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 18.36569873559258 Flat angle: 354
+(50,)
+(****  simpleTriangle.png  Starting Region:  70 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 180.5430366981423 Flat angle: 259
+(47,)
+(****  simpleTriangle.png  Starting Region:  71 of 196   *****
+Bridson_Common.dradius: 2.2333333333333334
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 159.1845078690103 Flat angle: 171
+(48,)
+(****  simpleTriangle.png  Starting Region:  72 of 196   *****
+Bridson_Common.dradius: 2.4
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 79.59022050495973 Flat angle: 31
+(47,)
+(****  simpleTriangle.png  Starting Region:  73 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 8.075212994327115 Flat angle: 251
+(51,)
+(****  simpleTriangle.png  Starting Region:  74 of 196   *****
+Bridson_Common.dradius: 2.033333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 49.5436089677619 Flat angle: 228
+(47,)
+(****  simpleTriangle.png  Starting Region:  75 of 196   *****
+Bridson_Common.dradius: 2.1
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 3.5640124580948562 Flat angle: 183
+(48,)
+(****  simpleTriangle.png  Starting Region:  76 of 196   *****
+Bridson_Common.dradius: 2.033333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 46.8731496328908 Flat angle: 267
+(47,)
+(****  simpleTriangle.png  Starting Region:  77 of 196   *****
+Bridson_Common.dradius: 2.1333333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 352.0212625505777 Flat angle: 6
+(52,)
+(****  simpleTriangle.png  Starting Region:  78 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 9.618282047605575 Flat angle: 23
+(47,)
+(****  simpleTriangle.png  Starting Region:  79 of 196   *****
+Bridson_Common.dradius: 1.9
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 9.725513598928282 Flat angle: 341
+(47,)
+(****  simpleTriangle.png  Starting Region:  80 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 48.59027926263725 Flat angle: 42
+(48,)
+(****  simpleTriangle.png  Starting Region:  81 of 196   *****
+Bridson_Common.dradius: 1.9333333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 46.2531515667783 Flat angle: 207
+(50,)
+(****  simpleTriangle.png  Starting Region:  82 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Unexpected error in BFFReshape: 1
+processMask main failure: 
+Attempt  1  UNsuccessful
+blurRadius: 5
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  2  successful
+MeshAngle: 50.269253303159864 Flat angle: 102
+(50,)
+(****  simpleTriangle.png  Starting Region:  83 of 196   *****
+Bridson_Common.dradius: 2.8666666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  UNsuccessful
+blurRadius: 5
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  2  successful
+MeshAngle: 104.73120492470706 Flat angle: 113
+(50,)
+(****  simpleTriangle.png  Starting Region:  84 of 196   *****
+Bridson_Common.dradius: 2.0
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 356.12589506155916 Flat angle: 119
+(52,)
+(****  simpleTriangle.png  Starting Region:  85 of 196   *****
+Bridson_Common.dradius: 1.9666666666666666
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 156.4431956044839 Flat angle: 354
+(49,)
+(****  simpleTriangle.png  Starting Region:  86 of 196   *****
+Bridson_Common.dradius: 2.8333333333333335
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  UNsuccessful
+blurRadius: 5
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  2  successful
+MeshAngle: 72.00588641486729 Flat angle: 163
+(49,)
+(****  simpleTriangle.png  Starting Region:  87 of 196   *****
+Bridson_Common.dradius: 2.033333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 6.9243415244865725 Flat angle: 182
+(47,)
+(****  simpleTriangle.png  Starting Region:  88 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 194.73120492470704 Flat angle: 207
+(51,)
+(****  simpleTriangle.png  Starting Region:  89 of 196   *****
+Bridson_Common.dradius: 2.1333333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 162.00647091809282 Flat angle: 261
+(49,)
+(****  simpleTriangle.png  Starting Region:  90 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 50.18891735118568 Flat angle: 159
+(49,)
+(****  simpleTriangle.png  Starting Region:  91 of 196   *****
+Bridson_Common.dradius: 1.9666666666666666
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 48.146760485941726 Flat angle: 286
+(49,)
+(****  simpleTriangle.png  Starting Region:  92 of 196   *****
+Bridson_Common.dradius: 2.033333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 5.894696397625535 Flat angle: 23
+(51,)
+(****  simpleTriangle.png  Starting Region:  93 of 196   *****
+Bridson_Common.dradius: 1.9
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 9.843883433553525 Flat angle: 260
+(55,)
+(****  simpleTriangle.png  Starting Region:  94 of 196   *****
+Bridson_Common.dradius: 2.0
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 9.735708304162934 Flat angle: 237
+(50,)
+(****  simpleTriangle.png  Starting Region:  95 of 196   *****
+Bridson_Common.dradius: 1.8666666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 45.836861273281365 Flat angle: 165
+(54,)
+(****  simpleTriangle.png  Starting Region:  96 of 196   *****
+Bridson_Common.dradius: 2.1666666666666665
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 2.0434058756912488 Flat angle: 189
+(53,)
+(****  simpleTriangle.png  Starting Region:  97 of 196   *****
+Bridson_Common.dradius: 2.0
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 166.5830667055234 Flat angle: 309
+(47,)
+(****  simpleTriangle.png  Starting Region:  98 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 139.00944037719265 Flat angle: 225
+(48,)
+(****  simpleTriangle.png  Starting Region:  122 of 187   *****
+Bridson_Common.dradius: 1.7333333333333334
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 11.321012233705916 Flat angle: 203
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  123 of 187   *****
+Bridson_Common.dradius: 1.6333333333333333
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 89.4295992998286 Flat angle: 309
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  124 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 178.0892383364537 Flat angle: 150
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  125 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 180 Flat angle: 117
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  126 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 144.08043145147857 Flat angle: 339
+(48,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  127 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 177.4605162837995 Flat angle: 182
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  128 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 185.224399249788 Flat angle: 268
+(38,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  129 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 206.25167874320422 Flat angle: 22
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  130 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 170.7908760810805 Flat angle: 341
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  131 of 187   *****
+Bridson_Common.dradius: 1.6
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 172.34035203334074 Flat angle: 65
+(50,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  132 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+processMask main failure: tuple index out of range
+Attempt  1  UNsuccessful
+blurRadius: 5
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  2  successful
+MeshAngle: 155.8276390500905 Flat angle: 280
+(52,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  133 of 187   *****
+Bridson_Common.dradius: 1.9333333333333333
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 235.99705935900278 Flat angle: 66
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  134 of 187   *****
+Bridson_Common.dradius: 1.7666666666666666
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 201.50367515391684 Flat angle: 58
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  135 of 187   *****
+Bridson_Common.dradius: 1.7
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 93.12739554152675 Flat angle: 273
+(13,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  136 of 187   *****
+Bridson_Common.dradius: 1.6
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 101.32101223370593 Flat angle: 112
+(49,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  137 of 187   *****
+Bridson_Common.dradius: 1.8666666666666667
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 135.81537029143388 Flat angle: 306
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  138 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 162.1213066287845 Flat angle: 329
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  139 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 142.3429105021545 Flat angle: 227
+(35,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  140 of 187   *****
+Bridson_Common.dradius: 1.7666666666666666
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 182.37756824240822 Flat angle: 243
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  141 of 187   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 134.23707713169594 Flat angle: 193
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  142 of 187   *****
+Bridson_Common.dradius: 1.5666666666666667
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 140.0565997271273 Flat angle: 25
+(49,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  143 of 187   *****
+Bridson_Common.dradius: 1.5666666666666667
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 154.6747512158006 Flat angle: 260
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  144 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+processMask main failure: tuple index out of range
+Attempt  1  UNsuccessful
+blurRadius: 5
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  2  successful
+MeshAngle: 155.72549239451178 Flat angle: 158
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  145 of 187   *****
+Bridson_Common.dradius: 1.9
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 114.7108883392386 Flat angle: 265
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  146 of 187   *****
+Bridson_Common.dradius: 1.8
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 147.09067998399243 Flat angle: 255
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  147 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 139.7909286626786 Flat angle: 346
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  148 of 187   *****
+Bridson_Common.dradius: 1.5666666666666667
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 134.42995141494814 Flat angle: 286
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  149 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 162.74682300871135 Flat angle: 308
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  150 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 187.2844549238321 Flat angle: 137
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  151 of 187   *****
+Bridson_Common.dradius: 1.6333333333333333
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 86.96249482118645 Flat angle: 73
+(47,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  152 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj  Starting Region:  99 of 196   *****
+Bridson_Common.dradius: 2.2
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 110.40264282584951 Flat angle: 298
+(46,)
+(****  simpleTriangle.png  Starting Region:  100 of 196   *****
+Bridson_Common.dradius: 2.033333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 51.7003565698228 Flat angle: 14
+(49,)
+(****  simpleTriangle.png  Starting Region:  101 of 196   *****
+Bridson_Common.dradius: 2.1
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 9.054451546121495 Flat angle: 166
+(49,)
+(****  simpleTriangle.png  Starting Region:  102 of 196   *****
+Bridson_Common.dradius: 2.6666666666666665
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 67.19744678716967 Flat angle: 54
+(48,)
+(****  simpleTriangle.png  Starting Region:  103 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 14.883058884032968 Flat angle: 49
+(47,)
+(****  simpleTriangle.png  Starting Region:  104 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 46.71485837303789 Flat angle: 30
+(48,)
+(****  simpleTriangle.png  Starting Region:  105 of 196   *****
+Bridson_Common.dradius: 2.4
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 151.66378872069802 Flat angle: 6
+(46,)
+(****  simpleTriangle.png  Starting Region:  106 of 196   *****
+Bridson_Common.dradius: 1.9
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 9.975393020462455 Flat angle: 154
+(52,)
+(****  simpleTriangle.png  Starting Region:  107 of 196   *****
+Bridson_Common.dradius: 1.9333333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 44.71484144039645 Flat angle: 14
+(50,)
+(****  simpleTriangle.png  Starting Region:  108 of 196   *****
+Bridson_Common.dradius: 2.033333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 10.0040611260625 Flat angle: 192
+(52,)
+(****  simpleTriangle.png  Starting Region:  109 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 176.21354078044035 Flat angle: 203
+(50,)
+(****  simpleTriangle.png  Starting Region:  110 of 196   *****
+Bridson_Common.dradius: 2.1333333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 40.708916247045124 Flat angle: 215
+(49,)
+(****  simpleTriangle.png  Starting Region:  111 of 196   *****
+Bridson_Common.dradius: 2.033333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 8.571118846495704 Flat angle: 320
+(49,)
+(****  simpleTriangle.png  Starting Region:  112 of 196   *****
+Bridson_Common.dradius: 2.033333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 163.51178311368957 Flat angle: 191
+(49,)
+(****  simpleTriangle.png  Starting Region:  113 of 196   *****
+Bridson_Common.dradius: 1.9333333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 52.59300118550047 Flat angle: 206
+(48,)
+(****  simpleTriangle.png  Starting Region:  114 of 196   *****
+Bridson_Common.dradius: 2.3333333333333335
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 105.19354157964432 Flat angle: 144
+(46,)
+(****  simpleTriangle.png  Starting Region:  115 of 196   *****
+Bridson_Common.dradius: 2.7333333333333334
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 65.30592806306106 Flat angle: 256
+(46,)
+(****  simpleTriangle.png  Starting Region:  116 of 196   *****
+Bridson_Common.dradius: 2.1
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 117.48072255993591 Flat angle: 87
+(48,)
+(****  simpleTriangle.png  Starting Region:  117 of 196   *****
+Bridson_Common.dradius: 2.1333333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 2.432810215738206 Flat angle: 313
+(42,)
+(****  simpleTriangle.png  Starting Region:  118 of 196   *****
+Bridson_Common.dradius: 1.9666666666666666
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 53.04868753805464 Flat angle: 214
+(53,)
+(****  simpleTriangle.png  Starting Region:  119 of 196   *****
+Bridson_Common.dradius: 2.033333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 9.981139176140733 Flat angle: 336
+(50,)
+(****  simpleTriangle.png  Starting Region:  120 of 196   *****
+Bridson_Common.dradius: 1.8666666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 10.058143730486433 Flat angle: 335
+(52,)
+(****  simpleTriangle.png  Starting Region:  121 of 196   *****
+Bridson_Common.dradius: 1.9333333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 43.445900504330865 Flat angle: 24
+(55,)
+(****  simpleTriangle.png  Starting Region:  122 of 196   *****
+Bridson_Common.dradius: 1.9333333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 10.075051541298558 Flat angle: 20
+(50,)
+(****  simpleTriangle.png  Starting Region:  123 of 196   *****
+Bridson_Common.dradius: 1.9666666666666666
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 5.1702212808253 Flat angle: 203
+(48,)
+(****  simpleTriangle.png  Starting Region:  124 of 196   *****
+Bridson_Common.dradius: 2.033333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 176.4207066395432 Flat angle: 264
+(50,)
+(****  simpleTriangle.png  Starting Region:  125 of 196   *****
+Bridson_Common.dradius: 2.3333333333333335
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 72.26461317209352 Flat angle: 257
+(49,)
+(****  simpleTriangle.png  Starting Region:  126 of 196   *****
+Bridson_Common.dradius: 2.4
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 66.75822749918561 Flat angle: 350
+(51,)
+(****  simpleTriangle.png  Starting Region:  127 of 196   *****
+Bridson_Common.dradius: 1.9666666666666666
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 168.50878526236002 Flat angle: 188
+(54,)
+(****  simpleTriangle.png  Starting Region:  128 of 196   *****
+Bridson_Common.dradius: 2.0
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 179.96993310875297 Flat angle: 326
+(45,)
+(****  simpleTriangle.png  Starting Region:  129 of 196   *****
+Bridson_Common.dradius: 2.1666666666666665
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 76.63766248097701 Flat angle: 81
+(52,)
+(****  simpleTriangle.png  Starting Region:  130 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 114.27003025081464 Flat angle: 142
+(47,)
+(****  simpleTriangle.png  Starting Region:  131 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle:
+Attempt  1  successful
+MeshAngle: 182.9941542206538 Flat angle: 128
+(39,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  153 of 187   *****
+Bridson_Common.dradius: 1.6333333333333333
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 50.55032768618261 Flat angle: 68
+(52,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  154 of 187   *****
+Bridson_Common.dradius: 1.6
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 158.1731636238487 Flat angle: 354
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  155 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 155.78949197751103 Flat angle: 263
+(50,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  156 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 165.76828102117813 Flat angle: 38
+(38,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  157 of 187   *****
+Bridson_Common.dradius: 1.5666666666666667
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 162.42378605783838 Flat angle: 25
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  158 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 170.80010107984498 Flat angle: 264
+(39,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  159 of 187   *****
+Bridson_Common.dradius: 1.6
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  UNsuccessful
+blurRadius: 5
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  2  successful
+MeshAngle: 169.50233500561737 Flat angle: 150
+(50,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  160 of 187   *****
+Bridson_Common.dradius: 1.7333333333333334
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 27.650334483968535 Flat angle: 20
+(47,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  161 of 187   *****
+Bridson_Common.dradius: 1.7333333333333334
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 134.7092238750553 Flat angle: 22
+(39,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  162 of 187   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 155.8645604895277 Flat angle: 227
+(44,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  163 of 187   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 133.79506128265058 Flat angle: 194
+(47,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  164 of 187   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 90.5757597897358 Flat angle: 250
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  165 of 187   *****
+Bridson_Common.dradius: 1.6
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 5.179526732274928 Flat angle: 270
+(50,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  166 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 175.06595341224775 Flat angle: 269
+(35,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  167 of 187   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 105.07544300288737 Flat angle: 355
+(47,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  168 of 187   *****
+Bridson_Common.dradius: 1.5666666666666667
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 97.27470324471336 Flat angle: 141
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  169 of 187   *****
+Bridson_Common.dradius: 1.6333333333333333
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 35.212114232193095 Flat angle: 118
+(40,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  170 of 187   *****
+Bridson_Common.dradius: 1.6333333333333333
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 48.084168072771384 Flat angle: 175
+(51,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  171 of 187   *****
+Bridson_Common.dradius: 1.6
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 66.57509643961889 Flat angle: 225
+(52,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  172 of 187   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 17.44952129920342 Flat angle: 158
+(47,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  173 of 187   *****
+Bridson_Common.dradius: 1.5333333333333334
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 182.13720710052237 Flat angle: 342
+(48,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  174 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+processMask main failure: tuple index out of range
+Attempt  1  UNsuccessful
+blurRadius: 5
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  2  successful
+MeshAngle: 64.8502950602822 Flat angle: 182
+(51,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  175 of 187   *****
+Bridson_Common.dradius: 1.7
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 181.54129080665518 Flat angle: 89
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  176 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 180 Flat angle: 343
+(54,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  177 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 57.90358299743117 Flat angle: 352
+(46,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  178 of 187   *****
+Bridson_Common.dradius: 1.6
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 165.34270252188588 Flat angle: 209
+(42,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  179 of 187   *****
+Bridson_Common.dradius: 1.5
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 63.32199797633559 Flat angle: 115
+(45,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  180 of 187   *****
+Bridson_Common.dradius: 1.7333333333333334
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 105.16106642256538 Flat angle: 181
+(41,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  181 of 187   *****
+Bridson_Common.dradius: 1.8666666666666667
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 116.82668691270314 Flat angle: 16
+(43,)
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  182 of 187   *****
+Bridson_Common.dradius: 1.6
+blurRadius: 3
+Creating Mesh File:  f8dd88c3e1c8b4c9fb4aad7805a7ec137.obj
+Attempt  1  successful
+MeshAngle: 128.2583810147864 10.108068258989462 Flat angle: 306
+(48,)
+(****  simpleTriangle.png  Starting Region:  132 of 196   *****
+Bridson_Common.dradius: 2.0
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 58.84923843689956 Flat angle: 262
+(51,)
+(****  simpleTriangle.png  Starting Region:  133 of 196   *****
+Bridson_Common.dradius: 2.033333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 10.118939853054265 Flat angle: 245
+(47,)
+(****  simpleTriangle.png  Starting Region:  134 of 196   *****
+Bridson_Common.dradius: 1.9666666666666666
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 10.094591714020934 Flat angle: 15
+(51,)
+(****  simpleTriangle.png  Starting Region:  135 of 196   *****
+Bridson_Common.dradius: 1.8333333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 32.992535698855505 Flat angle: 68
+(54,)
+(****  simpleTriangle.png  Starting Region:  136 of 196   *****
+Bridson_Common.dradius: 1.8666666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 0.5860183012170262 Flat angle: 338
+(53,)
+(****  simpleTriangle.png  Starting Region:  137 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 3.3162688909467875 Flat angle: 332
+(50,)
+(****  simpleTriangle.png  Starting Region:  138 of 196   *****
+Bridson_Common.dradius: 2.8333333333333335
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 11.630908310611149 Flat angle: 176
+(47,)
+(****  simpleTriangle.png  Starting Region:  139 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 179.55116237015343 Flat angle: 156
+(48,)
+(****  simpleTriangle.png  Starting Region:  140 of 196   *****
+Bridson_Common.dradius: 2.2666666666666666
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 85.94350276679037 Flat angle: 282
+(43,)
+(****  simpleTriangle.png  Starting Region:  141 of 196   *****
+Bridson_Common.dradius: 2.3333333333333335
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 38.1876543068995 Flat angle: 41
+(55,)
+(****  simpleTriangle.png  Starting Region:  142 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 115.29008100846913 Flat angle: 185
+(57,)
+(****  simpleTriangle.png  Starting Region:  143 of 196   *****
+Bridson_Common.dradius: 3.433333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  UNsuccessful
+blurRadius: 5
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  2  successful
+MeshAngle: 180.0029458688407 Flat angle: 207
+(42,)
+(****  simpleTriangle.png  Starting Region:  144 of 196   *****
+Bridson_Common.dradius: 2.6333333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 90.00294586884077 Flat angle: 139
+(50,)
+(****  simpleTriangle.png  Starting Region:  145 of 196   *****
+Bridson_Common.dradius: 2.1
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 10.117108104446283 Flat angle: 344
+(47,)
+(****  simpleTriangle.png  Starting Region:  146 of 196   *****
+Bridson_Common.dradius: 2.1
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 180.00294586884078 Flat angle: 60
+(52,)
+(****  simpleTriangle.png  Starting Region:  147 of 196   *****
+Bridson_Common.dradius: 2.1333333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 31.76258472640843 Flat angle: 52
+(48,)
+(****  simpleTriangle.png  Starting Region:  148 of 196   *****
+Bridson_Common.dradius: 2.1
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 10.155431756933112 Flat angle: 315
+(44,)
+(****  simpleTriangle.png  Starting Region:  149 of 196   *****
+Bridson_Common.dradius: 1.9666666666666666
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 10.103057241748708 Flat angle: 215
+(49,)
+(****  simpleTriangle.png  Starting Region:  150 of 196   *****
+Bridson_Common.dradius: 1.9333333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 25.851523802200866 Flat angle: 78
+(52,)
+(****  simpleTriangle.png  Starting Region:  151 of 196   *****
+Bridson_Common.dradius: 2.3666666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 100.41775160930315 Flat angle: 28
+(41,)
+(****  simpleTriangle.png  Starting Region:  152 of 196   *****
+Bridson_Common.dradius: 2.2333333333333334
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 89.95539337213563 Flat angle: 70
+(48,)
+(****  simpleTriangle.png  Starting Region:  153 of 196   *****
+Bridson_Common.dradius: 2.8333333333333335
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 89.903019085104 Flat angle: 65
+(44,)
+(****  simpleTriangle.png  Starting Region:  154 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 10.428254667712803 Flat angle: 119
+(49,)
+(****  simpleTriangle.png  Starting Region:  155 of 196   *****
+Bridson_Common.dradius: 2.3
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 19.344491588151325 Flat angle: 144
+(50,)
+(****  simpleTriangle.png  Starting Region:  156 of 196   *****
+Bridson_Common.dradius: 2.1
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 28.92807755639329 Flat angle: 250
+(48,)
+(****  simpleTriangle.png  Starting Region:  157 of 196   *****
+Bridson_Common.dradius: 2.7
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 90.0029589081122 Flat angle: 296
+(53,)
+(****  simpleTriangle.png  Starting Region:  158 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 24.92725152554717 Flat angle: 275
+(48,)
+(****  simpleTriangle.png  Starting Region:  159 of 196   *****
+Bridson_Common.dradius: 2.1
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 12.049314188000476 Flat angle: 30
+(49,)
+(****  simpleTriangle.png  Starting Region:  160 of 196   *****
+Bridson_Common.dradius: 1.9333333333333333
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 10.142071610679347 Flat angle: 53
+(50,)
+(****  simpleTriangle.png  Starting Region:  161 of 196   *****
+Bridson_Common.dradius: 2.066666666666667
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 10.200288958765228 Flat angle: 168
+(51,)
+(****  simpleTriangle.png  Starting Region:  162 of 196   *****
+Bridson_Common.dradius: 2.2
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 10.970045681278737 Flat angle: 11
+(46,)
+(****  simpleTriangle.png  Starting Region:  163 of 196   *****
+Bridson_Common.dradius: 1.9
+blurRadius: 3
+Creating Mesh File:  f5976ee87e1a54b8590334afd6338a216.obj
+Attempt  1  successful
+MeshAngle: 10.119237006110003 Flat angle: 313
+(58,)
+(****  simpleTriangle.png  Starting Region:  164 of 196   *****
+Bridson_Common.dradius:*************************************************
+Finished
+*************************************************
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>>>>>>>>>>>>>>>>>> Main Exit <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

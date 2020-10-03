@@ -57,6 +57,8 @@ generatePREImage=False
 
 displayMesh = False
 
+scalingFactor=5 # Scale factor.  Needs to be an integer.
+
 diagnostic=False # Generally avoid dispalying meshes.  Only count the number of successful trifinder generations.
 highlightEdgeTriangle=False # Highlight the edge triangle that contains the exterior point of the vertical lines.
 drawSLICRegions = False
@@ -70,7 +72,7 @@ lineCullingDistanceFactor = 2
 allowBlankRegion=False # Allow the region to be blank.  Otherwise, regions can have one single line even if the intensity is high.
 cullingBlankThreshold=230 # If the region has intensity greater than this value, then make the region blank.
 highlightEndpoints=False
-lineCullAlgorithm='segmented'  # Valid values: 'log', 'exp', 'none', 'segmented'.
+lineCullAlgorithm='generous'  # Valid values: 'log', 'exp', 'none', 'segmented', 'generous'
 
 closestPointPair=False
 middleAverageOnly=False
@@ -93,15 +95,15 @@ lineAngle = 90
 coherencyThreshold = 0.1
 lineWidth = 0.25
 stableCoherencyPercentile = 95 # Regions percentile with a coherency above this value are considered stable.
-diffAttractPercentile = 60 # Regions with differences below this percentile will attract.
-diffRepelPercentile =85 # Regions with differences above this percentile will repel.
+diffAttractPercentile = 80 # Regions with differences below this percentile will attract.
+diffRepelPercentile = 80 # Regions with differences above this percentile will repel.
 attractionBin = 3
 repelBin = 3
 stableBin = -4
 stableAttractSet=False  # If true, during the attract, stable regions will simply set adjacent regions equal to the desired angle.  Otherwise, it will take the average.
 binSize=10
 angleAdjustIterations=1000
-attractFudge=1.05 # Fudge factor to use when comparing region intensities.
+attractFudge=1.02 # Fudge factor to use when comparing region intensities.
 
 semanticSegmentation='none' # Valid values: 'deeplabv3', 'mask_rcnn', 'both', 'none'
 semanticSegmentationRatio=0.5 # This is the weighting of the semantic segmentation.
@@ -188,6 +190,14 @@ def outputEnvironmentVariables():
 
 	print("------------------------------------------------------------------")
 
+
+def scaleArray( array):
+	# https://numpy.org/doc/stable/reference/generated/numpy.repeat.html
+	# newArray = np.repeat(array, [Bridson_Common.scalingFactor], axis=0)
+	# newArray = np.repeat(newArray, [Bridson_Common.scalingFactor], axis=1)
+	# return newArray
+	return array
+
 def determineLineSpacing( intensity):
 	if Bridson_Common.lineCullAlgorithm == 'log':
 		'''
@@ -224,6 +234,9 @@ def determineLineSpacing( intensity):
 			intensityDistance = intensity / 5
 		else:
 			intensityDistance = intensity
+	elif Bridson_Common.lineCullAlgorithm == 'generous':
+		# We want more lines in each region.
+		intensityDistance = (intensity / 50)
 	else:
 		intensityDistance = intensity
 
@@ -382,7 +395,7 @@ def saveImage(filename, postFix, fig):
 
 		actualFileName = actualFileName + "_cnn_" + Bridson_Common.semanticSegmentation + "_semanticRatio_" + str(
 			Bridson_Common.semanticSegmentationRatio) + "_" + postFix + ".png"
-		fig.savefig( actualFileName )
+		fig.savefig( actualFileName, dpi=100*Bridson_Common.scalingFactor)
 		if Bridson_Common.bulkGeneration: # Delete the figures when we are bulk generating.
 			plt.close(fig=fig)
 	except Exception as e:
