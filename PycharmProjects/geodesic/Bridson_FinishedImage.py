@@ -216,10 +216,10 @@ class FinishedImage:
 
 	def drawSLICRegions(self, regionRaster, segments):
 		# if Bridson_Common.drawSLICRegions:
-		newRegionRaster = Bridson_Common.scaleArray(regionRaster)
-		newSegments = Bridson_Common.scaleArray(segments)
-		# self.ax.imshow(mark_boundaries(regionRaster, segments, color=(214/255, 214/255, 136/255)))
-		self.ax.imshow(mark_boundaries(newRegionRaster, newSegments, color=(214 / 255, 214 / 255, 136 / 255)))
+		# newRegionRaster = Bridson_Common.scaleArray(regionRaster)
+		# newSegments = Bridson_Common.scaleArray(segments)
+		self.ax.imshow(mark_boundaries(regionRaster, segments, color=(214/255, 214/255, 136/255)))
+		# self.ax.imshow(mark_boundaries(newRegionRaster, newSegments, color=(214 / 255, 214 / 255, 136 / 255)))
 		# self.ax.grid()
 
 
@@ -686,12 +686,14 @@ class FinishedImage:
 						pairIndex = (startIndex, endIndex)
 
 						if pairIndex in self.regionDifferences.keys():
-							if self.regionDifferences[ pairIndex ] < self.diffAttractThreshold and invertNormalize(self.regionIntensityMap[index]) <= invertNormalize(self.regionIntensityMap[adjacentIndex])*Bridson_Common.attractFudge:
+							# if self.regionDifferences[ pairIndex ] < self.diffAttractThreshold and invertNormalize(self.regionIntensityMap[index]) <= invertNormalize(self.regionIntensityMap[adjacentIndex])*Bridson_Common.attractFudge: # V2
+							if self.regionDifferences[pairIndex] < self.diffAttractThreshold: # V3
 								# Attract case.  Repeat this step twice.
 								# AttractList.append( self.regionDirection[ adjacentIndex ] )
 								# newDirection[index] = Bridson_Angles.calcAverageAngleWeighted(newDirection[index], self.regionDirection[adjacentIndex], self.regionCoherency[index], self.regionCoherency[adjacentIndex])
 								newDirection[index] = Bridson_Angles.calcAverageAngleWeighted(newDirection[index], self.regionDirection[adjacentIndex], invertNormalize(self.regionIntensityMap[index]), invertNormalize(self.regionIntensityMap[adjacentIndex]) )
-							elif self.regionDifferences[ pairIndex ] >= self.diffRepelThreshold and invertNormalize(self.regionIntensityMap[index])*Bridson_Common.attractFudge > invertNormalize(self.regionIntensityMap[adjacentIndex]):
+							# elif self.regionDifferences[ pairIndex ] >= self.diffRepelThreshold and invertNormalize(self.regionIntensityMap[index])*Bridson_Common.attractFudge > invertNormalize(self.regionIntensityMap[adjacentIndex]): # V2
+							elif self.regionDifferences[ pairIndex ] >= self.diffRepelThreshold: # V3
 								# Repel case.
 								# RepelList.append( (self.regionDirection[ adjacentIndex ] + 90) % 360  )
 								newDirection[index] = Bridson_Angles.calcAverageAngleWeighted(newDirection[index], (self.regionDirection[adjacentIndex] + 90) % 360, invertNormalize(self.regionIntensityMap[index]), invertNormalize(self.regionIntensityMap[adjacentIndex]) )
@@ -713,11 +715,12 @@ class FinishedImage:
 								if Bridson_Common.stableAttractSet:
 									newDirection[adjacentIndex] = self.regionDirection[index]
 								else:
-									newDirection[adjacentIndex] = Bridson_Angles.calcAverageAngleWeighted(newDirection[adjacentIndex], self.regionDirection[index], invertNormalize(self.regionIntensityMap[adjacentIndex]), invertNormalize(self.regionIntensityMap[index]) )
+									newDirection[adjacentIndex] = Bridson_Angles.calcAverageAngleWeighted(newDirection[adjacentIndex], self.regionDirection[index], invertNormalize(self.regionIntensityMap[adjacentIndex]), invertNormalize(self.regionIntensityMap[index]) * 2.0 )
 								# print("Setting region", adjacentIndex, "to angle", newDirection[ adjacentIndex ] )
-							elif self.regionDifferences[ pairIndex ] >= self.diffRepelThreshold and invertNormalize(self.regionIntensityMap[index])*Bridson_Common.attractFudge > invertNormalize(self.regionIntensityMap[adjacentIndex]):
+							# elif self.regionDifferences[ pairIndex ] >= self.diffRepelThreshold and invertNormalize(self.regionIntensityMap[index])*Bridson_Common.attractFudge > invertNormalize(self.regionIntensityMap[adjacentIndex]): # V2
+							elif self.regionDifferences[pairIndex] >= self.diffRepelThreshold and self.regionCoherency[adjacentIndex] < self.stableThreshold: # V3
 								# Force the repel of adjacent regions to perpendicular angle.
-								newDirection[ adjacentIndex ] = Bridson_Angles.calcAverageAngleWeighted(newDirection[adjacentIndex], (self.regionDirection[index] + 90) % 360, invertNormalize(self.regionIntensityMap[adjacentIndex]), invertNormalize(self.regionIntensityMap[index]) )
+								newDirection[ adjacentIndex ] = Bridson_Angles.calcAverageAngleWeighted(newDirection[adjacentIndex], (self.regionDirection[index] + 90) % 360, invertNormalize(self.regionIntensityMap[adjacentIndex]), invertNormalize(self.regionIntensityMap[index])*2.0 )
 								# newDirection[adjacentIndex] = (self.regionDirection[index] + 90) % 360
 								# print("Region", index, "repels region", adjacentIndex)
 								# print("Setting region", adjacentIndex, "to angle", newDirection[adjacentIndex])
@@ -971,6 +974,8 @@ class FinishedImage:
 			# if self.calculateLineSpacing(linePoints[0], linePoints[-1], intensity=regionIntensity) == False:
 			# 	return
 
+		lineWidth = Bridson_Common.calculateLineWidth(index)
+
 		# print("FinishedImage drawing line count:", len(linePoints))
 		for lineIndex in range(len(linePoints)):
 			# if count > 5:
@@ -984,7 +989,8 @@ class FinishedImage:
 			# Add code to high light stable regions.
 			if self.regionCoherency[index] >= self.stableThreshold:
 				colour = 'r'
-			self.ax.plot(line[:, 0], line[:, 1]*flip, color=colour, linewidth=Bridson_Common.lineWidth)
+			# self.ax.plot(line[:, 0], line[:, 1]*flip, color=colour, linewidth=Bridson_Common.lineWidth)
+			self.ax.plot(line[:, 0], line[:, 1]*flip, color=colour, linewidth=lineWidth)
 			if Bridson_Common.closestPointPair:  # Only place the dots when we are calculating closest point pair.
 				if initial == False:  # Do not display this dot the first time around.
 					self.ax.plot(currentLine[self.markPoint[0]][0], currentLine[self.markPoint[0]][1] * flip, marker='*',

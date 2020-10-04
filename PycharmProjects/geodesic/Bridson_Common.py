@@ -26,7 +26,7 @@ seedValue = 11
 SLIC0=True
 compactnessSLIC=1
 timeoutPeriod = 5
-SLICIterations=50
+SLICIterations=200
 SLICGrey = False
 
 #####################################
@@ -69,8 +69,8 @@ Median=True
 sortExteriorPoints=True
 lineSkip = 1
 lineCullingDistanceFactor = 2
-allowBlankRegion=False # Allow the region to be blank.  Otherwise, regions can have one single line even if the intensity is high.
-cullingBlankThreshold=230 # If the region has intensity greater than this value, then make the region blank.
+allowBlankRegion=True # Allow the region to be blank.  Otherwise, regions can have one single line even if the intensity is high.
+cullingBlankThreshold=225 # If the region has intensity greater than this value, then make the region blank.
 highlightEndpoints=False
 lineCullAlgorithm='generous'  # Valid values: 'log', 'exp', 'none', 'segmented', 'generous'
 
@@ -95,15 +95,15 @@ lineAngle = 90
 coherencyThreshold = 0.1
 lineWidth = 0.25
 stableCoherencyPercentile = 95 # Regions percentile with a coherency above this value are considered stable.
-diffAttractPercentile = 80 # Regions with differences below this percentile will attract.
-diffRepelPercentile = 80 # Regions with differences above this percentile will repel.
+diffAttractPercentile = 85 # Regions with differences below this percentile will attract.
+diffRepelPercentile = 85 # Regions with differences above this percentile will repel.
 attractionBin = 3
 repelBin = 3
 stableBin = -4
 stableAttractSet=False  # If true, during the attract, stable regions will simply set adjacent regions equal to the desired angle.  Otherwise, it will take the average.
 binSize=10
 angleAdjustIterations=1000
-attractFudge=1.02 # Fudge factor to use when comparing region intensities.
+attractFudge=1.1 # Fudge factor to use when comparing region intensities.
 
 semanticSegmentation='none' # Valid values: 'deeplabv3', 'mask_rcnn', 'both', 'none'
 semanticSegmentationRatio=0.5 # This is the weighting of the semantic segmentation.
@@ -132,7 +132,7 @@ dradius = 1.5 # Important that dradius is greater than 1.0.  When the value is 1
 radiusDefault = 1.5
 radiusDivisor = 30 # the number of radii for each region.
 regionDynamicRadius = True
-mergeDistance = 6 # radius to
+mergeDistance = 3 # radius to
 
 increaseContrast=False
 contrastFactor=1.5 # Values above 1 increase contrast.  Values below 1 reduce contrast.
@@ -187,8 +187,12 @@ def outputEnvironmentVariables():
 	print("stableAttractSet:", stableAttractSet)
 	print("binSize:", binSize)
 	print("attractFudge:", attractFudge)
-
 	print("------------------------------------------------------------------")
+
+
+def calculateLineWidth(self, index):
+	# The line width will be a linear calculation: -0.2 * x / 255 + 0.2.  At 0, it should be 0.25 at intensity 0 and 0.05 at intensity 255.
+	return (-0.2 * self.regionIntensityMap[index] / 255) + 0.2
 
 
 def scaleArray( array):
@@ -236,7 +240,7 @@ def determineLineSpacing( intensity):
 			intensityDistance = intensity
 	elif Bridson_Common.lineCullAlgorithm == 'generous':
 		# We want more lines in each region.
-		intensityDistance = (intensity / 50)
+		intensityDistance = (intensity / 50)+1
 	else:
 		intensityDistance = intensity
 
@@ -393,8 +397,7 @@ def saveImage(filename, postFix, fig):
 		else:
 			actualFileName = actualFileName + "_compactness_" + str(Bridson_Common.compactnessSLIC)
 
-		actualFileName = actualFileName + "_cnn_" + Bridson_Common.semanticSegmentation + "_semanticRatio_" + str(
-			Bridson_Common.semanticSegmentationRatio) + "_" + postFix + ".png"
+		actualFileName = actualFileName + "_attractThreshold_" + str(Bridson_Common.diffAttractPercentile) + "_cnn_" + Bridson_Common.semanticSegmentation + "_semanticRatio_" + str(Bridson_Common.semanticSegmentationRatio) + "_" + postFix + ".png"
 		fig.savefig( actualFileName, dpi=100*Bridson_Common.scalingFactor)
 		if Bridson_Common.bulkGeneration: # Delete the figures when we are bulk generating.
 			plt.close(fig=fig)

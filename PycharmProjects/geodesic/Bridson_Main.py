@@ -176,10 +176,10 @@ def SLICImage(filename):
 	print("B")
 	regionRaster = imageraster / np.max(imageraster)   # Need to normalize the region intensity [0 ... 1.0] to display properly.
 	# print("Raster:", displayRaster)
-	newRegionRaster = Bridson_Common.scaleArray(regionRaster)
-	newSegments = Bridson_Common.scaleArray(segments)
-	# ax3.imshow(mark_boundaries( regionRaster, segments, color=(255,0,0) ))
-	ax3.imshow(mark_boundaries( newRegionRaster, newSegments, color=(255,0,0) ))
+	# newRegionRaster = Bridson_Common.scaleArray(regionRaster)
+	# newSegments = Bridson_Common.scaleArray(segments)
+	ax3.imshow(mark_boundaries( regionRaster, segments, color=(255,0,0) ))
+	# ax3.imshow(mark_boundaries( newRegionRaster, newSegments, color=(255,0,0) ))
 	ax3.grid()
 	# plt.clf()
 
@@ -581,13 +581,15 @@ def indexValidation(filename):
 	# meshObj2, flatMeshObj2 = processMask(raster, dradius, index + i / 10 + 0.0012345)
 	# flatMeshObj2.TransferLinePoints(flatMeshObj)
 
-def wrapper(filename, segmentCount, compactness, cnn):
+def wrapper(filename, segmentCount, compactness, cnn, attractPercentile):
 	gc.collect()
 	baseName = 'f' + str(uuid.uuid4().hex)
 	Bridson_Common.test1obj = baseName + '.obj'
 	Bridson_Common.test1_outobj = baseName + '_out.obj'
 	Bridson_Common.test1_out_flatobj = baseName + '_out_flat.obj'
 	Bridson_Common.chaincodefile = baseName + '_chaincode.txt'
+	Bridson_Common.diffAttractPercentile = attractPercentile
+	Bridson_Common.diffRepelPercentile = attractPercentile
 
 	# cleanUpFiles()
 	random.seed(Bridson_Common.seedValue)
@@ -613,7 +615,6 @@ def wrapper(filename, segmentCount, compactness, cnn):
 		exc_info = sys.exc_info()
 		traceback.print_exception(*exc_info)
 		del exc_info
-
 
 	plt.close("all")
 	gc.collect()
@@ -690,7 +691,7 @@ if __name__ == '__main__':
 	images.append('mr-o-k--ePHy6jg_7c-unsplash.jpg')
 	images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
 
-	semanticSegmentation = ['none', 'mask_rcnn',  'both']
+	semanticSegmentation = ['none']
 	# semanticSegmentation = ['none']
 	# semanticSegmentation = ['none', 'mask_rcnn', 'deeplabv3', 'both']
 	# semanticSegmentation = ['mask_rcnn', 'deeplabv3', 'both']
@@ -716,6 +717,7 @@ if __name__ == '__main__':
 		# 	compactnessList = [0.01]
 		# else:
 		compactnessList = [ 'SLIC0' ]
+		attractPercentileList = [80, 90]
 		# compactnessList = [1]
 	else:
 		segmentCounts = [200]
@@ -731,6 +733,7 @@ if __name__ == '__main__':
 		semanticSegmentation = ['none']
 		segmentCounts = [200]
 		compactnessList = ['SLIC0']
+		attractPercentileList = [80]
 
 	variables = []
 	for filename in images:
@@ -739,33 +742,36 @@ if __name__ == '__main__':
 		for segmentCount in segmentCounts:
 			for compactness in compactnessList:
 				for cnn in semanticSegmentation:
-					variables.append( (filename, segmentCount, compactness, cnn) )
+					for attractPercentile in attractPercentileList:
+						variables.append( (filename, segmentCount, compactness, cnn, attractPercentile) )
 
-					if Bridson_Common.bulkGeneration == False:
-						baseName = 'f' + str(uuid.uuid4().hex)
-						Bridson_Common.test1obj = baseName + '.obj'
-						Bridson_Common.test1_outobj = baseName + '_out.obj'
-						Bridson_Common.test1_out_flatobj = baseName + '_out_flat.obj'
+						if Bridson_Common.bulkGeneration == False:
+							baseName = 'f' + str(uuid.uuid4().hex)
+							Bridson_Common.test1obj = baseName + '.obj'
+							Bridson_Common.test1_outobj = baseName + '_out.obj'
+							Bridson_Common.test1_out_flatobj = baseName + '_out_flat.obj'
 
-						# Bridson_Common.targetRegionPixelCount = targetPixel
-						Bridson_Common.segmentCount = segmentCount
-						# Set the seed each time.
-						Bridson_Common.compactnessSLIC=compactness
-						Bridson_Common.semanticSegmentation = cnn
-						random.seed(Bridson_Common.seedValue)
-						np.random.seed(Bridson_Common.seedValue)
-						try:
-							indexValidation(filename)
-							if Bridson_Common.bulkGeneration:
-								plt.close("all")
-								gc.collect()
-							# sys.stdout.close()
-						except Exception as e:
-							print("Exception calling indexValidation:", e)
-							print("Error details:", sys.exc_info()[0])
-							exc_info = sys.exc_info()
-							traceback.print_exception(*exc_info)
-							del exc_info
+							# Bridson_Common.targetRegionPixelCount = targetPixel
+							Bridson_Common.segmentCount = segmentCount
+							# Set the seed each time.
+							Bridson_Common.compactnessSLIC=compactness
+							Bridson_Common.semanticSegmentation = cnn
+							Bridson_Common.diffAttractPercentile = attractPercentile
+							Bridson_Common.diffRepelPercentile = attractPercentile
+							random.seed(Bridson_Common.seedValue)
+							np.random.seed(Bridson_Common.seedValue)
+							try:
+								indexValidation(filename)
+								if Bridson_Common.bulkGeneration:
+									plt.close("all")
+									gc.collect()
+								# sys.stdout.close()
+							except Exception as e:
+								print("Exception calling indexValidation:", e)
+								print("Error details:", sys.exc_info()[0])
+								exc_info = sys.exc_info()
+								traceback.print_exception(*exc_info)
+								del exc_info
 
 	if Bridson_Common.bulkGeneration:
 		# coreCount = mp.cpu_count() - 4
@@ -774,7 +780,7 @@ if __name__ == '__main__':
 			Have to implement this looping mechanism.
 			For some reason, if we provide the whole list to the pool, the pool eventually hangs or all the chidren crash.
 		'''
-		blocks = coreCount*2
+		blocks = coreCount
 		iterations = int(len(variables) / blocks + 1)
 
 		print("CoreCount:", coreCount)
@@ -785,6 +791,7 @@ if __name__ == '__main__':
 			with Pool(processes=coreCount) as pool:
 				pool.starmap( wrapper, iterationVariables )
 			pool.terminate()
+			gc.collect()
 
 	print("*************************************************")
 	print("Finished")
