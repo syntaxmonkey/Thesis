@@ -57,7 +57,7 @@ generatePREImage=False
 
 displayMesh = False
 
-scalingFactor=5 # Scale factor.  Needs to be an integer.
+scalingFactor=5 # Scale factor.  Needs to be an integer.  Will increase the saved image dpi by this factor.
 
 diagnostic=False # Generally avoid dispalying meshes.  Only count the number of successful trifinder generations.
 highlightEdgeTriangle=False # Highlight the edge triangle that contains the exterior point of the vertical lines.
@@ -69,7 +69,7 @@ Median=True
 sortExteriorPoints=True
 lineSkip = 1
 lineCullingDistanceFactor = 2
-allowBlankRegion=True # Allow the region to be blank.  Otherwise, regions can have one single line even if the intensity is high.
+allowBlankRegion=False # Allow the region to be blank.  Otherwise, regions can have one single line even if the intensity is high.
 cullingBlankThreshold=225 # If the region has intensity greater than this value, then make the region blank.
 highlightEndpoints=False
 lineCullAlgorithm='generous'  # Valid values: 'log', 'exp', 'none', 'segmented', 'generous'
@@ -148,10 +148,10 @@ colourArray = ['b', 'b', 'b']
 mergeScale = 1  # How much to scale the contour lines before merging.
 cropContours = True
 
-Bridson_Common.test1obj = ""
-Bridson_Common.test1_outobj = ""
-Bridson_Common.test1_out_flatobj = ""
-Bridson_Common.chaincodefile = ""
+test1obj = ""
+test1_outobj = ""
+test1_out_flatobj = ""
+chaincodefile = ""
 objPath = "../../boundary-first-flattening/build/"
 
 
@@ -190,9 +190,6 @@ def outputEnvironmentVariables():
 	print("------------------------------------------------------------------")
 
 
-def calculateLineWidth(self, index):
-	# The line width will be a linear calculation: -0.2 * x / 255 + 0.2.  At 0, it should be 0.25 at intensity 0 and 0.05 at intensity 255.
-	return (-0.2 * self.regionIntensityMap[index] / 255) + 0.2
 
 
 def scaleArray( array):
@@ -203,6 +200,7 @@ def scaleArray( array):
 	return array
 
 def determineLineSpacing( intensity):
+
 	if Bridson_Common.lineCullAlgorithm == 'log':
 		'''
 		Logrithmic scale.			
@@ -240,13 +238,13 @@ def determineLineSpacing( intensity):
 			intensityDistance = intensity
 	elif Bridson_Common.lineCullAlgorithm == 'generous':
 		# We want more lines in each region.
-		intensityDistance = (intensity / 50)+1
+		intensityDistance = (intensity / 50)
 	else:
 		intensityDistance = intensity
 
 		intensityDistance += 1
-	return intensityDistance
-
+	# return intensityDistance
+	return (255 / 100.0)
 
 
 

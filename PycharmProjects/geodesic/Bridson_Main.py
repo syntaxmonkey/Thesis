@@ -147,9 +147,9 @@ def cleanUpFiles():
 	# os.system("rm " + path + "test1.obj ")
 	# os.system("rm "+ path + "test1_out.obj")
 	# os.system("rm " + path + "test1_out_flat.obj")
-	os.system("rm " +  Bridson_Common.test1obj)
-	os.system("rm "+  Bridson_Common.test1_outobj)
-	os.system("rm " +  Bridson_Common.test1_out_flatobj)
+	os.system("rm " +  path + Bridson_Common.test1obj)
+	os.system("rm "+  path + Bridson_Common.test1_outobj)
+	os.system("rm " +  path + Bridson_Common.test1_out_flatobj)
 	os.system("rm " +  Bridson_Common.chaincodefile)
 
 
@@ -717,7 +717,7 @@ if __name__ == '__main__':
 		# 	compactnessList = [0.01]
 		# else:
 		compactnessList = [ 'SLIC0' ]
-		attractPercentileList = [80, 90]
+		attractPercentileList = [80]
 		# compactnessList = [1]
 	else:
 		segmentCounts = [200]

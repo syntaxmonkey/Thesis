@@ -157,6 +157,10 @@ class FinishedImage:
 		'''
 		newLinePoints = []
 		empty = True
+		if len(linePoints) == 0:
+			# Handle the situation that the line points list is empty.
+			return empty, newLinePoints
+
 		# Allow regions to be blank.
 		if Bridson_Common.allowBlankRegion == True:
 			if regionIntensity >= Bridson_Common.cullingBlankThreshold:
@@ -898,7 +902,7 @@ class FinishedImage:
 
 		# Allow regions to be blank.
 		if Bridson_Common.allowBlankRegion == True:
-			if regionIntensity > 250:
+			if regionIntensity > Bridson_Common.cullingBlankThreshold:
 				return
 
 		# print("FinishedImage drawing line count:", len(linePoints))
@@ -929,6 +933,10 @@ class FinishedImage:
 		for line in self.tempLines:
 			line.pop().remove()
 
+	def calculateLineWidth(self, index):
+		# The line width will be a linear calculation: -0.2 * x / 255 + 0.2.  At 0, it should be 0.25 at intensity 0 and 0.05 at intensity 255.
+		# Change the line thickness.  Assume minimum line thickness is 0.1.  We want the maximum line thickness to be 1.0.
+		return (-1.0 * self.regionIntensityMap[index] / 255) + 1.001
 
 	def drawRegionContourLines(self, index, drawSLICRegions = Bridson_Common.drawSLICRegions):
 		# If we are not drawing the SLIC regions, we do not need to flip the Y coordinates.
@@ -969,12 +977,12 @@ class FinishedImage:
 
 		# Allow regions to be blank.
 		if Bridson_Common.allowBlankRegion == True:
-			if regionIntensity > 250:
+			if regionIntensity > Bridson_Common.cullingBlankThreshold:
 				return
 			# if self.calculateLineSpacing(linePoints[0], linePoints[-1], intensity=regionIntensity) == False:
 			# 	return
 
-		lineWidth = Bridson_Common.calculateLineWidth(index)
+		lineWidth = self.calculateLineWidth(index)
 
 		# print("FinishedImage drawing line count:", len(linePoints))
 		for lineIndex in range(len(linePoints)):
