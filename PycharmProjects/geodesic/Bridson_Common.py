@@ -238,13 +238,13 @@ def determineLineSpacing( intensity):
 			intensityDistance = intensity
 	elif Bridson_Common.lineCullAlgorithm == 'generous':
 		# We want more lines in each region.
-		intensityDistance = (intensity / 50)
+		intensityDistance = (intensity / 100.0)
 	else:
 		intensityDistance = intensity
 
 		intensityDistance += 1
-	# return intensityDistance
-	return (255 / 100.0)
+	return intensityDistance
+	# return (255 / 100.0)
 
 
 
