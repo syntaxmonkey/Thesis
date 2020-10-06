@@ -300,15 +300,30 @@ def generateImageIntensityHashmap( greyImage, segments):
 		regionIntensityMap[ regionIndex ] = 0
 
 	x, y = np.shape(segments)
-	# raster = np.zeros((x,y))
-	for i in range(x):
-		for j in range(y):
-			regionIntensityMap[ segments[i][j] ] += greyImage[i][j]
+	if Bridson_Common.intensityMapType == 'average':
+		# Generate the average for region intensity.
+		# raster = np.zeros((x,y))
+		for i in range(x):
+			for j in range(y):
+				regionIntensityMap[ segments[i][j] ] += greyImage[i][j]
 
 
-	# Calculate the average for each regionIndex.
-	for regionIndex in segmentLabels:
-		regionIntensityMap[ regionIndex ] = regionIntensityMap[ regionIndex ] / np.count_nonzero( segments == regionIndex ) # Calculate the average intensity for each region.
+		# Calculate the average for each regionIndex.
+		for regionIndex in segmentLabels:
+			regionIntensityMap[ regionIndex ] = regionIntensityMap[ regionIndex ] / np.count_nonzero( segments == regionIndex ) # Calculate the average intensity for each region.
+	else:
+		# Generate the median for region intensity.
+		for i in range(x):
+			for j in range(y):
+				regionIntensityMap[ segments[i][j] ] = []
+
+		for i in range(x):
+			for j in range(y):
+				regionIntensityMap[ segments[i][j] ].append( greyImage[i][j] )
+
+		# Calculate the median for each regionIndex.
+		for regionIndex in segmentLabels:
+			regionIntensityMap[ regionIndex ] = np.median( regionIntensityMap[ regionIndex ])
 
 	return regionIntensityMap
 

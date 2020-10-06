@@ -136,7 +136,7 @@ mergeDistance = 3 # radius to
 
 increaseContrast=False
 contrastFactor=1.5 # Values above 1 increase contrast.  Values below 1 reduce contrast.
-
+intensityMapType='median' # Valid values are 'average' and 'median'
 
 # Image Generation
 GreyscaleSLIC = True  # Generate the greyscale image of the regions.

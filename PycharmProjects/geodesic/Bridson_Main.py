@@ -647,7 +647,7 @@ if __name__ == '__main__':
 	# images.append('Sunglasses.jpg')
 	# images.append('TapeRolls.jpg')
 	# images.append('Massager.jpg')
-	# images.append('eyeball.jpg')
+	images.append('eyeball.jpg')
 	# images.append('truck.jpg')
 	# images.append('cat1.jpg')
 
@@ -659,7 +659,7 @@ if __name__ == '__main__':
 	# images.append('popsicle.jpg')
 	# images.append('rainbow.jpg')
 	# images.append('fishhead.jpg')
-	# images.append('bald-eagle.jpg')
+	images.append('bald-eagle.jpg')
 	# images.append('grapes.jpg')
 	# images.append('green-tree-frog.jpg')
 	# images.append('hand.jpg')
@@ -676,7 +676,7 @@ if __name__ == '__main__':
 	# images.append('herson-rodriguez-w8CcH9Md4vE-unsplash_Van.jpg')
 	# images.append('lucia-lua-ramirez-lG0AHN1Gapw-unsplash_Bus.jpg')
 	# images.append('pawel-czerwinski-xt1tPXqOdcc-unsplash_TrafficLight.jpg')
-	# images.append('joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg')
+	images.append('joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg')
 	# images.append('devvrat-jadon-WLNkAHCjYOw-unsplash_Hammer.jpg')
 	# images.append('magic-bowls-3QGtPOqeBEQ-unsplash.jpg')
 	# images.append('ruslan-keba-G5tOIWFZqFE-unsplash_RubiksCube.jpg')
@@ -710,14 +710,14 @@ if __name__ == '__main__':
 	targetPixels = [3200]
 	if Bridson_Common.bulkGeneration:
 		# segmentCounts = [100, 200]
-		segmentCounts = [ 200, 400]
+		segmentCounts = [ 300, 400]
 		# segmentCounts = [200]
 		compactnessList = [ 0.1, 0.25, 0.5]
 		# if Bridson_Common.SLIC0:
 		# 	compactnessList = [0.01]
 		# else:
 		compactnessList = [ 'SLIC0' ]
-		attractPercentileList = [80]
+		attractPercentileList = [85]
 		# compactnessList = [1]
 	else:
 		segmentCounts = [200]
@@ -802,7 +802,7 @@ if __name__ == '__main__':
 		print(">>>>>>>>>>>>>>>>>>>>>>> Main Exit <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 		print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<")
 		# exit(0)
-		os.system('rm *_chaincode.txt')
+		# os.system('rm *_chaincode.txt')
 		sys.exit(0)
 	else:
 		plt.show()
