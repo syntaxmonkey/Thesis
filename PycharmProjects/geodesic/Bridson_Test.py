@@ -3,30 +3,34 @@
 # Tutorial on structure tensor: https://www.mathworks.com/matlabcentral/fileexchange/12362-structure-tensor-introduction-and-tutorial
 
 # Tensor Structure testg
-
-from skimage.feature import structure_tensor
-from skimage.feature import structure_tensor_eigvals
-import numpy as np
-import math
-
-import skimage
-import matplotlib
-import matplotlib.pyplot as plt
-from PIL import Image
-
-from skimage import data, img_as_float
-from skimage import exposure
-from skimage.morphology import disk
-from skimage.filters import rank
-from numpy.linalg import eig
-
-from multiprocessing import Process, freeze_support, set_start_method, Pool
-import time
-import random
-
-import uuid
+# import Bridson_Common
 
 print("Test")
+
+if False:
+	from skimage.feature import structure_tensor
+	from skimage.feature import structure_tensor_eigvals
+	import numpy as np
+	import math
+
+	import skimage
+	import matplotlib
+	import matplotlib.pyplot as plt
+	from PIL import Image
+
+	from skimage import data, img_as_float
+	from skimage import exposure
+	from skimage.morphology import disk
+	from skimage.filters import rank
+	from numpy.linalg import eig
+
+	from multiprocessing import Process, freeze_support, set_start_method, Pool
+	import time
+	import random
+
+	import uuid
+
+
 if False:
 	square = np.ones((5, 5))
 	square[2:5, 3] = 5
@@ -427,7 +431,43 @@ def calculateLineWidth(intensity):
 	# Change the line thickness.  Assume minimum line thickness is 0.1.  We want the maximum line thickness to be 1.0.
 	return (-1.0 * intensity / 255) + 1.001
 
+if False:
+	for i in range(256):
+		print("Intensity: ", i, "has width:", calculateLineWidth(i))
 
-for i in range(256):
-	print("Intensity: ", i, "has width:", calculateLineWidth(i))
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.tri as tri
+import dill
 
+
+
+# Testing the Pickle process.
+# Originally from: https://stackoverflow.com/questions/4529815/saving-an-object-data-persistence
+# import _pickle as pickle
+# import pickle
+import Bridson_Common
+
+pickleFilename='savedObject.pkl'
+
+listing = list(range(10))
+print(listing)
+
+Bridson_Common.save_object(listing, pickleFilename)
+
+del listing
+
+newListing = Bridson_Common.load_object(pickleFilename)
+
+print("newListing:", newListing)
+
+
+data = np.random.rand(100, 2)
+
+oldtriangles = tri.Triangulation(data[:,0], data[:,1])
+Bridson_Common.save_object(oldtriangles, pickleFilename)
+
+triangles = Bridson_Common.load_object(pickleFilename)
+
+plt.triplot(triangles)
+plt.show()

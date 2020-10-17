@@ -29,7 +29,8 @@ from multiprocessing import Process, freeze_support, set_start_method, Pool
 import multiprocessing as mp
 import uuid
 import traceback
-
+import pickle
+import copy
 
 # Redirect print statements to file.
 
@@ -279,6 +280,14 @@ def processMask(mask, dradius, indexLabel):
 		# try:
 			a = datetime.datetime.now()
 			meshObj = Bridson_MeshObj.MeshObject(mask=mask5x, dradius=dradius, indexLabel=indexLabel) # Create Mesh based on Mask.
+			# print("processMask 1: Pickling String for meshObj.triangulation:", pickle.dumps(meshObj))
+			originalMeshObj = copy.deepcopy(meshObj)
+			meshObj.trifinder = meshObj.triangulation.get_trifinder() # TEST TEST TEST
+			meshObj.generateDualGraph() # TEST TEST TEST
+			meshObj.trifinderGenerated = True
+			# Test Save from here.
+
+
 			# print("B")
 			b = datetime.datetime.now()
 			points = meshObj.points
@@ -307,6 +316,12 @@ def processMask(mask, dradius, indexLabel):
 			# print("D")
 			newIndex = str(indexLabel) + ":" + str(indexLabel)
 			flatMeshObj = Bridson_MeshObj.MeshObject(flatvertices=flatvertices, flatfaces=flatfaces, xrange=xrange, yrange=yrange, indexLabel=indexLabel) # Create Mesh based on OBJ file.
+			# print("processMask 2: Pickling String for flatMeshObj.triangulation:", pickle.dumps(flatMeshObj))
+			originalFlatMeshObj = copy.deepcopy(flatMeshObj)
+			flatMeshObj.trifinder = flatMeshObj.triangulation.get_trifinder() # TEST TEST TEST
+			flatMeshObj.generateDualGraph() # TEST TEST TEST
+			flatMeshObj.trifinderGenerated = True
+
 			j = datetime.datetime.now()
 			# print("E")
 			successful = flatMeshObj.trifinderGenerated
@@ -332,7 +347,9 @@ def processMask(mask, dradius, indexLabel):
 	# indexLabel="LineSeed"
 	# lineReferencePointsObj = Bridson_MeshObj.MeshObject(mask=mask5x, dradius=dradius*Bridson_Common.lineRadiusFactor, indexLabel=indexLabel)
 
-	return meshObj, flatMeshObj, successful
+	# print("processMask 3: Pickling String for originalMeshObj:", pickle.dumps(originalMeshObj))
+	# print("processMask 4: Pickling String for originalFlatMeshObj:", pickle.dumps(originalFlatMeshObj))
+	return meshObj, flatMeshObj, successful, originalMeshObj, originalFlatMeshObj
 
 def displayRegionRaster(regionRaster, index):
 	if Bridson_Common.displayMesh:
@@ -357,6 +374,20 @@ def drawRegionLines( filename, finishedImage, regionList):
 
 	successfulRegions = 0
 
+	pickleFilename = Bridson_Common.genPickleFilename( filename )
+	meshObjDict = {}
+	flatMeshObjDict = {}
+	trifindersuccessDict = {}
+	previouslyPickled = False
+	if os.path.exists( pickleFilename ) == True:
+		print("Pickle file exists:", pickleFilename)
+		previouslyPickled = True
+		dataStructure = Bridson_Common.load_object(pickleFilename)
+		meshObjDict, flatMeshObjDict, trifindersuccessDict = dataStructure
+		# Load the pickle file.
+	else:
+		print("Pickle file does not exist:", pickleFilename)
+
 	for index in regionList:
 		print("(**** ", filename, " Starting Region: ", index, "of", len(regionMap.keys()), "  *****" )
 
@@ -367,7 +398,21 @@ def drawRegionLines( filename, finishedImage, regionList):
 		# Bridson_Common.writeMask(raster)
 		Bridson_Common.determineRadius(np.shape(raster)[0], np.shape(raster)[1])
 		dradius = Bridson_Common.dradius
-		meshObj, flatMeshObj, trifindersuccess = processMask(raster, dradius, indexLabel)
+		# previouslyPickled = False
+		if previouslyPickled:
+			meshObj = meshObjDict[index]
+			meshObj.trifinder = meshObj.triangulation.get_trifinder() # TEST TEST TEST
+			meshObj.generateDualGraph() # TEST TEST TEST
+			meshObj.trifinderGenerated = True
+
+			flatMeshObj = flatMeshObjDict[index]
+			flatMeshObj.trifinder = meshObj.triangulation.get_trifinder() # TEST TEST TEST
+			flatMeshObj.generateDualGraph() # TEST TEST TEST
+			flatMeshObj.trifinderGenerated = True
+
+			trifindersuccess = trifindersuccessDict[index]
+		else:
+			meshObj, flatMeshObj, trifindersuccess, originalMeshObj, originalFlatMeshObj = processMask(raster, dradius, indexLabel)
 
 
 		# Find the intensity of this region.
@@ -376,7 +421,13 @@ def drawRegionLines( filename, finishedImage, regionList):
 		# Find two points that fulfill the dx,dy.
 		# Calculate the barycentric coordinates in flat mesh coordinates.
 		# Calculate the angle in flat mesh coordinates.
+
+		if not previouslyPickled: trifindersuccessDict[index] = trifindersuccess
 		if trifindersuccess:
+			if not previouslyPickled:
+				meshObjDict[index]= originalMeshObj
+				flatMeshObjDict[index] = originalFlatMeshObj
+				# Bridson_Common.save_object(meshObj, pickleFilename)
 
 			meshAngle = finishedImage.regionDirection[ index ]  # Obtain the angle that was calculated.
 			flatAngle = int( flatMeshObj.calculateAngle( meshObj, desiredAngle=meshAngle ) )  # Determine the angle on the flat mesh.
@@ -413,8 +464,15 @@ def drawRegionLines( filename, finishedImage, regionList):
 			# print("Save NoSLIC meshObj")
 			# NoSLICmeshObjCollection[ index ] = meshObj
 		else:
+			if not previouslyPickled:
+				meshObjDict[index]= []
+				flatMeshObjDict[index] = []
 			print("Trifinder was NOT successfully generated for region ", index)
 
+	# Save if the objects if not previouslyPickled.
+	if not previouslyPickled:
+		dataStructure = [meshObjDict, flatMeshObjDict, trifindersuccessDict]
+		Bridson_Common.save_object(dataStructure, pickleFilename)
 
 
 
@@ -729,9 +787,9 @@ if __name__ == '__main__':
 		# images.append('Stripes.png')
 		# images.append('kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg')
 		# images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
-		images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
+		# images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
 		semanticSegmentation = ['none']
-		segmentCounts = [200]
+		segmentCounts = [100]
 		compactnessList = ['SLIC0']
 		attractPercentileList = [80]
 

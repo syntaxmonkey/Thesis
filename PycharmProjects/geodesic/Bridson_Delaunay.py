@@ -8,6 +8,7 @@ import pylab
 
 removalRatio = 0.05
 
+# import pickle
 def generateDelaunay(points, radius, mask, xrange):
 	tri = Delaunay(points)  # Generate the triangles from the vertices.
 
@@ -30,7 +31,8 @@ def generateDelaunay(points, radius, mask, xrange):
 
 	newMask = Bridson_Common.blurArray(mask, 3)
 	triangulation, points = removeLongTriangles(points, tri, radius, newMask)
-
+	# print("generateDelaunay1: Pickling String for triangulation:", pickle.dumps(triangulation))
+	# print("generateDelaunay1a: Pickling String for triangulation:", pickle.dumps(triangulation))
 	# Display the newly generated Mask
 	if Bridson_Common.debug:
 		plt.figure()
@@ -39,15 +41,19 @@ def generateDelaunay(points, radius, mask, xrange):
 		plt.imshow(newMask)
 		thismanager = pylab.get_current_fig_manager()
 		thismanager.window.wm_geometry("+40+560")
-
-	Bridson_Common.logDebug(__name__, "Points:", points)
-	Bridson_Common.logDebug(__name__, "Triangles:", triangulation.triangles )
-	Bridson_Common.logDebug(__name__, "Edges:", triangulation.edges)
-	Bridson_Common.logDebug(__name__, "Neighbors:", triangulation.neighbors)
+	# print("generateDelaunay1b: Pickling String for triangulation:", pickle.dumps(triangulation))
+	# Bridson_Common.logDebug(__name__, "Points:", points)
+	# print("generateDelaunay1c: Pickling String for triangulation:", pickle.dumps(triangulation))
+	# Bridson_Common.logDebug(__name__, "Triangles:", triangulation.triangles )
+	# print("generateDelaunay1d: Pickling String for triangulation:", pickle.dumps(triangulation))
+	# Bridson_Common.logDebug(__name__, "Edges:", triangulation.edges) # For some reason, this call makes the pickle fail.
+	# print("generateDelaunay1e: Pickling String for triangulation:", pickle.dumps(triangulation))
+	# Bridson_Common.logDebug(__name__, "Neighbors:", triangulation.neighbors)  # For some reason, this call makes pickle fail.
+	# print("generateDelaunay2: Pickling String for triangulation:", pickle.dumps(triangulation))
 	return triangulation, points
 
 
-
+# import pickle
 def removeLongTriangles(points, tri, radius, mask):
 	# Find Average Area.
 	averageArea = Bridson_Common.findAverageArea(tri.simplices.copy(), points)
@@ -97,6 +103,7 @@ def removeLongTriangles(points, tri, radius, mask):
 
 	newTri = mtri.Triangulation(points[:,0], points[:,1], newTriangles)
 
+	# print("removeLongTriangles: Pickling String for newTri:", pickle.dumps(newTri))
 	return newTri, points
 
 
@@ -110,7 +117,7 @@ def isExteriorTriangle(p1, p2, mask):
 		return True
 	return False
 
-
+# import pickle
 def displayDelaunayMesh(points, radius, mask, xrange):
 	# print("displayDelaunayMesh points:", points)
 	triangulation, points = generateDelaunay(points, radius, mask, xrange)
@@ -139,7 +146,7 @@ def displayDelaunayMesh(points, radius, mask, xrange):
 
 		thismanager = pylab.get_current_fig_manager()
 		thismanager.window.wm_geometry("+640+560")
-
+	# print("displayDelaunayMesh: Pickling String for triangulation:", pickle.dumps(triangulation))
 	return triangulation, points
 		# plt.show()
 

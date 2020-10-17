@@ -649,7 +649,7 @@ class FinishedImage:
 
 		if True:
 			# Percentile approach for calculating the thresholds.
-			print( "Region Differences Values:", list( self.regionDifferences.values() ))
+			# print( "Region Differences Values:", list( self.regionDifferences.values() ))
 			self.diffAttractThreshold = np.percentile(list( self.regionDifferences.values() ), Bridson_Common.diffAttractPercentile)
 			print("diff attract threshold:", self.diffAttractThreshold)
 

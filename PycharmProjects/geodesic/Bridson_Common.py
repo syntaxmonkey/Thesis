@@ -1,5 +1,4 @@
 import math
-import Bridson_Common
 from PIL import Image, ImageFont, ImageDraw, ImageFilter
 import numpy as np
 import numpy.linalg as la # https://codereview.stackexchange.com/questions/41024/faster-computation-of-barycentric-coordinates-for-many-points
@@ -12,6 +11,7 @@ import pandas as pd
 from scipy.spatial import distance
 import sys
 from skimage import io
+import pickle
 
 
 
@@ -31,7 +31,7 @@ SLICGrey = False
 
 #####################################
 bulkGeneration = True
-smallBatch=False
+smallBatch=True
 
 coreCount = 4
 if os.path.exists("./output") == True:
@@ -40,8 +40,8 @@ if os.path.exists("./output") == True:
 else:
 	os.mkdir("./output")
 
-if Bridson_Common.bulkGeneration:
-	sys.stdout = open("./output/detailLogs.txt", "a")
+if bulkGeneration:
+	# sys.stdout = open("./output/detailLogs.txt", "a")
 	pass
 
 #####################################
@@ -81,7 +81,7 @@ if middleAverageOnly == True:
 else:
 	divisor = 3.0
 
-print("Divisor:", Bridson_Common.divisor)
+print("Divisor:", divisor)
 
 normalizeUV = True
 invert = False
@@ -162,17 +162,17 @@ objPath = "../../boundary-first-flattening/build/"
 
 def outputEnvironmentVariables():
 	print("------- Environment Variables ----------------------------------- ")
-	print("segmentCount:", Bridson_Common.segmentCount)
-	print("lineCullAlgorithm: ", Bridson_Common.lineCullAlgorithm)
-	print("lineAngle:", Bridson_Common.lineAngle)
-	print("coherencyThreshold:", Bridson_Common.coherencyThreshold)
-	print("highlightEndpoints:", Bridson_Common.highlightEndpoints)
-	print("middleAverageOnly:", Bridson_Common.middleAverageOnly)
-	print("compactnessSLIC:", Bridson_Common.compactnessSLIC)
-	print("SLICIterations:", Bridson_Common.SLICIterations)
-	print("SLIC0:", Bridson_Common.SLIC0)
-	print("allowBlankRegion:", Bridson_Common.allowBlankRegion)
-	print("cullingBlankThreshold:", Bridson_Common.cullingBlankThreshold)
+	print("segmentCount:", segmentCount)
+	print("lineCullAlgorithm: ", lineCullAlgorithm)
+	print("lineAngle:", lineAngle)
+	print("coherencyThreshold:", coherencyThreshold)
+	print("highlightEndpoints:", highlightEndpoints)
+	print("middleAverageOnly:", middleAverageOnly)
+	print("compactnessSLIC:", compactnessSLIC)
+	print("SLICIterations:", SLICIterations)
+	print("SLIC0:", SLIC0)
+	print("allowBlankRegion:", allowBlankRegion)
+	print("cullingBlankThreshold:", cullingBlankThreshold)
 	print("nearbyDistance:", mergeDistance)
 	print("semanticSegmentation:", semanticSegmentation)
 	print("semanticSegmentationRatio:", semanticSegmentationRatio)
@@ -191,17 +191,30 @@ def outputEnvironmentVariables():
 
 
 
+def save_object(obj, filename):
+	with open(filename, 'wb') as output:  # Overwrites any existing file.
+		pickle.dump(obj, output, protocol=pickle.HIGHEST_PROTOCOL)
+		# marshal.dump(obj, output)
+		# pickle.dump(obj, output)
+	output.close()
+
+def load_object(filename):
+	with open(filename, 'rb') as input:
+		newObj = pickle.load(input)
+		# newObj = marshal.load(input)
+	input.close()
+	return newObj
 
 def scaleArray( array):
 	# https://numpy.org/doc/stable/reference/generated/numpy.repeat.html
-	# newArray = np.repeat(array, [Bridson_Common.scalingFactor], axis=0)
-	# newArray = np.repeat(newArray, [Bridson_Common.scalingFactor], axis=1)
+	# newArray = np.repeat(array, [scalingFactor], axis=0)
+	# newArray = np.repeat(newArray, [scalingFactor], axis=1)
 	# return newArray
 	return array
 
 def determineLineSpacing( intensity):
 
-	if Bridson_Common.lineCullAlgorithm == 'log':
+	if lineCullAlgorithm == 'log':
 		'''
 		Logrithmic scale.			
 		Intensity: 255 produces 51.57303927154884
@@ -215,7 +228,7 @@ def determineLineSpacing( intensity):
 		Intensity: 0 produces 1.0
 		'''
 		intensityDistance = math.log10(intensity+1)*21 + 1
-	elif Bridson_Common.lineCullAlgorithm == 'exp':
+	elif lineCullAlgorithm == 'exp':
 		'''
 		Exponential scale.  Lighter regions have significantly fewer lines.
 		Intensity: 255 produces 164.0219072999017
@@ -229,14 +242,14 @@ def determineLineSpacing( intensity):
 		Intensity: 0 produces 1.0
 		'''
 		intensityDistance = math.exp(intensity/60)
-	elif Bridson_Common.lineCullAlgorithm == 'segmented':
+	elif lineCullAlgorithm == 'segmented':
 		if intensity < 128:
 			intensityDistance = intensity / 10
 		elif intensity < 200:
 			intensityDistance = intensity / 5
 		else:
 			intensityDistance = intensity
-	elif Bridson_Common.lineCullAlgorithm == 'generous':
+	elif lineCullAlgorithm == 'generous':
 		# We want more lines in each region.
 		intensityDistance = (intensity / 100.0)
 	else:
@@ -254,13 +267,13 @@ def readImagefile(filename):
 	return imageArr
 
 def determineRadius(width=1, height=1):
-	if Bridson_Common.regionDynamicRadius:
+	if regionDynamicRadius:
 		span = width if width < height else height
-		Bridson_Common.dradius = span / Bridson_Common.radiusDivisor
-		Bridson_Common.dradius = Bridson_Common.dradius if Bridson_Common.dradius > Bridson_Common.radiusDefault else Bridson_Common.radiusDefault
+		dradius = span / radiusDivisor
+		dradius = dradius if dradius > radiusDefault else radiusDefault
 	else:
-		Bridson_Common.dradius = Bridson_Common.radiusDefault
-	print("Bridson_Common.dradius:", Bridson_Common.dradius)
+		dradius = radiusDefault
+	print("dradius:", dradius)
 
 def calculateDirection(angle):
 	angle = angle % 360
@@ -314,7 +327,7 @@ def generateTraversalMap(radius):
 	traversalMap.pop( traversalMap.index([0,0]) )
 	return traversalMap
 
-traversalMap = generateTraversalMap(Bridson_Common.mergeDistance)
+traversalMap = generateTraversalMap(mergeDistance)
 
 def findClosestIndex(s1, s2):
 	# print("Bridson_Common:findClosestIndex s1:", s1)
@@ -332,14 +345,14 @@ def findClosestIndex(s1, s2):
 def displayDistanceMask(mask, indexLabel, topLeftTarget, bottomRightTarget):
 	#################################
 	# distanceMask = Bridson_CreateMask.InvertMask( mask5x )
-	if Bridson_Common.displayMesh == True:
+	if displayMesh == True:
 		distanceMask = mask.copy()
 		print("DistanceMask Max", np.max(distanceMask))
 		# distanceMask = Bridson_CreateMask.InvertMask( distanceMask )
 
 		# Generate the distance raster based on the mask.
 		# Should we instead generate the distance raster based on the original mask?
-		distanceRaster = Bridson_Common.distance_from_edge(distanceMask)
+		distanceRaster = distance_from_edge(distanceMask)
 		# distanceRaster = np.ma.masked_array(distanceRaster, np.logical_and(distanceRaster < 2, distanceRaster > 0))  # Filters out the pixels with distance of 1.
 		# Want to retain the pixels that have a distance of 1.  Set the other pixels to zero.
 
@@ -379,6 +392,23 @@ def distance_from_edge(x):
     dist = distance_transform_cdt(x, metric='chessboard')
     return dist[1:-1, 1:-1]
 
+def genPickleFilename(filename):
+	pickleFolder = "./pickle"
+	if os.path.exists(pickleFolder) == True:
+		if os.path.isdir(pickleFolder) == False:
+			exit(-1)
+	else:
+		os.mkdir(pickleFolder)
+
+	actualFileName = pickleFolder + "/" + filename + "_segments_" + str(segmentCount)
+
+	if SLIC0:
+		actualFileName = actualFileName + "_compactness_SLIC0"
+	else:
+		actualFileName = actualFileName + "_compactness_" + str(compactnessSLIC)
+
+	actualFileName = actualFileName + "_attractThreshold_" + str(diffAttractPercentile) + "_cnn_" + semanticSegmentation + "_semanticRatio_" + str(semanticSegmentationRatio) + ".pkl"
+	return actualFileName
 
 def saveImage(filename, postFix, fig):
 	if os.path.exists("./output") == True:
@@ -389,15 +419,15 @@ def saveImage(filename, postFix, fig):
 
 	try:
 		# Save the figures to files: https://stackoverflow.com/questions/4325733/save-a-subplot-in-matplotlib
-		actualFileName = "./output/" + filename + "_segments_"+ str(Bridson_Common.segmentCount)
-		if Bridson_Common.SLIC0:
+		actualFileName = "./output/" + filename + "_segments_"+ str(segmentCount)
+		if SLIC0:
 			actualFileName = actualFileName + "_compactness_SLIC0"
 		else:
-			actualFileName = actualFileName + "_compactness_" + str(Bridson_Common.compactnessSLIC)
+			actualFileName = actualFileName + "_compactness_" + str(compactnessSLIC)
 
-		actualFileName = actualFileName + "_attractThreshold_" + str(Bridson_Common.diffAttractPercentile) + "_cnn_" + Bridson_Common.semanticSegmentation + "_semanticRatio_" + str(Bridson_Common.semanticSegmentationRatio) + "_" + postFix + ".png"
-		fig.savefig( actualFileName, dpi=100*Bridson_Common.scalingFactor)
-		if Bridson_Common.bulkGeneration: # Delete the figures when we are bulk generating.
+		actualFileName = actualFileName + "_attractThreshold_" + str(diffAttractPercentile) + "_cnn_" + semanticSegmentation + "_semanticRatio_" + str(semanticSegmentationRatio) + "_" + postFix + ".png"
+		fig.savefig( actualFileName, dpi=100*scalingFactor)
+		if bulkGeneration: # Delete the figures when we are bulk generating.
 			plt.close(fig=fig)
 	except Exception as e:
 		print("Error saving file:", e)
@@ -407,7 +437,7 @@ def rotateClockwise90(array, angle=90):
 		Swap the X and Y values.  Multiply the Y values with -1.
 	'''
 	# print("Pre Array:", array)
-	newArray = Bridson_Common.swapXY(array) # Swap the X Y values
+	newArray = swapXY(array) # Swap the X Y values
 	newArray[:, 1] *= -1  # Multiple the Y values with -1
 	# print("Post Array:", newArray)
 	return newArray
@@ -420,7 +450,7 @@ def swapXY(array):
 	return newArray
 
 def logDebug(moduleName, *argv):
-	if Bridson_Common.debug:
+	if debug:
 		callingFrame = inspect.stack()[1] # https://docs.python.org/3/library/inspect.html#inspect.getmembers -
 		callingFunction = callingFrame[3]
 		print(moduleName , "-->", callingFunction , ": ", end='')
@@ -435,8 +465,8 @@ def convertAxesBarycentric(x, y, sourceTriang, targetTriang, sourcetriFinder, Or
 	try:
 		tri = sourcetriFinder(x, y)
 
-		# Bridson_Common.logDebug(__name__, "Source Tri: ", tri)
-		# Bridson_Common.logDebug(__name__, triang.triangles[tri])
+		# logDebug(__name__, "Source Tri: ", tri)
+		# logDebug(__name__, triang.triangles[tri])
 		face = []
 		for vertex in sourceTriang.triangles[tri]:  # Create triangle from the coordinates.
 			curVertex = Originalsamples[vertex]
@@ -446,14 +476,14 @@ def convertAxesBarycentric(x, y, sourceTriang, targetTriang, sourcetriFinder, Or
 		face2 = []
 		vertices = list(targetTriang.triangles[tri])
 		# print("Original Vertices:", vertices)
-		if Bridson_Common.barycentricVertexCorrection:
-			vertices = vertices[Bridson_Common.barycentricCorrectionValue:] + vertices[:barycentricCorrectionValue] # HSC - rotate
+		if barycentricVertexCorrection:
+			vertices = vertices[barycentricCorrectionValue:] + vertices[:barycentricCorrectionValue] # HSC - rotate
 		# print("New Vertices:", vertices)
 		# for vertex in targetTriang.triangles[tri]:
 		for vertex in vertices:
 			curVertex = TargetSamples[vertex]
 			face2.append([curVertex[0], curVertex[1]])
-		# Bridson_Common.logDebug(__name__, "Target Tri: ", face2)
+		# logDebug(__name__, "Target Tri: ", face2)
 		cartesian = get_cartesian_from_barycentric(bary1, face2)
 	except Exception as e:
 		print("Cause of error:", e)
@@ -501,9 +531,9 @@ def findArea(v1, v2, v3):
 		else:
 			area = 0
 	except:
-		Bridson_Common.logDebug(__name__, ">>> Error calculating the area: ", a, b, c, s, s*(s-a)*(s-b)*(s-c), v1, v2, v3)
+		logDebug(__name__, ">>> Error calculating the area: ", a, b, c, s, s*(s-a)*(s-b)*(s-c), v1, v2, v3)
 	if area == 0:
-		Bridson_Common.logDebug(__name__, ">>> Area is ZERO: ", a, b, c, s,
+		logDebug(__name__, ">>> Area is ZERO: ", a, b, c, s,
 		                        s * (s - a) * (s - b) * (s - c), v1, v2, v3)
 	return area
 
@@ -513,7 +543,7 @@ def findAverageArea(triangles, samples):
 	area = 0
 	# for facet in triangleValues.simplices.copy():
 	for facet in triangles:
-		area += Bridson_Common.findArea(samples[facet[0]], samples[facet[1]], samples[facet[2]])
+		area += findArea(samples[facet[0]], samples[facet[1]], samples[facet[2]])
 		count+=1
 	averageArea = area / count
 	return averageArea
@@ -528,11 +558,11 @@ def blurArray(array, blur):
 	# img = img.filter(ImageFilter.GaussianBlur(0))
 	# img = img.filter(ImageFilter.BoxBlur(blur))
 
-	# Bridson_Common.logDebug(__name__, 'Bridson_Common.blurArray: ', np.array(img))
-	# Bridson_Common.logDebug(__name__, 'Bridson_Common.blurArray mode: ', img.mode)
-	# Bridson_Common.logDebug(__name__, 'Bridson_Common.blurArray shape: ', np.shape(np.array(img)))
-	# Bridson_Common.logDebug(__name__, 'Bridson_Common.blurArray Max: ', np.max(np.array(img)))
-	# Bridson_Common.logDebug(__name__, 'Bridson_Common.blurArray Min: ', np.min(np.array(img)))
+	# logDebug(__name__, 'blurArray: ', np.array(img))
+	# logDebug(__name__, 'blurArray mode: ', img.mode)
+	# logDebug(__name__, 'blurArray shape: ', np.shape(np.array(img)))
+	# logDebug(__name__, 'blurArray Max: ', np.max(np.array(img)))
+	# logDebug(__name__, 'blurArray Min: ', np.min(np.array(img)))
 	#
 	return np.array(img)
 
@@ -574,13 +604,13 @@ def findMinMaxTriangleHeight(p1, p2, p3):
 	return hmin, hmax
 
 def readMask(filename='BlurArrayImage.gif'):
-	Bridson_Common.logDebug(__name__, "*** Bridson_Common.readMask ***")
+	logDebug(__name__, "*** readMask ***")
 	img = Image.open( filename )
-	# Bridson_Common.logDebug(__name__, 'Bridson_Common.readMask: ', np.array(img))
-	# Bridson_Common.logDebug(__name__, 'Bridson_Common.readMask mode: ', img.mode)
-	# Bridson_Common.logDebug(__name__, 'Bridson_Common.readMask shape: ', np.shape(np.array(img)))
-	# Bridson_Common.logDebug(__name__, 'Bridson_Common.readMask Max: ', np.max(np.array(img)))
-	# Bridson_Common.logDebug(__name__, 'Bridson_Common.readMask Min: ', np.min(np.array(img)))
+	# logDebug(__name__, 'readMask: ', np.array(img))
+	# logDebug(__name__, 'readMask mode: ', img.mode)
+	# logDebug(__name__, 'readMask shape: ', np.shape(np.array(img)))
+	# logDebug(__name__, 'readMask Max: ', np.max(np.array(img)))
+	# logDebug(__name__, 'readMask Min: ', np.min(np.array(img)))
 
 	arr = np.array( img )
 	arr = arr - np.min(arr)
@@ -595,7 +625,7 @@ def readMask(filename='BlurArrayImage.gif'):
 		arr = arr * ( 128.0 / maxValue)
 
 	maxValue = np.max(arr)
-	Bridson_Common.logDebug(__name__, "ReadMask Max value: ", maxValue)
+	logDebug(__name__, "ReadMask Max value: ", maxValue)
 	if maxValue > 1:
 		arr = arr * (255.0 / maxValue)
 	else:
@@ -607,44 +637,44 @@ def readMask(filename='BlurArrayImage.gif'):
 	# Need to invert the resulting array.
 	# arr = Bridson_CreateMask.InvertMask( arr )
 
-	Bridson_Common.logDebug(__name__, "\n\n*** Bridson_Common.readMask Processed Array ***")
+	logDebug(__name__, "\n\n*** readMask Processed Array ***")
 	arrayInformation(arr)
 	return arr
 
 def writeMask(array, filename='BlurArrayImage.gif'):
 	img = Image.fromarray(array)
 
-	# Bridson_Common.logDebug(__name__, 'Bridson_Common.writeMask')
-	# Bridson_Common.logDebug(__name__, 'Bridson_Common.writeMask: ', np.array(img))
-	# Bridson_Common.logDebug(__name__, 'Bridson_Common.writeMask mode: ', img.mode)
-	# Bridson_Common.logDebug(__name__, 'Bridson_Common.writeMask shape: ', np.shape(np.array(img)))
-	# Bridson_Common.logDebug(__name__, 'Bridson_Common.writeMask Max: ', np.max(np.array(img)))
-	# Bridson_Common.logDebug(__name__, 'Bridson_Common.writeMask Min: ', np.min(np.array(img)))
+	# logDebug(__name__, 'writeMask')
+	# logDebug(__name__, 'writeMask: ', np.array(img))
+	# logDebug(__name__, 'writeMask mode: ', img.mode)
+	# logDebug(__name__, 'writeMask shape: ', np.shape(np.array(img)))
+	# logDebug(__name__, 'writeMask Max: ', np.max(np.array(img)))
+	# logDebug(__name__, 'writeMask Min: ', np.min(np.array(img)))
 	#
 	img.save(filename)
 
 def imageInformation(img):
 
-	Bridson_Common.logDebug(__name__, 'Bridson_Common.imageInformation: ', np.array(img))
-	Bridson_Common.logDebug(__name__, 'Bridson_Common.imageInformation mode: ', img.mode)
-	Bridson_Common.logDebug(__name__, 'Bridson_Common.imageInformation shape: ', np.shape(np.array(img)))
-	Bridson_Common.logDebug(__name__, 'Bridson_Common.imageInformation Max: ', np.max(np.array(img)))
-	Bridson_Common.logDebug(__name__, 'Bridson_Common.imageInformation Min: ', np.min(np.array(img)))
+	logDebug(__name__, 'imageInformation: ', np.array(img))
+	logDebug(__name__, 'imageInformation mode: ', img.mode)
+	logDebug(__name__, 'imageInformation shape: ', np.shape(np.array(img)))
+	logDebug(__name__, 'imageInformation Max: ', np.max(np.array(img)))
+	logDebug(__name__, 'imageInformation Min: ', np.min(np.array(img)))
 
 
 def arrayInformation(arr):
-	Bridson_Common.logDebug(__name__, 'Bridson_Common.arrayInformation: ' , arr)
-	Bridson_Common.logDebug(__name__, 'Bridson_Common.arrayInformation shape: ', np.shape(arr))
-	Bridson_Common.logDebug(__name__, 'Bridson_Common.arrayInformation Max: ', np.max(arr))
-	Bridson_Common.logDebug(__name__, 'Bridson_Common.arrayInformation Min: ', np.min(arr))
+	logDebug(__name__, 'arrayInformation: ' , arr)
+	logDebug(__name__, 'arrayInformation shape: ', np.shape(arr))
+	logDebug(__name__, 'arrayInformation Max: ', np.max(arr))
+	logDebug(__name__, 'arrayInformation Min: ', np.min(arr))
 
 def triangleHistogram(vertices, faces, indexLabel):
 	areaValues = []
 	for face in faces:
-		faceArea = Bridson_Common.findArea(vertices[face[0]], vertices[face[1]], vertices[face[2]])
+		faceArea = findArea(vertices[face[0]], vertices[face[1]], vertices[face[2]])
 		if faceArea == 0:
-			Bridson_Common.logDebug(__name__, 'Face', face, 'with vertices', vertices[face[0]], vertices[face[1]], vertices[face[2]], 'has an area of', faceArea)
-		areaValues.append( Bridson_Common.findArea(vertices[face[0]], vertices[face[1]], vertices[face[2]]) )
+			logDebug(__name__, 'Face', face, 'with vertices', vertices[face[0]], vertices[face[1]], vertices[face[2]], 'has an area of', faceArea)
+		areaValues.append( findArea(vertices[face[0]], vertices[face[1]], vertices[face[2]]) )
 
 
 	# hist, bins, _ = plt.hist(areaValues, bins=8)
@@ -653,18 +683,18 @@ def triangleHistogram(vertices, faces, indexLabel):
 	# Use non-equal bin sizes, such that they look equal on log scale.
 	# logbins = np.logspace(np.log10(bins[0]), np.log10(bins[-1]), len(bins))
 
-	Bridson_Common.logDebug(__name__, 'Area Values - ' + " Min: " + str(min(areaValues))  +  " Max: "+ str(max(areaValues)))
+	logDebug(__name__, 'Area Values - ' + " Min: " + str(min(areaValues))  +  " Max: "+ str(max(areaValues)))
 	if min(areaValues) == 0:
-		Bridson_Common.logDebug(__name__, 'Minimum area is ZERO.')
+		logDebug(__name__, 'Minimum area is ZERO.')
 	else:
-		Bridson_Common.logDebug(__name__, 'Area Ratio: ' + "{:.4e}".format(max(areaValues) / min(areaValues)))
+		logDebug(__name__, 'Area Ratio: ' + "{:.4e}".format(max(areaValues) / min(areaValues)))
 
 	if min(areaValues) < 1.0e-15:
-		Bridson_Common.logDebug(__name__, " ****************** Min Area less than 1e-15: GUESS that trifinder will NOT be valid. ********************")
+		logDebug(__name__, " ****************** Min Area less than 1e-15: GUESS that trifinder will NOT be valid. ********************")
 	else:
-		Bridson_Common.logDebug(__name__, " ****************** Min Area greater than 1e-15: Guess that trifinder will be valid *****************")
+		logDebug(__name__, " ****************** Min Area greater than 1e-15: Guess that trifinder will be valid *****************")
 
-	if Bridson_Common.debug:
+	if debug:
 		plt.figure()
 		n, bins, patches = plt.hist(x=areaValues, alpha=0.7, rwidth=0.5, bins=1000)
 		# plt.hist(x=areaValues,  bins=logbins)
@@ -706,15 +736,16 @@ def line_intersect(segment1, segment2):
 
 
 if __name__ == "__main__":
-	h = findTriangleHeight((0,0), (0,3), (4,0))
-	if np.min( h ) < 5:
-		Bridson_Common.logDebug(__name__, 'Min less than threshold: ', np.min(h))
-	Bridson_Common.logDebug(__name__, h)
-
-	segment_one = ((38.5, 59.605199292382274), (38.5, 57.42400566413322))
-	segment_two = ((38.5, 62.5), (38.99359 , 60.497322))
-
-	(a,b), (c,d) = segment_one
-	(e,f), (g,h) = segment_two
-	print ("Intersection:", line_intersect(segment_one, segment_two))
+	print("Bridson_Common")
+	# h = findTriangleHeight((0,0), (0,3), (4,0))
+	# if np.min( h ) < 5:
+	# 	logDebug(__name__, 'Min less than threshold: ', np.min(h))
+	# logDebug(__name__, h)
+	#
+	# segment_one = ((38.5, 59.605199292382274), (38.5, 57.42400566413322))
+	# segment_two = ((38.5, 62.5), (38.99359 , 60.497322))
+	#
+	# (a,b), (c,d) = segment_one
+	# (e,f), (g,h) = segment_two
+	# print ("Intersection:", line_intersect(segment_one, segment_two))
 

@@ -9,7 +9,7 @@ import scipy
 import Bridson_TriangulationDualGraph
 import sys
 import SLIC
-
+import pickle
 '''
 For the constructor, pass in the points.
 
@@ -38,7 +38,7 @@ class MeshObject:
 			self.GenTriangulationFromOBJ(flatvertices, flatfaces, xrange, yrange)
 		else:
 			Bridson_Common.logDebug(__name__, "No enough parameters")
-		self.generateDualGraph()
+		# self.generateDualGraph() # Causes pickle issue
 		self.linePoints = None
 
 
@@ -1085,13 +1085,16 @@ class MeshObject:
 
 		# Bridson_Common.logDebug(__name__, self.flatfaces)
 		self.triangulation = mtri.Triangulation(self.points[:, 0], self.points[:, 1], flatfaces)
-		try:
-			self.trifinder = self.triangulation.get_trifinder()
-			Bridson_Common.logDebug(__name__, "** Found trifinder ", self.indexLabel)
-			self.trifinderGenerated = True
-		except:
-			Bridson_Common.logDebug(__name__, "Cannot trifinder ", self.indexLabel)
-			self.trifinderGenerated = False
+
+		if False: # TEST TEST TEST
+			try:
+				self.trifinder = self.triangulation.get_trifinder()
+				Bridson_Common.logDebug(__name__, "** Found trifinder ", self.indexLabel)
+				self.trifinderGenerated = True
+			except:
+				Bridson_Common.logDebug(__name__, "Cannot trifinder ", self.indexLabel)
+				self.trifinderGenerated = False
+
 		# Bridson_Common.logDebug(__name__, "tri", self.triangulation)
 
 		if Bridson_Common.displayMesh:
@@ -1193,6 +1196,8 @@ class MeshObject:
 		# print("Empty Lines: ", emptyLines , "/", len(self.linePoints) )
 
 
+
+
 	def GenMeshFromMask(self, mask, dradius, pointCount=0):
 		Bridson_Common.logDebug(__name__, "GenMeshFromMask")
 		xrange, yrange = np.shape(mask)
@@ -1236,9 +1241,12 @@ class MeshObject:
 
 		self.points = points
 		self.triangulation, self.points = Bridson_Delaunay.displayDelaunayMesh(points, radius, self.invertedMask, xrange)
-		self.trifinder = self.triangulation.get_trifinder()
+		# print("GenMeshFromMask 1: Pickling String for triangulation:", pickle.dumps(self.triangulation))
+		# self.trifinder = self.triangulation.get_trifinder()  # Causes pickle issue
+		# print("GenMeshFromMask 2: Pickling String for triangulation:", pickle.dumps(self.triangulation))
 		# print("GenMeshFromMask D")
 		Bridson_Common.logDebug(__name__, "tri" , self.triangulation)
+		# print("GenMeshFromMask 3: Pickling String for triangulation:", pickle.dumps(self.triangulation))
 		if Bridson_Common.displayMesh:
 			self.fig = plt.figure()
 			# self.ax = plt.axes()
@@ -1286,9 +1294,11 @@ class MeshObject:
 		# print("GenMeshFromMask I")
 		# Plot the points on the border.
 		# plt.plot(points[:, 1], xrange - points[:, 0], 'o')
+		# print("GenMeshFromMask 4: Pickling String for triangulation:", pickle.dumps(self.triangulation))
 		self.generateSquareChainCode()
-		self.trifinderGenerated = True
+		# self.trifinderGenerated = True  # TEST TEST TEST
 		# print("GenMeshFromMask J")
+		# print("GenMeshFromMask 5: Pickling String for triangulation:", pickle.dumps(self.triangulation))
 		return
 
 
