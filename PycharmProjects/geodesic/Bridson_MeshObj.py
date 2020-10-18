@@ -1065,7 +1065,14 @@ class MeshObject:
 		return
 
 
-
+	def genTrifinder(self):
+		try:
+			self.trifinder = self.triangulation.get_trifinder()
+			Bridson_Common.logDebug(__name__, "** Found trifinder ", self.indexLabel)
+			self.trifinderGenerated = True
+		except:
+			Bridson_Common.logDebug(__name__, "Cannot trifinder ", self.indexLabel)
+			self.trifinderGenerated = False
 
 	def GenTriangulationFromOBJ(self, flatvertices, flatfaces, xrange, yrange):
 		# Bridson_Common.logDebug(__name__, flatvertices)
@@ -1086,14 +1093,14 @@ class MeshObject:
 		# Bridson_Common.logDebug(__name__, self.flatfaces)
 		self.triangulation = mtri.Triangulation(self.points[:, 0], self.points[:, 1], flatfaces)
 
-		if False: # TEST TEST TEST
-			try:
-				self.trifinder = self.triangulation.get_trifinder()
-				Bridson_Common.logDebug(__name__, "** Found trifinder ", self.indexLabel)
-				self.trifinderGenerated = True
-			except:
-				Bridson_Common.logDebug(__name__, "Cannot trifinder ", self.indexLabel)
-				self.trifinderGenerated = False
+		# if False: # TEST TEST TEST
+		# 	try:
+		# 		self.trifinder = self.triangulation.get_trifinder()
+		# 		Bridson_Common.logDebug(__name__, "** Found trifinder ", self.indexLabel)
+		# 		self.trifinderGenerated = True
+		# 	except:
+		# 		Bridson_Common.logDebug(__name__, "Cannot trifinder ", self.indexLabel)
+		# 		self.trifinderGenerated = False
 
 		# Bridson_Common.logDebug(__name__, "tri", self.triangulation)
 

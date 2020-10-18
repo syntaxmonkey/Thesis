@@ -1,3 +1,0 @@
-Divisor: 3.0
-CoreCount: 4
-[('simpleTriangle.png', 100, 'SLIC0', 'none', 80), ('david-dibert-Huza8QOO3tc-unsplash.jpg', 100, 'SLIC0', 'none', 80)]

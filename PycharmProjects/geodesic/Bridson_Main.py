@@ -282,9 +282,10 @@ def processMask(mask, dradius, indexLabel):
 			meshObj = Bridson_MeshObj.MeshObject(mask=mask5x, dradius=dradius, indexLabel=indexLabel) # Create Mesh based on Mask.
 			# print("processMask 1: Pickling String for meshObj.triangulation:", pickle.dumps(meshObj))
 			originalMeshObj = copy.deepcopy(meshObj)
-			meshObj.trifinder = meshObj.triangulation.get_trifinder() # TEST TEST TEST
+			meshObj.genTrifinder()
+			# meshObj.trifinder = meshObj.triangulation.get_trifinder() # TEST TEST TEST
 			meshObj.generateDualGraph() # TEST TEST TEST
-			meshObj.trifinderGenerated = True
+			# meshObj.trifinderGenerated = True
 			# Test Save from here.
 
 
@@ -318,9 +319,10 @@ def processMask(mask, dradius, indexLabel):
 			flatMeshObj = Bridson_MeshObj.MeshObject(flatvertices=flatvertices, flatfaces=flatfaces, xrange=xrange, yrange=yrange, indexLabel=indexLabel) # Create Mesh based on OBJ file.
 			# print("processMask 2: Pickling String for flatMeshObj.triangulation:", pickle.dumps(flatMeshObj))
 			originalFlatMeshObj = copy.deepcopy(flatMeshObj)
-			flatMeshObj.trifinder = flatMeshObj.triangulation.get_trifinder() # TEST TEST TEST
+			flatMeshObj.genTrifinder()
+			# flatMeshObj.trifinder = flatMeshObj.triangulation.get_trifinder() # TEST TEST TEST
 			flatMeshObj.generateDualGraph() # TEST TEST TEST
-			flatMeshObj.trifinderGenerated = True
+			# flatMeshObj.trifinderGenerated = True
 
 			j = datetime.datetime.now()
 			# print("E")
@@ -401,14 +403,14 @@ def drawRegionLines( filename, finishedImage, regionList):
 		# previouslyPickled = False
 		if previouslyPickled:
 			meshObj = meshObjDict[index]
-			meshObj.trifinder = meshObj.triangulation.get_trifinder() # TEST TEST TEST
+			meshObj.genTrifinder()
+			# flatMeshObj.trifinder = flatMeshObj.triangulation.get_trifinder() # TEST TEST TEST
 			meshObj.generateDualGraph() # TEST TEST TEST
-			meshObj.trifinderGenerated = True
 
 			flatMeshObj = flatMeshObjDict[index]
-			flatMeshObj.trifinder = meshObj.triangulation.get_trifinder() # TEST TEST TEST
+			flatMeshObj.genTrifinder()
+			# flatMeshObj.trifinder = flatMeshObj.triangulation.get_trifinder() # TEST TEST TEST
 			flatMeshObj.generateDualGraph() # TEST TEST TEST
-			flatMeshObj.trifinderGenerated = True
 
 			trifindersuccess = trifindersuccessDict[index]
 		else:
@@ -616,28 +618,6 @@ def indexValidation(filename):
 	print("||||||||||||||||||||||||||||||||||")
 	print("")
 
-		# Obtain the points from the
-
-			# Apply BFF again.
-			# BFFReshape()
-			# FlattenMesh()
-			#
-			# flatvertices, flatfaces = Bridson_readOBJFile.readFlatObjFile(path="../../boundary-first-flattening/build/",	filename="test1_out_flat.obj")
-			# newIndex = indexLabel + 0.0012345
-			# Bridson_Common.triangleHistogram(flatvertices, flatfaces, newIndex)
-
-
-			# flatMeshObj2 = Bridson_MeshObj.MeshObject(flatvertices=flatvertices, flatfaces=flatfaces, xrange=xrange,
-			#                                          yrange=yrange, indexLabel=newIndex)
-			# successful = flatMeshObj2.trifinderGenerated
-			# Transfer the lines from the FlatMesh to meshObj.
-			# flatMeshObj2.TransferLinePointsFromTarget(flatMeshObj)
-
-
-
-# Validate that barycentric works.
-	# meshObj2, flatMeshObj2 = processMask(raster, dradius, index + i / 10 + 0.0012345)
-	# flatMeshObj2.TransferLinePoints(flatMeshObj)
 
 def wrapper(filename, segmentCount, compactness, cnn, attractPercentile):
 	gc.collect()
@@ -787,7 +767,7 @@ if __name__ == '__main__':
 		# images.append('Stripes.png')
 		# images.append('kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg')
 		# images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
-		# images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
+		images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
 		semanticSegmentation = ['none']
 		segmentCounts = [100]
 		compactnessList = ['SLIC0']

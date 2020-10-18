@@ -196,13 +196,13 @@ def save_object(obj, filename):
 		pickle.dump(obj, output, protocol=pickle.HIGHEST_PROTOCOL)
 		# marshal.dump(obj, output)
 		# pickle.dump(obj, output)
-	output.close()
+	# output.close()
 
 def load_object(filename):
 	with open(filename, 'rb') as input:
 		newObj = pickle.load(input)
 		# newObj = marshal.load(input)
-	input.close()
+	# input.close()
 	return newObj
 
 def scaleArray( array):
