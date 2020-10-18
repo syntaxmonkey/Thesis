@@ -10,6 +10,7 @@ import Bridson_TriangulationDualGraph
 import sys
 import SLIC
 import pickle
+import datetime
 '''
 For the constructor, pass in the points.
 
@@ -527,6 +528,7 @@ class MeshObject:
 		dx, dy = Bridson_Common.calculateDirection(angle)
 		# print("DrawAngleLinesExteriorSeed2 dx, dy:", dx, dy)
 		seedPoints = self.DualGraph.exteriorPoints.copy()
+
 
 		# print("DrawAngleLinesExteriorSeed2 seedPoints:", len(seedPoints))
 		notFound = 0
@@ -1208,8 +1210,9 @@ class MeshObject:
 	def GenMeshFromMask(self, mask, dradius, pointCount=0):
 		Bridson_Common.logDebug(__name__, "GenMeshFromMask")
 		xrange, yrange = np.shape(mask)
-		self.count, self.chain, self.chainDirection, border = Bridson_ChainCode.generateChainCode(mask, rotate=False)
-		self.border = Bridson_ChainCode.generateBorder(border, dradius)
+		if Bridson_Common.generateChaincode:
+			self.count, self.chain, self.chainDirection, border = Bridson_ChainCode.generateChainCode(mask, rotate=False)
+			self.border = Bridson_ChainCode.generateBorder(border, dradius)
 
 		self.invertedMask = Bridson_CreateMask.InvertMask(mask)
 
@@ -1302,7 +1305,8 @@ class MeshObject:
 		# Plot the points on the border.
 		# plt.plot(points[:, 1], xrange - points[:, 0], 'o')
 		# print("GenMeshFromMask 4: Pickling String for triangulation:", pickle.dumps(self.triangulation))
-		self.generateSquareChainCode()
+		if Bridson_Common.generateChaincode:
+			self.generateSquareChainCode()
 		# self.trifinderGenerated = True  # TEST TEST TEST
 		# print("GenMeshFromMask J")
 		# print("GenMeshFromMask 5: Pickling String for triangulation:", pickle.dumps(self.triangulation))

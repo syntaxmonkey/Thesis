@@ -31,7 +31,7 @@ SLICGrey = False
 
 #####################################
 bulkGeneration = True
-smallBatch=True
+smallBatch=False
 
 coreCount = 4
 if os.path.exists("./output") == True:
@@ -41,7 +41,7 @@ else:
 	os.mkdir("./output")
 
 if bulkGeneration:
-	# sys.stdout = open("./output/detailLogs.txt", "a")
+	sys.stdout = open("./output/detailLogs.txt", "a")
 	pass
 
 #####################################
@@ -141,6 +141,8 @@ intensityMapType='median' # Valid values are 'average' and 'median'
 # Image Generation
 GreyscaleSLIC = True  # Generate the greyscale image of the regions.
 
+
+generateChaincode = True
 
 colourArray = ['r', 'b', 'm']
 colourArray = ['b', 'b', 'b']

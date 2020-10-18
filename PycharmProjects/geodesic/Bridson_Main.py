@@ -438,16 +438,18 @@ def drawRegionLines( filename, finishedImage, regionList):
 			# if trifindersuccess:
 			successfulRegions += 1
 			# print("Trifinder was successfully generated for region", index)
+			a = datetime.datetime.now()
 			if Bridson_Common.diagnostic == False:
 				# Only draw the lines if the trifinder was successful generated.
 				if Bridson_Common.linesOnFlat:
 					if Bridson_Common.verticalLines:
+						a = datetime.datetime.now()
 						flatMeshObj.DrawAngleLinesExteriorSeed2(raster, angle=flatAngle )
 						# flatMeshObj.DrawAngleLinesExteriorSeed3(raster, regionMap, index, intensity=regionIntensityMap[index], angle=flatAngle)
 						flatMeshObj.checkLinePoints() # diagnostic check for empty lines.
 					else:
 						flatMeshObj.DrawAngleLinesExteriorSeed2()
-
+					b = datetime.datetime.now()
 					# Transfer the lines from the FlatMesh.
 					meshObj.TransferLinePointsFromTarget(flatMeshObj)
 				else:
@@ -457,7 +459,9 @@ def drawRegionLines( filename, finishedImage, regionList):
 						meshObj.DrawAngleLinesExteriorSeed2()
 
 					flatMeshObj.TransferLinePointsFromTarget(meshObj)
-
+			c = datetime.datetime.now()
+			print("Drawing DrawAngleLinesExteriorSeed2 takes ", (b-a).microseconds)
+			print("Transfer lines takes ", (c - b).microseconds)
 			# if True:  # Rotate original image 90 CW.
 			# print("About to call rotateClockwise90")
 			meshObj.rotateClockwise90()
@@ -748,7 +752,7 @@ if __name__ == '__main__':
 	targetPixels = [3200]
 	if Bridson_Common.bulkGeneration:
 		# segmentCounts = [100, 200]
-		segmentCounts = [ 300, 400]
+		segmentCounts = [ 200, 400]
 		# segmentCounts = [200]
 		compactnessList = [ 0.1, 0.25, 0.5]
 		# if Bridson_Common.SLIC0:
