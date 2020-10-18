@@ -31,6 +31,8 @@ import uuid
 import traceback
 import pickle
 import copy
+import cProfile
+import re
 
 # Redirect print statements to file.
 
@@ -664,7 +666,8 @@ def wrapper(filename, segmentCount, compactness, cnn, attractPercentile):
 	# sys.exit(0)
 
 
-if __name__ == '__main__':
+
+def main():
 	# Create unique names for output files.
 	dradius = Bridson_Common.dradius # 3 seems to be the maximum value.
 	xrange, yrange = 10, 10
@@ -850,3 +853,5 @@ if __name__ == '__main__':
 		plt.show()
 
 
+if __name__ == '__main__':
+	cProfile.run('main()')

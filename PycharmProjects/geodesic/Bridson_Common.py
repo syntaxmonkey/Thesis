@@ -142,7 +142,7 @@ intensityMapType='median' # Valid values are 'average' and 'median'
 GreyscaleSLIC = True  # Generate the greyscale image of the regions.
 
 
-generateChaincode = True
+generateChaincode = False
 
 colourArray = ['r', 'b', 'm']
 colourArray = ['b', 'b', 'b']
