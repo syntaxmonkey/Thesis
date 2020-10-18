@@ -1,3 +1,4 @@
+from numba import jit_module
 from random import random
 from math import cos, sin, floor, sqrt, pi, ceil, fabs
 import time
@@ -35,6 +36,8 @@ from circularLines import generateCircularPoints
 import Bridson_Common
 
 from SLIC import callSLIC, createRegionRasters
+
+
 
 print("Executing ", __file__)
 
@@ -1018,7 +1021,7 @@ def resetVariables():
 	global triang, triang2, trifinder, trifinder2, ax1, ax2, Originalsamples, Flatsamples, Originalfaces, Flatfaces, polygon1, polygon2, xsize, ysize, perimeterSegments, startingR, angle, bprocess, breset, bangle, dimension, character, letterRatio, letterDimension
 	triang = triang2 = trifinder= trifinder2= ax1= ax2= Originalsamples= Flatsamples= Originalfaces= Flatfaces= polygon1= polygon2= xsize= ysize= perimeterSegments= startingR= bprocess= breset= bangle= dimension= character= letterRatio= letterDimension=None
 
-
+jit_module(nopython=True)
 
 if __name__ == '__main__':
 

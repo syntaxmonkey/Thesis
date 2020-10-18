@@ -32,7 +32,11 @@ import traceback
 import pickle
 import copy
 import cProfile
-import re
+
+from numba import prange, njit, jit, jit_module
+
+
+
 
 # Redirect print statements to file.
 
@@ -367,7 +371,6 @@ def displayRegionRaster(regionRaster, index):
 		# ax3.imshow(blankRaster)
 		ax.imshow(regionRaster)
 		ax.grid()
-
 
 
 def drawRegionLines( filename, finishedImage, regionList):
@@ -756,7 +759,7 @@ def main():
 	if Bridson_Common.bulkGeneration:
 		# segmentCounts = [100, 200]
 		segmentCounts = [ 200, 400]
-		# segmentCounts = [200]
+		segmentCounts = [50, 100]
 		compactnessList = [ 0.1, 0.25, 0.5]
 		# if Bridson_Common.SLIC0:
 		# 	compactnessList = [0.01]
@@ -853,5 +856,8 @@ def main():
 		plt.show()
 
 
+jit_module(nopython=True)
+
 if __name__ == '__main__':
-	cProfile.run('main()')
+	# cProfile.run('main()')
+	main()

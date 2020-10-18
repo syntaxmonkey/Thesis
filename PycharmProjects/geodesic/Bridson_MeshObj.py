@@ -11,6 +11,7 @@ import sys
 import SLIC
 import pickle
 import datetime
+from numba import jit, njit, jit_module
 '''
 For the constructor, pass in the points.
 
@@ -161,9 +162,12 @@ class MeshObject:
 		cartesian2 = Bridson_Common.convertAxesBarycentric(p2[0], p2[1], sourceMeshObj.triangulation, self.triangulation,
 		                                                  sourceMeshObj.trifinder, sourceMeshObj.points, self.points)
 		# print("Target points:", cartesian1, cartesian2)
-		dx, dy = cartesian1[0] - cartesian2[0], cartesian1[1] - cartesian2[1]
-		# print("New dx, dy:", dx, dy)
-		recoveredAngle = Bridson_Common.determineAngle(dx, dy)
+		if cartesian1 == None or cartesian2 == None:
+			recoveredAngle = 90
+		else:
+			dx, dy = cartesian1[0] - cartesian2[0], cartesian1[1] - cartesian2[1]
+			# print("New dx, dy:", dx, dy)
+			recoveredAngle = Bridson_Common.determineAngle(dx, dy)
 		# print("Recovered Angle:", recoveredAngle)
 		return recoveredAngle
 

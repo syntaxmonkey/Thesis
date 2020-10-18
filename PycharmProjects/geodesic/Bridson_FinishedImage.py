@@ -19,6 +19,7 @@ import Bridson_ColourOperations
 import cv2 as cv
 from skimage.future import graph
 import Bridson_Angles
+from numba import njit, jit_module
 
 np.set_printoptions(threshold=sys.maxsize)  # allow printing without ellipsis: https://stackoverflow.com/questions/44311664/print-numpy-array-without-ellipsis
 
@@ -1070,3 +1071,5 @@ class FinishedImage:
 		else:
 			# print("Too close")
 			return False
+
+jit_module(nopython=True)

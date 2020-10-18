@@ -435,39 +435,19 @@ if False:
 	for i in range(256):
 		print("Intensity: ", i, "has width:", calculateLineWidth(i))
 
+import numba
+from numba import prange, njit, jit, jit_module
 import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.tri as tri
-import dill
-
-
+import cProfile
 
 # Testing the Pickle process.
 # Originally from: https://stackoverflow.com/questions/4529815/saving-an-object-data-persistence
 # import _pickle as pickle
 # import pickle
-import Bridson_Common
 
-pickleFilename='savedObject.pkl'
+def findMax(p1,p2,p3):
+	print("Max:", np.sort([p1,p2,p3])[0] )
 
-listing = list(range(10))
-print(listing)
+jit_module(nopython=True)
 
-Bridson_Common.save_object(listing, pickleFilename)
-
-del listing
-
-newListing = Bridson_Common.load_object(pickleFilename)
-
-print("newListing:", newListing)
-
-
-data = np.random.rand(100, 2)
-
-oldtriangles = tri.Triangulation(data[:,0], data[:,1])
-Bridson_Common.save_object(oldtriangles, pickleFilename)
-
-triangles = Bridson_Common.load_object(pickleFilename)
-
-plt.triplot(triangles)
-plt.show()
+cProfile.run('findMax(1.0,2.0,3.0)')

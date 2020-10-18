@@ -11,6 +11,8 @@ import numpy as np
 from PIL import Image
 import Bridson_Common
 
+from numba import jit_module
+
 class Mask_RCNN:
 	def __init__(self):
 		self.model = instance_segmentation()
@@ -138,3 +140,4 @@ if __name__ == '__main__':
 	# plt.show()
 	cv2.waitKey()
 
+jit_module(nopython=True)

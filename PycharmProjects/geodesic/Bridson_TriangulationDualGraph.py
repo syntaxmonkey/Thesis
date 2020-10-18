@@ -7,6 +7,8 @@ import numpy as np
 import math
 from scipy.spatial import Delaunay
 
+from numba import jit_module
+
 from matplotlib.pyplot import triplot
 
 
@@ -681,6 +683,8 @@ class TriangulationDualGraph:
 			return False
 
 
+jit_module(nopython=True)
+
 def test():
 	imageraster, regionMap = Bridson_Main.SLICImage()
 
@@ -746,6 +750,7 @@ def test2():
 		thismanager = pylab.get_current_fig_manager()
 		thismanager.window.wm_geometry("+640+0")
 		plt.show()
+
 
 
 

@@ -5,6 +5,7 @@ import numpy as np
 import matplotlib.tri as mtri
 import math
 import pylab
+from numba import jit_module
 
 removalRatio = 0.05
 

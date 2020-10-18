@@ -1,4 +1,4 @@
-
+from numba import jit_module
 
 class RegionPixelConnectivity:
 	def __init__(self, pixelList):
@@ -36,3 +36,5 @@ class RegionPixelConnectivity:
 			
 			
 	'''
+
+jit_module(nopython=True)

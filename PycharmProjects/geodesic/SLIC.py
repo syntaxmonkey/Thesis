@@ -16,6 +16,8 @@ import SemanticSegmentation
 import os
 import Bridson_ColourOperations
 
+
+
 from ChainCodeGenerator import generateChainCode, writeChainCodeFile
 
 # construct the argument parser and parse the arguments
@@ -49,34 +51,35 @@ def segmentImage(imageName, numSegments):
 	originalImage = cv.imread( imageName )
 	print("EE")
 	postFix = ''
-	if Bridson_Common.semanticSegmentation == 'mask_rcnn':
-		cnn = SemanticSegmentation.Mask_RCNN()
-		image = cnn.processImage(imageName)
-		saveImage(imageName, 'MASKRCNN_SEMANTIC', image)
-		postFix = postFix + 'MASKRCNN_'
-		# image = np.asarray(image)
-		del cnn
-	elif Bridson_Common.semanticSegmentation == 'deeplabv3':
-		cnn = SemanticSegmentation.Deeplabv3()
-		image = cnn.processImage(imageName)
-		saveImage(imageName, 'DEEPLABV3_SEMANTIC', image)
-		postFix = postFix + 'DEEPLABV3_'
-		# image = np.asarray(image)
-		del cnn
-	elif Bridson_Common.semanticSegmentation == 'both':
-		cnn = SemanticSegmentation.Mask_RCNN()
-		image1 = cnn.processImage(imageName)
-		del cnn
-		cnn = SemanticSegmentation.Deeplabv3()
-		image2 = cnn.processImage(imageName)
-		del cnn
-		image = cv.addWeighted(image1, 0.5, image2, 0.5, 0.0)
-		saveImage(imageName, 'BOTH_SEMANTIC', image)
-		postFix = postFix + 'BOTH_'
-	else:
+
+	# if Bridson_Common.semanticSegmentation == 'mask_rcnn':
+	# 	cnn = SemanticSegmentation.Mask_RCNN()
+	# 	image = cnn.processImage(imageName)
+	# 	saveImage(imageName, 'MASKRCNN_SEMANTIC', image)
+	# 	postFix = postFix + 'MASKRCNN_'
+	# 	# image = np.asarray(image)
+	# 	del cnn
+	# elif Bridson_Common.semanticSegmentation == 'deeplabv3':
+	# 	cnn = SemanticSegmentation.Deeplabv3()
+	# 	image = cnn.processImage(imageName)
+	# 	saveImage(imageName, 'DEEPLABV3_SEMANTIC', image)
+	# 	postFix = postFix + 'DEEPLABV3_'
+	# 	# image = np.asarray(image)
+	# 	del cnn
+	# elif Bridson_Common.semanticSegmentation == 'both':
+	# 	cnn = SemanticSegmentation.Mask_RCNN()
+	# 	image1 = cnn.processImage(imageName)
+	# 	del cnn
+	# 	cnn = SemanticSegmentation.Deeplabv3()
+	# 	image2 = cnn.processImage(imageName)
+	# 	del cnn
+	# 	image = cv.addWeighted(image1, 0.5, image2, 0.5, 0.0)
+	# 	saveImage(imageName, 'BOTH_SEMANTIC', image)
+	# 	postFix = postFix + 'BOTH_'
+	# else:
 		# Bridson_Common.semanticSegmentation == 'none':
 		# image = io.imread(imageName)
-		image = cv.imread( imageName )
+	image = cv.imread( imageName )
 	print("EE1")
 	# Alpha mix the the
 	imageRatio = 1 - Bridson_Common.semanticSegmentationRatio
@@ -493,3 +496,4 @@ if __name__ == '__main__':
 
 
 	plt.show()
+

@@ -1,6 +1,7 @@
 # Re-implement this without opencv.
 # https://www.ccoderun.ca/programming/doxygen/opencv/tutorial_anisotropic_image_segmentation_by_a_gst.html
 
+from numba import jit_module
 import cv2 as cv
 import numpy as np
 import argparse
@@ -109,6 +110,7 @@ class ST:
 		return direction, self.coherency
 
 
+jit_module(nopython=True)
 
 if __name__ == "__main__":
 	test = [-1000000, -10]

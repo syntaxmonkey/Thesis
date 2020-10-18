@@ -1,3 +1,4 @@
+from numba import jit_module
 import math
 from PIL import Image, ImageFont, ImageDraw, ImageFilter
 import numpy as np
@@ -193,19 +194,7 @@ def outputEnvironmentVariables():
 
 
 
-def save_object(obj, filename):
-	with open(filename, 'wb') as output:  # Overwrites any existing file.
-		pickle.dump(obj, output, protocol=pickle.HIGHEST_PROTOCOL)
-		# marshal.dump(obj, output)
-		# pickle.dump(obj, output)
-	# output.close()
 
-def load_object(filename):
-	with open(filename, 'rb') as input:
-		newObj = pickle.load(input)
-		# newObj = marshal.load(input)
-	# input.close()
-	return newObj
 
 def scaleArray( array):
 	# https://numpy.org/doc/stable/reference/generated/numpy.repeat.html
@@ -263,10 +252,6 @@ def determineLineSpacing( intensity):
 
 
 
-def readImagefile(filename):
-	image = io.imread(filename)
-	imageArr = np.asarray( Image.fromarray(image).convert('L') )
-	return imageArr
 
 def determineRadius(width=1, height=1):
 	if regionDynamicRadius:
@@ -311,6 +296,8 @@ def calculateDirection(angle):
 	# print("calculateDirection dx, dy:", dx, dy)
 	return dx, dy
 
+
+
 def determineAngle(dx, dy):
 	# https://stackoverflow.com/questions/36727257/calculating-rotation-degrees-based-on-delta-x-y-movement-of-touch-or-mouse
 	# print("calculateAngle Dx Dy:", dx, dy)
@@ -318,6 +305,8 @@ def determineAngle(dx, dy):
 	dir = ( math.atan2(dx, dy) * 180 / math.pi ) % 360;
 	# print("calculateAngle Recovered angle:", dir)
 	return dir
+
+
 
 
 def generateTraversalMap(radius):
@@ -331,17 +320,8 @@ def generateTraversalMap(radius):
 
 traversalMap = generateTraversalMap(mergeDistance)
 
-def findClosestIndex(s1, s2):
-	# print("Bridson_Common:findClosestIndex s1:", s1)
-	# print("Bridson_Common:findClosestIndex s2:", s2)
-	# both s1 and s2 should be 2D.
 
-	distances = distance.cdist(s1, s2)
-	# shortestDistances = distance.cdist(s1, s2).min(axis=1)
-	location = np.where(distances == distances.min())
-	# print('Location:', location, distances.min())
-	# Return the an tuple.  Tuple[0] contains indeces in s1.  Tuple[1] contains indeces in s2.
-	return location
+
 
 
 def displayDistanceMask(mask, indexLabel, topLeftTarget, bottomRightTarget):
@@ -389,50 +369,6 @@ def displayDistanceMask(mask, indexLabel, topLeftTarget, bottomRightTarget):
 		# plt.plot(5, 5, color='r', markersize=10)
 		ax.grid()
 
-def distance_from_edge(x):
-    x = np.pad(x, 1, mode='constant')
-    dist = distance_transform_cdt(x, metric='chessboard')
-    return dist[1:-1, 1:-1]
-
-def genPickleFilename(filename):
-	pickleFolder = "./pickle"
-	if os.path.exists(pickleFolder) == True:
-		if os.path.isdir(pickleFolder) == False:
-			exit(-1)
-	else:
-		os.mkdir(pickleFolder)
-
-	actualFileName = pickleFolder + "/" + filename + "_segments_" + str(segmentCount)
-
-	if SLIC0:
-		actualFileName = actualFileName + "_compactness_SLIC0"
-	else:
-		actualFileName = actualFileName + "_compactness_" + str(compactnessSLIC)
-
-	actualFileName = actualFileName + "_attractThreshold_" + str(diffAttractPercentile) + "_cnn_" + semanticSegmentation + "_semanticRatio_" + str(semanticSegmentationRatio) + ".pkl"
-	return actualFileName
-
-def saveImage(filename, postFix, fig):
-	if os.path.exists("./output") == True:
-		if os.path.isdir("./output") == False:
-			exit(-1)
-	else:
-		os.mkdir("./output")
-
-	try:
-		# Save the figures to files: https://stackoverflow.com/questions/4325733/save-a-subplot-in-matplotlib
-		actualFileName = "./output/" + filename + "_segments_"+ str(segmentCount)
-		if SLIC0:
-			actualFileName = actualFileName + "_compactness_SLIC0"
-		else:
-			actualFileName = actualFileName + "_compactness_" + str(compactnessSLIC)
-
-		actualFileName = actualFileName + "_attractThreshold_" + str(diffAttractPercentile) + "_cnn_" + semanticSegmentation + "_semanticRatio_" + str(semanticSegmentationRatio) + "_" + postFix + ".png"
-		fig.savefig( actualFileName, dpi=100*scalingFactor)
-		if bulkGeneration: # Delete the figures when we are bulk generating.
-			plt.close(fig=fig)
-	except Exception as e:
-		print("Error saving file:", e)
 
 def rotateClockwise90(array, angle=90):
 	'''
@@ -451,19 +387,63 @@ def swapXY(array):
 	newArray[:,1] = array[:,0]
 	return newArray
 
-def logDebug(moduleName, *argv):
-	if debug:
-		callingFrame = inspect.stack()[1] # https://docs.python.org/3/library/inspect.html#inspect.getmembers -
-		callingFunction = callingFrame[3]
-		print(moduleName , "-->", callingFunction , ": ", end='')
-		for arg in argv:
-			print(arg, " ", end='')
-		print()
+
+def euclidean_distance(a, b):
+	dx = a[0] - b[0]
+	dy = a[1] - b[1]
+	return math.sqrt(dx * dx + dy * dy)
+
+
+
+jit_module(nopython=True,fastmath=True)
+
+def findClosestIndex(s1, s2):
+	# print("Bridson_Common:findClosestIndex s1:", s1)
+	# print("Bridson_Common:findClosestIndex s2:", s2)
+	# both s1 and s2 should be 2D.
+
+	distances = distance.cdist(s1, s2)
+	# shortestDistances = distance.cdist(s1, s2).min(axis=1)
+	location = np.where(distances == distances.min())
+	# print('Location:', location, distances.min())
+	# Return the an tuple.  Tuple[0] contains indeces in s1.  Tuple[1] contains indeces in s2.
+	return location
+
+
+def distance_from_edge(x):
+    x = np.pad(x, 1, mode='constant')
+    dist = distance_transform_cdt(x, metric='chessboard')
+    return dist[1:-1, 1:-1]
+
+
+def get_cartesian_from_barycentric(b, t):
+	# https://stackoverflow.com/questions/56328254/how-to-make-the-conversion-from-barycentric-coordinates-to-cartesian-coordinates
+	''' The expected data format
+		b = np.array([0.25,0.3,0.45]) # Barycentric coordinates
+		t = np.transpose(np.array([[0,0],[1,0],[0,1]])) # Triangle
+	'''
+	tnew = np.transpose(np.array(t))
+	bnew = np.array(b)
+	# print("Barycentric:", tnew.dot(bnew))
+	bary = tnew.dot(bnew)
+	return [bary[0], bary[1]]
+
+
+def calculateBarycentric(vertices, point):
+	# Calculating barycentric coodinates: https://codereview.stackexchange.com/questions/41024/faster-computation-of-barycentric-coordinates-for-many-points
+	T = (np.array(vertices[:-1]) - vertices[-1]).T
+	v = np.dot(la.inv(T), np.array(point) - vertices[-1])
+	v.resize(len(vertices))
+	v[-1] = 1 - v.sum()
+	return v
+
+
 
 def convertAxesBarycentric(x, y, sourceTriang, targetTriang, sourcetriFinder, Originalsamples, TargetSamples):
 	# Convert the coordinates on one axes to the cartesian axes on the second axes.
 	# Convert from triang to triang2.
 	cartesian = None
+	# cartesian = ""
 	try:
 		tri = sourcetriFinder(x, y)
 
@@ -487,38 +467,16 @@ def convertAxesBarycentric(x, y, sourceTriang, targetTriang, sourcetriFinder, Or
 			face2.append([curVertex[0], curVertex[1]])
 		# logDebug(__name__, "Target Tri: ", face2)
 		cartesian = get_cartesian_from_barycentric(bary1, face2)
-	except Exception as e:
-		print("Cause of error:", e)
+	# except Exception as e:
+	except:
+		# print("Cause of error:", e)
 		print("Execution Info:", sys.exc_info()[0])
 	return cartesian
 
 
-def calculateBarycentric(vertices, point):
-	# Calculating barycentric coodinates: https://codereview.stackexchange.com/questions/41024/faster-computation-of-barycentric-coordinates-for-many-points
-	T = (np.array(vertices[:-1]) - vertices[-1]).T
-	v = np.dot(la.inv(T), np.array(point) - vertices[-1])
-	v.resize(len(vertices))
-	v[-1] = 1 - v.sum()
-	return v
 
 
-def get_cartesian_from_barycentric(b, t):
-	# https://stackoverflow.com/questions/56328254/how-to-make-the-conversion-from-barycentric-coordinates-to-cartesian-coordinates
-	''' The expected data format
-		b = np.array([0.25,0.3,0.45]) # Barycentric coordinates
-		t = np.transpose(np.array([[0,0],[1,0],[0,1]])) # Triangle
-	'''
-	tnew = np.transpose(np.array(t))
-	bnew = np.array(b)
-	# print("Barycentric:", tnew.dot(bnew))
-	bary = tnew.dot(bnew)
-	return [bary[0], bary[1]]
 
-
-def euclidean_distance(a, b):
-	dx = a[0] - b[0]
-	dy = a[1] - b[1]
-	return math.sqrt(dx * dx + dy * dy)
 
 def findArea(v1, v2, v3):
 	# https://www.javatpoint.com/python-area-of-triangle
@@ -587,23 +545,7 @@ def findTriangleHeight(p1, p2, p3):
 	return h
 
 
-def findMinMaxTriangleHeight(p1, p2, p3):
-	a = euclidean_distance(p1, p2)
-	b = euclidean_distance(p2, p3)
-	c = euclidean_distance(p3, p1)
 
-	s = (a + b + c) / 2
-	core = s*(s-a)*(s-b)*(s-c)
-	if core < 0:
-		core = 0
-
-	h1 = 2*math.sqrt( core ) / a
-	h2 = 2*math.sqrt( core ) / b
-	h3 = 2*math.sqrt( core ) / c
-
-	hmax = np.sort([h1 , h2 , h3 ])[-1]  # Find the largest height in the triangle.
-	hmin = np.sort([h1 , h2 , h3 ])[0]
-	return hmin, hmax
 
 def readMask(filename='BlurArrayImage.gif'):
 	logDebug(__name__, "*** readMask ***")
@@ -736,6 +678,99 @@ def line_intersect(segment1, segment2):
 
 
 
+
+
+
+
+# Place this method outside of the jit_module so it is not compiled.
+def saveImage(filename, postFix, fig):
+	if os.path.exists("./output") == True:
+		if os.path.isdir("./output") == False:
+			exit(-1)
+	else:
+		os.mkdir("./output")
+
+	try:
+		# Save the figures to files: https://stackoverflow.com/questions/4325733/save-a-subplot-in-matplotlib
+		actualFileName = "./output/" + filename + "_segments_"+ str(segmentCount)
+		if SLIC0:
+			actualFileName = actualFileName + "_compactness_SLIC0"
+		else:
+			actualFileName = actualFileName + "_compactness_" + str(compactnessSLIC)
+
+		actualFileName = actualFileName + "_attractThreshold_" + str(diffAttractPercentile) + "_cnn_" + semanticSegmentation + "_semanticRatio_" + str(semanticSegmentationRatio) + "_" + postFix + ".png"
+		fig.savefig( actualFileName, dpi=100*scalingFactor)
+		if bulkGeneration: # Delete the figures when we are bulk generating.
+			plt.close(fig=fig)
+	# except Exception as e:
+	except:
+		print("Error saving file:", actualFileName)
+
+def readImagefile(filename):
+	image = io.imread(filename)
+	imageArr = np.asarray( Image.fromarray(image).convert('L') )
+	return imageArr
+
+
+def genPickleFilename(filename):
+	pickleFolder = "./pickle"
+	if os.path.exists(pickleFolder) == True:
+		if os.path.isdir(pickleFolder) == False:
+			exit(-1)
+	else:
+		os.mkdir(pickleFolder)
+
+	actualFileName = pickleFolder + "/" + filename + "_segments_" + str(segmentCount)
+
+	if SLIC0:
+		actualFileName = actualFileName + "_compactness_SLIC0"
+	else:
+		actualFileName = actualFileName + "_compactness_" + str(compactnessSLIC)
+
+	actualFileName = actualFileName + "_attractThreshold_" + str(diffAttractPercentile) + "_cnn_" + semanticSegmentation + "_semanticRatio_" + str(semanticSegmentationRatio) + ".pkl"
+	return actualFileName
+
+def save_object(obj, filename):
+	with open(filename, 'wb') as output:  # Overwrites any existing file.
+		pickle.dump(obj, output, protocol=pickle.HIGHEST_PROTOCOL)
+		# marshal.dump(obj, output)
+		# pickle.dump(obj, output)
+	# output.close()
+
+def load_object(filename):
+	with open(filename, 'rb') as input:
+		newObj = pickle.load(input)
+		# newObj = marshal.load(input)
+	# input.close()
+	return newObj
+
+def logDebug(moduleName, *argv):
+	if debug:
+		callingFrame = inspect.stack()[1] # https://docs.python.org/3/library/inspect.html#inspect.getmembers -
+		callingFunction = callingFrame[3]
+		print(moduleName , "-->", callingFunction , ": ", end='')
+		for arg in argv:
+			print(arg, " ", end='')
+		print()
+
+
+def findMinMaxTriangleHeight(p1, p2, p3):
+	a = euclidean_distance(p1, p2)
+	b = euclidean_distance(p2, p3)
+	c = euclidean_distance(p3, p1)
+
+	s = (a + b + c) / 2
+	core = s*(s-a)*(s-b)*(s-c)
+	if core < 0:
+		core = 0
+
+	h1 = 2*math.sqrt( core ) / a
+	h2 = 2*math.sqrt( core ) / b
+	h3 = 2*math.sqrt( core ) / c
+
+	hmax = np.sort([h1 , h2 , h3 ])[-1]  # Find the largest height in the triangle.
+	hmin = np.sort([h1 , h2 , h3 ])[0]
+	return hmin, hmax
 
 if __name__ == "__main__":
 	print("Bridson_Common")
