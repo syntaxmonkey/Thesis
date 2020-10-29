@@ -564,6 +564,95 @@ class FinishedImage:
 		self.averageClusters()
 		# plt.show()
 
+
+	def pairAllAND2(self, s1, s2, allowDangle=False, threshold=1.5):
+		self.s0 = s1
+		self.s1 = s2
+		# print("Bridson_Common:findClosestIndex s1:", s1)
+		# print("Bridson_Common:findClosestIndex s2:", s2)
+		# both s1 and s2 should be 2D.
+
+		# Want to pair all points.
+		# Iterate through all the points until everything has been paired.
+		# print("Original points:", s1, s2)
+
+		firstListMoved = list(range(len(s1)))
+		secondListMoved = list(range(len(s2)))
+
+		distances = distance.cdist(s1, s2)
+		allDistances = np.sort( distances.flatten() )
+
+		# print("Distances:", distances)
+		# shortestDistances = distance.cdist(s1, s2).min(axis=1)
+		allPairings = []
+		side0Cluster = {}
+		side1Cluster = {}
+		clusterGroups = {}
+
+
+		currentCluster = 0
+
+		# Pass 1 - OR logic.
+		for currentDistance in allDistances:
+			if currentDistance > threshold:
+				# If the currentDistance is greater than the threshold, skip this pairing.
+				continue
+			# print("Current Distance:", currentDistance)
+			location = np.where(distances == currentDistance)
+			# print("Location:", location)
+			for index in range(len(location[0])):
+				index0 = location[0][0]
+				index1 = location[1][0]
+				# print("Location0:", index0)
+				# print("Location1:", index1)
+
+				if firstListMoved[index0] == -1 and secondListMoved[index1] == -1:
+				# if firstListMoved[index0] == -1 or secondListMoved[index1] == -1:
+					# The two points have already been merged.  Do nothing.
+					pass
+				else:
+					# At least one of the points has not been merged.
+					# allPairings.append(location)
+					allPairings.append((np.array([index0]), np.array([index1])))  # Separate the pairings in the case there are multiple index pairs.
+					firstListMoved[index0] = -1
+					secondListMoved[index1] = -1
+					# print("Pairing:", location, " between points: ", s1[index0], s2[index1])
+					# If either index already exists in a cluster
+					if index0 in side0Cluster.keys():
+						# Index already exists.  Get the
+						existingCluster = side0Cluster[ index0 ]
+					elif index1 in side1Cluster.keys():
+						existingCluster = side1Cluster[ index1 ]
+					else:
+						# Create new cluster.
+						existingCluster = currentCluster
+						currentCluster += 1
+					side0Cluster[ index0 ] = existingCluster
+					side1Cluster[ index1 ] = existingCluster
+					if not existingCluster in clusterGroups.keys():
+						newList = [ (index0, index1) ]
+						clusterGroups[ existingCluster ] = newList
+					else:
+						existingList = clusterGroups[ existingCluster ]
+						existingList.append( (index0, index1) )
+
+		# print("** side0Cluster:", side0Cluster)
+		# print("** side1Cluster:", side1Cluster)
+		# print("** clusterGroups:", clusterGroups)
+
+
+		# print("** side0Cluster:", side0Cluster)
+		# print("** side1Cluster:", side1Cluster)
+		# print("** clusterGroups:", clusterGroups)
+		self.side0Cluster = side0Cluster
+		self.side1Cluster = side1Cluster
+		self.clusterGroups = clusterGroups
+
+		self.allPairs = allPairings
+
+		self.averageClusters()
+		# plt.show()
+
 	def pairAllOR(self, s1, s2, threshold=1.5):
 		self.s0 = s1
 		self.s1 = s2
