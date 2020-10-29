@@ -557,7 +557,8 @@ def indexValidation(filename):
 		finishedImageNoSLICPRE.shiftLinePoints()
 		finishedImageNoSLICPRE.cropCullLines()
 		finishedImageNoSLICPRE.genLineAdjacencyMap()
-		finishedImageNoSLICPRE.mergeLines()
+		# finishedImageNoSLICPRE.mergeLines()
+		finishedImageNoSLICPRE.mergeLines2()
 		for index in meshObjCollection.keys():
 			finishedImageNoSLICPRE.drawRegionContourLines(index, drawSLICRegions=False)
 		Bridson_Common.saveImage(filename, "NoSlic_PRE", finishedImageNoSLICPRE.fig)
@@ -582,7 +583,8 @@ def indexValidation(filename):
 	print("About to genLineAdjacencyMap")
 	finishedImageSLIC.genLineAdjacencyMap()
 	print("About to mergeLines")
-	finishedImageSLIC.mergeLines()
+	# finishedImageSLIC.mergeLines()
+	finishedImageSLIC.mergeLines2()
 
 
 	print("0D")
@@ -759,7 +761,7 @@ def main():
 	if Bridson_Common.bulkGeneration:
 		# segmentCounts = [100, 200]
 		segmentCounts = [ 200, 400]
-		segmentCounts = [50, 100]
+		# segmentCounts = [50, 100]
 		compactnessList = [ 0.1, 0.25, 0.5]
 		# if Bridson_Common.SLIC0:
 		# 	compactnessList = [0.01]
@@ -773,7 +775,7 @@ def main():
 
 	if Bridson_Common.smallBatch:
 		images = []
-		images.append('simpleTriangle.png')
+		# images.append('simpleTriangle.png')
 		# images.append('Stripes.png')
 		# images.append('kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg')
 		# images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')

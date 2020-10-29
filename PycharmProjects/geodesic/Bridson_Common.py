@@ -32,9 +32,9 @@ SLICGrey = False
 
 #####################################
 bulkGeneration = True
-smallBatch=False
+smallBatch=True
 
-coreCount = 4
+coreCount = 1
 if os.path.exists("./output") == True:
 	if os.path.isdir("./output") == False:
 		exit(-1)
@@ -42,7 +42,7 @@ else:
 	os.mkdir("./output")
 
 if bulkGeneration:
-	sys.stdout = open("./output/detailLogs.txt", "a")
+	# sys.stdout = open("./output/detailLogs.txt", "a")
 	pass
 
 #####################################
@@ -392,6 +392,9 @@ def euclidean_distance(a, b):
 	dx = a[0] - b[0]
 	dy = a[1] - b[1]
 	return math.sqrt(dx * dx + dy * dy)
+
+
+
 
 
 

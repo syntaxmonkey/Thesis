@@ -435,7 +435,7 @@ if False:
 	for i in range(256):
 		print("Intensity: ", i, "has width:", calculateLineWidth(i))
 
-import numba
+# import numba
 from numba import prange, njit, jit, jit_module
 import numpy as np
 import cProfile
@@ -444,10 +444,507 @@ import cProfile
 # Originally from: https://stackoverflow.com/questions/4529815/saving-an-object-data-persistence
 # import _pickle as pickle
 # import pickle
+from scipy.spatial import distance
 
-def findMax(p1,p2,p3):
-	print("Max:", np.sort([p1,p2,p3])[0] )
+def findClosestIndex(s1, s2):
+	# print("Bridson_Common:findClosestIndex s1:", s1)
+	# print("Bridson_Common:findClosestIndex s2:", s2)
+	# both s1 and s2 should be 2D.
 
-jit_module(nopython=True)
+	distances = distance.cdist(s1, s2)
+	print("Distances:", distances)
+	# shortestDistances = distance.cdist(s1, s2).min(axis=1)
+	location = np.where(distances == distances.min())
+	# print('Location:', location, distances.min())
+	# Return the an tuple.  Tuple[0] contains indeces in s1.  Tuple[1] contains indeces in s2.
+	return location
 
-cProfile.run('findMax(1.0,2.0,3.0)')
+
+class pairClusters:
+
+	def __init__(self):
+		pass
+
+	def pairAll(self, s1, s2, allowDangle=False):
+		self.s0 = s1
+		self.s1 = s2
+		# print("Bridson_Common:findClosestIndex s1:", s1)
+		# print("Bridson_Common:findClosestIndex s2:", s2)
+		# both s1 and s2 should be 2D.
+
+		# Want to pair all points.
+		# Iterate through all the points until everything has been paired.
+		print("Original points:", s1, s2)
+
+		firstListMoved = list(range(len(s1)))
+		secondListMoved = list(range(len(s2)))
+
+		distances = distance.cdist(s1, s2)
+		allDistances = np.sort( distances.flatten() )
+
+		print("Distances:", distances)
+		# shortestDistances = distance.cdist(s1, s2).min(axis=1)
+		allPairings = []
+		side0Cluster = {}
+		side1Cluster = {}
+		clusterGroups = {}
+
+
+		currentCluster = 0
+
+		# Pass 1 - OR logic.
+		for currentDistance in allDistances:
+			print("Current Distance:", currentDistance)
+			location = np.where(distances == currentDistance)
+			print("Location:", location)
+			index0 = location[0][0]
+			index1 = location[1][0]
+			print("Location0:", index0)
+			print("Location1:", index1)
+
+
+			# if firstListMoved[index0] == -1 and secondListMoved[index1] == -1:
+			if firstListMoved[index0] == -1 or secondListMoved[index1] == -1:
+				# The two points have already been merged.  Do nothing.
+				pass
+			else:
+				# At least one of the points has not been merged.
+				allPairings.append(location)
+				firstListMoved[index0] = -1
+				secondListMoved[index1] = -1
+				print("Pairing:", location, " between points: ", s1[index0], s2[index1])
+				# If either index already exists in a cluster
+				if index0 in side0Cluster.keys():
+					# Index already exists.  Get the
+					existingCluster = side0Cluster[ index0 ]
+				elif index1 in side1Cluster.keys():
+					existingCluster = side1Cluster[ index1 ]
+				else:
+					# Create new cluster.
+					existingCluster = currentCluster
+					currentCluster += 1
+				side0Cluster[ index0 ] = existingCluster
+				side1Cluster[ index1 ] = existingCluster
+				if not existingCluster in clusterGroups.keys():
+					newList = [ (index0, index1) ]
+					clusterGroups[ existingCluster ] = newList
+				else:
+					existingList = clusterGroups[ existingCluster ]
+					existingList.append( (index0, index1) )
+
+		print("** side0Cluster:", side0Cluster)
+		print("** side1Cluster:", side1Cluster)
+		print("** clusterGroups:", clusterGroups)
+
+		if not allowDangle:
+			# Pass 2 - AND logic.
+			for currentDistance in allDistances:
+				print("Current Distance:", currentDistance)
+				location = np.where(distances == currentDistance)
+				print("Location:", location)
+				index0 = location[0][0]
+				index1 = location[1][0]
+				print("Location0:", index0)
+				print("Location1:", index1)
+
+
+				if firstListMoved[index0] == -1 and secondListMoved[index1] == -1:
+				# if firstListMoved[index0] == -1 or secondListMoved[index1] == -1:
+					# The two points have already been merged.  Do nothing.
+					pass
+				else:
+					# At least one of the points has not been merged.
+					allPairings.append(location)
+					firstListMoved[index0] = -1
+					secondListMoved[index1] = -1
+					print("Pairing:", location, " between points: ", s1[index0], s2[index1])
+					if index0 in side0Cluster.keys():
+						# Index already exists.  Get the
+						existingCluster = side0Cluster[ index0 ]
+					elif index1 in side1Cluster.keys():
+						existingCluster = side1Cluster[ index1 ]
+					else:
+						# Create new cluster.
+						existingCluster = currentCluster
+						currentCluster += 1
+					side0Cluster[ index0 ] = existingCluster
+					side1Cluster[ index1 ] = existingCluster
+					if not existingCluster in clusterGroups.keys():
+						newList = [ (index0, index1) ]
+						clusterGroups[ existingCluster ] = newList
+					else:
+						existingList = clusterGroups[ existingCluster ]
+						existingList.append( (index0, index1) )
+
+		print("** side0Cluster:", side0Cluster)
+		print("** side1Cluster:", side1Cluster)
+		print("** clusterGroups:", clusterGroups)
+		self.side0Cluster = side0Cluster
+		self.side1Cluster = side1Cluster
+		self.clusterGroups = clusterGroups
+
+		self.allPairs = allPairings
+		self.averageClusters()
+		self.displayAllPairs()
+		plt.title('pairALL allowDangle:'+ str(allowDangle) )
+
+
+	def pairAllAND(self, s1, s2, allowDangle=False, threshold=1.5):
+		self.s0 = s1
+		self.s1 = s2
+		# print("Bridson_Common:findClosestIndex s1:", s1)
+		# print("Bridson_Common:findClosestIndex s2:", s2)
+		# both s1 and s2 should be 2D.
+
+		# Want to pair all points.
+		# Iterate through all the points until everything has been paired.
+		print("Original points:", s1, s2)
+
+		firstListMoved = list(range(len(s1)))
+		secondListMoved = list(range(len(s2)))
+
+		distances = distance.cdist(s1, s2)
+		allDistances = np.sort( distances.flatten() )
+
+		print("Distances:", distances)
+		# shortestDistances = distance.cdist(s1, s2).min(axis=1)
+		allPairings = []
+		side0Cluster = {}
+		side1Cluster = {}
+		clusterGroups = {}
+
+
+		currentCluster = 0
+
+		# Pass 1 - OR logic.
+		for currentDistance in allDistances:
+			if currentDistance > threshold:
+				# If the currentDistance is greater than the threshold, skip this pairing.
+				continue
+			print("Current Distance:", currentDistance)
+			location = np.where(distances == currentDistance)
+			print("Location:", location)
+			index0 = location[0][0]
+			index1 = location[1][0]
+			print("Location0:", index0)
+			print("Location1:", index1)
+
+
+			if firstListMoved[index0] == -1 and secondListMoved[index1] == -1:
+			# if firstListMoved[index0] == -1 or secondListMoved[index1] == -1:
+				# The two points have already been merged.  Do nothing.
+				pass
+			else:
+				# At least one of the points has not been merged.
+				allPairings.append(location)
+				firstListMoved[index0] = -1
+				secondListMoved[index1] = -1
+				print("Pairing:", location, " between points: ", s1[index0], s2[index1])
+				# If either index already exists in a cluster
+				if index0 in side0Cluster.keys():
+					# Index already exists.  Get the
+					existingCluster = side0Cluster[ index0 ]
+				elif index1 in side1Cluster.keys():
+					existingCluster = side1Cluster[ index1 ]
+				else:
+					# Create new cluster.
+					existingCluster = currentCluster
+					currentCluster += 1
+				side0Cluster[ index0 ] = existingCluster
+				side1Cluster[ index1 ] = existingCluster
+				if not existingCluster in clusterGroups.keys():
+					newList = [ (index0, index1) ]
+					clusterGroups[ existingCluster ] = newList
+				else:
+					existingList = clusterGroups[ existingCluster ]
+					existingList.append( (index0, index1) )
+
+		print("** side0Cluster:", side0Cluster)
+		print("** side1Cluster:", side1Cluster)
+		print("** clusterGroups:", clusterGroups)
+
+
+		print("** side0Cluster:", side0Cluster)
+		print("** side1Cluster:", side1Cluster)
+		print("** clusterGroups:", clusterGroups)
+		self.side0Cluster = side0Cluster
+		self.side1Cluster = side1Cluster
+		self.clusterGroups = clusterGroups
+
+		self.allPairs = allPairings
+
+		self.averageClusters()
+		self.displayAllPairs()
+		plt.title('pairAllAND')
+
+
+	def pairAllOR(self, s1, s2, threshold=1.5):
+		self.s0 = s1
+		self.s1 = s2
+		# print("Bridson_Common:findClosestIndex s1:", s1)
+		# print("Bridson_Common:findClosestIndex s2:", s2)
+		# both s1 and s2 should be 2D.
+
+		# Want to pair all points.
+		# Iterate through all the points until everything has been paired.
+		print("Original points:", s1, s2)
+
+		firstListMoved = list(range(len(s1)))
+		secondListMoved = list(range(len(s2)))
+
+		distances = distance.cdist(s1, s2)
+		allDistances = np.sort( distances.flatten() )
+
+		print("Distances:", distances)
+		# shortestDistances = distance.cdist(s1, s2).min(axis=1)
+		allPairings = []
+		side0Cluster = {}
+		side1Cluster = {}
+		clusterGroups = {}
+
+
+		currentCluster = 0
+
+		# Pass 1 - OR logic.
+		for currentDistance in allDistances:
+			if currentDistance > threshold:
+				continue
+			print("Current Distance:", currentDistance)
+			location = np.where(distances == currentDistance)
+			print("Location:", location)
+			index0 = location[0][0]
+			index1 = location[1][0]
+			print("Location0:", index0)
+			print("Location1:", index1)
+
+
+			# if firstListMoved[index0] == -1 and secondListMoved[index1] == -1:
+			if firstListMoved[index0] == -1 or secondListMoved[index1] == -1:
+				# The two points have already been merged.  Do nothing.
+				pass
+			else:
+				# At least one of the points has not been merged.
+				allPairings.append(location)
+				firstListMoved[index0] = -1
+				secondListMoved[index1] = -1
+				print("Pairing:", location, " between points: ", s1[index0], s2[index1])
+				# If either index already exists in a cluster
+				if index0 in side0Cluster.keys():
+					# Index already exists.  Get the
+					existingCluster = side0Cluster[ index0 ]
+				elif index1 in side1Cluster.keys():
+					existingCluster = side1Cluster[ index1 ]
+				else:
+					# Create new cluster.
+					existingCluster = currentCluster
+					currentCluster += 1
+				side0Cluster[ index0 ] = existingCluster
+				side1Cluster[ index1 ] = existingCluster
+				if not existingCluster in clusterGroups.keys():
+					newList = [ (index0, index1) ]
+					clusterGroups[ existingCluster ] = newList
+				else:
+					existingList = clusterGroups[ existingCluster ]
+					existingList.append( (index0, index1) )
+
+		print("** side0Cluster:", side0Cluster)
+		print("** side1Cluster:", side1Cluster)
+		print("** clusterGroups:", clusterGroups)
+
+
+		print("** side0Cluster:", side0Cluster)
+		print("** side1Cluster:", side1Cluster)
+		print("** clusterGroups:", clusterGroups)
+		self.side0Cluster = side0Cluster
+		self.side1Cluster = side1Cluster
+		self.clusterGroups = clusterGroups
+
+		self.allPairs = allPairings
+
+		self.averageClusters()
+		self.displayAllPairs()
+		plt.title('pairAllOR')
+
+	def averageClusters(self):
+		averagePoints = {}
+		for cluster in self.clusterGroups.keys():
+			averagePoint = np.array([0.0,0.0])
+			values = []
+			for indeces in self.clusterGroups[ cluster ]:
+				averagePoint += np.array(self.s0[indeces[0]])
+				averagePoint += np.array(self.s1[indeces[1]])
+				values += indeces
+
+			print("Values:", values)
+			averagePoints[ cluster ] =  list( averagePoint / len( values ) )
+
+		self.averagePoints = averagePoints
+		print(">>> averagePoints:", self.averagePoints)
+
+
+	def displayAllPairs( self ):
+		plt.figure()
+
+		for pair in self.allPairs:
+			print("Pair:", pair)
+			index0 = pair[0][0]
+			index1 = pair[1][0]
+			print("Index 0:", index0)
+			print("Index 1:", index1)
+
+			print("coordinates 1:", self.s0[index0])
+			print("coordinates 2:", self.s1[index1])
+			xValues = [self.s0[index0][0], self.s1[index1][0]]
+			yValues = [self.s0[index0][1], self.s1[index1][1]]
+			print("xValues:", xValues)
+			print("yValues:", yValues)
+			plt.plot(xValues, yValues)
+
+		for point in self.s0:
+			plt.plot(point[0], point[1], color='r', marker='o', markersize=5)
+
+		for point in self.s1:
+			plt.plot(point[0], point[1], color='g', marker='o', markersize=5)
+
+		for point in self.averagePoints.values():
+			plt.plot(point[0], point[1], color='b', marker='*', markersize=5)
+
+
+
+
+
+
+if False:
+	print("************************************")
+	coords1 = np.array([[0, 0], [0,2],[0,5]])
+
+	coords2 = np.array([[1, 0.5],[1,3] ])
+
+	print("Coords1:", coords1)
+	print("Coords2:", coords2)
+
+	allPairs = pairClusters()
+	allPairs.pairAll(coords1, coords2, allowDangle=True)
+	allPairs.averageClusters()
+	allPairs.displayAllPairs()
+
+	allPairs = pairClusters()
+	allPairs.pairAll(coords1, coords2, allowDangle=False)
+	allPairs.averageClusters()
+	allPairs.displayAllPairs()
+
+
+
+
+if False:
+	print("************************************")
+	coords1 = np.array( [[0, 0],
+	          [0,2],
+	          [0,5]] )
+
+	coords2 = np.array( [[1, 4],
+	          [1,4.5]] )
+
+
+	print("Coords1:", coords1)
+	print("Coords2:", coords2)
+
+	allPairs = pairClusters()
+	allPairs.pairAll(coords1, coords2, allowDangle=True)
+	allPairs.averageClusters()
+	allPairs.displayAllPairs()
+
+	allPairs = pairClusters()
+	allPairs.pairAll(coords1, coords2, allowDangle=False)
+	allPairs.averageClusters()
+	allPairs.displayAllPairs()
+
+
+if False:
+	print("************************************")
+	coords1 = np.array( [[0, 0],
+	                    [0,2],
+	                    [0,5]] )
+
+	coords2 = np.array( [[1, 4],
+	                    [1,4.5],
+	                    [1, 2.2]] )
+
+
+	print("Coords1:", coords1)
+	print("Coords2:", coords2)
+
+	allPairs = pairClusters()
+	allPairs.pairAllAND(coords1, coords2, threshold=6)
+	allPairs.pairAllOR(coords1, coords2)
+	allPairs.pairAll(coords1, coords2, allowDangle=True)
+	allPairs.pairAll(coords1, coords2, allowDangle=False)
+	# allPairs.averageClusters()
+	# allPairs.displayAllPairs()
+
+	# allPairs = pairClusters()
+	# allPairs.pairAll(coords1, coords2, allowDangle=False)
+	# allPairs.averageClusters()
+	# allPairs.displayAllPairs()
+
+
+
+if True:
+	print("************************************")
+	coords1 = np.array( [[1-0.5, 0],
+	                     [1 - 0.5, 0.5],
+	                     [1 - 0.5, 1],
+	                    [1-0.5,2],
+	                     [1 - 0.5, 1.5],
+	                    [0,5]] )
+
+	coords2 = np.array( [[1+0.5, 0],
+	                    [1+0.5,2],
+	                    [2, 5]] )
+
+
+	print("Coords1:", coords1)
+	print("Coords2:", coords2)
+
+	allPairs = pairClusters()
+	allPairs.pairAllAND(coords1, coords2, threshold=2)
+	# allPairs.pairAllOR(coords1, coords2)
+	# allPairs.pairAll(coords1, coords2, allowDangle=True)
+	# allPairs.pairAll(coords1, coords2, allowDangle=False)
+	# allPairs.averageClusters()
+	# allPairs.displayAllPairs()
+
+	# allPairs = pairClusters()
+	# allPairs.pairAll(coords1, coords2, allowDangle=False)
+	# allPairs.averageClusters()
+	# allPairs.displayAllPairs()
+
+
+if False:
+	print("************************************")
+	coords1 = np.array( [[0, 0],
+	          [0,2],
+	          [0,5]] )
+
+	coords2 = np.array( [[1, 0.1],
+	          [1,0.5]] )
+
+	print("Coords1:", coords1)
+	print("Coords2:", coords2)
+
+	allPairs = pairClusters()
+	allPairs.pairAll(coords1, coords2, allowDangle=True)
+	allPairs.averageClusters()
+	allPairs.displayAllPairs()
+
+	allPairs = pairClusters()
+	allPairs.pairAll(coords1, coords2, allowDangle=False)
+	allPairs.averageClusters()
+	allPairs.displayAllPairs()
+
+plt.show()
+
+
+
+# jit_module(nopython=True, fastmath=True)
+

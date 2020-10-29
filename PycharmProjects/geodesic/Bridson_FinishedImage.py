@@ -412,6 +412,287 @@ class FinishedImage:
 				# Remove the EdgePoints from the lists.
 
 
+	def mergeLines2(self):
+		# Iterate through each region.
+		count = 0
+		for index in self.regionAdjacentRegions.keys(): # Iterate through regions that have adjacencies defined.
+			# Obtain the adjacent regions for the current index.
+			adjacentRegions = self.regionAdjacentRegions[ index ]
+			for adjacentIndex in adjacentRegions:
+				startingIndex = index if index < adjacentIndex else adjacentIndex
+				endingIndex = index if index > adjacentIndex else adjacentIndex
+
+				# Obtain the adjacencyEdge.
+				if (startingIndex, endingIndex) in self.regionAdjancencyMap:
+					# Only continue if the startingIndex, endingIndex pair exists.
+					adjacencyEdge = self.regionAdjancencyMap[ (startingIndex, endingIndex) ]
+
+					# Get the current region EdgePoints
+					if index < adjacentIndex:
+						currentIndexEdgePoints = copy.copy(adjacencyEdge.currentIndexEdgePoints)
+						adjacentIndexEdgePoints = copy.copy(adjacencyEdge.adjacentIndexEdgePoints)
+					else:
+						adjacentIndexEdgePoints = copy.copy(adjacencyEdge.currentIndexEdgePoints)
+						currentIndexEdgePoints = copy.copy(adjacencyEdge.adjacentIndexEdgePoints)
+
+					currentPoints = self.constructLocationForEdgePoints(currentIndexEdgePoints)
+					adjacentPoints = self.constructLocationForEdgePoints(adjacentIndexEdgePoints)
+
+					# self.pairAllAND(currentPoints, adjacentPoints, threshold=5.0)
+					self.pairAllOR(currentPoints, adjacentPoints, threshold=5.0)
+					# count += 1
+					# if count < 10:
+					# 	self.displayAllPairs()
+
+					# We want to iterate through the clusters and then perform the same logic as connectTwoPoints.
+					self.connectPoints(currentIndexEdgePoints, adjacentIndexEdgePoints)
+
+		# plt.show()
+
+					# Replace with pairAllOR or pairAllAND
+					# while len(currentPoints) > 0 and len(adjacentPoints) > 0:
+					# 	# print("CurrentPoints:", currentPoints)
+					# 	# print("AdjacentPoints:", adjacentPoints)
+					#
+					# 	shortestPair = Bridson_Common.findClosestIndex(currentPoints, adjacentPoints)
+					#
+					# 	# print("Pair:", currentPoints[shortestPair[0][0]], adjacentPoints[shortestPair[1][0]])
+					# 	# Pair the two EdgePoints.
+					# 	connected = self.connectTwoPoints( currentIndexEdgePoints[shortestPair[0][0]], adjacentIndexEdgePoints[shortestPair[1][0]])
+					# 	# Increase the distance for the point pair so that they are never close again.
+					# 	if connected == False:
+					# 		# Exit the for loop because the closest points are now too far apart.
+					# 		break
+					#
+					# 	currentPoints.pop(shortestPair[0][0] ) # Remove the paired points from the list.
+					# 	adjacentPoints.pop(shortestPair[1][0] ) # Remove the paired points from the list.
+					# 	currentIndexEdgePoints.pop(shortestPair[0][0]) # Remove the paired points from the list.
+					# 	adjacentIndexEdgePoints.pop( shortestPair[1][0]) # Remove the paired points from the list.
+				# currentPoints[ shortestPair[0][0] ] = (-bigDistance,-bigDistance)
+				# adjacentPoints[ shortestPair[1][0] ] = (bigDistance, bigDistance)
+
+
+				# Remove the EdgePoints from the lists.
+
+
+
+
+	def pairAllAND(self, s1, s2, allowDangle=False, threshold=1.5):
+		self.s0 = s1
+		self.s1 = s2
+		# print("Bridson_Common:findClosestIndex s1:", s1)
+		# print("Bridson_Common:findClosestIndex s2:", s2)
+		# both s1 and s2 should be 2D.
+
+		# Want to pair all points.
+		# Iterate through all the points until everything has been paired.
+		# print("Original points:", s1, s2)
+
+		firstListMoved = list(range(len(s1)))
+		secondListMoved = list(range(len(s2)))
+
+		distances = distance.cdist(s1, s2)
+		allDistances = np.sort( distances.flatten() )
+
+		# print("Distances:", distances)
+		# shortestDistances = distance.cdist(s1, s2).min(axis=1)
+		allPairings = []
+		side0Cluster = {}
+		side1Cluster = {}
+		clusterGroups = {}
+
+
+		currentCluster = 0
+
+		# Pass 1 - OR logic.
+		for currentDistance in allDistances:
+			if currentDistance > threshold:
+				# If the currentDistance is greater than the threshold, skip this pairing.
+				continue
+			# print("Current Distance:", currentDistance)
+			location = np.where(distances == currentDistance)
+			# print("Location:", location)
+			index0 = location[0][0]
+			index1 = location[1][0]
+			# print("Location0:", index0)
+			# print("Location1:", index1)
+
+
+			if firstListMoved[index0] == -1 and secondListMoved[index1] == -1:
+			# if firstListMoved[index0] == -1 or secondListMoved[index1] == -1:
+				# The two points have already been merged.  Do nothing.
+				pass
+			else:
+				# At least one of the points has not been merged.
+				allPairings.append(location)
+				firstListMoved[index0] = -1
+				secondListMoved[index1] = -1
+				# print("Pairing:", location, " between points: ", s1[index0], s2[index1])
+				# If either index already exists in a cluster
+				if index0 in side0Cluster.keys():
+					# Index already exists.  Get the
+					existingCluster = side0Cluster[ index0 ]
+				elif index1 in side1Cluster.keys():
+					existingCluster = side1Cluster[ index1 ]
+				else:
+					# Create new cluster.
+					existingCluster = currentCluster
+					currentCluster += 1
+				side0Cluster[ index0 ] = existingCluster
+				side1Cluster[ index1 ] = existingCluster
+				if not existingCluster in clusterGroups.keys():
+					newList = [ (index0, index1) ]
+					clusterGroups[ existingCluster ] = newList
+				else:
+					existingList = clusterGroups[ existingCluster ]
+					existingList.append( (index0, index1) )
+
+		# print("** side0Cluster:", side0Cluster)
+		# print("** side1Cluster:", side1Cluster)
+		# print("** clusterGroups:", clusterGroups)
+
+
+		# print("** side0Cluster:", side0Cluster)
+		# print("** side1Cluster:", side1Cluster)
+		# print("** clusterGroups:", clusterGroups)
+		self.side0Cluster = side0Cluster
+		self.side1Cluster = side1Cluster
+		self.clusterGroups = clusterGroups
+
+		self.allPairs = allPairings
+
+		self.averageClusters()
+		# plt.show()
+
+	def pairAllOR(self, s1, s2, threshold=1.5):
+		self.s0 = s1
+		self.s1 = s2
+		# print("Bridson_Common:findClosestIndex s1:", s1)
+		# print("Bridson_Common:findClosestIndex s2:", s2)
+		# both s1 and s2 should be 2D.
+
+		# Want to pair all points.
+		# Iterate through all the points until everything has been paired.
+		# print("Original points:", s1, s2)
+
+		firstListMoved = list(range(len(s1)))
+		secondListMoved = list(range(len(s2)))
+
+		distances = distance.cdist(s1, s2)
+		allDistances = np.sort( distances.flatten() )
+
+		# print("Distances:", distances)
+		# shortestDistances = distance.cdist(s1, s2).min(axis=1)
+		allPairings = []
+		side0Cluster = {}
+		side1Cluster = {}
+		clusterGroups = {}
+
+
+		currentCluster = 0
+
+		# Pass 1 - OR logic.
+		for currentDistance in allDistances:
+			if currentDistance > threshold:
+				continue
+			# print("Current Distance:", currentDistance)
+			location = np.where(distances == currentDistance)
+			# print("Location:", location)
+			index0 = location[0][0]
+			index1 = location[1][0]
+			# print("Location0:", index0)
+			# print("Location1:", index1)
+
+
+			# if firstListMoved[index0] == -1 and secondListMoved[index1] == -1:
+			if firstListMoved[index0] == -1 or secondListMoved[index1] == -1:
+				# The two points have already been merged.  Do nothing.
+				pass
+			else:
+				# At least one of the points has not been merged.
+				allPairings.append(location)
+				firstListMoved[index0] = -1
+				secondListMoved[index1] = -1
+				# print("Pairing:", location, " between points: ", s1[index0], s2[index1])
+				# If either index already exists in a cluster
+				if index0 in side0Cluster.keys():
+					# Index already exists.  Get the
+					existingCluster = side0Cluster[ index0 ]
+				elif index1 in side1Cluster.keys():
+					existingCluster = side1Cluster[ index1 ]
+				else:
+					# Create new cluster.
+					existingCluster = currentCluster
+					currentCluster += 1
+				side0Cluster[ index0 ] = existingCluster
+				side1Cluster[ index1 ] = existingCluster
+				if not existingCluster in clusterGroups.keys():
+					newList = [ (index0, index1) ]
+					clusterGroups[ existingCluster ] = newList
+				else:
+					existingList = clusterGroups[ existingCluster ]
+					existingList.append( (index0, index1) )
+
+		# print("** side0Cluster:", side0Cluster)
+		# print("** side1Cluster:", side1Cluster)
+		# print("** clusterGroups:", clusterGroups)
+
+
+		# print("** side0Cluster:", side0Cluster)
+		# print("** side1Cluster:", side1Cluster)
+		# print("** clusterGroups:", clusterGroups)
+		self.side0Cluster = side0Cluster
+		self.side1Cluster = side1Cluster
+		self.clusterGroups = clusterGroups
+
+		self.allPairs = allPairings
+
+		self.averageClusters()
+		# self.displayAllPairs()
+		# plt.title('pairAllOR')
+		# plt.show()
+
+
+	def averageClusters(self):
+		averagePoints = {}
+		for cluster in self.clusterGroups.keys():
+			averagePoint = np.array([0.0,0.0])
+			values = []
+			for indeces in self.clusterGroups[ cluster ]:
+				averagePoint += np.array(self.s0[indeces[0]])
+				averagePoint += np.array(self.s1[indeces[1]])
+				values += indeces
+
+			# print("Values:", values)
+			averagePoints[ cluster ] =  list( averagePoint / len( values ) )
+
+		self.averagePoints = averagePoints
+		# print(">>> averagePoints:", self.averagePoints)
+
+	def connectPoints(self, currentIndexEdgePoints, adjacentIndexEdgePoints):
+
+		for cluster in self.clusterGroups.keys():
+			# Obtain the indeces for the lines in their respective list.
+			for indeces in self.clusterGroups[ cluster ]:
+				edgePoint1 = currentIndexEdgePoints[indeces[0]]
+				edgePoint2 = adjacentIndexEdgePoints[indeces[1]]
+
+				edgePoint1.associatedLine[edgePoint1.pointIndex] = self.averagePoints[ cluster ]
+				edgePoint2.associatedLine[edgePoint2.pointIndex] = self.averagePoints[ cluster ]
+
+		# distance = Bridson_Common.euclidean_distance(edgePoint1.xy, edgePoint2.xy)
+		# if distance < 20.0:
+		# 	# print("EdgePoint1:", edgePoint1)
+		# 	# print("EdgePoint2:", edgePoint2)
+		# 	xAvg = (edgePoint1.xy[0] + edgePoint2.xy[0]) / 2
+		# 	yAvg = (edgePoint1.xy[1] + edgePoint2.xy[1]) / 2
+		# 	edgePoint1.associatedLine[edgePoint1.pointIndex] = [xAvg, yAvg]
+		# 	edgePoint2.associatedLine[edgePoint2.pointIndex] = [xAvg, yAvg]
+		# 	return True
+		# else:
+		# 	return False
+
+
 	def connectTwoPoints(self, edgePoint1, edgePoint2):
 		distance = Bridson_Common.euclidean_distance(edgePoint1.xy, edgePoint2.xy)
 		if distance < 20.0:
@@ -424,6 +705,38 @@ class FinishedImage:
 			return True
 		else:
 			return False
+
+
+	def displayAllPairs( self ):
+		plt.figure()
+
+		for pair in self.allPairs:
+			# print("Pair:", pair)
+			index0 = pair[0][0]
+			index1 = pair[1][0]
+			# print("Index 0:", index0)
+			# print("Index 1:", index1)
+
+			# print("coordinates 1:", self.s0[index0])
+			# print("coordinates 2:", self.s1[index1])
+			xValues = [self.s0[index0][0], self.s1[index1][0]]
+			yValues = [self.s0[index0][1], self.s1[index1][1]]
+			# print("xValues:", xValues)
+			# print("yValues:", yValues)
+			plt.plot(xValues, yValues)
+
+		for point in self.s0:
+			plt.plot(point[0], point[1], color='r', marker='o', markersize=5)
+
+		for point in self.s1:
+			plt.plot(point[0], point[1], color='g', marker='o', markersize=5)
+
+		for point in self.averagePoints.values():
+			plt.plot(point[0], point[1], color='b', marker='*', markersize=5)
+
+
+
+
 
 	def constructLocationForEdgePoints(self, edgePoints):
 		newList = []
