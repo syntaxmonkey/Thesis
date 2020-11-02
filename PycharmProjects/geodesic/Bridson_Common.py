@@ -33,6 +33,7 @@ SLICGrey = False
 #####################################
 bulkGeneration = True
 smallBatch=True
+diagnosticDisplay=True
 
 coreCount = 1
 if os.path.exists("./output") == True:

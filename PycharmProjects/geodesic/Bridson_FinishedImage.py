@@ -439,14 +439,15 @@ class FinishedImage:
 					adjacentPoints = self.constructLocationForEdgePoints(adjacentIndexEdgePoints)
 
 
-					self.pairAllAND2(currentPoints, adjacentPoints, count, threshold=4.0)
+					self.pairAllAND2(currentPoints, adjacentPoints, count, threshold=4)
 					# self.pairAllOR(currentPoints, adjacentPoints, threshold=5.0)
 					#*************************************** Diagnostic display
-					if count < 10:
-						print("******** ************* ******** mergeLines2 count:", count)
-						self.displayAllPairs()
-						plt.title("Count " + str(count) )
-					count += 1
+					if Bridson_Common.diagnosticDisplay:
+						if count < 10:
+							print("******** ************* ******** mergeLines2 count:", count)
+							self.displayAllPairs()
+							plt.title("Count " + str(count) )
+						count += 1
 
 					# We want to iterate through the clusters and then perform the same logic as connectTwoPoints.
 					self.connectPoints(currentIndexEdgePoints, adjacentIndexEdgePoints)
@@ -568,8 +569,19 @@ class FinishedImage:
 		self.averageClusters()
 		# plt.show()
 
+	def simpleUnique(self, a):
+		newList = []
+		for element in a:
+			element = list(element)
+			# print("Element:", element)
+			if element not in newList:
+				newList.append(element)
+		newList = np.array(newList)
+		return newList
 
 	def pairAllAND2(self, s1, s2, count, threshold=1.5):
+		s1 = self.simpleUnique(s1)
+		s2 = self.simpleUnique(s2)
 		self.s0 = s1
 		self.s1 = s2
 		# print("Bridson_Common:findClosestIndex s1:", s1)
@@ -578,16 +590,16 @@ class FinishedImage:
 
 		# Want to pair all points.
 		# Iterate through all the points until everything has been paired.
-		if count < 10:
-			print("Original s1:", s1)
-			print("Original s2:", s2)
+		if Bridson_Common.diagnosticDisplay:
+			if count < 10:
+				print("Original s1:", s1)
+				print("Original s2:", s2)
 
-		firstListMoved = list(range(len(s1)))
-		secondListMoved = list(range(len(s2)))
-		print("")
+		firstListMoved = len(s1)*[-1]
+		secondListMoved = len(s2)*[-1]
 
 		distances = distance.cdist(s1, s2)
-		allDistances = np.sort( distances.flatten() )
+		allDistances = np.sort( np.unique(distances.flatten()) )
 
 		# print("Distances:", distances)
 		# shortestDistances = distance.cdist(s1, s2).min(axis=1)
@@ -595,7 +607,9 @@ class FinishedImage:
 		side0Cluster = {}
 		side1Cluster = {}
 		clusterGroups = {}
-
+		self.side0Cluster = side0Cluster
+		self.side1Cluster = side1Cluster
+		self.clusterGroups = clusterGroups
 
 		currentCluster = 0
 
@@ -612,17 +626,30 @@ class FinishedImage:
 				index1 = location[1][index]
 				# print("Location0:", index0)
 				# print("Location1:", index1)
+				addToCluster = False
 
-				if firstListMoved[index0] == -1 and secondListMoved[index1] == -1:
+				if firstListMoved[index0] != -1 and secondListMoved[index1] != -1:
 				# if firstListMoved[index0] == -1 or secondListMoved[index1] == -1:
 					# The two points have already been merged.  Do nothing.
-					pass
+					addToCluster = False
+				elif firstListMoved[index0] != -1 and secondListMoved[index1] == -1:
+					# First already belongs to a cluster.
+					left, right  = self.clusterBalance( firstListMoved[index0] )
+					if left == 1:
+						addToCluster = True
+				elif firstListMoved[index0] == -1 and secondListMoved[index1] != -1:
+					# Second belongs to a cluster
+					left, right = self.clusterBalance( secondListMoved[index1] )
+					if right == 1:
+						addToCluster = True
 				else:
+					addToCluster = True
+
+
+				if addToCluster == True:
 					# At least one of the points has not been merged.
 					# allPairings.append(location)
 					allPairings.append((np.array([index0]), np.array([index1])))  # Separate the pairings in the case there are multiple index pairs.
-					firstListMoved[index0] = -1
-					secondListMoved[index1] = -1
 					# print("Pairing:", location, " between points: ", s1[index0], s2[index1])
 					# If either index already exists in a cluster
 					if index0 in side0Cluster.keys():
@@ -636,6 +663,10 @@ class FinishedImage:
 						currentCluster += 1
 					side0Cluster[ index0 ] = existingCluster
 					side1Cluster[ index1 ] = existingCluster
+
+					firstListMoved[index0] = existingCluster
+					secondListMoved[index1] = existingCluster
+
 					if not existingCluster in clusterGroups.keys():
 						newList = [ (index0, index1) ]
 						clusterGroups[ existingCluster ] = newList
@@ -651,14 +682,30 @@ class FinishedImage:
 		# print("** side0Cluster:", side0Cluster)
 		# print("** side1Cluster:", side1Cluster)
 		# print("** clusterGroups:", clusterGroups)
-		self.side0Cluster = side0Cluster
-		self.side1Cluster = side1Cluster
-		self.clusterGroups = clusterGroups
 
 		self.allPairs = allPairings
 
 		self.averageClusters()
 		# plt.show()
+
+
+	def clusterBalance(self, clusterIndex):
+		# Returns the tuple: # elements in list 1, # elements in list 2.
+		clusterListing = self.clusterGroups[ clusterIndex ]
+		print("clusterListing:", clusterListing)
+		group1 = []
+		group2 = []
+		for pair in clusterListing:
+			left, right = pair
+			group1.append( left )
+			group2.append( right )
+
+		group1 = set(group1)
+		group2 = set(group2)
+		balance = ( len(group1), len(group2) )
+		print("Cluster Balance:", balance )
+		return balance
+
 
 	def pairAllOR(self, s1, s2, threshold=1.5):
 		self.s0 = s1
