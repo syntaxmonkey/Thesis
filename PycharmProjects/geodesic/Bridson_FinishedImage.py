@@ -438,16 +438,20 @@ class FinishedImage:
 					currentPoints = self.constructLocationForEdgePoints(currentIndexEdgePoints)
 					adjacentPoints = self.constructLocationForEdgePoints(adjacentIndexEdgePoints)
 
-					# self.pairAllAND(currentPoints, adjacentPoints, threshold=5.0)
-					self.pairAllOR(currentPoints, adjacentPoints, threshold=5.0)
-					# count += 1
-					# if count < 10:
-					# 	self.displayAllPairs()
+
+					self.pairAllAND2(currentPoints, adjacentPoints, count, threshold=4.0)
+					# self.pairAllOR(currentPoints, adjacentPoints, threshold=5.0)
+					#*************************************** Diagnostic display
+					if count < 10:
+						print("******** ************* ******** mergeLines2 count:", count)
+						self.displayAllPairs()
+						plt.title("Count " + str(count) )
+					count += 1
 
 					# We want to iterate through the clusters and then perform the same logic as connectTwoPoints.
 					self.connectPoints(currentIndexEdgePoints, adjacentIndexEdgePoints)
 
-		# plt.show()
+		plt.show()
 
 					# Replace with pairAllOR or pairAllAND
 					# while len(currentPoints) > 0 and len(adjacentPoints) > 0:
@@ -565,7 +569,7 @@ class FinishedImage:
 		# plt.show()
 
 
-	def pairAllAND2(self, s1, s2, allowDangle=False, threshold=1.5):
+	def pairAllAND2(self, s1, s2, count, threshold=1.5):
 		self.s0 = s1
 		self.s1 = s2
 		# print("Bridson_Common:findClosestIndex s1:", s1)
@@ -574,10 +578,13 @@ class FinishedImage:
 
 		# Want to pair all points.
 		# Iterate through all the points until everything has been paired.
-		# print("Original points:", s1, s2)
+		if count < 10:
+			print("Original s1:", s1)
+			print("Original s2:", s2)
 
 		firstListMoved = list(range(len(s1)))
 		secondListMoved = list(range(len(s2)))
+		print("")
 
 		distances = distance.cdist(s1, s2)
 		allDistances = np.sort( distances.flatten() )
@@ -601,8 +608,8 @@ class FinishedImage:
 			location = np.where(distances == currentDistance)
 			# print("Location:", location)
 			for index in range(len(location[0])):
-				index0 = location[0][0]
-				index1 = location[1][0]
+				index0 = location[0][index]
+				index1 = location[1][index]
 				# print("Location0:", index0)
 				# print("Location1:", index1)
 

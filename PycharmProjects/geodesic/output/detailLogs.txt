@@ -1,0 +1,1973 @@
+Divisor: 3.0
+CoreCount: 1
+[('david-dibert-Huza8QOO3tc-unsplash.jpg', 100, 'SLIC0', 'none', 80)]
+Divisor: 3.0
+>>>>>>>>>>>>>>>> Calling SLIC for  david-dibert-Huza8QOO3tc-unsplash.jpg <<<<<<<<<<<<<<<<<<<<<<<
+EE
+EE1
+AA Max and Min of greyscaleImage: 255 0
+BB Max and Min of greyscaleImage: 255 0
+EE2
+EE2
+EE3
+Shape: (281, 500, 3)
+Type: <class 'numpy.ndarray'>
+EE4
+CC Max and Min of greyscaleImage: 255 0
+DD Max and Min of greyscaleImage: 255 0
+EE Max and Min of greyscaleImage: 255 0
+DD
+DD1
+DD2
+DD3
+DD4
+DD5
+YY Max and Min of image: 255 0
+ZZ Max and Min of greyscaleImage: 243 7
+CC
+------- Environment Variables ----------------------------------- 
+segmentCount: 100
+lineCullAlgorithm:  generous
+lineAngle: 90
+coherencyThreshold: 0.1
+highlightEndpoints: False
+middleAverageOnly: False
+compactnessSLIC: 0.01
+SLICIterations: 200
+SLIC0: True
+allowBlankRegion: False
+cullingBlankThreshold: 225
+nearbyDistance: 3
+semanticSegmentation: none
+semanticSegmentationRatio: 0.5
+semanticInvertMaskrcnn: True
+stableCoherencyPercentile: 95
+differencePercentile: 80
+diffRepelPercentile: 80
+generatePREImage: False
+attractionBin: 3
+repelBin: 3
+stableBin: -4
+stableAttractSet: False
+binSize: 10
+attractFudge: 1.1
+------------------------------------------------------------------
+CC1
+B
+C
+0A
+0B
+diff attract threshold: 22.953898987203104
+diff repel threshold: 22.953898987203104
+stable threshold: 0.5715377815484942
+Pickle file exists: ./pickle/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_100_compactness_SLIC0_attractThreshold_80_cnn_none_semanticRatio_0.5.pkl
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  0 of 105   *****
+dradius: 2.1666666666666665
+MeshAngle: 9.300344884521271 Flat angle: 313
+(61,)
+Drawing DrawAngleLinesExteriorSeed2 takes  129184
+Transfer lines takes  134621
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  1 of 105   *****
+dradius: 2.933333333333333
+MeshAngle: 12.635951821659068 Flat angle: 267
+(86,)
+Drawing DrawAngleLinesExteriorSeed2 takes  333537
+Transfer lines takes  318869
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  2 of 105   *****
+dradius: 1.8666666666666667
+MeshAngle: 16.449195442449142 Flat angle: 150
+(60,)
+Drawing DrawAngleLinesExteriorSeed2 takes  133940
+Transfer lines takes  153372
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  3 of 105   *****
+dradius: 1.7666666666666666
+MeshAngle: 22.36195350792297 Flat angle: 258
+(50,)
+Drawing DrawAngleLinesExteriorSeed2 takes  98502
+Transfer lines takes  110159
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  4 of 105   *****
+dradius: 2.2333333333333334
+MeshAngle: 195.2747575265387 Flat angle: 92
+(58,)
+Drawing DrawAngleLinesExteriorSeed2 takes  139766
+Transfer lines takes  150863
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  5 of 105   *****
+dradius: 1.8666666666666667
+MeshAngle: 70.3543160129068 Flat angle: 149
+(58,)
+Drawing DrawAngleLinesExteriorSeed2 takes  100345
+Transfer lines takes  109974
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  6 of 105   *****
+dradius: 2.1666666666666665
+MeshAngle: 99.00082596725363 Flat angle: 274
+(70,)
+Drawing DrawAngleLinesExteriorSeed2 takes  185582
+Transfer lines takes  185069
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  7 of 105   *****
+dradius: 2.2333333333333334
+MeshAngle: 162.0145477246207 Flat angle: 351
+(67,)
+Drawing DrawAngleLinesExteriorSeed2 takes  195457
+Transfer lines takes  196599
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  8 of 105   *****
+dradius: 2.1
+MeshAngle: 169.30014558311217 Flat angle: 249
+(66,)
+Drawing DrawAngleLinesExteriorSeed2 takes  192297
+Transfer lines takes  184940
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  9 of 105   *****
+dradius: 1.9333333333333333
+MeshAngle: 175.7239701646213 Flat angle: 77
+(53,)
+Drawing DrawAngleLinesExteriorSeed2 takes  121955
+Transfer lines takes  142737
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  10 of 105   *****
+dradius: 1.8333333333333333
+MeshAngle: 176.51772806082622 Flat angle: 276
+(57,)
+Drawing DrawAngleLinesExteriorSeed2 takes  130559
+Transfer lines takes  150599
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  11 of 105   *****
+dradius: 1.7666666666666666
+MeshAngle: 40.13073837574344 Flat angle: 142
+(46,)
+Drawing DrawAngleLinesExteriorSeed2 takes  91946
+Transfer lines takes  108632
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  12 of 105   *****
+dradius: 2.1
+MeshAngle: 14.058592321096512 Flat angle: 235
+(62,)
+Drawing DrawAngleLinesExteriorSeed2 takes  172046
+Transfer lines takes  196351
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  13 of 105   *****
+dradius: 2.033333333333333
+MeshAngle: 176.42860303137027 Flat angle: 217
+(51,)
+Drawing DrawAngleLinesExteriorSeed2 takes  121090
+Transfer lines takes  141958
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  14 of 105   *****
+dradius: 2.3
+MeshAngle: 72.45059836130346 Flat angle: 326
+(69,)
+Drawing DrawAngleLinesExteriorSeed2 takes  209448
+Transfer lines takes  190016
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  15 of 105   *****
+dradius: 2.4
+MeshAngle: 23.58734136105123 Flat angle: 12
+(71,)
+Drawing DrawAngleLinesExteriorSeed2 takes  210769
+Transfer lines takes  189616
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  16 of 105   *****
+dradius: 2.1666666666666665
+MeshAngle: 351.5895107978157 Flat angle: 177
+(66,)
+Drawing DrawAngleLinesExteriorSeed2 takes  183489
+Transfer lines takes  185090
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  17 of 105   *****
+dradius: 3.5666666666666664
+MeshAngle: 176.66309309490094 Flat angle: 103
+(97,)
+Drawing DrawAngleLinesExteriorSeed2 takes  458082
+Transfer lines takes  507171
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  18 of 105   *****
+dradius: 2.033333333333333
+MeshAngle: 16.59911912209711 Flat angle: 358
+(69,)
+Drawing DrawAngleLinesExteriorSeed2 takes  210573
+Transfer lines takes  224357
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  19 of 105   *****
+dradius: 2.1
+MeshAngle: 11.30997923148636 Flat angle: 88
+(53,)
+Drawing DrawAngleLinesExteriorSeed2 takes  144364
+Transfer lines takes  168024
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  20 of 105   *****
+dradius: 2.533333333333333
+MeshAngle: 28.191320247799204 Flat angle: 229
+(80,)
+Drawing DrawAngleLinesExteriorSeed2 takes  296154
+Transfer lines takes  238572
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  21 of 105   *****
+dradius: 1.9666666666666666
+MeshAngle: 59.89846706168006 Flat angle: 70
+(57,)
+Drawing DrawAngleLinesExteriorSeed2 takes  134815
+Transfer lines takes  140697
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  22 of 105   *****
+dradius: 2.5666666666666664
+MeshAngle: 172.1777332938216 Flat angle: 141
+(75,)
+Drawing DrawAngleLinesExteriorSeed2 takes  204367
+Transfer lines takes  209974
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  23 of 105   *****
+dradius: 1.8333333333333333
+MeshAngle: 136.3557490183096 Flat angle: 264
+(54,)
+Drawing DrawAngleLinesExteriorSeed2 takes  116664
+Transfer lines takes  128415
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  24 of 105   *****
+dradius: 1.9666666666666666
+MeshAngle: 110.6470627354095 Flat angle: 268
+(61,)
+Drawing DrawAngleLinesExteriorSeed2 takes  269419
+Transfer lines takes  293311
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  25 of 105   *****
+dradius: 1.9333333333333333
+MeshAngle: 120.34975701849267 Flat angle: 243
+(61,)
+Drawing DrawAngleLinesExteriorSeed2 takes  209654
+Transfer lines takes  421960
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  26 of 105   *****
+dradius: 2.7
+MeshAngle: 13.087818209637181 Flat angle: 334
+(88,)
+Drawing DrawAngleLinesExteriorSeed2 takes  596860
+Transfer lines takes  565505
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  27 of 105   *****
+dradius: 1.7
+MeshAngle: 7.418572835384625 Flat angle: 51
+(60,)
+Drawing DrawAngleLinesExteriorSeed2 takes  200632
+Transfer lines takes  299940
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  28 of 105   *****
+dradius: 2.1333333333333333
+MeshAngle: 118.65730587862743 Flat angle: 225
+(64,)
+Drawing DrawAngleLinesExteriorSeed2 takes  353363
+Transfer lines takes  318856
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  29 of 105   *****
+dradius: 1.8
+MeshAngle: 10.938660585751137 Flat angle: 203
+(51,)
+Drawing DrawAngleLinesExteriorSeed2 takes  148012
+Transfer lines takes  167318
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  30 of 105   *****
+dradius: 1.9666666666666666
+MeshAngle: 32.81588764139024 Flat angle: 305
+(68,)
+Drawing DrawAngleLinesExteriorSeed2 takes  198444
+Transfer lines takes  203216
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  31 of 105   *****
+dradius: 1.8
+MeshAngle: 127.23437224564451 Flat angle: 165
+(45,)
+Drawing DrawAngleLinesExteriorSeed2 takes  79208
+Transfer lines takes  88678
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  32 of 105   *****
+dradius: 2.1
+MeshAngle: 13.051027812367796 Flat angle: 23
+(63,)
+Drawing DrawAngleLinesExteriorSeed2 takes  199203
+Transfer lines takes  199659
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  33 of 105   *****
+dradius: 2.2333333333333334
+MeshAngle: 98.19680287219374 Flat angle: 354
+(61,)
+Drawing DrawAngleLinesExteriorSeed2 takes  145150
+Transfer lines takes  163761
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  34 of 105   *****
+dradius: 1.6333333333333333
+MeshAngle: 125.30636145590236 Flat angle: 120
+(53,)
+Drawing DrawAngleLinesExteriorSeed2 takes  117978
+Transfer lines takes  127649
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  35 of 105   *****
+dradius: 2.033333333333333
+MeshAngle: 101.89986370225819 Flat angle: 213
+(57,)
+Drawing DrawAngleLinesExteriorSeed2 takes  168961
+Transfer lines takes  225667
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  36 of 105   *****
+dradius: 1.5333333333333332
+MeshAngle: 112.62700942848141 Flat angle: 255
+(48,)
+Drawing DrawAngleLinesExteriorSeed2 takes  138029
+Transfer lines takes  156104
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  37 of 105   *****
+dradius: 2.1
+MeshAngle: 12.102818950794859 Flat angle: 260
+(67,)
+Drawing DrawAngleLinesExteriorSeed2 takes  274336
+Transfer lines takes  308695
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  38 of 105   *****
+dradius: 1.5
+MeshAngle: 69.78753808360528 Flat angle: 308
+(47,)
+Drawing DrawAngleLinesExteriorSeed2 takes  87897
+Transfer lines takes  90250
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  39 of 105   *****
+dradius: 2.2
+MeshAngle: 128.953345699818 Flat angle: 324
+(61,)
+Drawing DrawAngleLinesExteriorSeed2 takes  223718
+Transfer lines takes  323568
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  40 of 105   *****
+dradius: 2.033333333333333
+MeshAngle: 155.94269638280235 Flat angle: 74
+(66,)
+Drawing DrawAngleLinesExteriorSeed2 takes  256521
+Transfer lines takes  320950
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  41 of 105   *****
+dradius: 1.7666666666666666
+MeshAngle: 98.24440962378839 Flat angle: 17
+(56,)
+Drawing DrawAngleLinesExteriorSeed2 takes  225864
+Transfer lines takes  249720
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  42 of 105   *****
+dradius: 1.5666666666666667
+MeshAngle: 3.1521322831686387 Flat angle: 83
+(48,)
+Drawing DrawAngleLinesExteriorSeed2 takes  178232
+Transfer lines takes  201718
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  43 of 105   *****
+dradius: 1.8333333333333333
+MeshAngle: 15.20889079862978 Flat angle: 33
+(57,)
+Drawing DrawAngleLinesExteriorSeed2 takes  249831
+Transfer lines takes  274856
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  44 of 105   *****
+dradius: 2.2
+MeshAngle: 103.10123429513251 Flat angle: 83
+(61,)
+Drawing DrawAngleLinesExteriorSeed2 takes  320487
+Transfer lines takes  306511
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  45 of 105   *****
+dradius: 2.5
+MeshAngle: 103.45667307067175 Flat angle: 247
+(64,)
+Drawing DrawAngleLinesExteriorSeed2 takes  252051
+Transfer lines takes  265806
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  46 of 105   *****
+dradius: 1.7
+MeshAngle: 9.409005424898414 Flat angle: 183
+(53,)
+Drawing DrawAngleLinesExteriorSeed2 takes  143661
+Transfer lines takes  157656
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  47 of 105   *****
+dradius: 1.7333333333333334
+MeshAngle: 97.52482379124335 Flat angle: 129
+(56,)
+Drawing DrawAngleLinesExteriorSeed2 takes  161161
+Transfer lines takes  183608
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  48 of 105   *****
+dradius: 1.5
+MeshAngle: 96.14171146982497 Flat angle: 337
+(43,)
+Drawing DrawAngleLinesExteriorSeed2 takes  95911
+Transfer lines takes  91364
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  49 of 105   *****
+dradius: 1.7
+MeshAngle: 98.68064001145106 Flat angle: 0
+(52,)
+Drawing DrawAngleLinesExteriorSeed2 takes  109313
+Transfer lines takes  121142
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  50 of 105   *****
+dradius: 1.7
+MeshAngle: 43.79325909898403 Flat angle: 109
+(54,)
+Drawing DrawAngleLinesExteriorSeed2 takes  150146
+Transfer lines takes  150793
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  51 of 105   *****
+dradius: 2.1
+MeshAngle: 126.30848610808955 Flat angle: 33
+(57,)
+Drawing DrawAngleLinesExteriorSeed2 takes  216602
+Transfer lines takes  150260
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  52 of 105   *****
+dradius: 1.6
+MeshAngle: 357.1954022232553 Flat angle: 184
+(57,)
+Drawing DrawAngleLinesExteriorSeed2 takes  146751
+Transfer lines takes  153666
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  53 of 105   *****
+dradius: 2.3
+MeshAngle: 178.53220806821483 Flat angle: 133
+(76,)
+Drawing DrawAngleLinesExteriorSeed2 takes  298719
+Transfer lines takes  251495
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  54 of 105   *****
+dradius: 2.0
+MeshAngle: 88.04071019941898 Flat angle: 232
+(64,)
+Drawing DrawAngleLinesExteriorSeed2 takes  170821
+Transfer lines takes  172047
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  55 of 105   *****
+dradius: 2.1666666666666665
+MeshAngle: 94.55551513769538 Flat angle: 339
+(67,)
+Drawing DrawAngleLinesExteriorSeed2 takes  176568
+Transfer lines takes  171336
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  56 of 105   *****
+dradius: 2.2
+MeshAngle: 101.14540168997657 Flat angle: 201
+(64,)
+Drawing DrawAngleLinesExteriorSeed2 takes  182043
+Transfer lines takes  177609
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  57 of 105   *****
+dradius: 2.7
+MeshAngle: 116.82348842073436 Flat angle: 153
+(84,)
+Drawing DrawAngleLinesExteriorSeed2 takes  241427
+Transfer lines takes  235171
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  58 of 105   *****
+dradius: 1.9666666666666666
+MeshAngle: 129.784807657015 Flat angle: 243
+(58,)
+Drawing DrawAngleLinesExteriorSeed2 takes  130502
+Transfer lines takes  151052
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  59 of 105   *****
+dradius: 1.9
+MeshAngle: 50.71256839489092 Flat angle: 319
+(57,)
+Drawing DrawAngleLinesExteriorSeed2 takes  132431
+Transfer lines takes  138505
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  60 of 105   *****
+dradius: 2.1
+MeshAngle: 5.67612009098945 Flat angle: 7
+(53,)
+Drawing DrawAngleLinesExteriorSeed2 takes  134348
+Transfer lines takes  160644
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  61 of 105   *****
+dradius: 1.8333333333333333
+MeshAngle: 100.26033894089316 Flat angle: 249
+(68,)
+Drawing DrawAngleLinesExteriorSeed2 takes  127255
+Transfer lines takes  141402
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  62 of 105   *****
+dradius: 1.9333333333333333
+MeshAngle: 4.024120282599332 Flat angle: 289
+(60,)
+Drawing DrawAngleLinesExteriorSeed2 takes  133886
+Transfer lines takes  142893
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  63 of 105   *****
+dradius: 1.7
+MeshAngle: 176.04172302804386 Flat angle: 165
+(55,)
+Drawing DrawAngleLinesExteriorSeed2 takes  103887
+Transfer lines takes  123311
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  64 of 105   *****
+dradius: 2.0666666666666664
+MeshAngle: 3.5441930153778083 Flat angle: 58
+(62,)
+Drawing DrawAngleLinesExteriorSeed2 takes  152559
+Transfer lines takes  170465
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  65 of 105   *****
+dradius: 2.2
+MeshAngle: 94.06387717879296 Flat angle: 340
+(91,)
+Drawing DrawAngleLinesExteriorSeed2 takes  297857
+Transfer lines takes  363375
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  66 of 105   *****
+dradius: 1.9333333333333333
+MeshAngle: 176.4828675173923 Flat angle: 156
+(61,)
+Drawing DrawAngleLinesExteriorSeed2 takes  228514
+Transfer lines takes  297443
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  67 of 105   *****
+dradius: 2.1666666666666665
+MeshAngle: 188.82193514219438 Flat angle: 33
+(59,)
+Drawing DrawAngleLinesExteriorSeed2 takes  167840
+Transfer lines takes  177075
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  68 of 105   *****
+dradius: 1.9333333333333333
+MeshAngle: 358.55661671076905 Flat angle: 332
+(61,)
+Drawing DrawAngleLinesExteriorSeed2 takes  160664
+Transfer lines takes  181550
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  69 of 105   *****
+dradius: 1.8666666666666667
+MeshAngle: 120.02596426222766 Flat angle: 271
+(64,)
+Drawing DrawAngleLinesExteriorSeed2 takes  247477
+Transfer lines takes  282101
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  70 of 105   *****
+dradius: 4.033333333333333
+MeshAngle: 86.41045269711728 Flat angle: 351
+(120,)
+Drawing DrawAngleLinesExteriorSeed2 takes  554512
+Transfer lines takes  478933
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  71 of 105   *****
+dradius: 1.9
+MeshAngle: 179.28298347007808 Flat angle: 316
+(64,)
+Drawing DrawAngleLinesExteriorSeed2 takes  189169
+Transfer lines takes  212920
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  72 of 105   *****
+dradius: 1.8333333333333333
+MeshAngle: 137.6654606542531 Flat angle: 40
+(62,)
+Drawing DrawAngleLinesExteriorSeed2 takes  160725
+Transfer lines takes  163180
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  73 of 105   *****
+dradius: 2.466666666666667
+MeshAngle: 4.287358028477754 Flat angle: 176
+(75,)
+Drawing DrawAngleLinesExteriorSeed2 takes  309187
+Transfer lines takes  345624
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  74 of 105   *****
+dradius: 2.2
+MeshAngle: 101.70879777998786 Flat angle: 266
+(64,)
+Drawing DrawAngleLinesExteriorSeed2 takes  276844
+Transfer lines takes  294930
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  75 of 105   *****
+dradius: 1.8333333333333333
+MeshAngle: 4.120437742284874 Flat angle: 330
+(68,)
+Drawing DrawAngleLinesExteriorSeed2 takes  195759
+Transfer lines takes  194805
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  76 of 105   *****
+dradius: 2.0666666666666664
+MeshAngle: 74.0417119363894 Flat angle: 176
+(82,)
+Drawing DrawAngleLinesExteriorSeed2 takes  289527
+Transfer lines takes  277973
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  77 of 105   *****
+dradius: 1.7666666666666666
+MeshAngle: 175.51821119131213 Flat angle: 100
+(47,)
+Drawing DrawAngleLinesExteriorSeed2 takes  158113
+Transfer lines takes  209202
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  78 of 105   *****
+dradius: 1.5
+MeshAngle: 359.1607051506772 Flat angle: 315
+(38,)
+Drawing DrawAngleLinesExteriorSeed2 takes  69953
+Transfer lines takes  74130
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  79 of 105   *****
+dradius: 2.1333333333333333
+MeshAngle: 174.31595684084763 Flat angle: 179
+(65,)
+Drawing DrawAngleLinesExteriorSeed2 takes  168437
+Transfer lines takes  191960
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  80 of 105   *****
+dradius: 2.2333333333333334
+MeshAngle: 84.3893519489455 Flat angle: 195
+(61,)
+Drawing DrawAngleLinesExteriorSeed2 takes  203791
+Transfer lines takes  194172
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  81 of 105   *****
+dradius: 1.7333333333333334
+MeshAngle: 78.96591758151372 Flat angle: 281
+(53,)
+Drawing DrawAngleLinesExteriorSeed2 takes  155663
+Transfer lines takes  163266
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  82 of 105   *****
+dradius: 2.033333333333333
+MeshAngle: 81.83855391841131 Flat angle: 251
+(72,)
+Drawing DrawAngleLinesExteriorSeed2 takes  323763
+Transfer lines takes  273374
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  83 of 105   *****
+dradius: 1.9
+MeshAngle: 83.05670747254548 Flat angle: 226
+(72,)
+Drawing DrawAngleLinesExteriorSeed2 takes  330023
+Transfer lines takes  263897
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  84 of 105   *****
+dradius: 1.8666666666666667
+MeshAngle: 175.34625774973364 Flat angle: 347
+(59,)
+Drawing DrawAngleLinesExteriorSeed2 takes  153556
+Transfer lines takes  176879
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  85 of 105   *****
+dradius: 1.6666666666666667
+MeshAngle: 176.51366619568563 Flat angle: 224
+(56,)
+Drawing DrawAngleLinesExteriorSeed2 takes  193987
+Transfer lines takes  177262
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  86 of 105   *****
+dradius: 1.5333333333333332
+MeshAngle: 175.2633936266963 Flat angle: 343
+(56,)
+Drawing DrawAngleLinesExteriorSeed2 takes  141471
+Transfer lines takes  140296
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  87 of 105   *****
+dradius: 1.5666666666666667
+MeshAngle: 81.01791787710887 Flat angle: 218
+(54,)
+Drawing DrawAngleLinesExteriorSeed2 takes  135053
+Transfer lines takes  208968
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  88 of 105   *****
+dradius: 1.6333333333333333
+MeshAngle: 81.20898823665217 Flat angle: 39
+(52,)
+Drawing DrawAngleLinesExteriorSeed2 takes  170148
+Transfer lines takes  158755
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  89 of 105   *****
+dradius: 1.8333333333333333
+MeshAngle: 82.15826318275028 Flat angle: 217
+(66,)
+Drawing DrawAngleLinesExteriorSeed2 takes  335930
+Transfer lines takes  300819
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  90 of 105   *****
+dradius: 1.9333333333333333
+MeshAngle: 81.65809057794264 Flat angle: 214
+(66,)
+Drawing DrawAngleLinesExteriorSeed2 takes  196610
+Transfer lines takes  206065
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  91 of 105   *****
+dradius: 2.2333333333333334
+MeshAngle: 84.55166504099516 Flat angle: 232
+(67,)
+Drawing DrawAngleLinesExteriorSeed2 takes  221849
+Transfer lines takes  302905
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  92 of 105   *****
+dradius: 2.2333333333333334
+MeshAngle: 82.40066390886223 Flat angle: 171
+(69,)
+Drawing DrawAngleLinesExteriorSeed2 takes  292175
+Transfer lines takes  245807
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  93 of 105   *****
+dradius: 1.9
+MeshAngle: 81.91161866901868 Flat angle: 98
+(61,)
+Drawing DrawAngleLinesExteriorSeed2 takes  217865
+Transfer lines takes  214592
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  94 of 105   *****
+dradius: 1.7666666666666666
+MeshAngle: 82.78417791068681 Flat angle: 108
+(51,)
+Drawing DrawAngleLinesExteriorSeed2 takes  131603
+Transfer lines takes  140688
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  95 of 105   *****
+dradius: 1.8666666666666667
+MeshAngle: 80.7827976621654 Flat angle: 136
+(64,)
+Drawing DrawAngleLinesExteriorSeed2 takes  144480
+Transfer lines takes  154611
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  96 of 105   *****
+dradius: 1.7666666666666666
+MeshAngle: 80.53457143643078 Flat angle: 250
+(64,)
+Drawing DrawAngleLinesExteriorSeed2 takes  162967
+Transfer lines takes  169383
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  97 of 105   *****
+dradius: 1.8
+MeshAngle: 85.20526501023986 Flat angle: 266
+(59,)
+Drawing DrawAngleLinesExteriorSeed2 takes  129437
+Transfer lines takes  143490
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  98 of 105   *****
+dradius: 2.7333333333333334
+MeshAngle: 85.18964731081464 Flat angle: 194
+(73,)
+Drawing DrawAngleLinesExteriorSeed2 takes []
+*************************************************
+Finished
+*************************************************
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>>>>>>>>>>>>>>>>>> Main Exit <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+Divisor: 3.0
+CoreCount: 1
+[('david-dibert-Huza8QOO3tc-unsplash.jpg', 100, 'SLIC0', 'none', 80)]
+Divisor: 3.0
+>>>>>>>>>>>>>>>> Calling SLIC for  david-dibert-Huza8QOO3tc-unsplash.jpg <<<<<<<<<<<<<<<<<<<<<<<
+EE
+EE1
+AA Max and Min of greyscaleImage: 255 0
+BB Max and Min of greyscaleImage: 255 0
+EE2
+EE2
+EE3
+Shape: (281, 500, 3)
+Type: <class 'numpy.ndarray'>
+EE4
+CC Max and Min of greyscaleImage: 255 0
+DD Max and Min of greyscaleImage: 255 0
+EE Max and Min of greyscaleImage: 255 0
+DD
+DD1
+DD2
+DD3
+DD4
+DD5
+YY Max and Min of image: 255 0
+ZZ Max and Min of greyscaleImage: 243 7
+CC
+------- Environment Variables ----------------------------------- 
+segmentCount: 100
+lineCullAlgorithm:  generous
+lineAngle: 90
+coherencyThreshold: 0.1
+highlightEndpoints: False
+middleAverageOnly: False
+compactnessSLIC: 0.01
+SLICIterations: 200
+SLIC0: True
+allowBlankRegion: False
+cullingBlankThreshold: 225
+nearbyDistance: 3
+semanticSegmentation: none
+semanticSegmentationRatio: 0.5
+semanticInvertMaskrcnn: True
+stableCoherencyPercentile: 95
+differencePercentile: 80
+diffRepelPercentile: 80
+generatePREImage: False
+attractionBin: 3
+repelBin: 3
+stableBin: -4
+stableAttractSet: False
+binSize: 10
+attractFudge: 1.1
+------------------------------------------------------------------
+CC1
+B
+C
+0A
+0B
+diff attract threshold: 22.953898987203104
+diff repel threshold: 22.953898987203104
+stable threshold: 0.5715377815484942
+Pickle file exists: ./pickle/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_100_compactness_SLIC0_attractThreshold_80_cnn_none_semanticRatio_0.5.pkl
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  0 of 105   *****
+dradius: 2.1666666666666665
+MeshAngle: 9.300344884521271 Flat angle: 313
+(61,)
+Drawing DrawAngleLinesExteriorSeed2 takes  134444
+Transfer lines takes  147239
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  1 of 105   *****
+dradius: 2.933333333333333
+MeshAngle: 12.635951821659068 Flat angle: 267
+(86,)
+Drawing DrawAngleLinesExteriorSeed2 takes  331129
+Transfer lines takes  342419
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  2 of 105   *****
+dradius: 1.8666666666666667
+MeshAngle: 16.449195442449142 Flat angle: 150
+(60,)
+Drawing DrawAngleLinesExteriorSeed2 takes  136422
+Transfer lines takes  153004
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  3 of 105   *****
+dradius: 1.7666666666666666
+MeshAngle: 22.36195350792297 Flat angle: 258
+(50,)
+Drawing DrawAngleLinesExteriorSeed2 takes  101793
+Transfer lines takes  114786
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  4 of 105   *****
+dradius: 2.2333333333333334
+MeshAngle: 195.2747575265387 Flat angle: 92
+(58,)
+Drawing DrawAngleLinesExteriorSeed2 takes  146277
+Transfer lines takes  169813
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  5 of 105   *****
+dradius: 1.8666666666666667
+MeshAngle: 70.3543160129068 Flat angle: 149
+(58,)
+Drawing DrawAngleLinesExteriorSeed2 takes  96295
+Transfer lines takes  111621
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  6 of 105   *****
+dradius: 2.1666666666666665
+MeshAngle: 99.00082596725363 Flat angle: 274
+(70,)
+Drawing DrawAngleLinesExteriorSeed2 takes  179634
+Transfer lines takes  183905
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  7 of 105   *****
+dradius: 2.2333333333333334
+MeshAngle: 162.0145477246207 Flat angle: 351
+(67,)
+Drawing DrawAngleLinesExteriorSeed2 takes  179018
+Transfer lines takes  188054
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  8 of 105   *****
+dradius: 2.1
+MeshAngle: 169.30014558311217 Flat angle: 249
+(66,)
+Drawing DrawAngleLinesExteriorSeed2 takes  174974
+Transfer lines takes  185595
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  9 of 105   *****
+dradius: 1.9333333333333333
+MeshAngle: 175.7239701646213 Flat angle: 77
+(53,)
+Drawing DrawAngleLinesExteriorSeed2 takes  122858
+Transfer lines takes  142206
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  10 of 105   *****
+dradius: 1.8333333333333333
+MeshAngle: 176.51772806082622 Flat angle: 276
+(57,)
+Drawing DrawAngleLinesExteriorSeed2 takes  118626
+Transfer lines takes  141311
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  11 of 105   *****
+dradius: 1.7666666666666666
+MeshAngle: 40.13073837574344 Flat angle: 142
+(46,)
+Drawing DrawAngleLinesExteriorSeed2 takes  104845
+Transfer lines takes  118148
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  12 of 105   *****
+dradius: 2.1
+MeshAngle: 14.058592321096512 Flat angle: 235
+(62,)
+Drawing DrawAngleLinesExteriorSeed2 takes  165201
+Transfer lines takes  158281
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  13 of 105   *****
+dradius: 2.033333333333333
+MeshAngle: 176.42860303137027 Flat angle: 217
+(51,)
+Drawing DrawAngleLinesExteriorSeed2 takes  149592
+Transfer lines takes  230174
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  14 of 105   *****
+dradius: 2.3
+MeshAngle: 72.45059836130346 Flat angle: 326
+(69,)
+Drawing DrawAngleLinesExteriorSeed2 takes  190852
+Transfer lines takes  187629
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  15 of 105   *****
+dradius: 2.4
+MeshAngle: 23.58734136105123 Flat angle: 12
+(71,)
+Drawing DrawAngleLinesExteriorSeed2 takes  184907
+Transfer lines takes  184646
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  16 of 105   *****
+dradius: 2.1666666666666665
+MeshAngle: 351.5895107978157 Flat angle: 177
+(66,)
+Drawing DrawAngleLinesExteriorSeed2 takes  162245
+Transfer lines takes  169067
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  17 of 105   *****
+dradius: 3.5666666666666664
+MeshAngle: 176.66309309490094 Flat angle: 103
+(97,)
+Drawing DrawAngleLinesExteriorSeed2 takes  406444
+Transfer lines takes  457679
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  18 of 105   *****
+dradius: 2.033333333333333
+MeshAngle: 16.59911912209711 Flat angle: 358
+(69,)
+Drawing DrawAngleLinesExteriorSeed2 takes  181315
+Transfer lines takes  183580
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  19 of 105   *****
+dradius: 2.1
+MeshAngle: 11.30997923148636 Flat angle: 88
+(53,)
+Drawing DrawAngleLinesExteriorSeed2 takes  127887
+Transfer lines takes  147099
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  20 of 105   *****
+dradius: 2.533333333333333
+MeshAngle: 28.191320247799204 Flat angle: 229
+(80,)
+Drawing DrawAngleLinesExteriorSeed2 takes  256823
+Transfer lines takes  243806
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  21 of 105   *****
+dradius: 1.9666666666666666
+MeshAngle: 59.89846706168006 Flat angle: 70
+(57,)
+Drawing DrawAngleLinesExteriorSeed2 takes  130244
+Transfer lines takes  142846
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  22 of 105   *****
+dradius: 2.5666666666666664
+MeshAngle: 172.1777332938216 Flat angle: 141
+(75,)
+Drawing DrawAngleLinesExteriorSeed2 takes  190341
+Transfer lines takes  189526
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  23 of 105   *****
+dradius: 1.8333333333333333
+MeshAngle: 136.3557490183096 Flat angle: 264
+(54,)
+Drawing DrawAngleLinesExteriorSeed2 takes  105344
+Transfer lines takes  120436
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  24 of 105   *****
+dradius: 1.9666666666666666
+MeshAngle: 110.6470627354095 Flat angle: 268
+(61,)
+Drawing DrawAngleLinesExteriorSeed2 takes  141376
+Transfer lines takes  155920
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  25 of 105   *****
+dradius: 1.9333333333333333
+MeshAngle: 120.34975701849267 Flat angle: 243
+(61,)
+Drawing DrawAngleLinesExteriorSeed2 takes  114550
+Transfer lines takes  132451
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  26 of 105   *****
+dradius: 2.7
+MeshAngle: 13.087818209637181 Flat angle: 334
+(88,)
+Drawing DrawAngleLinesExteriorSeed2 takes  400197
+Transfer lines takes  316202
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  27 of 105   *****
+dradius: 1.7
+MeshAngle: 7.418572835384625 Flat angle: 51
+(60,)
+Drawing DrawAngleLinesExteriorSeed2 takes  143062
+Transfer lines takes  153327
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  28 of 105   *****
+dradius: 2.1333333333333333
+MeshAngle: 118.65730587862743 Flat angle: 225
+(64,)
+Drawing DrawAngleLinesExteriorSeed2 takes  169355
+Transfer lines takes  198446
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  29 of 105   *****
+dradius: 1.8
+MeshAngle: 10.938660585751137 Flat angle: 203
+(51,)
+Drawing DrawAngleLinesExteriorSeed2 takes  124237
+Transfer lines takes  152764
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  30 of 105   *****
+dradius: 1.9666666666666666
+MeshAngle: 32.81588764139024 Flat angle: 305
+(68,)
+Drawing DrawAngleLinesExteriorSeed2 takes  152984
+Transfer lines takes  174952
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  31 of 105   *****
+dradius: 1.8
+MeshAngle: 127.23437224564451 Flat angle: 165
+(45,)
+Drawing DrawAngleLinesExteriorSeed2 takes  58441
+Transfer lines takes  67947
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  32 of 105   *****
+dradius: 2.1
+MeshAngle: 13.051027812367796 Flat angle: 23
+(63,)
+Drawing DrawAngleLinesExteriorSeed2 takes  153666
+Transfer lines takes  159891
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  33 of 105   *****
+dradius: 2.2333333333333334
+MeshAngle: 98.19680287219374 Flat angle: 354
+(61,)
+Drawing DrawAngleLinesExteriorSeed2 takes  104687
+Transfer lines takes  118185
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  34 of 105   *****
+dradius: 1.6333333333333333
+MeshAngle: 125.30636145590236 Flat angle: 120
+(53,)
+Drawing DrawAngleLinesExteriorSeed2 takes  93488
+Transfer lines takes  109429
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  35 of 105   *****
+dradius: 2.033333333333333
+MeshAngle: 101.89986370225819 Flat angle: 213
+(57,)
+Drawing DrawAngleLinesExteriorSeed2 takes  123205
+Transfer lines takes  131025
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  36 of 105   *****
+dradius: 1.5333333333333332
+MeshAngle: 112.62700942848141 Flat angle: 255
+(48,)
+Drawing DrawAngleLinesExteriorSeed2 takes  105271
+Transfer lines takes  132186
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  37 of 105   *****
+dradius: 2.1
+MeshAngle: 12.102818950794859 Flat angle: 260
+(67,)
+Drawing DrawAngleLinesExteriorSeed2 takes  194628
+Transfer lines takes  198155
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  38 of 105   *****
+dradius: 1.5
+MeshAngle: 69.78753808360528 Flat angle: 308
+(47,)
+Drawing DrawAngleLinesExteriorSeed2 takes  66371
+Transfer lines takes  77408
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  39 of 105   *****
+dradius: 2.2
+MeshAngle: 128.953345699818 Flat angle: 324
+(61,)
+Drawing DrawAngleLinesExteriorSeed2 takes  155574
+Transfer lines takes  162483
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  40 of 105   *****
+dradius: 2.033333333333333
+MeshAngle: 155.94269638280235 Flat angle: 74
+(66,)
+Drawing DrawAngleLinesExteriorSeed2 takes  153687
+Transfer lines takes  171132
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  41 of 105   *****
+dradius: 1.7666666666666666
+MeshAngle: 98.24440962378839 Flat angle: 17
+(56,)
+Drawing DrawAngleLinesExteriorSeed2 takes  119367
+Transfer lines takes  128296
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  42 of 105   *****
+dradius: 1.5666666666666667
+MeshAngle: 3.1521322831686387 Flat angle: 83
+(48,)
+Drawing DrawAngleLinesExteriorSeed2 takes  90463
+Transfer lines takes  107075
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  43 of 105   *****
+dradius: 1.8333333333333333
+MeshAngle: 15.20889079862978 Flat angle: 33
+(57,)
+Drawing DrawAngleLinesExteriorSeed2 takes  112116
+Transfer lines takes  123475
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  44 of 105   *****
+dradius: 2.2
+MeshAngle: 103.10123429513251 Flat angle: 83
+(61,)
+Drawing DrawAngleLinesExteriorSeed2 takes  153732
+Transfer lines takes  202024
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  45 of 105   *****
+dradius: 2.5
+MeshAngle: 103.45667307067175 Flat angle: 247
+(64,)
+Drawing DrawAngleLinesExteriorSeed2 takes  238315
+Transfer lines takes  188904
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  46 of 105   *****
+dradius: 1.7
+MeshAngle: 9.409005424898414 Flat angle: 183
+(53,)
+Drawing DrawAngleLinesExteriorSeed2 takes  108771
+Transfer lines takes  119712
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  47 of 105   *****
+dradius: 1.7333333333333334
+MeshAngle: 97.52482379124335 Flat angle: 129
+(56,)
+Drawing DrawAngleLinesExteriorSeed2 takes  125387
+Transfer lines takes  145778
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  48 of 105   *****
+dradius: 1.5
+MeshAngle: 96.14171146982497 Flat angle: 337
+(43,)
+Drawing DrawAngleLinesExteriorSeed2 takes  75299
+Transfer lines takes  85451
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  49 of 105   *****
+dradius: 1.7
+MeshAngle: 98.68064001145106 Flat angle: 0
+(52,)
+Drawing DrawAngleLinesExteriorSeed2 takes  92094
+Transfer lines takes  99916
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  50 of 105   *****
+dradius: 1.7
+MeshAngle: 43.79325909898403 Flat angle: 109
+(54,)
+Drawing DrawAngleLinesExteriorSeed2 takes  111636
+Transfer lines takes  119879
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  51 of 105   *****
+dradius: 2.1
+MeshAngle: 126.30848610808955 Flat angle: 33
+(57,)
+Drawing DrawAngleLinesExteriorSeed2 takes  111938
+Transfer lines takes  125710
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  52 of 105   *****
+dradius: 1.6
+MeshAngle: 357.1954022232553 Flat angle: 184
+(57,)
+Drawing DrawAngleLinesExteriorSeed2 takes  121813
+Transfer lines takes  139813
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  53 of 105   *****
+dradius: 2.3
+MeshAngle: 178.53220806821483 Flat angle: 133
+(76,)
+Drawing DrawAngleLinesExteriorSeed2 takes  227483
+Transfer lines takes  230488
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  54 of 105   *****
+dradius: 2.0
+MeshAngle: 88.04071019941898 Flat angle: 232
+(64,)
+Drawing DrawAngleLinesExteriorSeed2 takes  171018
+Transfer lines takes  176714
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  55 of 105   *****
+dradius: 2.1666666666666665
+MeshAngle: 94.55551513769538 Flat angle: 339
+(67,)
+Drawing DrawAngleLinesExteriorSeed2 takes  171779
+Transfer lines takes  175416
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  56 of 105   *****
+dradius: 2.2
+MeshAngle: 101.14540168997657 Flat angle: 201
+(64,)
+Drawing DrawAngleLinesExteriorSeed2 takes  166191
+Transfer lines takes  168462
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  57 of 105   *****
+dradius: 2.7
+MeshAngle: 116.82348842073436 Flat angle: 153
+(84,)
+Drawing DrawAngleLinesExteriorSeed2 takes  237412
+Transfer lines takes  236150
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  58 of 105   *****
+dradius: 1.9666666666666666
+MeshAngle: 129.784807657015 Flat angle: 243
+(58,)
+Drawing DrawAngleLinesExteriorSeed2 takes  132208
+Transfer lines takes  146115
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  59 of 105   *****
+dradius: 1.9
+MeshAngle: 50.71256839489092 Flat angle: 319
+(57,)
+Drawing DrawAngleLinesExteriorSeed2 takes  125564
+Transfer lines takes  139494
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  60 of 105   *****
+dradius: 2.1
+MeshAngle: 5.67612009098945 Flat angle: 7
+(53,)
+Drawing DrawAngleLinesExteriorSeed2 takes  143495
+Transfer lines takes  163604
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  61 of 105   *****
+dradius: 1.8333333333333333
+MeshAngle: 100.26033894089316 Flat angle: 249
+(68,)
+Drawing DrawAngleLinesExteriorSeed2 takes  137015
+Transfer lines takes  159609
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  62 of 105   *****
+dradius: 1.9333333333333333
+MeshAngle: 4.024120282599332 Flat angle: 289
+(60,)
+Drawing DrawAngleLinesExteriorSeed2 takes  168422
+Transfer lines takes  203043
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  63 of 105   *****
+dradius: 1.7
+MeshAngle: 176.04172302804386 Flat angle: 165
+(55,)
+Drawing DrawAngleLinesExteriorSeed2 takes  110839
+Transfer lines takes  127188
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  64 of 105   *****
+dradius: 2.0666666666666664
+MeshAngle: 3.5441930153778083 Flat angle: 58
+(62,)
+Drawing DrawAngleLinesExteriorSeed2 takes  157793
+Transfer lines takes  158667
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  65 of 105   *****
+dradius: 2.2
+MeshAngle: 94.06387717879296 Flat angle: 340
+(91,)
+Drawing DrawAngleLinesExteriorSeed2 takes  265527
+Transfer lines takes  274053
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  66 of 105   *****
+dradius: 1.9333333333333333
+MeshAngle: 176.4828675173923 Flat angle: 156
+(61,)
+Drawing DrawAngleLinesExteriorSeed2 takes  138574
+Transfer lines takes  151584
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  67 of 105   *****
+dradius: 2.1666666666666665
+MeshAngle: 188.82193514219438 Flat angle: 33
+(59,)
+Drawing DrawAngleLinesExteriorSeed2 takes  154344
+Transfer lines takes  160746
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  68 of 105   *****
+dradius: 1.9333333333333333
+MeshAngle: 358.55661671076905 Flat angle: 332
+(61,)
+Drawing DrawAngleLinesExteriorSeed2 takes  145275
+Transfer lines takes  151335
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  69 of 105   *****
+dradius: 1.8666666666666667
+MeshAngle: 120.02596426222766 Flat angle: 271
+(64,)
+Drawing DrawAngleLinesExteriorSeed2 takes  178273
+Transfer lines takes  184621
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  70 of 105   *****
+dradius: 4.033333333333333
+MeshAngle: 86.41045269711728 Flat angle: 351
+(120,)
+Drawing DrawAngleLinesExteriorSeed2 takes  536732
+Transfer lines takes  474455
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  71 of 105   *****
+dradius: 1.9
+MeshAngle: 179.28298347007808 Flat angle: 316
+(64,)
+Drawing DrawAngleLinesExteriorSeed2 takes  144988
+Transfer lines takes  161769
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  72 of 105   *****
+dradius: 1.8333333333333333
+MeshAngle: 137.6654606542531 Flat angle: 40
+(62,)
+Drawing DrawAngleLinesExteriorSeed2 takes  162038
+Transfer lines takes  165828
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  73 of 105   *****
+dradius: 2.466666666666667
+MeshAngle: 4.287358028477754 Flat angle: 176
+(75,)
+Drawing DrawAngleLinesExteriorSeed2 takes  208071
+Transfer lines takes  214342
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  74 of 105   *****
+dradius: 2.2
+MeshAngle: 101.70879777998786 Flat angle: 266
+(64,)
+Drawing DrawAngleLinesExteriorSeed2 takes  227545
+Transfer lines takes  289126
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  75 of 105   *****
+dradius: 1.8333333333333333
+MeshAngle: 4.120437742284874 Flat angle: 330
+(68,)
+Drawing DrawAngleLinesExteriorSeed2 takes  199477
+Transfer lines takes  196610
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  76 of 105   *****
+dradius: 2.0666666666666664
+MeshAngle: 74.0417119363894 Flat angle: 176
+(82,)
+Drawing DrawAngleLinesExteriorSeed2 takes  201098
+Transfer lines takes  205848
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  77 of 105   *****
+dradius: 1.7666666666666666
+MeshAngle: 175.51821119131213 Flat angle: 100
+(47,)
+Drawing DrawAngleLinesExteriorSeed2 takes  109966
+Transfer lines takes  122183
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  78 of 105   *****
+dradius: 1.5
+MeshAngle: 359.1607051506772 Flat angle: 315
+(38,)
+Drawing DrawAngleLinesExteriorSeed2 takes  60569
+Transfer lines takes  67878
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  79 of 105   *****
+dradius: 2.1333333333333333
+MeshAngle: 174.31595684084763 Flat angle: 179
+(65,)
+Drawing DrawAngleLinesExteriorSeed2 takes  164238
+Transfer lines takes  175975
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  80 of 105   *****
+dradius: 2.2333333333333334
+MeshAngle: 84.3893519489455 Flat angle: 195
+(61,)
+Drawing DrawAngleLinesExteriorSeed2 takes  120717
+Transfer lines takes  132514
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  81 of 105   *****
+dradius: 1.7333333333333334
+MeshAngle: 78.96591758151372 Flat angle: 281
+(53,)
+Drawing DrawAngleLinesExteriorSeed2 takes  142035
+Transfer lines takes  153153
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  82 of 105   *****
+dradius: 2.033333333333333
+MeshAngle: 81.83855391841131 Flat angle: 251
+(72,)
+Drawing DrawAngleLinesExteriorSeed2 takes  215588
+Transfer lines takes  230591
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  83 of 105   *****
+dradius: 1.9
+MeshAngle: 83.05670747254548 Flat angle: 226
+(72,)
+Drawing DrawAngleLinesExteriorSeed2 takes  219130
+Transfer lines takes  221890
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  84 of 105   *****
+dradius: 1.8666666666666667
+MeshAngle: 175.34625774973364 Flat angle: 347
+(59,)
+Drawing DrawAngleLinesExteriorSeed2 takes  133894
+Transfer lines takes  142490
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  85 of 105   *****
+dradius: 1.6666666666666667
+MeshAngle: 176.51366619568563 Flat angle: 224
+(56,)
+Drawing DrawAngleLinesExteriorSeed2 takes  128711
+Transfer lines takes  135870
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  86 of 105   *****
+dradius: 1.5333333333333332
+MeshAngle: 175.2633936266963 Flat angle: 343
+(56,)
+Drawing DrawAngleLinesExteriorSeed2 takes  121136
+Transfer lines takes  131310
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  87 of 105   *****
+dradius: 1.5666666666666667
+MeshAngle: 81.01791787710887 Flat angle: 218
+(54,)
+Drawing DrawAngleLinesExteriorSeed2 takes  111073
+Transfer lines takes  122980
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  88 of 105   *****
+dradius: 1.6333333333333333
+MeshAngle: 81.20898823665217 Flat angle: 39
+(52,)
+Drawing DrawAngleLinesExteriorSeed2 takes  107025
+Transfer lines takes  126405
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  89 of 105   *****
+dradius: 1.8333333333333333
+MeshAngle: 82.15826318275028 Flat angle: 217
+(66,)
+Drawing DrawAngleLinesExteriorSeed2 takes  162129
+Transfer lines takes  173118
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  90 of 105   *****
+dradius: 1.9333333333333333
+MeshAngle: 81.65809057794264 Flat angle: 214
+(66,)
+Drawing DrawAngleLinesExteriorSeed2 takes  170511
+Transfer lines takes  195471
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  91 of 105   *****
+dradius: 2.2333333333333334
+MeshAngle: 84.55166504099516 Flat angle: 232
+(67,)
+Drawing DrawAngleLinesExteriorSeed2 takes  206929
+Transfer lines takes  249300
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  92 of 105   *****
+dradius: 2.2333333333333334
+MeshAngle: 82.40066390886223 Flat angle: 171
+(69,)
+Drawing DrawAngleLinesExteriorSeed2 takes  185618
+Transfer lines takes  213213
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  93 of 105   *****
+dradius: 1.9
+MeshAngle: 81.91161866901868 Flat angle: 98
+(61,)
+Drawing DrawAngleLinesExteriorSeed2 takes  179305
+Transfer lines takes  188374
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  94 of 105   *****
+dradius: 1.7666666666666666
+MeshAngle: 82.78417791068681 Flat angle: 108
+(51,)
+Drawing DrawAngleLinesExteriorSeed2 takes  115577
+Transfer lines takes  126145
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  95 of 105   *****
+dradius: 1.8666666666666667
+MeshAngle: 80.7827976621654 Flat angle: 136
+(64,)
+Drawing DrawAngleLinesExteriorSeed2 takes  128070
+Transfer lines takes  142370
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  96 of 105   *****
+dradius: 1.7666666666666666
+MeshAngle: 80.53457143643078 Flat angle: 250
+(64,)
+Drawing DrawAngleLinesExteriorSeed2 takes  151455
+Transfer lines takes  158802
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  97 of 105   *****
+dradius: 1.8
+MeshAngle: 85.20526501023986 Flat angle: 266
+(59,)
+Drawing DrawAngleLinesExteriorSeed2 takes  121989
+Transfer lines takes  139407
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  98 of 105   *****
+dradius: 2.7333333333333334
+MeshAngle: 85.18964731081464 Flat angle: 194
+(73,)
+Drawing DrawAngleLinesExteriorSeed2 takes Divisor: 3.0
+CoreCount: 1
+[('david-dibert-Huza8QOO3tc-unsplash.jpg', 100, 'SLIC0', 'none', 80)]
+Divisor: 3.0
+>>>>>>>>>>>>>>>> Calling SLIC for  david-dibert-Huza8QOO3tc-unsplash.jpg <<<<<<<<<<<<<<<<<<<<<<<
+EE
+EE1
+AA Max and Min of greyscaleImage: 255 0
+BB Max and Min of greyscaleImage: 255 0
+EE2
+EE2
+EE3
+Shape: (281, 500, 3)
+Type: <class 'numpy.ndarray'>
+EE4
+CC Max and Min of greyscaleImage: 255 0
+DD Max and Min of greyscaleImage: 255 0
+EE Max and Min of greyscaleImage: 255 0
+DD
+DD1
+DD2
+DD3
+DD4
+DD5
+YY Max and Min of image: 255 0
+ZZ Max and Min of greyscaleImage: 243 7
+CC
+------- Environment Variables ----------------------------------- 
+segmentCount: 100
+lineCullAlgorithm:  generous
+lineAngle: 90
+coherencyThreshold: 0.1
+highlightEndpoints: False
+middleAverageOnly: False
+compactnessSLIC: 0.01
+SLICIterations: 200
+SLIC0: True
+allowBlankRegion: False
+cullingBlankThreshold: 225
+nearbyDistance: 3
+semanticSegmentation: none
+semanticSegmentationRatio: 0.5
+semanticInvertMaskrcnn: True
+stableCoherencyPercentile: 95
+differencePercentile: 80
+diffRepelPercentile: 80
+generatePREImage: False
+attractionBin: 3
+repelBin: 3
+stableBin: -4
+stableAttractSet: False
+binSize: 10
+attractFudge: 1.1
+------------------------------------------------------------------
+CC1
+B
+C
+0A
+0B
+diff attract threshold: 22.953898987203104
+diff repel threshold: 22.953898987203104
+stable threshold: 0.5715377815484942
+Pickle file exists: ./pickle/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_100_compactness_SLIC0_attractThreshold_80_cnn_none_semanticRatio_0.5.pkl
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  0 of 105   *****
+dradius: 2.1666666666666665
+MeshAngle: 9.300344884521271 Flat angle: 313
+(61,)
+Drawing DrawAngleLinesExteriorSeed2 takes  178269
+Transfer lines takes  172510
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  1 of 105   *****
+dradius: 2.933333333333333
+MeshAngle: 12.635951821659068 Flat angle: 267
+(86,)
+Drawing DrawAngleLinesExteriorSeed2 takes  445139
+Transfer lines takes  360958
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  2 of 105   *****
+dradius: 1.8666666666666667
+MeshAngle: 16.449195442449142 Flat angle: 150
+(60,)
+Drawing DrawAngleLinesExteriorSeed2 takes  161727
+Transfer lines takes  320923
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  3 of 105   *****
+dradius: 1.7666666666666666
+MeshAngle: 22.36195350792297 Flat angle: 258
+(50,)
+Drawing DrawAngleLinesExteriorSeed2 takes  106998
+Transfer lines takes  216043
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  4 of 105   *****
+dradius: 2.2333333333333334
+MeshAngle: 195.2747575265387 Flat angle: 92
+(58,)
+Drawing DrawAngleLinesExteriorSeed2 takes  167419
+Transfer lines takes  349328
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  5 of 105   *****
+dradius: 1.8666666666666667
+MeshAngle: 70.3543160129068 Flat angle: 149
+(58,)
+Drawing DrawAngleLinesExteriorSeed2 takes  102728
+Transfer lines takes  113728
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  6 of 105   *****
+dradius: 2.1666666666666665
+MeshAngle: 99.00082596725363 Flat angle: 274
+(70,)
+Drawing DrawAngleLinesExteriorSeed2 takes  290232
+Transfer lines takes  304342
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  7 of 105   *****
+dradius: 2.2333333333333334
+MeshAngle: 162.0145477246207 Flat angle: 351
+(67,)
+Drawing DrawAngleLinesExteriorSeed2 takes  240575
+Transfer lines takes  188664
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  8 of 105   *****
+dradius: 2.1
+MeshAngle: 169.30014558311217 Flat angle: 249
+(66,)
+Drawing DrawAngleLinesExteriorSeed2 takes  202916
+Transfer lines takes  179419
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  9 of 105   *****
+dradius: 1.9333333333333333
+MeshAngle: 175.7239701646213 Flat angle: 77
+(53,)
+Drawing DrawAngleLinesExteriorSeed2 takes  198927
+Transfer lines takes  147062
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  10 of 105   *****
+dradius: 1.8333333333333333
+MeshAngle: 176.51772806082622 Flat angle: 276
+(57,)
+Drawing DrawAngleLinesExteriorSeed2 takes  137394
+Transfer lines takes  151650
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  11 of 105   *****
+dradius: 1.7666666666666666
+MeshAngle: 40.13073837574344 Flat angle: 142
+(46,)
+Drawing DrawAngleLinesExteriorSeed2 takes  99171
+Transfer lines takes  107919
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  12 of 105   *****
+dradius: 2.1
+MeshAngle: 14.058592321096512 Flat angle: 235
+(62,)
+Drawing DrawAngleLinesExteriorSeed2 takes  146043
+Transfer lines takes  150512
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  13 of 105   *****
+dradius: 2.033333333333333
+MeshAngle: 176.42860303137027 Flat angle: 217
+(51,)
+Drawing DrawAngleLinesExteriorSeed2 takes  115110
+Transfer lines takes  131353
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  14 of 105   *****
+dradius: 2.3
+MeshAngle: 72.45059836130346 Flat angle: 326
+(69,)
+Drawing DrawAngleLinesExteriorSeed2 takes  183742
+Transfer lines takes  184392
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  15 of 105   *****
+dradius: 2.4
+MeshAngle: 23.58734136105123 Flat angle: 12
+(71,)
+Drawing DrawAngleLinesExteriorSeed2 takes  178214
+Transfer lines takes  184022
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  16 of 105   *****
+dradius: 2.1666666666666665
+MeshAngle: 351.5895107978157 Flat angle: 177
+(66,)
+Drawing DrawAngleLinesExteriorSeed2 takes  152970
+Transfer lines takes  157542
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  17 of 105   *****
+dradius: 3.5666666666666664
+MeshAngle: 176.66309309490094 Flat angle: 103
+(97,)
+Drawing DrawAngleLinesExteriorSeed2 takes  387809
+Transfer lines takes  426956
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  18 of 105   *****
+dradius: 2.033333333333333
+MeshAngle: 16.59911912209711 Flat angle: 358
+(69,)
+Drawing DrawAngleLinesExteriorSeed2 takes  177199
+Transfer lines takes  174647
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  19 of 105   *****
+dradius: 2.1
+MeshAngle: 11.30997923148636 Flat angle: 88
+(53,)
+Drawing DrawAngleLinesExteriorSeed2 takes  121542
+Transfer lines takes  135432
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  20 of 105   *****
+dradius: 2.533333333333333
+MeshAngle: 28.191320247799204 Flat angle: 229
+(80,)
+Drawing DrawAngleLinesExteriorSeed2 takes  245458
+Transfer lines takes  218405
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  21 of 105   *****
+dradius: 1.9666666666666666
+MeshAngle: 59.89846706168006 Flat angle: 70
+(57,)
+Drawing DrawAngleLinesExteriorSeed2 takes  124257
+Transfer lines takes  152503
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  22 of 105   *****
+dradius: 2.5666666666666664
+MeshAngle: 172.1777332938216 Flat angle: 141
+(75,)
+Drawing DrawAngleLinesExteriorSeed2 takes  184588
+Transfer lines takes  190670
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  23 of 105   *****
+dradius: 1.8333333333333333
+MeshAngle: 136.3557490183096 Flat angle: 264
+(54,)
+Drawing DrawAngleLinesExteriorSeed2 takes  102417
+Transfer lines takes  110712
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  24 of 105   *****
+dradius: 1.9666666666666666
+MeshAngle: 110.6470627354095 Flat angle: 268
+(61,)
+Drawing DrawAngleLinesExteriorSeed2 takes  137021
+Transfer lines takes  150568
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  25 of 105   *****
+dradius: 1.9333333333333333
+MeshAngle: 120.34975701849267 Flat angle: 243
+(61,)
+Drawing DrawAngleLinesExteriorSeed2 takes  113697
+Transfer lines takes  120301
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  26 of 105   *****
+dradius: 2.7
+MeshAngle: 13.087818209637181 Flat angle: 334
+(88,)
+Drawing DrawAngleLinesExteriorSeed2 takes  310062
+Transfer lines takes  272663
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  27 of 105   *****
+dradius: 1.7
+MeshAngle: 7.418572835384625 Flat angle: 51
+(60,)
+Drawing DrawAngleLinesExteriorSeed2 takes  122950
+Transfer lines takes  132296
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  28 of 105   *****
+dradius: 2.1333333333333333
+MeshAngle: 118.65730587862743 Flat angle: 225
+(64,)
+Drawing DrawAngleLinesExteriorSeed2 takes  148588
+Transfer lines takes  157965
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  29 of 105   *****
+dradius: 1.8
+MeshAngle: 10.938660585751137 Flat angle: 203
+(51,)
+Drawing DrawAngleLinesExteriorSeed2 takes  131570
+Transfer lines takes  121940
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  30 of 105   *****
+dradius: 1.9666666666666666
+MeshAngle: 32.81588764139024 Flat angle: 305
+(68,)
+Drawing DrawAngleLinesExteriorSeed2 takes  132604
+Transfer lines takes  142578
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  31 of 105   *****
+dradius: 1.8
+MeshAngle: 127.23437224564451 Flat angle: 165
+(45,)
+Drawing DrawAngleLinesExteriorSeed2 takes  55605
+Transfer lines takes  66372
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  32 of 105   *****
+dradius: 2.1
+MeshAngle: 13.051027812367796 Flat angle: 23
+(63,)
+Drawing DrawAngleLinesExteriorSeed2 takes  148293
+Transfer lines takes  152049
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  33 of 105   *****
+dradius: 2.2333333333333334
+MeshAngle: 98.19680287219374 Flat angle: 354
+(61,)
+Drawing DrawAngleLinesExteriorSeed2 takes  105094
+Transfer lines takes  108737
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  34 of 105   *****
+dradius: 1.6333333333333333
+MeshAngle: 125.30636145590236 Flat angle: 120
+(53,)
+Drawing DrawAngleLinesExteriorSeed2 takes  91011
+Transfer lines takes  106651
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  35 of 105   *****
+dradius: 2.033333333333333
+MeshAngle: 101.89986370225819 Flat angle: 213
+(57,)
+Drawing DrawAngleLinesExteriorSeed2 takes  158588
+Transfer lines takes  156438
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  36 of 105   *****
+dradius: 1.5333333333333332
+MeshAngle: 112.62700942848141 Flat angle: 255
+(48,)
+Drawing DrawAngleLinesExteriorSeed2 takes  124050
+Transfer lines takes  100467
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  37 of 105   *****
+dradius: 2.1
+MeshAngle: 12.102818950794859 Flat angle: 260
+(67,)
+Drawing DrawAngleLinesExteriorSeed2 takes  197508
+Transfer lines takes  194596
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  38 of 105   *****
+dradius: 1.5
+MeshAngle: 69.78753808360528 Flat angle: 308
+(47,)
+Drawing DrawAngleLinesExteriorSeed2 takes  67875
+Transfer lines takes  75081
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  39 of 105   *****
+dradius: 2.2
+MeshAngle: 128.953345699818 Flat angle: 324
+(61,)
+Drawing DrawAngleLinesExteriorSeed2 takes  157738
+Transfer lines takes  158381
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  40 of 105   *****
+dradius: 2.033333333333333
+MeshAngle: 155.94269638280235 Flat angle: 74
+(66,)
+Drawing DrawAngleLinesExteriorSeed2 takes  153637
+Transfer lines takes  166764
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  41 of 105   *****
+dradius: 1.7666666666666666
+MeshAngle: 98.24440962378839 Flat angle: 17
+(56,)
+Drawing DrawAngleLinesExteriorSeed2 takes  125406
+Transfer lines takes  130791
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  42 of 105   *****
+dradius: 1.5666666666666667
+MeshAngle: 3.1521322831686387 Flat angle: 83
+(48,)
+Drawing DrawAngleLinesExteriorSeed2 takes  88718
+Transfer lines takes  102107
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  43 of 105   *****
+dradius: 1.8333333333333333
+MeshAngle: 15.20889079862978 Flat angle: 33
+(57,)
+Drawing DrawAngleLinesExteriorSeed2 takes  109475
+Transfer lines takes  164016
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  44 of 105   *****
+dradius: 2.2
+MeshAngle: 103.10123429513251 Flat angle: 83
+(61,)
+Drawing DrawAngleLinesExteriorSeed2 takes  155442
+Transfer lines takes  158250
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  45 of 105   *****
+dradius: 2.5
+MeshAngle: 103.45667307067175 Flat angle: 247
+(64,)
+Drawing DrawAngleLinesExteriorSeed2 takes  170568
+Transfer lines takes  181679
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  46 of 105   *****
+dradius: 1.7
+MeshAngle: 9.409005424898414 Flat angle: 183
+(53,)
+Drawing DrawAngleLinesExteriorSeed2 takes  105363
+Transfer lines takes  116314
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  47 of 105   *****
+dradius: 1.7333333333333334
+MeshAngle: 97.52482379124335 Flat angle: 129
+(56,)
+Drawing DrawAngleLinesExteriorSeed2 takes  117456
+Transfer lines takes  129859
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  48 of 105   *****
+dradius: 1.5
+MeshAngle: 96.14171146982497 Flat angle: 337
+(43,)
+Drawing DrawAngleLinesExteriorSeed2 takes  72914
+Transfer lines takes  77114
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  49 of 105   *****
+dradius: 1.7
+MeshAngle: 98.68064001145106 Flat angle: 0
+(52,)
+Drawing DrawAngleLinesExteriorSeed2 takes  82033
+Transfer lines takes  90468
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  50 of 105   *****
+dradius: 1.7
+MeshAngle: 43.79325909898403 Flat angle: 109
+(54,)
+Drawing DrawAngleLinesExteriorSeed2 takes  99720
+Transfer lines takes  108819
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  51 of 105   *****
+dradius: 2.1
+MeshAngle: 126.30848610808955 Flat angle: 33
+(57,)
+Drawing DrawAngleLinesExteriorSeed2 takes  100396
+Transfer lines takes  108566
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  52 of 105   *****
+dradius: 1.6
+MeshAngle: 357.1954022232553 Flat angle: 184
+(57,)
+Drawing DrawAngleLinesExteriorSeed2 takes  107346
+Transfer lines takes  115304
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  53 of 105   *****
+dradius: 2.3
+MeshAngle: 178.53220806821483 Flat angle: 133
+(76,)
+Drawing DrawAngleLinesExteriorSeed2 takes  198284
+Transfer lines takes  205577
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  54 of 105   *****
+dradius: 2.0
+MeshAngle: 88.04071019941898 Flat angle: 232
+(64,)
+Drawing DrawAngleLinesExteriorSeed2 takes  153698
+Transfer lines takes  151333
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  55 of 105   *****
+dradius: 2.1666666666666665
+MeshAngle: 94.55551513769538 Flat angle: 339
+(67,)
+Drawing DrawAngleLinesExteriorSeed2 takes  152863
+Transfer lines takes  152871
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  56 of 105   *****
+dradius: 2.2
+MeshAngle: 101.14540168997657 Flat angle: 201
+(64,)
+Drawing DrawAngleLinesExteriorSeed2 takes  170811
+Transfer lines takes  146006
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  57 of 105   *****
+dradius: 2.7
+MeshAngle: 116.82348842073436 Flat angle: 153
+(84,)
+Drawing DrawAngleLinesExteriorSeed2 takes  199497
+Transfer lines takes  197998
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  58 of 105   *****
+dradius: 1.9666666666666666
+MeshAngle: 129.784807657015 Flat angle: 243
+(58,)
+Drawing DrawAngleLinesExteriorSeed2 takes  110067
+Transfer lines takes  125592
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  59 of 105   *****
+dradius: 1.9
+MeshAngle: 50.71256839489092 Flat angle: 319
+(57,)
+Drawing DrawAngleLinesExteriorSeed2 takes  110389
+Transfer lines takes  121944
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  60 of 105   *****
+dradius: 2.1
+MeshAngle: 5.67612009098945 Flat angle: 7
+(53,)
+Drawing DrawAngleLinesExteriorSeed2 takes  127216
+Transfer lines takes  136863
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  61 of 105   *****
+dradius: 1.8333333333333333
+MeshAngle: 100.26033894089316 Flat angle: 249
+(68,)
+Drawing DrawAngleLinesExteriorSeed2 takes  118890
+Transfer lines takes  129856
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  62 of 105   *****
+dradius: 1.9333333333333333
+MeshAngle: 4.024120282599332 Flat angle: 289
+(60,)
+Drawing DrawAngleLinesExteriorSeed2 takes  132428
+Transfer lines takes  146105
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  63 of 105   *****
+dradius: 1.7
+MeshAngle: 176.04172302804386 Flat angle: 165
+(55,)
+Drawing DrawAngleLinesExteriorSeed2 takes  111495
+Transfer lines takes  222718
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  64 of 105   *****
+dradius: 2.0666666666666664
+MeshAngle: 3.5441930153778083 Flat angle: 58
+(62,)
+Drawing DrawAngleLinesExteriorSeed2 takes  128124
+Transfer lines takes  134993
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  65 of 105   *****
+dradius: 2.2
+MeshAngle: 94.06387717879296 Flat angle: 340
+(91,)
+Drawing DrawAngleLinesExteriorSeed2 takes  229677
+Transfer lines takes  230752
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  66 of 105   *****
+dradius: 1.9333333333333333
+MeshAngle: 176.4828675173923 Flat angle: 156
+(61,)
+Drawing DrawAngleLinesExteriorSeed2 takes  134060
+Transfer lines takes  125447
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  67 of 105   *****
+dradius: 2.1666666666666665
+MeshAngle: 188.82193514219438 Flat angle: 33
+(59,)
+Drawing DrawAngleLinesExteriorSeed2 takes  129261
+Transfer lines takes  132904
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  68 of 105   *****
+dradius: 1.9333333333333333
+MeshAngle: 358.55661671076905 Flat angle: 332
+(61,)
+Drawing DrawAngleLinesExteriorSeed2 takes  118580
+Transfer lines takes  129922
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  69 of 105   *****
+dradius: 1.8666666666666667
+MeshAngle: 120.02596426222766 Flat angle: 271
+(64,)
+Drawing DrawAngleLinesExteriorSeed2 takes  140388
+Transfer lines takes  150616
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  70 of 105   *****
+dradius: 4.033333333333333
+MeshAngle: 86.41045269711728 Flat angle: 351
+(120,)
+Drawing DrawAngleLinesExteriorSeed2 takes  433470
+Transfer lines takes  383550
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  71 of 105   *****
+dradius: 1.9
+MeshAngle: 179.28298347007808 Flat angle: 316
+(64,)
+Drawing DrawAngleLinesExteriorSeed2 takes  115528
+Transfer lines takes  129426
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  72 of 105   *****
+dradius: 1.8333333333333333
+MeshAngle: 137.6654606542531 Flat angle: 40
+(62,)
+Drawing DrawAngleLinesExteriorSeed2 takes  146913
+Transfer lines takes  208456
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  73 of 105   *****
+dradius: 2.466666666666667
+MeshAngle: 4.287358028477754 Flat angle: 176
+(75,)
+Drawing DrawAngleLinesExteriorSeed2 takes  174853
+Transfer lines takes  169340
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  74 of 105   *****
+dradius: 2.2
+MeshAngle: 101.70879777998786 Flat angle: 266
+(64,)
+Drawing DrawAngleLinesExteriorSeed2 takes  189229
+Transfer lines takes  197965
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  75 of 105   *****
+dradius: 1.8333333333333333
+MeshAngle: 4.120437742284874 Flat angle: 330
+(68,)
+Drawing DrawAngleLinesExteriorSeed2 takes  163777
+Transfer lines takes  172861
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  76 of 105   *****
+dradius: 2.0666666666666664
+MeshAngle: 74.0417119363894 Flat angle: 176
+(82,)
+Drawing DrawAngleLinesExteriorSeed2 takes  189803
+Transfer lines takes  193917
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  77 of 105   *****
+dradius: 1.7666666666666666
+MeshAngle: 175.51821119131213 Flat angle: 100
+(47,)
+Drawing DrawAngleLinesExteriorSeed2 takes  96920
+Transfer lines takes  116451
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  78 of 105   *****
+dradius: 1.5
+MeshAngle: 359.1607051506772 Flat angle: 315
+(38,)
+Drawing DrawAngleLinesExteriorSeed2 takes  53599
+Transfer lines takes  68372
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  79 of 105   *****
+dradius: 2.1333333333333333
+MeshAngle: 174.31595684084763 Flat angle: 179
+(65,)
+Drawing DrawAngleLinesExteriorSeed2 takes  136661
+Transfer lines takes  163322
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  80 of 105   *****
+dradius: 2.2333333333333334
+MeshAngle: 84.3893519489455 Flat angle: 195
+(61,)
+Drawing DrawAngleLinesExteriorSeed2 takes  104123
+Transfer lines takes  113429
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  81 of 105   *****
+dradius: 1.7333333333333334
+MeshAngle: 78.96591758151372 Flat angle: 281
+(53,)
+Drawing DrawAngleLinesExteriorSeed2 takes  126883
+Transfer lines takes  132649
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  82 of 105   *****
+dradius: 2.033333333333333
+MeshAngle: 81.83855391841131 Flat angle: 251
+(72,)
+Drawing DrawAngleLinesExteriorSeed2 takes  187675
+Transfer lines takes  199474
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  83 of 105   *****
+dradius: 1.9
+MeshAngle: 83.05670747254548 Flat angle: 226
+(72,)
+Drawing DrawAngleLinesExteriorSeed2 takes  195770
+Transfer lines takes  189506
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  84 of 105   *****
+dradius: 1.8666666666666667
+MeshAngle: 175.34625774973364 Flat angle: 347
+(59,)
+Drawing DrawAngleLinesExteriorSeed2 takes  124892
+Transfer lines takes  125583
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  85 of 105   *****
+dradius: 1.6666666666666667
+MeshAngle: 176.51366619568563 Flat angle: 224
+(56,)
+Drawing DrawAngleLinesExteriorSeed2 takes  116938
+Transfer lines takes  122490
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  86 of 105   *****
+dradius: 1.5333333333333332
+MeshAngle: 175.2633936266963 Flat angle: 343
+(56,)
+Drawing DrawAngleLinesExteriorSeed2 takes  111745
+Transfer lines takes  124587
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  87 of 105   *****
+dradius: 1.5666666666666667
+MeshAngle: 81.01791787710887 Flat angle: 218
+(54,)
+Drawing DrawAngleLinesExteriorSeed2 takes  108291
+Transfer lines takes  112160
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  88 of 105   *****
+dradius: 1.6333333333333333
+MeshAngle: 81.20898823665217 Flat angle: 39
+(52,)
+Drawing DrawAngleLinesExteriorSeed2 takes  100071
+Transfer lines takes  114562
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  89 of 105   *****
+dradius: 1.8333333333333333
+MeshAngle: 82.15826318275028 Flat angle: 217
+(66,)
+Drawing DrawAngleLinesExteriorSeed2 takes  159676
+Transfer lines takes  163720
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  90 of 105   *****
+dradius: 1.9333333333333333
+MeshAngle: 81.65809057794264 Flat angle: 214
+(66,)
+Drawing DrawAngleLinesExteriorSeed2 takes  156476
+Transfer lines takes  160751
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  91 of 105   *****
+dradius: 2.2333333333333334
+MeshAngle: 84.55166504099516 Flat angle: 232
+(67,)
+Drawing DrawAngleLinesExteriorSeed2 takes  157371
+Transfer lines takes  167460
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  92 of 105   *****
+dradius: 2.2333333333333334
+MeshAngle: 82.40066390886223 Flat angle: 171
+(69,)
+Drawing DrawAngleLinesExteriorSeed2 takes  163033
+Transfer lines takes  176956
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  93 of 105   *****
+dradius: 1.9
+MeshAngle: 81.91161866901868 Flat angle: 98
+(61,)
+Drawing DrawAngleLinesExteriorSeed2 takes  161505
+Transfer lines takes  166352
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  94 of 105   *****
+dradius: 1.7666666666666666
+MeshAngle: 82.78417791068681 Flat angle: 108
+(51,)
+Drawing DrawAngleLinesExteriorSeed2 takes  102242
+Transfer lines takes  115623
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  95 of 105   *****
+dradius: 1.8666666666666667
+MeshAngle: 80.7827976621654 Flat angle: 136
+(64,)
+Drawing DrawAngleLinesExteriorSeed2 takes  118015
+Transfer lines takes  125877
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  96 of 105   *****
+dradius: 1.7666666666666666
+MeshAngle: 80.53457143643078 Flat angle: 250
+(64,)
+Drawing DrawAngleLinesExteriorSeed2 takes  133031
+Transfer lines takes  140003
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  97 of 105   *****
+dradius: 1.8
+MeshAngle: 85.20526501023986 Flat angle: 266
+(59,)
+Drawing DrawAngleLinesExteriorSeed2 takes  111236
+Transfer lines takes  126811
+(****  david-dibert-Huza8QOO3tc-unsplash.jpg  Starting Region:  98 of 105   *****
+dradius: 2.7333333333333334
+MeshAngle: 85.18964731081464 Flat angle: 194
+(73,)
+Drawing DrawAngleLinesExteriorSeed2 takes 

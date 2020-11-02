@@ -466,6 +466,8 @@ class pairClusters:
 		pass
 
 	def pairAll(self, s1, s2, allowDangle=False):
+		s1 = simpleUnique(s1)
+		s2 = simpleUnique(s2)
 		self.s0 = s1
 		self.s1 = s2
 		# print("Bridson_Common:findClosestIndex s1:", s1)
@@ -491,7 +493,7 @@ class pairClusters:
 
 
 		currentCluster = 0
-
+		print("************ Processing OR logic **************")
 		# Pass 1 - OR logic.
 		for currentDistance in allDistances:
 			print("Current Distance:", currentDistance)
@@ -506,6 +508,7 @@ class pairClusters:
 			# if firstListMoved[index0] == -1 and secondListMoved[index1] == -1:
 			if firstListMoved[index0] == -1 or secondListMoved[index1] == -1:
 				# The two points have already been merged.  Do nothing.
+				print("Distance already handled:", currentDistance)
 				pass
 			else:
 				# At least one of the points has not been merged.
@@ -537,6 +540,7 @@ class pairClusters:
 		print("** clusterGroups:", clusterGroups)
 
 		if not allowDangle:
+			print("************ Processing AND logic **************")
 			# Pass 2 - AND logic.
 			for currentDistance in allDistances:
 				print("Current Distance:", currentDistance)
@@ -551,6 +555,8 @@ class pairClusters:
 				if firstListMoved[index0] == -1 and secondListMoved[index1] == -1:
 				# if firstListMoved[index0] == -1 or secondListMoved[index1] == -1:
 					# The two points have already been merged.  Do nothing.
+					print("Distance already handled:", currentDistance)
+
 					pass
 				else:
 					# At least one of the points has not been merged.
@@ -587,6 +593,7 @@ class pairClusters:
 		self.averageClusters()
 		self.displayAllPairs()
 		plt.title('pairALL allowDangle:'+ str(allowDangle) )
+
 
 
 	def pairAllAND(self, s1, s2, allowDangle=False, threshold=1.5):
@@ -630,8 +637,8 @@ class pairClusters:
 			# If there are multiple indeces for a single distance: Pairing: (array([1, 3]), array([0, 1]))
 			#
 
-			index0 = location[0][index]
-			index1 = location[1][index]
+			index0 = location[0][0]
+			index1 = location[1][0]
 			print("Location0:", index0)
 			print("Location1:", index1)
 
@@ -687,6 +694,8 @@ class pairClusters:
 		plt.title('pairAllAND')
 
 	def pairAllAND2(self, s1, s2, allowDangle=False, threshold=1.5):
+		s1 = simpleUnique(s1)
+		s2 = simpleUnique(s2)
 		self.s0 = s1
 		self.s1 = s2
 		# print("Bridson_Common:findClosestIndex s1:", s1)
@@ -697,11 +706,15 @@ class pairClusters:
 		# Iterate through all the points until everything has been paired.
 		print("Original points:", s1, s2)
 
-		firstListMoved = list(range(len(s1)))
-		secondListMoved = list(range(len(s2)))
+		# firstListMoved = list(range(len(s1)))
+		# secondListMoved = list(range(len(s2)))
+
+		firstListMoved = len(s1)*[-1]
+		secondListMoved = len(s2)*[-1]
+
 
 		distances = distance.cdist(s1, s2)
-		allDistances = np.sort( distances.flatten() )
+		allDistances = np.sort( np.unique(distances.flatten() ))
 
 		print("Distances:", distances)
 		# shortestDistances = distance.cdist(s1, s2).min(axis=1)
@@ -709,6 +722,9 @@ class pairClusters:
 		side0Cluster = {}
 		side1Cluster = {}
 		clusterGroups = {}
+		self.side0Cluster = side0Cluster
+		self.side1Cluster = side1Cluster
+		self.clusterGroups = clusterGroups
 
 		currentCluster = 0
 
@@ -732,19 +748,32 @@ class pairClusters:
 				index1 = location[1][index]
 				print("Location0:", index0)
 				print("Location1:", index1)
+				addToCluster = False
 
-
-				if firstListMoved[index0] == -1 and secondListMoved[index1] == -1:
+				print("FirstListMoved:", firstListMoved)
+				print("SecondListMoved:", secondListMoved)
+				if firstListMoved[index0] != -1 and secondListMoved[index1] != -1:
 				# if firstListMoved[index0] == -1 or secondListMoved[index1] == -1:
 					# The two points have already been merged.  Do nothing.
 					print("Distance already handled:", currentDistance)
-					pass
+					addToCluster = False
+				elif firstListMoved[index0] != -1 and secondListMoved[index1] == -1:
+					# First already belongs to a cluster.
+					left, right  = self.clusterBalance( firstListMoved[index0] )
+					if left == 1:
+						addToCluster = True
+				elif firstListMoved[index0] == -1 and secondListMoved[index1] != -1:
+					# Second belongs to a cluster
+					left, right = self.clusterBalance( secondListMoved[index1] )
+					if right == 1:
+						addToCluster = True
 				else:
+					addToCluster = True
+
+				if addToCluster == True:
 					# At least one of the points has not been merged.
 					# allPairings.append(location)
 					allPairings.append( (np.array([index0]), np.array([index1]) )  ) # Separate the pairings in the case there are multiple index pairs.
-					firstListMoved[index0] = -1
-					secondListMoved[index1] = -1
 					print("Pairing:", location, " between points: ", s1[index0], s2[index1])
 					# If either index already exists in a cluster
 					if index0 in side0Cluster.keys():
@@ -758,6 +787,10 @@ class pairClusters:
 						currentCluster += 1
 					side0Cluster[ index0 ] = existingCluster
 					side1Cluster[ index1 ] = existingCluster
+
+					firstListMoved[index0] = existingCluster
+					secondListMoved[index1] = existingCluster
+
 					if not existingCluster in clusterGroups.keys():
 						newList = [ (index0, index1) ]
 						clusterGroups[ existingCluster ] = newList
@@ -775,15 +808,30 @@ class pairClusters:
 		print("** side0Cluster:", side0Cluster)
 		print("** side1Cluster:", side1Cluster)
 		print("** clusterGroups:", clusterGroups)
-		self.side0Cluster = side0Cluster
-		self.side1Cluster = side1Cluster
-		self.clusterGroups = clusterGroups
 
 		self.allPairs = allPairings
 
 		self.averageClusters()
 		self.displayAllPairs()
 		plt.title('pairAllAND2')
+
+
+	def clusterBalance(self, clusterIndex):
+		# Returns the tuple: # elements in list 1, # elements in list 2.
+		clusterListing = self.clusterGroups[ clusterIndex ]
+		print("clusterListing:", clusterListing)
+		group1 = []
+		group2 = []
+		for pair in clusterListing:
+			left, right = pair
+			group1.append( left )
+			group2.append( right )
+
+		group1 = set(group1)
+		group2 = set(group2)
+		balance = ( len(group1), len(group2) )
+		print("Cluster Balance:", balance )
+		return balance
 
 
 	def pairAllOR(self, s1, s2, threshold=1.5):
@@ -892,7 +940,10 @@ class pairClusters:
 
 	def displayAllPairs( self ):
 		plt.figure()
-
+		# plt.xticks(np.arange(-10,20))
+		# plt.yticks(np.arange(-60,-30))
+		plt.xlim((-1,5))
+		plt.ylim((-56, -50))
 		for pair in self.allPairs:
 			print("Pair:", pair)
 			index0 = pair[0][0]
@@ -919,8 +970,15 @@ class pairClusters:
 
 
 
-
-
+def simpleUnique(a):
+	newList = []
+	for element in a:
+		element = list(element)
+		# print("Element:", element)
+		if element not in newList:
+			newList.append(element)
+	newList = np.array(newList)
+	return newList
 
 if False:
 	print("************************************")
@@ -997,7 +1055,7 @@ if False:
 
 
 
-if True:
+if False:
 	print("************************************")
 	# This data set illustrates there is a logic problem.
 	coords1 = np.array( [[1-0.5, 0],
@@ -1006,7 +1064,7 @@ if True:
 	                    [1-0.5,2],
 	                     [1 - 0.5, 1.5]] )
 
-
+	# Synthetic data - pairs that have the same distance.
 	coords1 = np.array( [[1-0.5, 0],
 	                     [1 - 0.5, 0.5],
 	                     [1 - 0.5, 1],
@@ -1032,6 +1090,33 @@ if True:
 	# allPairs.pairAll(coords1, coords2, allowDangle=False)
 	# allPairs.averageClusters()
 	# allPairs.displayAllPairs()
+
+
+if True:
+	print("************************************")
+	# This data set illustrates there is a logic problem.
+	coords1 = np.array( [[1-0.5, 0],
+	                     [1 - 0.5, 0.5],
+	                     [1 - 0.5, 1],
+	                    [1-0.5,2],
+	                     [1 - 0.5, 1.5]] )
+
+
+	# Actual data that produces error situation.
+	# coords1 = np.array([([ 18.51936813, -55.8467788 ]), ([ 13.28635235, -54.949561 ]), ([ 13.28635235, -54.949561 ]), ([ 1.30515602, -53.62480471]), ([ 1.30515602, -53.62480471]), ([ -0.85314076, -52.71337369]), ([ -0.85314076, -52.71337369]), ([ 1.30515602, -53.62480471]), ([ 1.30515602, -53.62480471]), ([ 13.28635235, -54.949561 ]), ([ 13.28635235, -54.949561 ]), ([ 18.51936813, -55.8467788 ])] )
+	# coords2 = np.array( [ ([ 16.7653786 , -56.43947507]),  ([ 11.06364059, -55.16179609]),  ([ 16.7653786 , -56.43947507]),  ([ -0.65829134, -54.44064379]),  ([ 4.56010267, -54.45610434]),  ([ -0.65829134, -54.44064379]),  ([ -0.65829134, -54.44064379]),  ([ -0.65829134, -54.44064379]),  ([ 4.56010267, -54.45610434]),  ([ 11.06364059, -55.16179609]),  ([ 16.7653786 , -56.43947507]),  ([ 16.7653786 , -56.43947507])]  )
+
+	# Curated data that produces error situation.
+	coords1 = np.array([ ([ 1.30515602, -53.62480471]), ([ 1.30515602, -53.62480471]), ([ -0.85314076, -52.71337369]), ([ -0.85314076, -52.71337369]), ([ 1.30515602, -53.62480471]), ([ 1.30515602, -53.62480471]) ] )
+	coords2 = np.array( [ ([ -0.65829134, -54.44064379]),  ([ 4.56010267, -54.45610434]),  ([ -0.65829134, -54.44064379]),  ([ -0.65829134, -54.44064379]),  ([ -0.65829134, -54.44064379]),  ([ 4.56010267, -54.45610434])]  )
+
+
+	print("Coords1:", coords1)
+	print("Coords2:", coords2)
+
+	allPairs = pairClusters()
+	allPairs.pairAllAND2(coords1, coords2, threshold=4)
+	# allPairs.pairAll(coords1, coords2, allowDangle=False)
 
 
 if False:
