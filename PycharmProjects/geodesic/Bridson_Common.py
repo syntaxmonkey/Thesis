@@ -38,7 +38,7 @@ diagnosticDisplayCount=20
 diagnosticMerge=True
 
 
-coreCount = 1
+coreCount = 4
 if os.path.exists("./output") == True:
 	if os.path.isdir("./output") == False:
 		exit(-1)
@@ -46,7 +46,7 @@ else:
 	os.mkdir("./output")
 
 if bulkGeneration:
-	# sys.stdout = open("./output/detailLogs.txt", "a")
+	sys.stdout = open("./output/detailLogs.txt", "a")
 	pass
 
 #####################################
@@ -76,7 +76,7 @@ lineSkip = 1
 lineCullingDistanceFactor = 2
 allowBlankRegion=False # Allow the region to be blank.  Otherwise, regions can have one single line even if the intensity is high.
 cullingBlankThreshold=225 # If the region has intensity greater than this value, then make the region blank.
-highlightEndpoints=False
+highlightEndpoints=True
 lineCullAlgorithm='generous'  # Valid values: 'log', 'exp', 'none', 'segmented', 'generous'
 
 closestPointPair=False
@@ -138,7 +138,7 @@ radiusDefault = 1.5
 radiusDivisor = 30 # the number of radii for each region.
 regionDynamicRadius = True
 mergeDistance = 5 # radius to
-mergePairFactor = 3.0 # Distance to consider for merging endpoints.
+mergePairFactor = 5.0 # Distance to consider for merging endpoints.
 
 increaseContrast=False
 contrastFactor=1.5 # Values above 1 increase contrast.  Values below 1 reduce contrast.

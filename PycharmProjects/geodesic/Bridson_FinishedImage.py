@@ -1288,18 +1288,17 @@ class FinishedImage:
 
 
 
-			print("CurrentIndexEdgePoints")
-			for edgePoint in adjacencyEdge.currentIndexEdgePoints:
-				print(edgePoint.xy)
-
-			print("AdjacentIndexEdgePoints")
-			for edgePoint in adjacencyEdge.adjacentIndexEdgePoints:
-				print(edgePoint.xy)
-
-
-		print("genLineAdjacencyMap.regionAdjacencyRegions keys", self.regionAdjacentRegions.keys())
-		print("genLineAdjacencyMap.regionAdjancencyMap keys", self.regionAdjancencyMap.keys())
-		print("genLineAdjacencyMap.regionAdjancencyMap values", self.regionAdjancencyMap)
+		# 	print("CurrentIndexEdgePoints")
+		# 	for edgePoint in adjacencyEdge.currentIndexEdgePoints:
+		# 		print(edgePoint.xy)
+		#
+		# 	print("AdjacentIndexEdgePoints")
+		# 	for edgePoint in adjacencyEdge.adjacentIndexEdgePoints:
+		# 		print(edgePoint.xy)
+		#
+		# print("genLineAdjacencyMap.regionAdjacencyRegions keys", self.regionAdjacentRegions.keys())
+		# print("genLineAdjacencyMap.regionAdjancencyMap keys", self.regionAdjancencyMap.keys())
+		# print("genLineAdjacencyMap.regionAdjancencyMap values", self.regionAdjancencyMap)
 
 
 		'''
@@ -1432,10 +1431,10 @@ class FinishedImage:
 			             markersize=6, color='g')  # Colour middle point.
 			self.ax.plot(line[self.markPoint[1]][0], line[self.markPoint[1]][1]*flip, marker='o', markersize=2, color='r')  # Colour middle point.
 
-		if Bridson_Common.highlightEndpoints:
-			regionEdgePoints = self.regionEdgePoints[ index ]
-			for edgePoint in regionEdgePoints.pointsOnEdge:
-				self.ax.plot(edgePoint.xy[0], edgePoint.xy[1]*flip, marker='x', color='g', markersize=4)
+		# if Bridson_Common.highlightEndpoints:
+		# 	regionEdgePoints = self.regionEdgePoints[ index ]
+		# 	for edgePoint in regionEdgePoints.pointsOnEdge:
+		# 		self.ax.plot(edgePoint.xy[0], edgePoint.xy[1]*flip, marker='s', color='b', markersize=0.5)
 
 
 	def removeTempLines(self):
@@ -1525,10 +1524,18 @@ class FinishedImage:
 			initial = False
 				# count += 1
 
+			# High light the new merged end points.
+			if Bridson_Common.highlightEndpoints:
+				# if lineIndex == 0:
+					self.ax.plot(line[0, 0], line[0, 1] * flip, marker='1', color='g', markersize=1)
+				# if lineIndex == len(linePoints) - 1:
+					self.ax.plot(line[-1, 0], line[-1, 1] * flip, marker='1', color='g', markersize=1)
+
+		# Highlight original end points.
 		if Bridson_Common.highlightEndpoints:
 			regionEdgePoints = self.regionEdgePoints[ index ]
 			for edgePoint in regionEdgePoints.pointsOnEdge:
-				self.ax.plot(edgePoint.xy[0], edgePoint.xy[1]*flip, marker='x', color='g', markersize=4)
+				self.ax.plot(edgePoint.xy[0], edgePoint.xy[1]*flip, marker='.', color='r', markersize=0.5)
 
 
 

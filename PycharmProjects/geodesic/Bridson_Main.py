@@ -692,14 +692,14 @@ def main():
 	# images.append("FourCircles.png")
 	# images.append("SimpleSquares.png")
 	images.append('simpleTriangle.png')
-	images.append('Stripes.png')
+	# images.append('Stripes.png')
 
 	# Batch A.
 	# images.append('RedApple.jpg')
 	# images.append('Sunglasses.jpg')
 	# images.append('TapeRolls.jpg')
 	# images.append('Massager.jpg')
-	images.append('eyeball.jpg')
+	# images.append('eyeball.jpg')
 	# images.append('truck.jpg')
 	# images.append('cat1.jpg')
 
@@ -711,7 +711,7 @@ def main():
 	# images.append('popsicle.jpg')
 	# images.append('rainbow.jpg')
 	# images.append('fishhead.jpg')
-	images.append('bald-eagle.jpg')
+	# images.append('bald-eagle.jpg')
 	# images.append('grapes.jpg')
 	# images.append('green-tree-frog.jpg')
 	# images.append('hand.jpg')
