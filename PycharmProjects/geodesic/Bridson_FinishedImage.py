@@ -441,6 +441,14 @@ class FinishedImage:
 						currentPoints = self.constructLocationForEdgePoints(currentIndexEdgePoints)
 						adjacentPoints = self.constructLocationForEdgePoints(adjacentIndexEdgePoints)
 
+						print("mergeLines2 currentPoints")
+						for value in currentPoints:
+							print(value)
+
+						print("mergeLines2 adjacentPoints")
+						for value in adjacentPoints:
+							print(value)
+
 
 						self.pairAllAND2(currentPoints, adjacentPoints, count, threshold=Bridson_Common.dradius*Bridson_Common.mergePairFactor)
 						# self.pairAllOR(currentPoints, adjacentPoints, threshold=5.0)
@@ -902,8 +910,10 @@ class FinishedImage:
 
 	def constructLocationForEdgePoints(self, edgePoints):
 		newList = []
+		print("constructLocatioForEdgePoints:")
 		for edgePoint in edgePoints:
 			newList.append( edgePoint.xy )
+			print(edgePoint.xy)
 		return newList
 
 
@@ -1212,7 +1222,9 @@ class FinishedImage:
 
 
 	def genLineAdjacencyMap(self):
+		#### Does not generate duplicates.
 		# traversalMap = [ [-1,1], [0,1], [1,1], [-1, 0],  [1, 0],[-1, -1], [0, -1], [1, -1] ]
+		processedRegionPairs = {}
 		for index in self.meshObjCollection.keys():
 			# adjancencyList = []
 			# self.genLineAdjacencyMap[ index ] =  adjancencyList
@@ -1233,6 +1245,7 @@ class FinishedImage:
 							# print("genLineAdjacencyMap Found adjacent pixels: ", adjacentEdgePoint.xy, adjacentEdgePoint.regionIndex)
 							adjacentIndex = adjacentEdgePoint.regionIndex
 
+							# Want to protect against region being adjacent to itself.
 							if index != adjacentIndex:
 								# print("genLineAdjacencyMap Adding point")
 								# Does the region to region map e4xist for current region?
@@ -1263,15 +1276,30 @@ class FinishedImage:
 									self.regionAdjancencyMap[ (startingIndex, endingIndex)] = adjacencyEdge
 
 								if edgePoint.regionIndex < adjacentEdgePoint.regionIndex:
-									adjacencyEdge.currentIndexEdgePoints.append( edgePoint )
-									adjacencyEdge.adjacentIndexEdgePoints.append( adjacentEdgePoint )
+									# Prevent duplicate entries.
+									if edgePoint not in adjacencyEdge.currentIndexEdgePoints:
+										adjacencyEdge.currentIndexEdgePoints.append( edgePoint )
+										adjacencyEdge.adjacentIndexEdgePoints.append( adjacentEdgePoint )
 								else:
-									adjacencyEdge.currentIndexEdgePoints.append(adjacentEdgePoint)
-									adjacencyEdge.adjacentIndexEdgePoints.append(edgePoint)
+									# Prevent duplicate entries.
+									if edgePoint not in adjacencyEdge.adjacentIndexEdgePoints:
+										adjacencyEdge.currentIndexEdgePoints.append(adjacentEdgePoint)
+										adjacencyEdge.adjacentIndexEdgePoints.append(edgePoint)
 
 
-		# print("genLineAdjacencyMap.regionAdjacencyRegions keys", self.regionAdjacentRegions.keys())
-		# print("genLineAdjacencyMap.regionAdjancencyMap keys", self.regionAdjancencyMap.keys())
+
+			print("CurrentIndexEdgePoints")
+			for edgePoint in adjacencyEdge.currentIndexEdgePoints:
+				print(edgePoint.xy)
+
+			print("AdjacentIndexEdgePoints")
+			for edgePoint in adjacencyEdge.adjacentIndexEdgePoints:
+				print(edgePoint.xy)
+
+
+		print("genLineAdjacencyMap.regionAdjacencyRegions keys", self.regionAdjacentRegions.keys())
+		print("genLineAdjacencyMap.regionAdjancencyMap keys", self.regionAdjancencyMap.keys())
+		print("genLineAdjacencyMap.regionAdjancencyMap values", self.regionAdjancencyMap)
 
 
 		'''
@@ -1293,7 +1321,9 @@ class FinishedImage:
 		:param croppedLinePoints: croppedLinePoints for this region.
 		:return: Will populate regionEdgeConnectivity with line points that exist in the edge pixels.
 		'''
+		#### Confirmed no duplicates.
 		# print("findLineEdgePoints edgePixels:", regionEdgePixels.edgePixelList)
+		# print("findLineEdgePoints PRE:", len(regionEdgePixels.edgePixelList) )
 		edgePixelList = regionEdgePixels.edgePixelList
 		pointsOnEdge = []
 		for line in croppedLinePoints:
@@ -1320,7 +1350,11 @@ class FinishedImage:
 					self.globalEdgePointMap[ tuple(searchValue) ] = [endEdgePoint]
 
 		regionEdgePixels.setPointOnEdge ( pointsOnEdge )
-		# print("findLineEdgePoints Points on Edge: ", pointsOnEdge)
+		# print("findLineEdgePoints POST:", regionEdgePixels.edgePixelList)
+		# print("findLineEdgePoints POST Points on Edge Count: ", len(pointsOnEdge))
+		# for edgePoint in pointsOnEdge:
+		# 	print(edgePoint.xy)
+		# print("findLineEdgePoints POST Points on Edge: ", pointsOnEdge)
 
 
 
