@@ -28,6 +28,7 @@ class FinishedImage:
 		self.fig = plt.figure()
 		self.ax = self.fig.add_subplot(1, 1, 1, aspect=1)
 		self.ax.set_title('Merged Image' )
+		self.ax.grid()
 		self.tempLines = []
 		# self.set
 		# self.ax.invert_yaxis()
@@ -415,6 +416,7 @@ class FinishedImage:
 	def mergeLines2(self):
 		# Iterate through each region.
 		count = 0
+		self.processedRegions = {}
 		for index in self.regionAdjacentRegions.keys(): # Iterate through regions that have adjacencies defined.
 			# Obtain the adjacent regions for the current index.
 			adjacentRegions = self.regionAdjacentRegions[ index ]
@@ -422,37 +424,45 @@ class FinishedImage:
 				startingIndex = index if index < adjacentIndex else adjacentIndex
 				endingIndex = index if index > adjacentIndex else adjacentIndex
 
+				if (startingIndex, endingIndex) not in self.processedRegions.keys():
 				# Obtain the adjacencyEdge.
-				if (startingIndex, endingIndex) in self.regionAdjancencyMap:
-					# Only continue if the startingIndex, endingIndex pair exists.
-					adjacencyEdge = self.regionAdjancencyMap[ (startingIndex, endingIndex) ]
+					if (startingIndex, endingIndex) in self.regionAdjancencyMap:
+						# Only continue if the startingIndex, endingIndex pair exists.
+						adjacencyEdge = self.regionAdjancencyMap[ (startingIndex, endingIndex) ]
 
-					# Get the current region EdgePoints
-					if index < adjacentIndex:
-						currentIndexEdgePoints = copy.copy(adjacencyEdge.currentIndexEdgePoints)
-						adjacentIndexEdgePoints = copy.copy(adjacencyEdge.adjacentIndexEdgePoints)
-					else:
-						adjacentIndexEdgePoints = copy.copy(adjacencyEdge.currentIndexEdgePoints)
-						currentIndexEdgePoints = copy.copy(adjacencyEdge.adjacentIndexEdgePoints)
+						# Get the current region EdgePoints
+						if index < adjacentIndex:
+							currentIndexEdgePoints = copy.copy(adjacencyEdge.currentIndexEdgePoints)
+							adjacentIndexEdgePoints = copy.copy(adjacencyEdge.adjacentIndexEdgePoints)
+						else:
+							adjacentIndexEdgePoints = copy.copy(adjacencyEdge.currentIndexEdgePoints)
+							currentIndexEdgePoints = copy.copy(adjacencyEdge.adjacentIndexEdgePoints)
 
-					currentPoints = self.constructLocationForEdgePoints(currentIndexEdgePoints)
-					adjacentPoints = self.constructLocationForEdgePoints(adjacentIndexEdgePoints)
+						currentPoints = self.constructLocationForEdgePoints(currentIndexEdgePoints)
+						adjacentPoints = self.constructLocationForEdgePoints(adjacentIndexEdgePoints)
 
 
-					self.pairAllAND2(currentPoints, adjacentPoints, count, threshold=4)
-					# self.pairAllOR(currentPoints, adjacentPoints, threshold=5.0)
-					#*************************************** Diagnostic display
-					if Bridson_Common.diagnosticDisplay:
-						if count < 10:
-							print("******** ************* ******** mergeLines2 count:", count)
-							self.displayAllPairs()
-							plt.title("Count " + str(count) )
-						count += 1
+						self.pairAllAND2(currentPoints, adjacentPoints, count, threshold=Bridson_Common.dradius*Bridson_Common.mergePairFactor)
+						# self.pairAllOR(currentPoints, adjacentPoints, threshold=5.0)
+						#*************************************** Diagnostic display
+						if Bridson_Common.diagnosticDisplay:
+							if count < Bridson_Common.diagnosticDisplayCount:
+								print("******** ************* ******** mergeLines2 count:", count)
+								self.displayAllPairs()
+								plt.title("Count " + str(count) )
+							count += 1
 
-					# We want to iterate through the clusters and then perform the same logic as connectTwoPoints.
-					self.connectPoints(currentIndexEdgePoints, adjacentIndexEdgePoints)
+						# We want to iterate through the clusters and then perform the same logic as connectTwoPoints.
+						#HERE
+						self.connectPoints(currentIndexEdgePoints, adjacentIndexEdgePoints)
 
-		plt.show()
+				# Add the region pairs to the list of processed pairs.
+				self.processedRegions[ (startingIndex, endingIndex) ] = 1
+				self.processedRegions[(endingIndex, startingIndex)] = 1
+
+
+		if Bridson_Common.diagnosticDisplay:
+			plt.show()
 
 					# Replace with pairAllOR or pairAllAND
 					# while len(currentPoints) > 0 and len(adjacentPoints) > 0:
@@ -580,8 +590,8 @@ class FinishedImage:
 		return newList
 
 	def pairAllAND2(self, s1, s2, count, threshold=1.5):
-		s1 = self.simpleUnique(s1)
-		s2 = self.simpleUnique(s2)
+		# s1 = self.simpleUnique(s1)
+		# s2 = self.simpleUnique(s2)
 		self.s0 = s1
 		self.s1 = s2
 		# print("Bridson_Common:findClosestIndex s1:", s1)
@@ -591,7 +601,7 @@ class FinishedImage:
 		# Want to pair all points.
 		# Iterate through all the points until everything has been paired.
 		if Bridson_Common.diagnosticDisplay:
-			if count < 10:
+			if count < Bridson_Common.diagnosticDisplayCount:
 				print("Original s1:", s1)
 				print("Original s2:", s2)
 
@@ -692,7 +702,7 @@ class FinishedImage:
 	def clusterBalance(self, clusterIndex):
 		# Returns the tuple: # elements in list 1, # elements in list 2.
 		clusterListing = self.clusterGroups[ clusterIndex ]
-		print("clusterListing:", clusterListing)
+		# print("clusterListing:", clusterListing)
 		group1 = []
 		group2 = []
 		for pair in clusterListing:
@@ -703,7 +713,7 @@ class FinishedImage:
 		group1 = set(group1)
 		group2 = set(group2)
 		balance = ( len(group1), len(group2) )
-		print("Cluster Balance:", balance )
+		# print("Cluster Balance:", balance )
 		return balance
 
 
@@ -814,15 +824,24 @@ class FinishedImage:
 
 	def connectPoints(self, currentIndexEdgePoints, adjacentIndexEdgePoints):
 
+		# print("************************  Starting connectPoints *************************")
 		for cluster in self.clusterGroups.keys():
 			# Obtain the indeces for the lines in their respective list.
+			# print("Processing cluster:", cluster)
+			# print("Current indeces:", self.clusterGroups[ cluster ])
 			for indeces in self.clusterGroups[ cluster ]:
+				# print("Indeces:", indeces)
 				edgePoint1 = currentIndexEdgePoints[indeces[0]]
 				edgePoint2 = adjacentIndexEdgePoints[indeces[1]]
+				# print("EdgePoint1:", edgePoint1.associatedLine)
+				# print("EdgePoint2:", edgePoint2.associatedLine)
+				# print("Updating AssociatedLine 1:", edgePoint1.associatedLine[edgePoint1.pointIndex], "with value ", self.averagePoints[ cluster ])
+				# print("Updating AssociatedLine 2:", edgePoint2.associatedLine[edgePoint2.pointIndex], "with value ", self.averagePoints[ cluster ])
 
 				edgePoint1.associatedLine[edgePoint1.pointIndex] = self.averagePoints[ cluster ]
 				edgePoint2.associatedLine[edgePoint2.pointIndex] = self.averagePoints[ cluster ]
 
+		# print("************************  Ending connectPoints *************************")
 		# distance = Bridson_Common.euclidean_distance(edgePoint1.xy, edgePoint2.xy)
 		# if distance < 20.0:
 		# 	# print("EdgePoint1:", edgePoint1)
@@ -1393,7 +1412,7 @@ class FinishedImage:
 	def calculateLineWidth(self, index):
 		# The line width will be a linear calculation: -0.2 * x / 255 + 0.2.  At 0, it should be 0.25 at intensity 0 and 0.05 at intensity 255.
 		# Change the line thickness.  Assume minimum line thickness is 0.1.  We want the maximum line thickness to be 1.0.
-		return (-1.0 * self.regionIntensityMap[index] / 255) + 1.001
+		return (-1.0 * self.regionIntensityMap[index] / 255) + 1.01
 
 	def drawRegionContourLines(self, index, drawSLICRegions = Bridson_Common.drawSLICRegions):
 		# If we are not drawing the SLIC regions, we do not need to flip the Y coordinates.
@@ -1446,7 +1465,7 @@ class FinishedImage:
 			# if count > 5:
 			# 	break
 			# if lineIndex % Bridson_Common.lineSkip == 0:
-			colour = Bridson_Common.colourArray[ (lineIndex % len(Bridson_Common.colourArray) ) ]
+			# colour = Bridson_Common.colourArray[ (lineIndex % len(Bridson_Common.colourArray) ) ]
 			colour = '#711fa3'
 			line = linePoints[lineIndex].copy()
 			line = line * Bridson_Common.mergeScale
@@ -1454,8 +1473,15 @@ class FinishedImage:
 			# Add code to high light stable regions.
 			if self.regionCoherency[index] >= self.stableThreshold:
 				colour = 'r'
+
+			colour = Bridson_Common.colourArray[(lineIndex % len(Bridson_Common.colourArray))]
 			# self.ax.plot(line[:, 0], line[:, 1]*flip, color=colour, linewidth=Bridson_Common.lineWidth)
-			self.ax.plot(line[:, 0], line[:, 1]*flip, color=colour, linewidth=lineWidth)
+			if Bridson_Common.diagnosticMerge:
+				colour = Bridson_Common.colourArray[(lineIndex % len(Bridson_Common.colourArray))]
+				lineWidth = 0.1  # HERE
+				self.ax.plot(line[:, 0], line[:, 1] * flip, color=colour, linewidth=lineWidth)
+			else:
+				self.ax.plot(line[:, 0], line[:, 1]*flip, color=colour, linewidth=lineWidth)
 			if Bridson_Common.closestPointPair:  # Only place the dots when we are calculating closest point pair.
 				if initial == False:  # Do not display this dot the first time around.
 					self.ax.plot(currentLine[self.markPoint[0]][0], currentLine[self.markPoint[0]][1] * flip, marker='*',

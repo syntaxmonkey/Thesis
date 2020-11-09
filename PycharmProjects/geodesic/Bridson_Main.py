@@ -584,6 +584,8 @@ def indexValidation(filename):
 	finishedImageSLIC.genLineAdjacencyMap()
 	print("About to mergeLines")
 	# finishedImageSLIC.mergeLines()
+
+	# HERE
 	finishedImageSLIC.mergeLines2()
 
 
@@ -751,6 +753,7 @@ def main():
 
 	if Bridson_Common.bulkGeneration == False:
 		images = ['david-dibert-Huza8QOO3tc-unsplash.jpg']
+		images = ['TestSquare.jpg']
 		semanticSegmentation = ['mask_rcnn']
 		semanticSegmentation = ['none']
 
@@ -779,9 +782,12 @@ def main():
 		# images.append('Stripes.png')
 		# images.append('kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg')
 		# images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
-		images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
+		# images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
+		# images.append('TestSquare.jpg')
+		images.append('TwoRegions.jpg')
 		semanticSegmentation = ['none']
 		segmentCounts = [100]
+		segmentCounts = [3]
 		compactnessList = ['SLIC0']
 		attractPercentileList = [80]
 

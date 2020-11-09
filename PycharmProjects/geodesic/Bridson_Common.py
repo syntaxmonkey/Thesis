@@ -32,10 +32,13 @@ SLICGrey = False
 
 #####################################
 bulkGeneration = True
-smallBatch=True
-diagnosticDisplay=True
+smallBatch=False
+diagnosticDisplay=False # Enable/Disable pairing diagnostics
+diagnosticDisplayCount=20
+diagnosticMerge=True
 
-coreCount = 1
+
+coreCount = 4
 if os.path.exists("./output") == True:
 	if os.path.isdir("./output") == False:
 		exit(-1)
@@ -43,7 +46,7 @@ else:
 	os.mkdir("./output")
 
 if bulkGeneration:
-	# sys.stdout = open("./output/detailLogs.txt", "a")
+	sys.stdout = open("./output/detailLogs.txt", "a")
 	pass
 
 #####################################
@@ -134,7 +137,8 @@ dradius = 1.5 # Important that dradius is greater than 1.0.  When the value is 1
 radiusDefault = 1.5
 radiusDivisor = 30 # the number of radii for each region.
 regionDynamicRadius = True
-mergeDistance = 3 # radius to
+mergeDistance = 5 # radius to
+mergePairFactor = 3.0 # Distance to consider for merging endpoints.
 
 increaseContrast=False
 contrastFactor=1.5 # Values above 1 increase contrast.  Values below 1 reduce contrast.
@@ -147,7 +151,7 @@ GreyscaleSLIC = True  # Generate the greyscale image of the regions.
 generateChaincode = False
 
 colourArray = ['r', 'b', 'm']
-colourArray = ['b', 'b', 'b']
+# colourArray = ['b', 'b', 'b']
 
 mergeScale = 1  # How much to scale the contour lines before merging.
 cropContours = True
@@ -244,6 +248,8 @@ def determineLineSpacing( intensity):
 	elif lineCullAlgorithm == 'generous':
 		# We want more lines in each region.
 		intensityDistance = (intensity / 100.0)
+		if diagnosticMerge:
+			intensityDistance = (intensity / 20.0) #HERE
 	else:
 		intensityDistance = intensity
 
