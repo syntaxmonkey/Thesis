@@ -11,6 +11,7 @@ import sys
 import SLIC
 import pickle
 import datetime
+import Bridson_LineCalculations
 from numba import jit, njit, jit_module
 '''
 For the constructor, pass in the points.
@@ -522,7 +523,7 @@ class MeshObject:
 
 
 	# Draw vertical lines.  Use exterior points as line seeds.
-	def DrawAngleLinesExteriorSeed2(self, raster, density=Bridson_Common.density, linedensity=Bridson_Common.lineDotDensity, angle=Bridson_Common.lineAngle):
+	def DrawAngleLinesExteriorSeed2(self, raster, density=Bridson_Common.density, linedensity=Bridson_Common.lineDotDensity, angle=Bridson_Common.lineAngle ):
 		# Find the middle point of the raster.
 		rasterShape = np.shape( raster )
 		middle = [ int(rasterShape[0] / 2), int(rasterShape[1]/2) ]
@@ -531,6 +532,7 @@ class MeshObject:
 		# angle: 0 degrees goes north.  90 degrees goes east.  180 degrees goes south.  270 degrees goes west.
 		dx, dy = Bridson_Common.calculateDirection(angle)
 		# print("DrawAngleLinesExteriorSeed2 dx, dy:", dx, dy)
+
 		seedPoints = self.DualGraph.exteriorPoints.copy()
 
 
@@ -612,7 +614,8 @@ class MeshObject:
 		colourArray = ['r', 'w', 'm']
 		markerArray = ['o', '*', 's']
 		index = 0
-		if Bridson_Common.displayMesh:
+		# if Bridson_Common.displayMesh:
+		if False:
 			Bridson_Common.logDebug(__name__, "**** About to display lines *****", notFound)
 
 			for line in dotPoints:
@@ -645,8 +648,256 @@ class MeshObject:
 		# print("DrawAngleLinesExteriorSeed2 Size of line points:", np.shape(self.linePoints))
 
 
-	# Draw lines using arbitrary distance based on the intensity.
 
+	def transferSeedPairs(self, sourceMeshObj):
+		# Generate the line end point pairs.
+		seedPoints = []
+		dxdyValues = []
+
+		for seedPoint in sourceMeshObj.seedPoints.copy():
+			endpoint1, endpoint2 = seedPoint
+
+			print("transferSeedPairs - source points", endpoint1, endpoint2)
+			cartesian1 = self.convertBarycentricPointToSelf(endpoint1, sourceMeshObj) # HERE
+			cartesian2 = self.convertBarycentricPointToSelf(endpoint2, sourceMeshObj)
+
+			# print(">>      Bridson_MeshObj->generateSeedPairs: pt1:", endpoint1, "cartesian1:", cartesian1, "pt2:", endpoint2, "cartesian2:", cartesian2, "     <<")
+			endpoints = (cartesian1, cartesian2)
+
+			seedPoint, dxdy = self.convertPairsToSeedPoints(cartesian1, cartesian2)
+
+			seedPoints.append( (cartesian1, cartesian2) )
+			dxdyValues.append( dxdy )
+
+		self.seedPoints = seedPoints
+		self.dxdyValues = dxdyValues
+		pass
+
+
+	# This method will find the closest point on the exterior edge.
+	def closestExteriorPoint(self, point):
+		nearestDistance = 10000
+		nearestPoint = []
+		for edge in self.DualGraph.exteriorEdges:
+			intersection = Bridson_LineCalculations.pnt2line(point, self.DualGraph.points[edge[0]], self.DualGraph.points[edge[-1]] )
+			if intersection[0] < nearestDistance:
+				nearestDistance = intersection[0]
+				nearestPoint = intersection[1]
+
+
+		return nearestDistance, nearestPoint
+
+
+	# This version generates the seedPoints based on self.
+	def generateSeedPairsSelf(self):
+		# Generate the line end point pairs.
+		seedPoints = []
+		dxdyValues = []
+
+		print("----------------- generateSeedPairsSelf START ---------------------")
+		for line in self.croppedLinePoints:
+			print("generateSeedPairSelf - line:", line)
+			endpoint1 = line[0]
+			endpoint2 = line[-1]
+
+
+			inTrifinder = self.trifinder(endpoint1[0], endpoint1[1]) # Check to see if the first endpoint is in the trifinder.
+			if inTrifinder == -1:
+				nearestDistance, nearestPoint = self.closestExteriorPoint(endpoint1)
+				newPoint = [nearestPoint[0], nearestPoint[1]]
+				# line[0] = newPoint
+				print("generateSeedPairsSelf --> Changing point", endpoint1, "to point", newPoint)
+				endpoint1 = newPoint
+
+			inTrifinder = self.trifinder(endpoint2[0], endpoint2[1])  # Check to see if the first endpoint is in the trifinder.
+			if inTrifinder == -1:
+				nearestDistance, nearestPoint = self.closestExteriorPoint(endpoint2)
+				newPoint = [nearestPoint[0], nearestPoint[1]]
+				# line[-1] = newPoint
+				print("generateSeedPairsSelf --> Changing point", endpoint2, "to point", newPoint)
+				endpoint2 = newPoint
+
+			inTrifinder = self.trifinder(endpoint1[0], endpoint1[1])
+			if inTrifinder != -1:
+				print("generateSeedPairsSelf endpoint1 ", endpoint1, "found in triangle", inTrifinder)
+			else:
+				print("generateSeedPairsSelf endpoint1 ", endpoint1, "still not in triFinder")
+
+			inTrifinder = self.trifinder(endpoint2[0], endpoint2[1])
+			if inTrifinder != -1:
+				print("generateSeedPairsSelf endpoint1 ", endpoint2, "found in triangle", inTrifinder)
+			else:
+				print("generateSeedPairsSelf endpoint1 ", endpoint2, "still not in triFinder")
+
+			# cartesian1 = self.convertBarycentricPointToSelf(endpoint1, sourceMeshObj)
+			# cartesian2 = self.convertBarycentricPointToSelf(endpoint2, sourceMeshObj)
+
+			# print(">>      Bridson_MeshObj->generateSeedPairs: pt1:", endpoint1, "cartesian1:", cartesian1, "pt2:", endpoint2, "cartesian2:", cartesian2, "     <<")
+			# endpoints = (cartesian1, cartesian2)
+
+			# seedPoint, dxdy = self.convertPairsToSeedPoints(endpoint1, endpoint2)
+
+			seedPoints.append( (endpoint1, endpoint2) )
+		print("generateSeedPairsSelf - all end points:", seedPoints)
+		self.seedPoints = seedPoints
+		pass
+
+
+
+	def convertBarycentricPointToSelf(self, xy, sourceMeshObj):
+		x, y = xy
+		cartesian = Bridson_Common.convertAxesBarycentric(x, y, sourceMeshObj.triangulation, self.triangulation,
+		                                                  sourceMeshObj.trifinder, sourceMeshObj.points, self.points)
+		return cartesian
+
+
+	def convertPairsToSeedPoints(self, xy1, xy2):
+		dx = xy1[0] - xy2[0]
+		dy = xy1[1] - xy2[1]
+		return xy1, (dx,dy)
+
+
+	# Draw vertical lines.  Use exterior points as line seeds.
+	def RedrawAngleLines(self, raster, otherMeshObj):
+		##
+		# Consider implementing BFS Tree: https://stackoverflow.com/questions/50537967/finding-nearest-neighbours-of-a-triangular-tesellation
+		##
+
+		print("RedrawAnglesLines start")
+		# Find the middle point of the raster.
+		rasterShape = np.shape( raster )
+		middle = [ int(rasterShape[0] / 2), int(rasterShape[1]/2) ]
+
+		## Need new method for generating seedPoints.  Utilizes existing points from croppedLinePoints from otherMeshObj.
+		## Convert using barycentric from otherMeshObj to flatMeshObj
+		## Calculate the dx, dy values and retain one starting point.
+		seedPoints, dxdy = self.generateSeedPairsSelf( )
+
+		notFound = 0
+		dotPoints = []
+		# print("DrawAngleLinesExteriorSeed2 seedPoints:", seedPoints)
+		# for pointIndex in seedPoints[28:29]: # Interesting one.  Use Attempt = 17 and Attempt = 18.  Falls off trifinder at Attempt=18.
+		# for pointIndex in seedPoints[23:24]: # Interesting one.  Stuck half way through.
+		# print("DrawAngleLinesExteriorSeed2 seedPoints:", seedPoints)
+		seedPointCount = len(seedPoints)
+
+		# Start a this point.
+		indexOffset = int(seedPointCount / 3)
+
+		# for pointIndex in seedPoints:
+		for index in range(seedPointCount):
+			pointIndex = seedPoints[ (index + indexOffset) % seedPointCount ]
+
+			triangleTraversal = []
+			attempt = 0
+
+			# x, y = point = self.DualGraph.points[pointIndex]
+			point1, point2 = seedPoints[index]
+			dx, dy = dxdy[index]
+
+
+
+
+			# j = x # Obtain the x value and use it for the line.
+			rowPoints = []
+			rowPoints.append(point1) # Add the exterior point to the line.
+
+			if False: # Display the first cluster of triangles
+				triangleList = self.DualGraph.GetPointTriangleMembership(pointIndex)
+				# print("TriangleList:", triangleList)
+				for triangleIndex in triangleList:
+					self.colourTriangle(triangleIndex)
+
+
+			# Check to see if point1 and point2 are in the trifinder.  There are several cases:
+			# 1. point 1 is outside trifinder.
+			# 2. point 2 is outside trifinder
+			# 3. point 1 is inside trifinder
+			# 4. point 2 is inside trifinder
+			# 5.
+
+			# We pass in point1 and poin2.
+			intersection, edge, triangleIndex, direction = self.DualGraph.FindFirstIntersectionXY( point1, point2, self.trifinder, dx=dx, dy=dy ) ## HERE
+
+
+
+			triangleTraversal.append( triangleIndex )
+			if intersection != None:
+				rowPoints.append(intersection)
+				# print("DrawAngleLinesExteriorSeed2 found interscection:", intersection, triangleIndex)
+				# self.colourTriangle(triangleIndex)
+				if Bridson_Common.highlightEdgeTriangle:
+					self.colourTriangle(triangleIndex, colour='y')
+				# Find next intersection.
+
+				while True:
+					nextIntersection, edge, triangleIndex, isFinalIntersection = self.DualGraph.FindNextIntersection( intersection, edge, triangleIndex, direction, dx=dx, dy=dy )
+					# self.colourTriangle(triangleIndex)
+					triangleTraversal.append(triangleIndex)
+					if nextIntersection != None:
+						if isFinalIntersection:
+							Bridson_Common.logDebug(__name__,"Last Intersection:", nextIntersection)
+							# Reduce the length of the final segment to ensure final intersection is in trifinder.
+							nextIntersection = self.finalIntersectionReduction(rowPoints[-1], nextIntersection)
+							Bridson_Common.logDebug(__name__,"Final Last Intersection adjusted:", nextIntersection)
+						rowPoints.append( nextIntersection )
+						intersection = nextIntersection
+						# self.colourTriangle(triangleIndex)
+					else:
+						break
+
+					if isFinalIntersection:
+						break
+
+					# 18 Attempts is where the graph flies into space.
+					if attempt > 1000:
+						break # Exit the while loop.
+					attempt += 1
+
+			Bridson_Common.logDebug(__name__,">>>>>>>>>>>>>>>>>>> Triangle Traversal:", triangleTraversal)
+			if len(rowPoints) > 0:
+				# print("DrawAngleLinesExteriorSeed2 rowPoints not empty:", rowPoints)
+				rowPoints = np.array(rowPoints)
+				dotPoints.append(rowPoints)
+
+		# Bridson_Common.logDebug(__name__, dotPoints)
+		dotPoints = np.array(dotPoints)
+		Bridson_Common.logDebug(__name__, "**** Points Not FOUND *****", notFound)
+
+		colourArray = ['r', 'w', 'm']
+		markerArray = ['o', '*', 's']
+		index = 0
+		if Bridson_Common.displayMesh:
+			Bridson_Common.logDebug(__name__, "**** About to display lines *****", notFound)
+
+			for line in dotPoints:
+				# https://kite.com/python/answers/how-to-plot-a-smooth-line-with-matplotlib-in-python
+				# a_BSpline = np.array(scipy.interpolate.make_interp_spline(line[:, 0], line[:, 1]))
+				# self.ax.plot(line[:, 0], a_BSpline, color='r')
+				# self.ax.plot(line[:, 0], line[:, 1], color='r')
+				colour = colourArray[ (index % 3) ]
+				if Bridson_Common.drawDots:
+					marker = markerArray[ (index % 3) ]
+				else:
+					marker = None
+				# self.ax.plot(line[:, 0], line[:, 1], color='r', marker='o')
+				self.ax.plot(line[:, 0], line[:, 1], color=colour , marker=marker )
+				index += 1
+
+		Bridson_Common.logDebug(__name__, "****   *****", notFound)
+
+		# print("DrawAngleLinesExteriorSeed2 Shape of dotPoints:", np.shape(dotPoints))
+		# print(dotPoints)
+		if self.linePoints == None:
+			self.linePoints = dotPoints
+		else:
+			self.linePoints = np.hstack( (self.linePoints, dotPoints) )  # Combine the two sets of lines.
+		# print("Drawn LinePoints:", self.linePoints)
+		Bridson_Common.logDebug(__name__, "**** Size of line points  *****", np.shape(self.linePoints))
+
+
+
+	# Draw lines using arbitrary distance based on the intensity.
 	def DrawAngleLinesExteriorSeed3(self, raster, regionMap, index, intensity=128, density=Bridson_Common.density, linedensity=Bridson_Common.lineDotDensity, angle=Bridson_Common.lineAngle):
 		intensityDistance = Bridson_Common.determineLineSpacing(intensity)
 		intensityDistance = 2 # For testing.
@@ -1373,16 +1624,31 @@ class MeshObject:
 		# print("POST Mask:", mask)
 		return np.array(newPoints)
 
-
+jit_module(nopython=True)
 
 
 
 if __name__ == "__main__":
-	dradius = 1.5
+	Bridson_Common.displayMesh = True
+	dradius = 20
 	xrange, yrange = 100, 100
-	mask = Bridson_CreateMask.genLetter(xrange, yrange, character='Y')
+	print("Generating letter o mask")
+	mask = Bridson_CreateMask.genLetter(xrange, yrange, character='o')
+	print("Generating Mesh Object")
+	meshObject = MeshObject(mask=mask, dradius=dradius)
+	meshObject.genTrifinder()
+	# meshObj.trifinder = meshObj.triangulation.get_trifinder() # TEST TEST TEST
+	print("Generating DualGraph")
+	meshObject.generateDualGraph()  # TEST TEST TEST
 
-	meshObject = MeshObject(mask, dradius)
+	print("DrawAngleLinesExteriorSeed2")
+	meshObject.DrawAngleLinesExteriorSeed2(mask) # Generates the lines points.
+	meshObject.croppedLinePoints = meshObject.linePoints.copy() # Hack to create cropped Lines.
+	# The seed pairs are created based ont he croppedLine Points.
+	meshObject.generateSeedPairsSelf()
 
+	print("Displaying mesh")
+	meshObject.displayMesh("Test")
+	# meshObject.displayLines()
 	plt.show()
 	Bridson_Common.logDebug(__name__, "Done")

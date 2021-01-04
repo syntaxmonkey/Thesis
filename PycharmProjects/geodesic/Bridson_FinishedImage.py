@@ -41,11 +41,13 @@ class FinishedImage:
 
 	def setXLimit(self, left, right):
 		# print("Left:", left, "Right:", right)
-		self.ax.set_xlim(left=left, right=right)
+		# self.ax.set_xlim(left=left, right=right)
+		pass
 
 	def setYLimit(self, top, bottom):
 		# print("Left:", left, "Right:", right)
-		self.ax.set_ylim(top=top, bottom=bottom)
+		# self.ax.set_ylim(top=top, bottom=bottom)
+		pass
 
 	def copyFromOther(self, otherFinishedImage):
 
@@ -68,6 +70,12 @@ class FinishedImage:
 		if hasattr(otherFinishedImage, 'diffAttractThreshold'): self.diffAttractThreshold = otherFinishedImage.diffAttractThreshold
 		if hasattr(otherFinishedImage, 'diffRepelThreshold'): self.diffRepelThreshold = otherFinishedImage.diffRepelThreshold
 		if hasattr(otherFinishedImage, 'stableThreshold'): self.stableThreshold = otherFinishedImage.stableThreshold
+
+		if hasattr(otherFinishedImage, 'meshObjDict'): self.meshObjDict = otherFinishedImage.meshObjDict
+		if hasattr(otherFinishedImage, 'flatMeshObjDict'): self.flatMeshObjDict = otherFinishedImage.flatMeshObjDict
+		if hasattr(otherFinishedImage, 'trifindersuccessDict'): self.trifindersuccessDict = otherFinishedImage.trifindersuccessDict
+
+
 
 	def cropContourLines(self, linePoints, raster, topLeftTarget):
 		'''
@@ -441,13 +449,13 @@ class FinishedImage:
 						currentPoints = self.constructLocationForEdgePoints(currentIndexEdgePoints)
 						adjacentPoints = self.constructLocationForEdgePoints(adjacentIndexEdgePoints)
 
-						print("mergeLines2 currentPoints")
-						for value in currentPoints:
-							print(value)
+						# print("mergeLines2 currentPoints")
+						# for value in currentPoints:
+						# 	print(value)
 
-						print("mergeLines2 adjacentPoints")
-						for value in adjacentPoints:
-							print(value)
+						# print("mergeLines2 adjacentPoints")
+						# for value in adjacentPoints:
+						# 	print(value)
 
 
 						self.pairAllAND2(currentPoints, adjacentPoints, count, threshold=Bridson_Common.dradius*Bridson_Common.mergePairFactor)
@@ -910,10 +918,10 @@ class FinishedImage:
 
 	def constructLocationForEdgePoints(self, edgePoints):
 		newList = []
-		print("constructLocatioForEdgePoints:")
+		# print("constructLocatioForEdgePoints:")
 		for edgePoint in edgePoints:
 			newList.append( edgePoint.xy )
-			print(edgePoint.xy)
+			# print(edgePoint.xy)
 		return newList
 
 
@@ -1537,6 +1545,16 @@ class FinishedImage:
 			for edgePoint in regionEdgePoints.pointsOnEdge:
 				self.ax.plot(edgePoint.xy[0], edgePoint.xy[1]*flip, marker='.', color='r', markersize=0.5)
 
+
+		# Draw the new seedPoints on the finished Image.
+		if hasattr(meshObj, 'seedPoints'):
+			print("*************** Found Seed Points.  Plotting.")
+			for seedPoint in meshObj.seedPoints:
+				print("SeedPoint: ", seedPoint)
+				startPoint, endPoint = seedPoint
+				print("startPoint:", startPoint, "endPoint:", endPoint)
+				self.ax.plot(startPoint[0], startPoint[1] * flip, marker='*', color='m', markersize=1)
+				self.ax.plot(endPoint[0], endPoint[1] * flip, marker='*', color='m', markersize=1)
 
 
 

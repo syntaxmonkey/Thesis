@@ -1103,7 +1103,7 @@ if False:
 	# allPairs.displayAllPairs()
 
 
-if True:
+if False:
 	print("************************************")
 	# This data set illustrates there is a logic problem.
 	coords1 = np.array( [[1-0.5, 0],
@@ -1159,9 +1159,276 @@ if False:
 	allPairs.averageClusters()
 	allPairs.displayAllPairs()
 
-plt.show()
+
+import numpy as np
+from scipy import spatial
+import networkx
 
 
 
-# jit_module(nopython=True, fastmath=True)
+# vertices = np.array([[[2.0, 1.0, 3.0],[3.0, 1.0, 2.0],[1.2, 2.5, -2.0]],
+#                      [[3.0, 1.0, 2.0],[1.0, 2.0, 3.0],[1.2, -2.5, -2.0]],
+#                      [[1.0, 2.0, 3.0],[2.0, 1.0, 3.0],[3.0, 1.0, 2.0]],
+#                      [[1.0, 2.0, 3.0],[2.0, 1.0, 3.0],[2.2, 2.0, 1.0]],
+#                      [[1.0, 2.0, 3.0],[2.2, 2.0, 1.0],[4.0, 1.0, 0.0]],
+#                      [[2.0, 1.0, 3.0],[2.2, 2.0, 1.0],[-4.0, 1.0, 0.0]]])
+#
+#
+# vertices1 = np.array([[[2, 1, 3], [3, 1, 2], [1, 2, -2]],
+#                       [[3, 1, 2], [1, 2, 3], [1, -2, 2]],
+#                       [[1, 2, 3], [2, 1, 3], [3, 1, 2]],
+#                       [[1, 2, 3], [2, 1, 3], [2, 2, 1]],
+#                       [[1, 2, 3], [2, 2, 1], [4, 1, 0]],
+#                       [[2, 1, 3], [2, 2, 1], [-4, 1, 0]],
+#                       [[3, 1, 3], [2, 2, 1], [-4, 1, 0]],
+#                       [[8, 1, 2], [1, 2, 3], [1, -2, 2]]])
+#
+#
+# def make(N=3000):
+#     """create a N random points and triangulate"""
+#     points= np.random.uniform(-10, 10, (N, 3))
+#     tri = spatial.Delaunay(points[:, :2])
+#     return points[tri.simplices]
+#
+# def bfs_tree(triangles, root=0, return_short=True):
+#     """convert triangle list to graph with vertices = triangles,
+#     edges = pairs of triangles with shared edge and compute bfs tree
+#     rooted at triangle number root"""
+#     # use the old view as void trick to merge triplets, so they can
+#     # for example be easily compared
+#     tr_as_v = triangles.view(f'V{3*triangles.dtype.itemsize}').reshape(
+#         triangles.shape[:-1])
+#     # for each triangle write out its edges, this involves doubling the
+#     # data becaues each vertex occurs twice
+#     tr2 = np.concatenate([tr_as_v, tr_as_v], axis=1).reshape(-1, 3, 2)
+#     # sort vertices within edges ...
+#     tr2.sort(axis=2)
+#     # ... and glue them together
+#     tr2 = tr2.view(f'V{6*triangles.dtype.itemsize}').reshape(
+#         triangles.shape[:-1])
+#     # to find shared edges, sort them ...
+#     idx = tr2.ravel().argsort()
+#     tr2s = tr2.ravel()[idx]
+#     # ... and then compare consecutive ones
+#     pairs, = np.where(tr2s[:-1] == tr2s[1:])
+#     assert np.all(np.diff(pairs) >= 2)
+#     # these are the edges of the graph, the vertices are implicitly
+#     # named 0, 1, 2, ...
+#     edges = np.concatenate([idx[pairs,None]//3, idx[pairs+1,None]//3], axis=1)
+#     # construct graph ...
+#     G = networkx.Graph(edges.tolist())
+#     # ... and let networkx do its magic
+#     res = networkx.bfs_tree(G, root)
+#     if return_short:
+#         # sort by distance from root and then by actual path
+#         sp = networkx.single_source_shortest_path(res, root)
+#         sp = [sp[i] for i in range(len(sp))]
+#         sp = [(len(p), p) for p in sp]
+#         res = sorted(range(len(res.nodes)), key=sp.__getitem__)
+#     return res
+#
+#
+# print(bfs_tree(vertices1, 2))
+#
+# random_data = make()
+# random_data.shape
+# bfs = bfs_tree(random_data)
+# print(bfs)
+
+# plt.show()
+
+
+#
+# Find the intersection of the two lines: https://stackoverflow.com/questions/20677795/how-do-i-compute-the-intersection-point-of-two-lines
+#
+# def line_intersection(line1, line2):
+#     xdiff = (line1[0][0] - line1[1][0], line2[0][0] - line2[1][0])
+#     ydiff = (line1[0][1] - line1[1][1], line2[0][1] - line2[1][1])
+#
+#     def det(a, b):
+#         return a[0] * b[1] - a[1] * b[0]
+#
+#     div = det(xdiff, ydiff)
+#     if div == 0:
+#        raise Exception('lines do not intersect')
+#
+#     d = (det(*line1), det(*line2))
+#     x = det(d, xdiff) / div
+#     y = det(d, ydiff) / div
+#     return x, y
+#
+#
+# line1 =((0.5, 0.5), (1.5, 0.5))
+# line2 = ((1, 0), (1, 2))
+#
+# print("Set 1")
+# print("Lines:", line1, line2, "intersect at", line_intersection(line1, line2) )
+#
+# line1 =((1, 1), (-1, -1))
+# line2 = ((1, -1), (-1, 1))
+#
+# print("Set 2")
+# print("Lines:", line1, line2, "intersect at", line_intersection(line1, line2) )
+# print( line_intersection(((0.5, 0.5), (1.5, 0.5)), ((1, 0), (1, 2))) )
+
+
+## Closest point on line: https://stackoverflow.com/questions/27161533/find-the-shortest-distance-between-a-point-and-line-segments-not-line
+## Based on original post from: http://www.fundza.com/vectors/point2line/index.html
+
+import math
+
+def dot(v,w):
+    x,y,z = v
+    X,Y,Z = w
+    return x*X + y*Y + z*Z
+
+def length(v):
+    x,y,z = v
+    return math.sqrt(x*x + y*y + z*z)
+
+def vector(b,e):
+    x,y,z = b
+    X,Y,Z = e
+    return (X-x, Y-y, Z-z)
+
+def unit(v):
+    x,y,z = v
+    mag = length(v)
+    return (x/mag, y/mag, z/mag)
+
+def distance(p0,p1):
+    return length(vector(p0,p1))
+
+def scale(v,sc):
+    x,y,z = v
+    return (x * sc, y * sc, z * sc)
+
+def add(v,w):
+    x,y,z = v
+    X,Y,Z = w
+    return (x+X, y+Y, z+Z)
+
+
+
+# Given a line with coordinates 'start' and 'end' and the
+# coordinates of a point 'pnt' the proc returns the shortest
+# distance from pnt to the line and the coordinates of the
+# nearest point on the line.
+#
+# 1  Convert the line segment to a vector ('line_vec').
+# 2  Create a vector connecting start to pnt ('pnt_vec').
+# 3  Find the length of the line vector ('line_len').
+# 4  Convert line_vec to a unit vector ('line_unitvec').
+# 5  Scale pnt_vec by line_len ('pnt_vec_scaled').
+# 6  Get the dot product of line_unitvec and pnt_vec_scaled ('t').
+# 7  Ensure t is in the range 0 to 1.
+# 8  Use t to get the nearest location on the line to the end
+#    of vector pnt_vec_scaled ('nearest').
+# 9  Calculate the distance from nearest to pnt_vec_scaled.
+# 10 Translate nearest back to the start/end line.
+# Malcolm Kesson 16 Dec 2012
+
+def pnt2line(pnt, start, end):
+	line_vec = vector(start, end)
+	pnt_vec = vector(start, pnt)
+	line_len = length(line_vec)
+	line_unitvec = unit(line_vec)
+	pnt_vec_scaled = scale(pnt_vec, 1.0 / line_len)
+	t = dot(line_unitvec, pnt_vec_scaled)
+	if t < 0.0:
+		t = 0.0
+	elif t > 1.0:
+		t = 1.0
+	nearest = scale(line_vec, t)
+	dist = distance(nearest, pnt_vec)
+	nearest = add(nearest, start)
+	return (dist, nearest)
+
+
+point = [0,0, 0]
+start = [2,0, 0]
+end = [2,2, 0]
+
+print( pnt2line(point, start, end) )
+
+
+print("**************** Multi-line segment calculation **********************")
+def lineseg_dists(p, a, b):
+    """Cartesian distance from point to line segment
+
+    Edited to support arguments as series, from:
+    https://stackoverflow.com/a/54442561/11208892
+
+    Args:
+        - p: np.array of single point, shape (2,) or 2D array, shape (x, 2)
+        - a: np.array of shape (x, 2)
+        - b: np.array of shape (x, 2)
+    """
+    # normalized tangent vectors
+    d_ba = b - a
+    d = np.divide(d_ba, (np.hypot(d_ba[:, 0], d_ba[:, 1])
+                           .reshape(-1, 1)))
+
+    # signed parallel distance components
+    # rowwise dot products of 2D vectors
+    s = np.multiply(a - p, d).sum(axis=1)
+    t = np.multiply(p - b, d).sum(axis=1)
+
+    # clamped parallel distance
+    h = np.maximum.reduce([s, t, np.zeros(len(s))])
+
+    # perpendicular distance component
+    # rowwise cross products of 2D vectors
+    d_pa = p - a
+    c = d_pa[:, 0] * d[:, 1] - d_pa[:, 1] * d[:, 0]
+
+    print("C value:", c)
+    return np.hypot(h, c)
+
+point = [0,0]
+start = [2,0]
+end = [2,2]
+
+
+p = np.array(point)
+a = np.array([start])
+b = np.array([end])
+
+p = np.array([0, 0])
+
+# a = np.array([[ 0,  1],
+#               [-1,  0],
+#               [-1, -1]])
+# b = np.array([[ 2,  2],
+#               [ 1,  0],
+#               [ 1, -1]])
+
+a = np.array([[ 3,  0],
+              [-1,  0]              ])
+b = np.array([[ 2,  2],
+              [ 1,  0]])
+
+
+print("**************** Multi-line A **********************")
+print(lineseg_dists(p, a, b))
+
+# p = np.array([ [0,0],
+#                [1, 1],
+#                [0, 2]])
+#
+# print("**************** Multi-line B **********************")
+# print(lineseg_dists(p, a, b))
+
+
+
+
+
+
+
+
+
+
+
+
+jit_module(nopython=True, fastmath=True)
 

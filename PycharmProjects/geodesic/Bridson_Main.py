@@ -304,6 +304,7 @@ def processMask(mask, dradius, indexLabel):
 			fakeRadius = max(xrange,yrange)
 			# print("C")
 
+			print("Attempting to create mesh file")
 			createMeshFile(points, tri, fakeRadius, (xrange/2.0, yrange/2.0))
 
 			# vertices, faces = Bridson_readOBJFile.readFlatObjFile(path="../../boundary-first-flattening/build/",
@@ -469,7 +470,7 @@ def drawRegionLines( filename, finishedImage, regionList):
 			print("Transfer lines takes ", (c - b).microseconds)
 			# if True:  # Rotate original image 90 CW.
 			# print("About to call rotateClockwise90")
-			meshObj.rotateClockwise90()
+			meshObj.rotateClockwise90()  ## HERE - disable rotation temporarily.
 			# print("Rotated 90 clockwise")
 			meshObjCollection[ index ] = meshObj
 			# print("Save NoSLIC meshObj")
@@ -480,10 +481,110 @@ def drawRegionLines( filename, finishedImage, regionList):
 				flatMeshObjDict[index] = []
 			print("Trifinder was NOT successfully generated for region ", index)
 
+
 	# Save if the objects if not previouslyPickled.
 	if not previouslyPickled:
 		dataStructure = [meshObjDict, flatMeshObjDict, trifindersuccessDict]
 		Bridson_Common.save_object(dataStructure, pickleFilename)
+
+	# Make a copy of the objects in the finished Image.
+	finishedImage.meshObjDict = meshObjDict
+	finishedImage.flatMeshObjDict = flatMeshObjDict
+	finishedImage.trifindersuccessDict = trifindersuccessDict
+
+
+
+def redrawRegionLines( filename, finishedImage, regionList):
+
+	regionMap = finishedImage.regionMap
+	maskRasterCollection = finishedImage.maskRasterCollection
+	meshObjCollection = finishedImage.meshObjCollection
+
+	successfulRegions = 0
+
+	meshObjDict = finishedImage.meshObjDict
+	flatMeshObjDict = finishedImage.flatMeshObjDict
+	trifindersuccessDict = finishedImage.trifindersuccessDict
+
+	for index in regionList:
+		print("(**** ", filename, "Redrawing - Starting Region: ", index, "of", len(regionMap.keys()) - 1, "  *****" )
+
+		raster = maskRasterCollection[index]
+		displayRegionRaster(raster, index)
+
+		Bridson_Common.determineRadius(np.shape(raster)[0], np.shape(raster)[1])
+		dradius = Bridson_Common.dradius
+		meshObj = meshObjDict[index]
+		## meshObj.genTrifinder()
+		# flatMeshObj.trifinder = flatMeshObj.triangulation.get_trifinder() # TEST TEST TEST
+		## meshObj.generateDualGraph() # TEST TEST TEST
+
+		flatMeshObj = flatMeshObjDict[index]
+		## flatMeshObj.genTrifinder()
+		# flatMeshObj.trifinder = flatMeshObj.triangulation.get_trifinder() # TEST TEST TEST
+		## flatMeshObj.generateDualGraph() # TEST TEST TEST
+
+		trifindersuccess = trifindersuccessDict[index]
+
+		# Find the intensity of this region.
+		# Produce angle based on the intensity.
+		# find the dx, dy.
+		# Find two points that fulfill the dx,dy.
+		# Calculate the barycentric coordinates in flat mesh coordinates.
+		# Calculate the angle in flat mesh coordinates.
+
+		# if not previouslyPickled: trifindersuccessDict[index] = trifindersuccess
+		if trifindersuccess:
+
+			meshAngle = finishedImage.regionDirection[ index ]  # Obtain the angle that was calculated.
+			flatAngle = int( flatMeshObj.calculateAngle( meshObj, desiredAngle=meshAngle ) )  # Determine the angle on the flat mesh.
+			print("MeshAngle:", meshAngle, "Flat angle:", flatAngle)
+
+			# if trifindersuccess:
+			successfulRegions += 1
+			# print("Trifinder was successfully generated for region", index)
+			a = datetime.datetime.now()
+			if Bridson_Common.diagnostic == False:
+				# Only draw the lines if the trifinder was successful generated.
+				if Bridson_Common.linesOnFlat:
+					if Bridson_Common.verticalLines:
+
+						meshObj.generateSeedPairsSelf()  # Generate the seed pairs.
+
+						# flatMeshObj.transferSeedPairs( meshObj ) ## HERE
+
+						a = datetime.datetime.now()
+						# flatMeshObj.RedrawAngleLines(raster, meshObj)
+
+						# flatMeshObj.DrawAngleLinesExteriorSeed3(raster, regionMap, index, intensity=regionIntensityMap[index], angle=flatAngle)
+						# flatMeshObj.checkLinePoints() # diagnostic check for empty lines.
+					else:
+						flatMeshObj.DrawAngleLinesExteriorSeed2()
+					b = datetime.datetime.now()
+					# Transfer the lines from the FlatMesh.
+					# meshObj.TransferLinePointsFromTarget(flatMeshObj)
+				else:
+					if Bridson_Common.verticalLines:
+						meshObj.DrawAngleLinesExteriorSeed2()
+					else:
+						meshObj.DrawAngleLinesExteriorSeed2()
+
+					flatMeshObj.TransferLinePointsFromTarget(meshObj)
+			c = datetime.datetime.now()
+			print("Drawing DrawAngleLinesExteriorSeed2 takes ", (b-a).microseconds)
+			print("Transfer lines takes ", (c - b).microseconds)
+			# if True:  # Rotate original image 90 CW.
+			# print("About to call rotateClockwise90")
+			meshObj.rotateClockwise90()
+			# print("Rotated 90 clockwise")
+			meshObjCollection[ index ] = meshObj
+			# print("Save NoSLIC meshObj")
+			# NoSLICmeshObjCollection[ index ] = meshObj
+		else:
+			print("Trifinder was NOT successfully generated for region ", index)
+
+
+
 
 
 
@@ -588,14 +689,7 @@ def indexValidation(filename):
 	# HERE
 	finishedImageSLIC.mergeLines2()
 
-
 	print("0D")
-
-
-		# for index in meshObjCollection.keys():
-		# 	finishedImageNoSLICPRE.drawRegionContourLines(index, drawSLICRegions=False)
-		# Bridson_Common.saveImage(filename, "NoSLIC_PRE", finishedImageNoSLICPRE.fig)
-
 
 	print("About to copyFromOther")
 	finishedImageNoSLIC.copyFromOther( finishedImageSLIC )
@@ -613,10 +707,22 @@ def indexValidation(filename):
 	finishedImageSLIC.removeTempLines()
 	finishedImageNoSLIC.removeTempLines()
 
+	redrawRegionLines(filename, finishedImageSLIC, regionList)  ## HERE
+
 	for index in meshObjCollection.keys():
 		finishedImageSLIC.drawRegionContourLines( index,  drawSLICRegions=True )
 		finishedImageNoSLIC.drawRegionContourLines( index,  drawSLICRegions=False )
 	print("0J")
+
+
+	# Redraw lines after merge.
+	# redrawRegionLines(filename, finishedImageSLIC, regionList) ## HERE
+	# finishedImageSLIC.drawRegionContourLines(index, drawSLICRegions=True)
+
+	# finishedImageNoSLIC.copyFromOther(finishedImageSLIC)
+
+
+
 
 	# finishedImageNoSLIC.highLightEdgePoints( drawSLICRegions=False )
 	# finishedImageSLIC.highLightEdgePoints(drawSLICRegions=True )
@@ -632,8 +738,7 @@ def indexValidation(filename):
 	print("")
 
 
-def wrapper(filename, segmentCount, compactness, cnn, attractPercentile):
-	gc.collect()
+def initCommon(attractPercentile):
 	baseName = 'f' + str(uuid.uuid4().hex)
 	Bridson_Common.test1obj = baseName + '.obj'
 	Bridson_Common.test1_outobj = baseName + '_out.obj'
@@ -641,6 +746,17 @@ def wrapper(filename, segmentCount, compactness, cnn, attractPercentile):
 	Bridson_Common.chaincodefile = baseName + '_chaincode.txt'
 	Bridson_Common.diffAttractPercentile = attractPercentile
 	Bridson_Common.diffRepelPercentile = attractPercentile
+
+def wrapper(filename, segmentCount, compactness, cnn, attractPercentile):
+	gc.collect()
+	# baseName = 'f' + str(uuid.uuid4().hex)
+	# Bridson_Common.test1obj = baseName + '.obj'
+	# Bridson_Common.test1_outobj = baseName + '_out.obj'
+	# Bridson_Common.test1_out_flatobj = baseName + '_out_flat.obj'
+	# Bridson_Common.chaincodefile = baseName + '_chaincode.txt'
+	# Bridson_Common.diffAttractPercentile = attractPercentile
+	# Bridson_Common.diffRepelPercentile = attractPercentile
+	initCommon( attractPercentile)
 
 	# cleanUpFiles()
 	random.seed(Bridson_Common.seedValue)

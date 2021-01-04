@@ -38,7 +38,7 @@ diagnosticDisplayCount=20
 diagnosticMerge=True
 
 
-coreCount = 4
+coreCount = 1
 if os.path.exists("./output") == True:
 	if os.path.isdir("./output") == False:
 		exit(-1)
@@ -46,7 +46,7 @@ else:
 	os.mkdir("./output")
 
 if bulkGeneration:
-	sys.stdout = open("./output/detailLogs.txt", "a")
+	# sys.stdout = open("./output/detailLogs.txt", "a")
 	pass
 
 #####################################
@@ -58,9 +58,10 @@ if bulkGeneration == True:
 else:
 	displayMesh = True
 
+displayMesh = False
+
 generatePREImage=False
 
-displayMesh = False
 
 scalingFactor=5 # Scale factor.  Needs to be an integer.  Will increase the saved image dpi by this factor.
 
@@ -440,11 +441,18 @@ def get_cartesian_from_barycentric(b, t):
 
 
 def calculateBarycentric(vertices, point):
+	if debug:
+		print("calculateBarycentric vertices:", vertices)
+		print("calculateBarycentric point:", point)
 	# Calculating barycentric coodinates: https://codereview.stackexchange.com/questions/41024/faster-computation-of-barycentric-coordinates-for-many-points
 	T = (np.array(vertices[:-1]) - vertices[-1]).T
+	if debug: print("calculateBarycentric T:", T)
 	v = np.dot(la.inv(T), np.array(point) - vertices[-1])
+	if debug: print("calculateBarycentric v:", v)
 	v.resize(len(vertices))
+	if debug: print(print("calculateBarycentric v resized:", v))
 	v[-1] = 1 - v.sum()
+	if debug: print(print("calculateBarycentric v last element adjusted:", v))
 	return v
 
 
@@ -456,7 +464,9 @@ def convertAxesBarycentric(x, y, sourceTriang, targetTriang, sourcetriFinder, Or
 	# cartesian = ""
 	try:
 		tri = sourcetriFinder(x, y)
-
+		if tri == -1:
+			# Catch the error condition, e.g. the (x,y) coordinates are not found in the trifinder.
+			print("== Bridson_Common:convertAxesBarycentric ", x, y, "results in triangle", tri)
 		# logDebug(__name__, "Source Tri: ", tri)
 		# logDebug(__name__, triang.triangles[tri])
 		face = []
@@ -692,6 +702,7 @@ def line_intersect(segment1, segment2):
 
 
 
+
 # Place this method outside of the jit_module so it is not compiled.
 def saveImage(filename, postFix, fig):
 	if os.path.exists("./output") == True:
@@ -784,6 +795,7 @@ def findMinMaxTriangleHeight(p1, p2, p3):
 
 if __name__ == "__main__":
 	print("Bridson_Common")
+
 	# h = findTriangleHeight((0,0), (0,3), (4,0))
 	# if np.min( h ) < 5:
 	# 	logDebug(__name__, 'Min less than threshold: ', np.min(h))

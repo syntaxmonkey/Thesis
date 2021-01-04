@@ -12,7 +12,7 @@ import Bridson_Common
 from skimage import exposure, filters
 import cv2 as cv
 import Bridson_ImageModify
-import SemanticSegmentation
+# import SemanticSegmentation
 import os
 import Bridson_ColourOperations
 
