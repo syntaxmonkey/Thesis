@@ -553,7 +553,7 @@ def redrawRegionLines( filename, finishedImage, regionList):
 
 						# flatMeshObj.transferSeedPairs( meshObj ) ## HERE
 
-						a = datetime.datetime.now()
+						# a = datetime.datetime.now()
 						# flatMeshObj.RedrawAngleLines(raster, meshObj)
 
 						# flatMeshObj.DrawAngleLinesExteriorSeed3(raster, regionMap, index, intensity=regionIntensityMap[index], angle=flatAngle)
@@ -575,7 +575,7 @@ def redrawRegionLines( filename, finishedImage, regionList):
 			print("Transfer lines takes ", (c - b).microseconds)
 			# if True:  # Rotate original image 90 CW.
 			# print("About to call rotateClockwise90")
-			meshObj.rotateClockwise90()
+			# meshObj.rotateClockwise90()
 			# print("Rotated 90 clockwise")
 			meshObjCollection[ index ] = meshObj
 			# print("Save NoSLIC meshObj")
@@ -707,7 +707,7 @@ def indexValidation(filename):
 	finishedImageSLIC.removeTempLines()
 	finishedImageNoSLIC.removeTempLines()
 
-	redrawRegionLines(filename, finishedImageSLIC, regionList)  ## HERE
+	# redrawRegionLines(filename, finishedImageSLIC, regionList)  ## HERE
 
 	for index in meshObjCollection.keys():
 		finishedImageSLIC.drawRegionContourLines( index,  drawSLICRegions=True )
@@ -716,8 +716,8 @@ def indexValidation(filename):
 
 
 	# Redraw lines after merge.
-	# redrawRegionLines(filename, finishedImageSLIC, regionList) ## HERE
-	# finishedImageSLIC.drawRegionContourLines(index, drawSLICRegions=True)
+	redrawRegionLines(filename, finishedImageSLIC, regionList) ## HERE
+	finishedImageSLIC.drawRegionContourLines(index, drawSLICRegions=True)
 
 	# finishedImageNoSLIC.copyFromOther(finishedImageSLIC)
 
@@ -851,7 +851,7 @@ def main():
 
 	# Batch D
 	images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
-	images.append('everyday-basics-i0ROGKijuek-unsplash.jpg')
+	# images.append('everyday-basics-i0ROGKijuek-unsplash.jpg')
 	images.append('imani-bahati-LxVxPA1LOVM-unsplash.jpg')
 	images.append('kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg')
 	images.append('luis-quintero-qKspdY9XUzs-unsplash.jpg')

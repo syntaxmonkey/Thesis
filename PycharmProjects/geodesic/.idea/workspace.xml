@@ -2,144 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6ab9aa8a-8b4b-405a-a077-6186da762c11" name="Default" comment="Successfully integrated border coordinates with main mesh.">
-      <change beforePath="" afterPath="$PROJECT_DIR$/Bridson_LineCalculations.py" />
-      <change beforePath="$PROJECT_DIR$/../../Extension-Request-Form-HengSunChao.pdf" afterPath="$PROJECT_DIR$/../../Extension-Request-Form-HengSunChao.pdf" />
       <change beforePath="$PROJECT_DIR$/../NNCourse" afterPath="$PROJECT_DIR$/../NNCourse" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/BlurArrayImage.gif" afterPath="$PROJECT_DIR$/BlurArrayImage.gif" />
       <change beforePath="$PROJECT_DIR$/Bridson_Common.py" afterPath="$PROJECT_DIR$/Bridson_Common.py" />
       <change beforePath="$PROJECT_DIR$/Bridson_FinishedImage.py" afterPath="$PROJECT_DIR$/Bridson_FinishedImage.py" />
       <change beforePath="$PROJECT_DIR$/Bridson_Main.py" afterPath="$PROJECT_DIR$/Bridson_Main.py" />
-      <change beforePath="$PROJECT_DIR$/Bridson_MeshObj.py" afterPath="$PROJECT_DIR$/Bridson_MeshObj.py" />
-      <change beforePath="$PROJECT_DIR$/Bridson_Test.py" afterPath="$PROJECT_DIR$/Bridson_Test.py" />
-      <change beforePath="$PROJECT_DIR$/Bridson_TriangulationDualGraph.py" afterPath="$PROJECT_DIR$/Bridson_TriangulationDualGraph.py" />
-      <change beforePath="$PROJECT_DIR$/SLIC.py" afterPath="$PROJECT_DIR$/SLIC.py" />
+      <change beforePath="$PROJECT_DIR$/luis-quintero-qKspdY9XUzs-unsplash.jpg" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/TwoRegions.jpg_segments_3_compactness_SLIC0_attractThreshold_80_cnn_none_semanticRatio_0.5_GreyscaleSLIC.png" afterPath="$PROJECT_DIR$/output/TwoRegions.jpg_segments_3_compactness_SLIC0_attractThreshold_80_cnn_none_semanticRatio_0.5_GreyscaleSLIC.png" />
       <change beforePath="$PROJECT_DIR$/output/TwoRegions.jpg_segments_3_compactness_SLIC0_attractThreshold_80_cnn_none_semanticRatio_0.5_NoSLIC_DIRECTION.png" afterPath="$PROJECT_DIR$/output/TwoRegions.jpg_segments_3_compactness_SLIC0_attractThreshold_80_cnn_none_semanticRatio_0.5_NoSLIC_DIRECTION.png" />
       <change beforePath="$PROJECT_DIR$/output/TwoRegions.jpg_segments_3_compactness_SLIC0_attractThreshold_80_cnn_none_semanticRatio_0.5_NoSLIC_POST.png" afterPath="$PROJECT_DIR$/output/TwoRegions.jpg_segments_3_compactness_SLIC0_attractThreshold_80_cnn_none_semanticRatio_0.5_NoSLIC_POST.png" />
+      <change beforePath="$PROJECT_DIR$/output/TwoRegions.jpg_segments_3_compactness_SLIC0_attractThreshold_80_cnn_none_semanticRatio_0.5_SLIC_DIRECTION.png" afterPath="$PROJECT_DIR$/output/TwoRegions.jpg_segments_3_compactness_SLIC0_attractThreshold_80_cnn_none_semanticRatio_0.5_SLIC_DIRECTION.png" />
       <change beforePath="$PROJECT_DIR$/output/TwoRegions.jpg_segments_3_compactness_SLIC0_attractThreshold_80_cnn_none_semanticRatio_0.5_WithSLIC.png" afterPath="$PROJECT_DIR$/output/TwoRegions.jpg_segments_3_compactness_SLIC0_attractThreshold_80_cnn_none_semanticRatio_0.5_WithSLIC.png" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_POST.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_WithSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_200_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_POST.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_WithSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/detailLogs.txt" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_POST.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_WithSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_200_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_POST.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_WithSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/everyday-basics-i0ROGKijuek-unsplash.jpg_segments_400_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_POST.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_WithSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_200_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_POST.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_WithSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/imani-bahati-LxVxPA1LOVM-unsplash.jpg_segments_400_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_POST.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_WithSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_200_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_POST.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_WithSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_400_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_POST.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_WithSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_200_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_POST.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_WithSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg_segments_400_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_POST.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_WithSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_200_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_POST.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_WithSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash.jpg_segments_400_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_POST.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_WithSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_200_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_POST.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_WithSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/miguel-andrade-nAOZCYcLND8-unsplash.jpg_segments_400_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_POST.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_WithSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_200_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_POST.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_WithSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mr-o-k--ePHy6jg_7c-unsplash.jpg_segments_400_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/simpleTriangle.png_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/simpleTriangle.png_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/simpleTriangle.png_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_POST.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/simpleTriangle.png_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/simpleTriangle.png_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_WithSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/simpleTriangle.png_segments_200_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/simpleTriangle.png_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/simpleTriangle.png_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/simpleTriangle.png_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_POST.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/simpleTriangle.png_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/simpleTriangle.png_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_WithSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/simpleTriangle.png_segments_400_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_POST.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_WithSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_200_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_NoSLIC_POST.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_WithSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output_20201109_mergelines2_pairAllAND2_FixedmultiCluster_Clustering/C-dradius*1.0/C-dradius*1.0.docx" afterPath="$PROJECT_DIR$/output_20201109_mergelines2_pairAllAND2_FixedmultiCluster_Clustering/C-dradius*1.0/C-dradius*1.0.docx" />
-      <change beforePath="$PROJECT_DIR$/output_20201109_mergelines2_pairAllAND2_FixedmultiCluster_Clustering/C-dradius*1.0/~$dradius*1.0.docx" afterPath="" />
       <change beforePath="$PROJECT_DIR$/../../boundary-first-flattening" afterPath="$PROJECT_DIR$/../../boundary-first-flattening" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -150,14 +23,14 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.43865192">
+    <splitter split-orientation="horizontal" split-proportion="0.42759347">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="Bridson_FinishedImage.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Bridson_FinishedImage.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="416">
-                  <caret line="1026" column="25" lean-forward="true" selection-start-line="1026" selection-start-column="25" selection-end-line="1026" selection-end-column="25" />
+                <state relative-caret-position="741">
+                  <caret line="1490" column="56" lean-forward="true" selection-start-line="1490" selection-start-column="56" selection-end-line="1490" selection-end-column="56" />
                   <folding>
                     <element signature="e#1#32#0" expanded="true" />
                   </folding>
@@ -168,7 +41,7 @@
           <file leaf-file-name="Bridson_Test.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Bridson_Test.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="348">
+                <state relative-caret-position="10050">
                   <caret line="675" column="0" lean-forward="false" selection-start-line="675" selection-start-column="0" selection-end-line="675" selection-end-column="0" />
                   <folding>
                     <element signature="e#6883#6915#0" expanded="true" />
@@ -240,11 +113,21 @@
           <file leaf-file-name="Bridson_Common.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Bridson_Common.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="291">
-                  <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+                <state relative-caret-position="351">
+                  <caret line="714" column="9" lean-forward="false" selection-start-line="714" selection-start-column="9" selection-end-line="714" selection-end-column="9" />
                   <folding>
                     <element signature="e#0#28#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Bridson_Main.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/Bridson_Main.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="542">
+                  <caret line="854" column="43" lean-forward="true" selection-start-line="854" selection-start-column="43" selection-end-line="854" selection-end-column="43" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -259,11 +142,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Bridson_MeshObj.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="Bridson_MeshObj.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Bridson_MeshObj.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="440">
-                  <caret line="1631" column="37" lean-forward="true" selection-start-line="1631" selection-start-column="37" selection-end-line="1631" selection-end-column="37" />
+                <state relative-caret-position="24255">
+                  <caret line="1631" column="37" lean-forward="false" selection-start-line="1631" selection-start-column="37" selection-end-line="1631" selection-end-column="37" />
                   <folding>
                     <element signature="e#0#80#0" expanded="true" />
                   </folding>
@@ -298,16 +181,6 @@
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="225">
                   <caret line="15" column="9" lean-forward="false" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="9" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Bridson_Main.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Bridson_Main.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="312">
-                  <caret line="293" column="0" lean-forward="false" selection-start-line="290" selection-start-column="0" selection-end-line="293" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -348,13 +221,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>transfer</find>
-      <find>generateSeedPairs</find>
-      <find>mergeLines2</find>
-      <find>constructLocatioForEdgePoints</find>
-      <find>mergelines2</find>
-      <find>CNN</find>
-      <find>Semanticc</find>
       <find>Mask_CNN</find>
       <find>debug</find>
       <find>generateSeed</find>
@@ -363,9 +229,7 @@
       <find>.seedPoints</find>
       <find>se</find>
       <find>redrawing</find>
-      <find>redraw</find>
       <find>rotateClockwise90</find>
-      <find>rotate</find>
       <find>closest</find>
       <find>generateDualGraph</find>
       <find>findClos</find>
@@ -378,6 +242,15 @@
       <find>display</find>
       <find>displayMesh</find>
       <find>drawangles</find>
+      <find>rotate90</find>
+      <find>redraw</find>
+      <find>drawRegionLines</find>
+      <find>indexValidation</find>
+      <find>rotate</find>
+      <find>tick</find>
+      <find>label</find>
+      <find>xlabel</find>
+      <find>contour</find>
     </findStrings>
     <replaceStrings>
       <replace>=</replace>
@@ -440,18 +313,18 @@
         <option value="$PROJECT_DIR$/Bridson_LineCalculations.py" />
         <option value="$PROJECT_DIR$/Bridson_TriangulationDualGraph.py" />
         <option value="$PROJECT_DIR$/SLIC.py" />
+        <option value="$PROJECT_DIR$/Bridson_Test.py" />
+        <option value="$PROJECT_DIR$/Bridson_MeshObj.py" />
+        <option value="$PROJECT_DIR$/Bridson_Common.py" />
         <option value="$PROJECT_DIR$/Bridson_FinishedImage.py" />
         <option value="$PROJECT_DIR$/Bridson_Main.py" />
-        <option value="$PROJECT_DIR$/Bridson_Test.py" />
-        <option value="$PROJECT_DIR$/Bridson_Common.py" />
-        <option value="$PROJECT_DIR$/Bridson_MeshObj.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-3840" />
-    <option name="y" value="436" />
-    <option name="width" value="1920" />
+    <option name="x" value="-3978" />
+    <option name="y" value="23" />
+    <option name="width" value="1280" />
     <option name="height" value="1057" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -509,7 +382,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Bridson_MeshObj">
+  <component name="RunManager" selected="Python.Bridson_Main">
     <configuration name="Bridson_LineCalculations" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -627,8 +500,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.Bridson_MeshObj" />
-        <item index="1" class="java.lang.String" itemvalue="Python.Bridson_Main" />
+        <item index="0" class="java.lang.String" itemvalue="Python.Bridson_Main" />
+        <item index="1" class="java.lang.String" itemvalue="Python.Bridson_MeshObj" />
         <item index="2" class="java.lang.String" itemvalue="Python.Bridson_LineCalculations" />
         <item index="3" class="java.lang.String" itemvalue="Python.Bridson_Test" />
         <item index="4" class="java.lang.String" itemvalue="Python.Bridson_TriangulationDualGraph" />
@@ -713,7 +586,7 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42706686" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290735" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49946752" sideWeight="0.51026857" order="6" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.19169329" sideWeight="0.48973143" order="10" side_tool="false" content_ui="tabs" x="960" y="23" width="960" height="1177" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.19169329" sideWeight="0.48973143" order="10" side_tool="false" content_ui="tabs" x="640" y="23" width="1280" height="1177" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290735" sideWeight="0.4918378" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32200187" sideWeight="0.49289098" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27224857" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1045,6 +918,70 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Bridson_Test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10050">
+          <caret line="675" column="0" lean-forward="false" selection-start-line="675" selection-start-column="0" selection-end-line="675" selection-end-column="0" />
+          <folding>
+            <element signature="e#6883#6915#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SemanticSegmentation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1305">
+          <caret line="96" column="9" lean-forward="false" selection-start-line="96" selection-start-column="9" selection-end-line="96" selection-end-column="9" />
+          <folding>
+            <element signature="e#253#304#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Bridson_LineCalculations.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="945">
+          <caret line="63" column="0" lean-forward="false" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Bridson_MeshObj.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24255">
+          <caret line="1631" column="37" lean-forward="false" selection-start-line="1631" selection-start-column="37" selection-end-line="1631" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#80#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Bridson_sampling.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="11" column="4" lean-forward="false" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Bridson_TriangulationDualGraph.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8520">
+          <caret line="582" column="8" lean-forward="false" selection-start-line="582" selection-start-column="8" selection-end-line="582" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SLIC.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="9" lean-forward="false" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Bridson_StructTensor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1605">
@@ -1063,72 +1000,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Bridson_TriangulationDualGraph.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8520">
-          <caret line="582" column="8" lean-forward="false" selection-start-line="582" selection-start-column="8" selection-end-line="582" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Bridson_LineCalculations.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="945">
-          <caret line="63" column="0" lean-forward="false" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SemanticSegmentation.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1305">
-          <caret line="96" column="9" lean-forward="false" selection-start-line="96" selection-start-column="9" selection-end-line="96" selection-end-column="9" />
-          <folding>
-            <element signature="e#253#304#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/SLIC.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="9" lean-forward="false" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Bridson_Main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="293" column="0" lean-forward="false" selection-start-line="290" selection-start-column="0" selection-end-line="293" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Bridson_Test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="675" column="0" lean-forward="false" selection-start-line="675" selection-start-column="0" selection-end-line="675" selection-end-column="0" />
-          <folding>
-            <element signature="e#6883#6915#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Bridson_sampling.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="11" column="4" lean-forward="false" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Bridson_Common.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+        <state relative-caret-position="351">
+          <caret line="714" column="9" lean-forward="false" selection-start-line="714" selection-start-column="9" selection-end-line="714" selection-end-column="9" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
@@ -1137,21 +1012,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Bridson_FinishedImage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="1026" column="25" lean-forward="true" selection-start-line="1026" selection-start-column="25" selection-end-line="1026" selection-end-column="25" />
+        <state relative-caret-position="741">
+          <caret line="1490" column="56" lean-forward="true" selection-start-line="1490" selection-start-column="56" selection-end-line="1490" selection-end-column="56" />
           <folding>
             <element signature="e#1#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Bridson_MeshObj.py">
+    <entry file="file://$PROJECT_DIR$/Bridson_Main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="1631" column="37" lean-forward="true" selection-start-line="1631" selection-start-column="37" selection-end-line="1631" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#80#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="542">
+          <caret line="854" column="43" lean-forward="true" selection-start-line="854" selection-start-column="43" selection-end-line="854" selection-end-column="43" />
+          <folding />
         </state>
       </provider>
     </entry>

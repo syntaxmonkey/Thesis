@@ -27,13 +27,19 @@ class FinishedImage:
 	def __init__(self, *args, **kwargs):
 		self.fig = plt.figure()
 		self.ax = self.fig.add_subplot(1, 1, 1, aspect=1)
-		self.ax.set_title('Merged Image' )
-		self.ax.grid()
+		if Bridson_Common.productionMode == False:
+			self.ax.set_title('Merged Image' )
+			self.ax.grid()
+		else:
+			self.ax.set_xticks([])
+			self.ax.set_yticks([])
 		self.tempLines = []
 		# self.set
 		# self.ax.invert_yaxis()
 
 	def setTitle(self, filename):
+		if Bridson_Common.productionMode:
+			return
 		if Bridson_Common.SLIC0:
 			self.ax.set_title('Merged Image - ' + filename + '\nSegments: ' + str(Bridson_Common.segmentCount) + ' - compactness: SLIC0' )
 		else:
@@ -41,12 +47,14 @@ class FinishedImage:
 
 	def setXLimit(self, left, right):
 		# print("Left:", left, "Right:", right)
-		# self.ax.set_xlim(left=left, right=right)
+		if Bridson_Common.productionMode:
+			self.ax.set_xlim(left=left, right=right)
 		pass
 
 	def setYLimit(self, top, bottom):
 		# print("Left:", left, "Right:", right)
-		# self.ax.set_ylim(top=top, bottom=bottom)
+		if Bridson_Common.productionMode:
+			self.ax.set_ylim(top=top, bottom=bottom)
 		pass
 
 	def copyFromOther(self, otherFinishedImage):
@@ -1453,7 +1461,11 @@ class FinishedImage:
 	def calculateLineWidth(self, index):
 		# The line width will be a linear calculation: -0.2 * x / 255 + 0.2.  At 0, it should be 0.25 at intensity 0 and 0.05 at intensity 255.
 		# Change the line thickness.  Assume minimum line thickness is 0.1.  We want the maximum line thickness to be 1.0.
-		return (-1.0 * self.regionIntensityMap[index] / 255) + 1.01
+		minsize = 0.1
+		# width = (-1.0 * self.regionIntensityMap[index] / 255) + 1.01
+		# width = (-0.5 * self.regionIntensityMap[index] / 128) + 1.01
+		width = ((-1.0 + minsize)* self.regionIntensityMap[index] / 255) + 1.01
+		return width
 
 	def drawRegionContourLines(self, index, drawSLICRegions = Bridson_Common.drawSLICRegions):
 		# If we are not drawing the SLIC regions, we do not need to flip the Y coordinates.
@@ -1522,6 +1534,8 @@ class FinishedImage:
 				lineWidth = 0.1  # HERE
 				self.ax.plot(line[:, 0], line[:, 1] * flip, color=colour, linewidth=lineWidth)
 			else:
+				if Bridson_Common.productionMode:
+					colour = 'k'
 				self.ax.plot(line[:, 0], line[:, 1]*flip, color=colour, linewidth=lineWidth)
 			if Bridson_Common.closestPointPair:  # Only place the dots when we are calculating closest point pair.
 				if initial == False:  # Do not display this dot the first time around.

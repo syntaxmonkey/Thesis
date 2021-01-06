@@ -31,11 +31,12 @@ SLICIterations=200
 SLICGrey = False
 
 #####################################
+productionMode = True
 bulkGeneration = True
 smallBatch=True
 diagnosticDisplay=False # Enable/Disable pairing diagnostics
 diagnosticDisplayCount=20
-diagnosticMerge=True
+diagnosticMerge=False
 
 
 coreCount = 1
@@ -77,7 +78,10 @@ lineSkip = 1
 lineCullingDistanceFactor = 2
 allowBlankRegion=False # Allow the region to be blank.  Otherwise, regions can have one single line even if the intensity is high.
 cullingBlankThreshold=225 # If the region has intensity greater than this value, then make the region blank.
-highlightEndpoints=True
+if productionMode:
+	highlightEndpoints=False
+else:
+	highlightEndpoints=True
 lineCullAlgorithm='generous'  # Valid values: 'log', 'exp', 'none', 'segmented', 'generous'
 
 closestPointPair=False
@@ -248,7 +252,7 @@ def determineLineSpacing( intensity):
 			intensityDistance = intensity
 	elif lineCullAlgorithm == 'generous':
 		# We want more lines in each region.
-		intensityDistance = (intensity / 100.0)
+		intensityDistance = (intensity / 30.0)
 		if diagnosticMerge:
 			intensityDistance = (intensity / 20.0) #HERE
 	else:
@@ -720,7 +724,12 @@ def saveImage(filename, postFix, fig):
 			actualFileName = actualFileName + "_compactness_" + str(compactnessSLIC)
 
 		actualFileName = actualFileName + "_attractThreshold_" + str(diffAttractPercentile) + "_cnn_" + semanticSegmentation + "_semanticRatio_" + str(semanticSegmentationRatio) + "_" + postFix + ".png"
-		fig.savefig( actualFileName, dpi=100*scalingFactor)
+		if productionMode:
+			fig.savefig(actualFileName, dpi=100 * scalingFactor, bbox_inches='tight', pad_inches=0) # https://chartio.com/resources/tutorials/how-to-save-a-plot-to-a-file-using-matplotlib/
+			# https://matplotlib.org/tutorials/intermediate/tight_layout_guide.html
+		else:
+			fig.savefig( actualFileName, dpi=100*scalingFactor)
+
 		if bulkGeneration: # Delete the figures when we are bulk generating.
 			plt.close(fig=fig)
 	# except Exception as e:
