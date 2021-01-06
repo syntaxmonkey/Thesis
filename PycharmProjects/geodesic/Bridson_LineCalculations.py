@@ -5,6 +5,7 @@
 
 
 import math
+from numba import prange, njit, jit, jit_module
 
 def dot(v,w):
     x,y,z = v
@@ -82,6 +83,7 @@ def pnt2line(pnt, start, end):
     nearest = add(nearest, start)
     return (dist, nearest)
 
+jit_module(nopython=True)
 
 if __name__ == '__main__':
 	point = [1, 1]

@@ -716,8 +716,8 @@ def indexValidation(filename):
 
 
 	# Redraw lines after merge.
-	redrawRegionLines(filename, finishedImageSLIC, regionList) ## HERE
-	finishedImageSLIC.drawRegionContourLines(index, drawSLICRegions=True)
+	# redrawRegionLines(filename, finishedImageSLIC, regionList) ## HERE
+	# finishedImageSLIC.drawRegionContourLines(index, drawSLICRegions=True)
 
 	# finishedImageNoSLIC.copyFromOther(finishedImageSLIC)
 
@@ -807,7 +807,7 @@ def main():
 	# images.append('SimpleSquare.jpg')
 	# images.append("FourCircles.png")
 	# images.append("SimpleSquares.png")
-	images.append('simpleTriangle.png')
+	# images.append('simpleTriangle.png')
 	# images.append('Stripes.png')
 
 	# Batch A.
@@ -852,11 +852,11 @@ def main():
 	# Batch D
 	images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
 	# images.append('everyday-basics-i0ROGKijuek-unsplash.jpg')
-	images.append('imani-bahati-LxVxPA1LOVM-unsplash.jpg')
-	images.append('kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg')
-	images.append('luis-quintero-qKspdY9XUzs-unsplash.jpg')
-	images.append('miguel-andrade-nAOZCYcLND8-unsplash.jpg')
-	images.append('mr-o-k--ePHy6jg_7c-unsplash.jpg')
+	# images.append('imani-bahati-LxVxPA1LOVM-unsplash.jpg')
+	# images.append('kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg')
+	images.append('luis-quintero-qKspdY9XUzs-unsplash-hand.jpg')
+	# images.append('miguel-andrade-nAOZCYcLND8-unsplash.jpg')
+	# images.append('mr-o-k--ePHy6jg_7c-unsplash.jpg')
 	images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
 
 	semanticSegmentation = ['none']
@@ -879,9 +879,9 @@ def main():
 	targetPixels = [3200]
 	if Bridson_Common.bulkGeneration:
 		# segmentCounts = [100, 200]
-		segmentCounts = [ 200, 400]
+		segmentCounts = [ 100, 200, 400]
 		# segmentCounts = [50, 100]
-		compactnessList = [ 0.1, 0.25, 0.5]
+		# compactnessList = [ 0.1, 0.25, 0.5]
 		# if Bridson_Common.SLIC0:
 		# 	compactnessList = [0.01]
 		# else:

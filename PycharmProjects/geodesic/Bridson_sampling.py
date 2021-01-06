@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import math
 import Bridson_Common
 import datetime
+from numba import prange, njit, jit, jit_module
 
 def calculateParameters(xrange, yrange, radius=0, pointCount=0):
     perimeter = xrange * 2.0 + yrange * 2.0
@@ -22,6 +23,7 @@ def calculateParameters(xrange, yrange, radius=0, pointCount=0):
         pointDistance = perimeter / pointCount
 
     return pointDistance, pointCount
+
 
 
 def Bridson_sampling(width=1.0, height=1.0, radius=0.025, k=30, existingPoints=[], mask=[]):

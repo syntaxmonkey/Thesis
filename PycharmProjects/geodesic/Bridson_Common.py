@@ -33,13 +33,13 @@ SLICGrey = False
 #####################################
 productionMode = True
 bulkGeneration = True
-smallBatch=True
+smallBatch=False
 diagnosticDisplay=False # Enable/Disable pairing diagnostics
 diagnosticDisplayCount=20
 diagnosticMerge=False
 
 
-coreCount = 1
+coreCount = 2
 if os.path.exists("./output") == True:
 	if os.path.isdir("./output") == False:
 		exit(-1)
@@ -47,7 +47,7 @@ else:
 	os.mkdir("./output")
 
 if bulkGeneration:
-	# sys.stdout = open("./output/detailLogs.txt", "a")
+	sys.stdout = open("./output/detailLogs.txt", "a")
 	pass
 
 #####################################

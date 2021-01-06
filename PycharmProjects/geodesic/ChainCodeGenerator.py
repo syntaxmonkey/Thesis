@@ -2,6 +2,7 @@
 
 # This code is based on http://www.cs.unca.edu/~reiser/imaging/chaincode.html
 
+from numba import jit_module
 import numpy as np # linear algebra
 import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)
 # import cv2
@@ -247,6 +248,7 @@ def writeChainCodeFile(path, filename, chainDirection):
 		f.write("%d\r\n" % (direction))
 	f.close()
 
+jit_module(nopython=True)
 
 if __name__ == '__main__':
 	# img = genLetter(boxsize=int(100/4), character='C', blur=1)
