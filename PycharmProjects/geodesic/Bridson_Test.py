@@ -1276,141 +1276,141 @@ import networkx
 ## Based on original post from: http://www.fundza.com/vectors/point2line/index.html
 
 import math
+if False:
+	def dot(v,w):
+		x,y,z = v
+		X,Y,Z = w
+		return x*X + y*Y + z*Z
 
-def dot(v,w):
-    x,y,z = v
-    X,Y,Z = w
-    return x*X + y*Y + z*Z
+	def length(v):
+		x,y,z = v
+		return math.sqrt(x*x + y*y + z*z)
 
-def length(v):
-    x,y,z = v
-    return math.sqrt(x*x + y*y + z*z)
+	def vector(b,e):
+		x,y,z = b
+		X,Y,Z = e
+		return (X-x, Y-y, Z-z)
 
-def vector(b,e):
-    x,y,z = b
-    X,Y,Z = e
-    return (X-x, Y-y, Z-z)
+	def unit(v):
+		x,y,z = v
+		mag = length(v)
+		return (x/mag, y/mag, z/mag)
 
-def unit(v):
-    x,y,z = v
-    mag = length(v)
-    return (x/mag, y/mag, z/mag)
+	def distance(p0,p1):
+		return length(vector(p0,p1))
 
-def distance(p0,p1):
-    return length(vector(p0,p1))
+	def scale(v,sc):
+		x,y,z = v
+		return (x * sc, y * sc, z * sc)
 
-def scale(v,sc):
-    x,y,z = v
-    return (x * sc, y * sc, z * sc)
-
-def add(v,w):
-    x,y,z = v
-    X,Y,Z = w
-    return (x+X, y+Y, z+Z)
-
-
-
-# Given a line with coordinates 'start' and 'end' and the
-# coordinates of a point 'pnt' the proc returns the shortest
-# distance from pnt to the line and the coordinates of the
-# nearest point on the line.
-#
-# 1  Convert the line segment to a vector ('line_vec').
-# 2  Create a vector connecting start to pnt ('pnt_vec').
-# 3  Find the length of the line vector ('line_len').
-# 4  Convert line_vec to a unit vector ('line_unitvec').
-# 5  Scale pnt_vec by line_len ('pnt_vec_scaled').
-# 6  Get the dot product of line_unitvec and pnt_vec_scaled ('t').
-# 7  Ensure t is in the range 0 to 1.
-# 8  Use t to get the nearest location on the line to the end
-#    of vector pnt_vec_scaled ('nearest').
-# 9  Calculate the distance from nearest to pnt_vec_scaled.
-# 10 Translate nearest back to the start/end line.
-# Malcolm Kesson 16 Dec 2012
-
-def pnt2line(pnt, start, end):
-	line_vec = vector(start, end)
-	pnt_vec = vector(start, pnt)
-	line_len = length(line_vec)
-	line_unitvec = unit(line_vec)
-	pnt_vec_scaled = scale(pnt_vec, 1.0 / line_len)
-	t = dot(line_unitvec, pnt_vec_scaled)
-	if t < 0.0:
-		t = 0.0
-	elif t > 1.0:
-		t = 1.0
-	nearest = scale(line_vec, t)
-	dist = distance(nearest, pnt_vec)
-	nearest = add(nearest, start)
-	return (dist, nearest)
+	def add(v,w):
+		x,y,z = v
+		X,Y,Z = w
+		return (x+X, y+Y, z+Z)
 
 
-point = [0,0, 0]
-start = [2,0, 0]
-end = [2,2, 0]
 
-print( pnt2line(point, start, end) )
+	# Given a line with coordinates 'start' and 'end' and the
+	# coordinates of a point 'pnt' the proc returns the shortest
+	# distance from pnt to the line and the coordinates of the
+	# nearest point on the line.
+	#
+	# 1  Convert the line segment to a vector ('line_vec').
+	# 2  Create a vector connecting start to pnt ('pnt_vec').
+	# 3  Find the length of the line vector ('line_len').
+	# 4  Convert line_vec to a unit vector ('line_unitvec').
+	# 5  Scale pnt_vec by line_len ('pnt_vec_scaled').
+	# 6  Get the dot product of line_unitvec and pnt_vec_scaled ('t').
+	# 7  Ensure t is in the range 0 to 1.
+	# 8  Use t to get the nearest location on the line to the end
+	#    of vector pnt_vec_scaled ('nearest').
+	# 9  Calculate the distance from nearest to pnt_vec_scaled.
+	# 10 Translate nearest back to the start/end line.
+	# Malcolm Kesson 16 Dec 2012
 
-
-print("**************** Multi-line segment calculation **********************")
-def lineseg_dists(p, a, b):
-    """Cartesian distance from point to line segment
-
-    Edited to support arguments as series, from:
-    https://stackoverflow.com/a/54442561/11208892
-
-    Args:
-        - p: np.array of single point, shape (2,) or 2D array, shape (x, 2)
-        - a: np.array of shape (x, 2)
-        - b: np.array of shape (x, 2)
-    """
-    # normalized tangent vectors
-    d_ba = b - a
-    d = np.divide(d_ba, (np.hypot(d_ba[:, 0], d_ba[:, 1])
-                           .reshape(-1, 1)))
-
-    # signed parallel distance components
-    # rowwise dot products of 2D vectors
-    s = np.multiply(a - p, d).sum(axis=1)
-    t = np.multiply(p - b, d).sum(axis=1)
-
-    # clamped parallel distance
-    h = np.maximum.reduce([s, t, np.zeros(len(s))])
-
-    # perpendicular distance component
-    # rowwise cross products of 2D vectors
-    d_pa = p - a
-    c = d_pa[:, 0] * d[:, 1] - d_pa[:, 1] * d[:, 0]
-
-    print("C value:", c)
-    return np.hypot(h, c)
-
-point = [0,0]
-start = [2,0]
-end = [2,2]
+	def pnt2line(pnt, start, end):
+		line_vec = vector(start, end)
+		pnt_vec = vector(start, pnt)
+		line_len = length(line_vec)
+		line_unitvec = unit(line_vec)
+		pnt_vec_scaled = scale(pnt_vec, 1.0 / line_len)
+		t = dot(line_unitvec, pnt_vec_scaled)
+		if t < 0.0:
+			t = 0.0
+		elif t > 1.0:
+			t = 1.0
+		nearest = scale(line_vec, t)
+		dist = distance(nearest, pnt_vec)
+		nearest = add(nearest, start)
+		return (dist, nearest)
 
 
-p = np.array(point)
-a = np.array([start])
-b = np.array([end])
+	point = [0,0, 0]
+	start = [2,0, 0]
+	end = [2,2, 0]
 
-p = np.array([0, 0])
-
-# a = np.array([[ 0,  1],
-#               [-1,  0],
-#               [-1, -1]])
-# b = np.array([[ 2,  2],
-#               [ 1,  0],
-#               [ 1, -1]])
-
-a = np.array([[ 3,  0],
-              [-1,  0]              ])
-b = np.array([[ 2,  2],
-              [ 1,  0]])
+	print( pnt2line(point, start, end) )
 
 
-print("**************** Multi-line A **********************")
-print(lineseg_dists(p, a, b))
+	print("**************** Multi-line segment calculation **********************")
+	def lineseg_dists(p, a, b):
+		"""Cartesian distance from point to line segment
+
+		Edited to support arguments as series, from:
+		https://stackoverflow.com/a/54442561/11208892
+
+		Args:
+			- p: np.array of single point, shape (2,) or 2D array, shape (x, 2)
+			- a: np.array of shape (x, 2)
+			- b: np.array of shape (x, 2)
+		"""
+		# normalized tangent vectors
+		d_ba = b - a
+		d = np.divide(d_ba, (np.hypot(d_ba[:, 0], d_ba[:, 1])
+		                     .reshape(-1, 1)))
+
+		# signed parallel distance components
+		# rowwise dot products of 2D vectors
+		s = np.multiply(a - p, d).sum(axis=1)
+		t = np.multiply(p - b, d).sum(axis=1)
+
+		# clamped parallel distance
+		h = np.maximum.reduce([s, t, np.zeros(len(s))])
+
+		# perpendicular distance component
+		# rowwise cross products of 2D vectors
+		d_pa = p - a
+		c = d_pa[:, 0] * d[:, 1] - d_pa[:, 1] * d[:, 0]
+
+		print("C value:", c)
+		return np.hypot(h, c)
+
+	point = [0,0]
+	start = [2,0]
+	end = [2,2]
+
+
+	p = np.array(point)
+	a = np.array([start])
+	b = np.array([end])
+
+	p = np.array([0, 0])
+
+	# a = np.array([[ 0,  1],
+	#               [-1,  0],
+	#               [-1, -1]])
+	# b = np.array([[ 2,  2],
+	#               [ 1,  0],
+	#               [ 1, -1]])
+
+	a = np.array([[ 3,  0],
+	              [-1,  0]              ])
+	b = np.array([[ 2,  2],
+	              [ 1,  0]])
+
+
+	print("**************** Multi-line A **********************")
+	print(lineseg_dists(p, a, b))
 
 # p = np.array([ [0,0],
 #                [1, 1],
@@ -1422,13 +1422,47 @@ print(lineseg_dists(p, a, b))
 
 
 
+import EdgePoint
+import hashlib
 
+xyCoordinates = (2,3)
+associateLine = []
+regionIndex = 11
+pointIndex = 0
+edgePoint = EdgePoint.EdgePoint(xyCoordinates, associateLine, regionIndex, pointIndex)
 
+lineMap = {}
+lineMap[edgePoint] = edgePoint
 
+print(lineMap)
+edgePoint.xy = (3,3)
+print(lineMap)
 
+line1 = [1,78,98,987]
+line2 = [1,78,98,987]
+# line3 = [3,784,38,93]
+#
+print(hash(tuple(line1)))
+print(hash(tuple(line2)))
 
+hashId = hashlib.sha3_512()
+hashId.update(repr(tuple(line1)).encode('utf-8'))
+print(hashId.hexdigest())
+hashId.update(repr(tuple(line2)).encode('utf-8'))
+print(hashId.hexdigest())
 
+# print(hash(line3))
 
+point1=[1,1]
+point2=[2,2]
+point3=[3,3]
+
+# lineMap = {}
+# lineMap[line1] = (point1,0)
+# lineMap[line2] = (point2,0)
+# lineMap[line3] = (point3, 0)
+
+# print(lineMap)
 
 jit_module(nopython=True, fastmath=True)
 

@@ -844,20 +844,33 @@ def main():
 	# images.append('herson-rodriguez-w8CcH9Md4vE-unsplash_Van.jpg')
 	# images.append('lucia-lua-ramirez-lG0AHN1Gapw-unsplash_Bus.jpg')
 	# images.append('pawel-czerwinski-xt1tPXqOdcc-unsplash_TrafficLight.jpg')
-	images.append('joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg')
 	# images.append('devvrat-jadon-WLNkAHCjYOw-unsplash_Hammer.jpg')
 	# images.append('magic-bowls-3QGtPOqeBEQ-unsplash.jpg')
 	# images.append('ruslan-keba-G5tOIWFZqFE-unsplash_RubiksCube.jpg')
 
 	# Batch D
-	images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
 	# images.append('everyday-basics-i0ROGKijuek-unsplash.jpg')
 	# images.append('imani-bahati-LxVxPA1LOVM-unsplash.jpg')
 	# images.append('kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg')
-	images.append('luis-quintero-qKspdY9XUzs-unsplash-hand.jpg')
+	if False:
+		images.append('joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg')
+		images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
+		images.append('luis-quintero-qKspdY9XUzs-unsplash-hand.jpg')
+		images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
+
 	# images.append('miguel-andrade-nAOZCYcLND8-unsplash.jpg')
 	# images.append('mr-o-k--ePHy6jg_7c-unsplash.jpg')
-	images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
+
+
+	# Batch E
+	images.append('tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg')
+	images.append('jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg')
+	images.append('johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg')
+	images.append('john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg')
+	images.append('sven-read-oktY8r91C84-unsplash_tunnel.jpg')
+	images.append('marina-reich-NxWdBnFiikg-unsplash_streescene.jpg')
+
+
 
 	semanticSegmentation = ['none']
 	# semanticSegmentation = ['none']
@@ -879,7 +892,7 @@ def main():
 	targetPixels = [3200]
 	if Bridson_Common.bulkGeneration:
 		# segmentCounts = [100, 200]
-		segmentCounts = [ 100, 200, 400]
+		segmentCounts = [ 100, 400, 900]
 		# segmentCounts = [50, 100]
 		# compactnessList = [ 0.1, 0.25, 0.5]
 		# if Bridson_Common.SLIC0:

@@ -1536,7 +1536,8 @@ class FinishedImage:
 			else:
 				if Bridson_Common.productionMode:
 					colour = 'k'
-				self.ax.plot(line[:, 0], line[:, 1]*flip, color=colour, linewidth=lineWidth)
+				'''************ Actually draw the line in production mode ****************'''
+				self.ax.plot(line[:, 0], line[:, 1]*flip, color=colour, linewidth=lineWidth)  ## **** Actually draw the line.
 			if Bridson_Common.closestPointPair:  # Only place the dots when we are calculating closest point pair.
 				if initial == False:  # Do not display this dot the first time around.
 					self.ax.plot(currentLine[self.markPoint[0]][0], currentLine[self.markPoint[0]][1] * flip, marker='*',
