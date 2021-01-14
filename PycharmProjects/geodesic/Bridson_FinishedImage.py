@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib
 import SLIC
 import Bridson_Common
+from Bridson_Common import truncate, truncateDigits
 import numpy as np
 from skimage.segmentation import mark_boundaries
 import math
@@ -48,13 +49,15 @@ class FinishedImage:
 	def setXLimit(self, left, right):
 		# print("Left:", left, "Right:", right)
 		if Bridson_Common.productionMode:
-			self.ax.set_xlim(left=left, right=right)
+			# self.ax.set_xlim(left=left, right=right)
+			pass
 		pass
 
 	def setYLimit(self, top, bottom):
 		# print("Left:", left, "Right:", right)
 		if Bridson_Common.productionMode:
-			self.ax.set_ylim(top=top, bottom=bottom)
+			# self.ax.set_ylim(top=top, bottom=bottom)
+			pass
 		pass
 
 	def copyFromOther(self, otherFinishedImage):
@@ -68,7 +71,7 @@ class FinishedImage:
 		if hasattr(otherFinishedImage, 'globalEdgePointMap'): self.globalEdgePointMap = otherFinishedImage.globalEdgePointMap.copy()
 
 		if hasattr(otherFinishedImage, 'regionEdgePointMap'): self.regionEdgePointMap =  otherFinishedImage.regionEdgePointMap.copy() # Map of (x,y) coordinates
-		if hasattr(otherFinishedImage, 'regionAdjancencyMap'): self.regionAdjancencyMap =  otherFinishedImage.regionAdjancencyMap.copy() # Map to contain AdjancencyEdge objects
+		if hasattr(otherFinishedImage, 'regionAdjancencyMap'): self.regionAdjacencyMap =  otherFinishedImage.regionAdjancencyMap.copy() # Map to contain AdjancencyEdge objects
 		if hasattr(otherFinishedImage, 'regionAdjacentRegions'): self.regionAdjacentRegions = otherFinishedImage.regionAdjacentRegions.copy() # Map containing list of adjacent regions for current region.
 		if hasattr(otherFinishedImage, 'regionMap'): self.regionMap = otherFinishedImage.regionMap.copy()
 		if hasattr(otherFinishedImage, 'regionIntensityMap'): self.regionIntensityMap = otherFinishedImage.regionIntensityMap.copy()
@@ -388,9 +391,9 @@ class FinishedImage:
 				endingIndex = index if index > adjacentIndex else adjacentIndex
 
 				# Obtain the adjacencyEdge.
-				if (startingIndex, endingIndex) in self.regionAdjancencyMap:
+				if (startingIndex, endingIndex) in self.regionAdjacencyMap:
 					# Only continue if the startingIndex, endingIndex pair exists.
-					adjacencyEdge = self.regionAdjancencyMap[ (startingIndex, endingIndex) ]
+					adjacencyEdge = self.regionAdjacencyMap[ (startingIndex, endingIndex)]
 
 					# Get the current region EdgePoints
 					if index < adjacentIndex:
@@ -431,20 +434,25 @@ class FinishedImage:
 
 	def mergeLines2(self):
 		# Iterate through each region.
+		print('Entering mergeLines2')
 		count = 0
 		self.processedRegions = {}
+		print('mergeLines2 - self.regionAdjacentRegions.keys():', self.regionAdjacentRegions.keys())
 		for index in self.regionAdjacentRegions.keys(): # Iterate through regions that have adjacencies defined.
+			print('mergeLines2 - processing region:', index)
 			# Obtain the adjacent regions for the current index.
 			adjacentRegions = self.regionAdjacentRegions[ index ]
 			for adjacentIndex in adjacentRegions:
 				startingIndex = index if index < adjacentIndex else adjacentIndex
 				endingIndex = index if index > adjacentIndex else adjacentIndex
 
-				if (startingIndex, endingIndex) not in self.processedRegions.keys():
+				# If the angles of the two regions are sufficiently different, do not merge the two regions.
+				if self.regionAngleSimilar(startingIndex, endingIndex) and (startingIndex, endingIndex) not in self.processedRegions.keys():
+				# if (startingIndex, endingIndex) not in self.processedRegions.keys(): # Original approach
 				# Obtain the adjacencyEdge.
-					if (startingIndex, endingIndex) in self.regionAdjancencyMap:
+					if (startingIndex, endingIndex) in self.regionAdjacencyMap:
 						# Only continue if the startingIndex, endingIndex pair exists.
-						adjacencyEdge = self.regionAdjancencyMap[ (startingIndex, endingIndex) ]
+						adjacencyEdge = self.regionAdjacencyMap[ (startingIndex, endingIndex)]
 
 						# Get the current region EdgePoints
 						if index < adjacentIndex:
@@ -457,6 +465,8 @@ class FinishedImage:
 						currentPoints = self.constructLocationForEdgePoints(currentIndexEdgePoints)
 						adjacentPoints = self.constructLocationForEdgePoints(adjacentIndexEdgePoints)
 
+						print("mergeLines2 - currentPoints:", currentPoints)
+						print("mergeLines2 - adjacentPoints:", adjacentPoints)
 						# print("mergeLines2 currentPoints")
 						# for value in currentPoints:
 						# 	print(value)
@@ -959,8 +969,9 @@ class FinishedImage:
 		self.regionIntensityMap = regionIntensityMap
 		self.globalEdgePointMap = {} # Map of (x,y) coordinates that point to EdgePoint objects, if they exist.
 		self.regionEdgePointMap = {} # Map of (x,y) coordinates
-		self.regionAdjancencyMap = {} # Map to contain AdjancencyEdge objects
+		self.regionAdjacencyMap = {} # Map to contain AdjancencyEdge objects
 		self.regionAdjacentRegions = {} # Map containing list of adjacent regions for current region.
+
 
 
 	def cropCullLines(self ):
@@ -1023,7 +1034,7 @@ class FinishedImage:
 			# distanceMask = raster
 			# Bridson_Common.displayDistanceMask(distanceMask, str(index), topLeftTarget, bottomRightTarget)
 			####################################
-
+		print("globalEdgePointMap Keys:", self.globalEdgePointMap.keys())
 
 	def highLightEdgePoints(self, color='g', drawSLICRegions=Bridson_Common.drawSLICRegions):
 		for index in self.regionAdjacentRegions:
@@ -1040,7 +1051,7 @@ class FinishedImage:
 			for adjacentIndex in adjacentRegions:
 				startingIndex = index if index < adjacentIndex else adjacentIndex
 				endingIndex = index if index > adjacentIndex else adjacentIndex
-				adjacencyEdge = self.regionAdjancencyMap[ (startingIndex,endingIndex) ]
+				adjacencyEdge = self.regionAdjacencyMap[ (startingIndex, endingIndex)]
 
 				if index < adjacentIndex:
 					edgePoints = adjacencyEdge.currentIndexEdgePoints
@@ -1236,6 +1247,49 @@ class FinishedImage:
 			self.regionDirection = newDirection
 
 
+	def isLineTapered(self, xy):
+		'''
+
+		:param xy: Expected to be [x, y]
+		:return: True if angle is angle is greater than angleMaxDiff, False otherwise.
+		'''
+
+		# invertedPoint = tuple([-int(xy[1]), int(xy[0])]) # Original.
+		searchValue = tuple([-truncate(xy[1], truncateDigits), truncate(xy[0], truncateDigits)] ) ## Switching from x,y to row, column.
+		if searchValue in self.globalEdgePointMap:
+			print("isLineTapered: Found edgePoint:", xy)
+			edgePoint = self.globalEdgePointMap[ searchValue ]
+			edgePoint = edgePoint[0]
+			# print("EdgePoint:", dir(edgePoint) )
+
+			''' ****** if the adjacentIndex is None, then this endpoint should be tapered. ***** '''
+			if edgePoint.adjacentIndex == None:
+				return True
+
+			angleDiff = self.calculateRegionAngleDifference(edgePoint.regionIndex, edgePoint.adjacentIndex)
+			print("Angle Difference:", angleDiff)
+			if angleDiff <= Bridson_Common.angleMaxDiff:
+				return False
+
+		return True
+
+	def calculateRegionAngleDifference(self, index, adjacentIndex):
+		print("Calculating angle for Index:", index, adjacentIndex)
+		print("Angle1:", self.regionDirection[index], "Angle2:",self.regionDirection[adjacentIndex])
+		minAngleDiff = Bridson_Angles.findAngleDiff(self.regionDirection[index], self.regionDirection[adjacentIndex])
+		print("minAngleDiff:", minAngleDiff, "  Returning minAngle:", minAngleDiff)
+
+		return minAngleDiff
+
+
+	def regionAngleSimilar(self, index, adjacentIndex):
+		print("regionAngleSimilar processing regions", index, adjacentIndex)
+		if self.calculateRegionAngleDifference(index, adjacentIndex) <= Bridson_Common.angleMaxDiff:
+			print("regionAngleSimilar returning True")
+			return True
+		print("regionAngleSimilar returning False")
+		return False
+
 
 	def genLineAdjacencyMap(self):
 		#### Does not generate duplicates.
@@ -1250,7 +1304,7 @@ class FinishedImage:
 
 			for edgePoint in regionEdgePoints.pointsOnEdge:
 				currentPixel = edgePoint.xy
-				currentPixel = [-int(currentPixel[1]), int(currentPixel[0])]  ## Switching from x,y to row, column
+				currentPixel = [-int(currentPixel[1]), int(currentPixel[0])]  ## Switching from x,y to row, column  ** This the problem.  Still using int.
 				for adjacentPixelRelativePosition in Bridson_Common.traversalMap:
 					adjacentPixel = tuple([currentPixel[0]+adjacentPixelRelativePosition[0], currentPixel[1]+adjacentPixelRelativePosition[1] ])
 					# print("genLineAdjacencyMap Searching for pixel:", adjacentPixel)
@@ -1283,13 +1337,21 @@ class FinishedImage:
 								endingIndex = index if index > adjacentIndex else adjacentIndex
 
 								# Populate the adjacency edge information.
-								if (startingIndex,endingIndex) in self.regionAdjancencyMap:
+								if (startingIndex,endingIndex) in self.regionAdjacencyMap:
 									# Mapping already created.  Add new points.
-									adjacencyEdge = self.regionAdjancencyMap[ (startingIndex, endingIndex)]
+									adjacencyEdge = self.regionAdjacencyMap[ (startingIndex, endingIndex)]
 								else:
 									# Mapping doesn't already exist.  Create new adjancency and populate.
 									adjacencyEdge = AdjacencyEdge.AdjancecyEdge(startingIndex, endingIndex)
-									self.regionAdjancencyMap[ (startingIndex, endingIndex)] = adjacencyEdge
+									self.regionAdjacencyMap[ (startingIndex, endingIndex)] = adjacencyEdge
+
+								# Set their respective adjacentIndex values.
+								edgePoint.setAdjacentIndex(adjacentEdgePoint.regionIndex)
+								adjacentEdgePoint.setAdjacentIndex(edgePoint.regionIndex)
+
+								# Set their respective adjacencyEdge.
+								edgePoint.setAdjacencyEdge(adjacencyEdge)
+								adjacentEdgePoint.setAdjacencyEdge(adjacencyEdge)
 
 								if edgePoint.regionIndex < adjacentEdgePoint.regionIndex:
 									# Prevent duplicate entries.
@@ -1299,6 +1361,7 @@ class FinishedImage:
 								else:
 									# Prevent duplicate entries.
 									if edgePoint not in adjacencyEdge.adjacentIndexEdgePoints:
+
 										adjacencyEdge.currentIndexEdgePoints.append(adjacentEdgePoint)
 										adjacencyEdge.adjacentIndexEdgePoints.append(edgePoint)
 
@@ -1340,10 +1403,12 @@ class FinishedImage:
 		# print("findLineEdgePoints edgePixels:", regionEdgePixels.edgePixelList)
 		# print("findLineEdgePoints PRE:", len(regionEdgePixels.edgePixelList) )
 		edgePixelList = regionEdgePixels.edgePixelList
+		# print("edgePixelList:", edgePixelList)
 		pointsOnEdge = []
 		for line in croppedLinePoints:
 			startPoint = line[0]
-			searchValue = [-int(startPoint[1]), int(startPoint[0])] ## Switching from x,y to row, column
+			searchValue = [-int(startPoint[1]), int(startPoint[0])] ## Switching from x,y to row, column.  Integer values.
+			# searchValue = [-truncate(startPoint[1],truncateDigits), truncate(startPoint[0], truncateDigits)] ## Switching from x,y to row, column.  Float values.
 			# print("findLineEdgePoints searching For value:", searchValue)
 			if searchValue in edgePixelList:
 				startEdgePoint = EdgePoint.EdgePoint( startPoint.copy(), line, index, 0)
@@ -1355,7 +1420,8 @@ class FinishedImage:
 					self.globalEdgePointMap[ tuple(searchValue)] = [startEdgePoint]
 
 			endPoint = line[-1]
-			searchValue = [-int(endPoint[1]), int(endPoint[0])] ## Switching from x,y to row, column
+			searchValue = [-int(endPoint[1]), int(endPoint[0])] ## Switching from x,y to row, column.  Original approach.
+			# searchValue = [-truncate(endPoint[1], truncateDigits), truncate(endPoint[0], truncateDigits)] # Float version.
 			if searchValue in edgePixelList:
 				endEdgePoint = EdgePoint.EdgePoint(endPoint.copy(), line, index, -1)
 				pointsOnEdge.append( endEdgePoint )
@@ -1371,6 +1437,53 @@ class FinishedImage:
 		# 	print(edgePoint.xy)
 		# print("findLineEdgePoints POST Points on Edge: ", pointsOnEdge)
 
+
+
+
+
+	def findLineEdgePoints2(self, index, regionEdgePixels, croppedLinePoints):
+		'''
+		:param regionEdgeConnectivity: Object containing edge pixel information.
+		:param croppedLinePoints: croppedLinePoints for this region.
+		:return: Will populate regionEdgeConnectivity with line points that exist in the edge pixels.
+		'''
+		#### Confirmed no duplicates.
+		# print("findLineEdgePoints edgePixels:", regionEdgePixels.edgePixelList)
+		# print("findLineEdgePoints PRE:", len(regionEdgePixels.edgePixelList) )
+		edgePixelList = regionEdgePixels.edgePixelList
+		# print("edgePixelList:", edgePixelList)
+		pointsOnEdge = []
+		for line in croppedLinePoints:
+			startPoint = line[0]
+			intSearchValue = [-int(startPoint[1]), int(startPoint[0])] ## Switching from x,y to row, column.  Integer values.
+			searchValue = [-truncate(startPoint[1],truncateDigits), truncate(startPoint[0], truncateDigits)] ## Switching from x,y to row, column.  Float values.
+			# print("findLineEdgePoints searching For value:", searchValue)
+			if intSearchValue in edgePixelList:
+				startEdgePoint = EdgePoint.EdgePoint( startPoint.copy(), line, index, 0)
+				# pointsOnEdge.append( startPoint.copy() )
+				pointsOnEdge.append( startEdgePoint )
+				if tuple(searchValue) in self.globalEdgePointMap:
+					self.globalEdgePointMap[tuple(searchValue)].append( startEdgePoint )
+				else:
+					self.globalEdgePointMap[ tuple(searchValue)] = [startEdgePoint]
+
+			endPoint = line[-1]
+			intSearchValue = [-int(endPoint[1]), int(endPoint[0])] ## Switching from x,y to row, column.  Original approach.
+			searchValue = [-truncate(endPoint[1], truncateDigits), truncate(endPoint[0], truncateDigits)] # Float version.
+			if intSearchValue in edgePixelList:
+				endEdgePoint = EdgePoint.EdgePoint(endPoint.copy(), line, index, -1)
+				pointsOnEdge.append( endEdgePoint )
+				if tuple(searchValue) in self.globalEdgePointMap:
+					self.globalEdgePointMap[tuple(searchValue)].append(endEdgePoint)
+				else:
+					self.globalEdgePointMap[ tuple(searchValue) ] = [endEdgePoint]
+
+		regionEdgePixels.setPointOnEdge ( pointsOnEdge )
+		# print("findLineEdgePoints POST:", regionEdgePixels.edgePixelList)
+		# print("findLineEdgePoints POST Points on Edge Count: ", len(pointsOnEdge))
+		# for edgePoint in pointsOnEdge:
+		# 	print(edgePoint.xy)
+		# print("findLineEdgePoints POST Points on Edge: ", pointsOnEdge)
 
 
 	def displayDistanceMask(self, indexLabel, topLeftTarget, bottomRightTarget):
@@ -1536,8 +1649,20 @@ class FinishedImage:
 			else:
 				if Bridson_Common.productionMode:
 					colour = 'k'
+
 				'''************ Actually draw the line in production mode ****************'''
 				self.ax.plot(line[:, 0], line[:, 1]*flip, color=colour, linewidth=lineWidth)  ## **** Actually draw the line.
+				if Bridson_Common.higlightTapered:
+					''' *********** Determine if the line is tapered ********************* '''
+					if self.isLineTapered(line[0]):
+						# Draw point that is on the tapered side.
+						self.ax.plot(line[0][0], line[0][1] * flip, marker='o', markersize=1, color='r')  # Colour middle point.
+
+					if self.isLineTapered(line[-1]):
+						# Draw point that is on the tapered side.
+						self.ax.plot(line[-1][0], line[-1][1] * flip, marker='x', markersize=1, color='g')  # Colour middle point.
+
+
 			if Bridson_Common.closestPointPair:  # Only place the dots when we are calculating closest point pair.
 				if initial == False:  # Do not display this dot the first time around.
 					self.ax.plot(currentLine[self.markPoint[0]][0], currentLine[self.markPoint[0]][1] * flip, marker='*',

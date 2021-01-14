@@ -33,7 +33,7 @@ SLICGrey = False
 #####################################
 productionMode = True
 bulkGeneration = True
-smallBatch=False
+smallBatch=True
 diagnosticDisplay=False # Enable/Disable pairing diagnostics
 diagnosticDisplayCount=20
 diagnosticMerge=False
@@ -47,7 +47,7 @@ else:
 	os.mkdir("./output")
 
 if bulkGeneration:
-	sys.stdout = open("./output/detailLogs.txt", "a")
+	# sys.stdout = open("./output/detailLogs.txt", "a")
 	pass
 
 #####################################
@@ -82,6 +82,8 @@ if productionMode:
 	highlightEndpoints=False
 else:
 	highlightEndpoints=True
+
+higlightTapered = False
 lineCullAlgorithm='generous'  # Valid values: 'log', 'exp', 'none', 'segmented', 'generous'
 
 closestPointPair=False
@@ -102,6 +104,7 @@ colourCount = 20
 linesOnFlat = True
 verticalLines = True
 lineAngle = 90
+angleMaxDiff = 15
 coherencyThreshold = 0.1
 lineWidth = 0.25
 stableCoherencyPercentile = 95 # Regions percentile with a coherency above this value are considered stable.
@@ -167,6 +170,8 @@ test1_out_flatobj = ""
 chaincodefile = ""
 objPath = "../../boundary-first-flattening/build/"
 
+truncateDigits = 5
+
 
 # traversalMap = [ [-1,1], [0,1], [1,1],
 #                  [-1, 0],  [1, 0],
@@ -205,6 +210,9 @@ def outputEnvironmentVariables():
 
 
 
+def truncate(number, digits) -> float:
+	stepper = 10.0 ** digits
+	return (int(number * stepper)) / stepper
 
 def scaleArray( array):
 	# https://numpy.org/doc/stable/reference/generated/numpy.repeat.html
