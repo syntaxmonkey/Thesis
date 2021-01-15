@@ -852,11 +852,10 @@ def main():
 	# images.append('everyday-basics-i0ROGKijuek-unsplash.jpg')
 	# images.append('imani-bahati-LxVxPA1LOVM-unsplash.jpg')
 	# images.append('kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg')
-	if False:
-		images.append('joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg')
-		images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
-		images.append('luis-quintero-qKspdY9XUzs-unsplash-hand.jpg')
-		images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
+	images.append('joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg')
+	images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
+	images.append('luis-quintero-qKspdY9XUzs-unsplash-hand.jpg')
+	images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
 
 	# images.append('miguel-andrade-nAOZCYcLND8-unsplash.jpg')
 	# images.append('mr-o-k--ePHy6jg_7c-unsplash.jpg')
@@ -869,7 +868,8 @@ def main():
 	images.append('john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg')
 	images.append('sven-read-oktY8r91C84-unsplash_tunnel.jpg')
 	images.append('marina-reich-NxWdBnFiikg-unsplash_streescene.jpg')
-
+	images.append('derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg')
+	images.append('mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg')
 
 
 	semanticSegmentation = ['none']
@@ -892,7 +892,7 @@ def main():
 	targetPixels = [3200]
 	if Bridson_Common.bulkGeneration:
 		# segmentCounts = [100, 200]
-		segmentCounts = [ 100, 400, 900]
+		segmentCounts = [ 400, 900]
 		# segmentCounts = [50, 100]
 		# compactnessList = [ 0.1, 0.25, 0.5]
 		# if Bridson_Common.SLIC0:

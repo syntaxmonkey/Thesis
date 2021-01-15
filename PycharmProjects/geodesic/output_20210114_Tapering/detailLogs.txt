@@ -1,0 +1,423 @@
+Divisor: 3.0
+CoreCount: 2
+[('TwoRegions.jpg', 3, 'SLIC0', 'none', 80)]
+Divisor: 3.0
+Divisor: 3.0
+>>>>>>>>>>>>>>>> Calling SLIC for  TwoRegions.jpg <<<<<<<<<<<<<<<<<<<<<<<
+EE
+EE1
+AA Max and Min of greyscaleImage: 153 102
+BB Max and Min of greyscaleImage: 255 170
+EE2
+EE2
+EE3
+Shape: (200, 200, 3)
+Type: <class 'numpy.ndarray'>
+EE4
+CC Max and Min of greyscaleImage: 255 170
+DD Max and Min of greyscaleImage: 255 170
+EE Max and Min of greyscaleImage: 255 170
+DD
+DD1
+DD2
+DD3
+DD4
+DD5
+YY Max and Min of image: 255 170
+ZZ Max and Min of greyscaleImage: 255 170
+CC
+------- Environment Variables ----------------------------------- 
+segmentCount: 3
+lineCullAlgorithm:  generous
+lineAngle: 90
+coherencyThreshold: 0.1
+highlightEndpoints: False
+middleAverageOnly: False
+compactnessSLIC: 0.01
+SLICIterations: 200
+SLIC0: True
+allowBlankRegion: False
+cullingBlankThreshold: 225
+nearbyDistance: 5
+semanticSegmentation: none
+semanticSegmentationRatio: 0.5
+semanticInvertMaskrcnn: True
+stableCoherencyPercentile: 95
+differencePercentile: 80
+diffRepelPercentile: 80
+generatePREImage: False
+attractionBin: 3
+repelBin: 3
+stableBin: -4
+stableAttractSet: False
+binSize: 10
+attractFudge: 1.1
+------------------------------------------------------------------
+CC1
+B
+C
+0A
+0B
+diff attract threshold: 17.689955558911095
+diff repel threshold: 17.689955558911095
+stable threshold: 0.17804153654771346
+Pickle file exists: ./pickle/TwoRegions.jpg_segments_3_compactness_SLIC0_attractThreshold_80_cnn_none_semanticRatio_0.5.pkl
+(****  TwoRegions.jpg  Starting Region:  0 of 4   *****
+dradius: 3.966666666666667
+MeshAngle: 90.0 Flat angle: 160
+(169,)
+Drawing DrawAngleLinesExteriorSeed2 takes  979264
+Transfer lines takes  980702
+(****  TwoRegions.jpg  Starting Region:  1 of 4   *****
+dradius: 3.6333333333333333
+MeshAngle: 180.0 Flat angle: 219
+(144,)
+Drawing DrawAngleLinesExteriorSeed2 takes  516995
+Transfer lines takes  999466
+(****  TwoRegions.jpg  Starting Region:  2 of 4   *****
+dradius: 3.966666666666667
+MeshAngle: 90.0 Flat angle: 103
+(165,)
+Drawing DrawAngleLinesExteriorSeed2 takes  974026
+Transfer lines takes  986301
+(****  TwoRegions.jpg  Starting Region:  3 of 4   *****
+dradius: 3.6333333333333333
+MeshAngle: 180.0 Flat angle: 16
+(149,)
+Drawing DrawAngleLinesExteriorSeed2 takes  296025
+Transfer lines takes  726984
+About to cropCullLines
+About to genLineAdjacencyMap
+About to mergeLines
+0D
+About to copyFromOther
+0I
+Exception calling indexValidation for filename: TwoRegions.jpg index -10 is out of bounds for axis 0 with size 5
+Error details: <class 'IndexError'>
+*************************************************
+Finished
+*************************************************
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>>>>>>>>>>>>>>>>>> Main Exit <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+Divisor: 3.0
+CoreCount: 2
+[('TwoRegions.jpg', 3, 'SLIC0', 'none', 80)]
+Divisor: 3.0
+Divisor: 3.0
+>>>>>>>>>>>>>>>> Calling SLIC for  TwoRegions.jpg <<<<<<<<<<<<<<<<<<<<<<<
+EE
+EE1
+AA Max and Min of greyscaleImage: 153 102
+BB Max and Min of greyscaleImage: 255 170
+EE2
+EE2
+EE3
+Shape: (200, 200, 3)
+Type: <class 'numpy.ndarray'>
+EE4
+CC Max and Min of greyscaleImage: 255 170
+DD Max and Min of greyscaleImage: 255 170
+EE Max and Min of greyscaleImage: 255 170
+DD
+DD1
+DD2
+DD3
+DD4
+DD5
+YY Max and Min of image: 255 170
+ZZ Max and Min of greyscaleImage: 255 170
+CC
+------- Environment Variables ----------------------------------- 
+segmentCount: 3
+lineCullAlgorithm:  generous
+lineAngle: 90
+coherencyThreshold: 0.1
+highlightEndpoints: False
+middleAverageOnly: False
+compactnessSLIC: 0.01
+SLICIterations: 200
+SLIC0: True
+allowBlankRegion: False
+cullingBlankThreshold: 225
+nearbyDistance: 5
+semanticSegmentation: none
+semanticSegmentationRatio: 0.5
+semanticInvertMaskrcnn: True
+stableCoherencyPercentile: 95
+differencePercentile: 80
+diffRepelPercentile: 80
+generatePREImage: False
+attractionBin: 3
+repelBin: 3
+stableBin: -4
+stableAttractSet: False
+binSize: 10
+attractFudge: 1.1
+------------------------------------------------------------------
+CC1
+B
+C
+0A
+0B
+diff attract threshold: 17.689955558911095
+diff repel threshold: 17.689955558911095
+stable threshold: 0.17804153654771346
+Pickle file exists: ./pickle/TwoRegions.jpg_segments_3_compactness_SLIC0_attractThreshold_80_cnn_none_semanticRatio_0.5.pkl
+(****  TwoRegions.jpg  Starting Region:  0 of 4   *****
+dradius: 3.966666666666667
+MeshAngle: 90.0 Flat angle: 160
+(169,)
+Drawing DrawAngleLinesExteriorSeed2 takes  32133
+Transfer lines takes  24353
+(****  TwoRegions.jpg  Starting Region:  1 of 4   *****
+dradius: 3.6333333333333333
+MeshAngle: 180.0 Flat angle: 219
+(144,)
+Drawing DrawAngleLinesExteriorSeed2 takes  449334
+Transfer lines takes  778658
+(****  TwoRegions.jpg  Starting Region:  2 of 4   *****
+dradius: 3.966666666666667
+MeshAngle: 90.0 Flat angle: 103
+(165,)
+Drawing DrawAngleLinesExteriorSeed2 takes  31366
+Transfer lines takes  66470
+(****  TwoRegions.jpg  Starting Region:  3 of 4   *****
+dradius: 3.6333333333333333
+MeshAngle: 180.0 Flat angle: 16
+(149,)
+Drawing DrawAngleLinesExteriorSeed2 takes  584323
+Transfer lines takes  12460
+About to cropCullLines
+About to genLineAdjacencyMap
+About to mergeLines
+0D
+About to copyFromOther
+0I
+0J
+0K
+Successful Regions:  0
+Total Regions:  4
+||||||||||||||||||||||||||||||||||
+
+*************************************************
+Finished
+*************************************************
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>>>>>>>>>>>>>>>>>> Main Exit <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+Divisor: 3.0
+CoreCount: 2
+[('TwoRegions.jpg', 3, 'SLIC0', 'none', 80)]
+Divisor: 3.0
+Divisor: 3.0
+>>>>>>>>>>>>>>>> Calling SLIC for  TwoRegions.jpg <<<<<<<<<<<<<<<<<<<<<<<
+EE
+EE1
+AA Max and Min of greyscaleImage: 153 102
+BB Max and Min of greyscaleImage: 255 170
+EE2
+EE2
+EE3
+Shape: (200, 200, 3)
+Type: <class 'numpy.ndarray'>
+EE4
+CC Max and Min of greyscaleImage: 255 170
+DD Max and Min of greyscaleImage: 255 170
+EE Max and Min of greyscaleImage: 255 170
+DD
+DD1
+DD2
+DD3
+DD4
+DD5
+YY Max and Min of image: 255 170
+ZZ Max and Min of greyscaleImage: 255 170
+CC
+------- Environment Variables ----------------------------------- 
+segmentCount: 3
+lineCullAlgorithm:  generous
+lineAngle: 90
+coherencyThreshold: 0.1
+highlightEndpoints: False
+middleAverageOnly: False
+compactnessSLIC: 0.01
+SLICIterations: 200
+SLIC0: True
+allowBlankRegion: False
+cullingBlankThreshold: 225
+nearbyDistance: 5
+semanticSegmentation: none
+semanticSegmentationRatio: 0.5
+semanticInvertMaskrcnn: True
+stableCoherencyPercentile: 95
+differencePercentile: 80
+diffRepelPercentile: 80
+generatePREImage: False
+attractionBin: 3
+repelBin: 3
+stableBin: -4
+stableAttractSet: False
+binSize: 10
+attractFudge: 1.1
+------------------------------------------------------------------
+CC1
+B
+C
+0A
+0B
+diff attract threshold: 17.689955558911095
+diff repel threshold: 17.689955558911095
+stable threshold: 0.17804153654771346
+Pickle file exists: ./pickle/TwoRegions.jpg_segments_3_compactness_SLIC0_attractThreshold_80_cnn_none_semanticRatio_0.5.pkl
+(****  TwoRegions.jpg  Starting Region:  0 of 4   *****
+dradius: 3.966666666666667
+MeshAngle: 90.0 Flat angle: 160
+(169,)
+Drawing DrawAngleLinesExteriorSeed2 takes  30268
+Transfer lines takes  27470
+(****  TwoRegions.jpg  Starting Region:  1 of 4   *****
+dradius: 3.6333333333333333
+MeshAngle: 180.0 Flat angle: 219
+(144,)
+Drawing DrawAngleLinesExteriorSeed2 takes  429095
+Transfer lines takes  822849
+(****  TwoRegions.jpg  Starting Region:  2 of 4   *****
+dradius: 3.966666666666667
+MeshAngle: 90.0 Flat angle: 103
+(165,)
+Drawing DrawAngleLinesExteriorSeed2 takes  34756
+Transfer lines takes  47041
+(****  TwoRegions.jpg  Starting Region:  3 of 4   *****
+dradius: 3.6333333333333333
+MeshAngle: 180.0 Flat angle: 16
+(149,)
+Drawing DrawAngleLinesExteriorSeed2 takes  335108
+Transfer lines takes  749136
+About to cropCullLines
+About to genLineAdjacencyMap
+About to mergeLines
+0D
+About to copyFromOther
+0I
+0J
+0K
+Successful Regions:  0
+Total Regions:  4
+||||||||||||||||||||||||||||||||||
+
+*************************************************
+Finished
+*************************************************
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>>>>>>>>>>>>>>>>>> Main Exit <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+Divisor: 3.0
+CoreCount: 2
+[('TwoRegions.jpg', 3, 'SLIC0', 'none', 80)]
+Divisor: 3.0
+Divisor: 3.0
+>>>>>>>>>>>>>>>> Calling SLIC for  TwoRegions.jpg <<<<<<<<<<<<<<<<<<<<<<<
+EE
+EE1
+AA Max and Min of greyscaleImage: 153 102
+BB Max and Min of greyscaleImage: 255 170
+EE2
+EE2
+EE3
+Shape: (200, 200, 3)
+Type: <class 'numpy.ndarray'>
+EE4
+CC Max and Min of greyscaleImage: 255 170
+DD Max and Min of greyscaleImage: 255 170
+EE Max and Min of greyscaleImage: 255 170
+DD
+DD1
+DD2
+DD3
+DD4
+DD5
+YY Max and Min of image: 255 170
+ZZ Max and Min of greyscaleImage: 255 170
+CC
+------- Environment Variables ----------------------------------- 
+segmentCount: 3
+lineCullAlgorithm:  generous
+lineAngle: 90
+coherencyThreshold: 0.1
+highlightEndpoints: False
+middleAverageOnly: False
+compactnessSLIC: 0.01
+SLICIterations: 200
+SLIC0: True
+allowBlankRegion: False
+cullingBlankThreshold: 225
+nearbyDistance: 5
+semanticSegmentation: none
+semanticSegmentationRatio: 0.5
+semanticInvertMaskrcnn: True
+stableCoherencyPercentile: 95
+differencePercentile: 80
+diffRepelPercentile: 80
+generatePREImage: False
+attractionBin: 3
+repelBin: 3
+stableBin: -4
+stableAttractSet: False
+binSize: 10
+attractFudge: 1.1
+------------------------------------------------------------------
+CC1
+B
+C
+0A
+0B
+diff attract threshold: 17.689955558911095
+diff repel threshold: 17.689955558911095
+stable threshold: 0.17804153654771346
+Pickle file exists: ./pickle/TwoRegions.jpg_segments_3_compactness_SLIC0_attractThreshold_80_cnn_none_semanticRatio_0.5.pkl
+(****  TwoRegions.jpg  Starting Region:  0 of 4   *****
+dradius: 3.966666666666667
+MeshAngle: 90.0 Flat angle: 160
+(169,)
+Drawing DrawAngleLinesExteriorSeed2 takes  403867
+Transfer lines takes  783222
+(****  TwoRegions.jpg  Starting Region:  1 of 4   *****
+dradius: 3.6333333333333333
+MeshAngle: 180.0 Flat angle: 219
+(144,)
+Drawing DrawAngleLinesExteriorSeed2 takes  436067
+Transfer lines takes  711608
+(****  TwoRegions.jpg  Starting Region:  2 of 4   *****
+dradius: 3.966666666666667
+MeshAngle: 90.0 Flat angle: 103
+(165,)
+Drawing DrawAngleLinesExteriorSeed2 takes  63949
+Transfer lines takes  522594
+(****  TwoRegions.jpg  Starting Region:  3 of 4   *****
+dradius: 3.6333333333333333
+MeshAngle: 180.0 Flat angle: 16
+(149,)
+Drawing DrawAngleLinesExteriorSeed2 takes  949489
+Transfer lines takes  175896
+About to cropCullLines
+About to genLineAdjacencyMap
+About to mergeLines
+0D
+About to copyFromOther
+0I
+0J
+0K
+Successful Regions:  0
+Total Regions:  4
+||||||||||||||||||||||||||||||||||
+
+*************************************************
+Finished
+*************************************************
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>>>>>>>>>>>>>>>>>> Main Exit <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+Divisor: 3.0
+CoreCount: 2
+[('TwoRegions.jpg', 3, 'SLIC0', 'none', 80)]

@@ -33,13 +33,13 @@ SLICGrey = False
 #####################################
 productionMode = True
 bulkGeneration = True
-smallBatch=True
+smallBatch=False
 diagnosticDisplay=False # Enable/Disable pairing diagnostics
 diagnosticDisplayCount=20
 diagnosticMerge=False
 
 
-coreCount = 2
+coreCount = 3
 if os.path.exists("./output") == True:
 	if os.path.isdir("./output") == False:
 		exit(-1)
@@ -47,7 +47,7 @@ else:
 	os.mkdir("./output")
 
 if bulkGeneration:
-	# sys.stdout = open("./output/detailLogs.txt", "a")
+	sys.stdout = open("./output/detailLogs.txt", "a")
 	pass
 
 #####################################
@@ -81,8 +81,10 @@ cullingBlankThreshold=225 # If the region has intensity greater than this value,
 if productionMode:
 	highlightEndpoints=False
 else:
-	highlightEndpoints=True
+	highlightEndpoints=False
 
+lineHygeine = True
+drawTaperedLines = True
 higlightTapered = False
 lineCullAlgorithm='generous'  # Valid values: 'log', 'exp', 'none', 'segmented', 'generous'
 
@@ -104,7 +106,7 @@ colourCount = 20
 linesOnFlat = True
 verticalLines = True
 lineAngle = 90
-angleMaxDiff = 15
+angleMaxDiff = 25
 coherencyThreshold = 0.1
 lineWidth = 0.25
 stableCoherencyPercentile = 95 # Regions percentile with a coherency above this value are considered stable.
@@ -148,8 +150,8 @@ regionDynamicRadius = True
 mergeDistance = 5 # radius to
 mergePairFactor = 5.0 # Distance to consider for merging endpoints.
 
-increaseContrast=False
-contrastFactor=1.5 # Values above 1 increase contrast.  Values below 1 reduce contrast.
+increaseContrast=True
+contrastFactor=2.0 # Values above 1 increase contrast.  Values below 1 reduce contrast.
 intensityMapType='median' # Valid values are 'average' and 'median'
 
 # Image Generation

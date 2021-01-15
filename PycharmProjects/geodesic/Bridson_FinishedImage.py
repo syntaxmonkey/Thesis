@@ -37,6 +37,7 @@ class FinishedImage:
 		self.tempLines = []
 		# self.set
 		# self.ax.invert_yaxis()
+		self.lineEdgePointMap = {}
 
 	def setTitle(self, filename):
 		if Bridson_Common.productionMode:
@@ -50,6 +51,7 @@ class FinishedImage:
 		# print("Left:", left, "Right:", right)
 		if Bridson_Common.productionMode:
 			# self.ax.set_xlim(left=left, right=right)
+			# self.ax.set_xlim(left=-200, right=200)
 			pass
 		pass
 
@@ -57,6 +59,7 @@ class FinishedImage:
 		# print("Left:", left, "Right:", right)
 		if Bridson_Common.productionMode:
 			# self.ax.set_ylim(top=top, bottom=bottom)
+			# self.ax.set_ylim(top=200, bottom=-200)
 			pass
 		pass
 
@@ -85,6 +88,8 @@ class FinishedImage:
 		if hasattr(otherFinishedImage, 'meshObjDict'): self.meshObjDict = otherFinishedImage.meshObjDict
 		if hasattr(otherFinishedImage, 'flatMeshObjDict'): self.flatMeshObjDict = otherFinishedImage.flatMeshObjDict
 		if hasattr(otherFinishedImage, 'trifindersuccessDict'): self.trifindersuccessDict = otherFinishedImage.trifindersuccessDict
+
+		if hasattr(otherFinishedImage, 'lineEdgePointMap'): self.lineEdgePointMap = otherFinishedImage.lineEdgePointMap
 
 
 
@@ -434,12 +439,12 @@ class FinishedImage:
 
 	def mergeLines2(self):
 		# Iterate through each region.
-		print('Entering mergeLines2')
+		# print('Entering mergeLines2')
 		count = 0
 		self.processedRegions = {}
-		print('mergeLines2 - self.regionAdjacentRegions.keys():', self.regionAdjacentRegions.keys())
+		# print('mergeLines2 - self.regionAdjacentRegions.keys():', self.regionAdjacentRegions.keys())
 		for index in self.regionAdjacentRegions.keys(): # Iterate through regions that have adjacencies defined.
-			print('mergeLines2 - processing region:', index)
+			# print('mergeLines2 - processing region:', index)
 			# Obtain the adjacent regions for the current index.
 			adjacentRegions = self.regionAdjacentRegions[ index ]
 			for adjacentIndex in adjacentRegions:
@@ -465,8 +470,8 @@ class FinishedImage:
 						currentPoints = self.constructLocationForEdgePoints(currentIndexEdgePoints)
 						adjacentPoints = self.constructLocationForEdgePoints(adjacentIndexEdgePoints)
 
-						print("mergeLines2 - currentPoints:", currentPoints)
-						print("mergeLines2 - adjacentPoints:", adjacentPoints)
+						# print("mergeLines2 - currentPoints:", currentPoints)
+						# print("mergeLines2 - adjacentPoints:", adjacentPoints)
 						# print("mergeLines2 currentPoints")
 						# for value in currentPoints:
 						# 	print(value)
@@ -856,6 +861,41 @@ class FinishedImage:
 		self.averagePoints = averagePoints
 		# print(">>> averagePoints:", self.averagePoints)
 
+
+	def populateLineEdgePointMap(self, edgePoint):
+		# Convert multi-dimensional list to multi-dimnensioal tuple.
+		if edgePoint.pointIndex == 0:
+			# print("Prekey1.", edgePoint.pointIndex, ":", edgePoint.associatedLine[:3])
+			key = tuple(map(tuple, edgePoint.associatedLine[:3]))
+			# print("key1.", edgePoint.pointIndex, ":", key)
+			# key = key.tolist()
+			# print("key2:", key)
+			# key = tuple(map(tuple,key))
+			# print("key3:", key)
+		else:
+			# print("Prekey1.", edgePoint.pointIndex, ":", edgePoint.associatedLine[-3:])
+			key = tuple(map(tuple, edgePoint.associatedLine[-3:]))
+			# print("key1.", edgePoint.pointIndex, ":", key)
+			# key = key.tolist()
+			# print("key2:", key)
+			# key = tuple(map(tuple,key))
+			# print("key3:", key)
+		self.lineEdgePointMap[ key ] = edgePoint
+		pass
+
+	def isLineTapered(self, arr):
+		# If the line Point is found, then the line is NOT tapered.  Otherwise, the line is tapered.
+		# print("isLineTapered preKey:", arr)
+		key = tuple(map(tuple, arr))
+		# print("isLineTapered key:", key)
+		if key in self.lineEdgePointMap:
+			# print("Found key") # Line was found in the map.
+			return False
+		else:
+			# print("Did NOT find key")
+			return True
+
+
 	def connectPoints(self, currentIndexEdgePoints, adjacentIndexEdgePoints):
 
 		# print("************************  Starting connectPoints *************************")
@@ -874,6 +914,11 @@ class FinishedImage:
 
 				edgePoint1.associatedLine[edgePoint1.pointIndex] = self.averagePoints[ cluster ]
 				edgePoint2.associatedLine[edgePoint2.pointIndex] = self.averagePoints[ cluster ]
+
+				''' *** create map from the line to the EdgePoint. '''
+				self.populateLineEdgePointMap( edgePoint1 )
+				self.populateLineEdgePointMap( edgePoint2 )
+
 
 		# print("************************  Ending connectPoints *************************")
 		# distance = Bridson_Common.euclidean_distance(edgePoint1.xy, edgePoint2.xy)
@@ -1247,47 +1292,47 @@ class FinishedImage:
 			self.regionDirection = newDirection
 
 
-	def isLineTapered(self, xy):
-		'''
-
-		:param xy: Expected to be [x, y]
-		:return: True if angle is angle is greater than angleMaxDiff, False otherwise.
-		'''
-
-		# invertedPoint = tuple([-int(xy[1]), int(xy[0])]) # Original.
-		searchValue = tuple([-truncate(xy[1], truncateDigits), truncate(xy[0], truncateDigits)] ) ## Switching from x,y to row, column.
-		if searchValue in self.globalEdgePointMap:
-			print("isLineTapered: Found edgePoint:", xy)
-			edgePoint = self.globalEdgePointMap[ searchValue ]
-			edgePoint = edgePoint[0]
-			# print("EdgePoint:", dir(edgePoint) )
-
-			''' ****** if the adjacentIndex is None, then this endpoint should be tapered. ***** '''
-			if edgePoint.adjacentIndex == None:
-				return True
-
-			angleDiff = self.calculateRegionAngleDifference(edgePoint.regionIndex, edgePoint.adjacentIndex)
-			print("Angle Difference:", angleDiff)
-			if angleDiff <= Bridson_Common.angleMaxDiff:
-				return False
-
-		return True
+	# def isLineTapered(self, xy):
+	# 	'''
+	#
+	# 	:param xy: Expected to be [x, y]
+	# 	:return: True if angle is angle is greater than angleMaxDiff, False otherwise.
+	# 	'''
+	#
+	# 	# invertedPoint = tuple([-int(xy[1]), int(xy[0])]) # Original.
+	# 	searchValue = tuple([-truncate(xy[1], truncateDigits), truncate(xy[0], truncateDigits)] ) ## Switching from x,y to row, column.
+	# 	if searchValue in self.globalEdgePointMap:
+	# 		print("isLineTapered: Found edgePoint:", xy)
+	# 		edgePoint = self.globalEdgePointMap[ searchValue ]
+	# 		edgePoint = edgePoint[0]
+	# 		# print("EdgePoint:", dir(edgePoint) )
+	#
+	# 		''' ****** if the adjacentIndex is None, then this endpoint should be tapered. ***** '''
+	# 		if edgePoint.adjacentIndex == None:
+	# 			return True
+	#
+	# 		angleDiff = self.calculateRegionAngleDifference(edgePoint.regionIndex, edgePoint.adjacentIndex)
+	# 		print("Angle Difference:", angleDiff)
+	# 		if angleDiff <= Bridson_Common.angleMaxDiff:
+	# 			return False
+	#
+	# 	return True
 
 	def calculateRegionAngleDifference(self, index, adjacentIndex):
-		print("Calculating angle for Index:", index, adjacentIndex)
-		print("Angle1:", self.regionDirection[index], "Angle2:",self.regionDirection[adjacentIndex])
+		# print("Calculating angle for Index:", index, adjacentIndex)
+		# print("Angle1:", self.regionDirection[index], "Angle2:",self.regionDirection[adjacentIndex])
 		minAngleDiff = Bridson_Angles.findAngleDiff(self.regionDirection[index], self.regionDirection[adjacentIndex])
-		print("minAngleDiff:", minAngleDiff, "  Returning minAngle:", minAngleDiff)
+		# print("minAngleDiff:", minAngleDiff, "  Returning minAngle:", minAngleDiff)
 
 		return minAngleDiff
 
 
 	def regionAngleSimilar(self, index, adjacentIndex):
-		print("regionAngleSimilar processing regions", index, adjacentIndex)
+		# print("regionAngleSimilar processing regions", index, adjacentIndex)
 		if self.calculateRegionAngleDifference(index, adjacentIndex) <= Bridson_Common.angleMaxDiff:
-			print("regionAngleSimilar returning True")
+			# print("regionAngleSimilar returning True")
 			return True
-		print("regionAngleSimilar returning False")
+		# print("regionAngleSimilar returning False")
 		return False
 
 
@@ -1332,7 +1377,7 @@ class FinishedImage:
 								else:
 									self.regionAdjacentRegions[ adjacentIndex ] = [ index ]
 
-								# Ensure starting index is lower than endingindex.
+								# Ensure starting index is lower than endingIndex.
 								startingIndex = index if index < adjacentIndex else adjacentIndex
 								endingIndex = index if index > adjacentIndex else adjacentIndex
 
@@ -1345,11 +1390,11 @@ class FinishedImage:
 									adjacencyEdge = AdjacencyEdge.AdjancecyEdge(startingIndex, endingIndex)
 									self.regionAdjacencyMap[ (startingIndex, endingIndex)] = adjacencyEdge
 
-								# Set their respective adjacentIndex values.
+								'''**** Set their respective adjacentIndex values. *** '''
 								edgePoint.setAdjacentIndex(adjacentEdgePoint.regionIndex)
 								adjacentEdgePoint.setAdjacentIndex(edgePoint.regionIndex)
 
-								# Set their respective adjacencyEdge.
+								''' *** Set their respective adjacencyEdge. *** '''
 								edgePoint.setAdjacencyEdge(adjacencyEdge)
 								adjacentEdgePoint.setAdjacencyEdge(adjacencyEdge)
 
@@ -1580,6 +1625,53 @@ class FinishedImage:
 		width = ((-1.0 + minsize)* self.regionIntensityMap[index] / 255) + 1.01
 		return width
 
+
+	def drawTaperedEnd(self, line, lineWidth, flip, direction, colour):
+		'''
+		:param arr:
+		:param lineWidth:
+		:param flip:
+		:param direction: Indicates the end point.  This will either be 1 or 0.
+		:return:
+		'''
+		# There might be a better way to draw variable thickness lines: https://stackoverflow.com/questions/19390895/matplotlib-plot-with-variable-line-width
+		widthScale = [0.1, 0.6, 0.75]
+		# colour='r'
+		if direction == 0:
+			self.ax.plot(line[0:2,0], line[0:2,1] * flip, color=colour, linewidth=lineWidth * widthScale[0])
+			self.ax.plot(line[1:3,0], line[1:3,1] * flip, color=colour, linewidth=lineWidth * widthScale[1])
+			self.ax.plot(line[2:4,0], line[2:4,1] * flip, color=colour, linewidth=lineWidth * widthScale[2])
+
+		if direction == -1:
+			self.ax.plot(line[-4:-2,0], line[-4:-2,1] * flip, color=colour, linewidth=lineWidth * widthScale[2])
+			self.ax.plot(line[-3:-1,0], line[-3:-1,1] * flip, color=colour, linewidth=lineWidth * widthScale[1])
+			self.ax.plot(line[-2:,0], line[-2:,1] * flip, color=colour, linewidth=lineWidth * widthScale[0])
+
+
+	def drawLineWithTaper(self, line, lineWidth, flip, colour):
+
+		if Bridson_Common.productionMode:
+			colour = 'k'
+
+		if len(line) < 8 and Bridson_Common.lineHygeine:
+			# If the line is too short, don't bother drawing it.
+			return
+
+		# self.ax.plot(line[:, 0], line[:, 1] * flip, color=colour, linewidth=lineWidth)  ## **** Actually draw the line.
+		self.ax.plot(line[3:-3, 0], line[3:-3, 1] * flip, color=colour, linewidth=lineWidth)  ## **** Actually draw the line.
+
+		if self.isLineTapered(line[:3]):
+			self.drawTaperedEnd(line, lineWidth, flip, 0, colour)
+		else:
+			# colour='g'
+			self.ax.plot(line[:4, 0], line[:4, 1] * flip, color=colour, linewidth=lineWidth)  ## **** Actually draw the line.
+
+		if self.isLineTapered(line[-3:]):
+			self.drawTaperedEnd(line, lineWidth, flip, -1, colour)
+		else:
+			# colour='g'
+			self.ax.plot(line[-4:, 0], line[-4:, 1] * flip, color=colour, linewidth=lineWidth)  ## **** Actually draw the line.
+
 	def drawRegionContourLines(self, index, drawSLICRegions = Bridson_Common.drawSLICRegions):
 		# If we are not drawing the SLIC regions, we do not need to flip the Y coordinates.
 		# If we draw the SLIC regions, we need to flip the Y coordinates.
@@ -1650,17 +1742,41 @@ class FinishedImage:
 				if Bridson_Common.productionMode:
 					colour = 'k'
 
-				'''************ Actually draw the line in production mode ****************'''
-				self.ax.plot(line[:, 0], line[:, 1]*flip, color=colour, linewidth=lineWidth)  ## **** Actually draw the line.
-				if Bridson_Common.higlightTapered:
-					''' *********** Determine if the line is tapered ********************* '''
-					if self.isLineTapered(line[0]):
-						# Draw point that is on the tapered side.
-						self.ax.plot(line[0][0], line[0][1] * flip, marker='o', markersize=1, color='r')  # Colour middle point.
 
-					if self.isLineTapered(line[-1]):
-						# Draw point that is on the tapered side.
-						self.ax.plot(line[-1][0], line[-1][1] * flip, marker='x', markersize=1, color='g')  # Colour middle point.
+				if Bridson_Common.drawTaperedLines:
+					''' *** Draw the line with tapering. ***'''
+					self.drawLineWithTaper( line, lineWidth, flip , colour)
+				else:
+					'''************ Actually draw the line in production mode ****************'''
+					self.ax.plot(line[:, 0], line[:, 1]*flip, color=colour, linewidth=lineWidth)  ## **** Actually draw the line.
+
+					if Bridson_Common.higlightTapered:
+						''' *********** Determine if the line is tapered ********************* '''
+						# print("Flip value: ", flip)
+						if self.isLineTapered(line[:3]):
+							# print("Plotting end point0:", line[0][0], line[0][1]*flip)
+							self.ax.plot(line[0][0], line[0][1] * flip, marker='|', markersize=2, color='r')  # Colour middle point.
+
+						if self.isLineTapered(line[-3:]) :
+							# print("Plotting end point-1:", line[-1][0], line[-1][1]*flip)
+							self.ax.plot(line[-1][0], line[-1][1] * flip, marker='_', markersize=2, color='g')  # Colour middle point.
+
+						# if self.isLineTapered(line[:3]) == True:
+						# 	print("Plotting end point0:", line[0][0], line[0][1]*flip)
+						# 	self.ax.plot(line[0][0], line[0][1]*flip, marker='|', markersize=10, color='r')  # Colour middle point.
+						#
+						# if self.isLineTapered(line[-3:]) == True:
+						# 	print("Plotting end point-1:", line[-1][0], line[-1][1]*flip)
+						# 	self.ax.plot(line[-1][0], line[-1][1]*flip, marker='_', markersize=10, color='g')  # Colour middle point.
+
+
+						# if self.isLineTapered(line[0]):
+						# 	# Draw point that is on the tapered side.
+						# 	self.ax.plot(line[0][0], line[0][1] * flip, marker='o', markersize=1, color='r')  # Colour middle point.
+						#
+						# if self.isLineTapered(line[-1]):
+						# 	# Draw point that is on the tapered side.
+						# 	self.ax.plot(line[-1][0], line[-1][1] * flip, marker='x', markersize=1, color='g')  # Colour middle point.
 
 
 			if Bridson_Common.closestPointPair:  # Only place the dots when we are calculating closest point pair.
