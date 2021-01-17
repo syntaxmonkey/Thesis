@@ -65,6 +65,9 @@ generatePREImage=False
 
 
 scalingFactor=5 # Scale factor.  Needs to be an integer.  Will increase the saved image dpi by this factor.
+lineWidthProportionalToRegion = True
+lineWidthScale = 0.05
+lineWidthType = 'A'  # Valid options are 'A', 'B', and 'C'
 
 diagnostic=False # Generally avoid dispalying meshes.  Only count the number of successful trifinder generations.
 highlightEdgeTriangle=False # Highlight the edge triangle that contains the exterior point of the vertical lines.
@@ -81,7 +84,7 @@ cullingBlankThreshold=225 # If the region has intensity greater than this value,
 if productionMode:
 	highlightEndpoints=False
 else:
-	highlightEndpoints=False
+	highlightEndpoints=True
 
 lineHygeine = True
 drawTaperedLines = True
@@ -106,9 +109,9 @@ colourCount = 20
 linesOnFlat = True
 verticalLines = True
 lineAngle = 90
-angleMaxDiff = 25
+angleMaxDiff = 30
 coherencyThreshold = 0.1
-lineWidth = 0.25
+colourDiffThreshold = 0.5
 stableCoherencyPercentile = 95 # Regions percentile with a coherency above this value are considered stable.
 diffAttractPercentile = 85 # Regions with differences below this percentile will attract.
 diffRepelPercentile = 85 # Regions with differences above this percentile will repel.
@@ -151,7 +154,7 @@ mergeDistance = 5 # radius to
 mergePairFactor = 5.0 # Distance to consider for merging endpoints.
 
 increaseContrast=True
-contrastFactor=2.0 # Values above 1 increase contrast.  Values below 1 reduce contrast.
+contrastFactor=1.5 # Values above 1 increase contrast.  Values below 1 reduce contrast.
 intensityMapType='median' # Valid values are 'average' and 'median'
 
 # Image Generation
@@ -410,17 +413,17 @@ def swapXY(array):
 	return newArray
 
 
+
 def euclidean_distance(a, b):
 	dx = a[0] - b[0]
 	dy = a[1] - b[1]
 	return math.sqrt(dx * dx + dy * dy)
 
 
-
-
-
-
 jit_module(nopython=True,fastmath=True)
+
+
+
 
 def findClosestIndex(s1, s2):
 	# print("Bridson_Common:findClosestIndex s1:", s1)
@@ -733,7 +736,7 @@ def saveImage(filename, postFix, fig):
 		else:
 			actualFileName = actualFileName + "_compactness_" + str(compactnessSLIC)
 
-		actualFileName = actualFileName + "_attractThreshold_" + str(diffAttractPercentile) + "_cnn_" + semanticSegmentation + "_semanticRatio_" + str(semanticSegmentationRatio) + "_" + postFix + ".png"
+		actualFileName = actualFileName + "_attractThreshold_" + str(diffAttractPercentile) + "_cnn_" + semanticSegmentation + "_semanticRatio_" + str(semanticSegmentationRatio) + "_contrast_" + str(contrastFactor)  + "_" + postFix + ".png"
 		if productionMode:
 			fig.savefig(actualFileName, dpi=100 * scalingFactor, bbox_inches='tight', pad_inches=0) # https://chartio.com/resources/tutorials/how-to-save-a-plot-to-a-file-using-matplotlib/
 			# https://matplotlib.org/tutorials/intermediate/tight_layout_guide.html
@@ -767,7 +770,7 @@ def genPickleFilename(filename):
 	else:
 		actualFileName = actualFileName + "_compactness_" + str(compactnessSLIC)
 
-	actualFileName = actualFileName + "_attractThreshold_" + str(diffAttractPercentile) + "_cnn_" + semanticSegmentation + "_semanticRatio_" + str(semanticSegmentationRatio) + ".pkl"
+	actualFileName = actualFileName + "_attractThreshold_" + str(diffAttractPercentile) + "_cnn_" + semanticSegmentation + "_semanticRatio_" + str(semanticSegmentationRatio) + "_contrast_"  + str(contrastFactor) + ".pkl"
 	return actualFileName
 
 def save_object(obj, filename):
