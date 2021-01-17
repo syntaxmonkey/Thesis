@@ -32,6 +32,7 @@ import traceback
 import pickle
 import copy
 import cProfile
+import operator
 
 from numba import prange, njit, jit, jit_module
 
@@ -603,12 +604,26 @@ def indexValidation(filename):
 	# print( "Region Raster: ", regionRaster )
 	# finishedImageSLIC.drawSLICRegions( regionRaster, segments )
 	finishedImageSLIC.setTitle(filename)
+	# finishedImageSLIC.setXLimit(0, np.shape(regionRaster)[1])
+	# finishedImageSLIC.setYLimit(0, -np.shape(regionRaster)[0])
 
 	# finishedImage.setXLimit( 0, np.shape(imageraster)[0])
 	finishedImageNoSLIC = Bridson_FinishedImage.FinishedImage()
 	finishedImageNoSLIC.setTitle(filename + "_POST_")
 	finishedImageNoSLIC.setXLimit(0, np.shape(regionRaster)[1])
 	finishedImageNoSLIC.setYLimit(0, -np.shape(regionRaster)[0])
+
+
+	finishedImageNoSLIC_B = Bridson_FinishedImage.FinishedImage()
+	finishedImageNoSLIC_B.setTitle(filename + "_POST_")
+	finishedImageNoSLIC_B.setXLimit(0, np.shape(regionRaster)[1])
+	finishedImageNoSLIC_B.setYLimit(0, -np.shape(regionRaster)[0])
+
+
+	finishedImageNoSLIC_C = Bridson_FinishedImage.FinishedImage()
+	finishedImageNoSLIC_C.setTitle(filename + "_POST_")
+	finishedImageNoSLIC_C.setXLimit(0, np.shape(regionRaster)[1])
+	finishedImageNoSLIC_C.setYLimit(0, -np.shape(regionRaster)[0])
 
 	# finishedImage.setXLimit( 0, np.shape(imageraster)[0])
 	finishedImageNoSLICPRE = Bridson_FinishedImage.FinishedImage()
@@ -693,6 +708,8 @@ def indexValidation(filename):
 
 	print("About to copyFromOther")
 	finishedImageNoSLIC.copyFromOther( finishedImageSLIC )
+	finishedImageNoSLIC_B.copyFromOther( finishedImageSLIC )
+	finishedImageNoSLIC_C.copyFromOther(finishedImageSLIC)
 	print("0I")
 
 	finishedImageSLIC.drawSLICRegions(regionRaster, segments)
@@ -709,26 +726,32 @@ def indexValidation(filename):
 
 	# redrawRegionLines(filename, finishedImageSLIC, regionList)  ## HERE
 
+	Bridson_Common.lineWidthType = 'A'
 	for index in meshObjCollection.keys():
 		finishedImageSLIC.drawRegionContourLines( index,  drawSLICRegions=True )
 		finishedImageNoSLIC.drawRegionContourLines( index,  drawSLICRegions=False )
 	print("0J")
+	Bridson_Common.saveImage(filename, "WithSLIC", finishedImageSLIC.fig )
+	Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA", finishedImageNoSLIC.fig)
 
+	Bridson_Common.lineWidthType = 'B'
+	for index in meshObjCollection.keys():
+		finishedImageNoSLIC_B.drawRegionContourLines(index, drawSLICRegions=False)
+	Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthB", finishedImageNoSLIC_B.fig)
 
+	Bridson_Common.lineWidthType = 'C'
+	for index in meshObjCollection.keys():
+		finishedImageNoSLIC_C.drawRegionContourLines(index, drawSLICRegions=False)
+	Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthC", finishedImageNoSLIC_C.fig)
 	# Redraw lines after merge.
 	# redrawRegionLines(filename, finishedImageSLIC, regionList) ## HERE
 	# finishedImageSLIC.drawRegionContourLines(index, drawSLICRegions=True)
 
 	# finishedImageNoSLIC.copyFromOther(finishedImageSLIC)
 
-
-
-
 	# finishedImageNoSLIC.highLightEdgePoints( drawSLICRegions=False )
 	# finishedImageSLIC.highLightEdgePoints(drawSLICRegions=True )
 
-	Bridson_Common.saveImage(filename, "WithSLIC", finishedImageSLIC.fig )
-	Bridson_Common.saveImage(filename, "NoSLIC_POST", finishedImageNoSLIC.fig)
 	# Bridson_Common.saveImage(filename, "NoSlic_PRE", finishedImageNoSLICPRE.fig)
 
 	print("0K")
@@ -892,7 +915,8 @@ def main():
 	targetPixels = [3200]
 	if Bridson_Common.bulkGeneration:
 		# segmentCounts = [100, 200]
-		segmentCounts = [ 400, 900]
+		segmentCounts = [ 400, 900, 1600]
+		lineWidthType = ['A']
 		# segmentCounts = [50, 100]
 		# compactnessList = [ 0.1, 0.25, 0.5]
 		# if Bridson_Common.SLIC0:
@@ -919,6 +943,7 @@ def main():
 		segmentCounts = [3]
 		compactnessList = ['SLIC0']
 		attractPercentileList = [80]
+		lineWidthType = ['A']
 
 	variables = []
 	for filename in images:
@@ -943,6 +968,7 @@ def main():
 							Bridson_Common.semanticSegmentation = cnn
 							Bridson_Common.diffAttractPercentile = attractPercentile
 							Bridson_Common.diffRepelPercentile = attractPercentile
+							Bridson_Common.lineWidthType = 'C'
 							random.seed(Bridson_Common.seedValue)
 							np.random.seed(Bridson_Common.seedValue)
 							try:
@@ -958,7 +984,11 @@ def main():
 								traceback.print_exception(*exc_info)
 								del exc_info
 
+
 	if Bridson_Common.bulkGeneration:
+		variables.sort(key=operator.itemgetter(1))
+
+		print("Variables: ", variables)
 		# coreCount = mp.cpu_count() - 4
 		coreCount = Bridson_Common.coreCount
 		'''

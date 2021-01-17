@@ -38,6 +38,7 @@ class FinishedImage:
 		# self.set
 		# self.ax.invert_yaxis()
 		self.lineEdgePointMap = {}
+		self.regionLongestLength = {}
 
 	def setTitle(self, filename):
 		if Bridson_Common.productionMode:
@@ -50,7 +51,7 @@ class FinishedImage:
 	def setXLimit(self, left, right):
 		# print("Left:", left, "Right:", right)
 		if Bridson_Common.productionMode:
-			# self.ax.set_xlim(left=left, right=right)
+			self.ax.set_xlim(left=left, right=right)
 			# self.ax.set_xlim(left=-200, right=200)
 			pass
 		pass
@@ -58,7 +59,7 @@ class FinishedImage:
 	def setYLimit(self, top, bottom):
 		# print("Left:", left, "Right:", right)
 		if Bridson_Common.productionMode:
-			# self.ax.set_ylim(top=top, bottom=bottom)
+			self.ax.set_ylim(top=top, bottom=bottom)
 			# self.ax.set_ylim(top=200, bottom=-200)
 			pass
 		pass
@@ -90,7 +91,7 @@ class FinishedImage:
 		if hasattr(otherFinishedImage, 'trifindersuccessDict'): self.trifindersuccessDict = otherFinishedImage.trifindersuccessDict
 
 		if hasattr(otherFinishedImage, 'lineEdgePointMap'): self.lineEdgePointMap = otherFinishedImage.lineEdgePointMap
-
+		if hasattr(otherFinishedImage, 'regionLongestLength'): self.regionLongestLength = otherFinishedImage.regionLongestLength
 
 
 	def cropContourLines(self, linePoints, raster, topLeftTarget):
@@ -171,7 +172,7 @@ class FinishedImage:
 
 		return linePoints
 
-	def cullLines(self, linePoints, regionIntensity):
+	def cullLines(self, linePoints, regionIntensity, regionIndex):
 		'''
 			We want to cull the lines based on a distance between the lines.
 			When the lines are vertical, we can sort the line order by x coordinates.
@@ -196,6 +197,8 @@ class FinishedImage:
 
 		# Find the longest line.  Rotate the array such that the longest line is the first element.
 		linePoints = self.findLongestLine( linePoints )
+		# print("first point:", linePoints[0][0], "last point:", linePoints[0][-1])
+		self.regionLongestLength[ regionIndex ] =  Bridson_Common.euclidean_distance(linePoints[0][0], linePoints[0][-1])
 
 		currentLine = linePoints[-1]*-100
 		for lineIndex in range(len(linePoints)):
@@ -451,8 +454,9 @@ class FinishedImage:
 				startingIndex = index if index < adjacentIndex else adjacentIndex
 				endingIndex = index if index > adjacentIndex else adjacentIndex
 
+				indexPair = (startingIndex, endingIndex)
 				# If the angles of the two regions are sufficiently different, do not merge the two regions.
-				if self.regionAngleSimilar(startingIndex, endingIndex) and (startingIndex, endingIndex) not in self.processedRegions.keys():
+				if self.regionAngleSimilar(startingIndex, endingIndex) and (startingIndex, endingIndex) not in self.processedRegions.keys(): # and self.regionDifferences[indexPair] < Bridson_Common.colourDiffThreshold:
 				# if (startingIndex, endingIndex) not in self.processedRegions.keys(): # Original approach
 				# Obtain the adjacencyEdge.
 					if (startingIndex, endingIndex) in self.regionAdjacencyMap:
@@ -1046,7 +1050,7 @@ class FinishedImage:
 			meshObj.setCroppedLines( self.cropContourLines(meshObj.linePoints, self.shiftedMaskRasterCollection[index], topLeftTarget) )
 			# print("CropCullLines region croppedLines:", index, len(meshObj.croppedLinePoints) )
 
-			empty, culledLines = self.cullLines(  meshObj.croppedLinePoints, self.regionIntensityMap[index])
+			empty, culledLines = self.cullLines(  meshObj.croppedLinePoints, self.regionIntensityMap[index], index)
 			# meshObj.setCroppedLines( self.cullLines( index, meshObj.linePoints, regionIntensityMap[index] )  )
 			# print("CropCullLines region croppedLines empty:", empty)
 			if not empty:
@@ -1168,9 +1172,11 @@ class FinishedImage:
 		regionDifferences = {}
 		for regionPair in self.rag.edges:
 			startIndex, endIndex = regionPair
+			altRegionPair = (endIndex, startIndex)
 			if regionPair not in regionDifferences.keys():
 				diff = Bridson_ColourOperations.diffCIEColours(self.regionColourMap[startIndex], self.regionColourMap[endIndex])
 				regionDifferences[regionPair] = diff
+				regionDifferences[altRegionPair] = diff
 
 			# Create region to region mapping.
 			if startIndex not in self.regionToRegions.keys():
@@ -1616,13 +1622,20 @@ class FinishedImage:
 		for line in self.tempLines:
 			line.pop().remove()
 
-	def calculateLineWidth(self, index):
+	def calculateLineWidth(self, index, lineCount):
 		# The line width will be a linear calculation: -0.2 * x / 255 + 0.2.  At 0, it should be 0.25 at intensity 0 and 0.05 at intensity 255.
 		# Change the line thickness.  Assume minimum line thickness is 0.1.  We want the maximum line thickness to be 1.0.
 		minsize = 0.1
 		# width = (-1.0 * self.regionIntensityMap[index] / 255) + 1.01
 		# width = (-0.5 * self.regionIntensityMap[index] / 128) + 1.01
-		width = ((-1.0 + minsize)* self.regionIntensityMap[index] / 255) + 1.01
+		if Bridson_Common.lineWidthType == 'A':
+			width = ((-1.0 + minsize)* self.regionIntensityMap[index] / 255) + 1.01
+		elif Bridson_Common.lineWidthType == 'B':
+			width = ((((-1.0) * self.regionIntensityMap[index] / 255) + 1.0) * Bridson_Common.lineWidthScale * self.regionLongestLength[index]) + minsize
+		elif Bridson_Common.lineWidthType == 'C':
+			width = (((-1.0) * self.regionIntensityMap[index] / 255) + 1.0 ) * self.regionLongestLength[index] / lineCount * 0.7 + minsize
+		else:
+			width = ((-1.0 + minsize) * self.regionIntensityMap[index] / 255) + 1.01
 		return width
 
 
@@ -1635,7 +1648,7 @@ class FinishedImage:
 		:return:
 		'''
 		# There might be a better way to draw variable thickness lines: https://stackoverflow.com/questions/19390895/matplotlib-plot-with-variable-line-width
-		widthScale = [0.1, 0.6, 0.75]
+		widthScale = [0.3, 0.6, 0.75]
 		# colour='r'
 		if direction == 0:
 			self.ax.plot(line[0:2,0], line[0:2,1] * flip, color=colour, linewidth=lineWidth * widthScale[0])
@@ -1716,7 +1729,7 @@ class FinishedImage:
 			# if self.calculateLineSpacing(linePoints[0], linePoints[-1], intensity=regionIntensity) == False:
 			# 	return
 
-		lineWidth = self.calculateLineWidth(index)
+		lineWidth = self.calculateLineWidth(index, np.size(linePoints))
 
 		# print("FinishedImage drawing line count:", len(linePoints))
 		for lineIndex in range(len(linePoints)):

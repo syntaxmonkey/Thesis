@@ -1420,49 +1420,96 @@ if False:
 # print(lineseg_dists(p, a, b))
 
 
+if False:
+
+	import EdgePoint
+	import hashlib
+
+	xyCoordinates = (2,3)
+	associateLine = []
+	regionIndex = 11
+	pointIndex = 0
+	edgePoint = EdgePoint.EdgePoint(xyCoordinates, associateLine, regionIndex, pointIndex)
+
+	lineMap = {}
+	lineMap[edgePoint] = edgePoint
+
+	print(lineMap)
+	edgePoint.xy = (3,3)
+	print(lineMap)
+
+	line1 = [1,78,98,987]
+	line2 = [1,78,98,987]
+	# line3 = [3,784,38,93]
+	#
+	print(hash(tuple(line1)))
+	print(hash(tuple(line2)))
+
+	hashId = hashlib.sha3_512()
+	hashId.update(repr(tuple(line1)).encode('utf-8'))
+	print(hashId.hexdigest())
+	hashId.update(repr(tuple(line2)).encode('utf-8'))
+	print(hashId.hexdigest())
+
+	# print(hash(line3))
+
+	point1=[1,1]
+	point2=[2,2]
+	point3=[3,3]
+
+	# lineMap = {}
+	# lineMap[line1] = (point1,0)
+	# lineMap[line2] = (point2,0)
+	# lineMap[line3] = (point3, 0)
+
+	# print(lineMap)
 
 
-import EdgePoint
-import hashlib
 
-xyCoordinates = (2,3)
-associateLine = []
-regionIndex = 11
-pointIndex = 0
-edgePoint = EdgePoint.EdgePoint(xyCoordinates, associateLine, regionIndex, pointIndex)
+if True:
+	import operator
+	import datetime
+	# Sort based on segment count: https://stackoverflow.com/questions/8459231/sort-tuples-based-on-second-parameter
+	images = []
+	images.append('joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg')
+	images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
+	images.append('luis-quintero-qKspdY9XUzs-unsplash-hand.jpg')
+	images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
+	images.append('tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg')
+	images.append('jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg')
+	images.append('johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg')
+	images.append('john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg')
+	images.append('sven-read-oktY8r91C84-unsplash_tunnel.jpg')
+	images.append('marina-reich-NxWdBnFiikg-unsplash_streescene.jpg')
+	images.append('derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg')
+	images.append('mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg')
 
-lineMap = {}
-lineMap[edgePoint] = edgePoint
+	segmentCounts = [400, 900, 1600]
+	lineWidthType = ['A']
+	compactnessList = ['SLIC0']
+	attractPercentileList = [85]
+	semanticSegmentation = ['none']
 
-print(lineMap)
-edgePoint.xy = (3,3)
-print(lineMap)
+	variables = []
+	variables2 = []
+	for filename in images:
+		# sys.stdout = open("./output/" + filename + ".log", "w")
+		# for targetPixel in targetPixels:
+		for segmentCount in segmentCounts:
+			for compactness in compactnessList:
+				for cnn in semanticSegmentation:
+					for attractPercentile in attractPercentileList:
+						variables.append( (filename, segmentCount, compactness, cnn, attractPercentile) )
+						variables2.append((filename, segmentCount, compactness, cnn, attractPercentile))
 
-line1 = [1,78,98,987]
-line2 = [1,78,98,987]
-# line3 = [3,784,38,93]
-#
-print(hash(tuple(line1)))
-print(hash(tuple(line2)))
+	a = datetime.datetime.now()
+	variables.sort(key=lambda x: x[1])
+	b = datetime.datetime.now()
+	variables2.sort(key=operator.itemgetter(1))
+	c = datetime.datetime.now()
 
-hashId = hashlib.sha3_512()
-hashId.update(repr(tuple(line1)).encode('utf-8'))
-print(hashId.hexdigest())
-hashId.update(repr(tuple(line2)).encode('utf-8'))
-print(hashId.hexdigest())
-
-# print(hash(line3))
-
-point1=[1,1]
-point2=[2,2]
-point3=[3,3]
-
-# lineMap = {}
-# lineMap[line1] = (point1,0)
-# lineMap[line2] = (point2,0)
-# lineMap[line3] = (point3, 0)
-
-# print(lineMap)
+	print("execution time", (b-a).microseconds , "Variables:", variables)
+	print("execution time", (c-b).microseconds, "Variables2:", variables2) # This approach is faster.
 
 jit_module(nopython=True, fastmath=True)
 
