@@ -1466,7 +1466,7 @@ if False:
 
 
 
-if True:
+if False:
 	import operator
 	import datetime
 	# Sort based on segment count: https://stackoverflow.com/questions/8459231/sort-tuples-based-on-second-parameter
@@ -1510,6 +1510,54 @@ if True:
 
 	print("execution time", (b-a).microseconds , "Variables:", variables)
 	print("execution time", (c-b).microseconds, "Variables2:", variables2) # This approach is faster.
+
+
+if True:
+
+	import Bridson_Common
+	from matplotlib.transforms import Affine2D
+
+	imageName = 'joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg'
+	# Read in the imageFile:
+	# output = Bridson_Common.genImageEdges( imageName )
+
+	# plt.imshow(output)
+	# plt.show()
+
+	laplacian1 = Bridson_Common.laplaceOfGaussian(imageName)
+	print("Laplaced min:", np.min(laplacian1), "max:", np.max(laplacian1))
+	# laplacian1 =
+
+	fig, axs = plt.subplots(2, 1, constrained_layout=True)
+	xvalues, yvalues = np.where( laplacian1 == 0 )
+	# axs[0].imshow(laplacian1, cmap="gray")
+	axs[0].scatter(yvalues, xvalues*-1, linewidths=0.1)
+	axs[0].set_title('laplacian of gaussian')
+
+
+
+	edges =  Bridson_Common.cannyEdge(imageName)
+	x = np.array(edges)
+	# x = x.astype(np.int)
+	# x = Bridson_Common.rotateClockwise90(x)
+	# x = Bridson_Common.rotateClockwise90(x)
+	# print("X:", x)
+	# x = np.rot90(x, 3) # Rotate 90 degrees --> thttps://www.w3resource.com/numpy/manipulation/rot90.php
+	# print("Shape:", np.shape(x))
+	# print("type:", type(x))
+	# print(x)
+
+	# axs[1].imshow(edges, cmap="gray")
+	xvalues, yvalues = np.where(x == 0)
+
+	# axs[1].scatter(yvalues, xvalues*-1, linewidths=0.1)
+	for point in zip(xvalues, yvalues):
+		# print("Plotting:", point)
+		axs[1].plot(point[1], point[0]*-1, markersize=1, color='g', marker='o')
+	axs[1].set_title('Canny edge detection')
+
+
+	plt.show()
 
 jit_module(nopython=True, fastmath=True)
 

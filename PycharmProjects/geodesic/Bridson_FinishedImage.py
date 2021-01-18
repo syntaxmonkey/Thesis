@@ -31,9 +31,11 @@ class FinishedImage:
 		if Bridson_Common.productionMode == False:
 			self.ax.set_title('Merged Image' )
 			self.ax.grid()
-		else:
+
+		if Bridson_Common.displayGrid == False:
 			self.ax.set_xticks([])
 			self.ax.set_yticks([])
+
 		self.tempLines = []
 		# self.set
 		# self.ax.invert_yaxis()
@@ -1083,7 +1085,7 @@ class FinishedImage:
 			# distanceMask = raster
 			# Bridson_Common.displayDistanceMask(distanceMask, str(index), topLeftTarget, bottomRightTarget)
 			####################################
-		print("globalEdgePointMap Keys:", self.globalEdgePointMap.keys())
+		# print("globalEdgePointMap Keys:", self.globalEdgePointMap.keys())
 
 	def highLightEdgePoints(self, color='g', drawSLICRegions=Bridson_Common.drawSLICRegions):
 		for index in self.regionAdjacentRegions:
@@ -1684,6 +1686,36 @@ class FinishedImage:
 		else:
 			# colour='g'
 			self.ax.plot(line[-4:, 0], line[-4:, 1] * flip, color=colour, linewidth=lineWidth)  ## **** Actually draw the line.
+
+
+	def overlayEdges(self, filename, drawSLICRegions = Bridson_Common.drawSLICRegions):
+		if drawSLICRegions == False:
+			flip = -1
+		else:
+			flip = 1
+
+
+		# if:
+		# 	edges = Bridson_Common.laplaceOfGaussian(filename)
+
+		if True:
+			edges = Bridson_Common.cannyEdge(filename)
+			edges = np.array(edges) # Need to convert to numpy array.
+			# edges = edges.astype(np.int)
+			# edges = np.rot90(edges, 3) # Built in rotate 90 degrees: https://www.w3resource.com/numpy/manipulation/rot90.php
+
+			xvalues, yvalues = np.where(edges == 0)
+			for point in zip(xvalues, yvalues):
+				# print("Plotting:", point)
+				colour = 'r'
+				if Bridson_Common.productionMode:
+					colour = 'k'
+				self.ax.plot(point[1], point[0] * flip, markersize=0.5, color=colour, marker='o')
+
+
+
+			# self.ax.scatter(xvalues, yvalues*flip, color='r', linewidths=0.1)
+		pass
 
 	def drawRegionContourLines(self, index, drawSLICRegions = Bridson_Common.drawSLICRegions):
 		# If we are not drawing the SLIC regions, we do not need to flip the Y coordinates.

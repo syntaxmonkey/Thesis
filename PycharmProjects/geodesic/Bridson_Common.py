@@ -13,6 +13,7 @@ from scipy.spatial import distance
 import sys
 from skimage import io
 import pickle
+import cv2 as cv
 
 
 
@@ -32,6 +33,7 @@ SLICGrey = False
 
 #####################################
 productionMode = True
+displayGrid = False
 bulkGeneration = True
 smallBatch=False
 diagnosticDisplay=False # Enable/Disable pairing diagnostics
@@ -62,7 +64,7 @@ else:
 displayMesh = False
 
 generatePREImage=False
-
+overlapEdges = True
 
 scalingFactor=5 # Scale factor.  Needs to be an integer.  Will increase the saved image dpi by this factor.
 lineWidthProportionalToRegion = True
@@ -285,7 +287,7 @@ def determineRadius(width=1, height=1):
 		dradius = dradius if dradius > radiusDefault else radiusDefault
 	else:
 		dradius = radiusDefault
-	print("dradius:", dradius)
+	# print("dradius:", dradius)
 
 def calculateDirection(angle):
 	angle = angle % 360
@@ -421,6 +423,112 @@ def euclidean_distance(a, b):
 
 
 jit_module(nopython=True,fastmath=True)
+
+
+
+import scipy.ndimage as nd
+import scipy as sp
+
+def genImageEdges(filename):
+	originalImage = cv.imread( filename )
+
+	# Laplace of Gaussian implemnetation: https://stackoverflow.com/questions/22050199/python-implementation-of-the-laplacian-of-gaussian-edge-detection
+	LoG = nd.gaussian_laplace(originalImage, 2)
+	thres = np.absolute(LoG).mean() * 0.75
+	output = sp.zeros(LoG.shape)
+	w = output.shape[1]
+	h = output.shape[0]
+
+	for y in range(1, h - 1):
+		for x in range(1, w - 1):
+			patch = LoG[y - 1:y + 2, x - 1:x + 2]
+			p = LoG[y, x]
+			maxP = patch.max()
+			minP = patch.min()
+			if (p > 0):
+				zeroCross = True if minP < 0 else False
+			else:
+				zeroCross = True if maxP > 0 else False
+			if ((maxP - minP) > thres) and zeroCross:
+				output[y, x] = 1
+	return output
+
+
+def laplaceOfGaussian(filename):
+	# https: // theailearner.com / 2019 / 05 / 25 / laplacian - of - gaussian - log /
+
+	img = cv.imread(filename, 0)
+
+	img = cannyEdge(filename)
+	# Apply Gaussian Blur
+	blur = cv.GaussianBlur(img, (7, 7), 0)
+
+	# Apply Laplacian operator in some higher datatype
+	laplacian = cv.Laplacian(blur,cv.CV_64F)
+
+	laplacian1 = laplacian / laplacian.max()
+
+	# print('laplacian1:', laplacian1)
+
+	# binaryThreshold = cv.threshold(laplacian1, 127, 255, cv.THRESH_BINARY)
+	laplacian1 = (np.array(laplacian1) + 1) / 2.0 * 255
+
+	# print('laplacian1:', laplacian1)
+
+	# Simple Threshold.
+	laplacian1[laplacian1 > 127] = 0
+	laplacian1[laplacian1 != 0] = 255
+	laplacian1 = 255 - laplacian1
+	# laplacian1[laplacian1 != 0] = 255
+
+	laplacian1 = laplacian1.astype(np.uint8)
+
+	return laplacian1
+
+
+# Thresholding the laplacian: https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_thresholding/py_thresholding.html
+
+
+# Gaussian laplace: https://docs.scipy.org/doc/scipy/reference/generated/scipy.ndimage.gaussian_laplace.html
+from scipy import ndimage, misc
+def genImageEdges3(filename):
+	# ascent = misc.ascent()
+	ascent = cv.imread(filename, 0)
+
+	# result = ndimage.gaussian_laplace(ascent, sigma=1)
+
+	result = ndimage.gaussian_laplace(ascent, sigma=3)
+
+	print(result)
+	# plt.imshow(result)
+
+	# plt.show()
+
+
+# Canny edge detection: https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_canny/py_canny.html
+def cannyEdge(filename):
+	img = cv.imread(filename, 0)
+	img = cv.GaussianBlur(img, (5, 5), 0) # Further reduces noise.
+
+	# Noise removal: https://stackoverflow.com/questions/18194870/canny-edge-image-noise-removal
+	v = float(np.median(img))
+	sigma = 0.33
+
+	lower_thresh = int(max(0, (1.0 - sigma) * v))
+	# print("lower:", lower_thresh)
+
+	upper_thresh = int(min(255, (1.0 + sigma) * v))
+	# print("upper:", upper_thresh)
+
+
+	edges = cv.Canny(img, lower_thresh, upper_thresh)
+	edges = 255 - edges
+	# print("Edges:", edges)
+	# print("min of Edges:", np.min(edges))
+	# print("max of Edges:", np.max(edges))
+
+	return edges
+
 
 
 

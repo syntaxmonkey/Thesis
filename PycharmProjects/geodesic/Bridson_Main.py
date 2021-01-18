@@ -270,7 +270,7 @@ def processMask(mask, dradius, indexLabel):
 			# Bridson_Common.determineRadius(xrange, yrange) # Set the region specific radius.
 
 			Bridson_Common.logDebug(__name__, "*** BlurRadius: " , blurRadius)
-			print("blurRadius:", blurRadius)
+			# print("blurRadius:", blurRadius)
 			mask5x = Bridson_Common.blurArray(mask5x, blurRadius)
 			mask5x = Bridson_CreateMask.InvertMask(mask5x)
 			# print("A")
@@ -600,22 +600,22 @@ def indexValidation(filename):
 	successfulRegions = 0
 	# Create new image for contour lines.  Should be the same size as original image.
 	finishedImageSLIC = Bridson_FinishedImage.FinishedImage()
-	finishedImageSLIC.setTitle(filename)
+	# finishedImageSLIC.setTitle(filename)
 	# print( "Region Raster: ", regionRaster )
 	# finishedImageSLIC.drawSLICRegions( regionRaster, segments )
-	finishedImageSLIC.setTitle(filename)
-	# finishedImageSLIC.setXLimit(0, np.shape(regionRaster)[1])
-	# finishedImageSLIC.setYLimit(0, -np.shape(regionRaster)[0])
+	# finishedImageSLIC.setTitle(filename)
+	finishedImageSLIC.setXLimit(0, np.shape(regionRaster)[1])
+	finishedImageSLIC.setYLimit(0, -np.shape(regionRaster)[0])
 
 	# finishedImage.setXLimit( 0, np.shape(imageraster)[0])
 	finishedImageNoSLIC = Bridson_FinishedImage.FinishedImage()
-	finishedImageNoSLIC.setTitle(filename + "_POST_")
+	# finishedImageNoSLIC.setTitle(filename + "_POST_")
 	finishedImageNoSLIC.setXLimit(0, np.shape(regionRaster)[1])
 	finishedImageNoSLIC.setYLimit(0, -np.shape(regionRaster)[0])
 
 
 	finishedImageNoSLIC_B = Bridson_FinishedImage.FinishedImage()
-	finishedImageNoSLIC_B.setTitle(filename + "_POST_")
+	# finishedImageNoSLIC_B.setTitle(filename + "_POST_")
 	finishedImageNoSLIC_B.setXLimit(0, np.shape(regionRaster)[1])
 	finishedImageNoSLIC_B.setYLimit(0, -np.shape(regionRaster)[0])
 
@@ -730,6 +730,11 @@ def indexValidation(filename):
 	for index in meshObjCollection.keys():
 		finishedImageSLIC.drawRegionContourLines( index,  drawSLICRegions=True )
 		finishedImageNoSLIC.drawRegionContourLines( index,  drawSLICRegions=False )
+
+	if Bridson_Common.overlapEdges:
+		finishedImageSLIC.overlayEdges(filename, drawSLICRegions=True )
+		finishedImageNoSLIC.overlayEdges(filename, drawSLICRegions=False )
+
 	print("0J")
 	Bridson_Common.saveImage(filename, "WithSLIC", finishedImageSLIC.fig )
 	Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA", finishedImageNoSLIC.fig)
@@ -737,12 +742,15 @@ def indexValidation(filename):
 	Bridson_Common.lineWidthType = 'B'
 	for index in meshObjCollection.keys():
 		finishedImageNoSLIC_B.drawRegionContourLines(index, drawSLICRegions=False)
+	finishedImageNoSLIC_B.overlayEdges(filename, drawSLICRegions=False )
 	Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthB", finishedImageNoSLIC_B.fig)
 
-	Bridson_Common.lineWidthType = 'C'
-	for index in meshObjCollection.keys():
-		finishedImageNoSLIC_C.drawRegionContourLines(index, drawSLICRegions=False)
-	Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthC", finishedImageNoSLIC_C.fig)
+	# Bridson_Common.lineWidthType = 'C'
+	# for index in meshObjCollection.keys():
+	# 	finishedImageNoSLIC_C.drawRegionContourLines(index, drawSLICRegions=False)
+	# Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthC", finishedImageNoSLIC_C.fig)
+
+
 	# Redraw lines after merge.
 	# redrawRegionLines(filename, finishedImageSLIC, regionList) ## HERE
 	# finishedImageSLIC.drawRegionContourLines(index, drawSLICRegions=True)
