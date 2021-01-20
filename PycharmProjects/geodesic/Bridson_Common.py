@@ -49,7 +49,7 @@ else:
 	os.mkdir("./output")
 
 if bulkGeneration:
-	sys.stdout = open("./output/detailLogs.txt", "a")
+	# sys.stdout = open("./output/detailLogs.txt", "a")
 	pass
 
 #####################################
@@ -459,7 +459,7 @@ def laplaceOfGaussian(filename):
 
 	img = cv.imread(filename, 0)
 
-	img = cannyEdge(filename)
+	# img = cannyEdge(filename)
 	# Apply Gaussian Blur
 	blur = cv.GaussianBlur(img, (7, 7), 0)
 
@@ -506,28 +506,64 @@ def genImageEdges3(filename):
 
 
 # Canny edge detection: https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_imgproc/py_canny/py_canny.html
-def cannyEdge(filename):
-	img = cv.imread(filename, 0)
-	img = cv.GaussianBlur(img, (5, 5), 0) # Further reduces noise.
+def cannyEdge(filename, percentage=2):
+	origImg = cv.imread(filename, 0)
 
-	# Noise removal: https://stackoverflow.com/questions/18194870/canny-edge-image-noise-removal
-	v = float(np.median(img))
-	sigma = 0.33
+	xdim, ydim = np.shape(origImg)
+	totalPixels = xdim*ydim
+	edgePixels = totalPixels
 
-	lower_thresh = int(max(0, (1.0 - sigma) * v))
-	# print("lower:", lower_thresh)
+	thresholdAdjust = 0
+	edges = []
 
-	upper_thresh = int(min(255, (1.0 + sigma) * v))
-	# print("upper:", upper_thresh)
+	print("current percent:", edgePixels / totalPixels * 100.0)
+	print("total percent:", totalPixels * percentage / 100.0)
+	while edgePixels  > (totalPixels * percentage / 100.0):
+		# print("Canny iteration:", thresholdAdjust)
+		img = origImg.copy()
+		img = cv.GaussianBlur(img, (7,7), 0) # Further reduces noise.
 
+		# Noise removal: https://stackoverflow.com/questions/18194870/canny-edge-image-noise-removal
+		v = float(np.median(img))
+		sigma = 0.33
 
-	edges = cv.Canny(img, lower_thresh, upper_thresh)
-	edges = 255 - edges
+		lower_thresh = int(max(0, (1.0 - sigma) * v)) - thresholdAdjust
+		# print("lower:", lower_thresh)
+
+		upper_thresh = int(min(255, (1.0 + sigma) * v)) + thresholdAdjust
+		# print("upper:", upper_thresh)
+
+		# print("lower:", lower_thresh, "upper:", upper_thresh)
+		edges = cv.Canny(img, lower_thresh , upper_thresh )
+		edges = 255 - edges
+		xvalues, yvalues = np.where(edges == 0)
+		edgePixels = len(xvalues)
+		thresholdAdjust += 1
 	# print("Edges:", edges)
 	# print("min of Edges:", np.min(edges))
 	# print("max of Edges:", np.max(edges))
 
 	return edges
+
+
+def applyClosing( cannyEdgeObject ):
+	'''
+	:param cannyEdgeObject:
+	:return: image after closing operation.  Edges are 255 while background is 0.
+
+	Canny Edge - the edges are 0 values while the background is 255.
+	To support the opencv closing operation, the inverse must be true, edges are 255 while background are 0.
+	'''
+	inverted = 255 - cannyEdgeObject
+
+	# opencv closing operation: https://theailearner.com/tag/opening-and-closing-opencv/
+	# Define the structuring element
+	kernel = cv.getStructuringElement(cv.MORPH_RECT, (3, 3))
+	# Apply the closing operation
+	closing = cv.morphologyEx(inverted, cv.MORPH_CLOSE, kernel)
+
+	return closing
+
 
 
 

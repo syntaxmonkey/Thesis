@@ -604,8 +604,8 @@ def indexValidation(filename):
 	# print( "Region Raster: ", regionRaster )
 	# finishedImageSLIC.drawSLICRegions( regionRaster, segments )
 	# finishedImageSLIC.setTitle(filename)
-	finishedImageSLIC.setXLimit(0, np.shape(regionRaster)[1])
-	finishedImageSLIC.setYLimit(0, -np.shape(regionRaster)[0])
+	# finishedImageSLIC.setXLimit(0, np.shape(regionRaster)[1])
+	# finishedImageSLIC.setYLimit(0, -np.shape(regionRaster)[0])
 
 	# finishedImage.setXLimit( 0, np.shape(imageraster)[0])
 	finishedImageNoSLIC = Bridson_FinishedImage.FinishedImage()
@@ -731,19 +731,39 @@ def indexValidation(filename):
 		finishedImageSLIC.drawRegionContourLines( index,  drawSLICRegions=True )
 		finishedImageNoSLIC.drawRegionContourLines( index,  drawSLICRegions=False )
 
-	if Bridson_Common.overlapEdges:
-		finishedImageSLIC.overlayEdges(filename, drawSLICRegions=True )
-		finishedImageNoSLIC.overlayEdges(filename, drawSLICRegions=False )
-
 	print("0J")
-	Bridson_Common.saveImage(filename, "WithSLIC", finishedImageSLIC.fig )
-	Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA", finishedImageNoSLIC.fig)
+	if Bridson_Common.overlapEdges:
+		finishedImageSLIC.overlayEdges(filename, drawSLICRegions=True, pointPercentage=1)
+		finishedImageNoSLIC.overlayEdges(filename, drawSLICRegions=False, pointPercentage=1)
+		Bridson_Common.saveImage(filename, "WithSLIC_percentage_1", finishedImageSLIC.fig )
+		Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_1", finishedImageNoSLIC.fig)
+	else:
+		Bridson_Common.saveImage(filename, "WithSLIC", finishedImageSLIC.fig )
+		Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA", finishedImageNoSLIC.fig)
 
-	Bridson_Common.lineWidthType = 'B'
-	for index in meshObjCollection.keys():
-		finishedImageNoSLIC_B.drawRegionContourLines(index, drawSLICRegions=False)
-	finishedImageNoSLIC_B.overlayEdges(filename, drawSLICRegions=False )
-	Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthB", finishedImageNoSLIC_B.fig)
+	if Bridson_Common.overlapEdges:
+		finishedImageNoSLIC.removeOverlayEdges()
+		finishedImageNoSLIC.overlayEdges(filename, drawSLICRegions=False, pointPercentage=2)
+		Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_2", finishedImageNoSLIC.fig)
+
+		finishedImageNoSLIC.removeOverlayEdges()
+		finishedImageNoSLIC.overlayEdges(filename, drawSLICRegions=False, pointPercentage=3)
+		Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_3", finishedImageNoSLIC.fig)
+
+		finishedImageNoSLIC.removeOverlayEdges()
+		finishedImageNoSLIC.overlayEdges(filename, drawSLICRegions=False, pointPercentage=4)
+		Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_4", finishedImageNoSLIC.fig)
+
+		finishedImageNoSLIC.removeOverlayEdges()
+		finishedImageNoSLIC.overlayEdges(filename, drawSLICRegions=False, pointPercentage=5)
+		Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_5", finishedImageNoSLIC.fig)
+
+
+	# Bridson_Common.lineWidthType = 'B'
+	# for index in meshObjCollection.keys():
+	# 	finishedImageNoSLIC_B.drawRegionContourLines(index, drawSLICRegions=False)
+	# finishedImageNoSLIC_B.overlayEdges(filename, drawSLICRegions=False )
+	# Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthB", finishedImageNoSLIC_B.fig)
 
 	# Bridson_Common.lineWidthType = 'C'
 	# for index in meshObjCollection.keys():

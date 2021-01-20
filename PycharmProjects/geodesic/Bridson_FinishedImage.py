@@ -1688,18 +1688,25 @@ class FinishedImage:
 			self.ax.plot(line[-4:, 0], line[-4:, 1] * flip, color=colour, linewidth=lineWidth)  ## **** Actually draw the line.
 
 
-	def overlayEdges(self, filename, drawSLICRegions = Bridson_Common.drawSLICRegions):
+	def overlayEdges(self, filename, drawSLICRegions = Bridson_Common.drawSLICRegions, pointPercentage=1):
+		'''
+
+		:param filename:
+		:param drawSLICRegions:
+		:param pointPercentage: Defines how many points to retain in the edge overlay as a percentage.
+		:return:
+		'''
+		self.overlayEdgePoints = []
 		if drawSLICRegions == False:
 			flip = -1
 		else:
 			flip = 1
 
-
 		# if:
 		# 	edges = Bridson_Common.laplaceOfGaussian(filename)
 
 		if True:
-			edges = Bridson_Common.cannyEdge(filename)
+			edges = Bridson_Common.cannyEdge(filename, percentage=pointPercentage)
 			edges = np.array(edges) # Need to convert to numpy array.
 			# edges = edges.astype(np.int)
 			# edges = np.rot90(edges, 3) # Built in rotate 90 degrees: https://www.w3resource.com/numpy/manipulation/rot90.php
@@ -1710,12 +1717,16 @@ class FinishedImage:
 				colour = 'r'
 				if Bridson_Common.productionMode:
 					colour = 'k'
-				self.ax.plot(point[1], point[0] * flip, markersize=0.5, color=colour, marker='o')
-
-
+				self.overlayEdgePoints.append( self.ax.plot(point[1], point[0] * flip, markersize=1, color=colour, marker='.') )
 
 			# self.ax.scatter(xvalues, yvalues*flip, color='r', linewidths=0.1)
 		pass
+
+
+	def removeOverlayEdges(self):
+		for item in self.overlayEdgePoints:
+			item[0].remove()
+			del item
 
 	def drawRegionContourLines(self, index, drawSLICRegions = Bridson_Common.drawSLICRegions):
 		# If we are not drawing the SLIC regions, we do not need to flip the Y coordinates.
