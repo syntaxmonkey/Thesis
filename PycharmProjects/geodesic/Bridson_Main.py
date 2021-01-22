@@ -742,7 +742,7 @@ def indexValidation(filename):
 		Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA", finishedImageNoSLIC.fig)
 
 	if Bridson_Common.overlapEdges:
-		for i in range(2,6):
+		for i in range(2,11):
 			finishedImageNoSLIC.removeOverlayEdges()
 			finishedImageNoSLIC.overlayEdges(filename, drawSLICRegions=False, pointPercentage=i)
 			Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_" + str(i), finishedImageNoSLIC.fig)

@@ -1760,11 +1760,11 @@ if True:
 	import Bridson_Common
 
 	# imageName = 'joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg'
-	imageName = 'luis-quintero-qKspdY9XUzs-unsplash-hand.jpg'
+	# imageName = 'luis-quintero-qKspdY9XUzs-unsplash-hand.jpg'
 	# imageName = 'john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg'
 	# imageName = 'sven-read-oktY8r91C84-unsplash_tunnel.jpg'
-	# imageName = 'david-dibert-Huza8QOO3tc-unsplash.jpg'
-	percent = 3
+	imageName = 'david-dibert-Huza8QOO3tc-unsplash.jpg'
+	percent = 5
 
 	contours = Bridson_Common.findEdgeContours(imageName, percentage=percent)
 

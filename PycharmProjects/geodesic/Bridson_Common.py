@@ -49,7 +49,7 @@ else:
 	os.mkdir("./output")
 
 if bulkGeneration:
-	# sys.stdout = open("./output/detailLogs.txt", "a")
+	sys.stdout = open("./output/detailLogs.txt", "a")
 	pass
 
 #####################################
@@ -521,7 +521,7 @@ def cannyEdge(filename, percentage=2):
 	while edgePixels  > (totalPixels * percentage / 100.0):
 		# print("Canny iteration:", thresholdAdjust)
 		img = origImg.copy()
-		img = cv.GaussianBlur(img, (5,5), 0) # Further reduces noise.
+		img = cv.GaussianBlur(img, (3,3), 0) # Further reduces noise.
 		# img = np.asarray(Bridson_ImageModify.increaseContrast(Image.fromarray(img), 5))
 
 		# Noise removal: https://stackoverflow.com/questions/18194870/canny-edge-image-noise-removal
@@ -579,7 +579,7 @@ def findEdgeContours( imageName, percentage=2 ):
 	''' Generate the contours. '''
 	# Description of chain approximation: https://docs.opencv.org/3.4/d4/d73/tutorial_py_contours_begin.html
 	# contours, hierarchy = cv.findContours( closing, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
-	contours, hierarchy = cv.findContours( closing, cv.RETR_TREE, cv.CHAIN_APPROX_SIMPLE) # Get the full tree of contours.
+	contours, hierarchy = cv.findContours( closing, cv.RETR_TREE, cv.CHAIN_APPROX_TC89_L1) # Get the full tree of contours.
 	# contours, hierarchy = cv.findContours(closing, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_TC89_L1)
 	# contours, hierarchy = cv.findContours(closing, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_TC89_KCOS)
 
