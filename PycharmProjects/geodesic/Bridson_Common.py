@@ -49,7 +49,7 @@ else:
 	os.mkdir("./output")
 
 if bulkGeneration:
-	# sys.stdout = open("./output/detailLogs.txt", "a")
+	sys.stdout = open("./output/detailLogs.txt", "a")
 	pass
 
 #####################################
@@ -565,6 +565,28 @@ def applyClosing( cannyEdgeObject ):
 	return closing
 
 
+
+def findEdgeContours( imageName, percentage=2 ):
+	# opencv.findContours - https://docs.opencv.org/3.4/d4/d73/tutorial_py_contours_begin.html
+	# Read image.
+	img = cv.imread(imageName, 0)
+
+	# Find the edges utilizing Canny.
+	edges =  cannyEdge(imageName, percentage=percentage)
+	x = np.array(edges)
+
+	inverted = 255 - x
+
+	# Apply closing to the edges.
+	closing = applyClosing( edges )
+
+	''' Generate the contours. '''
+	# Description of chain approximation: https://docs.opencv.org/3.4/d4/d73/tutorial_py_contours_begin.html
+	# contours, hierarchy = cv.findContours( closing, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
+	# contours, hierarchy = cv.findContours(closing, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_TC89_L1)
+	contours, hierarchy = cv.findContours(closing, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_TC89_KCOS)
+
+	return contours
 
 
 

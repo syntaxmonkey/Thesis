@@ -1702,25 +1702,44 @@ class FinishedImage:
 		else:
 			flip = 1
 
+		linewidth = 0.5
 		# if:
 		# 	edges = Bridson_Common.laplaceOfGaussian(filename)
 
-		if True:
+		if False:
+			''' Overlay the individual points from the canny edges. '''
 			edges = Bridson_Common.cannyEdge(filename, percentage=pointPercentage)
 			edges = np.array(edges) # Need to convert to numpy array.
 			# edges = edges.astype(np.int)
 			# edges = np.rot90(edges, 3) # Built in rotate 90 degrees: https://www.w3resource.com/numpy/manipulation/rot90.php
 
 			xvalues, yvalues = np.where(edges == 0)
+			colour = 'r'
+			if Bridson_Common.productionMode:
+				colour = 'k'
+
 			for point in zip(xvalues, yvalues):
 				# print("Plotting:", point)
-				colour = 'r'
-				if Bridson_Common.productionMode:
-					colour = 'k'
 				self.overlayEdgePoints.append( self.ax.plot(point[1], point[0] * flip, markersize=1, color=colour, marker='.') )
 
 			# self.ax.scatter(xvalues, yvalues*flip, color='r', linewidths=0.1)
+		else:
+			''' Overlay contours instead of just the dges. '''
+			contours = Bridson_Common.findEdgeContours(filename, percentage=pointPercentage )
+			colour = 'r'
+			if Bridson_Common.productionMode:
+				colour = 'k'
+
+			for segment in contours:
+				# c1 = contours[0]
+				# c1 = np.reshape(c1, (c1.shape[0], c1.shape[2]) )
+				c1 = np.reshape(segment, (segment.shape[0], segment.shape[2]))
+
+				self.overlayEdgePoints.append( self.ax.plot(c1[:, 0], c1[:, 1] * flip, color=colour, linewidth=linewidth) )
+
 		pass
+
+
 
 
 	def removeOverlayEdges(self):
