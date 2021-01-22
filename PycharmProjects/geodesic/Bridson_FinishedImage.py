@@ -1702,7 +1702,7 @@ class FinishedImage:
 		else:
 			flip = 1
 
-		linewidth = 0.5
+		linewidth = 0.75
 		# if:
 		# 	edges = Bridson_Common.laplaceOfGaussian(filename)
 
@@ -1733,7 +1733,7 @@ class FinishedImage:
 			for segment in contours:
 				# c1 = contours[0]
 				# c1 = np.reshape(c1, (c1.shape[0], c1.shape[2]) )
-				c1 = np.reshape(segment, (segment.shape[0], segment.shape[2]))
+				c1 = np.reshape(segment, (segment.shape[0], segment.shape[2]) )
 
 				self.overlayEdgePoints.append( self.ax.plot(c1[:, 0], c1[:, 1] * flip, color=colour, linewidth=linewidth) )
 

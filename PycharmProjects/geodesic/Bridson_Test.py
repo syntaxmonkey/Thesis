@@ -1763,17 +1763,43 @@ if True:
 	imageName = 'luis-quintero-qKspdY9XUzs-unsplash-hand.jpg'
 	# imageName = 'john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg'
 	# imageName = 'sven-read-oktY8r91C84-unsplash_tunnel.jpg'
+	# imageName = 'david-dibert-Huza8QOO3tc-unsplash.jpg'
+	percent = 3
 
-	contours = Bridson_Common.findEdgeContours(imageName)
+	contours = Bridson_Common.findEdgeContours(imageName, percentage=percent)
 
-	fig, axs = plt.subplots(1, 1, constrained_layout=True)
+	fig, axs = plt.subplots(2, 1, constrained_layout=True)
+
+	edges =  Bridson_Common.cannyEdge(imageName, percentage=percent)
+	x = np.array(edges)
+
+	closing = Bridson_Common.applyClosing(edges)
+
+	x = closing
+	xvalues, yvalues = np.where(x == 255)
+	if True:
+		# axs[1].scatter(yvalues, xvalues*-1, linewidths=0.1)
+		print("Canny point count:", len(xvalues))
+		edgePoints = []
+		# axs[1].plot((0,500), (0,-400), linewidth=8, color='r')
+		for point in zip(xvalues, yvalues):
+			# print("Plotting:", point)
+			edgePoints.append( axs[0].plot(point[1], point[0]*-1, linewidth=1, color='g', marker='.') )
+			# axs[1].scatter(point[:,1], point)
+		axs[0].set_title('Canny edge detection')
+
+
+	print("Shape of contours:", np.shape(contours) )
+
+	# print('Contours:', contours)
 
 	for segment in contours:
 		# c1 = contours[0]
 		# c1 = np.reshape(c1, (c1.shape[0], c1.shape[2]) )
 		c1 = np.reshape( segment , (segment.shape[0], segment.shape[2]) )
 
-		axs.plot(c1[:,0], c1[:,1]*-1, color='r', marker='.', markersize=0.1)
+		axs[1].plot(c1[:,0], c1[:,1]*-1, color='r', linewidth=1)
+	axs[1].set_title('findContour')
 
 	plt.show()
 

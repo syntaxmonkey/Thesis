@@ -742,21 +742,10 @@ def indexValidation(filename):
 		Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA", finishedImageNoSLIC.fig)
 
 	if Bridson_Common.overlapEdges:
-		finishedImageNoSLIC.removeOverlayEdges()
-		finishedImageNoSLIC.overlayEdges(filename, drawSLICRegions=False, pointPercentage=2)
-		Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_2", finishedImageNoSLIC.fig)
-
-		finishedImageNoSLIC.removeOverlayEdges()
-		finishedImageNoSLIC.overlayEdges(filename, drawSLICRegions=False, pointPercentage=3)
-		Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_3", finishedImageNoSLIC.fig)
-
-		finishedImageNoSLIC.removeOverlayEdges()
-		finishedImageNoSLIC.overlayEdges(filename, drawSLICRegions=False, pointPercentage=4)
-		Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_4", finishedImageNoSLIC.fig)
-
-		finishedImageNoSLIC.removeOverlayEdges()
-		finishedImageNoSLIC.overlayEdges(filename, drawSLICRegions=False, pointPercentage=5)
-		Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_5", finishedImageNoSLIC.fig)
+		for i in range(2,6):
+			finishedImageNoSLIC.removeOverlayEdges()
+			finishedImageNoSLIC.overlayEdges(filename, drawSLICRegions=False, pointPercentage=i)
+			Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_" + str(i), finishedImageNoSLIC.fig)
 
 
 	# Bridson_Common.lineWidthType = 'B'
@@ -1023,7 +1012,7 @@ def main():
 			Have to implement this looping mechanism.
 			For some reason, if we provide the whole list to the pool, the pool eventually hangs or all the chidren crash.
 		'''
-		blocks = coreCount
+		blocks = coreCount * 2
 		iterations = int(len(variables) / blocks + 1)
 
 		print("CoreCount:", coreCount)

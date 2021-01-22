@@ -6,352 +6,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/Bridson_Common.py" afterPath="$PROJECT_DIR$/Bridson_Common.py" />
       <change beforePath="$PROJECT_DIR$/Bridson_FinishedImage.py" afterPath="$PROJECT_DIR$/Bridson_FinishedImage.py" />
+      <change beforePath="$PROJECT_DIR$/Bridson_Main.py" afterPath="$PROJECT_DIR$/Bridson_Main.py" />
       <change beforePath="$PROJECT_DIR$/Bridson_Test.py" afterPath="$PROJECT_DIR$/Bridson_Test.py" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_1600_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_400_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/david-dibert-Huza8QOO3tc-unsplash.jpg_segments_900_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg_segments_1600_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg_segments_400_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg_segments_900_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/detailLogs.txt" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg_segments_1600_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg_segments_400_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg_segments_900_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg_segments_1600_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg_segments_400_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg_segments_900_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg_segments_1600_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg_segments_400_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg_segments_900_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_1600_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_400_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg_segments_900_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash-hand.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash-hand.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash-hand.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash-hand.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash-hand.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash-hand.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash-hand.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash-hand.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash-hand.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash-hand.jpg_segments_1600_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash-hand.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash-hand.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash-hand.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash-hand.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash-hand.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash-hand.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash-hand.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash-hand.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash-hand.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash-hand.jpg_segments_400_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash-hand.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash-hand.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash-hand.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash-hand.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash-hand.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash-hand.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash-hand.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash-hand.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash-hand.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/luis-quintero-qKspdY9XUzs-unsplash-hand.jpg_segments_900_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/marina-reich-NxWdBnFiikg-unsplash_streescene.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/marina-reich-NxWdBnFiikg-unsplash_streescene.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/marina-reich-NxWdBnFiikg-unsplash_streescene.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/marina-reich-NxWdBnFiikg-unsplash_streescene.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/marina-reich-NxWdBnFiikg-unsplash_streescene.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/marina-reich-NxWdBnFiikg-unsplash_streescene.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/marina-reich-NxWdBnFiikg-unsplash_streescene.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/marina-reich-NxWdBnFiikg-unsplash_streescene.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/marina-reich-NxWdBnFiikg-unsplash_streescene.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/marina-reich-NxWdBnFiikg-unsplash_streescene.jpg_segments_1600_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/marina-reich-NxWdBnFiikg-unsplash_streescene.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/marina-reich-NxWdBnFiikg-unsplash_streescene.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/marina-reich-NxWdBnFiikg-unsplash_streescene.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/marina-reich-NxWdBnFiikg-unsplash_streescene.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/marina-reich-NxWdBnFiikg-unsplash_streescene.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/marina-reich-NxWdBnFiikg-unsplash_streescene.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/marina-reich-NxWdBnFiikg-unsplash_streescene.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/marina-reich-NxWdBnFiikg-unsplash_streescene.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/marina-reich-NxWdBnFiikg-unsplash_streescene.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/marina-reich-NxWdBnFiikg-unsplash_streescene.jpg_segments_400_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/marina-reich-NxWdBnFiikg-unsplash_streescene.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/marina-reich-NxWdBnFiikg-unsplash_streescene.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/marina-reich-NxWdBnFiikg-unsplash_streescene.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/marina-reich-NxWdBnFiikg-unsplash_streescene.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/marina-reich-NxWdBnFiikg-unsplash_streescene.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/marina-reich-NxWdBnFiikg-unsplash_streescene.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/marina-reich-NxWdBnFiikg-unsplash_streescene.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/marina-reich-NxWdBnFiikg-unsplash_streescene.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/marina-reich-NxWdBnFiikg-unsplash_streescene.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/marina-reich-NxWdBnFiikg-unsplash_streescene.jpg_segments_900_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg_segments_1600_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg_segments_400_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg_segments_900_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/sven-read-oktY8r91C84-unsplash_tunnel.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/sven-read-oktY8r91C84-unsplash_tunnel.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/sven-read-oktY8r91C84-unsplash_tunnel.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/sven-read-oktY8r91C84-unsplash_tunnel.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/sven-read-oktY8r91C84-unsplash_tunnel.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/sven-read-oktY8r91C84-unsplash_tunnel.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/sven-read-oktY8r91C84-unsplash_tunnel.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/sven-read-oktY8r91C84-unsplash_tunnel.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/sven-read-oktY8r91C84-unsplash_tunnel.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/sven-read-oktY8r91C84-unsplash_tunnel.jpg_segments_1600_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/sven-read-oktY8r91C84-unsplash_tunnel.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/sven-read-oktY8r91C84-unsplash_tunnel.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/sven-read-oktY8r91C84-unsplash_tunnel.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/sven-read-oktY8r91C84-unsplash_tunnel.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/sven-read-oktY8r91C84-unsplash_tunnel.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/sven-read-oktY8r91C84-unsplash_tunnel.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/sven-read-oktY8r91C84-unsplash_tunnel.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/sven-read-oktY8r91C84-unsplash_tunnel.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/sven-read-oktY8r91C84-unsplash_tunnel.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/sven-read-oktY8r91C84-unsplash_tunnel.jpg_segments_400_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/sven-read-oktY8r91C84-unsplash_tunnel.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/sven-read-oktY8r91C84-unsplash_tunnel.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/sven-read-oktY8r91C84-unsplash_tunnel.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/sven-read-oktY8r91C84-unsplash_tunnel.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/sven-read-oktY8r91C84-unsplash_tunnel.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/sven-read-oktY8r91C84-unsplash_tunnel.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/sven-read-oktY8r91C84-unsplash_tunnel.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/sven-read-oktY8r91C84-unsplash_tunnel.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/sven-read-oktY8r91C84-unsplash_tunnel.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/sven-read-oktY8r91C84-unsplash_tunnel.jpg_segments_900_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg_segments_1600_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg_segments_400_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg_segments_900_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_1600_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_1600_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_400_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_GreyscaleSLIC.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_2.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_3.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_4.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_NoSLIC_POST_LineWidthA_percentage_5.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_SLIC_DIRECTION.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_900_compactness_SLIC0_attractThreshold_85_cnn_none_semanticRatio_0.5_contrast_1.5_WithSLIC_percentage_1.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/output/valentin-lacoste-GcepdU3MyKE-unsplash.jpg_segments_900_compactness_SLIC0_cnn_none_semanticRatio_0.5_OVERLAY.png" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/output/detailLogs.txt" afterPath="$PROJECT_DIR$/output/detailLogs.txt" />
       <change beforePath="$PROJECT_DIR$/../../boundary-first-flattening" afterPath="$PROJECT_DIR$/../../boundary-first-flattening" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -362,14 +19,14 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.65192205">
+    <splitter split-orientation="horizontal" split-proportion="0.4776198">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="Bridson_FinishedImage.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="Bridson_FinishedImage.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Bridson_FinishedImage.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="204">
-                  <caret line="1705" column="13" lean-forward="true" selection-start-line="1705" selection-start-column="13" selection-end-line="1705" selection-end-column="13" />
+                <state relative-caret-position="154">
+                  <caret line="1698" column="35" lean-forward="false" selection-start-line="1698" selection-start-column="35" selection-end-line="1698" selection-end-column="35" />
                   <folding>
                     <element signature="e#1#32#0" expanded="true" />
                   </folding>
@@ -397,11 +54,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Bridson_Test.py" pinned="false" current-in-tab="false">
+          <file leaf-file-name="Bridson_Test.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Bridson_Test.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="711">
-                  <caret line="1776" column="0" lean-forward="false" selection-start-line="1770" selection-start-column="0" selection-end-line="1776" selection-end-column="0" />
+                <state relative-caret-position="185">
+                  <caret line="1766" column="15" lean-forward="false" selection-start-line="1766" selection-start-column="15" selection-end-line="1766" selection-end-column="15" />
                   <folding>
                     <element signature="e#6883#6915#0" expanded="true" />
                   </folding>
@@ -460,8 +117,8 @@
           <file leaf-file-name="Bridson_Common.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Bridson_Common.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="291">
-                  <caret line="568" column="4" lean-forward="false" selection-start-line="568" selection-start-column="4" selection-end-line="568" selection-end-column="4" />
+                <state relative-caret-position="8520">
+                  <caret line="568" column="0" lean-forward="true" selection-start-line="568" selection-start-column="0" selection-end-line="568" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#28#0" expanded="true" />
                   </folding>
@@ -472,8 +129,8 @@
           <file leaf-file-name="Bridson_Main.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Bridson_Main.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="441">
-                  <caret line="745" column="78" lean-forward="false" selection-start-line="745" selection-start-column="78" selection-end-line="745" selection-end-column="78" />
+                <state relative-caret-position="296">
+                  <caret line="744" column="26" lean-forward="false" selection-start-line="744" selection-start-column="26" selection-end-line="744" selection-end-column="26" />
                   <folding />
                 </state>
               </provider>
@@ -530,11 +187,21 @@
           <file leaf-file-name="SLIC.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/SLIC.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="945">
-                  <caret line="81" column="21" lean-forward="false" selection-start-line="81" selection-start-column="12" selection-end-line="81" selection-end-column="21" />
+                <state relative-caret-position="749">
+                  <caret line="101" column="124" lean-forward="true" selection-start-line="101" selection-start-column="8" selection-end-line="101" selection-end-column="124" />
                   <folding>
                     <element signature="e#124#161#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Bridson_ImageModify.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Bridson_ImageModify.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="90">
+                  <caret line="8" column="4" lean-forward="false" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -574,9 +241,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Starting Region</find>
-      <find>dradius:</find>
-      <find>Starting Region:</find>
       <find>DrawAngleLinesExteriorSeed2</find>
       <find>indexValid</find>
       <find>cv.imread</find>
@@ -591,7 +255,6 @@
       <find>saveImage</find>
       <find>drawRegion</find>
       <find>edges</find>
-      <find>cannyEdge</find>
       <find>rotate</find>
       <find>astype</find>
       <find>overlyap</find>
@@ -604,6 +267,10 @@
       <find>plt</find>
       <find>Bridson_Common</find>
       <find>drawRegionCo</find>
+      <find>cannyEd</find>
+      <find>cannyEdge</find>
+      <find>contrast</find>
+      <find>findEdgeC</find>
     </findStrings>
     <replaceStrings>
       <replace>=</replace>
@@ -667,14 +334,14 @@
         <option value="$PROJECT_DIR$/Bridson_sampling.py" />
         <option value="$PROJECT_DIR$/Bridson_Angles.py" />
         <option value="$PROJECT_DIR$/EdgePoint.py" />
-        <option value="$PROJECT_DIR$/Bridson_Main.py" />
-        <option value="$PROJECT_DIR$/Bridson_Test.py" />
-        <option value="$PROJECT_DIR$/Bridson_Common.py" />
         <option value="$PROJECT_DIR$/Bridson_FinishedImage.py" />
+        <option value="$PROJECT_DIR$/Bridson_Common.py" />
+        <option value="$PROJECT_DIR$/Bridson_Test.py" />
+        <option value="$PROJECT_DIR$/Bridson_Main.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds">
     <option name="x" value="-1920" />
     <option name="y" value="23" />
     <option name="width" value="1920" />
@@ -749,7 +416,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Bridson_Main">
+  <component name="RunManager" selected="Python.Bridson_Test">
     <configuration name="Bridson_Angles" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -867,8 +534,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.Bridson_Main" />
-        <item index="1" class="java.lang.String" itemvalue="Python.Bridson_Test" />
+        <item index="0" class="java.lang.String" itemvalue="Python.Bridson_Test" />
+        <item index="1" class="java.lang.String" itemvalue="Python.Bridson_Main" />
         <item index="2" class="java.lang.String" itemvalue="Python.Bridson_Angles" />
         <item index="3" class="java.lang.String" itemvalue="Python.Bridson_MeshObj" />
         <item index="4" class="java.lang.String" itemvalue="Python.Bridson_LineCalculations" />
@@ -947,13 +614,13 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1920" y="23" width="1920" height="1057" extended-state="6" />
+    <frame x="-1920" y="23" width="1920" height="1057" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42706686" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290735" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.49946752" sideWeight="0.51026857" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.6134185" sideWeight="0.48973143" order="2" side_tool="false" content_ui="tabs" x="396" y="23" width="640" height="1177" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.6134185" sideWeight="0.48973143" order="2" side_tool="false" content_ui="tabs" x="960" y="23" width="960" height="1177" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290735" sideWeight="0.4918378" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32200187" sideWeight="0.49289098" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27224857" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1087,13 +754,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="519">
           <caret line="121" column="11" lean-forward="false" selection-start-line="121" selection-start-column="4" selection-end-line="121" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Bridson_ImageModify.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="8" column="20" lean-forward="false" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="20" />
         </state>
       </provider>
     </entry>
@@ -1308,16 +968,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SLIC.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="945">
-          <caret line="81" column="21" lean-forward="false" selection-start-line="81" selection-start-column="12" selection-end-line="81" selection-end-column="21" />
-          <folding>
-            <element signature="e#124#161#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Bridson_StructTensor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -1340,14 +990,41 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Bridson_FinishedImage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="1698" column="35" lean-forward="false" selection-start-line="1698" selection-start-column="35" selection-end-line="1698" selection-end-column="35" />
+          <folding>
+            <element signature="e#1#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Bridson_ImageModify.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="8" column="4" lean-forward="false" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SLIC.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="749">
+          <caret line="101" column="124" lean-forward="true" selection-start-line="101" selection-start-column="8" selection-end-line="101" selection-end-column="124" />
+          <folding>
+            <element signature="e#124#161#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Bridson_Test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="711">
-          <caret line="1776" column="0" lean-forward="false" selection-start-line="1770" selection-start-column="0" selection-end-line="1776" selection-end-column="0" />
+        <state relative-caret-position="185">
+          <caret line="1766" column="15" lean-forward="false" selection-start-line="1766" selection-start-column="15" selection-end-line="1766" selection-end-column="15" />
           <folding>
             <element signature="e#6883#6915#0" expanded="true" />
           </folding>
@@ -1356,28 +1033,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Bridson_Main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="745" column="78" lean-forward="false" selection-start-line="745" selection-start-column="78" selection-end-line="745" selection-end-column="78" />
+        <state relative-caret-position="296">
+          <caret line="744" column="26" lean-forward="false" selection-start-line="744" selection-start-column="26" selection-end-line="744" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Bridson_Common.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="568" column="4" lean-forward="false" selection-start-line="568" selection-start-column="4" selection-end-line="568" selection-end-column="4" />
+        <state relative-caret-position="8520">
+          <caret line="568" column="0" lean-forward="true" selection-start-line="568" selection-start-column="0" selection-end-line="568" selection-end-column="0" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Bridson_FinishedImage.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="1705" column="13" lean-forward="true" selection-start-line="1705" selection-start-column="13" selection-end-line="1705" selection-end-column="13" />
-          <folding>
-            <element signature="e#1#32#0" expanded="true" />
           </folding>
         </state>
       </provider>
