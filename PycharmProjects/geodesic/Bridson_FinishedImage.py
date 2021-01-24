@@ -41,6 +41,16 @@ class FinishedImage:
 		# self.ax.invert_yaxis()
 		self.lineEdgePointMap = {}
 		self.regionLongestLength = {}
+		self.collisionLineIndex = {} # This will store the indeces for the lines as we determine collision.
+		self.initializeOffsetIndex()
+
+	def initializeOffsetIndex(self):
+		self.offsetIndex = 10
+
+
+	def decrementOffsetIndex(self):
+		self.offsetIndex -= 1
+
 
 	def setTitle(self, filename):
 		if Bridson_Common.productionMode:
@@ -56,6 +66,8 @@ class FinishedImage:
 			self.ax.set_xlim(left=left, right=right)
 			# self.ax.set_xlim(left=-200, right=200)
 			pass
+		left, right = self.ax.get_xlim()
+		self.deltaX = abs(left - right)
 		pass
 
 	def setYLimit(self, top, bottom):
@@ -64,6 +76,8 @@ class FinishedImage:
 			self.ax.set_ylim(top=top, bottom=bottom)
 			# self.ax.set_ylim(top=200, bottom=-200)
 			pass
+		bottom, top = self.ax.get_ylim()
+		self.deltaY = abs(bottom - top)
 		pass
 
 	def copyFromOther(self, otherFinishedImage):
@@ -1706,6 +1720,8 @@ class FinishedImage:
 		# if:
 		# 	edges = Bridson_Common.laplaceOfGaussian(filename)
 
+
+		minCountourSize = int(min(self.deltaX, self.deltaY) * Bridson_Common.contourMinBBSizeScale)
 		if False:
 			''' Overlay the individual points from the canny edges. '''
 			edges = Bridson_Common.cannyEdge(filename, percentage=pointPercentage)
@@ -1734,8 +1750,8 @@ class FinishedImage:
 				# c1 = contours[0]
 				# c1 = np.reshape(c1, (c1.shape[0], c1.shape[2]) )
 				c1 = np.reshape(segment, (segment.shape[0], segment.shape[2]) )
-
-				self.overlayEdgePoints.append( self.ax.plot(c1[:, 0], c1[:, 1] * flip, color=colour, linewidth=linewidth) )
+				if Bridson_Common.sizeBoundingBox( c1 ) > minCountourSize:
+					self.overlayEdgePoints.append( self.ax.plot(c1[:, 0], c1[:, 1] * flip, color=colour, linewidth=linewidth) )
 
 		pass
 
@@ -1746,6 +1762,125 @@ class FinishedImage:
 		for item in self.overlayEdgePoints:
 			item[0].remove()
 			del item
+
+
+
+
+
+	def drawRegionLinesCollision(self, index, drawSLICRegions = Bridson_Common.drawSLICRegions):
+		while self.offsetIndex >= 0:
+			print("Processing Index:", self.offsetIndex, "Beginning:", self.offsetIndex, "Ending:", -self.offsetIndex)
+			for index in self.meshObjCollection.keys():
+				self.iterateDrawCollision(index, drawSLICRegions = Bridson_Common.drawSLICRegions)
+			self.decrementOffsetIndex()
+
+	''' 
+	We need to obtain the pixel values of the plot. 
+	Convert a plot into an array: https://stackoverflow.com/questions/62014554/how-to-find-the-pixel-passed-by-a-plot-drawn-with-matplotlib
+	'''
+	def iterateDrawCollision(self, index, drawSLICRegions = Bridson_Common.drawSLICRegions):
+		# If we are not drawing the SLIC regions, we do not need to flip the Y coordinates.
+		# If we draw the SLIC regions, we need to flip the Y coordinates.
+		if drawSLICRegions == False:
+			flip = 1
+		else:
+			flip = -1
+
+
+		regionMap = self.regionMap
+		meshObj = self.meshObjCollection[ index ]
+		regionIntensity = self.regionIntensityMap[ index ]
+
+		# Need to utilize the region Raster.
+		raster, actualTopLeft = SLIC.createRegionRasters(regionMap, index)
+
+		# Obtain the linePoints from the meshObj.
+		linePoints = meshObj.croppedLinePoints.copy()
+
+		# Grab the shiftx and shifty based on regionMap.
+		# print("A")
+		regionCoordinates = regionMap.get( index  )
+		topLeftTarget, bottomRightTarget = SLIC.calculateTopLeft( regionCoordinates )
+
+		# print("Length of linePoints:", len(linePoints))
+		if len(linePoints) == 0:
+			print("Region ", index, "has no lines.")
+			return
+		currentLine = linePoints[0] * -100  # Set the starting line way off the current raster region.
+
+		initial=True
+		# count = 0
+
+		# Allow regions to be blank.
+		if Bridson_Common.allowBlankRegion == True:
+			if regionIntensity > Bridson_Common.cullingBlankThreshold:
+				return
+			# if self.calculateLineSpacing(linePoints[0], linePoints[-1], intensity=regionIntensity) == False:
+			# 	return
+
+		lineWidth = self.calculateLineWidth(index, np.size(linePoints))
+
+		# print("FinishedImage drawing line count:", len(linePoints))
+		for lineIndex in range(len(linePoints)):
+			# if count > 5:
+			# 	break
+			# if lineIndex % Bridson_Common.lineSkip == 0:
+			# colour = Bridson_Common.colourArray[ (lineIndex % len(Bridson_Common.colourArray) ) ]
+			colour = '#711fa3'
+			line = linePoints[lineIndex].copy()
+			line = line * Bridson_Common.mergeScale
+
+			# Add code to high light stable regions.
+			if self.regionCoherency[index] >= self.stableThreshold:
+				colour = 'r'
+
+			colour = Bridson_Common.colourArray[(lineIndex % len(Bridson_Common.colourArray))]
+			# self.ax.plot(line[:, 0], line[:, 1]*flip, color=colour, linewidth=Bridson_Common.lineWidth)
+			if Bridson_Common.diagnosticMerge:
+				colour = Bridson_Common.colourArray[(lineIndex % len(Bridson_Common.colourArray))]
+				lineWidth = 0.1  # HERE
+				self.ax.plot(line[:, 0], line[:, 1] * flip, color=colour, linewidth=lineWidth)
+			else:
+				if Bridson_Common.productionMode:
+					colour = 'k'
+
+				# Do not implement tapering functionality yet.
+				# if Bridson_Common.drawTaperedLines:
+				# 	''' *** Draw the line with tapering. ***'''
+				# 	self.drawLineWithTaper( line, lineWidth, flip , colour)
+				# else:
+				'''************ Actually draw the line in production mode ****************'''
+				if self.offsetIndex == 0:
+					self.ax.plot(line[:, 0], line[:, 1] * flip, color=colour, linewidth=lineWidth)  ## **** Actually draw the line.
+				else:
+					self.ax.plot(line[self.offsetIndex:-self.offsetIndex, 0], line[self.offsetIndex:-self.offsetIndex, 1]*flip, color=colour, linewidth=lineWidth)  ## **** Actually draw the line.
+
+				if Bridson_Common.higlightTapered:
+					''' *********** Determine if the line is tapered ********************* '''
+					# print("Flip value: ", flip)
+					if self.isLineTapered(line[:3]):
+						# print("Plotting end point0:", line[0][0], line[0][1]*flip)
+						self.ax.plot(line[0][0], line[0][1] * flip, marker='|', markersize=2, color='r')  # Colour middle point.
+
+					if self.isLineTapered(line[-3:]) :
+						# print("Plotting end point-1:", line[-1][0], line[-1][1]*flip)
+						self.ax.plot(line[-1][0], line[-1][1] * flip, marker='_', markersize=2, color='g')  # Colour middle point.
+
+
+			if Bridson_Common.closestPointPair:  # Only place the dots when we are calculating closest point pair.
+				if initial == False:  # Do not display this dot the first time around.
+					self.ax.plot(currentLine[self.markPoint[0]][0], currentLine[self.markPoint[0]][1] * flip, marker='*',
+					             markersize=6, color='g')  # Colour middle point.
+				self.ax.plot(line[self.markPoint[1]][0], line[self.markPoint[1]][1]*flip, marker='o', markersize=2, color='r')  # Colour middle point.
+			currentLine = line
+			initial = False
+				# count += 1
+
+
+		pass
+
+
+
 
 	def drawRegionContourLines(self, index, drawSLICRegions = Bridson_Common.drawSLICRegions):
 		# If we are not drawing the SLIC regions, we do not need to flip the Y coordinates.

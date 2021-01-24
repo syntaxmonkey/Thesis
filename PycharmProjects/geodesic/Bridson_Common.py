@@ -35,13 +35,13 @@ SLICGrey = False
 productionMode = True
 displayGrid = False
 bulkGeneration = True
-smallBatch=False
+smallBatch=True
 diagnosticDisplay=False # Enable/Disable pairing diagnostics
 diagnosticDisplayCount=20
 diagnosticMerge=False
 
 
-coreCount = 3
+coreCount = 1
 if os.path.exists("./output") == True:
 	if os.path.isdir("./output") == False:
 		exit(-1)
@@ -49,7 +49,7 @@ else:
 	os.mkdir("./output")
 
 if bulkGeneration:
-	sys.stdout = open("./output/detailLogs.txt", "a")
+	# sys.stdout = open("./output/detailLogs.txt", "a")
 	pass
 
 #####################################
@@ -64,12 +64,14 @@ else:
 displayMesh = False
 
 generatePREImage=False
-overlapEdges = True
+overlapEdges = False
 
 scalingFactor=5 # Scale factor.  Needs to be an integer.  Will increase the saved image dpi by this factor.
 lineWidthProportionalToRegion = True
 lineWidthScale = 0.05
 lineWidthType = 'A'  # Valid options are 'A', 'B', and 'C'
+
+contourMinBBSizeScale = 0.1 # The minimum size of bounding box to retain.  If the bounding box of contour is smaller, remove the contour.  This a percentage of the original image's dimensions.
 
 diagnostic=False # Generally avoid dispalying meshes.  Only count the number of successful trifinder generations.
 highlightEdgeTriangle=False # Highlight the edge triangle that contains the exterior point of the vertical lines.
@@ -586,6 +588,24 @@ def findEdgeContours( imageName, percentage=2 ):
 	return contours
 
 
+def findBoundingBox( points ):
+	# https: // stackoverflow.com / questions / 46335488 / how - to - efficiently - find - the - bounding - box - of - a - collection - of - points
+	bot_left_x = min(point[0] for point in points)
+	bot_left_y = min(point[1] for point in points)
+	top_right_x = max(point[0] for point in points)
+	top_right_y = max(point[1] for point in points)
+
+	return [(bot_left_x, bot_left_y), (top_right_x, top_right_y)]
+
+def sizeBoundingBox( points ):
+	bb = findBoundingBox( points )
+
+	''' Find the longest side of the bounding box or find the diagonal of the bounding box.'''
+	deltaY = bb[1][1] - bb[0][1]
+	deltaX = bb[1][0] - bb[0][0]
+	# diagonal = math.sqrt( deltaX*deltaX + deltaY*deltaY )
+	# return diagonal
+	return max(deltaX, deltaY)
 
 
 def findClosestIndex(s1, s2):

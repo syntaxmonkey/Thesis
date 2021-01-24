@@ -604,8 +604,8 @@ def indexValidation(filename):
 	# print( "Region Raster: ", regionRaster )
 	# finishedImageSLIC.drawSLICRegions( regionRaster, segments )
 	# finishedImageSLIC.setTitle(filename)
-	# finishedImageSLIC.setXLimit(0, np.shape(regionRaster)[1])
-	# finishedImageSLIC.setYLimit(0, -np.shape(regionRaster)[0])
+	finishedImageSLIC.setXLimit(0, np.shape(regionRaster)[1])
+	finishedImageSLIC.setYLimit(0, np.shape(regionRaster)[0])
 
 	# finishedImage.setXLimit( 0, np.shape(imageraster)[0])
 	finishedImageNoSLIC = Bridson_FinishedImage.FinishedImage()
@@ -727,22 +727,31 @@ def indexValidation(filename):
 	# redrawRegionLines(filename, finishedImageSLIC, regionList)  ## HERE
 
 	Bridson_Common.lineWidthType = 'A'
-	for index in meshObjCollection.keys():
-		finishedImageSLIC.drawRegionContourLines( index,  drawSLICRegions=True )
-		finishedImageNoSLIC.drawRegionContourLines( index,  drawSLICRegions=False )
+
 
 	print("0J")
 	if Bridson_Common.overlapEdges:
 		finishedImageSLIC.overlayEdges(filename, drawSLICRegions=True, pointPercentage=1)
 		finishedImageNoSLIC.overlayEdges(filename, drawSLICRegions=False, pointPercentage=1)
+		for index in meshObjCollection.keys():
+			# finishedImageSLIC.drawRegionContourLines( index,  drawSLICRegions=True )
+			# finishedImageNoSLIC.drawRegionContourLines( index,  drawSLICRegions=False )
+			finishedImageSLIC.drawRegionLinesCollision(index, drawSLICRegions=True)
+			finishedImageNoSLIC.drawRegionLinesCollision(index, drawSLICRegions=False)
 		Bridson_Common.saveImage(filename, "WithSLIC_percentage_1", finishedImageSLIC.fig )
 		Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_1", finishedImageNoSLIC.fig)
 	else:
+		''' Only draw the region lines. '''
+		for index in meshObjCollection.keys():
+			# finishedImageSLIC.drawRegionContourLines( index,  drawSLICRegions=True )
+			# finishedImageNoSLIC.drawRegionContourLines( index,  drawSLICRegions=False )
+			finishedImageSLIC.drawRegionLinesCollision(index, drawSLICRegions=True)
+			finishedImageNoSLIC.drawRegionLinesCollision(index, drawSLICRegions=False)
 		Bridson_Common.saveImage(filename, "WithSLIC", finishedImageSLIC.fig )
 		Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA", finishedImageNoSLIC.fig)
 
 	if Bridson_Common.overlapEdges:
-		for i in range(2,11):
+		for i in range(2,21,2):
 			finishedImageNoSLIC.removeOverlayEdges()
 			finishedImageNoSLIC.overlayEdges(filename, drawSLICRegions=False, pointPercentage=i)
 			Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_" + str(i), finishedImageNoSLIC.fig)

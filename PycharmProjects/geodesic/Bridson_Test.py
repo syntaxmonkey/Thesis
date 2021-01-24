@@ -1762,8 +1762,8 @@ if True:
 	# imageName = 'joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg'
 	# imageName = 'luis-quintero-qKspdY9XUzs-unsplash-hand.jpg'
 	# imageName = 'john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg'
-	# imageName = 'sven-read-oktY8r91C84-unsplash_tunnel.jpg'
-	imageName = 'david-dibert-Huza8QOO3tc-unsplash.jpg'
+	imageName = 'sven-read-oktY8r91C84-unsplash_tunnel.jpg'
+	# imageName = 'david-dibert-Huza8QOO3tc-unsplash.jpg'
 	percent = 5
 
 	contours = Bridson_Common.findEdgeContours(imageName, percentage=percent)
@@ -1775,9 +1775,13 @@ if True:
 
 	closing = Bridson_Common.applyClosing(edges)
 
+	imgShape = np.shape( closing )
+
+	contourMin = int( min(imgShape[0], imgShape[1]) * 0.1 )
+
 	x = closing
 	xvalues, yvalues = np.where(x == 255)
-	if True:
+	if False:
 		# axs[1].scatter(yvalues, xvalues*-1, linewidths=0.1)
 		print("Canny point count:", len(xvalues))
 		edgePoints = []
@@ -1793,13 +1797,26 @@ if True:
 
 	# print('Contours:', contours)
 
+	import matplotlib.patches as patches
+
 	for segment in contours:
 		# c1 = contours[0]
 		# c1 = np.reshape(c1, (c1.shape[0], c1.shape[2]) )
 		c1 = np.reshape( segment , (segment.shape[0], segment.shape[2]) )
+		if Bridson_Common.sizeBoundingBox( c1 ) > contourMin:
+			axs[1].plot(c1[:,0], c1[:,1]*-1, color='r', linewidth=1)
 
-		axs[1].plot(c1[:,0], c1[:,1]*-1, color='r', linewidth=1)
 	axs[1].set_title('findContour')
+
+	''' Calculate the bounding box. Add patch for the bounding box.'''
+	if False:
+		bb = Bridson_Common.findBoundingBox(c1)
+		print("Bounding Box:", bb )
+		width = bb[1][0] - bb[0][0]
+		height = bb[1][1] - bb[0][1]
+		print("width:", width, "height:", height)
+		rect = patches.Rectangle((bb[0][0],bb[0][1]*-1), width, height*-1, linewidth=1, edgecolor='b', facecolor='none')
+		axs[1].add_patch( rect )
 
 	plt.show()
 
