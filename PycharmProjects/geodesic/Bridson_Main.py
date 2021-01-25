@@ -606,13 +606,14 @@ def indexValidation(filename):
 	# finishedImageSLIC.setTitle(filename)
 	finishedImageSLIC.setXLimit(0, np.shape(regionRaster)[1])
 	finishedImageSLIC.setYLimit(0, np.shape(regionRaster)[0])
+	finishedImageSLIC.adjustFigSize()
 
 	# finishedImage.setXLimit( 0, np.shape(imageraster)[0])
 	finishedImageNoSLIC = Bridson_FinishedImage.FinishedImage()
 	# finishedImageNoSLIC.setTitle(filename + "_POST_")
 	finishedImageNoSLIC.setXLimit(0, np.shape(regionRaster)[1])
 	finishedImageNoSLIC.setYLimit(0, -np.shape(regionRaster)[0])
-
+	finishedImageNoSLIC.adjustFigSize()
 
 	finishedImageNoSLIC_B = Bridson_FinishedImage.FinishedImage()
 	# finishedImageNoSLIC_B.setTitle(filename + "_POST_")
@@ -919,7 +920,8 @@ def main():
 	images.append('marina-reich-NxWdBnFiikg-unsplash_streescene.jpg')
 	images.append('derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg')
 	images.append('mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg')
-
+	images.append('kathy-servian-EwsYJqS0D2E-unsplash_butterfly.jpg')
+	images.append('daniel-tuttle-_kGG9EyZxyA-unsplash_chicken.jpg')
 
 	semanticSegmentation = ['none']
 	# semanticSegmentation = ['none']

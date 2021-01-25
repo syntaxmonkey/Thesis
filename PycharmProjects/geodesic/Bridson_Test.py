@@ -1756,7 +1756,8 @@ if False:
 	plt.show()
 
 
-if True:
+if False:
+	''' Test Canny Edge detection.  Test Contour vector generation based on Canny Edge. '''
 	import Bridson_Common
 
 	# imageName = 'joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg'
@@ -1819,6 +1820,208 @@ if True:
 		axs[1].add_patch( rect )
 
 	plt.show()
+
+
+if True:
+	''' Determine pixels in line segment.'''
+	import datetime
+	import matplotlib
+	from matplotlib.backends.backend_agg import FigureCanvasAgg
+	import uuid
+	import Bridson_Common
+	# import cv2 as cv
+
+	# Python 3 program for Bresenham’s Line Generation: https://www.geeksforgeeks.org/bresenhams-line-generation-algorithm/
+	# Assumptions :
+	# 1) Line is drawn from left to right.
+	# 2) x1 < x2 and y1 < y2
+	# 3) Slope of the line is between 0 and 1.
+	# We draw a line from lower left to upper
+	# right.
+	# function for line generation
+	def bresenham(p1, p2):
+		x1, y1 = p1
+		x2, y2 = p2
+		points = []
+		m_new = 2 * (y2 - y1)
+		slope_error_new = m_new - (x2 - x1)
+
+		y = y1
+		for x in range(x1, x2 + 1):
+
+			print("(", x, ",", y, ")")
+			points.append( (x,y) )
+
+			# Add slope to increment angle formed
+			slope_error_new = slope_error_new + m_new
+
+			# Slope error reached limit, time to
+			# increment y and update slope error.
+			if (slope_error_new >= 0):
+				y = y + 1
+				slope_error_new = slope_error_new - 2 * (x2 - x1)
+		return points
+
+
+	def plot2img(fig, remove_margins=True):
+		# https://stackoverflow.com/a/35362787/2912349
+		# https://stackoverflow.com/a/54334430/2912349
+
+		if remove_margins:
+			fig.subplots_adjust(left=0, bottom=0, right=1, top=1, wspace=0, hspace=0)
+
+		canvas = FigureCanvasAgg(fig)
+		canvas.draw()
+		img_as_string, (width, height) = canvas.print_to_buffer()
+
+		return np.fromstring(img_as_string, dtype='uint8').reshape((height, width, 4))
+
+
+
+	def checkCollision( index, ax, xHorizontal, yHorizontal ):
+		pass
+
+	''' 
+	Another implementation of Bresenham's line algorithm. 
+	http://www.roguebasin.com/index.php?title=Bresenham%27s_Line_Algorithm#Python
+	'''
+	def get_line_Bresenham(start, end):
+		"""Bresenham's Line Algorithm
+		Produces a list of tuples from start and end
+
+		points1 = get_line((0, 0), (3, 4))
+		points2 = get_line((3, 4), (0, 0))
+		print points1
+		[(0, 0), (1, 1), (1, 2), (2, 3), (3, 4)]
+		print points2
+		[(3, 4), (2, 3), (1, 2), (1, 1), (0, 0)]
+		"""
+		# Setup initial conditions
+		x1, y1 = start
+		x2, y2 = end
+		dx = x2 - x1
+		dy = y2 - y1
+
+		# Determine how steep the line is
+		is_steep = abs(dy) > abs(dx)
+
+		# Rotate line
+		if is_steep:
+			x1, y1 = y1, x1
+			x2, y2 = y2, x2
+
+		# Swap start and end points if necessary and store swap state
+		swapped = False
+		if x1 > x2:
+			x1, x2 = x2, x1
+			y1, y2 = y2, y1
+			swapped = True
+
+		# Recalculate differentials
+		dx = x2 - x1
+		dy = y2 - y1
+
+		# Calculate error
+		error = int(dx / 2.0)
+		ystep = 1 if y1 < y2 else -1
+
+		# Iterate over bounding box generating points between start and end
+		y = y1
+		points = []
+		for x in range(x1, x2 + 1):
+			coord = (y, x) if is_steep else (x, y)
+			points.append(coord)
+			error -= abs(dy)
+			if error < 0:
+				y += ystep
+				error += dx
+
+		# Reverse the list if the coordinates were swapped
+		if swapped:
+			points.reverse()
+		return points
+
+
+
+	x1 = 0
+	y1 = 0
+	x2 = 200
+	y2 = -400
+	p1 = (x1, y1)
+	p2 = (x2, y2)
+	print('Option 2')
+	c = datetime.datetime.now()
+	points2 = get_line_Bresenham(p1, p2)
+	d = datetime.datetime.now()
+	print( points2 )
+
+	# Option 2 runs faster by far.
+	print("Option 2 execution time", (d - c).microseconds)
+
+
+	# Obtain array from image: https://stackoverflow.com/questions/35355930/matplotlib-figure-to-image-as-a-numpy-array
+	fig = plt.figure(frameon=False)
+	fig.set_size_inches(abs(x2-x1)/100, abs(y2-y1)/100)  # Really important.
+
+	# Saving the plot without additional content: https://stackoverflow.com/questions/8218608/scipy-savefig-without-frames-axes-only-content
+	# Get array from image.
+	# axs = fig.add_subplot(1, 1, 1, aspect=1)
+	axs = plt.Axes(fig, [0., 0., 1., 1.]) # Really important.
+	fig.add_axes( axs ) # Really important.
+	axs.set_axis_off()
+
+	axs.set_xlim(left=x1, right=x2)
+	axs.set_ylim(top=y1, bottom=y2)
+	# axs.grid()
+
+	axs.set_xticks([])
+	axs.set_yticks([])
+
+	xvalues = np.array([x1,x2])
+	yvalues = np.array([y1,y2])
+	axs.plot(xvalues, yvalues, linewidth=5, color='k')
+
+
+	xHorizontal = np.linspace(0, x2, int(x2/5))
+	yHorizontal = xHorizontal * 1 - abs(y2)
+
+	axs.plot(xHorizontal, yHorizontal, linewidth=2, color='r')
+
+
+
+	for index in range(len(xHorizontal)):
+		checkCollision( index, axs, xHorizontal, yHorizontal  )
+
+
+	# width, height = fig.get_size_inches() * fig.get_dpi()
+
+	# xstep = width / (xmax - xmin)
+	# ystep = height / (ymax - ymin)
+
+	imgArray = Bridson_Common.fig2array(fig)
+
+	print('Shape of imgArray:', np.shape(imgArray))
+
+
+
+
+	# image = np.array( canvas.renderer.buffer_rgba()) # Another option for obtaining the image renderer: https://matplotlib.org/3.2.1/gallery/misc/agg_buffer_to_array.html
+	# image = image[:,:,:3] # Reduce the rgba to rgb.
+
+
+	# img = np.fromstring(canvas.to_string_rgb(), dtype='uint8').reshape(height, width, 3)
+	# print("Value at (2,12):", image[2,12])
+	# print("Image array:", image)
+	# print("Image shape:", imgArray.shape() )
+	plt.show()
+
+
+
+
+# img = plot2img( fig )
+	# print('shape:', np.shape(img))
+	# print(img)
+	# plt.show()
 
 jit_module(nopython=True, fastmath=True)
 

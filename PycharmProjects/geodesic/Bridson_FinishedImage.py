@@ -27,10 +27,15 @@ np.set_printoptions(threshold=sys.maxsize)  # allow printing without ellipsis: h
 class FinishedImage:
 	def __init__(self, *args, **kwargs):
 		self.fig = plt.figure()
-		self.ax = self.fig.add_subplot(1, 1, 1, aspect=1)
+		self.ax = plt.Axes(self.fig, [0., 0., 1., 1.])  # Really important.
+		self.fig.add_axes(self.ax)  # Really important.
+
+		# self.ax = self.fig.add_subplot(1, 1, 1, aspect=1)
 		if Bridson_Common.productionMode == False:
 			self.ax.set_title('Merged Image' )
 			self.ax.grid()
+		else:
+			self.ax.set_axis_off()
 
 		if Bridson_Common.displayGrid == False:
 			self.ax.set_xticks([])
@@ -62,6 +67,7 @@ class FinishedImage:
 
 	def setXLimit(self, left, right):
 		# print("Left:", left, "Right:", right)
+		self.fig
 		if Bridson_Common.productionMode:
 			self.ax.set_xlim(left=left, right=right)
 			# self.ax.set_xlim(left=-200, right=200)
@@ -79,6 +85,9 @@ class FinishedImage:
 		bottom, top = self.ax.get_ylim()
 		self.deltaY = abs(bottom - top)
 		pass
+
+	def adjustFigSize(self):
+		self.fig.set_size_inches(self.deltaX / 100, self.deltaY / 100)
 
 	def copyFromOther(self, otherFinishedImage):
 
@@ -1777,6 +1786,8 @@ class FinishedImage:
 	''' 
 	We need to obtain the pixel values of the plot. 
 	Convert a plot into an array: https://stackoverflow.com/questions/62014554/how-to-find-the-pixel-passed-by-a-plot-drawn-with-matplotlib
+	Need to determine the intersection of pixels.
+	Could use this algorithm to draw the line segments: https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
 	'''
 	def iterateDrawCollision(self, index, drawSLICRegions = Bridson_Common.drawSLICRegions):
 		# If we are not drawing the SLIC regions, we do not need to flip the Y coordinates.

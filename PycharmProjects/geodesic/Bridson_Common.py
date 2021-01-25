@@ -11,9 +11,11 @@ from scipy.ndimage.morphology import distance_transform_cdt
 import pandas as pd
 from scipy.spatial import distance
 import sys
-from skimage import io
+# from skimage import io
+import skimage
 import pickle
 import cv2 as cv
+import io
 
 
 
@@ -35,13 +37,13 @@ SLICGrey = False
 productionMode = True
 displayGrid = False
 bulkGeneration = True
-smallBatch=True
+smallBatch=False
 diagnosticDisplay=False # Enable/Disable pairing diagnostics
 diagnosticDisplayCount=20
 diagnosticMerge=False
 
 
-coreCount = 1
+coreCount = 3
 if os.path.exists("./output") == True:
 	if os.path.isdir("./output") == False:
 		exit(-1)
@@ -49,7 +51,7 @@ else:
 	os.mkdir("./output")
 
 if bulkGeneration:
-	# sys.stdout = open("./output/detailLogs.txt", "a")
+	sys.stdout = open("./output/detailLogs.txt", "a")
 	pass
 
 #####################################
@@ -64,7 +66,7 @@ else:
 displayMesh = False
 
 generatePREImage=False
-overlapEdges = False
+overlapEdges = True
 
 scalingFactor=5 # Scale factor.  Needs to be an integer.  Will increase the saved image dpi by this factor.
 lineWidthProportionalToRegion = True
@@ -932,10 +934,27 @@ def saveImage(filename, postFix, fig):
 	except:
 		print("Error saving file:", actualFileName)
 
+
 def readImagefile(filename):
-	image = io.imread(filename)
+	image =  skimage.io.imread(filename)
 	imageArr = np.asarray( Image.fromarray(image).convert('L') )
 	return imageArr
+
+
+# Potential good solution for converting the figure to array: https://stackoverflow.com/questions/7821518/matplotlib-save-plot-to-numpy-array
+def fig2array(fig):
+	''' Convert the figure into a 2 dimensional array in greyscale. '''
+	io_buf = io.BytesIO()
+	DPI = fig.dpi
+	fig.savefig(io_buf, format='raw', dpi=DPI, bbox_inches='tight', pad_inches=0)
+	io_buf.seek(0)
+	img_arr = np.reshape(np.frombuffer(io_buf.getvalue(), dtype=np.uint8),
+	                     newshape=(int(fig.bbox.bounds[3]), int(fig.bbox.bounds[2]), -1))
+	img_arr = img_arr[:,:,:3] # Convert from RGBA to RGB
+	img_arr = np.dot(img_arr[:,:,:3], [0.299, 0.587, 0.114])
+	# img_arr = np.frombuffer(io_buf.getvalue(), dtype=np.uint8)
+	io_buf.close()
+	return img_arr
 
 
 def genPickleFilename(filename):
