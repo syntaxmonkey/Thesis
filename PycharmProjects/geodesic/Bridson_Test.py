@@ -1829,6 +1829,7 @@ if True:
 	from matplotlib.backends.backend_agg import FigureCanvasAgg
 	import uuid
 	import Bridson_Common
+	from GridCell import GridCells, LineEndPointIndex
 	# import cv2 as cv
 
 	# Python 3 program for Bresenham’s Line Generation: https://www.geeksforgeeks.org/bresenhams-line-generation-algorithm/
@@ -1949,15 +1950,8 @@ if True:
 	y2 = -400
 	p1 = (x1, y1)
 	p2 = (x2, y2)
-	print('Option 2')
-	c = datetime.datetime.now()
-	points2 = get_line_Bresenham(p1, p2)
-	d = datetime.datetime.now()
-	print( points2 )
-
-	# Option 2 runs faster by far.
-	print("Option 2 execution time", (d - c).microseconds)
-
+	deltaX = abs(x2-x1)
+	deltaY = abs(y2-y1)
 
 	# Obtain array from image: https://stackoverflow.com/questions/35355930/matplotlib-figure-to-image-as-a-numpy-array
 	fig = plt.figure(frameon=False)
@@ -1966,8 +1960,8 @@ if True:
 	# Saving the plot without additional content: https://stackoverflow.com/questions/8218608/scipy-savefig-without-frames-axes-only-content
 	# Get array from image.
 	# axs = fig.add_subplot(1, 1, 1, aspect=1)
-	axs = plt.Axes(fig, [0., 0., 1., 1.]) # Really important.
-	fig.add_axes( axs ) # Really important.
+	axs = plt.Axes(fig, [0., 0., 1., 1.]) # Really important.  Ensure the plot takes up the whole figure.
+	fig.add_axes( axs ) # Really important.  Add the axes to the Figure.
 	axs.set_axis_off()
 
 	axs.set_xlim(left=x1, right=x2)
@@ -1977,33 +1971,136 @@ if True:
 	axs.set_xticks([])
 	axs.set_yticks([])
 
+
 	xvalues = np.array([x1,x2])
 	yvalues = np.array([y1,y2])
-	axs.plot(xvalues, yvalues, linewidth=5, color='k')
+
+	xHorizontal = np.linspace(0, x2, int(x2 / 5))
+
+	# First line.  Make this the edge line.
+	rise = y2-y1
+	run = x2-x1
+	firstLineY = xHorizontal * ( rise / run / 2) - 100
+	firstLine = np.array(list(zip(xHorizontal, firstLineY)))
+	lastLineY = xHorizontal * 0 - (400-50)
+	lastLine = np.array(list(zip(xHorizontal, lastLineY)))
+	print("Segments in first line:", len(firstLine))
 
 
-	xHorizontal = np.linspace(0, x2, int(x2/5))
-	yHorizontal = xHorizontal * 1 - abs(y2)
+	# Second line.
+	yHorizontal = xHorizontal - abs(y2) + 10
+	secondLine = np.array(list(zip(xHorizontal, yHorizontal)))
+	yHorizontal = xHorizontal*2 - abs(y2) - 130
+	thirdLine = np.array(list(zip(xHorizontal, yHorizontal)))
+	print("Segments in second line:", len(secondLine))
 
-	axs.plot(xHorizontal, yHorizontal, linewidth=2, color='r')
+
+	# firstLine = Bridson_Common.convertToList(firstLine)
+	# axs.plot(xvalues, yvalues, linewidth=5, color='k')
+	axs.plot(firstLine[:,0], firstLine[:,1], linewidth=2, color='k')
+	# axs.plot([point[0] for point in firstLine], [point[1] for point in firstLine], linewidth=2, color='k')
+	axs.plot(lastLine[:, 0], lastLine[:, 1], linewidth=2, color='k')
+
+	# axs.plot(secondLine[10:len(firstLine)-10+1,0], secondLine[10:len(firstLine)-10+1,1], linewidth=2, color='r')
+
+	maxSegmentLength = Bridson_Common.findLongestSegmentLength( firstLine )
+	lastLineMaxSegmentLength =  Bridson_Common.findLongestSegmentLength(lastLine)
+	maxSegmentLength = lastLineMaxSegmentLength if lastLineMaxSegmentLength > maxSegmentLength else maxSegmentLength
+
+	lineEndPointIndecesMap = LineEndPointIndex()
+
+	lines = []
+	lines.append( secondLine )
+	lines.append( thirdLine )
+
+	lines = np.array(lines)
+
+	boundaryIndex = 18
+
+	for line in lines:
+		lineEndPointIndecesMap.setLineIndeces( line, boundaryIndex, boundaryIndex )
+		currentMaxLength = Bridson_Common.findLongestSegmentLength(line)
+		if currentMaxLength > maxSegmentLength:
+			maxSegmentLength = currentMaxLength
+
+	maxSegmentLength = math.floor(maxSegmentLength * 2)
+	print("maxSegmentLength:", maxSegmentLength)
+
+	# Create gridcell to track segments.
+	print("Creating Grid Cells object")
+	allGridCells = GridCells(deltaX, deltaY, maxSegmentLength)
+	# print("First Line - first element", firstLine[1])
+	# print("First Line - last element", firstLine[-2])
 
 
+	# Add teh edge lines.
+	print("Adding first line")
+	allGridCells.addLine( firstLine, 0, 0) # Add the first line to the Grid Cells.
+	allGridCells.addLine(lastLine, 0, 0)  # Add the first line to the Grid Cells.
 
-	for index in range(len(xHorizontal)):
-		checkCollision( index, axs, xHorizontal, yHorizontal  )
+	print("cellContent:", allGridCells.cellContent)
+	print("segmentToCell:",allGridCells.segmentToCell)
+
+
+	# Add the etch lines.
+	print("Adding second line")
+	# allGridCells.addLine( secondLine, boundaryIndex, boundaryIndex) # Add the first etch.
+	# allGridCells.addLine( thirdLine, boundaryIndex, boundaryIndex)  # Add the first etch.
+
+
+	# lines = np.array( lines )
+
+	for line in lines:
+		allGridCells.addLine(line, boundaryIndex, boundaryIndex)  # Add the first etch.
+
+	globalListing = lines.copy()
+
+	print("lines:",np.shape(lines) )
+
+	if True:
+		# Detect a collision for the segment.
+		for i in range(boundaryIndex,1, -1):
+			print("Index", i)
+			deleteList = []
+			# for line in lines:
+			for lineIndex in range(len(lines)):
+				line = lines[lineIndex]
+				collisionDetected = allGridCells.detectCollision(line[i:i+2], line)
+				if collisionDetected == False:
+					lineEndPointIndecesMap.updateLineStartIndex( line, i ) # Update the start index for line.
+				else:
+					lineEndPointIndecesMap.updateLineCollisionStartIndex( line )
+				print("StartIndex Collision Detected:", collisionDetected)
+
+
+				collisionDetected = allGridCells.detectCollision(line[len(line)-i:len(line)-i+2], line)
+				if collisionDetected == False:
+					lineEndPointIndecesMap.updateLineEndIndex( line, i ) # Update the start index for line.
+				else:
+					lineEndPointIndecesMap.updateLineCollisionEndIndex( line )
+				print("EndIndex Collision Detected:", collisionDetected)
+
+				if lineEndPointIndecesMap.isLineBounded( line ):
+					# lines.remove( line )
+					# np.delete(lines, line, axis=1)
+					deleteList.append( lineIndex )
+			lines = np.delete( lines, deleteList, 0)
+
+	lineEndPointIndecesMap.realignIndexes()
+
+	print("Length of lines:", len(lines))
+	print(lines)
+
+	# Draw the lines.
+	for line in globalListing:
+		startIndex, endIndex = lineEndPointIndecesMap.getLineEndIndex( line )
+		axs.plot( line[startIndex:len(line)-endIndex+1, 0], line[startIndex:len(line)-endIndex+1, 1], linewidth=2, color='r' )
 
 
 	# width, height = fig.get_size_inches() * fig.get_dpi()
 
 	# xstep = width / (xmax - xmin)
 	# ystep = height / (ymax - ymin)
-
-	imgArray = Bridson_Common.fig2array(fig)
-
-	print('Shape of imgArray:', np.shape(imgArray))
-
-
-
 
 	# image = np.array( canvas.renderer.buffer_rgba()) # Another option for obtaining the image renderer: https://matplotlib.org/3.2.1/gallery/misc/agg_buffer_to_array.html
 	# image = image[:,:,:3] # Reduce the rgba to rgb.
@@ -2014,6 +2111,59 @@ if True:
 	# print("Image array:", image)
 	# print("Image shape:", imgArray.shape() )
 	plt.show()
+
+
+'''
+After the segments/lines have been added, we now need to add
+individual segments.
+During the addition, we need to check to see if there is a collision.
+If there is no collision, then add the segment to the line.
+If there is a collision, abort adding the segment.
+How do we indicate that the line has had a collision and that we can skip checking the end point
+next cycle?
+
+Do we create a map for the line -> index? Yes, that is a viable option.
+Do we create the line map in GridCells?
+How do we indicate which endpoint is growing?
+Could keep another data structure outside the GridCells.  This other data structure
+Would keep track which endpoint is extending.
+
+** Phase 0: **
+Create total list of lines.
+We will iterate through all the lines in this list.
+
+
+
+** Phase 1: GROWING EXISTING SEGMENTS **
+What keeps track of the growing end?  Line -> (start,end) ?
+OR... the datastructure can keep track of the indeces for the line.
+LineEndIndeces: Line -> (start, end)  # This will adjust as the line grows without collision.
+How do we track when one end no longer needs to be checked? i.e. It has had a collision.
+Option 1: The start and end indeces are positive values.  If there is a collision for that
+          endpoint, the index is converted to negative.
+          When the index for the endpoint encounters a collision we will change the index
+          to a negative number.  When both endpoint indeces change to negative
+          the line can be removed from the list of growing lines.
+
+
+
+This approach works when including segments of existing lines.
+
+** Phase 2: GROWING NEW SEGMENTS **
+When growing lines, we no longer need to maintain the actual indeces.  However, we do need to track
+whether the endpoints encounter a collision.  Line -> (start, end).  This will pose a problem as the
+the lines grow.  As the line grows, the index created in the map will change.  Over time the number 
+of indeces in the map will grow.  This might be ok. 
+
+
+
+
+
+
+Do we then care the order of the lines when drawing?
+
+'''
+
 
 
 

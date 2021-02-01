@@ -1,0 +1,140 @@
+Divisor: 3.0
+Variables:  [('TwoRegions.jpg', 3, 'SLIC0', 'none', 80)]
+CoreCount: 3
+[('TwoRegions.jpg', 3, 'SLIC0', 'none', 80)]
+Divisor: 3.0
+Divisor: 3.0
+Divisor: 3.0
+>>>>>>>>>>>>>>>> Calling SLIC for  TwoRegions.jpg <<<<<<<<<<<<<<<<<<<<<<<
+EE
+EE1
+AA Max and Min of greyscaleImage: 153 102
+BB Max and Min of greyscaleImage: 255 170
+EE2
+EE2
+EE3
+Shape: (200, 200, 3)
+Type: <class 'numpy.ndarray'>
+EE4
+CC Max and Min of greyscaleImage: 255 148
+DD Max and Min of greyscaleImage: 255 148
+EE Max and Min of greyscaleImage: 255 148
+DD
+DD1
+DD2
+DD3
+DD4
+DD5
+YY Max and Min of image: 255 148
+ZZ Max and Min of greyscaleImage: 255 148
+CC
+------- Environment Variables ----------------------------------- 
+segmentCount: 3
+lineCullAlgorithm:  generous
+lineAngle: 90
+coherencyThreshold: 0.1
+highlightEndpoints: False
+middleAverageOnly: False
+compactnessSLIC: 0.01
+SLICIterations: 200
+SLIC0: True
+allowBlankRegion: False
+cullingBlankThreshold: 225
+nearbyDistance: 5
+semanticSegmentation: none
+semanticSegmentationRatio: 0.5
+semanticInvertMaskrcnn: True
+stableCoherencyPercentile: 95
+differencePercentile: 80
+diffRepelPercentile: 80
+generatePREImage: False
+attractionBin: 3
+repelBin: 3
+stableBin: -4
+stableAttractSet: False
+binSize: 10
+attractFudge: 1.1
+------------------------------------------------------------------
+CC1
+B
+C
+0A
+0B
+diff attract threshold: 17.689955558911095
+diff repel threshold: 17.689955558911095
+stable threshold: 0.17804153654771346
+Pickle file exists: ./pickle/TwoRegions.jpg_segments_3_compactness_SLIC0_attractThreshold_80_cnn_none_semanticRatio_0.5_contrast_1.5.pkl
+(****  TwoRegions.jpg  Starting Region:  0 of 4   *****
+MeshAngle: 90.0 Flat angle: 160
+(169,)
+Drawing DrawAngleLinesExteriorSeed2 takes  195063
+Transfer lines takes  84613
+(****  TwoRegions.jpg  Starting Region:  1 of 4   *****
+MeshAngle: 180.0 Flat angle: 219
+(144,)
+Drawing DrawAngleLinesExteriorSeed2 takes  635159
+Transfer lines takes  960856
+(****  TwoRegions.jpg  Starting Region:  2 of 4   *****
+MeshAngle: 90.0 Flat angle: 103
+(165,)
+Drawing DrawAngleLinesExteriorSeed2 takes  538083
+Transfer lines takes  425447
+(****  TwoRegions.jpg  Starting Region:  3 of 4   *****
+MeshAngle: 180.0 Flat angle: 16
+(149,)
+Drawing DrawAngleLinesExteriorSeed2 takes  798466
+Transfer lines takes  789089
+About to cropCullLines
+About to genLineAdjacencyMap
+About to mergeLines
+0D
+About to copyFromOther
+0I
+0J
+current percent: 100.0
+total percent: 400.0
+current percent: 100.0
+total percent: 400.0
+Processing Index: 10 Beginning: 10 Ending: -10
+Processing Index: 9 Beginning: 9 Ending: -9
+Processing Index: 8 Beginning: 8 Ending: -8
+Processing Index: 7 Beginning: 7 Ending: -7
+Processing Index: 6 Beginning: 6 Ending: -6
+Processing Index: 5 Beginning: 5 Ending: -5
+Processing Index: 10 Beginning: 10 Ending: -10
+Processing Index: 9 Beginning: 9 Ending: -9
+Processing Index: 8 Beginning: 8 Ending: -8
+Processing Index: 7 Beginning: 7 Ending: -7
+Processing Index: 6 Beginning: 6 Ending: -6
+Processing Index: 5 Beginning: 5 Ending: -5
+current percent: 100.0
+total percent: 800.0
+current percent: 100.0
+total percent: 1600.0
+current percent: 100.0
+total percent: 2400.0
+current percent: 100.0
+total percent: 3200.0
+current percent: 100.0
+total percent: 4000.0
+current percent: 100.0
+total percent: 4800.0
+current percent: 100.0
+total percent: 5600.0
+current percent: 100.0
+total percent: 6400.0
+current percent: 100.0
+total percent: 7200.0
+current percent: 100.0
+total percent: 8000.0
+0K
+Successful Regions:  0
+Total Regions:  4
+||||||||||||||||||||||||||||||||||
+
+*************************************************
+Finished
+*************************************************
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>>>>>>>>>>>>>>>>>> Main Exit <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

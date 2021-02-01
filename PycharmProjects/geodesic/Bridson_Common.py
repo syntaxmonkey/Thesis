@@ -37,7 +37,7 @@ SLICGrey = False
 productionMode = True
 displayGrid = False
 bulkGeneration = True
-smallBatch=False
+smallBatch=True
 diagnosticDisplay=False # Enable/Disable pairing diagnostics
 diagnosticDisplayCount=20
 diagnosticMerge=False
@@ -51,7 +51,7 @@ else:
 	os.mkdir("./output")
 
 if bulkGeneration:
-	sys.stdout = open("./output/detailLogs.txt", "a")
+	# sys.stdout = open("./output/detailLogs.txt", "a")
 	pass
 
 #####################################
@@ -231,6 +231,8 @@ def scaleArray( array):
 	# newArray = np.repeat(newArray, [scalingFactor], axis=1)
 	# return newArray
 	return array
+
+
 
 def determineLineSpacing( intensity):
 
@@ -428,6 +430,16 @@ def euclidean_distance(a, b):
 
 jit_module(nopython=True,fastmath=True)
 
+
+# Conver numpy array to tuple.  Tuples can be used for map indeces while the numpy array cannot.
+def convertToTuple(segment):
+	# Convert numpy array to tuple: https://stackoverflow.com/questions/10016352/convert-numpy-array-to-tuple
+	return tuple(map(tuple,segment))
+
+
+def convertToList(segment):
+	# Convert numpy array to tuple: https://stackoverflow.com/questions/10016352/convert-numpy-array-to-tuple
+	return list(map(list,segment))
 
 
 import scipy.ndimage as nd
@@ -900,7 +912,13 @@ def line_intersect(segment1, segment2):
 
 
 
-
+def findLongestSegmentLength(line):
+	maxLength = 0
+	for index in range((len(line)) - 1):
+		currentDist = euclidean_distance(line[index], line[index+1])
+		if currentDist > maxLength:
+			maxLength = currentDist
+	return maxLength
 
 
 
