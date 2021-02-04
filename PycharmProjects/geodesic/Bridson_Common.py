@@ -428,7 +428,23 @@ def euclidean_distance(a, b):
 	return math.sqrt(dx * dx + dy * dy)
 
 
+
 jit_module(nopython=True,fastmath=True)
+
+def findSegment(segment, line):
+
+	print("findSegment - segment:", segment)
+	print("findSegment - line:", line)
+	segmentFound = False
+	for index in range(len(line) -1):
+		if (segment[0] == line[index] and segment[1] == line[index + 1]) or ((segment[1] == line[index] and segment[0] == line[index + 1])):
+			segmentFound = True
+			print("Found segment:", index)
+
+	return segmentFound
+
+
+
 
 
 # Conver numpy array to tuple.  Tuples can be used for map indeces while the numpy array cannot.
@@ -895,6 +911,7 @@ def line_intersect(segment1, segment2):
 	segment1: [(Ax1, Ay1),( Ax2, Ay2)]
 	segment2: [(Bx1, By1), (Bx2, By2)]
 	"""
+	# print("line_intersection segments:", segment1, segment2)
 	(Ax1, Ay1), (Ax2, Ay2) = segment1
 	(Bx1, By1), (Bx2, By2) = segment2
 	d = (By2 - By1) * (Ax2 - Ax1) - (Bx2 - Bx1) * (Ay2 - Ay1)
@@ -907,7 +924,7 @@ def line_intersect(segment1, segment2):
 		return
 	x = Ax1 + uA * (Ax2 - Ax1)
 	y = Ay1 + uA * (Ay2 - Ay1)
-
+	print("line_intersect x,y:", x, y)
 	return x, y
 
 

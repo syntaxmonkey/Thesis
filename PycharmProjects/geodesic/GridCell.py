@@ -26,7 +26,7 @@ class LineEndPointIndex:
 		lineTuple = Bridson_Common.convertToTuple(line)
 		lineStartEndIndeces = self.__lineEndPointIndex[ lineTuple ]
 
-		if lineStartEndIndeces[0] >= 0:
+		if lineStartEndIndeces[0] > 0:
 			lineStartEndIndeces[0] = startIndex
 		pass
 
@@ -35,7 +35,7 @@ class LineEndPointIndex:
 		lineTuple = Bridson_Common.convertToTuple(line)
 		lineStartEndIndeces = self.__lineEndPointIndex[ lineTuple ]
 
-		if lineStartEndIndeces[1] >= 0:
+		if lineStartEndIndeces[1] > 0:
 			lineStartEndIndeces[1] = endIndex
 		pass
 
@@ -109,6 +109,21 @@ class GridCells:
 		pass
 
 
+	def addSegment(self, segments, line):
+		'''
+		When adding a new segment, we need to iterate through all the sub-segments: (start,end)
+		Create an entry for (start,end) in segmentToCell.
+		The cells will be based on start and end coordinates.
+		'''
+		lineTuple = Bridson_Common.convertToTuple( line )
+		# Iterate through all the sub-segments.
+		for index in range( len(segments) - 1 ):
+			segment = (segments[index], segments[index+1])
+			print("addSegment:", segment)
+			self.__addSegmentToCellMapping(segment, lineTuple)
+		pass
+
+
 
 
 	def detectCollision(self, segment, line):
@@ -129,18 +144,25 @@ class GridCells:
 
 		collisionDetected = False
 		lineTuple = Bridson_Common.convertToTuple(line)
+		originalSegmentTuple = Bridson_Common.convertToTuple(segment)
+		# segmentTuple = Bridson_Common.convertToTuple(segment)
 		for segmentTuple in cellContent0:
 			# print("Checking ", segment, "against", segment0)
 			segment0, currentLineTuple = segmentTuple
 
 			# Only check for intersection if the segments are not from the same line.
 			if lineTuple != currentLineTuple:
-				intersection = Bridson_Common.line_intersect( Bridson_Common.convertToTuple(segment), Bridson_Common.convertToTuple(segment0) )
+				intersection = Bridson_Common.line_intersect( originalSegmentTuple, Bridson_Common.convertToTuple(segment0) )
 				if not intersection == None:
 					# Indicates that there is an intersection.
-					# print("Intersection found at ", intersection)
-					if intersection in line:
+					print("Intersection found at ", intersection)
+					if intersection not in line:
+						# Is point in the line?  If no, then it is a collision.
+						collisionDetected = True
+						pass
+					elif Bridson_Common.findSegment(originalSegmentTuple, lineTuple):
 						print("********* Intersection segment found in line", segment0, "************")
+						# Is the segment in the line?  If it is, then probably not a collision because it is colinear.
 						pass
 					else:
 						collisionDetected = True
@@ -149,11 +171,15 @@ class GridCells:
 			# print("Checking ", segment, "against", segment0)
 			segment0, currentLineTuple = segmentTuple
 			if lineTuple != currentLineTuple:
-				intersection = Bridson_Common.line_intersect(segment, Bridson_Common.convertToTuple(segment0))
+				intersection = Bridson_Common.line_intersect(originalSegmentTuple, Bridson_Common.convertToTuple(segment0))
 				if not intersection == None:
 					# Indicates that there is an intersection.
-					# print("Intersection found at", intersection)
-					if intersection in line:
+					print("Intersection found at", intersection)
+					if intersection not in line:
+						# Is the point in the line?  If no, then it is a collision.
+						collisionDetected = True
+						pass
+					elif Bridson_Common.findSegment(originalSegmentTuple, lineTuple):
 						print("********* Intersection segment found in line", segment0, "************")
 						pass
 					else:
@@ -162,18 +188,6 @@ class GridCells:
 		return collisionDetected
 
 
-	def addSegment(self, segments, line):
-		'''
-		When adding a new segment, we need to iterate through all the sub-segments: (start,end)
-		Create an entry for (start,end) in segmentToCell.
-		The cells will be based on start and end coordinates.
-		'''
-		lineTuple = Bridson_Common.convertToTuple( line )
-		# Iterate through all the sub-segments.
-		for index in range( len(segments) - 1 ):
-			segment = (segments[index], segments[index+1])
-			self.__addSegmentToCellMapping(segment, lineTuple)
-		pass
 
 
 	def __addSegmentToCellMapping(self, segment, tupleLine):

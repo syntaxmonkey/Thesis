@@ -1946,7 +1946,7 @@ if True:
 
 	x1 = 0
 	y1 = 0
-	x2 = 200
+	x2 = 400
 	y2 = -400
 	p1 = (x1, y1)
 	p2 = (x2, y2)
@@ -1980,7 +1980,7 @@ if True:
 	# First line.  Make this the edge line.
 	rise = y2-y1
 	run = x2-x1
-	firstLineY = xHorizontal * ( rise / run / 2) - 100
+	firstLineY = xHorizontal * ( rise / run / 2)
 	firstLine = np.array(list(zip(xHorizontal, firstLineY)))
 	lastLineY = xHorizontal * 0 - (400-50)
 	lastLine = np.array(list(zip(xHorizontal, lastLineY)))
@@ -2007,25 +2007,46 @@ if True:
 	lastLineMaxSegmentLength =  Bridson_Common.findLongestSegmentLength(lastLine)
 	maxSegmentLength = lastLineMaxSegmentLength if lastLineMaxSegmentLength > maxSegmentLength else maxSegmentLength
 
-	lineEndPointIndecesMap = LineEndPointIndex()
 
+	'''
+	*********************  Phase 1  ****************************
+	1. Create a global list of lines.
+	2. Create LineEndPointIndex map variable.
+	3. Determine the maximum segment length.  This will be the basis for grid cell size.
+	4. Create GridCell
+	5. Add all edge lines to the GridCell data structure.
+	6. Create duplicate of all lines array for later use.
+	7. Iterate through the line index offsets.
+	8. Iterate through the lines.
+	9. Remove lines that have double collision.
+	10. Realign the end point index maps.
+	11. Draw the lines.
+	'''
+
+	# 1
 	lines = []
 	lines.append( secondLine )
 	lines.append( thirdLine )
 
 	lines = np.array(lines)
 
-	boundaryIndex = 18
+	# 2
+	lineEndPointIndecesMap = LineEndPointIndex()
 
+	# Larger this value, the smaller the initial line.
+	boundaryIndex = 40
+
+	# 3
 	for line in lines:
 		lineEndPointIndecesMap.setLineIndeces( line, boundaryIndex, boundaryIndex )
 		currentMaxLength = Bridson_Common.findLongestSegmentLength(line)
 		if currentMaxLength > maxSegmentLength:
 			maxSegmentLength = currentMaxLength
 
-	maxSegmentLength = math.floor(maxSegmentLength * 2)
+	maxSegmentLength = math.ceil(maxSegmentLength * 2)
 	print("maxSegmentLength:", maxSegmentLength)
 
+	# 4
 	# Create gridcell to track segments.
 	print("Creating Grid Cells object")
 	allGridCells = GridCells(deltaX, deltaY, maxSegmentLength)
@@ -2033,65 +2054,83 @@ if True:
 	# print("First Line - last element", firstLine[-2])
 
 
+	# 5
 	# Add teh edge lines.
 	print("Adding first line")
 	allGridCells.addLine( firstLine, 0, 0) # Add the first line to the Grid Cells.
 	allGridCells.addLine(lastLine, 0, 0)  # Add the first line to the Grid Cells.
 
-	print("cellContent:", allGridCells.cellContent)
-	print("segmentToCell:",allGridCells.segmentToCell)
+	for line in lines:
+		allGridCells.addLine(line, boundaryIndex, boundaryIndex)  # Add the first etch.
+
+	# print("cellContent:", allGridCells.cellContent)
+	# print("segmentToCell:",allGridCells.segmentToCell)
 
 
 	# Add the etch lines.
-	print("Adding second line")
+	# print("Adding second line")
 	# allGridCells.addLine( secondLine, boundaryIndex, boundaryIndex) # Add the first etch.
 	# allGridCells.addLine( thirdLine, boundaryIndex, boundaryIndex)  # Add the first etch.
 
 
 	# lines = np.array( lines )
 
-	for line in lines:
-		allGridCells.addLine(line, boundaryIndex, boundaryIndex)  # Add the first etch.
-
+	# 6
 	globalListing = lines.copy()
 
 	print("lines:",np.shape(lines) )
 
+
+
 	if True:
 		# Detect a collision for the segment.
-		for i in range(boundaryIndex,1, -1):
+		# 7
+		# for i in range(boundaryIndex,boundaryIndex-4, -1):
+		for i in range(boundaryIndex, 0, -1):
 			print("Index", i)
 			deleteList = []
 			# for line in lines:
+			# 8
 			for lineIndex in range(len(lines)):
 				line = lines[lineIndex]
-				collisionDetected = allGridCells.detectCollision(line[i:i+2], line)
-				if collisionDetected == False:
-					lineEndPointIndecesMap.updateLineStartIndex( line, i ) # Update the start index for line.
-				else:
-					lineEndPointIndecesMap.updateLineCollisionStartIndex( line )
-				print("StartIndex Collision Detected:", collisionDetected)
+
+				if True:
+					collisionDetected = allGridCells.detectCollision(line[i:i+2], line)
+					print("StartIndex Collision Detected:", collisionDetected)
+					if collisionDetected == False:
+						lineEndPointIndecesMap.updateLineStartIndex( line, i ) # Update the start index for line.
+						# Add the new segment to the gridcell.
+						allGridCells.addSegment( line[i:i+2], line)
+					else:
+						lineEndPointIndecesMap.updateLineCollisionStartIndex( line )
 
 
-				collisionDetected = allGridCells.detectCollision(line[len(line)-i:len(line)-i+2], line)
-				if collisionDetected == False:
-					lineEndPointIndecesMap.updateLineEndIndex( line, i ) # Update the start index for line.
-				else:
-					lineEndPointIndecesMap.updateLineCollisionEndIndex( line )
-				print("EndIndex Collision Detected:", collisionDetected)
+				if True:
+					collisionDetected = allGridCells.detectCollision(line[len(line)-i:len(line)-i+2], line)
+					print("EndIndex Collision Detected:", collisionDetected)
+					if collisionDetected == False:
+						lineEndPointIndecesMap.updateLineEndIndex( line, i ) # Update the start index for line.
+						# Add the new segment to the gridcell.
+						allGridCells.addSegment( line[len(line)-i:len(line)-i+2], line)
+					else:
+						lineEndPointIndecesMap.updateLineCollisionEndIndex( line )
+
 
 				if lineEndPointIndecesMap.isLineBounded( line ):
 					# lines.remove( line )
 					# np.delete(lines, line, axis=1)
 					deleteList.append( lineIndex )
+			# 9
 			lines = np.delete( lines, deleteList, 0)
 
+	# 10
 	lineEndPointIndecesMap.realignIndexes()
 
 	print("Length of lines:", len(lines))
-	print(lines)
+	# print(lines)
 
 	# Draw the lines.
+	# 11
 	for line in globalListing:
 		startIndex, endIndex = lineEndPointIndecesMap.getLineEndIndex( line )
 		axs.plot( line[startIndex:len(line)-endIndex+1, 0], line[startIndex:len(line)-endIndex+1, 1], linewidth=2, color='r' )
@@ -2111,6 +2150,12 @@ if True:
 	# print("Image array:", image)
 	# print("Image shape:", imgArray.shape() )
 	plt.show()
+
+
+
+
+
+
 
 
 '''
