@@ -4,9 +4,7 @@
     <list default="true" id="6ab9aa8a-8b4b-405a-a077-6186da762c11" name="Default" comment="Successfully integrated border coordinates with main mesh.">
       <change beforePath="$PROJECT_DIR$/../NNCourse" afterPath="$PROJECT_DIR$/../NNCourse" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/Bridson_Common.py" afterPath="$PROJECT_DIR$/Bridson_Common.py" />
       <change beforePath="$PROJECT_DIR$/Bridson_Test.py" afterPath="$PROJECT_DIR$/Bridson_Test.py" />
-      <change beforePath="$PROJECT_DIR$/Bridson_Test2.py" afterPath="$PROJECT_DIR$/Bridson_Test2.py" />
       <change beforePath="$PROJECT_DIR$/GridCell.py" afterPath="$PROJECT_DIR$/GridCell.py" />
       <change beforePath="$PROJECT_DIR$/../../boundary-first-flattening" afterPath="$PROJECT_DIR$/../../boundary-first-flattening" />
     </list>
@@ -18,13 +16,13 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.46603477">
+    <splitter split-orientation="horizontal" split-proportion="0.5555556">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="Bridson_FinishedImage.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Bridson_FinishedImage.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
+                <state relative-caret-position="26370">
                   <caret line="1779" column="35" lean-forward="false" selection-start-line="1779" selection-start-column="35" selection-end-line="1779" selection-end-column="35" />
                   <folding>
                     <element signature="e#1#32#0" expanded="true" />
@@ -56,8 +54,8 @@
           <file leaf-file-name="Bridson_Test.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Bridson_Test.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="583">
-                  <caret line="2115" column="67" lean-forward="false" selection-start-line="2115" selection-start-column="67" selection-end-line="2115" selection-end-column="67" />
+                <state relative-caret-position="979">
+                  <caret line="2028" column="27" lean-forward="true" selection-start-line="2028" selection-start-column="27" selection-end-line="2028" selection-end-column="27" />
                   <folding>
                     <element signature="e#6883#6915#0" expanded="true" />
                   </folding>
@@ -68,8 +66,8 @@
           <file leaf-file-name="Bridson_Test2.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Bridson_Test2.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="360">
-                  <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+                <state relative-caret-position="330">
+                  <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#18#0" expanded="true" />
                   </folding>
@@ -85,7 +83,7 @@
             <entry file="file://$PROJECT_DIR$/Bridson_Common.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="282">
-                  <caret line="906" column="4" lean-forward="false" selection-start-line="906" selection-start-column="4" selection-end-line="906" selection-end-column="4" />
+                  <caret line="915" column="0" lean-forward="false" selection-start-line="915" selection-start-column="0" selection-end-line="915" selection-end-column="0" />
                   <folding>
                     <element signature="e#0#28#0" expanded="true" />
                   </folding>
@@ -96,8 +94,8 @@
           <file leaf-file-name="GridCell.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/GridCell.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="311">
-                  <caret line="49" column="17" lean-forward="false" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="17" />
+                <state relative-caret-position="291">
+                  <caret line="367" column="8" lean-forward="false" selection-start-line="367" selection-start-column="8" selection-end-line="367" selection-end-column="8" />
                   <folding>
                     <element signature="e#0#18#0" expanded="true" />
                   </folding>
@@ -875,7 +873,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Bridson_FinishedImage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
+        <state relative-caret-position="26370">
           <caret line="1779" column="35" lean-forward="false" selection-start-line="1779" selection-start-column="35" selection-end-line="1779" selection-end-column="35" />
           <folding>
             <element signature="e#1#32#0" expanded="true" />
@@ -922,9 +920,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1245">
           <caret line="101" column="124" lean-forward="false" selection-start-line="101" selection-start-column="8" selection-end-line="101" selection-end-column="124" />
-          <folding>
-            <element signature="e#124#161#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -956,8 +951,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Bridson_Test2.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+        <state relative-caret-position="330">
+          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -967,29 +962,29 @@
     <entry file="file://$PROJECT_DIR$/Bridson_Common.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="282">
-          <caret line="906" column="4" lean-forward="false" selection-start-line="906" selection-start-column="4" selection-end-line="906" selection-end-column="4" />
+          <caret line="915" column="0" lean-forward="false" selection-start-line="915" selection-start-column="0" selection-end-line="915" selection-end-column="0" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Bridson_Test.py">
+    <entry file="file://$PROJECT_DIR$/GridCell.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="583">
-          <caret line="2115" column="67" lean-forward="false" selection-start-line="2115" selection-start-column="67" selection-end-line="2115" selection-end-column="67" />
+        <state relative-caret-position="291">
+          <caret line="367" column="8" lean-forward="false" selection-start-line="367" selection-start-column="8" selection-end-line="367" selection-end-column="8" />
           <folding>
-            <element signature="e#6883#6915#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GridCell.py">
+    <entry file="file://$PROJECT_DIR$/Bridson_Test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="49" column="17" lean-forward="false" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="17" />
+        <state relative-caret-position="979">
+          <caret line="2028" column="27" lean-forward="true" selection-start-line="2028" selection-start-column="27" selection-end-line="2028" selection-end-column="27" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#6883#6915#0" expanded="true" />
           </folding>
         </state>
       </provider>

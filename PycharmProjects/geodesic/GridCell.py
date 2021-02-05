@@ -10,11 +10,12 @@ class LineEndPointIndex:
 		pass
 
 
-	def setLineIndeces(self, line, startIndex, endIndex):
+	def setLineIndeces(self, line, startIndex, endIndex, lineIndex):
 		lineTuple = Bridson_Common.convertToTuple(line)
 
 		lineStartEndIndeces = [startIndex, endIndex]
-		self.__lineEndPointIndex[lineTuple] = lineStartEndIndeces
+		# self.__lineEndPointIndex[lineTuple] = lineStartEndIndeces
+		self.__lineEndPointIndex[lineIndex] = lineStartEndIndeces
 		# if lineTuple in self.__lineEndPointIndex:
 		# 	lineStartEndIndeces = self.__lineEndPointIndex[ lineTuple ]
 		# else:
@@ -22,50 +23,57 @@ class LineEndPointIndex:
 
 		pass
 
-	def updateLineStartIndex(self, line, startIndex):
+	def updateLineStartIndex(self, line, startIndex, lineIndex):
 		lineTuple = Bridson_Common.convertToTuple(line)
-		lineStartEndIndeces = self.__lineEndPointIndex[ lineTuple ]
+		# lineStartEndIndeces = self.__lineEndPointIndex[ lineTuple ]
+		lineStartEndIndeces = self.__lineEndPointIndex[lineIndex]
 
 		if lineStartEndIndeces[0] > 0:
 			lineStartEndIndeces[0] = startIndex
 		pass
 
 
-	def updateLineEndIndex(self, line, endIndex):
+	def updateLineEndIndex(self, line, endIndex, lineIndex):
 		lineTuple = Bridson_Common.convertToTuple(line)
-		lineStartEndIndeces = self.__lineEndPointIndex[ lineTuple ]
+		# lineStartEndIndeces = self.__lineEndPointIndex[ lineTuple ]
+		lineStartEndIndeces = self.__lineEndPointIndex[lineIndex]
 
 		if lineStartEndIndeces[1] > 0:
 			lineStartEndIndeces[1] = endIndex
 		pass
 
 
-	def updateLineCollisionStartIndex(self, line):
+	def updateLineCollisionStartIndex(self, line, lineIndex):
 		lineTuple = Bridson_Common.convertToTuple(line)
-		lineStartEndIndeces = self.__lineEndPointIndex[ lineTuple ]
+		# lineStartEndIndeces = self.__lineEndPointIndex[ lineTuple ]
+		lineStartEndIndeces = self.__lineEndPointIndex[lineIndex]
 		lineStartEndIndeces[0] = 0 - abs( lineStartEndIndeces[0] )
 
 
-	def updateLineCollisionEndIndex(self, line):
+	def updateLineCollisionEndIndex(self, line, lineIndex):
 		lineTuple = Bridson_Common.convertToTuple(line)
-		lineStartEndIndeces = self.__lineEndPointIndex[ lineTuple ]
+		# lineStartEndIndeces = self.__lineEndPointIndex[ lineTuple ]
+		lineStartEndIndeces = self.__lineEndPointIndex[lineIndex]
 		lineStartEndIndeces[1] = 0 - abs( lineStartEndIndeces[1] )
 
 
 
-	def getLineEndIndex(self, line):
+	def getLineEndIndex(self, line, lineIndex):
 		lineTuple = Bridson_Common.convertToTuple(line)
-		return self.__lineEndPointIndex[ lineTuple ]
+		# return self.__lineEndPointIndex[ lineTuple ]
+
+		return self.__lineEndPointIndex[lineIndex]
 
 
-	def isLineBounded(self, line):
+	def isLineBounded(self, line, lineIndex):
 		'''
 
 		:param line:
 		:return: True if both indeces are negative.
 		'''
 		lineTuple = Bridson_Common.convertToTuple(line)
-		lineStartEndIndeces = self.__lineEndPointIndex[ lineTuple ]
+		# lineStartEndIndeces = self.__lineEndPointIndex[ lineTuple ]
+		lineStartEndIndeces = self.__lineEndPointIndex[lineIndex]
 		if lineStartEndIndeces[0] < 0 and lineStartEndIndeces[1] < 0:
 			return True
 		return False
@@ -91,7 +99,7 @@ class GridCells:
 		pass
 
 
-	def addLine(self, line, startIndex, endIndex):
+	def addLine(self, line, startIndex, endIndex, lineIndex):
 		## working for adding whole line.
 		## working for partial lines.
 		'''
@@ -104,12 +112,12 @@ class GridCells:
 		for index in range(startIndex, len(line) - endIndex - 1):
 		# for index in range(len(line) - 1):
 			segment = (line[index], line[index+1])
-			self.__addSegmentToCellMapping(segment, tupleLine)
+			self.__addSegmentToCellMapping(segment, tupleLine, lineIndex)
 		# self.lineStartEndIndex[ Bridson_Common.convertToTuple( line ) ] = (startIndex, endIndex)
 		pass
 
 
-	def addSegment(self, segments, line):
+	def addSegmentBack(self, segments, line):
 		'''
 		When adding a new segment, we need to iterate through all the sub-segments: (start,end)
 		Create an entry for (start,end) in segmentToCell.
@@ -123,10 +131,23 @@ class GridCells:
 			self.__addSegmentToCellMapping(segment, lineTuple)
 		pass
 
+	def addSegment(self, segments, line, lineIndex):
+		'''
+		When adding a new segment, we need to iterate through all the sub-segments: (start,end)
+		Create an entry for (start,end) in segmentToCell.
+		The cells will be based on start and end coordinates.
+		'''
+		lineTuple = Bridson_Common.convertToTuple( line )
+		# Iterate through all the sub-segments.
+		for index in range( len(segments) - 1 ):
+			segment = (segments[index], segments[index+1])
+			print("addSegment:", segment)
+			self.__addSegmentToCellMapping(segment, lineTuple, lineIndex)
+		pass
 
 
 
-	def detectCollision(self, segment, line):
+	def detectCollisionBack(self, segment, line):
 		'''
 
 		:param segment:
@@ -188,9 +209,68 @@ class GridCells:
 		return collisionDetected
 
 
+	def detectCollision(self, segment, line, lineIndex):
+		'''
+		:param segment:
+		:param line:
+		:return: True if there is a collision, False otherwise.
+		'''
+		'''
+		Detect if there is a collision by adding this segment.
+		'''
+		print("Detecting Collision for segment:", Bridson_Common.convertToTuple( segment ) )
+		# Find which cell it belongs to.
+		cellContent0 = self.getCellContent( segment[0] )
+		cellContent1 = self.getCellContent( segment[1] )
+		# Check for collision with segments in the cell.
+
+		collisionDetected = False
+		lineTuple = Bridson_Common.convertToTuple(line)
+		originalSegmentTuple = Bridson_Common.convertToTuple(segment)
+		# segmentTuple = Bridson_Common.convertToTuple(segment)
+		for segmentTuple in cellContent0:
+			# print("Checking ", segment, "against", segment0)
+			segment0, currentLineIndex = segmentTuple
+
+			# Only check for intersection if the segments are not from the same line.
+			if lineIndex != currentLineIndex:
+				intersection = Bridson_Common.line_intersect( originalSegmentTuple, Bridson_Common.convertToTuple(segment0) )
+				if not intersection == None:
+					# Indicates that there is an intersection.
+					print("Intersection found at ", intersection)
+					if intersection not in line:
+						# Is point in the line?  If no, then it is a collision.
+						collisionDetected = True
+						pass
+					elif Bridson_Common.findSegment(originalSegmentTuple, lineTuple):
+						print("********* Intersection segment found in line", segment0, "************")
+						# Is the segment in the line?  If it is, then probably not a collision because it is colinear.
+						pass
+					else:
+						collisionDetected = True
+
+		for segmentTuple in cellContent1:
+			# print("Checking ", segment, "against", segment0)
+			segment0, currentLineIndex = segmentTuple
+			if lineIndex != currentLineIndex:
+				intersection = Bridson_Common.line_intersect(originalSegmentTuple, Bridson_Common.convertToTuple(segment0))
+				if not intersection == None:
+					# Indicates that there is an intersection.
+					print("Intersection found at", intersection)
+					if intersection not in line:
+						# Is the point in the line?  If no, then it is a collision.
+						collisionDetected = True
+						pass
+					elif Bridson_Common.findSegment(originalSegmentTuple, lineTuple):
+						print("********* Intersection segment found in line", segment0, "************")
+						pass
+					else:
+						collisionDetected = True
+
+		return collisionDetected
 
 
-	def __addSegmentToCellMapping(self, segment, tupleLine):
+	def __addSegmentToCellMapping(self, segment, tupleLine, lineIndex):
 
 		point1 = segment[0]
 		point2 = segment[1]
@@ -219,6 +299,7 @@ class GridCells:
 			# Case A.
 			pass
 		elif self.__determineCaseB(firstCell, secondCell):
+			# Case B.
 			cells.append( secondCell )
 			cells.extend( self.__genDiagonalCells( firstCell, secondCell ))
 		else:
@@ -228,7 +309,7 @@ class GridCells:
 		# cells.append( self.__findPointCell(point2)  )
 		# print("Adding segment:",self.convertToTuple(segment))
 		self.segmentToCell[ Bridson_Common.convertToTuple( segment ) ] = cells
-		self.__populateCellContent(segment, cells, tupleLine)
+		self.__populateCellContent(segment, cells, tupleLine, lineIndex)
 
 		# print("__addSegmentToCellMapping", segment, ". Belongs to cells", cells)
 		pass
@@ -284,13 +365,15 @@ class GridCells:
 		pass
 
 
-	def __populateCellContent(self, segment, cells, tupleLine):
+	def __populateCellContent(self, segment, cells, tupleLine, lineIndex):
 		for cell in cells:
 			if cell in self.cellContent:
-				self.cellContent[ cell ].append( (Bridson_Common.convertToTuple(segment), tupleLine) )
+				# self.cellContent[ cell ].append( (Bridson_Common.convertToTuple(segment), tupleLine) )
+				self.cellContent[cell].append((Bridson_Common.convertToTuple(segment), lineIndex))
 			else:
 				cellContent = []
-				cellContent.append( (Bridson_Common.convertToTuple(segment), tupleLine) )
+				# cellContent.append( (Bridson_Common.convertToTuple(segment), tupleLine) )
+				cellContent.append((Bridson_Common.convertToTuple(segment), lineIndex))
 				self.cellContent[ cell ] = cellContent
 
 

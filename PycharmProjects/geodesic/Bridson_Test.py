@@ -2025,6 +2025,12 @@ if True:
 
 	# 1
 	lines = []
+
+	lines.append(firstLine)
+	lines.append(lastLine)
+
+	normalLineStartIndex = len(lines)
+
 	lines.append( secondLine )
 	lines.append( thirdLine )
 
@@ -2034,11 +2040,12 @@ if True:
 	lineEndPointIndecesMap = LineEndPointIndex()
 
 	# Larger this value, the smaller the initial line.
-	boundaryIndex = 40
+	boundaryIndex = 30
 
 	# 3
-	for line in lines:
-		lineEndPointIndecesMap.setLineIndeces( line, boundaryIndex, boundaryIndex )
+	for index in range(len(lines)):
+		line = lines[index]
+		lineEndPointIndecesMap.setLineIndeces( line, boundaryIndex, boundaryIndex , index)
 		currentMaxLength = Bridson_Common.findLongestSegmentLength(line)
 		if currentMaxLength > maxSegmentLength:
 			maxSegmentLength = currentMaxLength
@@ -2056,12 +2063,18 @@ if True:
 
 	# 5
 	# Add teh edge lines.
-	print("Adding first line")
-	allGridCells.addLine( firstLine, 0, 0) # Add the first line to the Grid Cells.
-	allGridCells.addLine(lastLine, 0, 0)  # Add the first line to the Grid Cells.
+	print("Adding edge lines")
+	for index in range(normalLineStartIndex):
+		print("Edge lines:", index)
+		line = lines[index]
+		allGridCells.addLine(line, 0, 0, index)  # Add the first etch.
+	# allGridCells.addLine( firstLine, 0, 0) # Add the first line to the Grid Cells.
+	# allGridCells.addLine(lastLine, 0, 0)  # Add the first line to the Grid Cells.
 
-	for line in lines:
-		allGridCells.addLine(line, boundaryIndex, boundaryIndex)  # Add the first etch.
+	# for line in lines:
+	for index in range(normalLineStartIndex, len(lines)):
+		line = lines[index]
+		allGridCells.addLine(line, boundaryIndex, boundaryIndex, index)  # Add the first etch.
 
 	# print("cellContent:", allGridCells.cellContent)
 	# print("segmentToCell:",allGridCells.segmentToCell)
@@ -2086,42 +2099,42 @@ if True:
 		# Detect a collision for the segment.
 		# 7
 		# for i in range(boundaryIndex,boundaryIndex-4, -1):
-		for i in range(boundaryIndex, 0, -1):
+		for i in range(boundaryIndex, 1, -1):
 			print("Index", i)
 			deleteList = []
 			# for line in lines:
 			# 8
-			for lineIndex in range(len(lines)):
+			for lineIndex in range(normalLineStartIndex, len(lines)):
 				line = lines[lineIndex]
 
 				if True:
-					collisionDetected = allGridCells.detectCollision(line[i:i+2], line)
+					collisionDetected = allGridCells.detectCollision(line[i:i+2], line, lineIndex)
 					print("StartIndex Collision Detected:", collisionDetected)
 					if collisionDetected == False:
-						lineEndPointIndecesMap.updateLineStartIndex( line, i ) # Update the start index for line.
+						lineEndPointIndecesMap.updateLineStartIndex( line, i, lineIndex ) # Update the start index for line.
 						# Add the new segment to the gridcell.
-						allGridCells.addSegment( line[i:i+2], line)
+						allGridCells.addSegment( line[i:i+2], line, lineIndex)
 					else:
-						lineEndPointIndecesMap.updateLineCollisionStartIndex( line )
+						lineEndPointIndecesMap.updateLineCollisionStartIndex( line , lineIndex)
 
 
 				if True:
-					collisionDetected = allGridCells.detectCollision(line[len(line)-i:len(line)-i+2], line)
+					collisionDetected = allGridCells.detectCollision(line[len(line)-i:len(line)-i+2], line, lineIndex)
 					print("EndIndex Collision Detected:", collisionDetected)
 					if collisionDetected == False:
-						lineEndPointIndecesMap.updateLineEndIndex( line, i ) # Update the start index for line.
+						lineEndPointIndecesMap.updateLineEndIndex( line, i-1, lineIndex ) # Update the end index for line.  Need to subtract by 1.
 						# Add the new segment to the gridcell.
-						allGridCells.addSegment( line[len(line)-i:len(line)-i+2], line)
+						allGridCells.addSegment( line[len(line)-i:len(line)-i+2], line, lineIndex)
 					else:
-						lineEndPointIndecesMap.updateLineCollisionEndIndex( line )
+						lineEndPointIndecesMap.updateLineCollisionEndIndex( line , lineIndex)
 
 
-				if lineEndPointIndecesMap.isLineBounded( line ):
+				if lineEndPointIndecesMap.isLineBounded( line, lineIndex ):
 					# lines.remove( line )
 					# np.delete(lines, line, axis=1)
 					deleteList.append( lineIndex )
 			# 9
-			lines = np.delete( lines, deleteList, 0)
+			# lines = np.delete( lines, deleteList, 0)
 
 	# 10
 	lineEndPointIndecesMap.realignIndexes()
@@ -2131,8 +2144,9 @@ if True:
 
 	# Draw the lines.
 	# 11
-	for line in globalListing:
-		startIndex, endIndex = lineEndPointIndecesMap.getLineEndIndex( line )
+	for index in range(normalLineStartIndex, len(lines)):
+		line = globalListing[index]
+		startIndex, endIndex = lineEndPointIndecesMap.getLineEndIndex( line, index )
 		axs.plot( line[startIndex:len(line)-endIndex+1, 0], line[startIndex:len(line)-endIndex+1, 1], linewidth=2, color='r' )
 
 
