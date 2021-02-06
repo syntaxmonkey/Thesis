@@ -1822,7 +1822,7 @@ if False:
 	plt.show()
 
 
-if True:
+if False:
 	''' Determine pixels in line segment.'''
 	import datetime
 	import matplotlib
@@ -2076,17 +2076,8 @@ if True:
 		line = lines[index]
 		allGridCells.addLine(line, boundaryIndex, boundaryIndex, index)  # Add the first etch.
 
-	# print("cellContent:", allGridCells.cellContent)
-	# print("segmentToCell:",allGridCells.segmentToCell)
 
 
-	# Add the etch lines.
-	# print("Adding second line")
-	# allGridCells.addLine( secondLine, boundaryIndex, boundaryIndex) # Add the first etch.
-	# allGridCells.addLine( thirdLine, boundaryIndex, boundaryIndex)  # Add the first etch.
-
-
-	# lines = np.array( lines )
 
 	# 6
 	globalListing = lines.copy()
@@ -2167,7 +2158,245 @@ if True:
 
 
 
+if True:
+	''' Determine pixels in line segment.'''
+	import datetime
+	import matplotlib
+	from matplotlib.backends.backend_agg import FigureCanvasAgg
+	import uuid
+	import Bridson_Common
+	from GridCell import GridCells2, LineEndPointIndex, LineObject
 
+	x1 = 0
+	y1 = 0
+	x2 = 400
+	y2 = -400
+	p1 = (x1, y1)
+	p2 = (x2, y2)
+	deltaX = abs(x2-x1)
+	deltaY = abs(y2-y1)
+
+	# Obtain array from image: https://stackoverflow.com/questions/35355930/matplotlib-figure-to-image-as-a-numpy-array
+	fig = plt.figure(frameon=False)
+	fig.set_size_inches(abs(x2-x1)/100, abs(y2-y1)/100)  # Really important.
+
+	# Saving the plot without additional content: https://stackoverflow.com/questions/8218608/scipy-savefig-without-frames-axes-only-content
+	# Get array from image.
+	# axs = fig.add_subplot(1, 1, 1, aspect=1)
+	axs = plt.Axes(fig, [0., 0., 1., 1.]) # Really important.  Ensure the plot takes up the whole figure.
+	fig.add_axes( axs ) # Really important.  Add the axes to the Figure.
+	axs.set_axis_off()
+
+	axs.set_xlim(left=x1, right=x2)
+	axs.set_ylim(top=y1, bottom=y2)
+	# axs.grid()
+
+	axs.set_xticks([])
+	axs.set_yticks([])
+
+
+	xvalues = np.array([x1,x2])
+	yvalues = np.array([y1,y2])
+
+	xHorizontal = np.linspace(0, x2, int(x2 / 5))
+
+	# First line.  Make this the edge line.
+	rise = y2-y1
+	run = x2-x1
+	firstLineY = xHorizontal * ( rise / run / 2)
+	firstLine = np.array(list(zip(xHorizontal, firstLineY)))
+	lastLineY = xHorizontal * 0 - (400-50)
+	lastLine = np.array(list(zip(xHorizontal, lastLineY)))
+	print("Segments in first line:", len(firstLine))
+
+
+	# Second line.
+	yHorizontal = xHorizontal - abs(y2) + 10
+	secondLine = np.array(list(zip(xHorizontal, yHorizontal)))
+	yHorizontal = xHorizontal*2 - abs(y2) - 130
+	thirdLine = np.array(list(zip(xHorizontal, yHorizontal)))
+	print("Segments in second line:", len(secondLine))
+
+
+	# firstLine = Bridson_Common.convertToList(firstLine)
+	# axs.plot(xvalues, yvalues, linewidth=5, color='k')
+	axs.plot(firstLine[:,0], firstLine[:,1], linewidth=2, color='k')
+	# axs.plot([point[0] for point in firstLine], [point[1] for point in firstLine], linewidth=2, color='k')
+	axs.plot(lastLine[:, 0], lastLine[:, 1], linewidth=2, color='k')
+
+	# axs.plot(secondLine[10:len(firstLine)-10+1,0], secondLine[10:len(firstLine)-10+1,1], linewidth=2, color='r')
+
+	maxSegmentLength = Bridson_Common.findLongestSegmentLength( firstLine )
+	lastLineMaxSegmentLength =  Bridson_Common.findLongestSegmentLength(lastLine)
+	maxSegmentLength = lastLineMaxSegmentLength if lastLineMaxSegmentLength > maxSegmentLength else maxSegmentLength
+
+
+	'''
+	*********************  Phase 1  ****************************
+	1. Create a global list of lines.
+	2. Create LineEndPointIndex map variable.
+	3. Determine the maximum segment length.  This will be the basis for grid cell size.
+	4. Create GridCell
+	5. Add all edge lines to the GridCell data structure.
+	6. Create duplicate of all lines array for later use.
+	7. Iterate through the line index offsets.
+	8. Iterate through the lines.
+	9. Remove lines that have double collision.
+	10. Realign the end point index maps.
+	11. Draw the lines.
+	'''
+
+	# 1
+	lines = []
+	erosionIndex = 40
+
+	lines.append( LineObject(firstLine, 0) )
+	lines.append( LineObject(lastLine, 1) )
+
+	normalLineStartIndex = len(lines)
+
+	lines.append( LineObject(secondLine, 2,  erosionIndex=erosionIndex) )
+	lines.append( LineObject(thirdLine, 3, erosionIndex=erosionIndex) )
+
+	lines = np.array(lines)
+
+	# 2
+	lineEndPointIndecesMap = LineEndPointIndex()
+
+	# Larger this value, the smaller the initial line.
+	boundaryIndex = 30
+
+	# 3
+	for index in range(len(lines)):
+		lineObject = lines[index]
+		# lineEndPointIndecesMap.setLineIndeces( line, boundaryIndex, boundaryIndex , index) # No longer required.
+		currentMaxLength = Bridson_Common.findLongestSegmentLength( lineObject.getLinePoints() )
+		if currentMaxLength > maxSegmentLength:
+			maxSegmentLength = currentMaxLength
+
+	maxSegmentLength = math.ceil(maxSegmentLength * 2)
+	print("maxSegmentLength:", maxSegmentLength)
+
+	# 4
+	# Create gridcell to track segments.
+	print("Creating Grid Cells object")
+	allGridCells = GridCells2(deltaX, deltaY, maxSegmentLength)
+	# print("First Line - first element", firstLine[1])
+	# print("First Line - last element", firstLine[-2])
+
+
+	# 5
+
+
+	# Add teh edge lines.
+	print("Adding edge lines")
+	for index in range(normalLineStartIndex):
+		print("Edge lines:", index)
+		lineObject = lines[index]
+		allGridCells.addLine(lineObject.getLinePoints(), 0, len(lineObject.getLinePoints())-1, index)  # Add the first etch.
+	# allGridCells.addLine( firstLine, 0, 0) # Add the first line to the Grid Cells.
+	# allGridCells.addLine(lastLine, 0, 0)  # Add the first line to the Grid Cells.
+
+	# for line in lines:
+	for index in range(normalLineStartIndex, len(lines)):
+		lineObject = lines[index]
+		allGridCells.addLine(lineObject.getLinePoints(), lineObject.getStartIndex(), lineObject.getEndIndex(), lineObject.getLineIndex() )  # Add the first etch.
+
+	# print("cellContent:", allGridCells.cellContent)
+	# print("segmentToCell:",allGridCells.segmentToCell)
+
+
+	# Add the etch lines.
+	# print("Adding second line")
+	# allGridCells.addLine( secondLine, boundaryIndex, boundaryIndex) # Add the first etch.
+	# allGridCells.addLine( thirdLine, boundaryIndex, boundaryIndex)  # Add the first etch.
+
+
+	# lines = np.array( lines )
+
+	# 6
+	globalListing = lines.copy()
+
+	print("lines:",np.shape(lines) )
+
+	if True:
+		# Detect a collision for the segment.
+		# 7
+		# for i in range(boundaryIndex,boundaryIndex-4, -1):
+		for i in range(1000, 1, -1):
+			print("Index", i)
+			deleteList = []
+			# for line in lines:
+			# 8
+			unboundedLine = False
+			for lineIndex in range(normalLineStartIndex, len(lines)):
+				lineObject = lines[lineIndex]
+
+				if True:
+					# collisionDetected = allGridCells.detectCollision(line[i:i+2], line, lineIndex)
+					if lineObject.isBounded() == False:
+						lineObject.extendDetectCollision( allGridCells )
+						unboundedLine = True
+			if unboundedLine == False:
+				break
+
+				# 	print("StartIndex Collision Detected:", collisionDetected)
+				# 	if collisionDetected == False:
+				# 		lineEndPointIndecesMap.updateLineStartIndex( line, i, lineIndex ) # Update the start index for line.
+				# 		# Add the new segment to the gridcell.
+				# 		allGridCells.addSegment( line[i:i+2], line, lineIndex)
+				# 	else:
+				# 		lineEndPointIndecesMap.updateLineCollisionStartIndex( line , lineIndex)
+				#
+				#
+				# if True:
+				# 	collisionDetected = allGridCells.detectCollision(line[len(line)-i:len(line)-i+2], line, lineIndex)
+				# 	print("EndIndex Collision Detected:", collisionDetected)
+				# 	if collisionDetected == False:
+				# 		lineEndPointIndecesMap.updateLineEndIndex( line, i-1, lineIndex ) # Update the end index for line.  Need to subtract by 1.
+				# 		# Add the new segment to the gridcell.
+				# 		allGridCells.addSegment( line[len(line)-i:len(line)-i+2], line, lineIndex)
+				# 	else:
+				# 		lineEndPointIndecesMap.updateLineCollisionEndIndex( line , lineIndex)
+
+
+				# if lineEndPointIndecesMap.isLineBounded( line, lineIndex ):
+					# lines.remove( line )
+					# np.delete(lines, line, axis=1)
+					# deleteList.append( lineIndex )
+			# 9
+			# lines = np.delete( lines, deleteList, 0)
+
+	# 10
+	# lineEndPointIndecesMap.realignIndexes()
+
+	print("Length of lines:", len(lines))
+	# print(lines)
+
+	# Draw the lines.
+	# 11
+	for index in range(normalLineStartIndex, len(lines)):
+		lineObject = globalListing[index]
+		# startIndex, endIndex = lineEndPointIndecesMap.getLineEndIndex( line, index )
+		line = lineObject.getBoundedLinePoints()
+		# axs.plot( line[startIndex:len(line)-endIndex+1, 0], line[startIndex:len(line)-endIndex+1, 1], linewidth=2, color='r' )
+		axs.plot( line[:,0], line[:,1], linewidth=2, color='r' )
+
+
+	# width, height = fig.get_size_inches() * fig.get_dpi()
+
+	# xstep = width / (xmax - xmin)
+	# ystep = height / (ymax - ymin)
+
+	# image = np.array( canvas.renderer.buffer_rgba()) # Another option for obtaining the image renderer: https://matplotlib.org/3.2.1/gallery/misc/agg_buffer_to_array.html
+	# image = image[:,:,:3] # Reduce the rgba to rgb.
+
+
+	# img = np.fromstring(canvas.to_string_rgb(), dtype='uint8').reshape(height, width, 3)
+	# print("Value at (2,12):", image[2,12])
+	# print("Image array:", image)
+	# print("Image shape:", imgArray.shape() )
+	plt.show()
 
 
 
