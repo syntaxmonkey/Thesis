@@ -405,6 +405,8 @@ class GridCells2:
 	def __init__(self, LimitX, LimitY, cellsize):
 		self.LimitX = LimitX
 		self.LimitY = LimitY
+		self.adjustLimits()
+
 		self.cellsize = cellsize
 
 		self.segmentToCell = {}
@@ -414,6 +416,16 @@ class GridCells2:
 
 		self.pessimisticCheck = True
 		pass
+
+	def adjustLimits(self):
+		# Sort the limits such that X1 is smaller than X2.
+		if self.LimitX[0] > self.LimitX[1]:
+			self.LimitX = (self.LimitX[1], self.LimitX[0])
+		if self.LimitY[0] > self.LimitY[1]:
+			self.LimitY = (self.LimitY[1], self.LimitY[0])
+		print("Adjusted X Limits:", self.LimitX)
+		print("Adjusted Y Limits:", self.LimitY)
+
 
 	def addLine(self, line, startIndex, endIndex, lineIndex):
 		## working for adding whole line.
@@ -536,12 +548,12 @@ class GridCells2:
 		# Consider the case where the segment has fallen outside the limits.
 		if not( originalSegmentTuple[0][0] > self.LimitX[0] and originalSegmentTuple[0][0] < self.LimitX[1] ):
 			return True
-		if not( originalSegmentTuple[1][0] > self.LimitX[0] or originalSegmentTuple[1][0] < self.LimitX[1] ):
+		if not( originalSegmentTuple[1][0] > self.LimitX[0] and originalSegmentTuple[1][0] < self.LimitX[1] ):
 			return True
 
-		if not( originalSegmentTuple[0][1] > self.LimitY[0] or originalSegmentTuple[0][1] < self.LimitY[1] ):
+		if not( originalSegmentTuple[0][1] > self.LimitY[0] and originalSegmentTuple[0][1] < self.LimitY[1] ):
 			return True
-		if not( originalSegmentTuple[1][1] > self.LimitY[0] or originalSegmentTuple[1][1] < self.LimitY[1] ):
+		if not( originalSegmentTuple[1][1] > self.LimitY[0] and originalSegmentTuple[1][1] < self.LimitY[1] ):
 			return True
 
 		print("Detecting Collision for segment:", originalSegmentTuple)
@@ -736,6 +748,11 @@ class LineObject:
 		self.endIndeces = [0, 0] # Line endpoint indeces.
 		self.calculateStartIndeces( erosionIndex)
 
+	def __eq__(self, other):
+		if self.lineIndex == other.lineIndex:
+			return True
+		else:
+			return False
 
 	def extendLineDetectCollision(self, allGridCells):
 		segmentAdded = False
@@ -883,6 +900,7 @@ class LineObject:
 		:return: True if both sides of the line are bounded.
 		'''
 		if self.endBounded[0] == True and self.endBounded[1] == True:
+			print(">>>>>>>>>>>> Returning true for isBounded: ", self.lineIndex)
 			return True
 		else:
 			return False

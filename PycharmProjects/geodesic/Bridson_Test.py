@@ -2266,9 +2266,9 @@ if True:
 	lines.append( LineObject(secondLine, 2,  erosionIndex=erosionIndex) )
 	lines.append( LineObject(thirdLine, 3, erosionIndex=erosionIndex) )
 	lines.append( LineObject(smallLine, 4, erosionIndex=erosionIndex) )
-	lines.append(LineObject(smallLine2, 5, erosionIndex=erosionIndex))
+	lines.append( LineObject(smallLine2, 5, erosionIndex=erosionIndex) )
 
-	lines = np.array(lines)
+	# lines = np.array(lines)
 
 	# 2
 	lineEndPointIndecesMap = LineEndPointIndex()
@@ -2291,7 +2291,7 @@ if True:
 	# 4
 	# Create gridcell to track segments.
 	print("Creating Grid Cells object")
-	allGridCells = GridCells2((x1,x2), (-y1,-y2), maxSegmentLength)
+	allGridCells = GridCells2((x1,x2), (y1,y2), maxSegmentLength)
 	# print("First Line - first element", firstLine[1])
 	# print("First Line - last element", firstLine[-2])
 
@@ -2349,10 +2349,15 @@ if True:
 						added = lineObject.growDetectCollision(allGridCells)
 						if added == True:
 							segmentAdded = True
+					else:
+						lines.remove( lineObject )
+
 
 			if segmentAdded == False:
 				break
 
+	print("Lines after grow:", len(lines))
+	# lines = globalListing.copy()
 
 	if True:
 		for i in range(1000):
@@ -2363,6 +2368,9 @@ if True:
 					added = lineObject.extendLineDetectCollision(allGridCells)
 					if added == True:
 						segmentAdded = True
+				else:
+					lines.remove( lineObject )
+
 
 			if segmentAdded == False:
 				break
@@ -2402,7 +2410,7 @@ if True:
 
 	# Draw the lines.
 	# 11
-	for index in range(normalLineStartIndex, len(lines)):
+	for index in range(normalLineStartIndex, len(globalListing)):
 		lineObject = globalListing[index]
 		# startIndex, endIndex = lineEndPointIndecesMap.getLineEndIndex( line, index )
 		line = lineObject.getBoundedLinePoints()

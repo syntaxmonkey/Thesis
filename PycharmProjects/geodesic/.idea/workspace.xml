@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="6ab9aa8a-8b4b-405a-a077-6186da762c11" name="Default" comment="Successfully integrated border coordinates with main mesh.">
       <change beforePath="$PROJECT_DIR$/../NNCourse" afterPath="$PROJECT_DIR$/../NNCourse" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/Bridson_Test.py" afterPath="$PROJECT_DIR$/Bridson_Test.py" />
-      <change beforePath="$PROJECT_DIR$/Bridson_Test2.py" afterPath="$PROJECT_DIR$/Bridson_Test2.py" />
       <change beforePath="$PROJECT_DIR$/GridCell.py" afterPath="$PROJECT_DIR$/GridCell.py" />
       <change beforePath="$PROJECT_DIR$/../../boundary-first-flattening" afterPath="$PROJECT_DIR$/../../boundary-first-flattening" />
     </list>
@@ -55,8 +53,8 @@
           <file leaf-file-name="Bridson_Test.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Bridson_Test.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="668">
-                  <caret line="2359" column="0" lean-forward="false" selection-start-line="2359" selection-start-column="0" selection-end-line="2359" selection-end-column="0" />
+                <state relative-caret-position="1044">
+                  <caret line="2293" column="43" lean-forward="true" selection-start-line="2293" selection-start-column="43" selection-end-line="2293" selection-end-column="43" />
                   <folding>
                     <element signature="e#6883#6915#0" expanded="true" />
                   </folding>
@@ -95,8 +93,8 @@
           <file leaf-file-name="GridCell.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/GridCell.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="370">
-                  <caret line="746" column="4" lean-forward="true" selection-start-line="746" selection-start-column="4" selection-end-line="746" selection-end-column="4" />
+                <state relative-caret-position="222">
+                  <caret line="409" column="32" lean-forward="true" selection-start-line="409" selection-start-column="32" selection-end-line="409" selection-end-column="32" />
                   <folding>
                     <element signature="e#0#18#0" expanded="true" />
                   </folding>
@@ -183,9 +181,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>overlay</find>
-      <find>collision</find>
-      <find>time</find>
       <find>load</find>
       <find>image</find>
       <find>Image</find>
@@ -213,6 +208,9 @@
       <find>GridCells2</find>
       <find>extend</find>
       <find>GridCell</find>
+      <find>isBounded</find>
+      <find>original Segment</find>
+      <find>growD</find>
     </findStrings>
     <replaceStrings>
       <replace>=</replace>
@@ -973,8 +971,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/GridCell.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="370">
-          <caret line="746" column="4" lean-forward="true" selection-start-line="746" selection-start-column="4" selection-end-line="746" selection-end-column="4" />
+        <state relative-caret-position="222">
+          <caret line="409" column="32" lean-forward="true" selection-start-line="409" selection-start-column="32" selection-end-line="409" selection-end-column="32" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -983,8 +981,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Bridson_Test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="668">
-          <caret line="2359" column="0" lean-forward="false" selection-start-line="2359" selection-start-column="0" selection-end-line="2359" selection-end-column="0" />
+        <state relative-caret-position="1044">
+          <caret line="2293" column="43" lean-forward="true" selection-start-line="2293" selection-start-column="43" selection-end-line="2293" selection-end-column="43" />
           <folding>
             <element signature="e#6883#6915#0" expanded="true" />
           </folding>
