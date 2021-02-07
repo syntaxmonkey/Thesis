@@ -708,9 +708,10 @@ class LineObject:
 
 
 	def extendDetectCollision(self, allGridCells):
+		segmentAdded = False
 		# Extend the starting side.
 		if self.endBounded[0] == False:
-			if self.endIndeces[0] > 2:  # Index needs to be > 2 because segments spans 3 indeces.
+			if self.endIndeces[0] >= 1:  # Index needs to be > 1 because segments spans 3 indeces.
 				if allGridCells.detectCollision( self.getNextStartSegment(), self.__linePoints, self.lineIndex ):
 					# Collision detected if we extend the start direction.  Set collision detection flag.
 					self.endBounded[0] = True
@@ -718,8 +719,7 @@ class LineObject:
 					# No Collision detected.  Add segment to allGridCells.
 					allGridCells.addSegment( self.getNextStartSegment(),  self.lineIndex)
 					self.endIndeces[0] -= 1
-			else:
-				self.endBounded[0] = True
+					segmentAdded = True
 
 		# Extend the ending side.
 		if self.endBounded[1] == False:
@@ -731,9 +731,8 @@ class LineObject:
 					# No Collision detected.  Add segment to allGridCells.
 					allGridCells.addSegment( self.getNextEndSegment(),  self.lineIndex)
 					self.endIndeces[1] += 1
-			else:
-				self.endBounded[1] = True
-		pass
+					segmentAdded = True
+		return segmentAdded
 
 
 	def calculateStartIndeces(self, erosionIndex):
@@ -752,7 +751,7 @@ class LineObject:
 		'''
 		:return: Return the line points based on the current endpoint indeces.
 		'''
-		return self.__linePoints[ self.endIndeces[0] : self.endIndeces[1] ]
+		return self.__linePoints[ self.endIndeces[0] : self.endIndeces[1] + 1 ]  # Need to increment the end index by 1 because the array indexing is not inclusive of last element.
 
 	def getStartIndex(self):
 		return self.endIndeces[0]
@@ -769,7 +768,7 @@ class LineObject:
 		If it is bounded, return None.
 		'''
 		if self.endBounded[0] == False:
-			return self.__linePoints[ self.endIndeces[0]-2: self.endIndeces[0] ]
+			return self.__linePoints[ self.endIndeces[0]-1: self.endIndeces[0]+1 ]
 		else:
 			return None
 
@@ -780,6 +779,7 @@ class LineObject:
 		If it is bounded, return None.
 		'''
 		if self.endBounded[1] == False:
+			# Handle the normal case.
 			return self.__linePoints[ self.endIndeces[1]: self.endIndeces[1] + 2 ]
 		else:
 			return None

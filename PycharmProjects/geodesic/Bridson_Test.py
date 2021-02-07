@@ -2248,7 +2248,7 @@ if True:
 
 	# 1
 	lines = []
-	erosionIndex = 40
+	erosionIndex = 0
 
 	lines.append( LineObject(firstLine, 0) )
 	lines.append( LineObject(lastLine, 1) )
@@ -2264,7 +2264,7 @@ if True:
 	lineEndPointIndecesMap = LineEndPointIndex()
 
 	# Larger this value, the smaller the initial line.
-	boundaryIndex = 30
+	boundaryIndex = 40
 
 	# 3
 	for index in range(len(lines)):
@@ -2328,16 +2328,18 @@ if True:
 			deleteList = []
 			# for line in lines:
 			# 8
-			unboundedLine = False
-			for lineIndex in range(normalLineStartIndex, len(lines)):
-				lineObject = lines[lineIndex]
-
+			segmentAdded = False
+			# for lineIndex in range(normalLineStartIndex, len(lines)):
+			# 	lineObject = lines[lineIndex]
+			for lineObject in lines[normalLineStartIndex:]:
 				if True:
 					# collisionDetected = allGridCells.detectCollision(line[i:i+2], line, lineIndex)
 					if lineObject.isBounded() == False:
-						lineObject.extendDetectCollision( allGridCells )
-						unboundedLine = True
-			if unboundedLine == False:
+						added = lineObject.extendDetectCollision( allGridCells )
+						if added == True:
+							segmentAdded = True
+
+			if segmentAdded == False:
 				break
 
 				# 	print("StartIndex Collision Detected:", collisionDetected)
