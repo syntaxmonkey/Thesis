@@ -2218,6 +2218,10 @@ if True:
 	print("Segments in second line:", len(secondLine))
 
 
+	smallx = np.linspace(50, 100, int((100-50)/5) )
+	smally = smallx - abs(y2)/2
+	smallLine = np.array(list(zip( smallx, smally )))
+
 	# firstLine = Bridson_Common.convertToList(firstLine)
 	# axs.plot(xvalues, yvalues, linewidth=5, color='k')
 	axs.plot(firstLine[:,0], firstLine[:,1], linewidth=2, color='k')
@@ -2257,6 +2261,7 @@ if True:
 
 	lines.append( LineObject(secondLine, 2,  erosionIndex=erosionIndex) )
 	lines.append( LineObject(thirdLine, 3, erosionIndex=erosionIndex) )
+	lines.append( LineObject(smallLine, 4, erosionIndex=erosionIndex) )
 
 	lines = np.array(lines)
 
@@ -2267,8 +2272,9 @@ if True:
 	boundaryIndex = 40
 
 	# 3
-	for index in range(len(lines)):
-		lineObject = lines[index]
+	# for index in range(len(lines)):
+	# 	lineObject = lines[index]
+	for lineObject in lines:
 		# lineEndPointIndecesMap.setLineIndeces( line, boundaryIndex, boundaryIndex , index) # No longer required.
 		currentMaxLength = Bridson_Common.findLongestSegmentLength( lineObject.getLinePoints() )
 		if currentMaxLength > maxSegmentLength:
