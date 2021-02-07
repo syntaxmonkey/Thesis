@@ -2222,6 +2222,10 @@ if True:
 	smally = smallx - abs(y2)/2
 	smallLine = np.array(list(zip( smallx, smally )))
 
+	smallx = smallx +40
+	smally2 = -smallx - abs(y2)/2 + 170
+	smallLine2 = np.array(list(zip( smallx, smally2 )))
+
 	# firstLine = Bridson_Common.convertToList(firstLine)
 	# axs.plot(xvalues, yvalues, linewidth=5, color='k')
 	axs.plot(firstLine[:,0], firstLine[:,1], linewidth=2, color='k')
@@ -2262,6 +2266,7 @@ if True:
 	lines.append( LineObject(secondLine, 2,  erosionIndex=erosionIndex) )
 	lines.append( LineObject(thirdLine, 3, erosionIndex=erosionIndex) )
 	lines.append( LineObject(smallLine, 4, erosionIndex=erosionIndex) )
+	lines.append(LineObject(smallLine2, 5, erosionIndex=erosionIndex))
 
 	lines = np.array(lines)
 
@@ -2286,7 +2291,7 @@ if True:
 	# 4
 	# Create gridcell to track segments.
 	print("Creating Grid Cells object")
-	allGridCells = GridCells2(deltaX, deltaY, maxSegmentLength)
+	allGridCells = GridCells2((x1,x2), (-y1,-y2), maxSegmentLength)
 	# print("First Line - first element", firstLine[1])
 	# print("First Line - last element", firstLine[-2])
 
@@ -2341,9 +2346,23 @@ if True:
 				if True:
 					# collisionDetected = allGridCells.detectCollision(line[i:i+2], line, lineIndex)
 					if lineObject.isBounded() == False:
-						added = lineObject.extendDetectCollision( allGridCells )
+						added = lineObject.growDetectCollision(allGridCells)
 						if added == True:
 							segmentAdded = True
+
+			if segmentAdded == False:
+				break
+
+
+	if True:
+		for i in range(1000):
+			print("Index", i)
+			segmentAdded = False
+			for lineObject in lines[normalLineStartIndex:]:
+				if lineObject.isBounded() == False:
+					added = lineObject.extendLineDetectCollision(allGridCells)
+					if added == True:
+						segmentAdded = True
 
 			if segmentAdded == False:
 				break

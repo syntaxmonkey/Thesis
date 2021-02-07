@@ -410,6 +410,7 @@ class GridCells2:
 		self.segmentToCell = {}
 		self.cellContent = {}  # Cell content is a list of tuples. The tuples are (segment, lineTuple).
 		self.lineStartEndIndex = {}
+		self.segmentMapLineIndex = {} # Will map the segment to a lineIndex.
 
 		self.pessimisticCheck = True
 		pass
@@ -457,6 +458,7 @@ class GridCells2:
 			segment = (segments[index], segments[index + 1])
 			print("addSegment:", segment)
 			self.__addSegmentToCellMapping(segment, lineIndex)
+			self.segmentMapLineIndex[ Bridson_Common.convertToTuple(segment) ] = lineIndex
 		pass
 
 	def detectCollisionBack(self, segment, line):
@@ -529,7 +531,20 @@ class GridCells2:
 		'''
 		Detect if there is a collision by adding this segment.
 		'''
-		print("Detecting Collision for segment:", Bridson_Common.convertToTuple(segment))
+		originalSegmentTuple = Bridson_Common.convertToTuple(segment)
+		print("original Segment Tuple:", originalSegmentTuple)
+		# Consider the case where the segment has fallen outside the limits.
+		if not( originalSegmentTuple[0][0] > self.LimitX[0] and originalSegmentTuple[0][0] < self.LimitX[1] ):
+			return True
+		if not( originalSegmentTuple[1][0] > self.LimitX[0] or originalSegmentTuple[1][0] < self.LimitX[1] ):
+			return True
+
+		if not( originalSegmentTuple[0][1] > self.LimitY[0] or originalSegmentTuple[0][1] < self.LimitY[1] ):
+			return True
+		if not( originalSegmentTuple[1][1] > self.LimitY[0] or originalSegmentTuple[1][1] < self.LimitY[1] ):
+			return True
+
+		print("Detecting Collision for segment:", originalSegmentTuple)
 		# Find which cell it belongs to.
 		cellContent0 = self.getCellContent(segment[0])
 		cellContent1 = self.getCellContent(segment[1])
@@ -537,7 +552,7 @@ class GridCells2:
 
 		collisionDetected = False
 		lineTuple = Bridson_Common.convertToTuple(line)
-		originalSegmentTuple = Bridson_Common.convertToTuple(segment)
+
 		# segmentTuple = Bridson_Common.convertToTuple(segment)
 		for segmentTuple in cellContent0:
 			# print("Checking ", segment, "against", segment0)
@@ -549,16 +564,24 @@ class GridCells2:
 				if not intersection == None:
 					# Indicates that there is an intersection.
 					print("Intersection found at ", intersection)
-					if intersection not in line:
-						# Is point in the line?  If no, then it is a collision.
-						collisionDetected = True
-						pass
-					elif Bridson_Common.findSegment(originalSegmentTuple, lineTuple):
-						print("********* Intersection segment found in line", segment0, "************")
-						# Is the segment in the line?  If it is, then probably not a collision because it is colinear.
+					# Does the segment belong to the the current line index?
+					if Bridson_Common.convertToTuple(segment0) in self.segmentMapLineIndex and self.segmentMapLineIndex[ Bridson_Common.convertToTuple(segment0) ] == lineIndex:
+						# Other segment does belong to current line, therefore, not a real collision.
 						pass
 					else:
 						collisionDetected = True
+
+					# if intersection not in line:
+					# 	# Is point in the line?  If no, then it is a collision.
+					# 	collisionDetected = True
+					# 	pass
+					# elif Bridson_Common.findSegment(originalSegmentTuple, lineTuple):
+					# 	print("********* Intersection segment found in line", segment0, "************")
+					# 	print("******* lineTuple:", lineTuple)
+					# 	# Is the segment in the line?  If it is, then probably not a collision because it is colinear.
+					# 	pass
+					# else:
+					# 	collisionDetected = True
 
 		for segmentTuple in cellContent1:
 			# print("Checking ", segment, "against", segment0)
@@ -568,15 +591,22 @@ class GridCells2:
 				if not intersection == None:
 					# Indicates that there is an intersection.
 					print("Intersection found at", intersection)
-					if intersection not in line:
-						# Is the point in the line?  If no, then it is a collision.
-						collisionDetected = True
-						pass
-					elif Bridson_Common.findSegment(originalSegmentTuple, lineTuple):
-						print("********* Intersection segment found in line", segment0, "************")
+					# Does the segment belong to the the current line index?
+					if Bridson_Common.convertToTuple(segment0) in self.segmentMapLineIndex and self.segmentMapLineIndex[Bridson_Common.convertToTuple(segment0)] == lineIndex:
+						# Other segment does belong to current line, therefore, not a real collision.
 						pass
 					else:
 						collisionDetected = True
+
+			# if intersection not in line:
+					# 	# Is the point in the line?  If no, then it is a collision.
+					# 	collisionDetected = True
+					# 	pass
+					# elif Bridson_Common.findSegment(originalSegmentTuple, lineTuple):
+					# 	print("********* Intersection segment found in line", segment0, "************")
+					# 	pass
+					# else:
+					# 	collisionDetected = True
 
 		return collisionDetected
 
@@ -707,7 +737,67 @@ class LineObject:
 		self.calculateStartIndeces( erosionIndex)
 
 
-	def extendDetectCollision(self, allGridCells):
+	def extendLineDetectCollision(self, allGridCells):
+		segmentAdded = False
+		if self.endBounded[0] == False:
+			self.extendStartDirection()
+			if allGridCells.detectCollision(self.getNextStartSegment(), self.__linePoints, self.lineIndex):
+				self.endBounded[0] = True
+			else:
+				#
+				allGridCells.addSegment(self.getNextStartSegment(), self.lineIndex)
+				self.endIndeces[0] -= 1
+				segmentAdded = True
+
+		if self.endBounded[1] == False:
+			self.extendEndDirection()
+			# if self.endIndeces[1] <= len(self.__linePoints) - 2:  # the index is less than or equal to because we are using the index for slicing.
+			if allGridCells.detectCollision( self.getNextEndSegment(), self.__linePoints, self.lineIndex ):
+				# Collision detected if we extend the start direction.  Set collision detection flag.
+				self.endBounded[1] = True
+			else:
+				# No Collision detected.  Add segment to allGridCells.
+				allGridCells.addSegment( self.getNextEndSegment(),  self.lineIndex)
+				self.endIndeces[1] += 1
+				segmentAdded = True
+
+		return segmentAdded
+
+
+	def extendStartDirection(self):
+		# Add a segment to the beginning of the line.
+		point1 = self.__linePoints[1]
+		point0 = self.__linePoints[0]
+
+		deltax = point1[0] - point0[0]
+		deltay = point1[1] - point0[1]
+
+		newPoint = [point0[0]-deltax, point0[1]-deltay]
+		# print("Before:",self.__linePoints)
+		# print("newPoint:", newPoint)
+		self.__linePoints = np.insert(self.__linePoints, 0, newPoint, axis=0)
+		# print("After:",self.__linePoints)
+		self.endIndeces[0] += 1
+		self.endIndeces[1] += 1
+
+		pass
+
+	def extendEndDirection(self):
+		# Add a segment to the end of the line.
+		lastPoint = self.__linePoints[-1]
+		secondLastPoint = self.__linePoints[-2]
+
+		deltax = secondLastPoint[0] - lastPoint[0]
+		deltay = secondLastPoint[1] - lastPoint[1]
+
+		newPoint = (lastPoint[0] - deltax, lastPoint[1] - deltay)
+
+		self.__linePoints = np.insert(self.__linePoints, len(self.__linePoints), newPoint, axis=0)
+
+		pass
+
+
+	def growDetectCollision(self, allGridCells):
 		segmentAdded = False
 		# Extend the starting side.
 		if self.endBounded[0] == False:
