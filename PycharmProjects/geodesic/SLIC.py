@@ -145,9 +145,11 @@ def segmentImage(imageName, numSegments):
 
 
 	if Bridson_Common.SLIC0 == True:
-		segments = slic(image, n_segments=numSegments, sigma=3, compactness=Bridson_Common.compactnessSLIC, slic_zero=True, enforce_connectivity=True, max_iter=Bridson_Common.SLICIterations)
+		# segments = slic(image, n_segments=numSegments, sigma=3, compactness=Bridson_Common.compactnessSLIC, slic_zero=True, enforce_connectivity=True, max_iter=Bridson_Common.SLICIterations)
+		segments = slic(image, n_segments=numSegments, sigma=3, slic_zero=True, enforce_connectivity=True, max_iter=Bridson_Common.SLICIterations)
 	else:
-		segments = slic(image, n_segments=numSegments, sigma=3, compactness=Bridson_Common.compactnessSLIC,  enforce_connectivity=True, max_iter=Bridson_Common.SLICIterations)
+		# segments = slic(image, n_segments=numSegments, sigma=3, compactness=Bridson_Common.compactnessSLIC,  enforce_connectivity=True, max_iter=Bridson_Common.SLICIterations)
+		segments = slic(image, n_segments=numSegments, sigma=3, enforce_connectivity=True, max_iter=Bridson_Common.SLICIterations)
 	print("EE Max and Min of greyscaleImage:", np.amax(image), np.amin(image))
 	# print("SLIC:segmentImage setting segment Count")
 	# Bridson_Common.segmentCount = len(segments)

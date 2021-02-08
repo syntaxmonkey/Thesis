@@ -924,7 +924,7 @@ def line_intersect(segment1, segment2):
 		return
 	x = Ax1 + uA * (Ax2 - Ax1)
 	y = Ay1 + uA * (Ay2 - Ay1)
-	print("line_intersect x,y:", x, y)
+	# print("line_intersect x,y:", x, y)
 	return x, y
 
 

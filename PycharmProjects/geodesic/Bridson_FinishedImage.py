@@ -1711,6 +1711,61 @@ class FinishedImage:
 			self.ax.plot(line[-4:, 0], line[-4:, 1] * flip, color=colour, linewidth=lineWidth)  ## **** Actually draw the line.
 
 
+
+	def drawLinesCollisionBased(self, filename, drawSLICRegions = Bridson_Common.drawSLICRegions):
+		# This will be the new entry point.
+		self.globalLineList = []
+		# Generate the edge lines and add to list of lines.
+		edgeLines = self.generateEdgeLines(filename)
+		self.globalLineList.extend( edgeLines )
+		self.normalLineStartIndex = len(edgeLines)
+
+		print( "Global Lines List:", self.globalLineList )
+		print("Normal Line Start Index:", self.normalLineStartIndex)
+
+		for index in self.meshObjCollection.keys():
+			# Obtain the meshObj.
+			meshObj = self.meshObjCollection[index]
+			# Obtain the linePoints from the meshObj.
+			linePoints = meshObj.croppedLinePoints.copy()
+			self.globalLineList.extend( linePoints )
+
+		print( "Global Lines List:", self.globalLineList )
+		print("Global Lines List length:", len(self.globalLineList))
+		print("Global Lines List shape:", np.shape(self.globalLineList))
+		print("Global Last line:", self.globalLineList[-1])
+
+
+		# Create GridCell
+
+
+
+
+		pass
+
+
+
+	def generateEdgeLines(self, filename, percentage=1):
+		'''
+		Generate the edge lines.  The lines are a sequence of x,y points.
+		'''
+		contours = Bridson_Common.findEdgeContours(filename, percentage=percentage)
+		colour = 'r'
+		if Bridson_Common.productionMode:
+			colour = 'r'
+
+		edgeLines = []
+		for segment in contours:
+			# c1 = contours[0]
+			# c1 = np.reshape(c1, (c1.shape[0], c1.shape[2]) )
+			c1 = np.reshape(segment, (segment.shape[0], segment.shape[2]))
+			edgeLines.append( c1 )
+
+		return edgeLines
+		pass
+
+
+
 	def overlayEdges(self, filename, drawSLICRegions = Bridson_Common.drawSLICRegions, pointPercentage=1):
 		'''
 
@@ -1749,11 +1804,11 @@ class FinishedImage:
 
 			# self.ax.scatter(xvalues, yvalues*flip, color='r', linewidths=0.1)
 		else:
-			''' Overlay contours instead of just the dges. '''
+			''' Overlay contours instead of just the edges. '''
 			contours = Bridson_Common.findEdgeContours(filename, percentage=pointPercentage )
 			colour = 'r'
 			if Bridson_Common.productionMode:
-				colour = 'k'
+				colour = 'r'
 
 			for segment in contours:
 				# c1 = contours[0]
@@ -1777,8 +1832,8 @@ class FinishedImage:
 
 
 	def drawRegionLinesCollision(self, index, drawSLICRegions = Bridson_Common.drawSLICRegions):
-		while self.offsetIndex >= 0:
-			print("Processing Index:", self.offsetIndex, "Beginning:", self.offsetIndex, "Ending:", -self.offsetIndex)
+		while self.offsetIndex >= 5:
+			# print("Processing Index:", self.offsetIndex, "Beginning:", self.offsetIndex, "Ending:", -self.offsetIndex)
 			for index in self.meshObjCollection.keys():
 				self.iterateDrawCollision(index, drawSLICRegions = Bridson_Common.drawSLICRegions)
 			self.decrementOffsetIndex()

@@ -734,29 +734,35 @@ def indexValidation(filename):
 	if Bridson_Common.overlapEdges:
 		finishedImageSLIC.overlayEdges(filename, drawSLICRegions=True, pointPercentage=1)
 		finishedImageNoSLIC.overlayEdges(filename, drawSLICRegions=False, pointPercentage=1)
-		for index in meshObjCollection.keys():
+		# for index in meshObjCollection.keys():
 			# finishedImageSLIC.drawRegionContourLines( index,  drawSLICRegions=True )
 			# finishedImageNoSLIC.drawRegionContourLines( index,  drawSLICRegions=False )
-			finishedImageSLIC.drawRegionLinesCollision(index, drawSLICRegions=True)
-			finishedImageNoSLIC.drawRegionLinesCollision(index, drawSLICRegions=False)
+		finishedImageSLIC.drawRegionLinesCollision(index, drawSLICRegions=True)
+		finishedImageNoSLIC.drawRegionLinesCollision(index, drawSLICRegions=False)
 		Bridson_Common.saveImage(filename, "WithSLIC_percentage_1", finishedImageSLIC.fig )
 		Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_1", finishedImageNoSLIC.fig)
 	else:
 		''' Only draw the region lines. '''
-		for index in meshObjCollection.keys():
+		# for index in meshObjCollection.keys():
 			# finishedImageSLIC.drawRegionContourLines( index,  drawSLICRegions=True )
 			# finishedImageNoSLIC.drawRegionContourLines( index,  drawSLICRegions=False )
-			finishedImageSLIC.drawRegionLinesCollision(index, drawSLICRegions=True)
-			finishedImageNoSLIC.drawRegionLinesCollision(index, drawSLICRegions=False)
+		finishedImageSLIC.drawRegionLinesCollision(index, drawSLICRegions=True)
+		finishedImageNoSLIC.drawRegionLinesCollision(index, drawSLICRegions=False)
 		Bridson_Common.saveImage(filename, "WithSLIC", finishedImageSLIC.fig )
 		Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA", finishedImageNoSLIC.fig)
 
-	if Bridson_Common.overlapEdges:
-		for i in range(2,21,2):
-			finishedImageNoSLIC.removeOverlayEdges()
-			finishedImageNoSLIC.overlayEdges(filename, drawSLICRegions=False, pointPercentage=i)
-			Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_" + str(i), finishedImageNoSLIC.fig)
+	if False:
+		if Bridson_Common.overlapEdges:
+			# Iterate through the other percentages for overlay edges.
+			for i in range(2,21,2):
+				finishedImageNoSLIC.removeOverlayEdges()
+				finishedImageNoSLIC.overlayEdges(filename, drawSLICRegions=False, pointPercentage=i)
+				Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_" + str(i), finishedImageNoSLIC.fig)
 
+
+	if True:
+		print("Debugging for new code.")
+		finishedImageSLIC.drawLinesCollisionBased(filename, drawSLICRegions=True)
 
 	# Bridson_Common.lineWidthType = 'B'
 	# for index in meshObjCollection.keys():
@@ -902,26 +908,24 @@ def main():
 	# images.append('everyday-basics-i0ROGKijuek-unsplash.jpg')
 	# images.append('imani-bahati-LxVxPA1LOVM-unsplash.jpg')
 	# images.append('kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg')
-	images.append('joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg')
-	images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
-	images.append('luis-quintero-qKspdY9XUzs-unsplash-hand.jpg')
-	images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
-
 	# images.append('miguel-andrade-nAOZCYcLND8-unsplash.jpg')
 	# images.append('mr-o-k--ePHy6jg_7c-unsplash.jpg')
 
-
 	# Batch E
-	images.append('tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg')
-	images.append('jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg')
-	images.append('johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg')
-	images.append('john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg')
-	images.append('sven-read-oktY8r91C84-unsplash_tunnel.jpg')
-	images.append('marina-reich-NxWdBnFiikg-unsplash_streescene.jpg')
-	images.append('derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg')
-	images.append('mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg')
-	images.append('kathy-servian-EwsYJqS0D2E-unsplash_butterfly.jpg')
-	images.append('daniel-tuttle-_kGG9EyZxyA-unsplash_chicken.jpg')
+	images.append('joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg')
+	# images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
+	# images.append('luis-quintero-qKspdY9XUzs-unsplash-hand.jpg')
+	# images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
+	# images.append('tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg')
+	# images.append('jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg')
+	# images.append('johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg')
+	# images.append('john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg')
+	# images.append('sven-read-oktY8r91C84-unsplash_tunnel.jpg')
+	# images.append('marina-reich-NxWdBnFiikg-unsplash_streescene.jpg')
+	# images.append('derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg')
+	# images.append('mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg')
+	# images.append('kathy-servian-EwsYJqS0D2E-unsplash_butterfly.jpg')
+	# images.append('daniel-tuttle-_kGG9EyZxyA-unsplash_chicken.jpg')
 
 	semanticSegmentation = ['none']
 	# semanticSegmentation = ['none']
