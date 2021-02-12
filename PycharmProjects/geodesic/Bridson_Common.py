@@ -67,6 +67,7 @@ displayMesh = False
 
 generatePREImage=False
 overlapEdges = True
+defaultEdgePercentage = 3
 
 scalingFactor=5 # Scale factor.  Needs to be an integer.  Will increase the saved image dpi by this factor.
 lineWidthProportionalToRegion = True

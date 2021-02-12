@@ -1781,14 +1781,16 @@ class FinishedImage:
 		self.gridCells = GridCells2(self.limitX, self.limitY, maxSegmentLength)
 
 		# Adjust the line density of the edge lines.
-		for index in range(self.normalLineStartIndex):
-			lineObject = self.globalLineList[ index ]
-			# print("Original Line:", lineObject.getLinePoints() )
-			newLine = Bridson_Common.increaseLineDensity( lineObject.getLinePoints(), math.floor( self.maxSegmentLength / 2 ) )
-			newLine[:,1] *= -1 # Need to flip the y-values of the edge lines.
-			# print("New Line:", newLine)
-			# print("********************************************")
-			self.globalLineList[index] = LineObject( newLine, lineObject.lineIndex, lineObject.regionIndex )
+		if True:
+			for index in range(self.normalLineStartIndex):
+				lineObject = self.globalLineList[ index ]
+				# print("Original Line:", lineObject.getLinePoints() )
+				newLine = Bridson_Common.increaseLineDensity( lineObject.getLinePoints(), math.floor( self.maxSegmentLength / 2 ) )
+				# newLine = lineObject.getLinePoints()
+				newLine[:,1] *= -1 # Need to flip the y-values of the edge lines.
+				# print("New Line:", newLine)
+				# print("********************************************")
+				self.globalLineList[index] = LineObject( newLine, lineObject.lineIndex, lineObject.regionIndex )
 
 		# Add the edge lines to the gridCells
 		for index in range( self.normalLineStartIndex ):
@@ -1899,7 +1901,7 @@ class FinishedImage:
 			# line = line * Bridson_Common.mergeScale
 			# print("Drawing Edge Line:", line)
 			if Bridson_Common.productionMode:
-				colour = 'r'
+				colour = 'k'
 			self.ax.plot(line[:, 0], line[:, 1] * flip , color=colour, linewidth=lineWidth)  ## **** Actually draw the edge line.  For some reason, it doesn't need the flip.
 
 
@@ -1907,7 +1909,7 @@ class FinishedImage:
 
 
 
-	def generateEdgeLines(self, filename, percentage=1):
+	def generateEdgeLines(self, filename, percentage=Bridson_Common.defaultEdgePercentage):
 		'''
 		Generate the edge lines.  The lines are a sequence of x,y points.
 		'''

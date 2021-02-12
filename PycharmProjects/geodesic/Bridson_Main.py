@@ -743,8 +743,8 @@ def indexValidation(filename):
 		finishedImageSLIC.drawLinesCollisionBased(filename, drawSLICRegions=True)
 		finishedImageNoSLIC.drawLinesCollisionBased(filename, drawSLICRegions=False)
 
-		Bridson_Common.saveImage(filename, "WithSLIC_percentage_1", finishedImageSLIC.fig )
-		Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_1", finishedImageNoSLIC.fig)
+		Bridson_Common.saveImage(filename, "WithSLIC_percentage_" + str(Bridson_Common.defaultEdgePercentage), finishedImageSLIC.fig )
+		Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_" + str(Bridson_Common.defaultEdgePercentage), finishedImageNoSLIC.fig)
 	else:
 		''' Only draw the region lines. '''
 		# for index in meshObjCollection.keys():
