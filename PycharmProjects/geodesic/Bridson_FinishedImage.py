@@ -20,7 +20,9 @@ import Bridson_ColourOperations
 import cv2 as cv
 from skimage.future import graph
 import Bridson_Angles
+from GridCell import GridCells2, LineObject
 from numba import njit, jit_module
+
 
 np.set_printoptions(threshold=sys.maxsize)  # allow printing without ellipsis: https://stackoverflow.com/questions/44311664/print-numpy-array-without-ellipsis
 
@@ -50,7 +52,8 @@ class FinishedImage:
 		self.initializeOffsetIndex()
 
 	def initializeOffsetIndex(self):
-		self.offsetIndex = 10
+		# This is the effective erosion index when drawing lines.
+		self.offsetIndex = 0
 
 
 	def decrementOffsetIndex(self):
@@ -66,6 +69,11 @@ class FinishedImage:
 			self.ax.set_title('Merged Image - ' + filename + '\nSegments: ' + str(Bridson_Common.segmentCount) + ' - compactness: ' + str(Bridson_Common.compactnessSLIC) )
 
 	def setXLimit(self, left, right):
+		# Create this tuple for GridCell object.
+		if left > right:
+			self.limitX = (right, left)
+		else:
+			self.limitX = (left, right)
 		# print("Left:", left, "Right:", right)
 		self.fig
 		if Bridson_Common.productionMode:
@@ -77,6 +85,12 @@ class FinishedImage:
 		pass
 
 	def setYLimit(self, top, bottom):
+		# Create this tuple for GridCell object.
+		if bottom > top:
+			self.limitY = (top, bottom)
+		else:
+			self.limitY = (bottom, top)
+
 		# print("Left:", left, "Right:", right)
 		if Bridson_Common.productionMode:
 			self.ax.set_ylim(top=top, bottom=bottom)
@@ -1715,30 +1729,167 @@ class FinishedImage:
 	def drawLinesCollisionBased(self, filename, drawSLICRegions = Bridson_Common.drawSLICRegions):
 		# This will be the new entry point.
 		self.globalLineList = []
+		self.regionLineWidth = {}
 		# Generate the edge lines and add to list of lines.
 		edgeLines = self.generateEdgeLines(filename)
-		self.globalLineList.extend( edgeLines )
+
+
+		lineIndex = 0
+		# Add the edge lines to the globalLineList.
+		for line in edgeLines:
+			lineObject = LineObject(line, lineIndex, -1 )
+			self.globalLineList.append( lineObject ) # Setting the regionIndex to -1.
+			lineIndex += 1
+
 		self.normalLineStartIndex = len(edgeLines)
 
 		print( "Global Lines List:", self.globalLineList )
 		print("Normal Line Start Index:", self.normalLineStartIndex)
 
+		# Add lines to globalLineList.
 		for index in self.meshObjCollection.keys():
 			# Obtain the meshObj.
 			meshObj = self.meshObjCollection[index]
 			# Obtain the linePoints from the meshObj.
 			linePoints = meshObj.croppedLinePoints.copy()
-			self.globalLineList.extend( linePoints )
+			for line in linePoints:
+				# Only add line if it is has at least one element more than the erosionCount * 2.
+				if len(line) > Bridson_Common.erosionCount:
+					self.globalLineList.append( LineObject( line, lineIndex, index ) )
+					lineIndex += 1
+			self.regionLineWidth[ index ] = self.calculateLineWidth(index, np.size(meshObj.croppedLinePoints))
 
-		print( "Global Lines List:", self.globalLineList )
+
+		# print( "Global Lines List:", self.globalLineList )
 		print("Global Lines List length:", len(self.globalLineList))
 		print("Global Lines List shape:", np.shape(self.globalLineList))
-		print("Global Last line:", self.globalLineList[-1])
+		# print("Global Last line:", self.globalLineList[-1])
 
 
-		# Create GridCell
+		maxSegmentLength = 0
+		# Calculate the Longest Segment length.
+		for lineObject in self.globalLineList[self.normalLineStartIndex:]:
+			currentMaxLength = Bridson_Common.findLongestSegmentLength( lineObject.getLinePoints() )
+			if currentMaxLength > maxSegmentLength:
+				maxSegmentLength = currentMaxLength
+		self.maxSegmentLength = math.ceil( maxSegmentLength * 2 )
+		print("Max Segment Length:", self.maxSegmentLength)
+
+		# Create gridCell
+		self.gridCells = GridCells2(self.limitX, self.limitY, maxSegmentLength)
+
+		# Adjust the line density of the edge lines.
+		for index in range(self.normalLineStartIndex):
+			lineObject = self.globalLineList[ index ]
+			newLine = Bridson_Common.increaseLineDensity( lineObject.getLinePoints(), self.maxSegmentLength )
+			self.globalLineList[index] = LineObject( newLine, lineObject.lineIndex, lineObject.regionIndex )
+
+		# Add the edge lines to the gridCells
+		for index in range( self.normalLineStartIndex ):
+			lineObject = self.globalLineList[ index ]
+			self.gridCells.addLine(lineObject.getLinePoints(), 0, len(lineObject.getLinePoints()) - 1, index)  # Add the first etch.
+
+		# Add normal lines to the gridCells
+		# for line in lines:
+		for index in range(self.normalLineStartIndex, len(self.globalLineList)):
+			lineObject = self.globalLineList[ index ]
+			self.gridCells.addLine(lineObject.getLinePoints(), lineObject.getStartIndex(), lineObject.getEndIndex(), lineObject.getLineIndex())  # Add the first etch.
 
 
+		if drawSLICRegions == False:
+			flip = 1
+		else:
+			flip = -1
+
+		self.growLines()
+		self.generalDrawLines(flip)
+
+
+	def growLines(self):
+		# Grow the lines until they have a collision.  Only grows the segments that were removed from the erosion.
+		globalListingCopy = self.globalLineList.copy()
+		if True:
+			# Detect a collision for the segment.
+			# 7
+			# for i in range(boundaryIndex,boundaryIndex-4, -1):
+			for i in range(1000, 1, -1):
+				print("Index", i)
+				segmentAdded = False
+				for lineObject in globalListingCopy[ self.normalLineStartIndex: ]:
+					if True:
+						if lineObject.isBounded() == False:
+							added = lineObject.growDetectCollision(self.gridCells)
+							if added == True:
+								segmentAdded = True
+						else:
+							globalListingCopy.remove(lineObject)
+
+				if segmentAdded == False:
+					break
+
+
+
+	def generalDrawLines(self, flip):
+		# print("Length of linePoints:", len(linePoints))
+		if len(self.globalLineList) == 0:
+			print("No lines in global Line List")
+			return
+		currentLine = (self.globalLineList[ self.normalLineStartIndex ]).getLinePoints() * -100  # Set the starting line way off the current raster region.
+
+		# Draw the etch lines
+		for lineIndex in range(self.normalLineStartIndex, len(self.globalLineList)):
+			colour = '#711fa3'
+			lineObject = self.globalLineList[lineIndex]
+			lineWidth = self.regionLineWidth[ lineObject.regionIndex ]
+			# line = lineObject.getLinePoints().copy()
+			line = lineObject.getBoundedLinePoints()
+			line = line * Bridson_Common.mergeScale
+
+			# Add code to high light stable regions.
+			if self.regionCoherency[ lineObject.regionIndex ] >= self.stableThreshold:
+				colour = 'r'
+
+			colour = Bridson_Common.colourArray[(lineIndex % len(Bridson_Common.colourArray))]
+			# self.ax.plot(line[:, 0], line[:, 1]*flip, color=colour, linewidth=Bridson_Common.lineWidth)
+			if Bridson_Common.diagnosticMerge:
+				colour = Bridson_Common.colourArray[(lineIndex % len(Bridson_Common.colourArray))]
+				lineWidth = 0.1  # HERE
+				self.ax.plot(line[:, 0], line[:, 1] * flip, color=colour, linewidth=lineWidth)
+			else:
+				if Bridson_Common.productionMode:
+					colour = 'k'
+
+				# Do not implement tapering functionality yet.
+				# if Bridson_Common.drawTaperedLines:
+				# 	''' *** Draw the line with tapering. ***'''
+				# 	self.drawLineWithTaper( line, lineWidth, flip , colour)
+				# else:
+				'''************ Actually draw the line in production mode ****************'''
+				if self.offsetIndex == 0:
+					self.ax.plot(line[:, 0], line[:, 1] * flip, color=colour, linewidth=lineWidth)  ## **** Actually draw the line.
+				else:
+					self.ax.plot(line[self.offsetIndex:-self.offsetIndex, 0], line[self.offsetIndex:-self.offsetIndex, 1]*flip, color=colour, linewidth=lineWidth)  ## **** Actually draw the line.
+
+				if Bridson_Common.higlightTapered:
+					''' *********** Determine if the line is tapered ********************* '''
+					# print("Flip value: ", flip)
+					if self.isLineTapered(line[:3]):
+						# print("Plotting end point0:", line[0][0], line[0][1]*flip)
+						self.ax.plot(line[0][0], line[0][1] * flip, marker='|', markersize=2, color='r')  # Colour middle point.
+
+					if self.isLineTapered(line[-3:]) :
+						# print("Plotting end point-1:", line[-1][0], line[-1][1]*flip)
+						self.ax.plot(line[-1][0], line[-1][1] * flip, marker='_', markersize=2, color='g')  # Colour middle point.
+
+		# Draw the edge lines.
+		lineWidth = 1 # Make the edge lines have a width of 1.
+		for index in range(self.normalLineStartIndex):
+			lineObject = self.globalLineList[ index ]
+			line = lineObject.getLinePoints()
+			line = line * Bridson_Common.mergeScale
+			if Bridson_Common.productionMode:
+				colour = 'r'
+			self.ax.plot(line[:, 0], line[:, 1] * flip, color=colour, linewidth=lineWidth)  ## **** Actually draw the line.
 
 
 		pass

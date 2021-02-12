@@ -73,6 +73,8 @@ lineWidthProportionalToRegion = True
 lineWidthScale = 0.05
 lineWidthType = 'A'  # Valid options are 'A', 'B', and 'C'
 
+erosionCount = 5
+
 contourMinBBSizeScale = 0.1 # The minimum size of bounding box to retain.  If the bounding box of contour is smaller, remove the contour.  This a percentage of the original image's dimensions.
 
 diagnostic=False # Generally avoid dispalying meshes.  Only count the number of successful trifinder generations.
@@ -616,6 +618,34 @@ def findEdgeContours( imageName, percentage=2 ):
 	# contours, hierarchy = cv.findContours(closing, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_TC89_KCOS)
 
 	return contours
+
+
+def increaseLineDensity( line, k ):
+	'''
+
+	:param line:
+	:param k: desired density.  The points between the points should less than or equal to k.
+	:return: new line with new line point density.
+	'''
+	newLine = []
+	for index in range(len(line) - 1):
+		pointPair = line[index:index+2]
+		pairDistance = euclidean_distance(pointPair[0], pointPair[1])
+		newLine.append(pointPair[0])
+
+		if pairDistance > k: # If the distance between the pairs is greater than the minimum distance.
+			numberOfPoints = math.ceil( (pairDistance / k) ) - 1 # Determine the number of points we need to add.
+			# distanceBetweenPoints = pairDistance / ( numberOfPoints + 2 )
+			deltax = (pointPair[1][0] - pointPair[0][0])/(numberOfPoints + 1)
+			deltay = (pointPair[1][1] - pointPair[0][1])/(numberOfPoints + 1)
+			# newLine.append( pointPair[0] )
+			for i in range(numberOfPoints): # Only iterate through the points that need to be added.
+				newPoint = ( pointPair[0][0] + deltax*(i+1), pointPair[0][1] + deltay*(i+1) )
+				newLine.append( newPoint )
+		# else:
+		# 	newLine.append( pointPair[0] )
+	newLine.append(line[-1]) # Add the last point from the line.
+	return np.array(newLine)
 
 
 def findBoundingBox( points ):

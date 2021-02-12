@@ -423,8 +423,8 @@ class GridCells2:
 			self.LimitX = (self.LimitX[1], self.LimitX[0])
 		if self.LimitY[0] > self.LimitY[1]:
 			self.LimitY = (self.LimitY[1], self.LimitY[0])
-		print("Adjusted X Limits:", self.LimitX)
-		print("Adjusted Y Limits:", self.LimitY)
+		# print("Adjusted X Limits:", self.LimitX)
+		# print("Adjusted Y Limits:", self.LimitY)
 
 
 	def addLine(self, line, startIndex, endIndex, lineIndex):
@@ -454,7 +454,7 @@ class GridCells2:
 		# Iterate through all the sub-segments.
 		for index in range(len(segments) - 1):
 			segment = (segments[index], segments[index + 1])
-			print("addSegment:", segment)
+			# print("addSegment:", segment)
 			self.__addSegmentToCellMapping(segment, lineTuple)
 		pass
 
@@ -468,7 +468,7 @@ class GridCells2:
 		# Iterate through all the sub-segments.
 		for index in range(len(segments) - 1):
 			segment = (segments[index], segments[index + 1])
-			print("addSegment:", segment)
+			# print("addSegment:", segment)
 			self.__addSegmentToCellMapping(segment, lineIndex)
 			self.segmentMapLineIndex[ Bridson_Common.convertToTuple(segment) ] = lineIndex
 		pass
@@ -483,7 +483,7 @@ class GridCells2:
 		'''
 		Detect if there is a collision by adding this segment.
 		'''
-		print("Detecting Collision for segment:", Bridson_Common.convertToTuple(segment))
+		# print("Detecting Collision for segment:", Bridson_Common.convertToTuple(segment))
 		# Find which cell it belongs to.
 		cellContent0 = self.getCellContent(segment[0])
 		cellContent1 = self.getCellContent(segment[1])
@@ -502,13 +502,13 @@ class GridCells2:
 				intersection = Bridson_Common.line_intersect(originalSegmentTuple, Bridson_Common.convertToTuple(segment0))
 				if not intersection == None:
 					# Indicates that there is an intersection.
-					print("Intersection found at ", intersection)
+					# print("Intersection found at ", intersection)
 					if intersection not in line:
 						# Is point in the line?  If no, then it is a collision.
 						collisionDetected = True
 						pass
 					elif Bridson_Common.findSegment(originalSegmentTuple, lineTuple):
-						print("********* Intersection segment found in line", segment0, "************")
+						# print("********* Intersection segment found in line", segment0, "************")
 						# Is the segment in the line?  If it is, then probably not a collision because it is colinear.
 						pass
 					else:
@@ -521,13 +521,13 @@ class GridCells2:
 				intersection = Bridson_Common.line_intersect(originalSegmentTuple, Bridson_Common.convertToTuple(segment0))
 				if not intersection == None:
 					# Indicates that there is an intersection.
-					print("Intersection found at", intersection)
+					# print("Intersection found at", intersection)
 					if intersection not in line:
 						# Is the point in the line?  If no, then it is a collision.
 						collisionDetected = True
 						pass
 					elif Bridson_Common.findSegment(originalSegmentTuple, lineTuple):
-						print("********* Intersection segment found in line", segment0, "************")
+						# print("********* Intersection segment found in line", segment0, "************")
 						pass
 					else:
 						collisionDetected = True
@@ -543,8 +543,9 @@ class GridCells2:
 		'''
 		Detect if there is a collision by adding this segment.
 		'''
+		# print("original Segment Tuple:", segment)
 		originalSegmentTuple = Bridson_Common.convertToTuple(segment)
-		print("original Segment Tuple:", originalSegmentTuple)
+		# print("original Segment Tuple:", originalSegmentTuple)
 		# Consider the case where the segment has fallen outside the limits.
 		if not( originalSegmentTuple[0][0] > self.LimitX[0] and originalSegmentTuple[0][0] < self.LimitX[1] ):
 			return True
@@ -556,7 +557,7 @@ class GridCells2:
 		if not( originalSegmentTuple[1][1] > self.LimitY[0] and originalSegmentTuple[1][1] < self.LimitY[1] ):
 			return True
 
-		print("Detecting Collision for segment:", originalSegmentTuple)
+		# print("Detecting Collision for segment:", originalSegmentTuple)
 		# Find which cell it belongs to.
 		cellContent0 = self.getCellContent(segment[0])
 		cellContent1 = self.getCellContent(segment[1])
@@ -575,7 +576,7 @@ class GridCells2:
 				intersection = Bridson_Common.line_intersect(originalSegmentTuple, Bridson_Common.convertToTuple(segment0))
 				if not intersection == None:
 					# Indicates that there is an intersection.
-					print("Intersection found at ", intersection)
+					# print("Intersection found at ", intersection)
 					# Does the segment belong to the the current line index?
 					if Bridson_Common.convertToTuple(segment0) in self.segmentMapLineIndex and self.segmentMapLineIndex[ Bridson_Common.convertToTuple(segment0) ] == lineIndex:
 						# Other segment does belong to current line, therefore, not a real collision.
@@ -602,7 +603,7 @@ class GridCells2:
 				intersection = Bridson_Common.line_intersect(originalSegmentTuple, Bridson_Common.convertToTuple(segment0))
 				if not intersection == None:
 					# Indicates that there is an intersection.
-					print("Intersection found at", intersection)
+					# print("Intersection found at", intersection)
 					# Does the segment belong to the the current line index?
 					if Bridson_Common.convertToTuple(segment0) in self.segmentMapLineIndex and self.segmentMapLineIndex[Bridson_Common.convertToTuple(segment0)] == lineIndex:
 						# Other segment does belong to current line, therefore, not a real collision.
@@ -705,7 +706,7 @@ class GridCells2:
 		'''
 		Find the cells that the segment belongs to.
 		'''
-		print("Segment belongs to cell(s)", self.segmentToCell[Bridson_Common.convertToTuple(segment)])
+		# print("Segment belongs to cell(s)", self.segmentToCell[Bridson_Common.convertToTuple(segment)])
 		return self.segmentToCell[Bridson_Common.convertToTuple(segment)]
 		pass
 
@@ -724,7 +725,7 @@ class GridCells2:
 		cellIndex = self.__findPointCell(point)
 		if cellIndex not in self.cellContent:
 			self.cellContent[cellIndex] = []
-		print("Cell Content:", self.cellContent[cellIndex])
+		# print("Cell Content:", self.cellContent[cellIndex])
 		return self.cellContent[cellIndex]
 
 	def cellNeighbourContent(self, coordinates):
@@ -740,13 +741,14 @@ class GridCells2:
 		pass
 
 class LineObject:
-	def __init__(self, linePoints, lineIndex, erosionIndex=0):
+	def __init__(self, linePoints, lineIndex, regionIndex, erosionIndex=Bridson_Common.erosionCount):
 		# print("Creating LineObject:", linePoints)
 		self.__linePoints = linePoints # Should be private
 		self.lineIndex = lineIndex  # Publicly accessible.
 		self.endBounded = [False, False]  # Indicates if either end is bounded.  Index 0 is start index.  Index 1 is end index.
 		self.endIndeces = [0, 0] # Line endpoint indeces.
 		self.calculateStartIndeces( erosionIndex)
+		self.regionIndex = regionIndex
 
 	def __eq__(self, other):
 		if self.lineIndex == other.lineIndex:
@@ -843,8 +845,8 @@ class LineObject:
 
 
 	def calculateStartIndeces(self, erosionIndex):
-		if erosionIndex == 0:
-			lineLength =len( self.__linePoints )
+		lineLength = len(self.__linePoints)
+		if erosionIndex == 0 or lineLength < erosionIndex * 2:
 			midPoint = math.floor( lineLength / 2 )
 			self.endIndeces = [midPoint, midPoint + 1]
 		else:
@@ -875,6 +877,8 @@ class LineObject:
 		If it is bounded, return None.
 		'''
 		if self.endBounded[0] == False:
+			# print("Returning value for self.endIndeces[0]", self.endIndeces[0] - 1)
+			# print("from Line:", self.__linePoints)
 			return self.__linePoints[ self.endIndeces[0]-1: self.endIndeces[0]+1 ]
 		else:
 			return None
@@ -900,7 +904,7 @@ class LineObject:
 		:return: True if both sides of the line are bounded.
 		'''
 		if self.endBounded[0] == True and self.endBounded[1] == True:
-			print(">>>>>>>>>>>> Returning true for isBounded: ", self.lineIndex)
+			# print(">>>>>>>>>>>> Returning true for isBounded: ", self.lineIndex)
 			return True
 		else:
 			return False

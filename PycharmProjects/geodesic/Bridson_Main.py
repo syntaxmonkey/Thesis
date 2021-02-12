@@ -732,13 +732,17 @@ def indexValidation(filename):
 
 	print("0J")
 	if Bridson_Common.overlapEdges:
-		finishedImageSLIC.overlayEdges(filename, drawSLICRegions=True, pointPercentage=1)
-		finishedImageNoSLIC.overlayEdges(filename, drawSLICRegions=False, pointPercentage=1)
+		# finishedImageSLIC.overlayEdges(filename, drawSLICRegions=True, pointPercentage=1)
+		# finishedImageNoSLIC.overlayEdges(filename, drawSLICRegions=False, pointPercentage=1)
 		# for index in meshObjCollection.keys():
 			# finishedImageSLIC.drawRegionContourLines( index,  drawSLICRegions=True )
 			# finishedImageNoSLIC.drawRegionContourLines( index,  drawSLICRegions=False )
-		finishedImageSLIC.drawRegionLinesCollision(index, drawSLICRegions=True)
-		finishedImageNoSLIC.drawRegionLinesCollision(index, drawSLICRegions=False)
+		# finishedImageSLIC.drawRegionLinesCollision(index, drawSLICRegions=True)
+		# finishedImageNoSLIC.drawRegionLinesCollision(index, drawSLICRegions=False)
+
+		finishedImageSLIC.drawLinesCollisionBased(filename, drawSLICRegions=True)
+		finishedImageNoSLIC.drawLinesCollisionBased(filename, drawSLICRegions=False)
+
 		Bridson_Common.saveImage(filename, "WithSLIC_percentage_1", finishedImageSLIC.fig )
 		Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_1", finishedImageNoSLIC.fig)
 	else:
@@ -760,10 +764,10 @@ def indexValidation(filename):
 				Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_" + str(i), finishedImageNoSLIC.fig)
 
 
-	if True:
+	if False:
 		print("Debugging for new code.")
 		finishedImageSLIC.drawLinesCollisionBased(filename, drawSLICRegions=True)
-
+		Bridson_Common.saveImage(filename, "WithSLIC_Collision", finishedImageSLIC.fig)
 	# Bridson_Common.lineWidthType = 'B'
 	# for index in meshObjCollection.keys():
 	# 	finishedImageNoSLIC_B.drawRegionContourLines(index, drawSLICRegions=False)
