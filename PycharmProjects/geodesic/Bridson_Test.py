@@ -2158,7 +2158,7 @@ if False:
 
 
 
-if True:
+if False:
 	''' Determine pixels in line segment.'''
 	import datetime
 	import matplotlib
@@ -2489,7 +2489,12 @@ Do we then care the order of the lines when drawing?
 
 
 
-
+if True:
+	import Bridson_Common
+	line = np.array( [(0,99), (-400,99)] )
+	k = 3
+	newLine = Bridson_Common.increaseLineDensity( line, k)
+	print(newLine)
 
 # img = plot2img( fig )
 	# print('shape:', np.shape(img))

@@ -437,6 +437,8 @@ class GridCells2:
 		'''
 		# tupleLine = Bridson_Common.convertToTuple(line)
 		# Iterate through all the sub-segments.
+		# print("StartIndex:endIndex:", startIndex, endIndex)
+		# print("Line:", line)
 		for index in range(startIndex, endIndex):
 			# for index in range(len(line) - 1):
 			segment = (line[index], line[index + 1])
@@ -848,7 +850,7 @@ class LineObject:
 		lineLength = len(self.__linePoints)
 		if erosionIndex == 0 or lineLength < erosionIndex * 2:
 			midPoint = math.floor( lineLength / 2 )
-			self.endIndeces = [midPoint, midPoint + 1]
+			self.endIndeces = [midPoint, midPoint + 2]
 		else:
 			self.endIndeces = [erosionIndex, len(self.__linePoints) - erosionIndex]
 		return
@@ -860,6 +862,7 @@ class LineObject:
 		'''
 		:return: Return the line points based on the current endpoint indeces.
 		'''
+		# print("getBoundedLinePoints indeces:", self.endIndeces, "for line length:", len(self.__linePoints))
 		return self.__linePoints[ self.endIndeces[0] : self.endIndeces[1] + 1 ]  # Need to increment the end index by 1 because the array indexing is not inclusive of last element.
 
 	def getStartIndex(self):

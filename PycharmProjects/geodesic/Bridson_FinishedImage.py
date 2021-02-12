@@ -1669,6 +1669,7 @@ class FinishedImage:
 		# width = (-0.5 * self.regionIntensityMap[index] / 128) + 1.01
 		if Bridson_Common.lineWidthType == 'A':
 			width = ((-1.0 + minsize)* self.regionIntensityMap[index] / 255) + 1.01
+			width = width * 0.5 # kludge
 		elif Bridson_Common.lineWidthType == 'B':
 			width = ((((-1.0) * self.regionIntensityMap[index] / 255) + 1.0) * Bridson_Common.lineWidthScale * self.regionLongestLength[index]) + minsize
 		elif Bridson_Common.lineWidthType == 'C':
@@ -1747,17 +1748,18 @@ class FinishedImage:
 		print("Normal Line Start Index:", self.normalLineStartIndex)
 
 		# Add lines to globalLineList.
-		for index in self.meshObjCollection.keys():
+		for regionIndex in self.meshObjCollection.keys():
 			# Obtain the meshObj.
-			meshObj = self.meshObjCollection[index]
+			meshObj = self.meshObjCollection[regionIndex]
 			# Obtain the linePoints from the meshObj.
 			linePoints = meshObj.croppedLinePoints.copy()
 			for line in linePoints:
 				# Only add line if it is has at least one element more than the erosionCount * 2.
-				if len(line) > Bridson_Common.erosionCount:
-					self.globalLineList.append( LineObject( line, lineIndex, index ) )
+				if len(line) > Bridson_Common.erosionCount and len(line) >= Bridson_Common.minLineLength:
+					# print("Adding etch line:", line)
+					self.globalLineList.append( LineObject( line, lineIndex, regionIndex ) )
 					lineIndex += 1
-			self.regionLineWidth[ index ] = self.calculateLineWidth(index, np.size(meshObj.croppedLinePoints))
+			self.regionLineWidth[ regionIndex ] = self.calculateLineWidth(regionIndex, np.size(meshObj.croppedLinePoints))
 
 
 		# print( "Global Lines List:", self.globalLineList )
@@ -1781,13 +1783,17 @@ class FinishedImage:
 		# Adjust the line density of the edge lines.
 		for index in range(self.normalLineStartIndex):
 			lineObject = self.globalLineList[ index ]
-			newLine = Bridson_Common.increaseLineDensity( lineObject.getLinePoints(), self.maxSegmentLength )
+			# print("Original Line:", lineObject.getLinePoints() )
+			newLine = Bridson_Common.increaseLineDensity( lineObject.getLinePoints(), math.floor( self.maxSegmentLength / 2 ) )
+			newLine[:,1] *= -1 # Need to flip the y-values of the edge lines.
+			# print("New Line:", newLine)
+			# print("********************************************")
 			self.globalLineList[index] = LineObject( newLine, lineObject.lineIndex, lineObject.regionIndex )
 
 		# Add the edge lines to the gridCells
 		for index in range( self.normalLineStartIndex ):
 			lineObject = self.globalLineList[ index ]
-			self.gridCells.addLine(lineObject.getLinePoints(), 0, len(lineObject.getLinePoints()) - 1, index)  # Add the first etch.
+			self.gridCells.addLine(lineObject.getLinePoints(), 0, len(lineObject.getLinePoints()) - 1, lineObject.getLineIndex() )  # Add the first etch.
 
 		# Add normal lines to the gridCells
 		# for line in lines:
@@ -1800,6 +1806,8 @@ class FinishedImage:
 			flip = 1
 		else:
 			flip = -1
+
+		# flip = -1 ## For some reason, flip always needs to be -1 with this implementation.
 
 		self.growLines()
 		self.generalDrawLines(flip)
@@ -1818,7 +1826,7 @@ class FinishedImage:
 				for lineObject in globalListingCopy[ self.normalLineStartIndex: ]:
 					if True:
 						if lineObject.isBounded() == False:
-							added = lineObject.growDetectCollision(self.gridCells)
+							added = lineObject.growDetectCollision( self.gridCells )
 							if added == True:
 								segmentAdded = True
 						else:
@@ -1834,62 +1842,65 @@ class FinishedImage:
 		if len(self.globalLineList) == 0:
 			print("No lines in global Line List")
 			return
-		currentLine = (self.globalLineList[ self.normalLineStartIndex ]).getLinePoints() * -100  # Set the starting line way off the current raster region.
+		# currentLine = (self.globalLineList[ self.normalLineStartIndex ]).getLinePoints() * -100  # Set the starting line way off the current raster region.
 
-		# Draw the etch lines
-		for lineIndex in range(self.normalLineStartIndex, len(self.globalLineList)):
-			colour = '#711fa3'
-			lineObject = self.globalLineList[lineIndex]
-			lineWidth = self.regionLineWidth[ lineObject.regionIndex ]
-			# line = lineObject.getLinePoints().copy()
-			line = lineObject.getBoundedLinePoints()
-			line = line * Bridson_Common.mergeScale
+		if True:
+			# Draw the etch lines
+			for lineIndex in range(self.normalLineStartIndex, len(self.globalLineList)):
+				colour = '#711fa3'
+				lineObject = self.globalLineList[lineIndex]
+				lineWidth = self.regionLineWidth[ lineObject.regionIndex ]
+				# line = lineObject.getLinePoints().copy()
+				line = lineObject.getBoundedLinePoints()
+				line = line * Bridson_Common.mergeScale
 
-			# Add code to high light stable regions.
-			if self.regionCoherency[ lineObject.regionIndex ] >= self.stableThreshold:
-				colour = 'r'
+				# Add code to high light stable regions.
+				if self.regionCoherency[ lineObject.regionIndex ] >= self.stableThreshold:
+					colour = 'r'
 
-			colour = Bridson_Common.colourArray[(lineIndex % len(Bridson_Common.colourArray))]
-			# self.ax.plot(line[:, 0], line[:, 1]*flip, color=colour, linewidth=Bridson_Common.lineWidth)
-			if Bridson_Common.diagnosticMerge:
 				colour = Bridson_Common.colourArray[(lineIndex % len(Bridson_Common.colourArray))]
-				lineWidth = 0.1  # HERE
-				self.ax.plot(line[:, 0], line[:, 1] * flip, color=colour, linewidth=lineWidth)
-			else:
-				if Bridson_Common.productionMode:
-					colour = 'k'
-
-				# Do not implement tapering functionality yet.
-				# if Bridson_Common.drawTaperedLines:
-				# 	''' *** Draw the line with tapering. ***'''
-				# 	self.drawLineWithTaper( line, lineWidth, flip , colour)
-				# else:
-				'''************ Actually draw the line in production mode ****************'''
-				if self.offsetIndex == 0:
-					self.ax.plot(line[:, 0], line[:, 1] * flip, color=colour, linewidth=lineWidth)  ## **** Actually draw the line.
+				# self.ax.plot(line[:, 0], line[:, 1]*flip, color=colour, linewidth=Bridson_Common.lineWidth)
+				if Bridson_Common.diagnosticMerge:
+					colour = Bridson_Common.colourArray[(lineIndex % len(Bridson_Common.colourArray))]
+					lineWidth = 0.1  # HERE
+					self.ax.plot(line[:, 0], line[:, 1] * flip, color=colour, linewidth=lineWidth)
 				else:
-					self.ax.plot(line[self.offsetIndex:-self.offsetIndex, 0], line[self.offsetIndex:-self.offsetIndex, 1]*flip, color=colour, linewidth=lineWidth)  ## **** Actually draw the line.
+					if Bridson_Common.productionMode:
+						colour = 'k'
 
-				if Bridson_Common.higlightTapered:
-					''' *********** Determine if the line is tapered ********************* '''
-					# print("Flip value: ", flip)
-					if self.isLineTapered(line[:3]):
-						# print("Plotting end point0:", line[0][0], line[0][1]*flip)
-						self.ax.plot(line[0][0], line[0][1] * flip, marker='|', markersize=2, color='r')  # Colour middle point.
+					# Do not implement tapering functionality yet.
+					# if Bridson_Common.drawTaperedLines:
+					# 	''' *** Draw the line with tapering. ***'''
+					# 	self.drawLineWithTaper( line, lineWidth, flip , colour)
+					# else:
+					'''************ Actually draw the line in production mode ****************'''
+					if self.offsetIndex == 0:
+						# print("Drawing production Line:")
+						self.ax.plot(line[:, 0], line[:, 1] * flip, color=colour, linewidth=lineWidth)  ## **** Actually draw the line.
+					else:
+						self.ax.plot(line[self.offsetIndex:-self.offsetIndex, 0], line[self.offsetIndex:-self.offsetIndex, 1]*flip, color=colour, linewidth=lineWidth)  ## **** Actually draw the line.
 
-					if self.isLineTapered(line[-3:]) :
-						# print("Plotting end point-1:", line[-1][0], line[-1][1]*flip)
-						self.ax.plot(line[-1][0], line[-1][1] * flip, marker='_', markersize=2, color='g')  # Colour middle point.
+					if Bridson_Common.higlightTapered:
+						''' *********** Determine if the line is tapered ********************* '''
+						# print("Flip value: ", flip)
+						if self.isLineTapered(line[:3]):
+							# print("Plotting end point0:", line[0][0], line[0][1]*flip)
+							self.ax.plot(line[0][0], line[0][1] * flip, marker='|', markersize=2, color='r')  # Colour middle point.
+
+						if self.isLineTapered(line[-3:]) :
+							# print("Plotting end point-1:", line[-1][0], line[-1][1]*flip)
+							self.ax.plot(line[-1][0], line[-1][1] * flip, marker='_', markersize=2, color='g')  # Colour middle point.
 
 		# Draw the edge lines.
-		lineWidth = 1 # Make the edge lines have a width of 1.
+		lineWidth = 0.25 # Make the edge lines have a width of 1.
 		for index in range(self.normalLineStartIndex):
 			lineObject = self.globalLineList[ index ]
 			line = lineObject.getLinePoints()
-			line = line * Bridson_Common.mergeScale
+			# line = line * Bridson_Common.mergeScale
+			# print("Drawing Edge Line:", line)
 			if Bridson_Common.productionMode:
 				colour = 'r'
-			self.ax.plot(line[:, 0], line[:, 1] * flip, color=colour, linewidth=lineWidth)  ## **** Actually draw the line.
+			self.ax.plot(line[:, 0], line[:, 1] * flip , color=colour, linewidth=lineWidth)  ## **** Actually draw the edge line.  For some reason, it doesn't need the flip.
 
 
 		pass

@@ -37,7 +37,7 @@ SLICGrey = False
 productionMode = True
 displayGrid = False
 bulkGeneration = True
-smallBatch=True
+smallBatch=False
 diagnosticDisplay=False # Enable/Disable pairing diagnostics
 diagnosticDisplayCount=20
 diagnosticMerge=False
@@ -51,7 +51,7 @@ else:
 	os.mkdir("./output")
 
 if bulkGeneration:
-	# sys.stdout = open("./output/detailLogs.txt", "a")
+	sys.stdout = open("./output/detailLogs.txt", "a")
 	pass
 
 #####################################
@@ -73,7 +73,8 @@ lineWidthProportionalToRegion = True
 lineWidthScale = 0.05
 lineWidthType = 'A'  # Valid options are 'A', 'B', and 'C'
 
-erosionCount = 5
+erosionCount = 0 # This is the number of edge points of a line to erode.  If the value is 0, start at the middle of each line.
+minLineLength = 10
 
 contourMinBBSizeScale = 0.1 # The minimum size of bounding box to retain.  If the bounding box of contour is smaller, remove the contour.  This a percentage of the original image's dimensions.
 

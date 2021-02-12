@@ -917,19 +917,19 @@ def main():
 
 	# Batch E
 	images.append('joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg')
-	# images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
-	# images.append('luis-quintero-qKspdY9XUzs-unsplash-hand.jpg')
-	# images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
-	# images.append('tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg')
-	# images.append('jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg')
-	# images.append('johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg')
-	# images.append('john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg')
-	# images.append('sven-read-oktY8r91C84-unsplash_tunnel.jpg')
-	# images.append('marina-reich-NxWdBnFiikg-unsplash_streescene.jpg')
-	# images.append('derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg')
-	# images.append('mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg')
-	# images.append('kathy-servian-EwsYJqS0D2E-unsplash_butterfly.jpg')
-	# images.append('daniel-tuttle-_kGG9EyZxyA-unsplash_chicken.jpg')
+	images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
+	images.append('luis-quintero-qKspdY9XUzs-unsplash-hand.jpg')
+	images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
+	images.append('tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg')
+	images.append('jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg')
+	images.append('johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg')
+	images.append('john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg')
+	images.append('sven-read-oktY8r91C84-unsplash_tunnel.jpg')
+	images.append('marina-reich-NxWdBnFiikg-unsplash_streescene.jpg')
+	images.append('derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg')
+	images.append('mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg')
+	images.append('kathy-servian-EwsYJqS0D2E-unsplash_butterfly.jpg')
+	images.append('daniel-tuttle-_kGG9EyZxyA-unsplash_chicken.jpg')
 
 	semanticSegmentation = ['none']
 	# semanticSegmentation = ['none']
