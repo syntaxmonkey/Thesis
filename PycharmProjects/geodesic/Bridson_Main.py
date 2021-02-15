@@ -388,7 +388,8 @@ def drawRegionLines( filename, finishedImage, regionList):
 	flatMeshObjDict = {}
 	trifindersuccessDict = {}
 	previouslyPickled = False
-	if os.path.exists( pickleFilename ) == True:
+	# if os.path.exists( pickleFilename ) == True:  # PICKLE - re-enable after code instability.
+	if False:
 		print("Pickle file exists:", pickleFilename)
 		previouslyPickled = True
 		dataStructure = Bridson_Common.load_object(pickleFilename)
@@ -739,12 +740,12 @@ def indexValidation(filename):
 			# finishedImageNoSLIC.drawRegionContourLines( index,  drawSLICRegions=False )
 		# finishedImageSLIC.drawRegionLinesCollision(index, drawSLICRegions=True)
 		# finishedImageNoSLIC.drawRegionLinesCollision(index, drawSLICRegions=False)
+		percent = 0
+		finishedImageSLIC.drawLinesCollisionBased(filename, percentage=percent, drawSLICRegions=True)
+		finishedImageNoSLIC.drawLinesCollisionBased(filename, percentage=percent, drawSLICRegions=False)
 
-		finishedImageSLIC.drawLinesCollisionBased(filename, drawSLICRegions=True)
-		finishedImageNoSLIC.drawLinesCollisionBased(filename, drawSLICRegions=False)
-
-		Bridson_Common.saveImage(filename, "WithSLIC_percentage_" + str(Bridson_Common.defaultEdgePercentage), finishedImageSLIC.fig )
-		Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_" + str(Bridson_Common.defaultEdgePercentage), finishedImageNoSLIC.fig)
+		Bridson_Common.saveImage(filename, "WithSLIC_percentage_" + str(percent) , finishedImageSLIC.fig )
+		Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_" + str(percent) , finishedImageNoSLIC.fig)
 	else:
 		''' Only draw the region lines. '''
 		# for index in meshObjCollection.keys():
@@ -764,10 +765,15 @@ def indexValidation(filename):
 				Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_" + str(i), finishedImageNoSLIC.fig)
 
 
-	if False:
-		print("Debugging for new code.")
-		finishedImageSLIC.drawLinesCollisionBased(filename, drawSLICRegions=True)
-		Bridson_Common.saveImage(filename, "WithSLIC_Collision", finishedImageSLIC.fig)
+	if True:
+		# print("Debugging for new code.")
+		# for percent in [1, 2, 5, 10, 20]:
+		for percent in [5]:
+			finishedImageNoSLIC.clearAllObjects()
+			# finishedImageNoSLIC.reinitializeAxes()
+			finishedImageNoSLIC.drawLinesCollisionBased(filename, percentage=percent, drawSLICRegions=False)
+			Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_" + str(percent), finishedImageNoSLIC.fig)
+
 	# Bridson_Common.lineWidthType = 'B'
 	# for index in meshObjCollection.keys():
 	# 	finishedImageNoSLIC_B.drawRegionContourLines(index, drawSLICRegions=False)
@@ -1031,7 +1037,7 @@ def main():
 			Have to implement this looping mechanism.
 			For some reason, if we provide the whole list to the pool, the pool eventually hangs or all the chidren crash.
 		'''
-		blocks = coreCount * 2
+		blocks = Bridson_Common.blockCount
 		iterations = int(len(variables) / blocks + 1)
 
 		print("CoreCount:", coreCount)

@@ -37,13 +37,15 @@ SLICGrey = False
 productionMode = True
 displayGrid = False
 bulkGeneration = True
-smallBatch=False
+smallBatch=True
 diagnosticDisplay=False # Enable/Disable pairing diagnostics
 diagnosticDisplayCount=20
 diagnosticMerge=False
 
 
 coreCount = 3
+blockCount = coreCount * 2
+# blockCount = coreCount
 if os.path.exists("./output") == True:
 	if os.path.isdir("./output") == False:
 		exit(-1)
@@ -51,7 +53,7 @@ else:
 	os.mkdir("./output")
 
 if bulkGeneration:
-	sys.stdout = open("./output/detailLogs.txt", "a")
+	# sys.stdout = open("./output/detailLogs.txt", "a")
 	pass
 
 #####################################
@@ -67,15 +69,18 @@ displayMesh = False
 
 generatePREImage=False
 overlapEdges = True
-defaultEdgePercentage = 3
+defaultEdgePercentage = 5
+minEdgeLineLength = 5
+growEdgeLines = True
 
 scalingFactor=5 # Scale factor.  Needs to be an integer.  Will increase the saved image dpi by this factor.
 lineWidthProportionalToRegion = True
 lineWidthScale = 0.05
 lineWidthType = 'A'  # Valid options are 'A', 'B', and 'C'
 
-erosionCount = 0 # This is the number of edge points of a line to erode.  If the value is 0, start at the middle of each line.
-minLineLength = 10
+erosionCount = 4 # This is the number of edge points of a line to erode.  If the value is 0, start at the middle of each line.
+minLineLength = 4
+randomLineSeed = False
 
 contourMinBBSizeScale = 0.1 # The minimum size of bounding box to retain.  If the bounding box of contour is smaller, remove the contour.  This a percentage of the original image's dimensions.
 

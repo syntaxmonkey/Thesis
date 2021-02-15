@@ -2489,12 +2489,29 @@ Do we then care the order of the lines when drawing?
 
 
 
-if True:
+if False:
 	import Bridson_Common
 	line = np.array( [(0,99), (-400,99)] )
 	k = 3
 	newLine = Bridson_Common.increaseLineDensity( line, k)
 	print(newLine)
+
+
+if True:
+	a = [[361, 480],[11,22],[11,11],[22,22]]
+	b = [[361, 480],[11,22],[33,44]]
+	c = [[361, 480],[11,22],[66,77]]
+	listing = []
+	listing.append( np.array(a, dtype=np.int32 ) )
+	listing.append(np.array(b, dtype=np.int32) )
+	listing.append(np.array(c, dtype=np.int32) )
+
+
+	# Sort based on length - https: // stackoverflow.com / questions / 30346356 / how - to - sort - list - of - lists - according - to - length - of - sublists / 30346379
+	print(listing)
+
+	listing.sort( key=len )
+	print("post sort listing:", listing)
 
 # img = plot2img( fig )
 	# print('shape:', np.shape(img))
