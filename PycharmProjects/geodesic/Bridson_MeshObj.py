@@ -1446,7 +1446,7 @@ class MeshObject:
 
 	def checkLinePoints(self):
 		# print("LinePoints")
-		print(np.shape(self.linePoints))
+		# print(np.shape(self.linePoints))
 		if self.linePoints == None:
 			print("linePoints not initialized yet.")
 			return

@@ -37,14 +37,13 @@ SLICGrey = False
 productionMode = True
 displayGrid = False
 bulkGeneration = True
-smallBatch=True
+smallBatch=False
 diagnosticDisplay=False # Enable/Disable pairing diagnostics
 diagnosticDisplayCount=20
 diagnosticMerge=False
 
-
 coreCount = 3
-blockCount = coreCount * 2
+blockCount = coreCount
 # blockCount = coreCount
 if os.path.exists("./output") == True:
 	if os.path.isdir("./output") == False:
@@ -52,9 +51,9 @@ if os.path.exists("./output") == True:
 else:
 	os.mkdir("./output")
 
-if bulkGeneration:
-	# sys.stdout = open("./output/detailLogs.txt", "a")
-	pass
+if smallBatch == False:
+	if bulkGeneration:
+		sys.stdout = open("./output/detailLogs.txt", "a")
 
 #####################################
 
@@ -71,7 +70,14 @@ generatePREImage=False
 overlapEdges = True
 defaultEdgePercentage = 5
 minEdgeLineLength = 5
-growEdgeLines = True
+growEdgeLines = False
+edgeLineWidthPercentile = 60
+
+wiggleScale = 4 # Maximum number of pixels to wiggle line when calculating aberrations.
+
+growEdgeLineCountIterations = 100
+growLinesCountIterations = 100 # Number of iterations to grow the lines.  Growing only includes existing lines.
+extendLineCountIterations = 100 # Number of iterations to extend the lines.  Extending lines adds new segments.
 
 scalingFactor=5 # Scale factor.  Needs to be an integer.  Will increase the saved image dpi by this factor.
 lineWidthProportionalToRegion = True
@@ -79,6 +85,7 @@ lineWidthScale = 0.05
 lineWidthType = 'A'  # Valid options are 'A', 'B', and 'C'
 
 erosionCount = 4 # This is the number of edge points of a line to erode.  If the value is 0, start at the middle of each line.
+aggressiveScale = 3 # Number of times to apply erosionCount for aggressive erosion.
 minLineLength = 4
 randomLineSeed = False
 
@@ -240,6 +247,8 @@ def scaleArray( array):
 	# newArray = np.repeat(newArray, [scalingFactor], axis=1)
 	# return newArray
 	return array
+
+
 
 
 
@@ -440,6 +449,15 @@ def euclidean_distance(a, b):
 
 jit_module(nopython=True,fastmath=True)
 
+def getGreyscaleImage( filename ):
+	image = cv.imread( filename )
+	gray = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
+	imageArray = np.asarray(gray, dtype=np.uint8)  # Need to convert to uint8.  Image.fromarray will throw an error otherwise.
+	# greyscaleImage = np.asarray(Image.fromarray(image).convert('L'))
+	return imageArray
+	pass
+
+
 def findSegment(segment, line):
 
 	print("findSegment - segment:", segment)
@@ -559,7 +577,8 @@ def cannyEdge(filename, percentage=2):
 
 	print("current percent:", edgePixels / totalPixels * 100.0)
 	print("total percent:", totalPixels * percentage / 100.0)
-	while edgePixels  > (totalPixels * percentage / 100.0):
+	iterations = 0
+	while edgePixels  > (totalPixels * percentage / 100.0) and iterations < 255:
 		# print("Canny iteration:", thresholdAdjust)
 		img = origImg.copy()
 		img = cv.GaussianBlur(img, (3,3), 0) # Further reduces noise.
@@ -581,6 +600,7 @@ def cannyEdge(filename, percentage=2):
 		xvalues, yvalues = np.where(edges == 0)
 		edgePixels = len(xvalues)
 		thresholdAdjust += 1
+		iterations += 1
 	# print("Edges:", edges)
 	# print("min of Edges:", np.min(edges))
 	# print("max of Edges:", np.max(edges))
@@ -976,6 +996,19 @@ def findLongestSegmentLength(line):
 
 
 
+def genActualFileName(filename, postFix):
+	actualFileName = "./output/" + filename + "_segments_" + str(segmentCount)
+
+	if SLIC0:
+		actualFileName = actualFileName + "_compactness_SLIC0"
+	else:
+		actualFileName = actualFileName + "_compactness_" + str(compactnessSLIC)
+
+	actualFileName = actualFileName + "_attractThreshold_" + str(diffAttractPercentile) + "_cnn_" + semanticSegmentation + "_semanticRatio_" + str(semanticSegmentationRatio) + "_contrast_" + str(contrastFactor) + "_" + postFix + ".png"
+	return actualFileName
+
+def fileExists(filename):
+	return os.path.exists(filename)
 
 # Place this method outside of the jit_module so it is not compiled.
 def saveImage(filename, postFix, fig):
@@ -987,13 +1020,14 @@ def saveImage(filename, postFix, fig):
 
 	try:
 		# Save the figures to files: https://stackoverflow.com/questions/4325733/save-a-subplot-in-matplotlib
-		actualFileName = "./output/" + filename + "_segments_"+ str(segmentCount)
-		if SLIC0:
-			actualFileName = actualFileName + "_compactness_SLIC0"
-		else:
-			actualFileName = actualFileName + "_compactness_" + str(compactnessSLIC)
-
-		actualFileName = actualFileName + "_attractThreshold_" + str(diffAttractPercentile) + "_cnn_" + semanticSegmentation + "_semanticRatio_" + str(semanticSegmentationRatio) + "_contrast_" + str(contrastFactor)  + "_" + postFix + ".png"
+		# actualFileName = "./output/" + filename + "_segments_"+ str(segmentCount)
+		# if SLIC0:
+		# 	actualFileName = actualFileName + "_compactness_SLIC0"
+		# else:
+		# 	actualFileName = actualFileName + "_compactness_" + str(compactnessSLIC)
+		#
+		# actualFileName = actualFileName + "_attractThreshold_" + str(diffAttractPercentile) + "_cnn_" + semanticSegmentation + "_semanticRatio_" + str(semanticSegmentationRatio) + "_contrast_" + str(contrastFactor)  + "_" + postFix + ".png"
+		actualFileName = genActualFileName(filename, postFix)
 		if productionMode:
 			fig.savefig(actualFileName, dpi=100 * scalingFactor, bbox_inches='tight', pad_inches=0) # https://chartio.com/resources/tutorials/how-to-save-a-plot-to-a-file-using-matplotlib/
 			# https://matplotlib.org/tutorials/intermediate/tight_layout_guide.html

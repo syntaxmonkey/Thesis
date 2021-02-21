@@ -44,6 +44,8 @@ def saveImage(filename, postFix, image):
 	except Exception as e:
 		print("Error saving file:", e)
 
+
+
 def segmentImage(imageName, numSegments):
 	# print("SLIC Generating segments:", numSegments)
 	# load the image and convert it to a floating point data type

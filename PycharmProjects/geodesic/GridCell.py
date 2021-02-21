@@ -2,7 +2,7 @@ import numpy as np
 import math
 import Bridson_Common
 
-
+from numba import  jit_module
 
 class LineEndPointIndex:
 	def __init__(self):
@@ -725,10 +725,13 @@ class LineObject:
 		# print("Creating LineObject:", linePoints)
 		self.__linePoints = linePoints # Should be private
 		self.lineIndex = lineIndex  # Publicly accessible.
-		self.unbound()  # Indicates if either end is bounded.  Index 0 is start index.  Index 1 is end index.
+		self.unbound()
 		self.endIndeces = [0, 0] # Line endpoint indeces.
 		self.calculateStartIndeces( erosionIndex)
 		self.regionIndex = regionIndex
+		self.pointIntensity = [] # Will store the intensities for each point.
+		self.intensityAverage = 0 # Will be the intensity average for the line.
+		self.calculateDirection()
 
 	def __eq__(self, other):
 		if self.lineIndex == other.lineIndex:
@@ -737,7 +740,90 @@ class LineObject:
 			return False
 
 	def unbound(self):
+		# Indicates if either end is bounded.  Index 0 is start index.  Index 1 is end index.
 		self.endBounded = [False, False]
+
+
+	def populateIntensity(self, greyImageArray, flip):
+		self.pointIntensity = [0] * len(self.__linePoints)
+
+		intensityTotal = 0
+		count = 0
+		for index in range( self.endIndeces[0], self.endIndeces[1], 1):
+			point = self.__linePoints[ index ]
+			x, y = point
+			x = int(x)
+			y = int(y)
+			intensity = greyImageArray[y * flip,x] # Remember the Image array is Numpy array.  The x,y are reversed.
+			intensityTotal += intensity
+			self.pointIntensity[ index ] = intensity
+			count += 1
+
+		if count > 0:
+			self.intensityAverage = intensityTotal / count
+		# print("Line Intensity:", self.pointIntensity)
+		# print("Line Intensity average:", self.intensityAverage)
+
+	def calculateDirection(self):
+		# Determine the direction vector of the line.
+		# [Last element] - [first element]
+		lastPoint = self.__linePoints[-1]
+		firstPoint = self.__linePoints[0]
+		self.directionVector = ( lastPoint[0] - firstPoint[0], lastPoint[1] - firstPoint[1] )
+
+	def getDirectionVector(self):
+		return self.directionVector
+
+
+	def alignDirection(self, baseVector):
+		dotProduct = np.dot( baseVector, self.directionVector )
+		# print("baseVector:", baseVector, "self.directionVector:", self.directionVector)
+		if dotProduct > 0:
+			# The direction of the vectors are the same.  Change nothing.
+			pass
+		else:
+			# print("DotProduct:", dotProduct, "Aligning line:", self.lineIndex)
+			# Change the direction of the points in the line.
+			self.__linePoints = np.flip( self.__linePoints, axis=0 )
+			lineLength = len(self.__linePoints)
+			self.endBounded = [ self.endBounded[1], self.endBounded[0] ]
+			self.endIndeces = [ lineLength - self.endIndeces[1], lineLength - self.endIndeces[0] ]
+			self.calculateDirection()
+
+
+	def wiggleLine(self):
+		pointWiggles = np.zeros( (len(self.__linePoints), 2) ) # Create wiggle array the same size as self.__linePoints.
+		for index in range(self.endIndeces[0]+1, self.endIndeces[1]-1):
+			currentIntensity = self.pointIntensity[ index ]
+			currentPoint = self.__linePoints[index]
+			previousPoint = self.__linePoints[index - 1]
+			intensityDiff = currentIntensity - self.intensityAverage
+			# Calculate the vector for the point.
+			pointVector = (currentPoint[0] - previousPoint[0], currentPoint[1] - previousPoint[1])
+			largerValue = abs(pointVector[0])
+			if largerValue < abs(pointVector[1]):
+				largerValue = abs(pointVector[1])
+
+			# Rotate the vector 90 degrees CW to get normal vector.
+			# Make the longest component of the normal vector equal to 1.
+			scalingFactor = 1 / largerValue * Bridson_Common.wiggleScale * abs(intensityDiff) / 255
+			if intensityDiff > 0:
+				normalVector = (pointVector[1] * scalingFactor, -pointVector[0] * scalingFactor)
+			else:
+				normalVector = ( -pointVector[1] * scalingFactor, pointVector[0] * scalingFactor)
+
+			pointWiggles[ index ]  = normalVector
+
+		self.__linePoints = self.__linePoints + pointWiggles
+
+			# if intensityDiff > 0:
+			# 	currentPoint[0] = currentPoint[0] + normalVector[0]
+			# 	currentPoint[1] = currentPoint[1] + normalVector[0]
+			# else:
+			# 	currentPoint[0] = currentPoint[0] - normalVector[0]
+			# 	currentPoint[1] = currentPoint[1] - normalVector[0]
+
+
 
 
 	def extendLineDetectCollision(self, allGridCells):
@@ -776,7 +862,10 @@ class LineObject:
 		If there are no collisions detected, then add the line.
 		Otherwise, do not add line.
 		'''
+		self.setIndecesAggressiveErosion()
 		collisionDetected = False
+		return collisionDetected
+
 		self.highlightStartingIndex = None
 		# Iterate through the segments until there is a collision.
 		for index in range(self.endIndeces[0], self.endIndeces[1]-1):
@@ -787,7 +876,8 @@ class LineObject:
 				if Bridson_Common.randomLineSeed:
 					self.setRandomEndIndeces()
 				else:
-					self.setIndecesMiddlePoint() # We have detected a collision.
+					# self.setIndecesMiddlePoint() # We have detected a collision.
+					self.setIndecesAggressiveErosion()
 					# self.setIndecesStart()
 				break # Stop the iteration because we have detected a collision.
 		# Add the line to the gridcell.
@@ -807,19 +897,35 @@ class LineObject:
 		self.endIndeces = [midPoint, midPoint + 1]
 		self.highlightStartingIndex = self.endIndeces.copy()
 
+
+	def setIndecesAggressiveErosion(self):
+		aggressiveScale = Bridson_Common.aggressiveScale
+		# print("Calling aggressive erosion")
+		self.originalIndeces = self.endIndeces
+		lineLength = len(self.__linePoints)
+		if lineLength > Bridson_Common.erosionCount * 2 * aggressiveScale + 1:
+			erosionIndex = Bridson_Common.erosionCount * aggressiveScale
+			self.endIndeces[0] = erosionIndex
+			self.endIndeces[1] = lineLength - erosionIndex
+		else:
+			self.setIndecesMiddlePoint()
+		self.highlightStartingIndex = self.endIndeces.copy()
+
+
 	def setIndecesStart(self):
 		self.endIndeces = [0, 1]
 
 
 	def calculateStartIndeces(self, erosionIndex):
+		# print("calculateStartIndeces erosionIndex:", erosionIndex)
 		lineLength = len(self.__linePoints)
 		if erosionIndex == -1:
-			self.endIndeces = [0, len(self.__linePoints)]
+			self.endIndeces = [0, lineLength-1]
 		elif erosionIndex == 0 or lineLength < erosionIndex * 2:
 			midPoint = math.floor( lineLength / 2 )
 			self.endIndeces = [midPoint, midPoint + 1]
 		else:
-			self.endIndeces = [erosionIndex, len(self.__linePoints) - erosionIndex]
+			self.endIndeces = [erosionIndex, lineLength - erosionIndex]
 		return
 
 
@@ -831,10 +937,12 @@ class LineObject:
 
 		deltax = point1[0] - point0[0]
 		deltay = point1[1] - point0[1]
-		if abs(deltax) > abs(deltay):
-			divisor = abs(deltax)
-		else:
-			divisor = abs(deltay)
+
+		divisor = math.sqrt(deltax * deltax + deltay * deltay)
+		# if abs(deltax) > abs(deltay):
+		# 	divisor = abs(deltax)
+		# else:
+		# 	divisor = abs(deltay)
 		deltax = deltax / divisor
 		deltay = deltay / divisor
 
@@ -858,17 +966,19 @@ class LineObject:
 
 		deltax = secondLastPoint[0] - lastPoint[0]
 		deltay = secondLastPoint[1] - lastPoint[1]
-		if abs(deltax) > abs(deltay):
-			divisor = abs(deltax)
-		else:
-			divisor = abs(deltay)
+		divisor = math.sqrt(deltax * deltax + deltay * deltay)
+
+		# if abs(deltax) > abs(deltay):
+		# 	divisor = abs(deltax)
+		# else:
+		# 	divisor = abs(deltay)
 		deltax = deltax / divisor
 		deltay = deltay / divisor
 
 		newPoint = (lastPoint[0] - deltax, lastPoint[1] - deltay)
 
 		self.__linePoints = np.insert(self.__linePoints, len(self.__linePoints), newPoint, axis=0)
-		print("extendEndDirection - new point:", newPoint, "existing line:", self.__linePoints)
+		# print("extendEndDirection - new point:", newPoint, "existing line:", self.__linePoints)
 		pass
 
 
@@ -876,27 +986,37 @@ class LineObject:
 		segmentAdded = False
 		# Extend the starting side.
 		if self.endBounded[0] == False:
+			# print("Start Index:", self.endIndeces[0])
 			if self.endIndeces[0] >= 1:  # Index needs to be > 1 because segments spans 3 indeces.
 				if allGridCells.detectCollision( self.getNextStartSegment(), self.lineIndex ):
 					# Collision detected if we extend the start direction.  Set collision detection flag.
 					self.endBounded[0] = True
+					# print("Start Index bounded:", self.endIndeces[0])
 				else:
 					# No Collision detected.  Add segment to allGridCells.
 					allGridCells.addSegment( self.getNextStartSegment(),  self.lineIndex)
 					self.endIndeces[0] -= 1
 					segmentAdded = True
+			else:
+				self.endBounded[0] = True
+				# print("Start Index bounded:", self.endIndeces[0])
 
 		# Extend the ending side.
 		if self.endBounded[1] == False:
+			# print("End Index:", self.endIndeces[1])
 			if self.endIndeces[1] <= len(self.__linePoints) - 2:  # the index is less than or equal to because we are using the index for slicing.
 				if allGridCells.detectCollision( self.getNextEndSegment(), self.lineIndex ):
 					# Collision detected if we extend the start direction.  Set collision detection flag.
 					self.endBounded[1] = True
+					# print("End Index bounded:", self.endIndeces[1], len(self.__linePoints))
 				else:
 					# No Collision detected.  Add segment to allGridCells.
 					allGridCells.addSegment( self.getNextEndSegment(),  self.lineIndex)
 					self.endIndeces[1] += 1
 					segmentAdded = True
+			else:
+				self.endBounded[1] = True
+				# print("End Index bounded:", self.endIndeces[1], len(self.__linePoints))
 		return segmentAdded
 
 
@@ -952,10 +1072,12 @@ class LineObject:
 
 		:return: True if both sides of the line are bounded.
 		'''
-		if self.endBounded[0] == True and self.endBounded[1] == True:
+		if (self.endBounded[0] == True) and (self.endBounded[1] == True):
 			# print(">>>>>>>>>>>> Returning true for isBounded: ", self.lineIndex)
 			return True
 		else:
+			# print("***** Returning false for isBounded: ", self.lineIndex, "*****")
 			return False
 
 
+jit_module(nopython=True)

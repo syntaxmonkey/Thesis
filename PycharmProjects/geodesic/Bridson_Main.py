@@ -97,7 +97,7 @@ def euclidean_distance(a, b):
 
 def createMeshFile(samples, tri, radius, center ):
 	# Produce the mesh file.  Flatten the mesh with BFF.  Extract the 2D from BFF flattened mesh.
-	print("Creating Mesh File: ", Bridson_Common.test1obj)
+	Bridson_Common.logDebug(__name__, "Creating Mesh File: ", Bridson_Common.test1obj)
 	path = Bridson_Common.objPath
 	# Create object file for image.
 	# Bridson_createOBJFile.createObjFile2D(path, "test1.obj", samples, tri, radius, center, distance=euclidean_distance)
@@ -305,7 +305,7 @@ def processMask(mask, dradius, indexLabel):
 			fakeRadius = max(xrange,yrange)
 			# print("C")
 
-			print("Attempting to create mesh file")
+			Bridson_Common.logDebug(__name__, "Attempting to create mesh file")
 			createMeshFile(points, tri, fakeRadius, (xrange/2.0, yrange/2.0))
 
 			# vertices, faces = Bridson_readOBJFile.readFlatObjFile(path="../../boundary-first-flattening/build/",
@@ -348,9 +348,9 @@ def processMask(mask, dradius, indexLabel):
 			successful = False
 		# print("G")
 		if successful:
-			print("Attempt ", attempts, " successful")
+			Bridson_Common.logDebug(__name__, "Attempt ", attempts, " successful")
 		else:
-			print("Attempt ", attempts, " UNsuccessful")
+			Bridson_Common.logDebug(__name__, "Attempt ", attempts, " UNsuccessful")
 		blurRadius += 2
 		blurRadius = 7 if blurRadius > 7 else blurRadius # Limit the blurRadius to 9.
 
@@ -399,7 +399,7 @@ def drawRegionLines( filename, finishedImage, regionList):
 		print("Pickle file does not exist:", pickleFilename)
 
 	for index in regionList:
-		print("(**** ", filename, " Starting Region: ", index, "of", len(regionMap.keys()), "  *****" )
+		print("(**** ", filename, " Starting Region: ", index, "of", len(regionMap.keys()), "  *****" , datetime.datetime.now() )
 
 		raster = maskRasterCollection[index]
 		displayRegionRaster(raster, index)
@@ -410,6 +410,7 @@ def drawRegionLines( filename, finishedImage, regionList):
 		dradius = Bridson_Common.dradius
 		# previouslyPickled = False
 		if previouslyPickled:
+		# if False:
 			meshObj = meshObjDict[index]
 			meshObj.genTrifinder()
 			# flatMeshObj.trifinder = flatMeshObj.triangulation.get_trifinder() # TEST TEST TEST
@@ -441,7 +442,7 @@ def drawRegionLines( filename, finishedImage, regionList):
 
 			meshAngle = finishedImage.regionDirection[ index ]  # Obtain the angle that was calculated.
 			flatAngle = int( flatMeshObj.calculateAngle( meshObj, desiredAngle=meshAngle ) )  # Determine the angle on the flat mesh.
-			print("MeshAngle:", meshAngle, "Flat angle:", flatAngle)
+			Bridson_Common.logDebug(__name__, "MeshAngle:", meshAngle, "Flat angle:", flatAngle)
 
 			# if trifindersuccess:
 			successfulRegions += 1
@@ -451,13 +452,15 @@ def drawRegionLines( filename, finishedImage, regionList):
 				# Only draw the lines if the trifinder was successful generated.
 				if Bridson_Common.linesOnFlat:
 					if Bridson_Common.verticalLines:
-						a = datetime.datetime.now()
+						# a = datetime.datetime.now()
 						flatMeshObj.DrawAngleLinesExteriorSeed2(raster, angle=flatAngle )
+						Bridson_Common.logDebug(__name__, "Drawing DrawAngleLinesExteriorSeed2 done ", datetime.datetime.now())
 						# flatMeshObj.DrawAngleLinesExteriorSeed3(raster, regionMap, index, intensity=regionIntensityMap[index], angle=flatAngle)
 						flatMeshObj.checkLinePoints() # diagnostic check for empty lines.
+						Bridson_Common.logDebug(__name__, "checkLinePoints done ", datetime.datetime.now())
 					else:
 						flatMeshObj.DrawAngleLinesExteriorSeed2()
-					b = datetime.datetime.now()
+					# b = datetime.datetime.now()
 					# Transfer the lines from the FlatMesh.
 					meshObj.TransferLinePointsFromTarget(flatMeshObj)
 				else:
@@ -467,9 +470,10 @@ def drawRegionLines( filename, finishedImage, regionList):
 						meshObj.DrawAngleLinesExteriorSeed2()
 
 					flatMeshObj.TransferLinePointsFromTarget(meshObj)
-			c = datetime.datetime.now()
-			print("Drawing DrawAngleLinesExteriorSeed2 takes ", (b-a).microseconds)
-			print("Transfer lines takes ", (c - b).microseconds)
+			# c = datetime.datetime.now()
+			# print("Drawing DrawAngleLinesExteriorSeed2 takes ", (b-a).microseconds)
+
+			# print("Transfer lines takes ", (c - b).microseconds)
 			# if True:  # Rotate original image 90 CW.
 			# print("About to call rotateClockwise90")
 			meshObj.rotateClockwise90()  ## HERE - disable rotation temporarily.
@@ -483,6 +487,8 @@ def drawRegionLines( filename, finishedImage, regionList):
 				flatMeshObjDict[index] = []
 			print("Trifinder was NOT successfully generated for region ", index)
 
+
+	print("Finished Regions >>>>>>>>>>> ", datetime.datetime.now())
 
 	# Save if the objects if not previouslyPickled.
 	if not previouslyPickled:
@@ -592,6 +598,22 @@ def redrawRegionLines( filename, finishedImage, regionList):
 
 def indexValidation(filename):
 	print(">>>>>>>>>>>>>>>> Calling SLIC for ", filename, "<<<<<<<<<<<<<<<<<<<<<<<")
+
+	percentages = [0,1,2,5,10]
+	skip = True
+
+	# if Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "WithSLIC_percentage_0")) == False:
+	# 	skip = False
+
+	for percent in percentages:
+		if Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_POST_LineWidthA_percentage_" + str(percent))) == False:
+			skip = False
+			break
+
+	if skip == True:
+		print("Skipping ", filename)
+		return
+
 	imageraster, regionMap, regionRaster, segments, regionIntensityMap, regionColourMap = SLICImage(filename)
 
 	# imageShape = np.shape(regionRaster)
@@ -608,6 +630,7 @@ def indexValidation(filename):
 	finishedImageSLIC.setXLimit(0, np.shape(regionRaster)[1])
 	finishedImageSLIC.setYLimit(0, np.shape(regionRaster)[0])
 	finishedImageSLIC.adjustFigSize()
+	finishedImageSLIC.setGreyscaleImage( filename )
 
 	# finishedImage.setXLimit( 0, np.shape(imageraster)[0])
 	finishedImageNoSLIC = Bridson_FinishedImage.FinishedImage()
@@ -615,21 +638,22 @@ def indexValidation(filename):
 	finishedImageNoSLIC.setXLimit(0, np.shape(regionRaster)[1])
 	finishedImageNoSLIC.setYLimit(0, -np.shape(regionRaster)[0])
 	finishedImageNoSLIC.adjustFigSize()
+	finishedImageNoSLIC.setGreyscaleImage( filename )
 
-	finishedImageNoSLIC_B = Bridson_FinishedImage.FinishedImage()
-	# finishedImageNoSLIC_B.setTitle(filename + "_POST_")
-	finishedImageNoSLIC_B.setXLimit(0, np.shape(regionRaster)[1])
-	finishedImageNoSLIC_B.setYLimit(0, -np.shape(regionRaster)[0])
-
-
-	finishedImageNoSLIC_C = Bridson_FinishedImage.FinishedImage()
-	finishedImageNoSLIC_C.setTitle(filename + "_POST_")
-	finishedImageNoSLIC_C.setXLimit(0, np.shape(regionRaster)[1])
-	finishedImageNoSLIC_C.setYLimit(0, -np.shape(regionRaster)[0])
+	# finishedImageNoSLIC_B = Bridson_FinishedImage.FinishedImage()
+	# # finishedImageNoSLIC_B.setTitle(filename + "_POST_")
+	# finishedImageNoSLIC_B.setXLimit(0, np.shape(regionRaster)[1])
+	# finishedImageNoSLIC_B.setYLimit(0, -np.shape(regionRaster)[0])
+	#
+	#
+	# finishedImageNoSLIC_C = Bridson_FinishedImage.FinishedImage()
+	# finishedImageNoSLIC_C.setTitle(filename + "_POST_")
+	# finishedImageNoSLIC_C.setXLimit(0, np.shape(regionRaster)[1])
+	# finishedImageNoSLIC_C.setYLimit(0, -np.shape(regionRaster)[0])
 
 	# finishedImage.setXLimit( 0, np.shape(imageraster)[0])
-	finishedImageNoSLICPRE = Bridson_FinishedImage.FinishedImage()
-	finishedImageNoSLICPRE.setTitle(filename + "_PRE_")
+	# finishedImageNoSLICPRE = Bridson_FinishedImage.FinishedImage()
+	# finishedImageNoSLICPRE.setTitle(filename + "_PRE_")
 	# finishedImageNoSLICPRE.setXLimit(0, np.shape(regionRaster)[1])
 	# finishedImageNoSLICPRE.setYLimit(0, -np.shape(regionRaster)[0])
 
@@ -665,65 +689,95 @@ def indexValidation(filename):
 
 
 	##### Process PRE image
-	if Bridson_Common.generatePREImage:
-		finishedImageNoSLICPRE.setMaps(regionMap.copy(), regionRaster.copy(), maskRasterCollection.copy(), meshObjCollection.copy(), regionIntensityMap.copy())
-		finishedImageNoSLICPRE.shiftRastersMeshObj(regionMap, regionRaster, originalImage)
-		finishedImageNoSLICPRE.calculateRegionDirection(regionList)
-		finishedImageNoSLICPRE.generateRAG(filename, segments, regionColourMap)
-		# Generate the PRE version of the image.
-		drawRegionLines(filename, finishedImageNoSLICPRE, regionList)
-		finishedImageNoSLICPRE.shiftLinePoints()
-		finishedImageNoSLICPRE.cropCullLines()
-		finishedImageNoSLICPRE.genLineAdjacencyMap()
-		# finishedImageNoSLICPRE.mergeLines()
-		finishedImageNoSLICPRE.mergeLines2()
-		for index in meshObjCollection.keys():
-			finishedImageNoSLICPRE.drawRegionContourLines(index, drawSLICRegions=False)
-		Bridson_Common.saveImage(filename, "NoSlic_PRE", finishedImageNoSLICPRE.fig)
+	# if Bridson_Common.generatePREImage:
+	# 	finishedImageNoSLICPRE.setMaps(regionMap.copy(), regionRaster.copy(), maskRasterCollection.copy(), meshObjCollection.copy(), regionIntensityMap.copy())
+	# 	finishedImageNoSLICPRE.shiftRastersMeshObj(regionMap, regionRaster, originalImage)
+	# 	finishedImageNoSLICPRE.calculateRegionDirection(regionList)
+	# 	finishedImageNoSLICPRE.generateRAG(filename, segments, regionColourMap)
+	# 	# Generate the PRE version of the image.
+	# 	drawRegionLines(filename, finishedImageNoSLICPRE, regionList)
+	# 	finishedImageNoSLICPRE.shiftLinePoints()
+	# 	finishedImageNoSLICPRE.cropCullLines()
+	# 	finishedImageNoSLICPRE.genLineAdjacencyMap()
+	# 	# finishedImageNoSLICPRE.mergeLines()
+	# 	finishedImageNoSLICPRE.mergeLines2()
+	# 	for index in meshObjCollection.keys():
+	# 		finishedImageNoSLICPRE.drawRegionContourLines(index, drawSLICRegions=False)
+	# 	Bridson_Common.saveImage(filename, "NoSlic_PRE", finishedImageNoSLICPRE.fig)
 
 
-	###### Process finishedImageSLIC
-	finishedImageSLIC.setMaps(regionMap, regionRaster, maskRasterCollection, meshObjCollection, regionIntensityMap)
+	if False:
+		###### Process finishedImageSLIC
+		finishedImageSLIC.setMaps(regionMap, regionRaster, maskRasterCollection, meshObjCollection, regionIntensityMap)
+		# Create region raster in the actual location.
+		print("0A")
+		finishedImageSLIC.shiftRastersMeshObj(regionMap, regionRaster, originalImage)
+		print("0B")
+		# Calculate RAG (Region Adjacency Graph)
+		finishedImageSLIC.calculateRegionDirection(regionList)
+		finishedImageSLIC.generateRAG(filename, segments, regionColourMap)
+		finishedImageSLIC.adjustRegionAngles2()
+		drawRegionLines( filename, finishedImageSLIC, regionList )
+		finishedImageSLIC.shiftLinePoints()
+		# At this point, we need can attempt to merge the lines between each region.
+		# Still have a problem with the coordinates though.
+		print("About to cropCullLines")
+		finishedImageSLIC.cropCullLines()
+		print("cropCullLines done.", datetime.datetime.now() )
+		finishedImageSLIC.genLineAdjacencyMap()
+		print("genLineAdjacencyMap done.", datetime.datetime.now() )
+		print("About to mergeLines")
+		# finishedImageSLIC.mergeLines()
+		# HERE
+		finishedImageSLIC.mergeLines2()
+		print("mergeLines2 done.", datetime.datetime.now() )
+
+
+	###### Process finishedImageNOSLIC
+	finishedImageNoSLIC.setMaps(regionMap, regionRaster, maskRasterCollection, meshObjCollection, regionIntensityMap)
 	# Create region raster in the actual location.
 	print("0A")
-	finishedImageSLIC.shiftRastersMeshObj(regionMap, regionRaster, originalImage)
+	finishedImageNoSLIC.shiftRastersMeshObj(regionMap, regionRaster, originalImage)
 	print("0B")
 	# Calculate RAG (Region Adjacency Graph)
-	finishedImageSLIC.calculateRegionDirection(regionList)
-	finishedImageSLIC.generateRAG(filename, segments, regionColourMap)
-	finishedImageSLIC.adjustRegionAngles2()
-	drawRegionLines( filename, finishedImageSLIC, regionList )
-	finishedImageSLIC.shiftLinePoints()
+	finishedImageNoSLIC.calculateRegionDirection(regionList)
+	finishedImageNoSLIC.generateRAG(filename, segments, regionColourMap)
+	finishedImageNoSLIC.adjustRegionAngles2()
+	drawRegionLines( filename, finishedImageNoSLIC, regionList )
+	print("drawRegionLines done", datetime.datetime.now())
+	finishedImageNoSLIC.shiftLinePoints()
 	# At this point, we need can attempt to merge the lines between each region.
 	# Still have a problem with the coordinates though.
 	print("About to cropCullLines")
-	finishedImageSLIC.cropCullLines()
-	print("About to genLineAdjacencyMap")
-	finishedImageSLIC.genLineAdjacencyMap()
-	print("About to mergeLines")
+	finishedImageNoSLIC.cropCullLines()
+	print("cropCullLines done.", datetime.datetime.now())
+	finishedImageNoSLIC.genLineAdjacencyMap()
+	print("genLineAdjacencyMap done.", datetime.datetime.now())
 	# finishedImageSLIC.mergeLines()
-
 	# HERE
-	finishedImageSLIC.mergeLines2()
+	finishedImageNoSLIC.mergeLines2()
+	print("mergeLines2 done.", datetime.datetime.now())
 
-	print("0D")
 
-	print("About to copyFromOther")
-	finishedImageNoSLIC.copyFromOther( finishedImageSLIC )
-	finishedImageNoSLIC_B.copyFromOther( finishedImageSLIC )
-	finishedImageNoSLIC_C.copyFromOther(finishedImageSLIC)
-	print("0I")
+	# print("0D")
 
-	finishedImageSLIC.drawSLICRegions(regionRaster, segments)
+	# print("About to copyFromOther")
+	# finishedImageNoSLIC.copyFromOther( finishedImageSLIC )
+	# finishedImageNoSLIC_B.copyFromOther( finishedImageSLIC )
+	# finishedImageNoSLIC_C.copyFromOther(finishedImageSLIC)
+	# print("0I")
+
+	# finishedImageSLIC.drawSLICRegions(regionRaster, segments)
+	# finishedImageNoSLIC.drawSLICRegions(regionRaster, segments)
 
 	for index in meshObjCollection.keys():
-		finishedImageSLIC.drawOnlyLongestLine( index, drawSLICRegions=True)
+		# finishedImageSLIC.drawOnlyLongestLine( index, drawSLICRegions=True)
 		finishedImageNoSLIC.drawOnlyLongestLine( index,  drawSLICRegions=False )
 
-	Bridson_Common.saveImage(filename, "SLIC_DIRECTION", finishedImageSLIC.fig)
+	# Bridson_Common.saveImage(filename, "SLIC_DIRECTION", finishedImageSLIC.fig)
 	Bridson_Common.saveImage(filename, "NoSLIC_DIRECTION", finishedImageNoSLIC.fig)
 
-	finishedImageSLIC.removeTempLines()
+	# finishedImageSLIC.removeTempLines()
 	finishedImageNoSLIC.removeTempLines()
 
 	# redrawRegionLines(filename, finishedImageSLIC, regionList)  ## HERE
@@ -741,11 +795,16 @@ def indexValidation(filename):
 		# finishedImageSLIC.drawRegionLinesCollision(index, drawSLICRegions=True)
 		# finishedImageNoSLIC.drawRegionLinesCollision(index, drawSLICRegions=False)
 		percent = 0
-		finishedImageSLIC.drawLinesCollisionBased(filename, percentage=percent, drawSLICRegions=True)
-		finishedImageNoSLIC.drawLinesCollisionBased(filename, percentage=percent, drawSLICRegions=False)
+		# if Bridson_Common.fileExists( Bridson_Common.genActualFileName(filename, "WithSLIC_percentage_" + str(percent)) ) == False:
+		# 	finishedImageSLIC.drawLinesCollisionBased(filename, percentage=percent, drawSLICRegions=True)
+		# 	Bridson_Common.saveImage(filename, "WithSLIC_percentage_" + str(percent), finishedImageSLIC.fig)
 
-		Bridson_Common.saveImage(filename, "WithSLIC_percentage_" + str(percent) , finishedImageSLIC.fig )
-		Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_" + str(percent) , finishedImageNoSLIC.fig)
+		# if Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_POST_LineWidthA_percentage_" + str(percent))) == False:
+		# 	finishedImageNoSLIC.drawLinesCollisionBased(filename, percentage=percent, drawSLICRegions=False)
+		# 	Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_" + str(percent), finishedImageNoSLIC.fig)
+
+		# Bridson_Common.saveImage(filename, "WithSLIC_percentage_" + str(percent) , finishedImageSLIC.fig )
+		# Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_" + str(percent) , finishedImageNoSLIC.fig)
 	else:
 		''' Only draw the region lines. '''
 		# for index in meshObjCollection.keys():
@@ -756,23 +815,25 @@ def indexValidation(filename):
 		Bridson_Common.saveImage(filename, "WithSLIC", finishedImageSLIC.fig )
 		Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA", finishedImageNoSLIC.fig)
 
-	if False:
-		if Bridson_Common.overlapEdges:
-			# Iterate through the other percentages for overlay edges.
-			for i in range(2,21,2):
-				finishedImageNoSLIC.removeOverlayEdges()
-				finishedImageNoSLIC.overlayEdges(filename, drawSLICRegions=False, pointPercentage=i)
-				Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_" + str(i), finishedImageNoSLIC.fig)
+	# if False:
+	# 	if Bridson_Common.overlapEdges:
+	# 		# Iterate through the other percentages for overlay edges.
+	# 		for i in range(2,21,2):
+	# 			finishedImageNoSLIC.removeOverlayEdges()
+	# 			finishedImageNoSLIC.overlayEdges(filename, drawSLICRegions=False, pointPercentage=i)
+	# 			Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_" + str(i), finishedImageNoSLIC.fig)
 
 
-	if True:
+	# if True:
 		# print("Debugging for new code.")
 		# for percent in [1, 2, 5, 10, 20]:
-		for percent in [5]:
+	for percent in percentages:
+		if Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_POST_LineWidthA_percentage_" + str(percent))) == False:
 			finishedImageNoSLIC.clearAllObjects()
 			# finishedImageNoSLIC.reinitializeAxes()
 			finishedImageNoSLIC.drawLinesCollisionBased(filename, percentage=percent, drawSLICRegions=False)
 			Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_" + str(percent), finishedImageNoSLIC.fig)
+			print("Generated image: ", Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_POST_LineWidthA_percentage_" + str(percent))))
 
 	# Bridson_Common.lineWidthType = 'B'
 	# for index in meshObjCollection.keys():
@@ -813,8 +874,9 @@ def initCommon(attractPercentile):
 	Bridson_Common.diffAttractPercentile = attractPercentile
 	Bridson_Common.diffRepelPercentile = attractPercentile
 
+
 def wrapper(filename, segmentCount, compactness, cnn, attractPercentile):
-	gc.collect()
+	# gc.collect()
 	# baseName = 'f' + str(uuid.uuid4().hex)
 	# Bridson_Common.test1obj = baseName + '.obj'
 	# Bridson_Common.test1_outobj = baseName + '_out.obj'
@@ -825,8 +887,8 @@ def wrapper(filename, segmentCount, compactness, cnn, attractPercentile):
 	initCommon( attractPercentile)
 
 	# cleanUpFiles()
-	random.seed(Bridson_Common.seedValue)
-	np.random.seed(Bridson_Common.seedValue)
+	# random.seed(Bridson_Common.seedValue)
+	# np.random.seed(Bridson_Common.seedValue)
 	# Bridson_Common.targetRegionPixelCount = targetPixel
 	Bridson_Common.segmentCount = segmentCount
 	# Set the seed each time.
@@ -839,6 +901,9 @@ def wrapper(filename, segmentCount, compactness, cnn, attractPercentile):
 
 	Bridson_Common.semanticSegmentation = cnn
 	try:
+		random.seed(Bridson_Common.seedValue)
+		np.random.seed(Bridson_Common.seedValue)
+
 		indexValidation(filename)
 		# print('Handling file ', filename + Bridson_Common.test1obj )
 	# sys.stdout.close()
@@ -922,20 +987,28 @@ def main():
 	# images.append('mr-o-k--ePHy6jg_7c-unsplash.jpg')
 
 	# Batch E
-	images.append('joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg')
-	images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
-	images.append('luis-quintero-qKspdY9XUzs-unsplash-hand.jpg')
-	images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
-	images.append('tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg')
-	images.append('jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg')
-	images.append('johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg')
-	images.append('john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg')
-	images.append('sven-read-oktY8r91C84-unsplash_tunnel.jpg')
-	images.append('marina-reich-NxWdBnFiikg-unsplash_streescene.jpg')
-	images.append('derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg')
-	images.append('mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg')
-	images.append('kathy-servian-EwsYJqS0D2E-unsplash_butterfly.jpg')
-	images.append('daniel-tuttle-_kGG9EyZxyA-unsplash_chicken.jpg')
+	# images.append('joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg')
+	# images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
+	# images.append('luis-quintero-qKspdY9XUzs-unsplash-hand.jpg')
+	# images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
+	# images.append('tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg')
+	# images.append('jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg')
+	# images.append('johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg')
+	# images.append('john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg')
+	# images.append('sven-read-oktY8r91C84-unsplash_tunnel.jpg')
+	# images.append('marina-reich-NxWdBnFiikg-unsplash_streescene.jpg')
+	# images.append('derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg')
+	# images.append('mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg')
+	# images.append('kathy-servian-EwsYJqS0D2E-unsplash_butterfly.jpg')
+	# images.append('daniel-tuttle-_kGG9EyZxyA-unsplash_chicken.jpg')
+
+	# Batch F
+	images.append('alexas_fotos--mFVHEzRvsQ-unsplash_weave.jpg')
+	images.append('deniz-altindas-t1XLQvDqt_4-unsplash_stackedRocks.jpg')
+	images.append('lubo-minar-6n9JGobCASo-unsplash_stoneTexture.jpg')
+	images.append('jonatan-lindemann-Dv89X4z6-I8-unsplash_bricks.jpg')
+	images.append('andrew-ridley-jR4Zf-riEjI-unsplash_shingles.jpg')
+	images.append('sam-moqadam-3KQq6cD_fkE-unsplash_bristles.jpg')
 
 	semanticSegmentation = ['none']
 	# semanticSegmentation = ['none']
@@ -958,6 +1031,7 @@ def main():
 	if Bridson_Common.bulkGeneration:
 		# segmentCounts = [100, 200]
 		segmentCounts = [ 400, 900, 1600]
+		# segmentCounts = [400]
 		lineWidthType = ['A']
 		# segmentCounts = [50, 100]
 		# compactnessList = [ 0.1, 0.25, 0.5]
@@ -982,7 +1056,7 @@ def main():
 		images.append('TwoRegions.jpg')
 		semanticSegmentation = ['none']
 		segmentCounts = [100]
-		segmentCounts = [3]
+		segmentCounts = [4]
 		compactnessList = ['SLIC0']
 		attractPercentileList = [80]
 		lineWidthType = ['A']
@@ -1040,15 +1114,27 @@ def main():
 		blocks = Bridson_Common.blockCount
 		iterations = int(len(variables) / blocks + 1)
 
+
+		# Kludge to handle fork start method: https://turtlemonvh.github.io/python-multiprocessing-and-corefoundation-libraries.html
+
 		print("CoreCount:", coreCount)
 		mp.set_start_method('forkserver')  # Valid options are 'fork', 'spawn', and 'forkserver'
-		for iteration in range( iterations ):
-			iterationVariables = variables[iteration*blocks:(iteration+1)*blocks].copy()
-			print(iterationVariables)
+
+		if True:
+			# Original approach.
+			for iteration in range( iterations ):
+				iterationVariables = variables[iteration*blocks:(iteration+1)*blocks].copy()
+				print(iterationVariables)
+				with Pool(processes=coreCount) as pool:
+				# pool = mp.Pool(processes=coreCount)
+					pool.starmap( wrapper, iterationVariables )
+				pool.terminate()
+				gc.collect()
+
+		if False:
 			with Pool(processes=coreCount) as pool:
-				pool.starmap( wrapper, iterationVariables )
-			pool.terminate()
-			gc.collect()
+				pool.starmap( wrapper, variables )
+
 
 	print("*************************************************")
 	print("Finished")
