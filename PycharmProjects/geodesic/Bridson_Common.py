@@ -16,8 +16,8 @@ import skimage
 import pickle
 import cv2 as cv
 import io
-
-
+import cProfile, pstats, io
+from pstats import SortKey
 
 # Increase width of console printing: https://stackoverflow.com/questions/25628496/getting-wider-output-in-pycharms-built-in-console
 desired_width = 320
@@ -37,7 +37,7 @@ SLICGrey = False
 productionMode = True
 displayGrid = False
 bulkGeneration = True
-smallBatch=False
+smallBatch=True
 diagnosticDisplay=False # Enable/Disable pairing diagnostics
 diagnosticDisplayCount=20
 diagnosticMerge=False
@@ -72,6 +72,8 @@ defaultEdgePercentage = 5
 minEdgeLineLength = 5
 growEdgeLines = False
 edgeLineWidthPercentile = 60
+
+lineDensitySegmentLength = 1 # Desired number of pixels between points in the etch lines.
 
 wiggleScale = 4 # Maximum number of pixels to wiggle line when calculating aberrations.
 
@@ -445,9 +447,16 @@ def euclidean_distance(a, b):
 	dy = a[1] - b[1]
 	return math.sqrt(dx * dx + dy * dy)
 
+def findLongestSegmentLength(line):
+	maxLength = 0
+	for index in range((len(line)) - 1):
+		currentDist = euclidean_distance(line[index], line[index+1])
+		if currentDist > maxLength:
+			maxLength = currentDist
+	return maxLength
 
 
-jit_module(nopython=True,fastmath=True)
+jit_module(nopython=True)
 
 def getGreyscaleImage( filename ):
 	image = cv.imread( filename )
@@ -456,6 +465,29 @@ def getGreyscaleImage( filename ):
 	# greyscaleImage = np.asarray(Image.fromarray(image).convert('L'))
 	return imageArray
 	pass
+
+
+def turnOnProfiler():
+	pr = cProfile.Profile()
+	pr.enable()
+	return pr
+
+def turnOffProfiler(pr, methodName):
+	pr.disable()
+	s = io.StringIO()
+	sortby = SortKey.CUMULATIVE
+	ps = pstats.Stats(pr, stream=s).sort_stats(sortby)
+	ps.print_stats(30)
+	# print("Profiler CUMULATIVE information for", methodName)
+	# print(s.getvalue())
+
+	sortby = SortKey.TIME
+	ps = pstats.Stats(pr, stream=s).sort_stats(sortby)
+	ps.print_stats(30)
+	print("Profiler CUMULATIVE - TOTTIME information for", methodName)
+	print(s.getvalue())
+
+	pr.clear()
 
 
 def findSegment(segment, line):
@@ -646,8 +678,9 @@ def findEdgeContours( imageName, percentage=2 ):
 
 	return contours
 
-
+lineDistanceCount = []
 def increaseLineDensity( line, k ):
+	global lineDistanceCount
 	'''
 
 	:param line:
@@ -658,8 +691,9 @@ def increaseLineDensity( line, k ):
 	for index in range(len(line) - 1):
 		pointPair = line[index:index+2]
 		pairDistance = euclidean_distance(pointPair[0], pointPair[1])
+		# print('pairDistance:', pairDistance)
 		newLine.append(pointPair[0])
-
+		lineDistanceCount.append( pairDistance )
 		if pairDistance > k: # If the distance between the pairs is greater than the minimum distance.
 			numberOfPoints = math.ceil( (pairDistance / k) ) - 1 # Determine the number of points we need to add.
 			# distanceBetweenPoints = pairDistance / ( numberOfPoints + 2 )
@@ -986,13 +1020,6 @@ def line_intersect(segment1, segment2):
 
 
 
-def findLongestSegmentLength(line):
-	maxLength = 0
-	for index in range((len(line)) - 1):
-		currentDist = euclidean_distance(line[index], line[index+1])
-		if currentDist > maxLength:
-			maxLength = currentDist
-	return maxLength
 
 
 

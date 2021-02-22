@@ -30,7 +30,16 @@ class MeshObject:
 			# Case we are provided with a Mask.
 			mask = kwargs.get('mask')
 			dradius = kwargs.get('dradius')
+			profilerOn = False
+			if profilerOn:
+				pr = Bridson_Common.turnOnProfiler()
+
 			self.GenMeshFromMask(mask, dradius)
+
+			if profilerOn:
+				Bridson_Common.turnOffProfiler(pr, __name__)
+
+
 		elif 'flatvertices' in kwargs and 'flatfaces' in kwargs and 'xrange' in kwargs and 'yrange' in kwargs:
 			Bridson_Common.logDebug(__name__, "Creating Mesh from vertices and faces.")
 			# Case we are provided the flattened vertices and triangles
@@ -1494,8 +1503,16 @@ class MeshObject:
 		# points = np.append(points, self.border, axis=0)
 
 
+		profilerOn = False
+		if profilerOn:
+			pr = Bridson_Common.turnOnProfiler()
+
 		# Generate all the sample points.
 		points = Bridson_sampling.Bridson_sampling(width=xrange, height=yrange, radius=radius, existingPoints=points, mask=self.invertedMask)
+
+		if profilerOn:
+			Bridson_Common.turnOffProfiler(pr, __name__)
+
 		Bridson_Common.logDebug(__name__, np.shape(points))
 
 		# print("GenMeshFromMask before filtering:",len(points), points)

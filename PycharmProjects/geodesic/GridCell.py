@@ -800,13 +800,14 @@ class LineObject:
 			intensityDiff = currentIntensity - self.intensityAverage
 			# Calculate the vector for the point.
 			pointVector = (currentPoint[0] - previousPoint[0], currentPoint[1] - previousPoint[1])
-			largerValue = abs(pointVector[0])
-			if largerValue < abs(pointVector[1]):
-				largerValue = abs(pointVector[1])
+			hypotenuse = math.sqrt(pointVector[0]*pointVector[0] + pointVector[1]*pointVector[1])
+
+			if pointVector == 0:
+				hypotenuse = pointVector[0] if pointVector[0] > pointVector[1] else pointVector[1]
 
 			# Rotate the vector 90 degrees CW to get normal vector.
 			# Make the longest component of the normal vector equal to 1.
-			scalingFactor = 1 / largerValue * Bridson_Common.wiggleScale * abs(intensityDiff) / 255
+			scalingFactor = 1 / hypotenuse * Bridson_Common.wiggleScale * abs(intensityDiff) / 255
 			if intensityDiff > 0:
 				normalVector = (pointVector[1] * scalingFactor, -pointVector[0] * scalingFactor)
 			else:
@@ -943,6 +944,9 @@ class LineObject:
 		# 	divisor = abs(deltax)
 		# else:
 		# 	divisor = abs(deltay)
+
+		if divisor == 0:
+			divisor = deltax if deltax > deltay else deltay
 		deltax = deltax / divisor
 		deltay = deltay / divisor
 
@@ -972,6 +976,8 @@ class LineObject:
 		# 	divisor = abs(deltax)
 		# else:
 		# 	divisor = abs(deltay)
+		if divisor == 0:
+			divisor = deltax if deltax > deltay else deltay
 		deltax = deltax / divisor
 		deltay = deltay / divisor
 

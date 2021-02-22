@@ -31,9 +31,9 @@ import uuid
 import traceback
 import pickle
 import copy
-import cProfile
 import operator
-
+import cProfile, pstats, io
+from pstats import SortKey
 from numba import prange, njit, jit, jit_module
 
 
@@ -313,7 +313,9 @@ def processMask(mask, dradius, indexLabel):
 			# meshObj = Bridson_MeshObj.MeshObject(flatvertices=vertices, flatfaces=faces, xrange=xrange,
 			#                                          yrange=yrange, indexLabel=indexLabel)
 			f = datetime.datetime.now()
+			# print("About to call BFFReshape", datetime.datetime.now())
 			BFFReshape()
+			# print("Done BFFReshape", datetime.datetime.now())
 			g = datetime.datetime.now()
 			FlattenMesh()
 			h = datetime.datetime.now()
@@ -423,8 +425,17 @@ def drawRegionLines( filename, finishedImage, regionList):
 
 			trifindersuccess = trifindersuccessDict[index]
 		else:
-			meshObj, flatMeshObj, trifindersuccess, originalMeshObj, originalFlatMeshObj = processMask(raster, dradius, indexLabel)
+			print("** Starting processMask", datetime.datetime.now())
 
+			profilerOn = False
+			if profilerOn:
+				pr = Bridson_Common.turnOnProfiler()
+
+			meshObj, flatMeshObj, trifindersuccess, originalMeshObj, originalFlatMeshObj = processMask(raster, dradius, indexLabel)
+			print("** Completed processMask", datetime.datetime.now())
+
+			if profilerOn:
+				Bridson_Common.turnOffProfiler(pr, __name__)
 
 		# Find the intensity of this region.
 		# Produce angle based on the intensity.
@@ -987,20 +998,20 @@ def main():
 	# images.append('mr-o-k--ePHy6jg_7c-unsplash.jpg')
 
 	# Batch E
-	# images.append('joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg')
-	# images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
-	# images.append('luis-quintero-qKspdY9XUzs-unsplash-hand.jpg')
-	# images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
-	# images.append('tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg')
-	# images.append('jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg')
-	# images.append('johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg')
-	# images.append('john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg')
-	# images.append('sven-read-oktY8r91C84-unsplash_tunnel.jpg')
-	# images.append('marina-reich-NxWdBnFiikg-unsplash_streescene.jpg')
-	# images.append('derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg')
-	# images.append('mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg')
-	# images.append('kathy-servian-EwsYJqS0D2E-unsplash_butterfly.jpg')
-	# images.append('daniel-tuttle-_kGG9EyZxyA-unsplash_chicken.jpg')
+	images.append('joshua-hoehne-WPrTKRw8KRQ-unsplash_StopSign.jpg')
+	images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
+	images.append('luis-quintero-qKspdY9XUzs-unsplash-hand.jpg')
+	images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
+	images.append('tobias-nii-kwatei-quartey-eGdGkZAI6h4-unsplash_acrobat.jpg')
+	images.append('jean-philippe-delberghe-n0uRXGaHesY-unsplash_parrot.jpg')
+	images.append('johirul-islam-sujon-Kvr2_36M-As-unsplash_silhouette.jpg')
+	images.append('john-torcasio-oeGMaLjUOxQ-unsplash_fieldHockey.jpg')
+	images.append('sven-read-oktY8r91C84-unsplash_tunnel.jpg')
+	images.append('marina-reich-NxWdBnFiikg-unsplash_streescene.jpg')
+	images.append('derick-mckinney-5Ipp6iH8BD4-unsplash_Sign.jpg')
+	images.append('mikael-seegen-2qF7ZkGdCNI-unsplash_Yield.jpg')
+	images.append('kathy-servian-EwsYJqS0D2E-unsplash_butterfly.jpg')
+	images.append('daniel-tuttle-_kGG9EyZxyA-unsplash_chicken.jpg')
 
 	# Batch F
 	images.append('alexas_fotos--mFVHEzRvsQ-unsplash_weave.jpg')
@@ -1030,8 +1041,8 @@ def main():
 	targetPixels = [3200]
 	if Bridson_Common.bulkGeneration:
 		# segmentCounts = [100, 200]
-		segmentCounts = [ 400, 900, 1600]
-		# segmentCounts = [400]
+		# segmentCounts = [ 400, 900, 1600]
+		segmentCounts = [400, 900]
 		lineWidthType = ['A']
 		# segmentCounts = [50, 100]
 		# compactnessList = [ 0.1, 0.25, 0.5]

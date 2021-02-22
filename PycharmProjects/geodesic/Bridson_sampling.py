@@ -10,6 +10,7 @@ import Bridson_Common
 import datetime
 from numba import prange, njit, jit, jit_module
 
+@jit
 def calculateParameters(xrange, yrange, radius=0, pointCount=0):
     perimeter = xrange * 2.0 + yrange * 2.0
 
@@ -26,7 +27,7 @@ def calculateParameters(xrange, yrange, radius=0, pointCount=0):
 
 
 
-def Bridson_sampling(width=1.0, height=1.0, radius=0.025, k=30, existingPoints=[], mask=[]):
+def Bridson_sampling(width=1.0, height=1.0, radius=0.025, k=10, existingPoints=[], mask=[]):
     # References: Fast Poisson Disk Sampling in Arbitrary Dimensions
     #             Robert Bridson, SIGGRAPH, 2007
     def squared_distance(p0, p1):
@@ -115,7 +116,7 @@ def Bridson_sampling(width=1.0, height=1.0, radius=0.025, k=30, existingPoints=[
                 add_point(q)
     return P[M]
 
-
+@jit
 def displayPoints(points, xrange, yrange):
     plt.figure()
     plt.subplot(1, 1, 1, aspect=1)
@@ -130,18 +131,18 @@ def displayPoints(points, xrange, yrange):
     # plt.ylim(0, 1)
     plt.xlim(-1, xrange+1)
     plt.ylim(-1, yrange+1)
-    Bridson_Common.logDebug(__name__, points)
+    # Bridson_Common.logDebug(__name__, points)
     # plt.show()
 
-
+@jit
 def genSquarePerimeterPoints(xrange, yrange, pointCount=0, radius=0):
 
     perimeter = xrange*2.0 + yrange*2.0
 
     pointDistance, pointCount = calculateParameters(xrange, yrange, radius=radius, pointCount=pointCount)
 
-    Bridson_Common.logDebug(__name__, "Perimeter", perimeter)
-    Bridson_Common.logDebug(__name__, "PointDistance", pointDistance)
+    # Bridson_Common.logDebug(__name__, "Perimeter", perimeter)
+    # Bridson_Common.logDebug(__name__, "PointDistance", pointDistance)
     deltax = pointDistance
     deltay = 0
     fudge = 0.001
@@ -160,10 +161,10 @@ def genSquarePerimeterPoints(xrange, yrange, pointCount=0, radius=0):
 
 
     # Transition to the first Y axis.
-    Bridson_Common.logDebug(__name__, "Transition to first y axis")
-    Bridson_Common.logDebug(__name__, "currentx", currentx, "currenty", currenty)
+    # Bridson_Common.logDebug(__name__, "Transition to first y axis")
+    # Bridson_Common.logDebug(__name__, "currentx", currentx, "currenty", currenty)
     currenty = abs(xrange - currentx)
-    Bridson_Common.logDebug(__name__, "newCurrentY", currenty)
+    # Bridson_Common.logDebug(__name__, "newCurrentY", currenty)
     currentx = xrange - 0.01
     while currenty < yrange:
         points.append([currentx, currenty])
@@ -193,6 +194,7 @@ def genSquarePerimeterPoints(xrange, yrange, pointCount=0, radius=0):
     return np.array(points)
 
 
+
 if __name__ == '__main__':
 
     dradius = 2
@@ -200,14 +202,14 @@ if __name__ == '__main__':
     points = np.array([])
     a = datetime.datetime.now()
     points = genSquarePerimeterPoints(xrange, yrange, radius=dradius)
-    Bridson_Common.logDebug(__name__, np.shape(points))
+    # Bridson_Common.logDebug(__name__, np.shape(points))
 
     b = datetime.datetime.now()
     Bridson_Common.determineRadius(xrange, yrange)
     points = Bridson_sampling(width=xrange, height=yrange, radius=Bridson_Common.dradius, existingPoints=points)
     c = datetime.datetime.now()
 
-    Bridson_Common.logDebug(__name__, np.shape(points))
+    # Bridson_Common.logDebug(__name__, np.shape(points))
     displayPoints(points, xrange, yrange)
     d = datetime.datetime.now()
     print("Gen Square:", (b-a).microseconds)
