@@ -41,19 +41,30 @@ if False:
 
 import numpy as np
 
-def perpendicular( a ) :
-	b = np.empty_like(a)
-	b[0] = -a[1]
-	b[1] = a[0]
-	return b
 
-def normalize(a):
-	a = np.array(a)
-	return a/np.linalg.norm(a)
+if False:
+	def perpendicular( a ) :
+		b = np.empty_like(a)
+		b[0] = -a[1]
+		b[1] = a[0]
+		return b
 
-if __name__ == "__main__":
-	# Option for rotating vector 90 degrees.
+	def normalize(a):
+		a = np.array(a)
+		return a/np.linalg.norm(a)
 
-	a = (1,2)
-	b = (-2, -4)
-	print( np.dot(a, b) )
+	if __name__ == "__main__":
+		# Option for rotating vector 90 degrees.
+
+		a = (1,2)
+		b = (-2, -4)
+		print( np.dot(a, b) )
+
+
+
+if True:
+	import Bridson_Common
+	filename = 'alexas_fotos--mFVHEzRvsQ-unsplash_weave.jpg'
+	blurredArray = Bridson_Common.getBlurredImage(filename, 7)
+	plt.imshow( blurredArray )
+	plt.show()

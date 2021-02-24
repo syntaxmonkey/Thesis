@@ -22,7 +22,7 @@ from skimage.future import graph
 import Bridson_Angles
 from GridCell import GridCells2, LineObject
 import datetime
-from numba import njit, jit_module
+from numba import njit, jit_module, jit
 
 
 np.set_printoptions(threshold=sys.maxsize)  # allow printing without ellipsis: https://stackoverflow.com/questions/44311664/print-numpy-array-without-ellipsis
@@ -165,6 +165,14 @@ class FinishedImage:
 
 	def setGreyscaleImage(self, filename):
 		self.greyImageArray = Bridson_Common.getGreyscaleImage( filename )
+		pass
+
+	def getSmallBlurImage(self, filename):
+		self.smallBlurArray = Bridson_Common.getBlurredImage(filename, Bridson_Common.smallBlur)
+		pass
+
+	def getLargeBlurImage(self, filename):
+		self.largeBlurArray = Bridson_Common.getBlurredImage(filename, Bridson_Common.largeBlur)
 		pass
 
 	def cropContourLines(self, linePoints, raster, topLeftTarget):
@@ -1805,7 +1813,7 @@ class FinishedImage:
 	def drawLinesCollisionBased(self, filename, percentage=Bridson_Common.defaultEdgePercentage, drawSLICRegions = Bridson_Common.drawSLICRegions):
 		self.edgePercentage = percentage
 		self.filename = filename
-		print("============ drawLinesCollisionBased percent:", percentage)
+		print("============ drawLinesCollisionBased percent:", percentage, "=====", datetime.datetime.now() )
 		# This will be the new entry point.
 		self.globalLineList = []
 		self.regionLineWidth = {}
@@ -1864,7 +1872,8 @@ class FinishedImage:
 			currentMaxLength = Bridson_Common.findLongestSegmentLength( lineObject.getLinePoints() )
 			if currentMaxLength > baseMaxSegmentLength:
 				baseMaxSegmentLength = currentMaxLength
-		self.maxSegmentLength = math.ceil( baseMaxSegmentLength * 1.5 ) # hypotenuse of unit square is 1.41
+		# self.maxSegmentLength = math.ceil( baseMaxSegmentLength * 1.5 ) # hypotenuse of unit square is 1.41
+		self.maxSegmentLength = math.ceil(Bridson_Common.lineDensitySegmentLength * 1.5)  # hypotenuse of unit square is 1.41
 
 		print("Max Segment Length:", self.maxSegmentLength, ".", datetime.datetime.now())
 
@@ -1875,11 +1884,13 @@ class FinishedImage:
 		if True:
 			for index in range(self.normalLineStartIndex):
 				lineObject = self.globalLineList[ index ]
-				newLine = Bridson_Common.increaseLineDensity( lineObject.getLinePoints(), baseMaxSegmentLength  )
+				# newLine = Bridson_Common.increaseLineDensity( lineObject.getLinePoints(), baseMaxSegmentLength )
+				newLine = Bridson_Common.increaseLineDensity( lineObject.getLinePoints(), Bridson_Common.lineDensitySegmentLength )
 				newLine[:,1] *= -1 # Need to flip the y-values of the edge lines.
 				self.globalLineList[index] = LineObject( newLine, lineObject.lineIndex, lineObject.regionIndex, erosionIndex=-1 )
 
 
+		# Bridson_Common.resetLineDistanceCount()
 		# increase line density of the etch lines.
 		if True:
 			for index in range(self.normalLineStartIndex, len(self.globalLineList)):
@@ -1970,8 +1981,8 @@ class FinishedImage:
 	def populateLineIntensityWiggleLines(self, flip):
 
 		for lineObject in self.globalLineList[ self.normalLineStartIndex: ]:
-			lineObject.populateIntensity( self.greyImageArray, flip)
-			lineObject.wiggleLine()
+			# lineObject.populateIntensity( self.greyImageArray, self.smallBlurArray, self.largeBlurArray, flip)
+			lineObject.wiggleLine( self.smallBlurArray, self.largeBlurArray, flip)
 
 
 

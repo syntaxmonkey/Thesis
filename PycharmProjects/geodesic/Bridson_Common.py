@@ -37,7 +37,7 @@ SLICGrey = False
 productionMode = True
 displayGrid = False
 bulkGeneration = True
-smallBatch=True
+smallBatch=False
 diagnosticDisplay=False # Enable/Disable pairing diagnostics
 diagnosticDisplayCount=20
 diagnosticMerge=False
@@ -75,7 +75,9 @@ edgeLineWidthPercentile = 60
 
 lineDensitySegmentLength = 1 # Desired number of pixels between points in the etch lines.
 
-wiggleScale = 4 # Maximum number of pixels to wiggle line when calculating aberrations.
+wiggleScale = 10 # Maximum number of pixels to wiggle line when calculating aberrations.
+smallBlur = 3
+largeBlur = 21
 
 growEdgeLineCountIterations = 100
 growLinesCountIterations = 100 # Number of iterations to grow the lines.  Growing only includes existing lines.
@@ -467,6 +469,17 @@ def getGreyscaleImage( filename ):
 	pass
 
 
+def getBlurredImage(filename, blurScale):
+	img = cv.imread(filename, 0)
+	blur = cv.boxFilter(img, -1, (blurScale, blurScale))
+	# blur = cv.GaussianBlur(img, (blurScale, blurScale), 0)
+	# print(type(blur))
+	# print(np.shape(blur))
+	# print(blur)
+	return blur
+
+
+
 def turnOnProfiler():
 	pr = cProfile.Profile()
 	pr.enable()
@@ -477,13 +490,13 @@ def turnOffProfiler(pr, methodName):
 	s = io.StringIO()
 	sortby = SortKey.CUMULATIVE
 	ps = pstats.Stats(pr, stream=s).sort_stats(sortby)
-	ps.print_stats(30)
+	ps.print_stats(40)
 	# print("Profiler CUMULATIVE information for", methodName)
 	# print(s.getvalue())
 
 	sortby = SortKey.TIME
 	ps = pstats.Stats(pr, stream=s).sort_stats(sortby)
-	ps.print_stats(30)
+	ps.print_stats(40)
 	print("Profiler CUMULATIVE - TOTTIME information for", methodName)
 	print(s.getvalue())
 
@@ -543,6 +556,7 @@ def genImageEdges(filename):
 			if ((maxP - minP) > thres) and zeroCross:
 				output[y, x] = 1
 	return output
+
 
 
 def laplaceOfGaussian(filename):
@@ -678,11 +692,20 @@ def findEdgeContours( imageName, percentage=2 ):
 
 	return contours
 
+
+
+
 lineDistanceCount = []
+
+def resetLineDistanceCount():
+	global lineDistanceCount
+	print("Resetting lineDistanceCount")
+	lineDistanceCount = []
+
 def increaseLineDensity( line, k ):
 	global lineDistanceCount
+	# print("Desired k:", k)
 	'''
-
 	:param line:
 	:param k: desired density.  The points between the points should less than or equal to k.
 	:return: new line with new line point density.
@@ -692,10 +715,10 @@ def increaseLineDensity( line, k ):
 		pointPair = line[index:index+2]
 		pairDistance = euclidean_distance(pointPair[0], pointPair[1])
 		# print('pairDistance:', pairDistance)
-		newLine.append(pointPair[0])
-		lineDistanceCount.append( pairDistance )
+		newLine.append(tuple(pointPair[0]))
+		# lineDistanceCount.append( pairDistance )
 		if pairDistance > k: # If the distance between the pairs is greater than the minimum distance.
-			numberOfPoints = math.ceil( (pairDistance / k) ) - 1 # Determine the number of points we need to add.
+			numberOfPoints = math.ceil( (pairDistance / k) )  # Determine the number of points we need to add.  Should it be this value or this value - 1?
 			# distanceBetweenPoints = pairDistance / ( numberOfPoints + 2 )
 			deltax = (pointPair[1][0] - pointPair[0][0])/(numberOfPoints + 1)
 			deltay = (pointPair[1][1] - pointPair[0][1])/(numberOfPoints + 1)
@@ -706,6 +729,17 @@ def increaseLineDensity( line, k ):
 		# else:
 		# 	newLine.append( pointPair[0] )
 	newLine.append(line[-1]) # Add the last point from the line.
+
+	for index in range(len(newLine) - 1):
+		# distanceCount = np.zeros( len(newLine) - 1)
+		pointPair = newLine[index:index+2]
+		pairDistance = euclidean_distance(pointPair[0], pointPair[1])
+		lineDistanceCount.append( pairDistance )
+		if pairDistance > k:
+			# Error case.
+			print("pairDistance greater than ", k, ":", pointPair, "line:", newLine)
+
+
 	return np.array(newLine)
 
 

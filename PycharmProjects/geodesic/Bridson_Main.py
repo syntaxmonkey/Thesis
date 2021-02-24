@@ -454,7 +454,7 @@ def drawRegionLines( filename, finishedImage, regionList):
 			meshAngle = finishedImage.regionDirection[ index ]  # Obtain the angle that was calculated.
 			flatAngle = int( flatMeshObj.calculateAngle( meshObj, desiredAngle=meshAngle ) )  # Determine the angle on the flat mesh.
 			Bridson_Common.logDebug(__name__, "MeshAngle:", meshAngle, "Flat angle:", flatAngle)
-
+			print("MeshAngle:", meshAngle, "Flat angle:", flatAngle, " - ", datetime.datetime.now() )
 			# if trifindersuccess:
 			successfulRegions += 1
 			# print("Trifinder was successfully generated for region", index)
@@ -466,9 +466,11 @@ def drawRegionLines( filename, finishedImage, regionList):
 						# a = datetime.datetime.now()
 						flatMeshObj.DrawAngleLinesExteriorSeed2(raster, angle=flatAngle )
 						Bridson_Common.logDebug(__name__, "Drawing DrawAngleLinesExteriorSeed2 done ", datetime.datetime.now())
+						print("Drawing DrawAngleLinesExteriorSeed2 done.", datetime.datetime.now())
 						# flatMeshObj.DrawAngleLinesExteriorSeed3(raster, regionMap, index, intensity=regionIntensityMap[index], angle=flatAngle)
 						flatMeshObj.checkLinePoints() # diagnostic check for empty lines.
 						Bridson_Common.logDebug(__name__, "checkLinePoints done ", datetime.datetime.now())
+						print("checkLinePoints done.", datetime.datetime.now())
 					else:
 						flatMeshObj.DrawAngleLinesExteriorSeed2()
 					# b = datetime.datetime.now()
@@ -488,6 +490,7 @@ def drawRegionLines( filename, finishedImage, regionList):
 			# if True:  # Rotate original image 90 CW.
 			# print("About to call rotateClockwise90")
 			meshObj.rotateClockwise90()  ## HERE - disable rotation temporarily.
+			print("rotateClosewise90 done.", datetime.datetime.now())
 			# print("Rotated 90 clockwise")
 			meshObjCollection[ index ] = meshObj
 			# print("Save NoSLIC meshObj")
@@ -650,6 +653,8 @@ def indexValidation(filename):
 	finishedImageNoSLIC.setYLimit(0, -np.shape(regionRaster)[0])
 	finishedImageNoSLIC.adjustFigSize()
 	finishedImageNoSLIC.setGreyscaleImage( filename )
+	finishedImageNoSLIC.getSmallBlurImage(filename )
+	finishedImageNoSLIC.getLargeBlurImage( filename )
 
 	# finishedImageNoSLIC_B = Bridson_FinishedImage.FinishedImage()
 	# # finishedImageNoSLIC_B.setTitle(filename + "_POST_")
@@ -1041,8 +1046,8 @@ def main():
 	targetPixels = [3200]
 	if Bridson_Common.bulkGeneration:
 		# segmentCounts = [100, 200]
-		# segmentCounts = [ 400, 900, 1600]
-		segmentCounts = [400, 900]
+		segmentCounts = [ 400, 900, 1600]
+		# segmentCounts = [400, 900]
 		lineWidthType = ['A']
 		# segmentCounts = [50, 100]
 		# compactnessList = [ 0.1, 0.25, 0.5]
@@ -1058,15 +1063,11 @@ def main():
 
 	if Bridson_Common.smallBatch:
 		images = []
-		# images.append('simpleTriangle.png')
-		# images.append('Stripes.png')
-		# images.append('kaitlyn-ahnert-3iQ_t2EXfsM-unsplash.jpg')
-		# images.append('valentin-lacoste-GcepdU3MyKE-unsplash.jpg')
-		# images.append('david-dibert-Huza8QOO3tc-unsplash.jpg')
-		# images.append('TestSquare.jpg')
+
 		images.append('TwoRegions.jpg')
+		# images.append('alexas_fotos--mFVHEzRvsQ-unsplash_weave.jpg')
 		semanticSegmentation = ['none']
-		segmentCounts = [100]
+		# segmentCounts = [400]
 		segmentCounts = [4]
 		compactnessList = ['SLIC0']
 		attractPercentileList = [80]
@@ -1131,7 +1132,7 @@ def main():
 		print("CoreCount:", coreCount)
 		mp.set_start_method('forkserver')  # Valid options are 'fork', 'spawn', and 'forkserver'
 
-		if True:
+		if False:
 			# Original approach.
 			for iteration in range( iterations ):
 				iterationVariables = variables[iteration*blocks:(iteration+1)*blocks].copy()
@@ -1141,8 +1142,7 @@ def main():
 					pool.starmap( wrapper, iterationVariables )
 				pool.terminate()
 				gc.collect()
-
-		if False:
+		else:
 			with Pool(processes=coreCount) as pool:
 				pool.starmap( wrapper, variables )
 

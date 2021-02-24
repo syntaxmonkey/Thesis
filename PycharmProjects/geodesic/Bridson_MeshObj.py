@@ -1507,6 +1507,7 @@ class MeshObject:
 		if profilerOn:
 			pr = Bridson_Common.turnOnProfiler()
 
+		print("GenMeshFromMask - Bridson_sampling radius:", radius)
 		# Generate all the sample points.
 		points = Bridson_sampling.Bridson_sampling(width=xrange, height=yrange, radius=radius, existingPoints=points, mask=self.invertedMask)
 

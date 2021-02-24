@@ -744,7 +744,74 @@ class LineObject:
 		self.endBounded = [False, False]
 
 
-	def populateIntensity(self, greyImageArray, flip):
+	def wiggleLineBak(self):
+		pointWiggles = np.zeros( (len(self.__linePoints), 2) ) # Create wiggle array the same size as self.__linePoints.
+		for index in range(self.endIndeces[0]+1, self.endIndeces[1]-1):
+			currentIntensity = self.pointIntensity[ index ]
+			currentPoint = self.__linePoints[index]
+			previousPoint = self.__linePoints[index - 1]
+			intensityDiff = currentIntensity - self.intensityAverage
+			# Calculate the vector for the point.
+			pointVector = (currentPoint[0] - previousPoint[0], currentPoint[1] - previousPoint[1])
+			hypotenuse = math.sqrt(pointVector[0]*pointVector[0] + pointVector[1]*pointVector[1])
+
+			if pointVector == 0:
+				hypotenuse = pointVector[0] if pointVector[0] > pointVector[1] else pointVector[1]
+
+			# Rotate the vector 90 degrees CW to get normal vector.
+			# Make the longest component of the normal vector equal to 1.
+			scalingFactor = 1 / hypotenuse * Bridson_Common.wiggleScale * abs(intensityDiff) / 255
+			if intensityDiff > 0:
+				normalVector = (pointVector[1] * scalingFactor, -pointVector[0] * scalingFactor)
+			else:
+				normalVector = ( -pointVector[1] * scalingFactor, pointVector[0] * scalingFactor)
+
+			pointWiggles[ index ]  = normalVector
+
+		self.__linePoints = self.__linePoints + pointWiggles
+
+
+	def wiggleLine(self, smallBlurArray, largeBlurArray, flip):
+		pointWiggles = np.zeros( (len(self.__linePoints), 2) ) # Create wiggle array the same size as self.__linePoints.
+		for index in range(self.endIndeces[0]+1, self.endIndeces[1]-1):
+			point = self.__linePoints[ index ]
+			x, y = point
+			x = int(x)
+			y = int(y)
+			# pointIntensity = smallBlurArray[y * flip, x]
+			# averageIntensity = largeBlurArray[y * flip, x]
+
+			# currentIntensity = self.pointIntensity[ index ]
+			currentPoint = self.__linePoints[index]
+			previousPoint = self.__linePoints[index - 1]
+			# intensityDiff = pointIntensity - averageIntensity
+			# intensityDiff = int(smallBlurArray[y * flip, x]) - int(largeBlurArray[y * flip, x])
+			intensityDiff = int(smallBlurArray[y * flip, x]) - int(largeBlurArray[y * flip, x])
+
+			# Calculate the vector for the point.
+			pointVector = (currentPoint[0] - previousPoint[0], currentPoint[1] - previousPoint[1])
+			hypotenuse = math.sqrt(pointVector[0]*pointVector[0] + pointVector[1]*pointVector[1])
+
+			if pointVector == 0:
+				hypotenuse = pointVector[0] if pointVector[0] > pointVector[1] else pointVector[1]
+
+			# Rotate the vector 90 degrees CW to get normal vector.
+			# Make the longest component of the normal vector equal to 1.
+			scalingFactor = 1 / hypotenuse * Bridson_Common.wiggleScale * abs(intensityDiff) / 255
+			if scalingFactor == 0:
+				scalingFactor = 1
+
+			if intensityDiff > 0:
+				normalVector = (pointVector[1] * scalingFactor, -pointVector[0] * scalingFactor)
+			else:
+				normalVector = ( -pointVector[1] * scalingFactor, pointVector[0] * scalingFactor)
+
+			pointWiggles[ index ]  = normalVector
+
+		self.__linePoints = self.__linePoints + pointWiggles
+
+
+	def populateIntensity(self, greyImageArray, smallBlurArray, largeBlurArray, flip):
 		self.pointIntensity = [0] * len(self.__linePoints)
 
 		intensityTotal = 0
@@ -754,9 +821,9 @@ class LineObject:
 			x, y = point
 			x = int(x)
 			y = int(y)
-			intensity = greyImageArray[y * flip,x] # Remember the Image array is Numpy array.  The x,y are reversed.
+			intensity = smallBlurArray[y * flip,x] # Remember the Image array is Numpy array.  The x,y are reversed.
 			intensityTotal += intensity
-			self.pointIntensity[ index ] = intensity
+			self.pointIntensity[ index ] = smallBlurArray[y*flip, x] # Get the point intensity from the small blur array.
 			count += 1
 
 		if count > 0:
@@ -791,38 +858,7 @@ class LineObject:
 			self.calculateDirection()
 
 
-	def wiggleLine(self):
-		pointWiggles = np.zeros( (len(self.__linePoints), 2) ) # Create wiggle array the same size as self.__linePoints.
-		for index in range(self.endIndeces[0]+1, self.endIndeces[1]-1):
-			currentIntensity = self.pointIntensity[ index ]
-			currentPoint = self.__linePoints[index]
-			previousPoint = self.__linePoints[index - 1]
-			intensityDiff = currentIntensity - self.intensityAverage
-			# Calculate the vector for the point.
-			pointVector = (currentPoint[0] - previousPoint[0], currentPoint[1] - previousPoint[1])
-			hypotenuse = math.sqrt(pointVector[0]*pointVector[0] + pointVector[1]*pointVector[1])
 
-			if pointVector == 0:
-				hypotenuse = pointVector[0] if pointVector[0] > pointVector[1] else pointVector[1]
-
-			# Rotate the vector 90 degrees CW to get normal vector.
-			# Make the longest component of the normal vector equal to 1.
-			scalingFactor = 1 / hypotenuse * Bridson_Common.wiggleScale * abs(intensityDiff) / 255
-			if intensityDiff > 0:
-				normalVector = (pointVector[1] * scalingFactor, -pointVector[0] * scalingFactor)
-			else:
-				normalVector = ( -pointVector[1] * scalingFactor, pointVector[0] * scalingFactor)
-
-			pointWiggles[ index ]  = normalVector
-
-		self.__linePoints = self.__linePoints + pointWiggles
-
-			# if intensityDiff > 0:
-			# 	currentPoint[0] = currentPoint[0] + normalVector[0]
-			# 	currentPoint[1] = currentPoint[1] + normalVector[0]
-			# else:
-			# 	currentPoint[0] = currentPoint[0] - normalVector[0]
-			# 	currentPoint[1] = currentPoint[1] - normalVector[0]
 
 
 
