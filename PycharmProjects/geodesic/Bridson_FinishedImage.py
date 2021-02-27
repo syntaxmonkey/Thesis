@@ -1776,7 +1776,7 @@ class FinishedImage:
 		# Add the edge lines to the globalLineList.
 		print("Edge Line count:", len(edgeLines))
 		for line in edgeLines:
-			if True or len(line) > Bridson_Common.minEdgeLineLength:
+			if len(line) > Bridson_Common.minEdgeLineLength:
 				lineObject = LineObject(line, lineIndex, -1, -1)
 				self.globalLineList.append(lineObject)  # Setting the regionIndex to -1.
 				lineIndex += 1
@@ -1786,10 +1786,10 @@ class FinishedImage:
 		print("Normal Line Start Index:", self.normalLineStartIndex)
 
 
-	def calculateEdgeLineWidth(self):
+	def calculateEdgeLineWidth(self, erosionSetting):
 		totalLineWidth = 0
 		totalLines = 0
-
+		print("calculateEdgeLineWidth erosionSetting:", erosionSetting)
 		# Add lines to globalLineList.
 		for regionIndex in self.meshObjCollection.keys():
 			# Obtain the meshObj.
@@ -1798,8 +1798,9 @@ class FinishedImage:
 			linePoints = meshObj.croppedLinePoints.copy()
 			for line in linePoints:
 				# Only add lines of a minimum length.
-				if len(line) > Bridson_Common.erosionCount and len(line) >= Bridson_Common.minLineLength:
-					self.globalLineList.append( LineObject( line, self.lineIndex, regionIndex ) )
+				# if len(line) > Bridson_Common.erosionCount and len(line) >= Bridson_Common.minLineLength:
+				if (len(line)) > erosionSetting*2 and len(line) >= Bridson_Common.minLineLength:
+					self.globalLineList.append( LineObject( line, self.lineIndex, regionIndex, erosionIndex=erosionSetting ) )
 					self.lineIndex += 1
 					totalLines += 1
 			self.regionLineWidth[ regionIndex ] = self.calculateLineWidth(regionIndex, np.size(meshObj.croppedLinePoints))
@@ -1810,7 +1811,7 @@ class FinishedImage:
 		lineWidthUniqueList.sort()
 		self.edgeLineWidth = lineWidthUniqueList[  math.floor( len(lineWidthUniqueList) * Bridson_Common.edgeLineWidthPercentile / 100 )  ]
 
-	def drawLinesCollisionBased(self, filename, percentage=Bridson_Common.defaultEdgePercentage, drawSLICRegions = Bridson_Common.drawSLICRegions):
+	def drawLinesCollisionBased(self, filename, percentage=Bridson_Common.defaultEdgePercentage, drawSLICRegions = Bridson_Common.drawSLICRegions, generateEdges=False, erodeLines = False, growLines=False, extendLines=False, wiggleLines=False):
 		self.edgePercentage = percentage
 		self.filename = filename
 		print("============ drawLinesCollisionBased percent:", percentage, "=====", datetime.datetime.now() )
@@ -1818,48 +1819,56 @@ class FinishedImage:
 		self.globalLineList = []
 		self.regionLineWidth = {}
 		self.lineIndex = 0
-		if False:
-			# Generate the edge lines and add to list of lines.
-			edgeLines = self.generateEdgeLines(filename, percentage=percentage)
-
-			lineIndex = 0
-			# Add the edge lines to the globalLineList.
-			print("Edge Line count:", len(edgeLines))
-			for line in edgeLines:
-				if True or len(line) > Bridson_Common.minEdgeLineLength:
-					lineObject = LineObject(line, lineIndex, -1, -1 )
-					self.globalLineList.append( lineObject ) # Setting the regionIndex to -1.
-					self.lineIndex += 1
-
-			self.normalLineStartIndex = len(self.globalLineList)
+		if erodeLines:
+			erosionSetting = Bridson_Common.erosionCount
 		else:
+			erosionSetting = -1
+		print("erosionSetting:", erosionSetting)
+		# if False:
+		# 	# Generate the edge lines and add to list of lines.
+		# 	edgeLines = self.generateEdgeLines(filename, percentage=percentage)
+		#
+		# 	lineIndex = 0
+		# 	# Add the edge lines to the globalLineList.
+		# 	print("Edge Line count:", len(edgeLines))
+		# 	for line in edgeLines:
+		# 		if True or len(line) > Bridson_Common.minEdgeLineLength:
+		# 			lineObject = LineObject(line, lineIndex, -1, -1 )
+		# 			self.globalLineList.append( lineObject ) # Setting the regionIndex to -1.
+		# 			self.lineIndex += 1
+		#
+		# 	self.normalLineStartIndex = len(self.globalLineList)
+		# else:
+		if generateEdges:
 			self.produceEdgeLines()
-
-
-		if False:
-			totalLineWidth = 0
-			totalLines = 0
-			# Add lines to globalLineList.
-			for regionIndex in self.meshObjCollection.keys():
-				# Obtain the meshObj.
-				meshObj = self.meshObjCollection[regionIndex]
-				# Obtain the linePoints from the meshObj.
-				linePoints = meshObj.croppedLinePoints.copy()
-				for line in linePoints:
-					# Only add lines of a minimum length.
-					if len(line) > Bridson_Common.erosionCount and len(line) >= Bridson_Common.minLineLength:
-						self.globalLineList.append( LineObject( line, self.lineIndex, regionIndex ) )
-						self.lineIndex += 1
-						totalLines += 1
-				self.regionLineWidth[ regionIndex ] = self.calculateLineWidth(regionIndex, np.size(meshObj.croppedLinePoints))
-				totalLineWidth += self.regionLineWidth[ regionIndex ]
-
-			# Calculate the edge line width.
-			lineWidthUniqueList = list(set(self.regionLineWidth.values()))
-			lineWidthUniqueList.sort()
-			self.edgeLineWidth = lineWidthUniqueList[  math.floor( len(lineWidthUniqueList) * Bridson_Common.edgeLineWidthPercentile / 100 )  ]
 		else:
-			self.calculateEdgeLineWidth()
+			self.normalLineStartIndex = len(self.globalLineList)
+
+
+		# if False:
+		# 	totalLineWidth = 0
+		# 	totalLines = 0
+		# 	# Add lines to globalLineList.
+		# 	for regionIndex in self.meshObjCollection.keys():
+		# 		# Obtain the meshObj.
+		# 		meshObj = self.meshObjCollection[regionIndex]
+		# 		# Obtain the linePoints from the meshObj.
+		# 		linePoints = meshObj.croppedLinePoints.copy()
+		# 		for line in linePoints:
+		# 			# Only add lines of a minimum length.
+		# 			if len(line) > Bridson_Common.erosionCount and len(line) >= Bridson_Common.minLineLength:
+		# 				self.globalLineList.append( LineObject( line, self.lineIndex, regionIndex ) )
+		# 				self.lineIndex += 1
+		# 				totalLines += 1
+		# 		self.regionLineWidth[ regionIndex ] = self.calculateLineWidth(regionIndex, np.size(meshObj.croppedLinePoints))
+		# 		totalLineWidth += self.regionLineWidth[ regionIndex ]
+		#
+		# 	# Calculate the edge line width.
+		# 	lineWidthUniqueList = list(set(self.regionLineWidth.values()))
+		# 	lineWidthUniqueList.sort()
+		# 	self.edgeLineWidth = lineWidthUniqueList[  math.floor( len(lineWidthUniqueList) * Bridson_Common.edgeLineWidthPercentile / 100 )  ]
+		# else:
+		self.calculateEdgeLineWidth( erosionSetting )
 
 		# print( "Global Lines List:", self.globalLineList )
 		print("Global Lines List length:", len(self.globalLineList))
@@ -1881,25 +1890,27 @@ class FinishedImage:
 		self.gridCells = GridCells2(self.limitX, self.limitY, self.maxSegmentLength)
 
 		# Adjust the line density of the edge lines.
-		if True:
-			for index in range(self.normalLineStartIndex):
-				lineObject = self.globalLineList[ index ]
-				# newLine = Bridson_Common.increaseLineDensity( lineObject.getLinePoints(), baseMaxSegmentLength )
-				newLine = Bridson_Common.increaseLineDensity( lineObject.getLinePoints(), Bridson_Common.lineDensitySegmentLength )
-				newLine[:,1] *= -1 # Need to flip the y-values of the edge lines.
-				self.globalLineList[index] = LineObject( newLine, lineObject.lineIndex, lineObject.regionIndex, erosionIndex=-1 )
+		for index in range(self.normalLineStartIndex):
+			lineObject = self.globalLineList[ index ]
+			# newLine = Bridson_Common.increaseLineDensity( lineObject.getLinePoints(), baseMaxSegmentLength )
+			newLine = Bridson_Common.increaseLineDensity( lineObject.getLinePoints(), Bridson_Common.lineDensitySegmentLength )
+			newLine[:,1] *= -1 # Need to flip the y-values of the edge lines.
+			self.globalLineList[index] = LineObject( newLine, lineObject.lineIndex, lineObject.regionIndex, erosionIndex=-1 )
 
 
-		# Bridson_Common.resetLineDistanceCount()
-		# increase line density of the etch lines.
+
 		if True:
+			print("Increasing etch line density.", datetime.datetime.now() )
+			# Bridson_Common.resetLineDistanceCount()
+			# increase line density of the etch lines.
 			for index in range(self.normalLineStartIndex, len(self.globalLineList)):
 				lineObject = self.globalLineList[ index ]
 				# print("Line length before density increase:", len(lineObject.getLinePoints()) )
 				newLine = Bridson_Common.increaseLineDensity( lineObject.getLinePoints(), Bridson_Common.lineDensitySegmentLength )
-				newLineObject = LineObject(newLine, lineObject.lineIndex, lineObject.regionIndex)
+				newLineObject = LineObject(newLine, lineObject.lineIndex, lineObject.regionIndex, erosionIndex=erosionSetting)
 				self.globalLineList[index] = newLineObject
 				# print("** Line length after density increase:", len(newLineObject.getLinePoints()) )
+
 
 		hist = np.histogram(Bridson_Common.lineDistanceCount, bins=5)
 		print("Line segment length histogram")
@@ -1920,15 +1931,16 @@ class FinishedImage:
 				self.gridCells.addLine(lineObject.getLinePoints(), 0, len(lineObject.getLinePoints()) - 1, lineObject.getLineIndex())  # Add the first etch.
 
 		print("Populated Edge Lines Gridcells:",  datetime.datetime.now())
-
 		if Bridson_Common.growEdgeLines:
 			self.growEdgeLines()
+
 
 		print("First line direction alignment", datetime.datetime.now())
 		self.alignLineDirectionVectors() # Align the direction of the line arrays.
 		# print("Second line direction alignment")
 		# self.alignLineDirectionVectors()  # Align the direction of the line arrays.
 		print("line direction alignment done", datetime.datetime.now())
+
 
 		# Add normal lines to the gridCells
 		# for line in lines:
@@ -1950,17 +1962,22 @@ class FinishedImage:
 		if profilerOn:
 			pr = Bridson_Common.turnOnProfiler()
 
-		self.growLines()
-		print("Finish Grow Lines:", datetime.datetime.now())
+		if growLines:
+			self.growLines()
+			print("Finish Grow Lines:", datetime.datetime.now())
+
 		if profilerOn:
 			Bridson_Common.turnOffProfiler(pr, __name__)
 
-		self.extendLines()
-		print("Finish Extend Lines:", datetime.datetime.now())
-
 		# Extend the lines beyond their normal points.
-		self.populateLineIntensityWiggleLines( flip )
-		print("Finish Wiggle Lines:", datetime.datetime.now())
+		if extendLines:
+			self.extendLines()
+			print("Finish Extend Lines:", datetime.datetime.now())
+
+		# For some reason, the flip doesn't work for wiggle lines.  We need the value to be negative.
+		if wiggleLines:
+			self.populateLineIntensityWiggleLines( flip * -1 )
+			print("Finish Wiggle Lines:", datetime.datetime.now())
 
 		self.generalDrawLines( flip )
 
@@ -1979,7 +1996,7 @@ class FinishedImage:
 
 
 	def populateLineIntensityWiggleLines(self, flip):
-
+		# Explicitly make the flip negative.
 		for lineObject in self.globalLineList[ self.normalLineStartIndex: ]:
 			# lineObject.populateIntensity( self.greyImageArray, self.smallBlurArray, self.largeBlurArray, flip)
 			lineObject.wiggleLine( self.smallBlurArray, self.largeBlurArray, flip)

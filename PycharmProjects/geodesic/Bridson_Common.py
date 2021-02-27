@@ -37,7 +37,7 @@ SLICGrey = False
 productionMode = True
 displayGrid = False
 bulkGeneration = True
-smallBatch=False
+smallBatch=True
 diagnosticDisplay=False # Enable/Disable pairing diagnostics
 diagnosticDisplayCount=20
 diagnosticMerge=False
@@ -77,7 +77,7 @@ lineDensitySegmentLength = 1 # Desired number of pixels between points in the et
 
 wiggleScale = 10 # Maximum number of pixels to wiggle line when calculating aberrations.
 smallBlur = 3
-largeBlur = 21
+largeBlur = 17
 
 growEdgeLineCountIterations = 100
 growLinesCountIterations = 100 # Number of iterations to grow the lines.  Growing only includes existing lines.
@@ -88,7 +88,7 @@ lineWidthProportionalToRegion = True
 lineWidthScale = 0.05
 lineWidthType = 'A'  # Valid options are 'A', 'B', and 'C'
 
-erosionCount = 4 # This is the number of edge points of a line to erode.  If the value is 0, start at the middle of each line.
+erosionCount = 10 # This is the number of edge points of a line to erode.  If the value is 0, start at the middle of each line.
 aggressiveScale = 3 # Number of times to apply erosionCount for aggressive erosion.
 minLineLength = 4
 randomLineSeed = False
@@ -471,8 +471,8 @@ def getGreyscaleImage( filename ):
 
 def getBlurredImage(filename, blurScale):
 	img = cv.imread(filename, 0)
-	blur = cv.boxFilter(img, -1, (blurScale, blurScale))
-	# blur = cv.GaussianBlur(img, (blurScale, blurScale), 0)
+	# blur = cv.boxFilter(img, -1, (blurScale, blurScale))
+	blur = cv.GaussianBlur(img, (blurScale, blurScale), 0)
 	# print(type(blur))
 	# print(np.shape(blur))
 	# print(blur)

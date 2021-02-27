@@ -613,14 +613,22 @@ def redrawRegionLines( filename, finishedImage, regionList):
 def indexValidation(filename):
 	print(">>>>>>>>>>>>>>>> Calling SLIC for ", filename, "<<<<<<<<<<<<<<<<<<<<<<<")
 
-	percentages = [0,1,2,5,10]
+	# percentages = [0,1,2,5,10]
+	percentages = [0, 2]
 	skip = True
 
 	# if Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "WithSLIC_percentage_0")) == False:
 	# 	skip = False
 
-	for percent in percentages:
-		if Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_POST_LineWidthA_percentage_" + str(percent))) == False:
+	for percent in percentages[1:]:
+		# If any files are missing, do not skip.
+		if Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_percentage_" + str(percent))) == False or \
+			Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_Edges_Erosion_Grow_Extend_Wiggle_percentage_" + str(percent))) == False or \
+			Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_Edges_Erosion_Grow_Extend_percentage_" + str(percent))) == False or \
+			Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_Edges_Erosion_Grow_percentage_" + str(percent))) == False or \
+			Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_Edges_Erosion_percentage_" + str(percent))) == False or \
+			Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_Edges_percentage_" + str(percent))) == False or \
+			Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_percentage_" + str(0))) == False:
 			skip = False
 			break
 
@@ -802,34 +810,34 @@ def indexValidation(filename):
 
 
 	print("0J")
-	if Bridson_Common.overlapEdges:
-		# finishedImageSLIC.overlayEdges(filename, drawSLICRegions=True, pointPercentage=1)
-		# finishedImageNoSLIC.overlayEdges(filename, drawSLICRegions=False, pointPercentage=1)
-		# for index in meshObjCollection.keys():
-			# finishedImageSLIC.drawRegionContourLines( index,  drawSLICRegions=True )
-			# finishedImageNoSLIC.drawRegionContourLines( index,  drawSLICRegions=False )
-		# finishedImageSLIC.drawRegionLinesCollision(index, drawSLICRegions=True)
-		# finishedImageNoSLIC.drawRegionLinesCollision(index, drawSLICRegions=False)
-		percent = 0
-		# if Bridson_Common.fileExists( Bridson_Common.genActualFileName(filename, "WithSLIC_percentage_" + str(percent)) ) == False:
-		# 	finishedImageSLIC.drawLinesCollisionBased(filename, percentage=percent, drawSLICRegions=True)
-		# 	Bridson_Common.saveImage(filename, "WithSLIC_percentage_" + str(percent), finishedImageSLIC.fig)
-
-		# if Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_POST_LineWidthA_percentage_" + str(percent))) == False:
-		# 	finishedImageNoSLIC.drawLinesCollisionBased(filename, percentage=percent, drawSLICRegions=False)
-		# 	Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_" + str(percent), finishedImageNoSLIC.fig)
-
-		# Bridson_Common.saveImage(filename, "WithSLIC_percentage_" + str(percent) , finishedImageSLIC.fig )
-		# Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_" + str(percent) , finishedImageNoSLIC.fig)
-	else:
-		''' Only draw the region lines. '''
-		# for index in meshObjCollection.keys():
-			# finishedImageSLIC.drawRegionContourLines( index,  drawSLICRegions=True )
-			# finishedImageNoSLIC.drawRegionContourLines( index,  drawSLICRegions=False )
-		finishedImageSLIC.drawRegionLinesCollision(index, drawSLICRegions=True)
-		finishedImageNoSLIC.drawRegionLinesCollision(index, drawSLICRegions=False)
-		Bridson_Common.saveImage(filename, "WithSLIC", finishedImageSLIC.fig )
-		Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA", finishedImageNoSLIC.fig)
+	# if Bridson_Common.overlapEdges:
+	# 	# finishedImageSLIC.overlayEdges(filename, drawSLICRegions=True, pointPercentage=1)
+	# 	# finishedImageNoSLIC.overlayEdges(filename, drawSLICRegions=False, pointPercentage=1)
+	# 	# for index in meshObjCollection.keys():
+	# 		# finishedImageSLIC.drawRegionContourLines( index,  drawSLICRegions=True )
+	# 		# finishedImageNoSLIC.drawRegionContourLines( index,  drawSLICRegions=False )
+	# 	# finishedImageSLIC.drawRegionLinesCollision(index, drawSLICRegions=True)
+	# 	# finishedImageNoSLIC.drawRegionLinesCollision(index, drawSLICRegions=False)
+	# 	percent = 0
+	# 	# if Bridson_Common.fileExists( Bridson_Common.genActualFileName(filename, "WithSLIC_percentage_" + str(percent)) ) == False:
+	# 	# 	finishedImageSLIC.drawLinesCollisionBased(filename, percentage=percent, drawSLICRegions=True)
+	# 	# 	Bridson_Common.saveImage(filename, "WithSLIC_percentage_" + str(percent), finishedImageSLIC.fig)
+	#
+	# 	# if Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_POST_LineWidthA_percentage_" + str(percent))) == False:
+	# 	# 	finishedImageNoSLIC.drawLinesCollisionBased(filename, percentage=percent, drawSLICRegions=False)
+	# 	# 	Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_" + str(percent), finishedImageNoSLIC.fig)
+	#
+	# 	# Bridson_Common.saveImage(filename, "WithSLIC_percentage_" + str(percent) , finishedImageSLIC.fig )
+	# 	# Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_" + str(percent) , finishedImageNoSLIC.fig)
+	# else:
+	# 	''' Only draw the region lines. '''
+	# 	# for index in meshObjCollection.keys():
+	# 		# finishedImageSLIC.drawRegionContourLines( index,  drawSLICRegions=True )
+	# 		# finishedImageNoSLIC.drawRegionContourLines( index,  drawSLICRegions=False )
+	# 	finishedImageSLIC.drawRegionLinesCollision(index, drawSLICRegions=True)
+	# 	finishedImageNoSLIC.drawRegionLinesCollision(index, drawSLICRegions=False)
+	# 	Bridson_Common.saveImage(filename, "WithSLIC", finishedImageSLIC.fig )
+	# 	Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA", finishedImageNoSLIC.fig)
 
 	# if False:
 	# 	if Bridson_Common.overlapEdges:
@@ -844,12 +852,45 @@ def indexValidation(filename):
 		# print("Debugging for new code.")
 		# for percent in [1, 2, 5, 10, 20]:
 	for percent in percentages:
-		if Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_POST_LineWidthA_percentage_" + str(percent))) == False:
+		if Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_percentage_" + str(percent))) == False:
 			finishedImageNoSLIC.clearAllObjects()
 			# finishedImageNoSLIC.reinitializeAxes()
-			finishedImageNoSLIC.drawLinesCollisionBased(filename, percentage=percent, drawSLICRegions=False)
-			Bridson_Common.saveImage(filename, "NoSLIC_POST_LineWidthA_percentage_" + str(percent), finishedImageNoSLIC.fig)
-			print("Generated image: ", Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_POST_LineWidthA_percentage_" + str(percent))))
+			finishedImageNoSLIC.drawLinesCollisionBased(filename, percentage=percent, drawSLICRegions=False, erodeLines=False)
+			Bridson_Common.saveImage(filename, "NoSLIC_percentage_" + str(percent), finishedImageNoSLIC.fig)
+			print("Generated image: ", Bridson_Common.genActualFileName(filename, "NoSLIC_percentage_" + str(percent)) )
+
+		# drawLinesCollisionBased(self, filename, percentage=Bridson_Common.defaultEdgePercentage, drawSLICRegions=Bridson_Common.drawSLICRegions, generateEdges=False, erodeLines = False, growLines=False, extendLines=False, wiggleLines=False)
+		if percent > 0:
+			if Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_Edges_percentage_" + str(percent))) == False:
+				finishedImageNoSLIC.clearAllObjects()
+				finishedImageNoSLIC.drawLinesCollisionBased(filename, percentage=percent, drawSLICRegions=False, generateEdges=True )
+				Bridson_Common.saveImage(filename, "NoSLIC_Edges_percentage_" + str(percent), finishedImageNoSLIC.fig)
+				print("Generated image: ", Bridson_Common.genActualFileName(filename, "NoSLIC_Edges_percentage_" + str(percent)) )
+
+			if Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_Edges_Erosion_percentage_" + str(percent))) == False:
+				finishedImageNoSLIC.clearAllObjects()
+				finishedImageNoSLIC.drawLinesCollisionBased(filename, percentage=percent, drawSLICRegions=False, generateEdges=True, erodeLines=True )
+				Bridson_Common.saveImage(filename, "NoSLIC_Edges_Erosion_percentage_" + str(percent), finishedImageNoSLIC.fig)
+				print("Generated image: ", Bridson_Common.genActualFileName(filename, "NoSLIC_Edges_Erosion_percentage_" + str(percent)) )
+
+			if Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_Edges_Erosion_Grow_percentage_" + str(percent))) == False:
+				finishedImageNoSLIC.clearAllObjects()
+				finishedImageNoSLIC.drawLinesCollisionBased(filename, percentage=percent, drawSLICRegions=False, generateEdges=True, erodeLines=True, growLines=True )
+				Bridson_Common.saveImage(filename, "NoSLIC_Edges_Erosion_Grow_percentage_" + str(percent), finishedImageNoSLIC.fig)
+				print("Generated image: ", Bridson_Common.genActualFileName(filename, "NoSLIC_Edges_Erosion_Grow_percentage_" + str(percent)) )
+
+			if Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_Edges_Erosion_Grow_Extend_percentage_" + str(percent))) == False:
+				finishedImageNoSLIC.clearAllObjects()
+				finishedImageNoSLIC.drawLinesCollisionBased(filename, percentage=percent, drawSLICRegions=False, generateEdges=True, erodeLines=True, growLines=True, extendLines=True )
+				Bridson_Common.saveImage(filename, "NoSLIC_Edges_Erosion_Grow_Extend_percentage_" + str(percent), finishedImageNoSLIC.fig)
+				print("Generated image: ", Bridson_Common.genActualFileName(filename, "NoSLIC_Edges_Erosion_Grow_Extend_percentage_" + str(percent)) )
+
+			if Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_Edges_Erosion_Grow_Extend_Wiggle_percentage_" + str(percent))) == False:
+				finishedImageNoSLIC.clearAllObjects()
+				finishedImageNoSLIC.drawLinesCollisionBased(filename, percentage=percent, drawSLICRegions=False, generateEdges=True, erodeLines=True, growLines=True, extendLines=True, wiggleLines=True )
+				Bridson_Common.saveImage(filename, "NoSLIC_Edges_Erosion_Grow_Extend_Wiggle_percentage_" + str(percent), finishedImageNoSLIC.fig)
+				print("Generated image: ", Bridson_Common.genActualFileName(filename, "NoSLIC_Edges_Erosion_Grow_Extend_Wiggle_percentage_" + str(percent)) )
+
 
 	# Bridson_Common.lineWidthType = 'B'
 	# for index in meshObjCollection.keys():
@@ -1046,8 +1087,8 @@ def main():
 	targetPixels = [3200]
 	if Bridson_Common.bulkGeneration:
 		# segmentCounts = [100, 200]
-		segmentCounts = [ 400, 900, 1600]
-		# segmentCounts = [400, 900]
+		# segmentCounts = [ 400, 900, 1600]
+		segmentCounts = [400]
 		lineWidthType = ['A']
 		# segmentCounts = [50, 100]
 		# compactnessList = [ 0.1, 0.25, 0.5]

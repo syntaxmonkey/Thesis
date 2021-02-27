@@ -437,7 +437,7 @@ class GridCells2:
 		# Iterate through all the sub-segments.
 		# print("StartIndex:endIndex:", startIndex, endIndex)
 		# print("Line:", line)
-		for index in range(startIndex, endIndex):
+		for index in range(startIndex, endIndex-1):
 			# for index in range(len(line) - 1):
 			segment = (line[index], line[index + 1])
 			self.__addSegmentToCellMapping(segment, lineIndex)
@@ -722,6 +722,7 @@ class GridCells2:
 
 class LineObject:
 	def __init__(self, linePoints, lineIndex, regionIndex, erosionIndex=Bridson_Common.erosionCount):
+		# print("Create LineObject erosionIndex:", erosionIndex)
 		# print("Creating LineObject:", linePoints)
 		self.__linePoints = linePoints # Should be private
 		self.lineIndex = lineIndex  # Publicly accessible.
@@ -732,6 +733,8 @@ class LineObject:
 		self.pointIntensity = [] # Will store the intensities for each point.
 		self.intensityAverage = 0 # Will be the intensity average for the line.
 		self.calculateDirection()
+		# print("Create LineObject endIndeces:", self.endIndeces, "line length:", len(self.__linePoints) )
+		self.highlightStartingIndex = None
 
 	def __eq__(self, other):
 		if self.lineIndex == other.lineIndex:
@@ -773,6 +776,7 @@ class LineObject:
 
 	def wiggleLine(self, smallBlurArray, largeBlurArray, flip):
 		pointWiggles = np.zeros( (len(self.__linePoints), 2) ) # Create wiggle array the same size as self.__linePoints.
+		# print("WiggleLines indeces:", self.endIndeces, "max length of line:", len(self.__linePoints))
 		for index in range(self.endIndeces[0]+1, self.endIndeces[1]-1):
 			point = self.__linePoints[ index ]
 			x, y = point
@@ -792,18 +796,25 @@ class LineObject:
 			pointVector = (currentPoint[0] - previousPoint[0], currentPoint[1] - previousPoint[1])
 			hypotenuse = math.sqrt(pointVector[0]*pointVector[0] + pointVector[1]*pointVector[1])
 
-			if pointVector == 0:
-				hypotenuse = pointVector[0] if pointVector[0] > pointVector[1] else pointVector[1]
+			# if hypotenuse == 0:
+			# 	# print("Hypotenuse is zero:", pointVector)
+			# 	# hypotenuse = pointVector[0] if pointVector[0] > pointVector[1] else pointVector[1]
+			# 	hypotenuse = 0.000001
 
 			# Rotate the vector 90 degrees CW to get normal vector.
 			# Make the longest component of the normal vector equal to 1.
-			scalingFactor = 1 / hypotenuse * Bridson_Common.wiggleScale * abs(intensityDiff) / 255
-			if scalingFactor == 0:
-				scalingFactor = 1
+			scalingFactor = 0
+			if intensityDiff != 0:
+				scalingFactor = (1 * Bridson_Common.wiggleScale * abs(intensityDiff) / 255 ) / hypotenuse
 
+			# if scalingFactor == 0:
+			# 	scalingFactor = 0.00000001
+
+			# print("wiggleLine intensityDiff:", intensityDiff)
+			normalVector = (0, 0)
 			if intensityDiff > 0:
 				normalVector = (pointVector[1] * scalingFactor, -pointVector[0] * scalingFactor)
-			else:
+			elif intensityDiff < 0:
 				normalVector = ( -pointVector[1] * scalingFactor, pointVector[0] * scalingFactor)
 
 			pointWiggles[ index ]  = normalVector
@@ -899,7 +910,7 @@ class LineObject:
 		If there are no collisions detected, then add the line.
 		Otherwise, do not add line.
 		'''
-		self.setIndecesAggressiveErosion()
+		# self.setIndecesAggressiveErosion() # Why do we have aggressive erosion at this point?
 		collisionDetected = False
 		return collisionDetected
 
