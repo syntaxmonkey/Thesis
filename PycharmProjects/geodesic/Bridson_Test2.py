@@ -62,9 +62,42 @@ if False:
 
 
 
-if True:
+if False:
 	import Bridson_Common
 	filename = 'alexas_fotos--mFVHEzRvsQ-unsplash_weave.jpg'
 	blurredArray = Bridson_Common.getBlurredImage(filename, 7)
 	plt.imshow( blurredArray )
 	plt.show()
+
+if True:
+	from colormath.color_objects import LabColor
+	from colormath.color_diff import delta_e_cie1976
+
+	import Bridson_Common
+	filename = 'alexas_fotos--mFVHEzRvsQ-unsplash_weave.jpg'
+	blurredArray = Bridson_Common.getLabBlurredImage(filename, 7)
+
+	print(blurredArray)
+	color1 = blurredArray[100,100]
+	color2 = blurredArray[50,50]
+	lab1 = LabColor(color1[0], color1[1], color1[2])
+	lab2 = LabColor(color2[0], color2[1], color2[2])
+
+	delta_e = delta_e_cie1976(lab1, lab2)
+	print("Delta e lab1, lab2:", delta_e)
+
+	delta_e = delta_e_cie1976(lab2, lab1)
+	print("Delta e lab2, lab1:", delta_e)
+# plt.imshow(blurredArray)
+	# plt.show()
+
+
+
+	# # Reference color.
+	# color1 = LabColor(lab_l=0.9, lab_a=16.3, lab_b=-2.22)
+	# # Color to be compared to the reference.
+	# color2 = LabColor(lab_l=0.7, lab_a=14.2, lab_b=-1.80)
+	# # This is your delta E value as a float.
+	# delta_e = delta_e_cie1976(color1, color2)
+	# print("delta_e:", delta_e)
+

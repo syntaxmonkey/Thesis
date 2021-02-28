@@ -168,11 +168,19 @@ class FinishedImage:
 		pass
 
 	def getSmallBlurImage(self, filename):
-		self.smallBlurArray = Bridson_Common.getBlurredImage(filename, Bridson_Common.smallBlur)
+
+		if Bridson_Common.cielab:
+			self.smallBlurArray = Bridson_Common.getLabBlurredImage(filename, Bridson_Common.smallBlur)
+		else:
+			self.smallBlurArray = Bridson_Common.getBlurredImage(filename, Bridson_Common.smallBlur)
 		pass
 
 	def getLargeBlurImage(self, filename):
-		self.largeBlurArray = Bridson_Common.getBlurredImage(filename, Bridson_Common.largeBlur)
+		if Bridson_Common.cielab:
+			self.largeBlurArray = Bridson_Common.getLabBlurredImage(filename, Bridson_Common.largeBlur)
+		else:
+			self.largeBlurArray = Bridson_Common.getBlurredImage(filename, Bridson_Common.largeBlur)
+
 		pass
 
 	def cropContourLines(self, linePoints, raster, topLeftTarget):

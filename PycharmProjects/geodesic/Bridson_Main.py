@@ -622,13 +622,13 @@ def indexValidation(filename):
 
 	for percent in percentages[1:]:
 		# If any files are missing, do not skip.
-		if Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_percentage_" + str(percent))) == False or \
-			Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_Edges_Erosion_Grow_Extend_Wiggle_percentage_" + str(percent))) == False or \
-			Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_Edges_Erosion_Grow_Extend_percentage_" + str(percent))) == False or \
-			Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_Edges_Erosion_Grow_percentage_" + str(percent))) == False or \
-			Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_Edges_Erosion_percentage_" + str(percent))) == False or \
-			Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_Edges_percentage_" + str(percent))) == False or \
-			Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_percentage_" + str(0))) == False:
+		if Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_A_percentage_" + str(percent))) == False or \
+			Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_F_Edges_Erosion_Grow_Extend_Wiggle_percentage_" + str(percent))) == False or \
+			Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_E_Edges_Erosion_Grow_Extend_percentage_" + str(percent))) == False or \
+			Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_D_Edges_Erosion_Grow_percentage_" + str(percent))) == False or \
+			Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_C_Edges_Erosion_percentage_" + str(percent))) == False or \
+			Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_B_Edges_percentage_" + str(percent))) == False or \
+			Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_A_percentage_" + str(0))) == False:
 			skip = False
 			break
 
@@ -799,7 +799,7 @@ def indexValidation(filename):
 		finishedImageNoSLIC.drawOnlyLongestLine( index,  drawSLICRegions=False )
 
 	# Bridson_Common.saveImage(filename, "SLIC_DIRECTION", finishedImageSLIC.fig)
-	Bridson_Common.saveImage(filename, "NoSLIC_DIRECTION", finishedImageNoSLIC.fig)
+	Bridson_Common.saveImage(filename, "NoSLIC_X_DIRECTION", finishedImageNoSLIC.fig)
 
 	# finishedImageSLIC.removeTempLines()
 	finishedImageNoSLIC.removeTempLines()
@@ -852,44 +852,44 @@ def indexValidation(filename):
 		# print("Debugging for new code.")
 		# for percent in [1, 2, 5, 10, 20]:
 	for percent in percentages:
-		if Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_percentage_" + str(percent))) == False:
+		if Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_A_percentage_" + str(percent))) == False:
 			finishedImageNoSLIC.clearAllObjects()
 			# finishedImageNoSLIC.reinitializeAxes()
 			finishedImageNoSLIC.drawLinesCollisionBased(filename, percentage=percent, drawSLICRegions=False, erodeLines=False)
-			Bridson_Common.saveImage(filename, "NoSLIC_percentage_" + str(percent), finishedImageNoSLIC.fig)
-			print("Generated image: ", Bridson_Common.genActualFileName(filename, "NoSLIC_percentage_" + str(percent)) )
+			Bridson_Common.saveImage(filename, "NoSLIC_A_percentage_" + str(percent), finishedImageNoSLIC.fig)
+			print("Generated image: ", Bridson_Common.genActualFileName(filename, "NoSLIC_A_percentage_" + str(percent)) )
 
 		# drawLinesCollisionBased(self, filename, percentage=Bridson_Common.defaultEdgePercentage, drawSLICRegions=Bridson_Common.drawSLICRegions, generateEdges=False, erodeLines = False, growLines=False, extendLines=False, wiggleLines=False)
 		if percent > 0:
-			if Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_Edges_percentage_" + str(percent))) == False:
+			if Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_B_Edges_percentage_" + str(percent))) == False:
 				finishedImageNoSLIC.clearAllObjects()
 				finishedImageNoSLIC.drawLinesCollisionBased(filename, percentage=percent, drawSLICRegions=False, generateEdges=True )
-				Bridson_Common.saveImage(filename, "NoSLIC_Edges_percentage_" + str(percent), finishedImageNoSLIC.fig)
-				print("Generated image: ", Bridson_Common.genActualFileName(filename, "NoSLIC_Edges_percentage_" + str(percent)) )
+				Bridson_Common.saveImage(filename, "NoSLIC_B_Edges_percentage_" + str(percent), finishedImageNoSLIC.fig)
+				print("Generated image: ", Bridson_Common.genActualFileName(filename, "NoSLIC_B_Edges_percentage_" + str(percent)) )
 
-			if Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_Edges_Erosion_percentage_" + str(percent))) == False:
+			if Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_C_Edges_Erosion_percentage_" + str(percent))) == False:
 				finishedImageNoSLIC.clearAllObjects()
 				finishedImageNoSLIC.drawLinesCollisionBased(filename, percentage=percent, drawSLICRegions=False, generateEdges=True, erodeLines=True )
-				Bridson_Common.saveImage(filename, "NoSLIC_Edges_Erosion_percentage_" + str(percent), finishedImageNoSLIC.fig)
-				print("Generated image: ", Bridson_Common.genActualFileName(filename, "NoSLIC_Edges_Erosion_percentage_" + str(percent)) )
+				Bridson_Common.saveImage(filename, "NoSLIC_C_Edges_Erosion_percentage_" + str(percent), finishedImageNoSLIC.fig)
+				print("Generated image: ", Bridson_Common.genActualFileName(filename, "NoSLIC_C_Edges_Erosion_percentage_" + str(percent)) )
 
-			if Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_Edges_Erosion_Grow_percentage_" + str(percent))) == False:
+			if Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_D_Edges_Erosion_Grow_percentage_" + str(percent))) == False:
 				finishedImageNoSLIC.clearAllObjects()
 				finishedImageNoSLIC.drawLinesCollisionBased(filename, percentage=percent, drawSLICRegions=False, generateEdges=True, erodeLines=True, growLines=True )
-				Bridson_Common.saveImage(filename, "NoSLIC_Edges_Erosion_Grow_percentage_" + str(percent), finishedImageNoSLIC.fig)
-				print("Generated image: ", Bridson_Common.genActualFileName(filename, "NoSLIC_Edges_Erosion_Grow_percentage_" + str(percent)) )
+				Bridson_Common.saveImage(filename, "NoSLIC_D_Edges_Erosion_Grow_percentage_" + str(percent), finishedImageNoSLIC.fig)
+				print("Generated image: ", Bridson_Common.genActualFileName(filename, "NoSLIC_D_Edges_Erosion_Grow_percentage_" + str(percent)) )
 
-			if Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_Edges_Erosion_Grow_Extend_percentage_" + str(percent))) == False:
+			if Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_E_Edges_Erosion_Grow_Extend_percentage_" + str(percent))) == False:
 				finishedImageNoSLIC.clearAllObjects()
 				finishedImageNoSLIC.drawLinesCollisionBased(filename, percentage=percent, drawSLICRegions=False, generateEdges=True, erodeLines=True, growLines=True, extendLines=True )
-				Bridson_Common.saveImage(filename, "NoSLIC_Edges_Erosion_Grow_Extend_percentage_" + str(percent), finishedImageNoSLIC.fig)
-				print("Generated image: ", Bridson_Common.genActualFileName(filename, "NoSLIC_Edges_Erosion_Grow_Extend_percentage_" + str(percent)) )
+				Bridson_Common.saveImage(filename, "NoSLIC_E_Edges_Erosion_Grow_Extend_percentage_" + str(percent), finishedImageNoSLIC.fig)
+				print("Generated image: ", Bridson_Common.genActualFileName(filename, "NoSLIC_E_Edges_Erosion_Grow_Extend_percentage_" + str(percent)) )
 
-			if Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_Edges_Erosion_Grow_Extend_Wiggle_percentage_" + str(percent))) == False:
+			if Bridson_Common.fileExists(Bridson_Common.genActualFileName(filename, "NoSLIC_F_Edges_Erosion_Grow_Extend_Wiggle_percentage_" + str(percent))) == False:
 				finishedImageNoSLIC.clearAllObjects()
 				finishedImageNoSLIC.drawLinesCollisionBased(filename, percentage=percent, drawSLICRegions=False, generateEdges=True, erodeLines=True, growLines=True, extendLines=True, wiggleLines=True )
-				Bridson_Common.saveImage(filename, "NoSLIC_Edges_Erosion_Grow_Extend_Wiggle_percentage_" + str(percent), finishedImageNoSLIC.fig)
-				print("Generated image: ", Bridson_Common.genActualFileName(filename, "NoSLIC_Edges_Erosion_Grow_Extend_Wiggle_percentage_" + str(percent)) )
+				Bridson_Common.saveImage(filename, "NoSLIC_F_Edges_Erosion_Grow_Extend_Wiggle_percentage_" + str(percent), finishedImageNoSLIC.fig)
+				print("Generated image: ", Bridson_Common.genActualFileName(filename, "NoSLIC_F_Edges_Erosion_Grow_Extend_Wiggle_percentage_" + str(percent)) )
 
 
 	# Bridson_Common.lineWidthType = 'B'
@@ -1067,6 +1067,34 @@ def main():
 	images.append('andrew-ridley-jR4Zf-riEjI-unsplash_shingles.jpg')
 	images.append('sam-moqadam-3KQq6cD_fkE-unsplash_bristles.jpg')
 
+	# Textures
+	images.append('shapelined-_JBKdviweXI-unsplash.jpg')
+	images.append('matthew-t-rader-PZjF2Hkv6Xo-unsplash.jpg')
+	images.append('vincent-burkhead-LhlxYMfnTF0-unsplash.jpg')
+	images.append('jj-ying-7JX0-bfiuxQ-unsplash.jpg')
+	images.append('ricardo-gomez-angel-5YM26lUicfU-unsplash.jpg')
+	images.append('artem-militonian-UYW6FZLlnL8-unsplash.jpg')
+	images.append('izzy-gibson-xqFCy9AbHP4-unsplash.jpg')
+
+	# Landscape
+	images.append('sylvain-gllm-X4dBqRUzO2U-unsplash.jpg')
+	images.append('andres-julian-murcia-akCMWTB28l0-unsplash.jpg')
+	images.append('roger-starnes-sr-q9vusVh5E_I-unsplash.jpg')
+	images.append('emily-powers-QMHssrYeK6I-unsplash.jpg')
+
+	# Action
+	images.append('bermix-studio-oh8p8ARIwvI-unsplash.jpg')
+	images.append('tom-morbey-r1SwcagHVG0-unsplash.jpg')
+
+	# Baby face
+	images.append('rodrigo-pereira-GFwzGcv2gqc-unsplash.jpg')
+	images.append('sandeep-swarnkar-Q3Qhispwhf8-unsplash.jpg')
+
+	# Animals
+	images.append('tom-morbey-r1SwcagHVG0-unsplash.jpg')
+	images.append('tj-fitzsimmons-4CU0vJuOkws-unsplash.jpg')
+	images.append('eric-heininger-1P9_gs54iZw-unsplash.jpg')
+
 	semanticSegmentation = ['none']
 	# semanticSegmentation = ['none']
 	# semanticSegmentation = ['none', 'mask_rcnn', 'deeplabv3', 'both']
@@ -1074,6 +1102,28 @@ def main():
 	# semanticSegmentation = ['both', 'none']
 	# semanticSegmentation.append('none')
 
+
+	# Benchmark
+	images.append('angel1024.jpg')
+	images.append('arch1024.jpg')
+	images.append('athletes1024.jpg')
+	images.append('barn1024.jpg')
+	images.append('berries1024.jpg')
+	images.append('cabbage1024.jpg')
+	images.append('cat1024.jpg')
+	images.append('city1024.jpg')
+	images.append('daisy1024.jpg')
+	images.append('darkwoods1024.jpg')
+	images.append('desert1024.jpg')
+	images.append('headlight1024.jpg')
+	images.append('mac1024.jpg')
+	images.append('mountains1024.jpg')
+	images.append('oparara1024.jpg')
+	images.append('rim1024.jpg')
+	images.append('snow1024.jpg')
+	images.append('tomato1024.jpg')
+	images.append('toque1024.jpg')
+	images.append('yemeni1024.jpg')
 
 	if Bridson_Common.bulkGeneration == False:
 		images = ['david-dibert-Huza8QOO3tc-unsplash.jpg']
@@ -1088,7 +1138,7 @@ def main():
 	if Bridson_Common.bulkGeneration:
 		# segmentCounts = [100, 200]
 		# segmentCounts = [ 400, 900, 1600]
-		segmentCounts = [400]
+		segmentCounts = [400, 1600]
 		lineWidthType = ['A']
 		# segmentCounts = [50, 100]
 		# compactnessList = [ 0.1, 0.25, 0.5]

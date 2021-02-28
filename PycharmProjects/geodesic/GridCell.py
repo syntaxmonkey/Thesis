@@ -774,6 +774,7 @@ class LineObject:
 		self.__linePoints = self.__linePoints + pointWiggles
 
 
+
 	def wiggleLine(self, smallBlurArray, largeBlurArray, flip):
 		pointWiggles = np.zeros( (len(self.__linePoints), 2) ) # Create wiggle array the same size as self.__linePoints.
 		# print("WiggleLines indeces:", self.endIndeces, "max length of line:", len(self.__linePoints))
@@ -790,7 +791,6 @@ class LineObject:
 			previousPoint = self.__linePoints[index - 1]
 			# intensityDiff = pointIntensity - averageIntensity
 			# intensityDiff = int(smallBlurArray[y * flip, x]) - int(largeBlurArray[y * flip, x])
-			intensityDiff = int(smallBlurArray[y * flip, x]) - int(largeBlurArray[y * flip, x])
 
 			# Calculate the vector for the point.
 			pointVector = (currentPoint[0] - previousPoint[0], currentPoint[1] - previousPoint[1])
@@ -801,21 +801,35 @@ class LineObject:
 			# 	# hypotenuse = pointVector[0] if pointVector[0] > pointVector[1] else pointVector[1]
 			# 	hypotenuse = 0.000001
 
-			# Rotate the vector 90 degrees CW to get normal vector.
-			# Make the longest component of the normal vector equal to 1.
-			scalingFactor = 0
-			if intensityDiff != 0:
-				scalingFactor = (1 * Bridson_Common.wiggleScale * abs(intensityDiff) / 255 ) / hypotenuse
+			if Bridson_Common.cielab:
+				delta_e = Bridson_Common.labDiff( smallBlurArray[y * flip, x], largeBlurArray[y * flip, x])
+				# Maximum difference possible for delta_e is 100: http://zschuessler.github.io/DeltaE/learn/
 
-			# if scalingFactor == 0:
-			# 	scalingFactor = 0.00000001
+				scalingFactor = 0
+				if delta_e != 0:
+					scalingFactor = (Bridson_Common.wiggleScale * delta_e / 100 ) / hypotenuse
 
-			# print("wiggleLine intensityDiff:", intensityDiff)
-			normalVector = (0, 0)
-			if intensityDiff > 0:
-				normalVector = (pointVector[1] * scalingFactor, -pointVector[0] * scalingFactor)
-			elif intensityDiff < 0:
-				normalVector = ( -pointVector[1] * scalingFactor, pointVector[0] * scalingFactor)
+				normalVector = (0, 0)
+				if delta_e > 0:
+					normalVector = (pointVector[1] * scalingFactor, -pointVector[0] * scalingFactor)
+				elif delta_e < 0:
+					normalVector = ( -pointVector[1] * scalingFactor, pointVector[0] * scalingFactor)
+
+			else:
+				intensityDiff = int(smallBlurArray[y * flip, x]) - int(largeBlurArray[y * flip, x])
+
+				# Rotate the vector 90 degrees CW to get normal vector.
+				# Make the longest component of the normal vector equal to 1.
+				scalingFactor = 0
+				if intensityDiff != 0:
+					scalingFactor = (1 * Bridson_Common.wiggleScale * abs(intensityDiff) / 255 ) / hypotenuse
+
+				normalVector = (0, 0)
+				if intensityDiff > 0:
+					normalVector = (pointVector[1] * scalingFactor, -pointVector[0] * scalingFactor)
+				elif intensityDiff < 0:
+					normalVector = ( -pointVector[1] * scalingFactor, pointVector[0] * scalingFactor)
+
 
 			pointWiggles[ index ]  = normalVector
 

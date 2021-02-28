@@ -18,6 +18,9 @@ import cv2 as cv
 import io
 import cProfile, pstats, io
 from pstats import SortKey
+from skimage import io, color
+from colormath.color_objects import LabColor
+from colormath.color_diff import delta_e_cie1976
 
 # Increase width of console printing: https://stackoverflow.com/questions/25628496/getting-wider-output-in-pycharms-built-in-console
 desired_width = 320
@@ -78,12 +81,13 @@ lineDensitySegmentLength = 1 # Desired number of pixels between points in the et
 wiggleScale = 10 # Maximum number of pixels to wiggle line when calculating aberrations.
 smallBlur = 3
 largeBlur = 17
+cielab = False
 
 growEdgeLineCountIterations = 100
 growLinesCountIterations = 100 # Number of iterations to grow the lines.  Growing only includes existing lines.
 extendLineCountIterations = 100 # Number of iterations to extend the lines.  Extending lines adds new segments.
 
-scalingFactor=5 # Scale factor.  Needs to be an integer.  Will increase the saved image dpi by this factor.
+scalingFactor=3 # Scale factor.  Needs to be an integer.  Will increase the saved image dpi by this factor.
 lineWidthProportionalToRegion = True
 lineWidthScale = 0.05
 lineWidthType = 'A'  # Valid options are 'A', 'B', and 'C'
@@ -477,6 +481,23 @@ def getBlurredImage(filename, blurScale):
 	# print(np.shape(blur))
 	# print(blur)
 	return blur
+
+
+def labDiff(self, color1, color2):
+	# Find the difference for two lab CIE colors: https://python-colormath.readthedocs.io/en/latest/delta_e.html
+	lab1 = LabColor(color1[0], color1[1], color1[2])
+	lab2 = LabColor(color2[0], color2[1], color2[2])
+
+	delta_e = delta_e_cie1976(lab1, lab2)
+	return delta_e
+
+def getLabBlurredImage(filename, blurScale):
+	img = cv.imread(filename)
+	# blur = cv.boxFilter(img, -1, (blurScale, blurScale))
+	blur = cv.GaussianBlur(img, (blurScale, blurScale), 0)
+	# Convert RGB to CIELAB: https://stackoverflow.com/questions/13405956/convert-an-image-rgb-lab-with-python
+	lab = color.rgb2lab(blur)
+	return lab
 
 
 
